@@ -1,0 +1,13 @@
+{
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#2f0ec4",
+    "titleBar.activeBackground": "#2f0ec4",
+    "titleBar.activeForeground": "#FFFBFC"
+  },
+  "svelte.enable-ts-plugin": true
+}
