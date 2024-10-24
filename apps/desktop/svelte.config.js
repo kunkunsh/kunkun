@@ -9,6 +9,11 @@ const config = {
   preprocess: vitePreprocess(),
   kit: {
     adapter: adapter(),
+    alias: {
+      "@/*": "./src/lib/*",
+      "@kksh/ui/*": "../../packages/ui/*",
+      "@kksh/svelte5/*": "../../node_modules/@kksh/svelte5/src/lib/*",
+    },
   },
 };
 

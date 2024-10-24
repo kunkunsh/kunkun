@@ -1,0 +1,7 @@
+{
+	"extends": "../typescript-config/base.json",
+	"compilerOptions": {
+		"moduleResolution": "Bundler",
+		"module": "ESNext"
+	}
+}

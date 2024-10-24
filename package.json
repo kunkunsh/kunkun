@@ -8,7 +8,13 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
+    "@kksh/svelte5": "0.1.2-beta.3",
     "prettier": "^3.2.5",
+    "prettier-plugin-svelte": "^3.2.7",
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "svelte": "^5.0.0",
+    "svelte-check": "^4.0.0",
     "turbo": "^2.2.3",
     "typescript": "5.5.4"
   },
