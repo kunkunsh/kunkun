@@ -1,0 +1,15 @@
+{
+	"name": "@kksh/ci",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"setup": "bun scripts/setup.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"@kksh/typescript-config": "workspace:*"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
+}

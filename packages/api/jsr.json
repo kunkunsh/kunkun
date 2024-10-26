@@ -1,0 +1,20 @@
+{
+	"$schema": "https://jsr.io/schema/config-file.v1.json",
+	"name": "@kunkun/api",
+	"version": "0.0.27",
+	"license": "MIT",
+	"exports": {
+		".": "./src/index.ts",
+		"./ui": "./src/ui/index.ts",
+		"./ui/iframe": "./src/ui/iframe/index.ts",
+		"./ui/worker": "./src/ui/worker/index.ts",
+		"./models": "./src/models/index.ts",
+		"./runtime/deno": "./src/runtime/deno.ts",
+		"./permissions": "./src/permissions/index.ts",
+		"./dev": "./src/dev/index.ts",
+		"./events": "./src/events.ts"
+	},
+	"imports": {
+		"@hk/comlink-stdio": "jsr:@hk/comlink-stdio@^0.1.6"
+	}
+}

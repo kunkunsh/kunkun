@@ -1,0 +1,31 @@
+{
+	"name": "@kksh/schema",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./index.ts"
+		}
+	},
+	"scripts": {
+		"build": "bun scripts/print-schema.ts > manifest-json-schema.json",
+		"test": "bun test --coverage",
+		"upload-schema-to-supabase": "bun scripts/upload-schema-to-supabase.ts",
+		"upload-schema-to-s3": "bun scripts/upload-schema-to-s3.ts",
+		"print-schema": "bun scripts/print-schema.ts"
+	},
+	"devDependencies": {
+		"@gcornut/valibot-json-schema": "^0.42.0",
+		"@types/bun": "latest",
+		"supabase": ">=1.8.1"
+	},
+	"peerDependencies": {
+		"@kksh/supabase": "workspace:*",
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@aws-sdk/client-s3": "^3.583.0",
+		"@kksh/api": "workspace:*",
+		"@supabase/supabase-js": "^2.43.4",
+		"valibot": "^0.40.0"
+	}
+}

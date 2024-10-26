@@ -1,0 +1,17 @@
+{
+	"name": "@kksh/supabase",
+	"type": "module",
+	"scripts": {
+		"setup": "bun setup.ts"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./types": "./src/types/database.types.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
+}
