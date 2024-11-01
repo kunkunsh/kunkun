@@ -1,35 +1,66 @@
 {
-  "$schema": "https://schema.tauri.app/config/2",
-  "productName": "kunkun",
-  "version": "0.1.0",
-  "identifier": "sh.kunkun.desktop",
-  "build": {
-    "beforeDevCommand": "pnpm dev",
-    "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "pnpm build",
-    "frontendDist": "../build"
-  },
-  "app": {
-    "windows": [
-      {
-        "title": "kunkun",
-        "width": 800,
-        "height": 600
-      }
-    ],
-    "security": {
-      "csp": null
-    }
-  },
-  "bundle": {
-    "active": true,
-    "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ]
-  }
+	"$schema": "https://schema.tauri.app/config/2",
+	"productName": "kunkun",
+	"version": "../package.json",
+	"identifier": "sh.kunkun.desktop",
+	"build": {
+		"beforeDevCommand": "pnpm dev",
+		"devUrl": "http://localhost:1420",
+		"beforeBuildCommand": "pnpm build",
+		"frontendDist": "../build"
+	},
+	"app": {
+		"macOSPrivateApi": true,
+		"windows": [
+			{
+				"hiddenTitle": true,
+				"width": 800,
+				"height": 600
+			}
+		],
+		"security": {
+			"csp": null
+		}
+	},
+	"bundle": {
+		"createUpdaterArtifacts": true,
+		"fileAssociations": [
+			{
+				"ext": ["kunkun"],
+				"mimeType": "text/plain",
+				"description": "Used to install Kunkun Extensions with a installer file",
+				"role": "Viewer"
+			}
+		],
+		"active": true,
+		"targets": "all",
+		"icon": [
+			"icons/32x32.png",
+			"icons/128x128.png",
+			"icons/128x128@2x.png",
+			"icons/icon.icns",
+			"icons/icon.ico"
+		]
+	},
+	"plugins": {
+		"updater": {
+			"endpoints": ["https://updater.kunkun.sh"],
+			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc1NENCRjZFM0JBOEQ0ODMKUldTRDFLZzdicjlNZFhHS0ZKYk13WkdZUTFUM01LNjkvVW5Bb2x1SnB1R0crbFRuMnlRSlJ0STgK"
+		},
+		"deep-link": {
+			"desktop": {
+				"schemes": ["kunkun"]
+			}
+		},
+		"cli": {
+			"description": "Kunkun CLI",
+			"args": [
+				{
+					"short": "v",
+					"name": "verbose",
+					"description": "Verbosity level"
+				}
+			]
+		}
+	}
 }

@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-create-command"
+description = "Enables the create_command command without any pre-configured scope."
+commands.allow = ["create_command"]
+
+[[permission]]
+identifier = "deny-create-command"
+description = "Denies the create_command command without any pre-configured scope."
+commands.deny = ["create_command"]

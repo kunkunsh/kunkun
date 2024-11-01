@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-get-commands-by-ext-id"
+description = "Enables the get_commands_by_ext_id command without any pre-configured scope."
+commands.allow = ["get_commands_by_ext_id"]
+
+[[permission]]
+identifier = "deny-get-commands-by-ext-id"
+description = "Denies the get_commands_by_ext_id command without any pre-configured scope."
+commands.deny = ["get_commands_by_ext_id"]

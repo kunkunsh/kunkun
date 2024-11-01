@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-get-applications"
+description = "Enables the get_applications command without any pre-configured scope."
+commands.allow = ["get_applications"]
+
+[[permission]]
+identifier = "deny-get-applications"
+description = "Denies the get_applications command without any pre-configured scope."
+commands.deny = ["get_applications"]

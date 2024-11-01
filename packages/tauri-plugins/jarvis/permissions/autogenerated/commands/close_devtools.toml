@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-close-devtools"
+description = "Enables the close_devtools command without any pre-configured scope."
+commands.allow = ["close_devtools"]
+
+[[permission]]
+identifier = "deny-close-devtools"
+description = "Denies the close_devtools command without any pre-configured scope."
+commands.deny = ["close_devtools"]

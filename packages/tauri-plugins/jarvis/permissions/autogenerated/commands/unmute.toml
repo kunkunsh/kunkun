@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-unmute"
+description = "Enables the unmute command without any pre-configured scope."
+commands.allow = ["unmute"]
+
+[[permission]]
+identifier = "deny-unmute"
+description = "Denies the unmute command without any pre-configured scope."
+commands.deny = ["unmute"]

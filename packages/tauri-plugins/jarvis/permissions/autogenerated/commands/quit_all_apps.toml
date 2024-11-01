@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-quit-all-apps"
+description = "Enables the quit_all_apps command without any pre-configured scope."
+commands.allow = ["quit_all_apps"]
+
+[[permission]]
+identifier = "deny-quit-all-apps"
+description = "Denies the quit_all_apps command without any pre-configured scope."
+commands.deny = ["quit_all_apps"]

@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-unregister-extension-window"
+description = "Enables the unregister_extension_window command without any pre-configured scope."
+commands.allow = ["unregister_extension_window"]
+
+[[permission]]
+identifier = "deny-unregister-extension-window"
+description = "Denies the unregister_extension_window command without any pre-configured scope."
+commands.deny = ["unregister_extension_window"]

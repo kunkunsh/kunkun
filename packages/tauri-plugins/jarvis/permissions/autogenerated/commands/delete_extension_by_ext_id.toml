@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-delete-extension-by-ext-id"
+description = "Enables the delete_extension_by_ext_id command without any pre-configured scope."
+commands.allow = ["delete_extension_by_ext_id"]
+
+[[permission]]
+identifier = "deny-delete-extension-by-ext-id"
+description = "Denies the delete_extension_by_ext_id command without any pre-configured scope."
+commands.deny = ["delete_extension_by_ext_id"]

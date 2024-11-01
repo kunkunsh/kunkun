@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-get-history"
+description = "Enables the get_history command without any pre-configured scope."
+commands.allow = ["get_history"]
+
+[[permission]]
+identifier = "deny-get-history"
+description = "Denies the get_history command without any pre-configured scope."
+commands.deny = ["get_history"]

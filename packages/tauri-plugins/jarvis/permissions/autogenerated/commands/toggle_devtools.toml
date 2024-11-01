@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-toggle-devtools"
+description = "Enables the toggle_devtools command without any pre-configured scope."
+commands.allow = ["toggle_devtools"]
+
+[[permission]]
+identifier = "deny-toggle-devtools"
+description = "Denies the toggle_devtools command without any pre-configured scope."
+commands.deny = ["toggle_devtools"]

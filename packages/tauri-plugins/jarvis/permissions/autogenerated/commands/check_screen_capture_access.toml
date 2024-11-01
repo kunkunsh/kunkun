@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-check-screen-capture-access"
+description = "Enables the check_screen_capture_access command without any pre-configured scope."
+commands.allow = ["check_screen_capture_access"]
+
+[[permission]]
+identifier = "deny-check-screen-capture-access"
+description = "Denies the check_screen_capture_access command without any pre-configured scope."
+commands.deny = ["check_screen_capture_access"]
