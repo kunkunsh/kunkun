@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { BuiltinCmd } from "@/types"
 	import { IconEnum } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
+	import type { BuiltinCmd } from "@kksh/types"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "@kksh/ui/custom"
 

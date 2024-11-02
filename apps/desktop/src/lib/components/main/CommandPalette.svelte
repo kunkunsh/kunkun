@@ -2,16 +2,22 @@
 <script lang="ts">
 	import { type CommandLaunchers } from "@/cmds"
 	import { getAppConfigContext } from "@/context"
-	import type { AppState, BuiltinCmd } from "@/types"
 	import { cn } from "@/utils"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extensions"
 	import { Command } from "@kksh/svelte5"
+	import type { AppState, BuiltinCmd } from "@kksh/types"
+	// import BuiltinCmds from "./BuiltinCmds.svelte"
+	// import CustomCommandInput from "./CustomCommandInput.svelte"
+	// import ExtCmdsGroup from "./ExtCmdsGroup.svelte"
+	// import GlobalCommandPaletteFooter from "./GlobalCommandPaletteFooter.svelte"
+	import {
+		BuiltinCmds,
+		CustomCommandInput,
+		ExtCmdsGroup,
+		GlobalCommandPaletteFooter
+	} from "@kksh/ui/main"
 	import type { Writable } from "svelte/store"
-	import BuiltinCmds from "./BuiltinCmds.svelte"
-	import CustomCommandInput from "./CustomCommandInput.svelte"
-	import ExtCmdsGroup from "./ExtCmdsGroup.svelte"
-	import GlobalCommandPaletteFooter from "./GlobalCommandPaletteFooter.svelte"
 
 	const {
 		extensions,
@@ -32,7 +38,6 @@
 	let searchTerm = $state("")
 </script>
 
-<pre>{$appState.searchTerm}</pre>
 <Command.Root
 	class={cn("rounded-lg border shadow-md", className)}
 	bind:value={$appState.highlightedCmd}

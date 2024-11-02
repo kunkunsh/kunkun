@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { cn } from "@/utils"
 	import { Avatar } from "@kksh/svelte5"
+	import { cn } from "@kksh/ui/utils"
 
 	const { class: className }: { class?: string } = $props()
 </script>

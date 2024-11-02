@@ -1,1 +1,1 @@
-export { default as DraggableCommandGroup } from "./components/custom/draggablecommand-group.svelte"
+export { default as DraggableCommandGroup } from "./components/custom/draggable-command-group.svelte"

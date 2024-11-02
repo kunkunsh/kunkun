@@ -12,6 +12,18 @@
 		"./custom": {
 			"types": "./custom.ts",
 			"svelte": "./custom.ts"
+		},
+		"./utils": {
+			"types": "./utils/index.ts",
+			"svelte": "./utils/index.ts"
+		},
+		"./types": {
+			"types": "./types/index.ts",
+			"svelte": "./types/index.ts"
+		},
+		"./main": {
+			"types": "./components/main/index.ts",
+			"svelte": "./components/main/index.ts"
 		}
 	},
 	"scripts": {
@@ -19,6 +31,8 @@
 	},
 	"devDependencies": {
 		"@kksh/eslint-config": "workspace:*",
+		"@kksh/extensions": "workspace:*",
+		"@kksh/types": "workspace:*",
 		"@kksh/typescript-config": "workspace:*",
 		"bits-ui": "1.0.0-next.36",
 		"clsx": "^2.1.1",

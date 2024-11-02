@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { setAppConfigContext } from "@/context"
 	import { setAppStateContext } from "@/context/appState"
-	import type { AppConfig, AppState } from "@/types/index"
+	import type { AppConfig, AppState } from "@kksh/types"
 	import type { Snippet } from "svelte"
 	import type { Writable } from "svelte/store"
 

@@ -1,6 +1,6 @@
 import { getExtensionsFolder } from "@/constants"
-import { PersistedAppConfig, type AppConfig } from "@/types/appConfig"
 import { themeConfigStore, updateTheme, type ThemeConfig } from "@kksh/svelte5"
+import { PersistedAppConfig, type AppConfig } from "@kksh/types"
 import * as tauriPath from "@tauri-apps/api/path"
 import { remove } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
@@ -49,7 +49,13 @@ function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 		if (parseRes.success) {
 			console.log("Parse Persisted App Config Success", parseRes.output)
 			const extensionPath = await tauriPath.join(appDataDir, "extensions")
-			update((config) => ({ ...config, ...parseRes.output, isInitialized: true, extensionPath, platform: os.platform() }))
+			update((config) => ({
+				...config,
+				...parseRes.output,
+				isInitialized: true,
+				extensionPath,
+				platform: os.platform()
+			}))
 		} else {
 			error("Failed to parse app config, going to remove it and reinitialize")
 			console.error(v.flatten<typeof PersistedAppConfig>(parseRes.issues))

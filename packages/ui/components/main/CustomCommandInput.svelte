@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from "$lib/utils.js"
+	import { cn } from "@kksh/ui/utils"
 	import { Command as CommandPrimitive } from "bits-ui"
 	import { type Snippet } from "svelte"
 

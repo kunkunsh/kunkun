@@ -1,7 +1,7 @@
 import { appState } from "@/stores"
+import type { BuiltinCmd } from "@kksh/types"
 import { dev } from "$app/environment"
 import { goto } from "$app/navigation"
-import type { BuiltinCmd } from "$lib/types"
 
 export const builtinCmds: BuiltinCmd[] = [
 	{

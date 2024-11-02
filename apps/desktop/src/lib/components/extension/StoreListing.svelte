@@ -1,13 +1,11 @@
 <script lang="ts">
-	import CustomCommandInput from "@/components/main/CustomCommandInput.svelte"
-	// import { appState } from "@/stores"
 	import { goBack } from "@/utils/route"
 	import { ExtItem } from "@kksh/supabase"
 	import { Button, Command } from "@kksh/svelte5"
+	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
 	import { type Snippet } from "svelte"
 	import ArrowLeft from "svelte-radix/ArrowLeft.svelte"
 	import type { Writable } from "svelte/store"
-	import GlobalCommandPaletteFooter from "../main/GlobalCommandPaletteFooter.svelte"
 	import ExtListItem from "./ExtListItem.svelte"
 
 	let {
