@@ -4,6 +4,7 @@
 	import IconMultiplexer from "@/components/common/IconMultiplexer.svelte"
 	import Cmd from "@/components/main/cmd.svelte"
 	import CommandPalette from "@/components/main/CommandPalette.svelte"
+	import { IS_IN_TAURI } from "@/constants"
 	import { appState } from "@/stores"
 	import { appConfig } from "@/stores/appConfig"
 	import { extensions } from "@/stores/extensions"
@@ -15,6 +16,10 @@
 	import { load, Store } from "@tauri-apps/plugin-store"
 	import { onMount } from "svelte"
 	import { writable } from "svelte/store"
+
+	onMount(() => {
+		console.log(IS_IN_TAURI)
+	})
 </script>
 
 <CommandPalette

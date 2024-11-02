@@ -5,5 +5,7 @@ export const load: PageLoad = ({ params }) => {
 	return {
 		identifier: params.identifier
 	}
-	error(404, "Not found")
 }
+
+export const csr = true
+export const prerender = false

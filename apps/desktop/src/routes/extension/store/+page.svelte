@@ -6,6 +6,7 @@
 	import { goBack } from "@/utils/route"
 	import { ExtItem } from "@kksh/supabase"
 	import { Command } from "@kksh/svelte5"
+	import { goto } from "$app/navigation"
 	import { onMount } from "svelte"
 	import { type PageData } from "./$types"
 
@@ -18,6 +19,7 @@
 
 	function onExtItemSelected(ext: ExtItem) {
 		console.log("onExtItemSelected", ext)
+		goto(`./store/${ext.identifier}`)
 	}
 
 	function onExtItemUpgrade(ext: ExtItem) {

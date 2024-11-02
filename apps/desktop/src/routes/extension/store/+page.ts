@@ -15,17 +15,14 @@ export const load: PageLoad = async ({
 	installedExtsMap: Readable<Record<string, string>>
 }> => {
 	const storeExtList = await supabaseAPI.getExtList()
-	// const installedExts = extensions.getExtensionsFromStore()
 	const _appConfig = get(appConfig)
-	if (!_appConfig.extensionPath) {
-		return error(404, "Extension path not found")
-	}
 	const installedStoreExts = derived(extensions, ($extensions) => {
+		if (!_appConfig.extensionPath) return []
 		return $extensions.filter((ext) => !isExtPathInDev(_appConfig.extensionPath!, ext.extPath))
 	})
-	const installedExtsMap = derived(installedStoreExts, ($exts) => {
-		return Object.fromEntries($exts.map((ext) => [ext.kunkun.identifier, ext.version]))
-	})
+	const installedExtsMap = derived(installedStoreExts, ($exts) =>
+		Object.fromEntries($exts.map((ext) => [ext.kunkun.identifier, ext.version]))
+	)
 
 	return { storeExtList, installedStoreExts, installedExtsMap }
 }
