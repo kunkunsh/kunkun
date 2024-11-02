@@ -9,6 +9,7 @@
 		"./ui/iframe": "./src/ui/iframe/index.ts",
 		"./ui/worker": "./src/ui/worker/index.ts",
 		"./models": "./src/models/index.ts",
+		"./commands": "./src/commands/index.ts",
 		"./runtime/deno": "./src/runtime/deno.ts",
 		"./permissions": "./src/permissions/index.ts",
 		"./dev": "./src/dev/index.ts",

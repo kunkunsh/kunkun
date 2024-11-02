@@ -22,7 +22,6 @@
 			"@kksh/ui/*": ["./packages/ui/*"],
 			"@kksh/desktop/*": ["./apps/desktop/*"],
 			"@kksh/ci/*": ["./packages/ci/*"],
-			"@kksh/jarvis/*": ["./packages/jarvis/*"],
 			"@kksh/supabase/*": ["./packages/supabase/*"],
 			"@kksh/schema/*": ["./packages/schema/*"]
 		}

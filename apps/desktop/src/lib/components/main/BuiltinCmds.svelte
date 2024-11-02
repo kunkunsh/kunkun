@@ -1,0 +1,27 @@
+<script lang="ts">
+	import IconMultiplexer from "@/components/common/IconMultiplexer.svelte"
+	import type { BuiltinCmd } from "@/types"
+	import { IconEnum } from "@kksh/api/models"
+	import * as Command from "$lib/components/ui/command/index.js"
+
+	const { builtinCmds }: { builtinCmds: BuiltinCmd[] } = $props()
+</script>
+
+<Command.Group heading="Builtin Commands">
+	{#each builtinCmds as cmd}
+		<Command.Item
+			class="flex justify-between"
+			onSelect={() => {
+				cmd.function()
+			}}
+		>
+			<span class="flex gap-2">
+				<IconMultiplexer
+					icon={{ value: cmd.iconifyIcon, type: IconEnum.Iconify }}
+					class="!h-5 !w-5 shrink-0"
+				/>
+				<span>{cmd.name}</span>
+			</span>
+		</Command.Item>
+	{/each}
+</Command.Group>

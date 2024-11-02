@@ -1,0 +1,12 @@
+{
+	"name": "@kksh/extensions",
+	"module": "index.ts",
+	"type": "module",
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"dependencies": {},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
+}

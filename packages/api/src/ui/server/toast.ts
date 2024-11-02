@@ -1,4 +1,4 @@
-import { toast } from "vue-sonner"
+import { toast } from "svelte-sonner"
 import type {
 	GeneralToast,
 	GeneralToastParams,
