@@ -21,11 +21,6 @@ export const PersistedAppConfig = v.object({
 
 export type PersistedAppConfig = v.InferOutput<typeof PersistedAppConfig>
 
-// export const AppConfig = v.object({
-// 	isInitialized: v.boolean(),
-// 	...PersistedAppConfig.entries,
-// 	extensionPath: v.optional(v.string())
-// })
 export type AppConfig = PersistedAppConfig & {
 	isInitialized: boolean
 	extensionPath?: string

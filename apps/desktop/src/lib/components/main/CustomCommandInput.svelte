@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { Button } from "@kksh/svelte5"
 	import { cn } from "$lib/utils.js"
 	import { Command as CommandPrimitive } from "bits-ui"
 	import { type Snippet } from "svelte"

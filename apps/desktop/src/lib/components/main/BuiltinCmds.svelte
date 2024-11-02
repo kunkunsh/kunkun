@@ -1,13 +1,14 @@
 <script lang="ts">
-	import IconMultiplexer from "@/components/common/IconMultiplexer.svelte"
 	import type { BuiltinCmd } from "@/types"
 	import { IconEnum } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
+	import { IconMultiplexer } from "@kksh/ui"
+	import { DraggableCommandGroup } from "@kksh/ui/custom"
 
 	const { builtinCmds }: { builtinCmds: BuiltinCmd[] } = $props()
 </script>
 
-<Command.Group heading="Builtin Commands">
+<DraggableCommandGroup heading="Builtin Commands">
 	{#each builtinCmds as cmd}
 		<Command.Item
 			class="flex justify-between"
@@ -24,4 +25,4 @@
 			</span>
 		</Command.Item>
 	{/each}
-</Command.Group>
+</DraggableCommandGroup>

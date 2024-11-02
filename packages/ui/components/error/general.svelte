@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Card } from "@kksh/svelte5"
-	import { cn } from "@kksh/ui/src/utils"
+	import { cn } from "@kksh/ui/utils"
 	import { type Snippet } from "svelte"
 
 	const {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from "@kksh/ui/src/utils"
+	import { cn } from "@kksh/ui/utils"
 	import { codeToHtml } from "shiki"
 	import { onMount } from "svelte"
 

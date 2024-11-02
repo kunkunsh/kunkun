@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from "@kksh/ui/src/utils"
+	import { cn } from "@kksh/ui/utils"
 	import { type Snippet } from "svelte"
 
 	const { children, class: className }: { children: Snippet; class?: string } = $props()

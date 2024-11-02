@@ -1,6 +1,5 @@
 <script lang="ts">
 	import StoreListing from "@/components/extension/StoreListing.svelte"
-	import Cmd from "@/components/main/cmd.svelte"
 	import { appState } from "@/stores"
 	import { goBackOnEscape, goBackOnEscapeClearSearchTerm } from "@/utils/key"
 	import { goBack } from "@/utils/route"

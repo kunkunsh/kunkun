@@ -1,17 +1,10 @@
 <!-- This file renders a group of extension commands -->
 <!-- Input props to this component is an array of ExtPackageJsonExtra[] -->
 <script lang="ts">
-	import Icon from "@iconify/svelte"
-	import {
-		CustomUiCmd,
-		ExtPackageJsonExtra,
-		IconEnum,
-		IconType,
-		TemplateUiCmd
-	} from "@kksh/api/models"
+	import { CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
 	import { Badge, Command } from "@kksh/svelte5"
-	// import { DraggableCommandGroup } from "@kksh/ui/custom"
-	import IconMultiplexer from "../common/IconMultiplexer.svelte"
+	import { IconMultiplexer } from "@kksh/ui"
+	import { DraggableCommandGroup } from "@kksh/ui/custom"
 
 	const {
 		extensions,
@@ -63,8 +56,8 @@
 	{/each}
 {/snippet}
 
-<Command.Group {heading}>
+<DraggableCommandGroup {heading}>
 	{#each extensions as _ext}
 		{@render ext(_ext)}
 	{/each}
-</Command.Group>
+</DraggableCommandGroup>

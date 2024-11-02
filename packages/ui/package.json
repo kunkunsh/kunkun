@@ -6,12 +6,12 @@
 	"main": "index.ts",
 	"exports": {
 		".": {
-			"types": "./src/index.ts",
-			"svelte": "./src/index.ts"
+			"types": "./index.ts",
+			"svelte": "./index.ts"
 		},
 		"./custom": {
-			"types": "./src/components/custom/index.ts",
-			"svelte": "./src/components/custom/index.ts"
+			"types": "./custom.ts",
+			"svelte": "./custom.ts"
 		}
 	},
 	"scripts": {
