@@ -1,11 +1,11 @@
 <script lang="ts">
 	import StoreListing from "@/components/extension/StoreListing.svelte"
 	import Cmd from "@/components/main/cmd.svelte"
-	import * as Command from "@/components/ui/command"
 	import { appState } from "@/stores"
-	import { ExtItem } from "@/supabase"
 	import { goBackOnEscape, goBackOnEscapeClearSearchTerm } from "@/utils/key"
 	import { goBack } from "@/utils/route"
+	import { ExtItem } from "@kksh/supabase"
+	import { Command } from "@kksh/svelte5"
 	import { onMount } from "svelte"
 	import { type PageData } from "./$types"
 

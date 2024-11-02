@@ -1,11 +1,10 @@
 <script lang="ts">
 	import IconMultiplexer from "@/components/common/IconMultiplexer.svelte"
-	import * as Command from "@/components/ui/command"
-	import { ExtItem } from "@/supabase"
 	import { humanReadableNumber } from "@/utils/format"
 	import Icon from "@iconify/svelte"
 	import { Icon as TIcon } from "@kksh/api/models"
-	import { Button } from "@kksh/svelte5"
+	import { ExtItem } from "@kksh/supabase"
+	import { Button, Command } from "@kksh/svelte5"
 	import { CircleCheckBigIcon, MoveRightIcon } from "lucide-svelte"
 	import { parse } from "valibot"
 
@@ -39,7 +38,7 @@
 			{#if upgradable}
 				<Button
 					variant="outline"
-					size="xs"
+					size="sm"
 					class="flex items-center space-x-1 px-2"
 					onclick={(e: MouseEvent) => {
 						e.stopPropagation()

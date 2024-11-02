@@ -8,6 +8,9 @@
 		".": "./src/index.ts",
 		"./types": "./src/types/database.types.ts"
 	},
+	"dependencies": {
+		"@kksh/api": "workspace:*"
+	},
 	"devDependencies": {
 		"@types/bun": "latest"
 	},

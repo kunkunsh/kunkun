@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from "$lib/utils.js"
+	import { cn } from "@kksh/ui/src/utils"
 	import { Command as CommandPrimitive } from "bits-ui"
 
 	let {
@@ -20,8 +20,8 @@
 >
 	{#if heading}
 		<CommandPrimitive.GroupHeading
-			class="text-muted-foreground px-2 py-1.5 text-xs font-medium select-none"
 			data-tauri-drag-region
+			class="text-muted-foreground px-2 py-1.5 text-xs font-medium"
 		>
 			{heading}
 		</CommandPrimitive.GroupHeading>

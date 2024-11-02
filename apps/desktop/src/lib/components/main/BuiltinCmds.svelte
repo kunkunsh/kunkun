@@ -2,7 +2,7 @@
 	import IconMultiplexer from "@/components/common/IconMultiplexer.svelte"
 	import type { BuiltinCmd } from "@/types"
 	import { IconEnum } from "@kksh/api/models"
-	import * as Command from "$lib/components/ui/command/index.js"
+	import { Command } from "@kksh/svelte5"
 
 	const { builtinCmds }: { builtinCmds: BuiltinCmd[] } = $props()
 </script>

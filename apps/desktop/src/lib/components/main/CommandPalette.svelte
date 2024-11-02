@@ -6,7 +6,7 @@
 	import { cn } from "@/utils"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extensions"
-	import * as Command from "$lib/components/ui/command"
+	import { Command } from "@kksh/svelte5"
 	import type { Writable } from "svelte/store"
 	import BuiltinCmds from "./BuiltinCmds.svelte"
 	import CustomCommandInput from "./CustomCommandInput.svelte"

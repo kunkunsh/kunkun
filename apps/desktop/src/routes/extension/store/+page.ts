@@ -1,8 +1,8 @@
 import { appConfig, extensions } from "@/stores"
-import { ExtItem, getExtList } from "@/supabase"
+import { supabaseAPI } from "@/supabase"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
 import { isExtPathInDev } from "@kksh/extensions"
-import { type Tables } from "@kksh/supabase"
+import { ExtItem, type Tables } from "@kksh/supabase"
 import { error } from "@sveltejs/kit"
 import { derived, get, type Readable } from "svelte/store"
 import type { PageLoad } from "./$types"
@@ -14,7 +14,7 @@ export const load: PageLoad = async ({
 	installedStoreExts: Readable<ExtPackageJsonExtra[]>
 	installedExtsMap: Readable<Record<string, string>>
 }> => {
-	const storeExtList = await getExtList()
+	const storeExtList = await supabaseAPI.getExtList()
 	// const installedExts = extensions.getExtensionsFromStore()
 	const _appConfig = get(appConfig)
 	if (!_appConfig.extensionPath) {

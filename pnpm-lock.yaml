@@ -111,6 +111,15 @@ importers:
       '@iconify/svelte':
         specifier: ^4.0.2
         version: 4.0.2(svelte@5.1.9)
+      '@kksh/extensions':
+        specifier: workspace:*
+        version: link:../../packages/extensions
+      '@kksh/supabase':
+        specifier: workspace:*
+        version: link:../../packages/supabase
+      '@kksh/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@tauri-apps/api':
         specifier: ^2
         version: 2.0.3
@@ -133,12 +142,6 @@ importers:
         specifier: ^2.20.0
         version: 2.20.0(@sveltejs/kit@2.7.4)(svelte@5.1.9)(typescript@5.5.4)
     devDependencies:
-      '@kksh/extensions':
-        specifier: workspace:*
-        version: link:../../packages/extensions
-      '@kksh/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
       '@sveltejs/adapter-static':
         specifier: ^3.0.5
         version: 3.0.6(@sveltejs/kit@2.7.4)
@@ -410,6 +413,9 @@ importers:
 
   packages/supabase:
     dependencies:
+      '@kksh/api':
+        specifier: workspace:*
+        version: link:../api
       typescript:
         specifier: ^5.0.0
         version: 5.5.4

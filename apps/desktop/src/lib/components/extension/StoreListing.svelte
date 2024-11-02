@@ -1,10 +1,9 @@
 <script lang="ts">
 	import CustomCommandInput from "@/components/main/CustomCommandInput.svelte"
-	import * as Command from "@/components/ui/command"
-	import { ExtItem } from "@/supabase"
 	// import { appState } from "@/stores"
 	import { goBack } from "@/utils/route"
-	import { Button } from "@kksh/svelte5"
+	import { ExtItem } from "@kksh/supabase"
+	import { Button, Command } from "@kksh/svelte5"
 	import { type Snippet } from "svelte"
 	import ArrowLeft from "svelte-radix/ArrowLeft.svelte"
 	import type { Writable } from "svelte/store"

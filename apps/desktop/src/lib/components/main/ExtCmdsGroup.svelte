@@ -9,8 +9,8 @@
 		IconType,
 		TemplateUiCmd
 	} from "@kksh/api/models"
-	import { Badge } from "@kksh/svelte5"
-	import * as Command from "$lib/components/ui/command/index.js"
+	import { Badge, Command } from "@kksh/svelte5"
+	// import { DraggableCommandGroup } from "@kksh/ui/custom"
 	import IconMultiplexer from "../common/IconMultiplexer.svelte"
 
 	const {

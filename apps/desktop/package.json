@@ -14,6 +14,9 @@
   "license": "MIT",
   "dependencies": {
     "@iconify/svelte": "^4.0.2",
+    "@kksh/extensions": "workspace:*",
+    "@kksh/ui": "workspace:*",
+    "@kksh/supabase": "workspace:*",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-shell": "^2",
     "bits-ui": "1.0.0-next.36",
@@ -23,8 +26,6 @@
     "sveltekit-superforms": "^2.20.0"
   },
   "devDependencies": {
-    "@kksh/extensions": "workspace:*",
-    "@kksh/ui": "workspace:*",
     "@sveltejs/adapter-static": "^3.0.5",
     "@sveltejs/kit": "^2.7.0",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
