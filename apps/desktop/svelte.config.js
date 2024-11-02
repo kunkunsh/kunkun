@@ -8,7 +8,9 @@ import { vitePreprocess } from "@sveltejs/vite-plugin-svelte";
 const config = {
   preprocess: vitePreprocess(),
   kit: {
-    adapter: adapter(),
+    adapter: adapter({
+      fallback: "index.html"
+    }),
     alias: {
       "@/*": "./src/lib/*",
       "@kksh/ui/*": "../../packages/ui/*",
