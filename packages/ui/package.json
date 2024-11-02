@@ -10,8 +10,8 @@
 			"svelte": "./src/index.ts"
 		},
 		"./custom": {
-			"types": "./src/custom.ts",
-			"svelte": "./src/custom.ts"
+			"types": "./src/components/custom/index.ts",
+			"svelte": "./src/components/custom/index.ts"
 		}
 	},
 	"scripts": {
@@ -25,6 +25,7 @@
 		"lucide-svelte": "^0.454.0",
 		"mode-watcher": "^0.4.1",
 		"paneforge": "1.0.0-next.1",
+		"shiki": "^1.22.2",
 		"svelte-radix": "^2.0.1",
 		"svelte-sonner": "^0.3.28",
 		"tailwind-merge": "^2.5.4",

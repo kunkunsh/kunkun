@@ -1,10 +1,10 @@
-import type { SupabaseClient } from "@supabase/supabase-js"
+import type { PostgrestSingleResponse, SupabaseClient } from "@supabase/supabase-js"
 import * as v from "valibot"
 import { ExtItem } from "./model"
-import type { Tables } from "./types/database.types"
+import type { Database, Tables } from "./types/database.types"
 
 export class SupabaseAPI {
-	constructor(private supabase: SupabaseClient) {}
+	constructor(private supabase: SupabaseClient<Database>) {}
 	async getExtList(): Promise<ExtItem[]> {
 		const res = await this.supabase
 			.from("extensions")
@@ -25,5 +25,25 @@ export class SupabaseAPI {
 				return parsedNode.success ? v.parse(ExtItem, parsedNode.output) : null
 			})
 			.filter((x) => x !== null)
+	}
+
+	async getLatestExtPublish(
+		identifier: string
+	): Promise<PostgrestSingleResponse<Tables<"ext_publish">>> {
+		return this.supabase
+			.from("ext_publish")
+			.select(
+				"created_at, name, version, manifest, shasum, size, tarball_path, cmd_count, identifier, downloads, demo_images, api_version"
+			)
+			.order("created_at", { ascending: false })
+			.eq("identifier", identifier)
+			.select()
+			.limit(1)
+			.single()
+		// if (error) {
+		// 	console.error(error)
+		// 	throw error
+		// }
+		// return data
 	}
 }

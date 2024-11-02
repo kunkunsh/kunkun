@@ -26,6 +26,7 @@
 		"node": ">=18"
 	},
 	"dependencies": {
+		"@iconify/svelte": "^4.0.2",
 		"@supabase/supabase-js": "^2.43.4",
 		"@tauri-apps/api": "^2.0.3",
 		"@tauri-apps/cli": "^2.0.4",

@@ -12,14 +12,11 @@
 	import { CustomUiCmd, ExtPackageJsonExtra, IconEnum, TemplateUiCmd } from "@kksh/api/models"
 	import { loadAllExtensionsFromDb } from "@kksh/extensions"
 	import { Button } from "@kksh/svelte5"
+	import {  } from "@kksh/ui"
 	import * as tauriPath from "@tauri-apps/api/path"
 	import { load, Store } from "@tauri-apps/plugin-store"
 	import { onMount } from "svelte"
 	import { writable } from "svelte/store"
-
-	onMount(() => {
-		console.log(IS_IN_TAURI)
-	})
 </script>
 
 <CommandPalette
