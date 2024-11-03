@@ -3,8 +3,8 @@
 <script lang="ts">
 	import { CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
 	import { Badge, Command } from "@kksh/svelte5"
-	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "@kksh/ui/custom"
+	import { IconMultiplexer } from "@kksh/ui"
 
 	const {
 		extensions,

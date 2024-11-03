@@ -7,10 +7,10 @@
 		"baseColor": "neutral"
 	},
 	"aliases": {
-		"components": "@kksh/ui/components",
-		"utils": "@kksh/ui/utils",
-		"ui": "@kksh/ui/components/ui",
-		"hooks": "@kksh/ui/hooks"
+		"components": "@kksh/ui/src/components",
+		"utils": "@kksh/ui/src/utils",
+		"ui": "@kksh/ui/src/components/ui",
+		"hooks": "@kksh/ui/src/hooks"
 	},
 	"typescript": true,
 	"registry": "https://next.shadcn-svelte.com/registry"

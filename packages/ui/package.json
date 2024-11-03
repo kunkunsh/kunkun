@@ -6,24 +6,20 @@
 	"main": "index.ts",
 	"exports": {
 		".": {
-			"types": "./index.ts",
-			"svelte": "./index.ts"
+			"types": "./src/index.ts",
+			"svelte": "./src/index.ts"
 		},
 		"./custom": {
-			"types": "./custom.ts",
-			"svelte": "./custom.ts"
+			"types": "./src/components/custom/index.ts",
+			"svelte": "./src/components/custom/index.ts"
 		},
 		"./utils": {
-			"types": "./utils/index.ts",
-			"svelte": "./utils/index.ts"
-		},
-		"./types": {
-			"types": "./types/index.ts",
-			"svelte": "./types/index.ts"
+			"types": "./src/utils/index.ts",
+			"svelte": "./src/utils/index.ts"
 		},
 		"./main": {
-			"types": "./components/main/index.ts",
-			"svelte": "./components/main/index.ts"
+			"types": "./src/components/main/index.ts",
+			"svelte": "./src/components/main/index.ts"
 		}
 	},
 	"scripts": {
