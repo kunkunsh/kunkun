@@ -20,6 +20,10 @@
 		"./main": {
 			"types": "./src/components/main/index.ts",
 			"svelte": "./src/components/main/index.ts"
+		},
+		"./extension": {
+			"types": "./src/components/extension/index.ts",
+			"svelte": "./src/components/extension/index.ts"
 		}
 	},
 	"scripts": {
@@ -27,8 +31,10 @@
 	},
 	"devDependencies": {
 		"@kksh/eslint-config": "workspace:*",
+		"@kksh/supabase": "workspace:*",
 		"@kksh/extensions": "workspace:*",
 		"@kksh/types": "workspace:*",
+		"@kksh/utils": "workspace:*",
 		"@kksh/typescript-config": "workspace:*",
 		"bits-ui": "1.0.0-next.36",
 		"clsx": "^2.1.1",

@@ -1,20 +1,16 @@
 <script lang="ts">
-	import StoreListing from "@/components/extension/StoreListing.svelte"
 	import { appState } from "@/stores"
 	import { goBackOnEscape, goBackOnEscapeClearSearchTerm } from "@/utils/key"
 	import { goBack } from "@/utils/route"
 	import { ExtItem } from "@kksh/supabase"
 	import { Command } from "@kksh/svelte5"
+	import { StoreListing } from "@kksh/ui/extension"
 	import { goto } from "$app/navigation"
 	import { onMount } from "svelte"
 	import { type PageData } from "./$types"
 
 	let { data }: { data: PageData } = $props()
 	const { storeExtList, installedStoreExts, installedExtsMap } = data
-
-	// const installedExtsMap = Object.fromEntries(
-	// 	installedExts.map((ext) => [ext.kunkun.identifier, ext.version])
-	// )
 
 	function onExtItemSelected(ext: ExtItem) {
 		console.log("onExtItemSelected", ext)
@@ -48,4 +44,5 @@
 	{onExtItemSelected}
 	{onExtItemUpgrade}
 	{onExtItemInstall}
+	onGoBack={goBack}
 />

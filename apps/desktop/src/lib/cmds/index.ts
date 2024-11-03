@@ -1,12 +1,13 @@
 import { CmdTypeEnum, CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
+import type { CommandLaunchers, OnExtCmdSelect } from "@kksh/types"
 import * as v from "valibot"
 import { onCustomUiCmdSelect, onTemplateUiCmdSelect } from "./ext"
 
-function onExtCmdSelect(
+const onExtCmdSelect: OnExtCmdSelect = (
 	ext: ExtPackageJsonExtra,
 	cmd: CustomUiCmd | TemplateUiCmd,
 	{ isDev, hmr }: { isDev: boolean; hmr: boolean }
-) {
+) => {
 	switch (cmd.type) {
 		case CmdTypeEnum.UiIframe:
 			onCustomUiCmdSelect(ext, v.parse(CustomUiCmd, cmd), { isDev, hmr })
@@ -19,5 +20,4 @@ function onExtCmdSelect(
 	}
 }
 
-export const commandLaunchers = { onExtCmdSelect }
-export type CommandLaunchers = typeof commandLaunchers
+export const commandLaunchers = { onExtCmdSelect } satisfies CommandLaunchers

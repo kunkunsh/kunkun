@@ -1,38 +1,34 @@
 <!-- This file renders the main command palette, a list of commands -->
 <script lang="ts">
-	import { type CommandLaunchers } from "@/cmds"
-	import { getAppConfigContext } from "@/context"
-	import { cn } from "@/utils"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extensions"
 	import { Command } from "@kksh/svelte5"
-	import type { AppState, BuiltinCmd } from "@kksh/types"
-	// import BuiltinCmds from "./BuiltinCmds.svelte"
-	// import CustomCommandInput from "./CustomCommandInput.svelte"
-	// import ExtCmdsGroup from "./ExtCmdsGroup.svelte"
-	// import GlobalCommandPaletteFooter from "./GlobalCommandPaletteFooter.svelte"
+	import type { AppConfig, AppState, BuiltinCmd, CommandLaunchers } from "@kksh/types"
 	import {
 		BuiltinCmds,
 		CustomCommandInput,
 		ExtCmdsGroup,
 		GlobalCommandPaletteFooter
 	} from "@kksh/ui/main"
+	import { cn } from "@kksh/ui/utils"
 	import type { Writable } from "svelte/store"
 
 	const {
 		extensions,
+		appConfig,
 		class: className,
 		commandLaunchers,
 		appState,
 		builtinCmds
 	}: {
 		extensions: ExtPackageJsonExtra[]
+		appConfig: Writable<AppConfig>
 		class?: string
 		commandLaunchers: CommandLaunchers
 		appState: Writable<AppState>
 		builtinCmds: BuiltinCmd[]
 	} = $props()
-	const appConfig = getAppConfigContext()
+	// const appConfig = getAppConfigContext()
 
 	let highlightedCmd = $state("")
 	let searchTerm = $state("")

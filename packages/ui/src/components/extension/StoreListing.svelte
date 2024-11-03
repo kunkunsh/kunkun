@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goBack } from "@/utils/route"
 	import { ExtItem } from "@kksh/supabase"
 	import { Button, Command } from "@kksh/svelte5"
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
@@ -14,20 +13,21 @@
 		onExtItemSelected,
 		onExtItemUpgrade,
 		onExtItemInstall,
-		appState
+		appState,
+		onGoBack
 	}: {
 		storeExtList: ExtItem[]
 		installedExtsMap: Record<string, string>
 		onExtItemSelected: (ext: ExtItem) => void
 		onExtItemUpgrade: (ext: ExtItem) => void
 		onExtItemInstall: (ext: ExtItem) => void
-		// searchTerm: string
+		onGoBack?: () => void
 		appState: Writable<{ searchTerm: string }>
 	} = $props()
 </script>
 
 {#snippet leftSlot()}
-	<Button variant="outline" size="icon" onclick={goBack}>
+	<Button variant="outline" size="icon" onclick={onGoBack}>
 		<ArrowLeft class="size-4" />
 	</Button>
 {/snippet}

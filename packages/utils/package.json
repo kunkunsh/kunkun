@@ -2,6 +2,9 @@
 	"name": "@kksh/utils",
 	"module": "index.ts",
 	"type": "module",
+	"exports": {
+		".": "./src/index.ts"
+	},
 	"devDependencies": {
 		"@types/bun": "latest"
 	},

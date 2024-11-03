@@ -447,12 +447,18 @@ importers:
       '@kksh/extensions':
         specifier: workspace:*
         version: link:../extensions
+      '@kksh/supabase':
+        specifier: workspace:*
+        version: link:../supabase
       '@kksh/types':
         specifier: workspace:*
         version: link:../types
       '@kksh/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@kksh/utils':
+        specifier: workspace:*
+        version: link:../utils
       bits-ui:
         specifier: 1.0.0-next.36
         version: 1.0.0-next.36(svelte@5.1.9)

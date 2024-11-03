@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { humanReadableNumber } from "@/utils/format"
 	import Icon from "@iconify/svelte"
 	import { Icon as TIcon } from "@kksh/api/models"
 	import { ExtItem } from "@kksh/supabase"
 	import { Button, Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
+	import { humanReadableNumber } from "@kksh/utils"
 	import { CircleCheckBigIcon, MoveRightIcon } from "lucide-svelte"
 	import { parse } from "valibot"
 

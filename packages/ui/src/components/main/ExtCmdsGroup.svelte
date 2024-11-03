@@ -3,8 +3,9 @@
 <script lang="ts">
 	import { CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
 	import { Badge, Command } from "@kksh/svelte5"
-	import { DraggableCommandGroup } from "@kksh/ui/custom"
+	import type { OnExtCmdSelect } from "@kksh/types"
 	import { IconMultiplexer } from "@kksh/ui"
+	import { DraggableCommandGroup } from "@kksh/ui/custom"
 
 	const {
 		extensions,
@@ -17,11 +18,7 @@
 		heading: string
 		isDev: boolean
 		hmr: boolean
-		onExtCmdSelect: (
-			ext: ExtPackageJsonExtra,
-			cmd: CustomUiCmd | TemplateUiCmd,
-			{ isDev, hmr }: { isDev: boolean; hmr: boolean }
-		) => void
+		onExtCmdSelect: OnExtCmdSelect
 	} = $props()
 </script>
 
