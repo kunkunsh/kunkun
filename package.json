@@ -28,7 +28,7 @@
 	"dependencies": {
 		"@changesets/cli": "^2.27.9",
 		"@iconify/svelte": "^4.0.2",
-		"@supabase/supabase-js": "^2.43.4",
+		"@supabase/supabase-js": "^2.46.1",
 		"@tauri-apps/api": "^2.0.3",
 		"@tauri-apps/cli": "^2.0.4",
 		"@tauri-apps/plugin-deep-link": "^2.0.0",

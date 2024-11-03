@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ExtItem } from "@kksh/supabase"
+	import { SBExt } from "@kksh/api/supabase"
 	import { Button, Command } from "@kksh/svelte5"
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
 	import { type Snippet } from "svelte"
@@ -18,13 +18,13 @@
 		appState,
 		onGoBack
 	}: {
-		storeExtList: ExtItem[]
+		storeExtList: SBExt[]
 		installedExtsMap: Record<string, string>
-		onExtItemSelected: (ext: ExtItem) => void
-		onExtItemUpgrade: (ext: ExtItem) => void
-		onExtItemInstall: (ext: ExtItem) => void
+		onExtItemSelected: (ext: SBExt) => void
+		onExtItemUpgrade: (ext: SBExt) => void
+		onExtItemInstall: (ext: SBExt) => void
 		upgradableExpsMap: Record<string, boolean>
-		isUpgradable: (dbExt: ExtItem, installedExtVersion: string) => boolean
+		isUpgradable: (dbExt: SBExt, installedExtVersion: string) => boolean
 		onGoBack?: () => void
 		appState: Writable<{ searchTerm: string }>
 	} = $props()

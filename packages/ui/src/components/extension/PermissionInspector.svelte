@@ -1,10 +1,6 @@
 <script lang="ts">
 	import { IconEnum, type KunkunExtManifest } from "@kksh/api/models"
-	import {
-		AllKunkunPermission,
-		FsPermissionMap,
-		permissionDescriptions
-	} from "@kksh/api/permissions"
+	import { permissionDescriptions } from "@kksh/api/permissions"
 	import { HoverCard, ScrollArea } from "@kksh/svelte5"
 	import { IconMultiplexer, Shiki } from "@kksh/ui"
 

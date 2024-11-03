@@ -5,8 +5,8 @@
 	import { goBackOnEscape, goBackOnEscapeClearSearchTerm } from "@/utils/key"
 	import { goBack } from "@/utils/route"
 	import { isCompatible } from "@kksh/api"
+	import { SBExt } from "@kksh/api/supabase"
 	import { isUpgradable } from "@kksh/extension"
-	import { ExtItem } from "@kksh/supabase"
 	import { Command } from "@kksh/svelte5"
 	import { StoreListing } from "@kksh/ui/extension"
 	import { greaterThan, parse as parseSemver } from "@std/semver"
@@ -29,11 +29,11 @@
 	// 	)
 	// }
 
-	function onExtItemSelected(ext: ExtItem) {
+	function onExtItemSelected(ext: SBExt) {
 		goto(`./store/${ext.identifier}`)
 	}
 
-	async function onExtItemUpgrade(ext: ExtItem) {
+	async function onExtItemUpgrade(ext: SBExt) {
 		const res = await supabaseAPI.getLatestExtPublish(ext.identifier)
 		if (res.error)
 			return toast.error("Fail to get latest extension", { description: res.error.message })
@@ -43,7 +43,7 @@
 		})
 	}
 
-	async function onExtItemInstall(ext: ExtItem) {
+	async function onExtItemInstall(ext: SBExt) {
 		console.log("onExtItemInstall", ext)
 		const res = await supabaseAPI.getLatestExtPublish(ext.identifier)
 		if (res.error)

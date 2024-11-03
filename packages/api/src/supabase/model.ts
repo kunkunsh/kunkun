@@ -1,7 +1,10 @@
 import { Icon } from "@kksh/api/models"
 import * as v from "valibot"
 
-export const ExtItem = v.object({
+/***
+ * Correspond to `extensions` table in supabase
+ */
+export const SBExt = v.object({
 	identifier: v.string(),
 	name: v.string(),
 	created_at: v.string(),
@@ -13,4 +16,4 @@ export const ExtItem = v.object({
 	icon: Icon
 })
 
-export type ExtItem = v.InferOutput<typeof ExtItem>
+export type SBExt = v.InferOutput<typeof SBExt>

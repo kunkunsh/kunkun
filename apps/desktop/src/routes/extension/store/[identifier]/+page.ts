@@ -1,7 +1,7 @@
 import { extensions } from "@/stores"
 import { supabaseAPI } from "@/supabase"
 import { KunkunExtManifest, type ExtPackageJsonExtra } from "@kksh/api/models"
-import type { Tables } from "@kksh/supabase/types"
+import type { Tables } from "@kksh/api/supabase/types"
 import { error } from "@sveltejs/kit"
 import { toast } from "svelte-sonner"
 import { get } from "svelte/store"

@@ -30,6 +30,7 @@
 			delayedImageDialogOpen = imageDialogOpen
 		}, 500)
 	})
+
 	const demoImages = $derived(
 		ext.demo_images.map((src) => supabaseAPI.translateExtensionFilePathToUrl(src))
 	)
@@ -73,7 +74,7 @@
 
 	function onUninstallSelected() {
 		btnLoading = true
-		extensions
+		return extensions
 			.uninstallStoreExtensionByIdentifier(ext.identifier)
 			.then((uninstalledExt) => {
 				toast.success(`${uninstalledExt.name} Uninstalled`)
@@ -88,7 +89,7 @@
 	}
 
 	function onEnterPressed() {
-		console.log("onEnterPressed")
+		return onInstallSelected()
 	}
 
 	function handleKeydown(e: KeyboardEvent) {

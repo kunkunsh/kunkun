@@ -1,11 +1,11 @@
+import { SBExt } from "@kksh/api/supabase"
+import type { Database, Tables } from "@kksh/api/supabase/types"
 import type { PostgrestSingleResponse, SupabaseClient } from "@supabase/supabase-js"
 import * as v from "valibot"
-import { ExtItem } from "./model"
-import type { Database, Tables } from "./types/database.types"
 
 export class SupabaseAPI {
 	constructor(private supabase: SupabaseClient<Database>) {}
-	async getExtList(): Promise<ExtItem[]> {
+	async getExtList(): Promise<SBExt[]> {
 		const res = await this.supabase
 			.from("extensions")
 			.select(
@@ -16,13 +16,13 @@ export class SupabaseAPI {
 		const dbExts: Tables<"extensions">[] = res.data ?? []
 		return dbExts
 			.map((x) => {
-				const parsedNode = v.safeParse(ExtItem, x)
+				const parsedNode = v.safeParse(SBExt, x)
 				if (!parsedNode.success) {
 					console.error(`Fail to parse extension`, x)
 					console.warn(parsedNode.issues)
 					console.error(v.flatten(parsedNode.issues))
 				}
-				return parsedNode.success ? v.parse(ExtItem, parsedNode.output) : null
+				return parsedNode.success ? v.parse(SBExt, parsedNode.output) : null
 			})
 			.filter((x) => x !== null)
 	}

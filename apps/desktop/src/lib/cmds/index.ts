@@ -1,5 +1,5 @@
 import { CmdTypeEnum, CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
-import type { CommandLaunchers, OnExtCmdSelect } from "@kksh/types"
+import type { CommandLaunchers, OnExtCmdSelect } from "@kksh/ui/types"
 import * as v from "valibot"
 import { onCustomUiCmdSelect, onTemplateUiCmdSelect } from "./ext"
 

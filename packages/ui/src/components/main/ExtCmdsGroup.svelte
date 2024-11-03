@@ -3,9 +3,9 @@
 <script lang="ts">
 	import { CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
 	import { Badge, Command } from "@kksh/svelte5"
-	import type { OnExtCmdSelect } from "@kksh/types"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "@kksh/ui/custom"
+	import type { OnExtCmdSelect } from "./types"
 
 	const {
 		extensions,

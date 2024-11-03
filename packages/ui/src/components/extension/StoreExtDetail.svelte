@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Icon from "@iconify/svelte"
 	import { ExtPackageJsonExtra, IconEnum, KunkunExtManifest } from "@kksh/api/models"
-	import { type Tables } from "@kksh/supabase/types"
+	import { type Tables } from "@kksh/api/supabase/types"
 	import { Button, ScrollArea, Separator } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { greaterThan, parse as parseSemver } from "@std/semver"

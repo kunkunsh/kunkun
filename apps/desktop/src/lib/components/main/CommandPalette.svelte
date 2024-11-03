@@ -3,13 +3,14 @@
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extension/utils"
 	import { Command } from "@kksh/svelte5"
-	import type { AppConfig, AppState, BuiltinCmd, CommandLaunchers } from "@kksh/types"
+	import type { AppConfig, AppState } from "@kksh/types"
 	import {
 		BuiltinCmds,
 		CustomCommandInput,
 		ExtCmdsGroup,
 		GlobalCommandPaletteFooter
 	} from "@kksh/ui/main"
+	import type { BuiltinCmd, CommandLaunchers } from "@kksh/ui/types"
 	import { cn } from "@kksh/ui/utils"
 	import type { Writable } from "svelte/store"
 

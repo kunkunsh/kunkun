@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Icon from "@iconify/svelte"
 	import { Icon as TIcon } from "@kksh/api/models"
-	import { ExtItem } from "@kksh/supabase"
+	import { SBExt } from "@kksh/api/supabase"
 	import { Button, Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
-	import { humanReadableNumber } from "@kksh/utils"
+	import { humanReadableNumber } from "@kksh/ui/utils"
 	import { greaterThan, parse as parseSemver } from "@std/semver"
 	import { CircleCheckBigIcon, MoveRightIcon } from "lucide-svelte"
 	import { parse } from "valibot"
@@ -17,7 +17,7 @@
 		onInstall,
 		isUpgradable
 	}: {
-		ext: ExtItem
+		ext: SBExt
 		installedVersion?: string
 		onSelect: () => void
 		onUpgrade: () => void

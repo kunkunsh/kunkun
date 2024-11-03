@@ -12,6 +12,8 @@
 		"./commands": "./src/commands/index.ts",
 		"./runtime/deno": "./src/runtime/deno.ts",
 		"./permissions": "./src/permissions/index.ts",
+		"./supabase": "./src/supabase/index.ts",
+		"./supabase/types": "./src/supabase/database.types.ts",
 		"./dev": "./src/dev/index.ts",
 		"./events": "./src/events.ts"
 	},

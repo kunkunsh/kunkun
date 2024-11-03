@@ -2,7 +2,7 @@
 	import Icon from "@iconify/svelte"
 	import { IconEnum, IconType, Icon as TIcon } from "@kksh/api/models"
 	import { Button } from "@kksh/svelte5"
-	import { cn } from "$lib/utils"
+	import { cn } from "@kksh/ui/utils"
 
 	const { icon, class: className }: { icon: TIcon; class?: string } = $props()
 </script>

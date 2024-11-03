@@ -1,14 +1,14 @@
 import { appConfig, extensions, installedStoreExts } from "@/stores"
 import { supabaseAPI } from "@/supabase"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
+import { SBExt } from "@kksh/api/supabase"
 import { isExtPathInDev, isUpgradable } from "@kksh/extension"
-import { ExtItem, type Tables } from "@kksh/supabase"
 import { error } from "@sveltejs/kit"
 import { derived, get, type Readable } from "svelte/store"
 import type { PageLoad } from "./$types"
 
 export const load: PageLoad = async (): Promise<{
-	storeExtList: ExtItem[]
+	storeExtList: SBExt[]
 	installedStoreExts: Readable<ExtPackageJsonExtra[]>
 	installedExtsMap: Readable<Record<string, string>>
 	upgradableExpsMap: Readable<Record<string, boolean>>
@@ -28,7 +28,7 @@ export const load: PageLoad = async (): Promise<{
 	const upgradableExpsMap = derived(installedStoreExts, ($exts) =>
 		Object.fromEntries(
 			$exts.map((ext) => {
-				const dbExt: ExtItem | undefined = storeExtsMap[ext.kunkun.identifier]
+				const dbExt: SBExt | undefined = storeExtsMap[ext.kunkun.identifier]
 				return [ext.kunkun.identifier, dbExt ? isUpgradable(dbExt, ext.version) : false]
 			})
 		)

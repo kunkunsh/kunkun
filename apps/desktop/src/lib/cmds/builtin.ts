@@ -1,5 +1,5 @@
 import { appState } from "@/stores"
-import type { BuiltinCmd } from "@kksh/types"
+import type { BuiltinCmd } from "@kksh/ui/types"
 import { dev } from "$app/environment"
 import { goto } from "$app/navigation"
 

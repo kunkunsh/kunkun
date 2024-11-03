@@ -15,7 +15,7 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2(svelte@5.1.9)
       '@supabase/supabase-js':
-        specifier: ^2.43.4
+        specifier: ^2.46.1
         version: 2.46.1
       '@tauri-apps/api':
         specifier: ^2.0.3
@@ -149,16 +149,16 @@ importers:
         version: 0.3.28(svelte@5.1.9)
       sveltekit-superforms:
         specifier: ^2.20.0
-        version: 2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.5.4)
+        version: 2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.6.3)
     devDependencies:
       '@kksh/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@sveltejs/adapter-static':
-        specifier: ^3.0.5
+        specifier: ^3.0.6
         version: 3.0.6(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))
       '@sveltejs/kit':
-        specifier: ^2.7.0
+        specifier: ^2.7.4
         version: 2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0))
       '@sveltejs/vite-plugin-svelte':
         specifier: ^4.0.0
@@ -176,7 +176,7 @@ importers:
         specifier: ^0.5.15
         version: 0.5.15(tailwindcss@3.4.14)
       '@tauri-apps/cli':
-        specifier: ^2
+        specifier: ^2.0.4
         version: 2.0.4
       autoprefixer:
         specifier: ^10.4.20
@@ -189,7 +189,7 @@ importers:
         version: 8.3.1(svelte@5.1.9)
       formsnap:
         specifier: ^1.0.1
-        version: 1.0.1(svelte@5.1.9)(sveltekit-superforms@2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.5.4))
+        version: 1.0.1(svelte@5.1.9)(sveltekit-superforms@2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.6.3))
       tailwind-merge:
         specifier: ^2.5.4
         version: 2.5.4
@@ -197,17 +197,17 @@ importers:
         specifier: ^0.2.1
         version: 0.2.1(tailwindcss@3.4.14)
       tailwindcss:
-        specifier: ^3.4.9
+        specifier: ^3.4.14
         version: 3.4.14
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.14)
       tslib:
-        specifier: ^2.8.0
+        specifier: ^2.8.1
         version: 2.8.1
       typescript:
-        specifier: ^5.5.0
-        version: 5.5.4
+        specifier: ^5.6.3
+        version: 5.6.3
       vaul-svelte:
         specifier: ^0.3.2
         version: 0.3.2(svelte@5.1.9)
@@ -223,9 +223,6 @@ importers:
       '@huakunshen/comlink':
         specifier: ^4.4.1
         version: 4.4.1
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.24.3)(tslib@2.8.1)(typescript@5.5.4)
       '@tauri-apps/api':
         specifier: ^2.0.3
         version: 2.0.3
@@ -280,9 +277,6 @@ importers:
       minimatch:
         specifier: ^10.0.1
         version: 10.0.1
-      rollup:
-        specifier: ^4.24.0
-        version: 4.24.3
       semver:
         specifier: ^7.6.3
         version: 7.6.3
@@ -293,10 +287,10 @@ importers:
         specifier: 0.3.8
         version: 0.3.8(tslib@2.8.1)(typescript@5.5.4)
       tauri-plugin-network-api:
-        specifier: 2.0.3
-        version: 2.0.3(typescript@5.5.4)
+        specifier: 2.0.4
+        version: 2.0.4(typescript@5.5.4)
       tauri-plugin-shellx-api:
-        specifier: ^2.0.10
+        specifier: ^2.0.11
         version: 2.0.11
       tauri-plugin-system-info-api:
         specifier: 2.0.6
@@ -368,10 +362,10 @@ importers:
     dependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.1.0
-        version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.5.4))(eslint@8.57.1)(typescript@5.5.4)
+        version: 7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(typescript@5.6.3)
       '@typescript-eslint/parser':
         specifier: ^7.1.0
-        version: 7.18.0(eslint@8.57.1)(typescript@5.5.4)
+        version: 7.18.0(eslint@8.57.1)(typescript@5.6.3)
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.1)
@@ -466,24 +460,9 @@ importers:
         specifier: npm:@jsr/std__semver@^1.0.3
         version: '@jsr/std__semver@1.0.3'
     devDependencies:
-      '@kksh/eslint-config':
+      '@kksh/api':
         specifier: workspace:*
-        version: link:../config-eslint
-      '@kksh/extension':
-        specifier: workspace:*
-        version: link:../extension
-      '@kksh/supabase':
-        specifier: workspace:*
-        version: link:../supabase
-      '@kksh/types':
-        specifier: workspace:*
-        version: link:../types
-      '@kksh/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
-      '@kksh/utils':
-        specifier: workspace:*
-        version: link:../utils
+        version: link:../api
       bits-ui:
         specifier: 1.0.0-next.36
         version: 1.0.0-next.36(svelte@5.1.9)
@@ -3949,8 +3928,8 @@ packages:
   tauri-plugin-clipboard-api@2.1.11:
     resolution: {integrity: sha512-VNkGaVPPfRoHg7/rJBcWqsvLvn4/kNEOOlzqwyI9Qdf6g54B3mc31GLZdnq/HWtX0vZskw3J8b/EF9YkASDCBQ==}
 
-  tauri-plugin-network-api@2.0.3:
-    resolution: {integrity: sha512-aj/o315shIntam+vxVlgRJE8NnKcf0d93CQBK6zOb3Ia4V4HM+kYdFxg8Ji5jM5Yay8nq1HEJaqNIOIv7R1NpA==}
+  tauri-plugin-network-api@2.0.4:
+    resolution: {integrity: sha512-CJWF2g+uQifcIlE/AXUnezVjjbyY0FDBxoz4P6BmjNRR/qubpNMfdUnKLqdjX98o5MIXGW+UnyZTfbJo998dFw==}
 
   tauri-plugin-shellx-api@2.0.11:
     resolution: {integrity: sha512-+FKIP1FBHdIQ6tASohww3MOf/8CDvYMYpPg9glO59h8TGVxTNP2ofiOEKLYk8M/o2H4tP7mxxca11QpDAT2LXw==}
@@ -4135,6 +4114,11 @@ packages:
 
   typescript@5.5.4:
     resolution: {integrity: sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
+  typescript@5.6.3:
+    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -6234,34 +6218,34 @@ snapshots:
       '@types/json-schema': 7.0.15
     optional: true
 
-  '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.5.4))(eslint@8.57.1)(typescript@5.5.4)':
+  '@typescript-eslint/eslint-plugin@7.18.0(@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(typescript@5.6.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 7.18.0(eslint@8.57.1)(typescript@5.5.4)
+      '@typescript-eslint/parser': 7.18.0(eslint@8.57.1)(typescript@5.6.3)
       '@typescript-eslint/scope-manager': 7.18.0
-      '@typescript-eslint/type-utils': 7.18.0(eslint@8.57.1)(typescript@5.5.4)
-      '@typescript-eslint/utils': 7.18.0(eslint@8.57.1)(typescript@5.5.4)
+      '@typescript-eslint/type-utils': 7.18.0(eslint@8.57.1)(typescript@5.6.3)
+      '@typescript-eslint/utils': 7.18.0(eslint@8.57.1)(typescript@5.6.3)
       '@typescript-eslint/visitor-keys': 7.18.0
       eslint: 8.57.1
       graphemer: 1.4.0
       ignore: 5.3.2
       natural-compare: 1.4.0
-      ts-api-utils: 1.4.0(typescript@5.5.4)
+      ts-api-utils: 1.4.0(typescript@5.6.3)
     optionalDependencies:
-      typescript: 5.5.4
+      typescript: 5.6.3
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.5.4)':
+  '@typescript-eslint/parser@7.18.0(eslint@8.57.1)(typescript@5.6.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 7.18.0
       '@typescript-eslint/types': 7.18.0
-      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.5.4)
+      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.6.3)
       '@typescript-eslint/visitor-keys': 7.18.0
       debug: 4.3.7
       eslint: 8.57.1
     optionalDependencies:
-      typescript: 5.5.4
+      typescript: 5.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -6270,15 +6254,15 @@ snapshots:
       '@typescript-eslint/types': 7.18.0
       '@typescript-eslint/visitor-keys': 7.18.0
 
-  '@typescript-eslint/type-utils@7.18.0(eslint@8.57.1)(typescript@5.5.4)':
+  '@typescript-eslint/type-utils@7.18.0(eslint@8.57.1)(typescript@5.6.3)':
     dependencies:
-      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.5.4)
-      '@typescript-eslint/utils': 7.18.0(eslint@8.57.1)(typescript@5.5.4)
+      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.6.3)
+      '@typescript-eslint/utils': 7.18.0(eslint@8.57.1)(typescript@5.6.3)
       debug: 4.3.7
       eslint: 8.57.1
-      ts-api-utils: 1.4.0(typescript@5.5.4)
+      ts-api-utils: 1.4.0(typescript@5.6.3)
     optionalDependencies:
-      typescript: 5.5.4
+      typescript: 5.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -6286,7 +6270,7 @@ snapshots:
 
   '@typescript-eslint/types@7.18.0': {}
 
-  '@typescript-eslint/typescript-estree@5.62.0(typescript@5.5.4)':
+  '@typescript-eslint/typescript-estree@5.62.0(typescript@5.6.3)':
     dependencies:
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/visitor-keys': 5.62.0
@@ -6294,13 +6278,13 @@ snapshots:
       globby: 11.1.0
       is-glob: 4.0.3
       semver: 7.6.3
-      tsutils: 3.21.0(typescript@5.5.4)
+      tsutils: 3.21.0(typescript@5.6.3)
     optionalDependencies:
-      typescript: 5.5.4
+      typescript: 5.6.3
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/typescript-estree@7.18.0(typescript@5.5.4)':
+  '@typescript-eslint/typescript-estree@7.18.0(typescript@5.6.3)':
     dependencies:
       '@typescript-eslint/types': 7.18.0
       '@typescript-eslint/visitor-keys': 7.18.0
@@ -6309,18 +6293,18 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.6.3
-      ts-api-utils: 1.4.0(typescript@5.5.4)
+      ts-api-utils: 1.4.0(typescript@5.6.3)
     optionalDependencies:
-      typescript: 5.5.4
+      typescript: 5.6.3
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@7.18.0(eslint@8.57.1)(typescript@5.5.4)':
+  '@typescript-eslint/utils@7.18.0(eslint@8.57.1)(typescript@5.6.3)':
     dependencies:
       '@eslint-community/eslint-utils': 4.4.1(eslint@8.57.1)
       '@typescript-eslint/scope-manager': 7.18.0
       '@typescript-eslint/types': 7.18.0
-      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.5.4)
+      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.6.3)
       eslint: 8.57.1
     transitivePeerDependencies:
       - supports-color
@@ -6652,7 +6636,7 @@ snapshots:
       commander: 10.0.1
       filing-cabinet: 4.2.0
       precinct: 11.0.5
-      typescript: 5.5.4
+      typescript: 5.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -6696,10 +6680,10 @@ snapshots:
 
   detective-typescript@11.2.0:
     dependencies:
-      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.5.4)
+      '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.6.3)
       ast-module-types: 5.0.0
       node-source-walk: 6.0.2
-      typescript: 5.5.4
+      typescript: 5.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -7010,7 +6994,7 @@ snapshots:
       sass-lookup: 5.0.1
       stylus-lookup: 5.0.1
       tsconfig-paths: 4.2.0
-      typescript: 5.5.4
+      typescript: 5.6.3
 
   fill-range@7.1.1:
     dependencies:
@@ -7053,11 +7037,11 @@ snapshots:
     dependencies:
       fetch-blob: 3.2.0
 
-  formsnap@1.0.1(svelte@5.1.9)(sveltekit-superforms@2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.5.4)):
+  formsnap@1.0.1(svelte@5.1.9)(sveltekit-superforms@2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.6.3)):
     dependencies:
       nanoid: 5.0.8
       svelte: 5.1.9
-      sveltekit-superforms: 2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.5.4)
+      sveltekit-superforms: 2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.6.3)
 
   fraction.js@4.3.7: {}
 
@@ -8187,7 +8171,7 @@ snapshots:
       magic-string: 0.30.12
       zimmerframe: 1.1.2
 
-  sveltekit-superforms@2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.5.4):
+  sveltekit-superforms@2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.6.3):
     dependencies:
       '@sveltejs/kit': 2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@20.12.14)(terser@5.36.0))
       devalue: 5.1.1
@@ -8208,7 +8192,7 @@ snapshots:
       joi: 17.13.3
       json-schema-to-ts: 3.1.1
       superstruct: 2.0.2
-      valibot: 0.41.0(typescript@5.5.4)
+      valibot: 0.41.0(typescript@5.6.3)
       yup: 1.4.0
       zod: 3.23.8
       zod-to-json-schema: 3.23.5(zod@3.23.8)
@@ -8285,7 +8269,7 @@ snapshots:
       rollup: 4.24.3
       shx: 0.3.4
       tauri-plugin-clipboard-api: 2.1.11(typescript@5.5.4)
-      tauri-plugin-network-api: 2.0.3(typescript@5.5.4)
+      tauri-plugin-network-api: 2.0.4(typescript@5.5.4)
       tauri-plugin-shellx-api: 2.0.11
       tauri-plugin-system-info-api: 2.0.6(typescript@5.5.4)
       tsc-alias: 1.8.10
@@ -8301,7 +8285,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  tauri-plugin-network-api@2.0.3(typescript@5.5.4):
+  tauri-plugin-network-api@2.0.4(typescript@5.5.4):
     dependencies:
       '@tauri-apps/api': 2.0.3
       valibot: 0.40.0(typescript@5.5.4)
@@ -8379,9 +8363,9 @@ snapshots:
   ts-algebra@2.0.0:
     optional: true
 
-  ts-api-utils@1.4.0(typescript@5.5.4):
+  ts-api-utils@1.4.0(typescript@5.6.3):
     dependencies:
-      typescript: 5.5.4
+      typescript: 5.6.3
 
   ts-deepmerge@7.0.1: {}
 
@@ -8438,10 +8422,10 @@ snapshots:
       - tsx
       - yaml
 
-  tsutils@3.21.0(typescript@5.5.4):
+  tsutils@3.21.0(typescript@5.6.3):
     dependencies:
       tslib: 1.14.1
-      typescript: 5.5.4
+      typescript: 5.6.3
 
   turbo-darwin-64@2.2.3:
     optional: true
@@ -8489,6 +8473,8 @@ snapshots:
       yaml: 2.6.0
 
   typescript@5.5.4: {}
+
+  typescript@5.6.3: {}
 
   uc.micro@2.1.0: {}
 
@@ -8544,9 +8530,9 @@ snapshots:
     optionalDependencies:
       typescript: 5.5.4
 
-  valibot@0.41.0(typescript@5.5.4):
+  valibot@0.41.0(typescript@5.6.3):
     optionalDependencies:
-      typescript: 5.5.4
+      typescript: 5.6.3
     optional: true
 
   valibot@0.42.1(typescript@5.5.4):

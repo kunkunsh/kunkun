@@ -13,6 +13,8 @@
 		"./permissions": "./src/permissions/index.ts",
 		"./dev": "./src/dev/index.ts",
 		"./events": "./src/events.ts",
+		"./supabase": "./src/supabase/index.ts",
+		"./supabase/types": "./src/supabase/database.types.ts",
 		"./package.json": "./package.json"
 	},
 	"license": "MIT",
@@ -45,7 +47,6 @@
 	"dependencies": {
 		"@hk/comlink-stdio": "npm:comlink-stdio@^0.1.7",
 		"@huakunshen/comlink": "^4.4.1",
-		"@rollup/plugin-typescript": "^11.1.6",
 		"@tauri-apps/api": "^2.0.3",
 		"@tauri-apps/cli": "^2.0.4",
 		"@tauri-apps/plugin-deep-link": "^2.0.0",
@@ -64,12 +65,11 @@
 		"comlink": "^4.4.1",
 		"lodash": "^4.17.21",
 		"minimatch": "^10.0.1",
-		"rollup": "^4.24.0",
 		"semver": "^7.6.3",
 		"svelte-sonner": "^0.3.28",
 		"tauri-api-adapter": "0.3.8",
-		"tauri-plugin-network-api": "2.0.3",
-		"tauri-plugin-shellx-api": "^2.0.10",
+		"tauri-plugin-network-api": "2.0.4",
+		"tauri-plugin-shellx-api": "^2.0.11",
 		"tauri-plugin-system-info-api": "2.0.6",
 		"valibot": "^0.40.0"
 	},
