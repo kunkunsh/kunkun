@@ -36,7 +36,7 @@
 		imageDialogOpen: boolean
 	} = $props()
 
-	const isInstalled = !!installedExt
+	const isInstalled = $derived(installedExt !== undefined)
 	let demoImageIndex = $state(0)
 
 	function handleKeyDown(e: KeyboardEvent) {
@@ -47,7 +47,6 @@
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
-
 {#snippet spinLoader()}
 	<IconMultiplexer
 		icon={{ type: IconEnum.Iconify, value: "uil:spinner-alt" }}
@@ -184,7 +183,7 @@
 		{@const isUpgradable = installedExt
 			? greaterThan(parseSemver(ext.version), parseSemver(installedExt.version))
 			: false}
-		{#if isUpgradable}{@render upgradeBtn()}
+		{#if isUpgradable}
 			<div class="flex gap-2">
 				{@render upgradeBtn()}
 				{@render uninstallBtn()}

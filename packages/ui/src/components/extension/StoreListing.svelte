@@ -13,6 +13,8 @@
 		onExtItemSelected,
 		onExtItemUpgrade,
 		onExtItemInstall,
+		upgradableExpsMap,
+		isUpgradable,
 		appState,
 		onGoBack
 	}: {
@@ -21,6 +23,8 @@
 		onExtItemSelected: (ext: ExtItem) => void
 		onExtItemUpgrade: (ext: ExtItem) => void
 		onExtItemInstall: (ext: ExtItem) => void
+		upgradableExpsMap: Record<string, boolean>
+		isUpgradable: (dbExt: ExtItem, installedExtVersion: string) => boolean
 		onGoBack?: () => void
 		appState: Writable<{ searchTerm: string }>
 	} = $props()
@@ -44,6 +48,7 @@
 			<ExtListItem
 				{ext}
 				installedVersion={installedExtsMap[ext.identifier]}
+				isUpgradable={!!upgradableExpsMap[ext.identifier]}
 				onSelect={() => onExtItemSelected(ext)}
 				onUpgrade={() => onExtItemUpgrade(ext)}
 				onInstall={() => onExtItemInstall(ext)}

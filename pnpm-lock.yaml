@@ -126,6 +126,9 @@ importers:
       '@kksh/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      '@std/semver':
+        specifier: npm:@jsr/std__semver@^1.0.3
+        version: '@jsr/std__semver@1.0.3'
       '@tauri-apps/api':
         specifier: ^2
         version: 2.0.3
@@ -310,7 +313,7 @@ importers:
         version: 0.4.4(rollup@4.24.3)
       '@types/bun':
         specifier: latest
-        version: 1.1.12
+        version: 1.1.13
       '@types/lodash':
         specifier: ^4.17.10
         version: 4.17.13
@@ -359,7 +362,7 @@ importers:
         version: link:../typescript-config
       '@types/bun':
         specifier: latest
-        version: 1.1.12
+        version: 1.1.13
 
   packages/config-eslint:
     dependencies:
@@ -381,9 +384,21 @@ importers:
 
   packages/extension:
     dependencies:
+      '@kksh/api':
+        specifier: workspace:*
+        version: link:../api
+      '@kksh/supabase':
+        specifier: workspace:*
+        version: link:../supabase
+      '@std/semver':
+        specifier: npm:@jsr/std__semver@^1.0.3
+        version: '@jsr/std__semver@1.0.3'
       typescript:
         specifier: ^5.0.0
         version: 5.5.4
+      uuid:
+        specifier: ^11.0.2
+        version: 11.0.2
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -415,7 +430,7 @@ importers:
         version: 0.42.0(esbuild@0.24.0)(typescript@5.5.4)
       '@types/bun':
         specifier: latest
-        version: 1.1.12
+        version: 1.1.13
       supabase:
         specifier: '>=1.8.1'
         version: 1.207.9
@@ -431,7 +446,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.12
+        version: 1.1.13
 
   packages/types:
     dependencies:
@@ -1871,9 +1886,6 @@ packages:
   '@tauri-apps/plugin-upload@2.0.0':
     resolution: {integrity: sha512-MdBZn4RCVmFDjuC2rbpFGjAZAbePkxrc9T35+SKJJgfXbXYw0YOzvUTsDiU7F3NzDWepO+6EbVN3Upzi9rqt/A==}
 
-  '@types/bun@1.1.12':
-    resolution: {integrity: sha512-UkewJesRDP3+AW30Gc8hvxuIt+vHgYZXmVOKaXV8xnwAnMXTAs3XZDsa/jW+LSdAYhHslokSm72lq63FYYjZqA==}
-
   '@types/bun@1.1.13':
     resolution: {integrity: sha512-KmQxSBgVWCl6RSuerlLGZlIWfdxkKqat0nxN61+qu4y1KDn0Ll3j7v1Pl8GnaL3a/U6GGWVTJh75ap62kR1E8Q==}
 
@@ -2163,9 +2175,6 @@ packages:
 
   buffer@5.7.1:
     resolution: {integrity: sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==}
-
-  bun-types@1.1.32:
-    resolution: {integrity: sha512-Lxgux4InO/WRjSAEy3iyDscsnDXR8+3rgNDeZYjPAizFYjUraoNuMl9PuRd9XMgFZgdyQwaUX7/QHmOw5KGFQw==}
 
   bun-types@1.1.34:
     resolution: {integrity: sha512-br5QygTEL/TwB4uQOb96Ky22j4Gq2WxWH/8Oqv20fk5HagwKXo/akB+LiYgSfzexCt6kkcUaVm+bKiPl71xPvw==}
@@ -4170,6 +4179,10 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
+  uuid@11.0.2:
+    resolution: {integrity: sha512-14FfcOJmqdjbBPdDjFQyk/SdT4NySW4eM0zcG+HqbHP5jzuH56xO3J1DGhgs/cEMCfwYi3HQI1gnTO62iaG+tQ==}
+    hasBin: true
+
   uuid@9.0.1:
     resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
     hasBin: true
@@ -6163,10 +6176,6 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.0.3
 
-  '@types/bun@1.1.12':
-    dependencies:
-      bun-types: 1.1.32
-
   '@types/bun@1.1.13':
     dependencies:
       bun-types: 1.1.34
@@ -6489,11 +6498,6 @@ snapshots:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
-
-  bun-types@1.1.32:
-    dependencies:
-      '@types/node': 20.12.14
-      '@types/ws': 8.5.13
 
   bun-types@1.1.34:
     dependencies:
@@ -8528,6 +8532,8 @@ snapshots:
       punycode: 2.3.1
 
   util-deprecate@1.0.2: {}
+
+  uuid@11.0.2: {}
 
   uuid@9.0.1: {}
 

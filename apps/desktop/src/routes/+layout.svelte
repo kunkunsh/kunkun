@@ -33,7 +33,7 @@
 </script>
 
 <ModeWatcher />
-<Toaster />
+<Toaster richColors />
 <AppContext {appConfig} {appState}>
 	<ThemeWrapper>
 		{@render children()}

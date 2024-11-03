@@ -8,7 +8,7 @@ export const ExtItem = v.object({
 	downloads: v.number(),
 	short_description: v.string(),
 	long_description: v.string(),
-	version: v.optional(v.string()),
+	version: v.string(),
 	api_version: v.optional(v.string()),
 	icon: Icon
 })

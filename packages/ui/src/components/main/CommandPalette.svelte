@@ -1,7 +1,7 @@
 <!-- This file renders the main command palette, a list of commands -->
 <script lang="ts">
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
-	import { isExtPathInDev } from "@kksh/extension"
+	import { isExtPathInDev } from "@kksh/extension/utils"
 	import { Command } from "@kksh/svelte5"
 	import type { AppConfig, AppState, BuiltinCmd, CommandLaunchers } from "@kksh/types"
 	import {

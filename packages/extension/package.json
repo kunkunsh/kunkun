@@ -2,10 +2,23 @@
 	"name": "@kksh/extension",
 	"module": "index.ts",
 	"type": "module",
+	"exports": {
+		".": "./src/index.ts",
+		"./db": "./src/db.ts",
+		"./load": "./src/load.ts",
+		"./utils": "./src/utils.ts",
+		"./window": "./src/window.ts",
+		"./install": "./src/install.ts"
+	},
 	"devDependencies": {
 		"@types/bun": "latest"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"@kksh/api": "workspace:*",
+		"@kksh/supabase": "workspace:*",
+		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
+		"uuid": "^11.0.2"
+	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
 	}

@@ -14,9 +14,10 @@
 	"license": "MIT",
 	"dependencies": {
 		"@kksh/extension": "workspace:*",
+		"@kksh/supabase": "workspace:*",
 		"@kksh/ui": "workspace:*",
 		"@kksh/utils": "workspace:*",
-		"@kksh/supabase": "workspace:*",
+		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
 		"@tauri-apps/api": "^2",
 		"@tauri-apps/plugin-shell": "^2",
 		"bits-ui": "1.0.0-next.36",

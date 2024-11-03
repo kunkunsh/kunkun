@@ -1,7 +1,7 @@
 import { getExtensionsFolder } from "@/constants"
 import { themeConfigStore, updateTheme, type ThemeConfig } from "@kksh/svelte5"
 import { PersistedAppConfig, type AppConfig } from "@kksh/types"
-import * as tauriPath from "@tauri-apps/api/path"
+import * as path from "@tauri-apps/api/path"
 import { remove } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
 import * as os from "@tauri-apps/plugin-os"
@@ -40,15 +40,15 @@ function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 
 	async function init() {
 		debug("Initializing app config")
-		const appDataDir = await tauriPath.appDataDir()
-		// const appConfigPath = await tauriPath.join(appDataDir, "appConfig.json")
+		const appDataDir = await path.appDataDir()
+		// const appConfigPath = await path.join(appDataDir, "appConfig.json")
 		// debug(`appConfigPath: ${appConfigPath}`)
 		const persistStore = await load("kk-config.json", { autoSave: true })
 		const loadedConfig = await persistStore.get("config")
 		const parseRes = v.safeParse(PersistedAppConfig, loadedConfig)
 		if (parseRes.success) {
 			console.log("Parse Persisted App Config Success", parseRes.output)
-			const extensionPath = await tauriPath.join(appDataDir, "extensions")
+			const extensionPath = await path.join(appDataDir, "extensions")
 			update((config) => ({
 				...config,
 				...parseRes.output,

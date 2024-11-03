@@ -12,7 +12,6 @@ export const load: PageLoad = async ({
 	params
 }): Promise<{
 	ext: Tables<"ext_publish">
-	installedExt: ExtPackageJsonExtra | undefined
 	manifest: KunkunExtManifest
 }> => {
 	const { error: dbError, data: ext } = await supabaseAPI.getLatestExtPublish(params.identifier)
@@ -21,9 +20,6 @@ export const load: PageLoad = async ({
 			message: dbError.message
 		})
 	}
-
-	const storeExts = extensions.getExtensionsFromStore()
-	const installedExt = storeExts.find((ext) => ext.kunkun.identifier === params.identifier)
 
 	const parseManifest = v.safeParse(KunkunExtManifest, ext.manifest)
 	if (!parseManifest.success) {
@@ -34,7 +30,6 @@ export const load: PageLoad = async ({
 
 	return {
 		ext,
-		installedExt,
 		manifest: parseManifest.output
 	}
 }

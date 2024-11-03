@@ -5,7 +5,6 @@
 	import { Button, Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { humanReadableNumber } from "@kksh/utils"
-	import { greaterThan, parse as parseSemver } from "@std/semver"
 	import { CircleCheckBigIcon, MoveRightIcon } from "lucide-svelte"
 	import { parse } from "valibot"
 
@@ -14,13 +13,15 @@
 		installedVersion,
 		onSelect,
 		onUpgrade,
-		onInstall
+		onInstall,
+		isUpgradable
 	}: {
 		ext: ExtItem
 		installedVersion?: string
 		onSelect: () => void
 		onUpgrade: () => void
 		onInstall: () => void
+		isUpgradable: boolean
 	} = $props()
 </script>
 
@@ -33,16 +34,13 @@
 		</span>
 	</span>
 
-	<span class="flex items-center space-x-1">
+	<span class="flex items-center space-x-3">
 		{#if installedVersion}
-			{@const upgradable = ext.version
-				? greaterThan(parseSemver(ext.version), parseSemver(installedVersion))
-				: false}
-			{#if upgradable}
+			{#if isUpgradable}
 				<Button
 					variant="outline"
 					size="sm"
-					class="flex items-center space-x-1 px-2"
+					class="flex items-center space-x-1 border border-yellow-600 px-2"
 					onclick={(e: MouseEvent) => {
 						e.stopPropagation()
 						onUpgrade()
@@ -69,6 +67,6 @@
 				<Icon icon="ic:round-download" class="inline h-5 w-5" />
 			</Button>
 		{/if}
-		<span class="w-6 text-center">{humanReadableNumber(ext.downloads)}</span>
+		<span class="w-4 text-center font-mono">{humanReadableNumber(ext.downloads)}</span>
 	</span>
 </Command.Item>

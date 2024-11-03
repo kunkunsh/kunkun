@@ -40,10 +40,37 @@ export class SupabaseAPI {
 			.select()
 			.limit(1)
 			.single()
-		// if (error) {
-		// 	console.error(error)
-		// 	throw error
-		// }
-		// return data
+	}
+
+	async incrementDownloads({
+		identifier,
+		version
+	}: {
+		identifier: string
+		version: string
+	}): Promise<{ downloads: number }> {
+		return this.supabase.functions
+			.invoke("increment-downloads", {
+				body: { identifier, version }
+			})
+			.then(({ data, error }) => {
+				if (error) {
+					throw error
+				}
+				const parsed = v.safeParse(
+					v.object({
+						downloads: v.number()
+					}),
+					data
+				)
+				if (!parsed.success) {
+					throw new Error("Fail to parse increment downloads response")
+				}
+				return parsed.output
+			})
+	}
+
+	translateExtensionFilePathToUrl(tarballPath: string): string {
+		return this.supabase.storage.from("extensions").getPublicUrl(tarballPath).data.publicUrl
 	}
 }
