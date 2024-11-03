@@ -27,7 +27,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
       - name: Setup
-        run: pnpm run setup
+        run: pnpm prepare
       - name: Update Schema
         env:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

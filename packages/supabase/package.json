@@ -2,7 +2,7 @@
 	"name": "@kksh/supabase",
 	"type": "module",
 	"scripts": {
-		"setup": "bun setup.ts"
+		"prepare": "bun setup.ts"
 	},
 	"exports": {
 		".": "./src/index.ts"

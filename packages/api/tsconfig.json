@@ -1,4 +1,5 @@
 {
+	"extends": "../typescript-config/base.json",
 	"compilerOptions": {
 		// Enable latest features
 		"lib": ["ESNext", "DOM"],

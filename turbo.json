@@ -13,8 +13,8 @@
 		"test": {
 			"dependsOn": ["^test"]
 		},
-		"setup": {
-			"dependsOn": ["^setup"]
+		"prepare": {
+			"dependsOn": ["^prepare"]
 		},
 		"dev": {
 			"cache": false,

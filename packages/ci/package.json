@@ -3,7 +3,7 @@
 	"module": "index.ts",
 	"type": "module",
 	"scripts": {
-		"setup": "bun scripts/setup.ts"
+		"prepare": "bun scripts/setup.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",

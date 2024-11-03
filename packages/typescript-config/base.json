@@ -20,10 +20,15 @@
 		"baseUrl": "../../",
 		"paths": {
 			"@kksh/ui/*": ["./packages/ui/*"],
+			"@kksh/ui": ["./packages/ui"],
 			"@kksh/desktop/*": ["./apps/desktop/*"],
+			"@kksh/desktop": ["./apps/desktop"],
 			"@kksh/ci/*": ["./packages/ci/*"],
+			"@kksh/ci": ["./packages/ci"],
 			"@kksh/supabase/*": ["./packages/supabase/*"],
-			"@kksh/schema/*": ["./packages/schema/*"]
+			"@kksh/supabase": ["./packages/supabase"],
+			"@kksh/schema/*": ["./packages/schema/*"],
+			"@kksh/schema": ["./packages/schema"]
 		}
 	}
 }

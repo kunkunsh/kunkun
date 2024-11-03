@@ -24,7 +24,7 @@
 		"build:docs": "npx typedoc",
 		"dev": "bun --watch build.ts",
 		"build": "bun build.ts",
-		"setup": "bun setup.ts",
+		"prepare": "bun setup.ts",
 		"format": "prettier --write \"**/*.{ts,tsx,md,vue,json,yaml,yml}\""
 	},
 	"devDependencies": {

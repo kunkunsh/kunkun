@@ -320,15 +320,124 @@ importers:
       madge:
         specifier: ^8.0.0
         version: 8.0.0(typescript@5.5.4)
-      tslib:
-        specifier: ^2.8.1
-        version: 2.8.1
       typedoc:
         specifier: ^0.26.11
         version: 0.26.11(typescript@5.5.4)
       typescript:
         specifier: ^5.0.0
         version: 5.5.4
+
+  packages/api2:
+    dependencies:
+      '@hk/comlink-stdio':
+        specifier: npm:comlink-stdio@^0.1.7
+        version: comlink-stdio@0.1.7(typescript@5.6.3)
+      '@huakunshen/comlink':
+        specifier: ^4.4.1
+        version: 4.4.1
+      '@tauri-apps/api':
+        specifier: ^2.0.3
+        version: 2.0.3
+      '@tauri-apps/cli':
+        specifier: ^2.0.4
+        version: 2.0.4
+      '@tauri-apps/plugin-deep-link':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@tauri-apps/plugin-dialog':
+        specifier: ^2.0.1
+        version: 2.0.1
+      '@tauri-apps/plugin-fs':
+        specifier: ^2.0.1
+        version: 2.0.1
+      '@tauri-apps/plugin-global-shortcut':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@tauri-apps/plugin-http':
+        specifier: ^2.0.1
+        version: 2.0.1
+      '@tauri-apps/plugin-log':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@tauri-apps/plugin-notification':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@tauri-apps/plugin-os':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@tauri-apps/plugin-process':
+        specifier: 2.0.0
+        version: 2.0.0
+      '@tauri-apps/plugin-shell':
+        specifier: ^2.0.1
+        version: 2.0.1
+      '@tauri-apps/plugin-store':
+        specifier: ^2.1.0
+        version: 2.1.0
+      '@tauri-apps/plugin-updater':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@tauri-apps/plugin-upload':
+        specifier: ^2.0.0
+        version: 2.0.0
+      comlink:
+        specifier: ^4.4.1
+        version: 4.4.1
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      minimatch:
+        specifier: ^10.0.1
+        version: 10.0.1
+      semver:
+        specifier: ^7.6.3
+        version: 7.6.3
+      svelte-sonner:
+        specifier: ^0.3.28
+        version: 0.3.28(svelte@5.1.9)
+      tauri-api-adapter:
+        specifier: 0.3.8
+        version: 0.3.8(tslib@2.8.1)(typescript@5.6.3)
+      tauri-plugin-network-api:
+        specifier: 2.0.4
+        version: 2.0.4(typescript@5.6.3)
+      tauri-plugin-shellx-api:
+        specifier: ^2.0.11
+        version: 2.0.11
+      tauri-plugin-system-info-api:
+        specifier: 2.0.8
+        version: 2.0.8(typescript@5.6.3)
+      valibot:
+        specifier: ^0.40.0
+        version: 0.40.0(typescript@5.6.3)
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.1.13
+      '@types/lodash':
+        specifier: ^4.17.13
+        version: 4.17.13
+      '@types/madge':
+        specifier: ^5.0.3
+        version: 5.0.3
+      '@types/node':
+        specifier: ^22.8.7
+        version: 22.8.7
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
+      madge:
+        specifier: ^8.0.0
+        version: 8.0.0(typescript@5.6.3)
+      typedoc:
+        specifier: ^0.26.11
+        version: 0.26.11(typescript@5.6.3)
+      typescript:
+        specifier: ^5.0.0
+        version: 5.6.3
 
   packages/ci:
     dependencies:
@@ -5301,6 +5410,15 @@ snapshots:
       rollup: 4.24.3
       tslib: 2.8.1
 
+  '@rollup/plugin-typescript@11.1.6(rollup@4.24.3)(tslib@2.8.1)(typescript@5.6.3)':
+    dependencies:
+      '@rollup/pluginutils': 5.1.3(rollup@4.24.3)
+      resolve: 1.22.8
+      typescript: 5.6.3
+    optionalDependencies:
+      rollup: 4.24.3
+      tslib: 2.8.1
+
   '@rollup/pluginutils@5.1.3(rollup@4.24.3)':
     dependencies:
       '@types/estree': 1.0.6
@@ -6383,6 +6501,10 @@ snapshots:
     dependencies:
       typescript: 5.5.4
 
+  comlink-stdio@0.1.7(typescript@5.6.3):
+    dependencies:
+      typescript: 5.6.3
+
   comlink@4.4.1: {}
 
   comma-separated-tokens@2.0.3: {}
@@ -7196,6 +7318,25 @@ snapshots:
       walkdir: 0.4.1
     optionalDependencies:
       typescript: 5.5.4
+    transitivePeerDependencies:
+      - supports-color
+
+  madge@8.0.0(typescript@5.6.3):
+    dependencies:
+      chalk: 4.1.2
+      commander: 7.2.0
+      commondir: 1.0.1
+      debug: 4.3.7
+      dependency-tree: 11.0.1
+      ora: 5.4.1
+      pluralize: 8.0.0
+      pretty-ms: 7.0.1
+      rc: 1.2.8
+      stream-to-array: 2.3.0
+      ts-graphviz: 2.1.4
+      walkdir: 0.4.1
+    optionalDependencies:
+      typescript: 5.6.3
     transitivePeerDependencies:
       - supports-color
 
@@ -8016,6 +8157,33 @@ snapshots:
     transitivePeerDependencies:
       - tslib
 
+  tauri-api-adapter@0.3.8(tslib@2.8.1)(typescript@5.6.3):
+    dependencies:
+      '@huakunshen/comlink': 4.4.1
+      '@rollup/plugin-alias': 5.1.1(rollup@4.24.3)
+      '@rollup/plugin-typescript': 11.1.6(rollup@4.24.3)(tslib@2.8.1)(typescript@5.6.3)
+      '@tauri-apps/api': 2.0.3
+      '@tauri-apps/plugin-dialog': 2.0.1
+      '@tauri-apps/plugin-fs': 2.0.1
+      '@tauri-apps/plugin-http': 2.0.1
+      '@tauri-apps/plugin-log': 2.0.0
+      '@tauri-apps/plugin-notification': 2.0.0
+      '@tauri-apps/plugin-os': 2.0.0
+      '@tauri-apps/plugin-shell': 2.0.1
+      '@tauri-apps/plugin-upload': 2.0.0
+      rimraf: 5.0.10
+      rollup: 4.24.3
+      shx: 0.3.4
+      tauri-plugin-clipboard-api: 2.1.11(typescript@5.6.3)
+      tauri-plugin-network-api: 2.0.4(typescript@5.6.3)
+      tauri-plugin-shellx-api: 2.0.11
+      tauri-plugin-system-info-api: 2.0.8(typescript@5.6.3)
+      tsc-alias: 1.8.10
+      typescript: 5.6.3
+      valibot: 0.40.0(typescript@5.6.3)
+    transitivePeerDependencies:
+      - tslib
+
   tauri-plugin-clipboard-api@2.1.11(typescript@5.5.4):
     dependencies:
       '@tauri-apps/api': 2.0.1
@@ -8023,10 +8191,24 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
+  tauri-plugin-clipboard-api@2.1.11(typescript@5.6.3):
+    dependencies:
+      '@tauri-apps/api': 2.0.1
+      valibot: 0.40.0(typescript@5.6.3)
+    transitivePeerDependencies:
+      - typescript
+
   tauri-plugin-network-api@2.0.4(typescript@5.5.4):
     dependencies:
       '@tauri-apps/api': 2.0.3
       valibot: 0.40.0(typescript@5.5.4)
+    transitivePeerDependencies:
+      - typescript
+
+  tauri-plugin-network-api@2.0.4(typescript@5.6.3):
+    dependencies:
+      '@tauri-apps/api': 2.0.3
+      valibot: 0.40.0(typescript@5.6.3)
     transitivePeerDependencies:
       - typescript
 
@@ -8038,6 +8220,13 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.0.3
       valibot: 0.40.0(typescript@5.5.4)
+    transitivePeerDependencies:
+      - typescript
+
+  tauri-plugin-system-info-api@2.0.8(typescript@5.6.3):
+    dependencies:
+      '@tauri-apps/api': 2.0.3
+      valibot: 0.40.0(typescript@5.6.3)
     transitivePeerDependencies:
       - typescript
 
@@ -8169,6 +8358,15 @@ snapshots:
       typescript: 5.5.4
       yaml: 2.6.0
 
+  typedoc@0.26.11(typescript@5.6.3):
+    dependencies:
+      lunr: 2.3.9
+      markdown-it: 14.1.0
+      minimatch: 9.0.5
+      shiki: 1.22.2
+      typescript: 5.6.3
+      yaml: 2.6.0
+
   typescript@5.5.4: {}
 
   typescript@5.6.3: {}
@@ -8228,6 +8426,10 @@ snapshots:
   valibot@0.40.0(typescript@5.5.4):
     optionalDependencies:
       typescript: 5.5.4
+
+  valibot@0.40.0(typescript@5.6.3):
+    optionalDependencies:
+      typescript: 5.6.3
 
   valibot@0.41.0(typescript@5.6.3):
     optionalDependencies:
