@@ -31,11 +31,11 @@
 	},
 	"devDependencies": {
 		"@kksh/eslint-config": "workspace:*",
-		"@kksh/supabase": "workspace:*",
 		"@kksh/extension": "workspace:*",
+		"@kksh/supabase": "workspace:*",
 		"@kksh/types": "workspace:*",
-		"@kksh/utils": "workspace:*",
 		"@kksh/typescript-config": "workspace:*",
+		"@kksh/utils": "workspace:*",
 		"bits-ui": "1.0.0-next.36",
 		"clsx": "^2.1.1",
 		"lucide-svelte": "^0.454.0",
@@ -48,5 +48,8 @@
 		"tailwind-variants": "^0.2.1",
 		"tailwindcss": "^3.4.14",
 		"tailwindcss-animate": "^1.0.7"
+	},
+	"dependencies": {
+		"@std/semver": "npm:@jsr/std__semver@^1.0.3"
 	}
 }

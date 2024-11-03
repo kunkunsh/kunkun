@@ -13,7 +13,6 @@
 	const { storeExtList, installedStoreExts, installedExtsMap } = data
 
 	function onExtItemSelected(ext: ExtItem) {
-		console.log("onExtItemSelected", ext)
 		goto(`./store/${ext.identifier}`)
 	}
 
