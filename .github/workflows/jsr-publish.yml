@@ -1,6 +1,5 @@
 name: JSR Publish
 on:
-  push:
   workflow_dispatch:
 
 jobs:

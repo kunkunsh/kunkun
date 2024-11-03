@@ -26,6 +26,7 @@
 		"node": ">=18"
 	},
 	"dependencies": {
+		"@changesets/cli": "^2.27.9",
 		"@iconify/svelte": "^4.0.2",
 		"@supabase/supabase-js": "^2.43.4",
 		"@tauri-apps/api": "^2.0.3",
@@ -43,10 +44,10 @@
 		"@tauri-apps/plugin-store": "^2.1.0",
 		"@tauri-apps/plugin-updater": "^2.0.0",
 		"@tauri-apps/plugin-upload": "^2.0.0",
+		"supabase": "^1.207.9",
 		"tauri-plugin-network-api": "workspace:*",
 		"tauri-plugin-shellx-api": "^2.0.11",
 		"tauri-plugin-system-info-api": "workspace:*",
-		"supabase": "^1.207.9",
 		"valibot": "^0.40.0",
 		"zod": "^3.23.8"
 	}
