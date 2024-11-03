@@ -1,31 +1,54 @@
 {
-  "name": "@kksh/ui",
-  "version": "0.0.1",
-  "type": "module",
-  "module": "index.ts",
-  "main": "index.ts",
-  "exports": {
-    ".": {
-      "types": "./index.ts",
-      "svelte": "./index.ts"
-    }
-  },
-  "scripts": {
-    "lint": "eslint ."
-  },
-  "devDependencies": {
-    "@kksh/eslint-config": "workspace:*",
-    "@kksh/typescript-config": "workspace:*",
-    "bits-ui": "1.0.0-next.36",
-    "clsx": "^2.1.1",
-    "lucide-svelte": "^0.454.0",
-    "mode-watcher": "^0.4.1",
-    "paneforge": "1.0.0-next.1",
-    "svelte-radix": "^2.0.1",
-    "svelte-sonner": "^0.3.28",
-    "tailwind-merge": "^2.5.4",
-    "tailwind-variants": "^0.2.1",
-    "tailwindcss": "^3.4.14",
-    "tailwindcss-animate": "^1.0.7"
-  }
+	"name": "@kksh/ui",
+	"version": "0.0.1",
+	"type": "module",
+	"module": "index.ts",
+	"main": "index.ts",
+	"exports": {
+		".": {
+			"types": "./src/index.ts",
+			"svelte": "./src/index.ts"
+		},
+		"./types": {
+			"types": "./src/types.ts",
+			"svelte": "./src/types.ts"
+		},
+		"./custom": {
+			"types": "./src/components/custom/index.ts",
+			"svelte": "./src/components/custom/index.ts"
+		},
+		"./utils": {
+			"types": "./src/utils/index.ts",
+			"svelte": "./src/utils/index.ts"
+		},
+		"./main": {
+			"types": "./src/components/main/index.ts",
+			"svelte": "./src/components/main/index.ts"
+		},
+		"./extension": {
+			"types": "./src/components/extension/index.ts",
+			"svelte": "./src/components/extension/index.ts"
+		}
+	},
+	"scripts": {
+		"lint": "eslint ."
+	},
+	"devDependencies": {
+		"@kksh/api": "workspace:*",
+		"bits-ui": "1.0.0-next.36",
+		"clsx": "^2.1.1",
+		"lucide-svelte": "^0.454.0",
+		"mode-watcher": "^0.4.1",
+		"paneforge": "1.0.0-next.1",
+		"shiki": "^1.22.2",
+		"svelte-radix": "^2.0.1",
+		"svelte-sonner": "^0.3.28",
+		"tailwind-merge": "^2.5.4",
+		"tailwind-variants": "^0.2.1",
+		"tailwindcss": "^3.4.14",
+		"tailwindcss-animate": "^1.0.7"
+	},
+	"dependencies": {
+		"@std/semver": "npm:@jsr/std__semver@^1.0.3"
+	}
 }

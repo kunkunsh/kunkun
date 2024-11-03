@@ -7,9 +7,9 @@
 		"incremental": false,
 		"isolatedModules": true,
 		"lib": ["es2022", "DOM", "DOM.Iterable"],
-		"module": "NodeNext",
+		"module": "ESNext",
 		"moduleDetection": "force",
-		"moduleResolution": "NodeNext",
+		"moduleResolution": "Bundler",
 		"noUncheckedIndexedAccess": true,
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
@@ -17,10 +17,18 @@
 		"allowImportingTsExtensions": true,
 		"noEmit": true,
 		"target": "ES2022",
-		"baseUrl": ".",
+		"baseUrl": "../../",
 		"paths": {
-			"@kksh/ui/*": ["../../packages/ui/*"],
-			"@kksh/desktop/*": ["../../packages/desktop/*"]
+			"@kksh/ui/*": ["./packages/ui/*"],
+			"@kksh/ui": ["./packages/ui"],
+			"@kksh/desktop/*": ["./apps/desktop/*"],
+			"@kksh/desktop": ["./apps/desktop"],
+			"@kksh/ci/*": ["./packages/ci/*"],
+			"@kksh/ci": ["./packages/ci"],
+			"@kksh/supabase/*": ["./packages/supabase/*"],
+			"@kksh/supabase": ["./packages/supabase"],
+			"@kksh/schema/*": ["./packages/schema/*"],
+			"@kksh/schema": ["./packages/schema"]
 		}
 	}
 }

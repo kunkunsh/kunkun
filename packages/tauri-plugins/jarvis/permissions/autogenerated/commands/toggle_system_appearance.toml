@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-toggle-system-appearance"
+description = "Enables the toggle_system_appearance command without any pre-configured scope."
+commands.allow = ["toggle_system_appearance"]
+
+[[permission]]
+identifier = "deny-toggle-system-appearance"
+description = "Denies the toggle_system_appearance command without any pre-configured scope."
+commands.deny = ["toggle_system_appearance"]

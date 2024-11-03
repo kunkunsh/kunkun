@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-get-selected-files-in-file-explorer"
+description = "Enables the get_selected_files_in_file_explorer command without any pre-configured scope."
+commands.allow = ["get_selected_files_in_file_explorer"]
+
+[[permission]]
+identifier = "deny-get-selected-files-in-file-explorer"
+description = "Denies the get_selected_files_in_file_explorer command without any pre-configured scope."
+commands.deny = ["get_selected_files_in_file_explorer"]

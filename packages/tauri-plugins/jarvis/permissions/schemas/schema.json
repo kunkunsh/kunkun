@@ -1,0 +1,1090 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PermissionFile",
+  "description": "Permission file that can define a default permission, a set of permissions or a list of inlined permissions.",
+  "type": "object",
+  "properties": {
+    "default": {
+      "description": "The default permission set for the plugin",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/DefaultPermission"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "set": {
+      "description": "A list of permissions sets defined",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PermissionSet"
+      }
+    },
+    "permission": {
+      "description": "A list of inlined permissions",
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Permission"
+      }
+    }
+  },
+  "definitions": {
+    "DefaultPermission": {
+      "description": "The default permission set of the plugin.\n\nWorks similarly to a permission with the \"default\" identifier.",
+      "type": "object",
+      "required": [
+        "permissions"
+      ],
+      "properties": {
+        "version": {
+          "description": "The version of the permission.",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 1.0
+        },
+        "description": {
+          "description": "Human-readable description of what the permission does. Tauri convention is to use <h4> headings in markdown content for Tauri documentation generation purposes.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "permissions": {
+          "description": "All permissions this set contains.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PermissionSet": {
+      "description": "A set of direct permissions grouped together under a new name.",
+      "type": "object",
+      "required": [
+        "description",
+        "identifier",
+        "permissions"
+      ],
+      "properties": {
+        "identifier": {
+          "description": "A unique identifier for the permission.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Human-readable description of what the permission does.",
+          "type": "string"
+        },
+        "permissions": {
+          "description": "All permissions this set contains.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PermissionKind"
+          }
+        }
+      }
+    },
+    "Permission": {
+      "description": "Descriptions of explicit privileges of commands.\n\nIt can enable commands to be accessible in the frontend of the application.\n\nIf the scope is defined it can be used to fine grain control the access of individual or multiple commands.",
+      "type": "object",
+      "required": [
+        "identifier"
+      ],
+      "properties": {
+        "version": {
+          "description": "The version of the permission.",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 1.0
+        },
+        "identifier": {
+          "description": "A unique identifier for the permission.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Human-readable description of what the permission does. Tauri internal convention is to use <h4> headings in markdown content for Tauri documentation generation purposes.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "commands": {
+          "description": "Allowed or denied commands when using this permission.",
+          "default": {
+            "allow": [],
+            "deny": []
+          },
+          "allOf": [
+            {
+              "$ref": "#/definitions/Commands"
+            }
+          ]
+        },
+        "scope": {
+          "description": "Allowed or denied scoped when using this permission.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Scopes"
+            }
+          ]
+        },
+        "platforms": {
+          "description": "Target platforms this permission applies. By default all platforms are affected by this permission.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/Target"
+          }
+        }
+      }
+    },
+    "Commands": {
+      "description": "Allowed and denied commands inside a permission.\n\nIf two commands clash inside of `allow` and `deny`, it should be denied by default.",
+      "type": "object",
+      "properties": {
+        "allow": {
+          "description": "Allowed command.",
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deny": {
+          "description": "Denied command, which takes priority.",
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Scopes": {
+      "description": "An argument for fine grained behavior control of Tauri commands.\n\nIt can be of any serde serializable type and is used to allow or prevent certain actions inside a Tauri command. The configured scope is passed to the command and will be enforced by the command implementation.\n\n## Example\n\n```json { \"allow\": [{ \"path\": \"$HOME/**\" }], \"deny\": [{ \"path\": \"$HOME/secret.txt\" }] } ```",
+      "type": "object",
+      "properties": {
+        "allow": {
+          "description": "Data that defines what is allowed by the scope.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/Value"
+          }
+        },
+        "deny": {
+          "description": "Data that defines what is denied by the scope. This should be prioritized by validation logic.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/Value"
+          }
+        }
+      }
+    },
+    "Value": {
+      "description": "All supported ACL values.",
+      "anyOf": [
+        {
+          "description": "Represents a null JSON value.",
+          "type": "null"
+        },
+        {
+          "description": "Represents a [`bool`].",
+          "type": "boolean"
+        },
+        {
+          "description": "Represents a valid ACL [`Number`].",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Number"
+            }
+          ]
+        },
+        {
+          "description": "Represents a [`String`].",
+          "type": "string"
+        },
+        {
+          "description": "Represents a list of other [`Value`]s.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Value"
+          }
+        },
+        {
+          "description": "Represents a map of [`String`] keys to [`Value`]s.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Value"
+          }
+        }
+      ]
+    },
+    "Number": {
+      "description": "A valid ACL number.",
+      "anyOf": [
+        {
+          "description": "Represents an [`i64`].",
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "description": "Represents a [`f64`].",
+          "type": "number",
+          "format": "double"
+        }
+      ]
+    },
+    "Target": {
+      "description": "Platform target.",
+      "oneOf": [
+        {
+          "description": "MacOS.",
+          "type": "string",
+          "enum": [
+            "macOS"
+          ]
+        },
+        {
+          "description": "Windows.",
+          "type": "string",
+          "enum": [
+            "windows"
+          ]
+        },
+        {
+          "description": "Linux.",
+          "type": "string",
+          "enum": [
+            "linux"
+          ]
+        },
+        {
+          "description": "Android.",
+          "type": "string",
+          "enum": [
+            "android"
+          ]
+        },
+        {
+          "description": "iOS.",
+          "type": "string",
+          "enum": [
+            "iOS"
+          ]
+        }
+      ]
+    },
+    "PermissionKind": {
+      "type": "string",
+      "oneOf": [
+        {
+          "description": "This enables all permissions for Jarvis",
+          "type": "string",
+          "const": "allow-all"
+        },
+        {
+          "description": "Enables the add_to_history command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-add-to-history"
+        },
+        {
+          "description": "Denies the add_to_history command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-add-to-history"
+        },
+        {
+          "description": "Enables the app_is_dev command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-app-is-dev"
+        },
+        {
+          "description": "Denies the app_is_dev command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-app-is-dev"
+        },
+        {
+          "description": "Enables the check_screen_capture_access command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-check-screen-capture-access"
+        },
+        {
+          "description": "Denies the check_screen_capture_access command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-check-screen-capture-access"
+        },
+        {
+          "description": "Enables the close_devtools command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-close-devtools"
+        },
+        {
+          "description": "Denies the close_devtools command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-close-devtools"
+        },
+        {
+          "description": "Enables the compress_tarball command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-compress-tarball"
+        },
+        {
+          "description": "Denies the compress_tarball command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-compress-tarball"
+        },
+        {
+          "description": "Enables the create_command command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-create-command"
+        },
+        {
+          "description": "Denies the create_command command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-create-command"
+        },
+        {
+          "description": "Enables the create_extension command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-create-extension"
+        },
+        {
+          "description": "Denies the create_extension command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-create-extension"
+        },
+        {
+          "description": "Enables the create_extension_data command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-create-extension-data"
+        },
+        {
+          "description": "Denies the create_extension_data command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-create-extension-data"
+        },
+        {
+          "description": "Enables the decompress_tarball command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-decompress-tarball"
+        },
+        {
+          "description": "Denies the decompress_tarball command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-decompress-tarball"
+        },
+        {
+          "description": "Enables the delete_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-delete-command-by-id"
+        },
+        {
+          "description": "Denies the delete_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-delete-command-by-id"
+        },
+        {
+          "description": "Enables the delete_extension_by_ext_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-delete-extension-by-ext-id"
+        },
+        {
+          "description": "Denies the delete_extension_by_ext_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-delete-extension-by-ext-id"
+        },
+        {
+          "description": "Enables the delete_extension_by_path command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-delete-extension-by-path"
+        },
+        {
+          "description": "Denies the delete_extension_by_path command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-delete-extension-by-path"
+        },
+        {
+          "description": "Enables the delete_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-delete-extension-data-by-id"
+        },
+        {
+          "description": "Denies the delete_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-delete-extension-data-by-id"
+        },
+        {
+          "description": "Enables the eject_all_disks command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-eject-all-disks"
+        },
+        {
+          "description": "Denies the eject_all_disks command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-eject-all-disks"
+        },
+        {
+          "description": "Enables the empty_trash command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-empty-trash"
+        },
+        {
+          "description": "Denies the empty_trash command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-empty-trash"
+        },
+        {
+          "description": "Enables the file_search command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-file-search"
+        },
+        {
+          "description": "Denies the file_search command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-file-search"
+        },
+        {
+          "description": "Enables the get_all_extensions command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-all-extensions"
+        },
+        {
+          "description": "Denies the get_all_extensions command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-all-extensions"
+        },
+        {
+          "description": "Enables the get_all_extensions_by_identifier command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-all-extensions-by-identifier"
+        },
+        {
+          "description": "Denies the get_all_extensions_by_identifier command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-all-extensions-by-identifier"
+        },
+        {
+          "description": "Enables the get_applications command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-applications"
+        },
+        {
+          "description": "Denies the get_applications command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-applications"
+        },
+        {
+          "description": "Enables the get_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-command-by-id"
+        },
+        {
+          "description": "Denies the get_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-command-by-id"
+        },
+        {
+          "description": "Enables the get_commands_by_ext_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-commands-by-ext-id"
+        },
+        {
+          "description": "Denies the get_commands_by_ext_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-commands-by-ext-id"
+        },
+        {
+          "description": "Enables the get_default_extensions_dir command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-default-extensions-dir"
+        },
+        {
+          "description": "Denies the get_default_extensions_dir command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-default-extensions-dir"
+        },
+        {
+          "description": "Enables the get_default_extensions_storage_dir command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-default-extensions-storage-dir"
+        },
+        {
+          "description": "Denies the get_default_extensions_storage_dir command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-default-extensions-storage-dir"
+        },
+        {
+          "description": "Enables the get_dev_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-dev-extension-folder"
+        },
+        {
+          "description": "Denies the get_dev_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-dev-extension-folder"
+        },
+        {
+          "description": "Enables the get_ext_label_map command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-ext-label-map"
+        },
+        {
+          "description": "Denies the get_ext_label_map command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-ext-label-map"
+        },
+        {
+          "description": "Enables the get_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-extension-data-by-id"
+        },
+        {
+          "description": "Denies the get_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-extension-data-by-id"
+        },
+        {
+          "description": "Enables the get_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-extension-folder"
+        },
+        {
+          "description": "Denies the get_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-extension-folder"
+        },
+        {
+          "description": "Enables the get_history command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-history"
+        },
+        {
+          "description": "Denies the get_history command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-history"
+        },
+        {
+          "description": "Enables the get_peers command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-peers"
+        },
+        {
+          "description": "Denies the get_peers command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-peers"
+        },
+        {
+          "description": "Enables the get_selected_files_in_file_explorer command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-selected-files-in-file-explorer"
+        },
+        {
+          "description": "Denies the get_selected_files_in_file_explorer command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-selected-files-in-file-explorer"
+        },
+        {
+          "description": "Enables the get_server_port command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-server-port"
+        },
+        {
+          "description": "Denies the get_server_port command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-server-port"
+        },
+        {
+          "description": "Enables the get_unique_extension_by_identifier command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-unique-extension-by-identifier"
+        },
+        {
+          "description": "Denies the get_unique_extension_by_identifier command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-unique-extension-by-identifier"
+        },
+        {
+          "description": "Enables the get_unique_extension_by_path command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-unique-extension-by-path"
+        },
+        {
+          "description": "Denies the get_unique_extension_by_path command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-unique-extension-by-path"
+        },
+        {
+          "description": "Enables the hide_all_apps_except_frontmost command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-hide-all-apps-except-frontmost"
+        },
+        {
+          "description": "Denies the hide_all_apps_except_frontmost command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-hide-all-apps-except-frontmost"
+        },
+        {
+          "description": "Enables the is_devtools_open command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-is-devtools-open"
+        },
+        {
+          "description": "Denies the is_devtools_open command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-is-devtools-open"
+        },
+        {
+          "description": "Enables the is_window_label_registered command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-is-window-label-registered"
+        },
+        {
+          "description": "Denies the is_window_label_registered command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-is-window-label-registered"
+        },
+        {
+          "description": "Enables the logout_user command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-logout-user"
+        },
+        {
+          "description": "Denies the logout_user command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-logout-user"
+        },
+        {
+          "description": "Enables the mute command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-mute"
+        },
+        {
+          "description": "Denies the mute command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-mute"
+        },
+        {
+          "description": "Enables the open_devtools command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-open-devtools"
+        },
+        {
+          "description": "Denies the open_devtools command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-open-devtools"
+        },
+        {
+          "description": "Enables the open_trash command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-open-trash"
+        },
+        {
+          "description": "Denies the open_trash command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-open-trash"
+        },
+        {
+          "description": "Enables the path_exists command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-path-exists"
+        },
+        {
+          "description": "Denies the path_exists command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-path-exists"
+        },
+        {
+          "description": "Enables the plist_to_json command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-plist-to-json"
+        },
+        {
+          "description": "Denies the plist_to_json command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-plist-to-json"
+        },
+        {
+          "description": "Enables the quit_all_apps command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-quit-all-apps"
+        },
+        {
+          "description": "Denies the quit_all_apps command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-quit-all-apps"
+        },
+        {
+          "description": "Enables the reboot command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-reboot"
+        },
+        {
+          "description": "Denies the reboot command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-reboot"
+        },
+        {
+          "description": "Enables the refresh_applications_list command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-refresh-applications-list"
+        },
+        {
+          "description": "Denies the refresh_applications_list command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-refresh-applications-list"
+        },
+        {
+          "description": "Enables the refresh_applications_list_in_bg command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-refresh-applications-list-in-bg"
+        },
+        {
+          "description": "Denies the refresh_applications_list_in_bg command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-refresh-applications-list-in-bg"
+        },
+        {
+          "description": "Enables the register_extension_spawned_process command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-register-extension-spawned-process"
+        },
+        {
+          "description": "Denies the register_extension_spawned_process command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-register-extension-spawned-process"
+        },
+        {
+          "description": "Enables the register_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-register-extension-window"
+        },
+        {
+          "description": "Denies the register_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-register-extension-window"
+        },
+        {
+          "description": "Enables the request_screen_capture_access command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-request-screen-capture-access"
+        },
+        {
+          "description": "Denies the request_screen_capture_access command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-request-screen-capture-access"
+        },
+        {
+          "description": "Enables the restart_server command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-restart-server"
+        },
+        {
+          "description": "Denies the restart_server command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-restart-server"
+        },
+        {
+          "description": "Enables the run_apple_script command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-run-apple-script"
+        },
+        {
+          "description": "Denies the run_apple_script command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-run-apple-script"
+        },
+        {
+          "description": "Enables the run_powershell command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-run-powershell"
+        },
+        {
+          "description": "Denies the run_powershell command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-run-powershell"
+        },
+        {
+          "description": "Enables the search_extension_data command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-search-extension-data"
+        },
+        {
+          "description": "Denies the search_extension_data command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-search-extension-data"
+        },
+        {
+          "description": "Enables the server_is_running command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-server-is-running"
+        },
+        {
+          "description": "Denies the server_is_running command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-server-is-running"
+        },
+        {
+          "description": "Enables the set_dev_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-set-dev-extension-folder"
+        },
+        {
+          "description": "Denies the set_dev_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-set-dev-extension-folder"
+        },
+        {
+          "description": "Enables the set_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-set-extension-folder"
+        },
+        {
+          "description": "Denies the set_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-set-extension-folder"
+        },
+        {
+          "description": "Enables the set_volume command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-set-volume"
+        },
+        {
+          "description": "Denies the set_volume command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-set-volume"
+        },
+        {
+          "description": "Enables the show_desktop command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-show-desktop"
+        },
+        {
+          "description": "Denies the show_desktop command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-show-desktop"
+        },
+        {
+          "description": "Enables the shutdown command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-shutdown"
+        },
+        {
+          "description": "Denies the shutdown command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-shutdown"
+        },
+        {
+          "description": "Enables the sleep command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-sleep"
+        },
+        {
+          "description": "Denies the sleep command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-sleep"
+        },
+        {
+          "description": "Enables the sleep_displays command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-sleep-displays"
+        },
+        {
+          "description": "Denies the sleep_displays command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-sleep-displays"
+        },
+        {
+          "description": "Enables the start_server command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-start-server"
+        },
+        {
+          "description": "Denies the start_server command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-start-server"
+        },
+        {
+          "description": "Enables the stop_server command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-stop-server"
+        },
+        {
+          "description": "Denies the stop_server command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-stop-server"
+        },
+        {
+          "description": "Enables the toggle_bluetooth command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-toggle-bluetooth"
+        },
+        {
+          "description": "Denies the toggle_bluetooth command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-toggle-bluetooth"
+        },
+        {
+          "description": "Enables the toggle_devtools command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-toggle-devtools"
+        },
+        {
+          "description": "Denies the toggle_devtools command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-toggle-devtools"
+        },
+        {
+          "description": "Enables the toggle_hidden_files command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-toggle-hidden-files"
+        },
+        {
+          "description": "Denies the toggle_hidden_files command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-toggle-hidden-files"
+        },
+        {
+          "description": "Enables the toggle_mute command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-toggle-mute"
+        },
+        {
+          "description": "Denies the toggle_mute command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-toggle-mute"
+        },
+        {
+          "description": "Enables the toggle_stage_manager command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-toggle-stage-manager"
+        },
+        {
+          "description": "Denies the toggle_stage_manager command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-toggle-stage-manager"
+        },
+        {
+          "description": "Enables the toggle_system_appearance command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-toggle-system-appearance"
+        },
+        {
+          "description": "Denies the toggle_system_appearance command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-toggle-system-appearance"
+        },
+        {
+          "description": "Enables the turn_volume_down command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-turn-volume-down"
+        },
+        {
+          "description": "Denies the turn_volume_down command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-turn-volume-down"
+        },
+        {
+          "description": "Enables the turn_volume_up command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-turn-volume-up"
+        },
+        {
+          "description": "Denies the turn_volume_up command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-turn-volume-up"
+        },
+        {
+          "description": "Enables the unmute command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-unmute"
+        },
+        {
+          "description": "Denies the unmute command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-unmute"
+        },
+        {
+          "description": "Enables the unregister_extension_spawned_process command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-unregister-extension-spawned-process"
+        },
+        {
+          "description": "Denies the unregister_extension_spawned_process command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-unregister-extension-spawned-process"
+        },
+        {
+          "description": "Enables the unregister_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-unregister-extension-window"
+        },
+        {
+          "description": "Denies the unregister_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-unregister-extension-window"
+        },
+        {
+          "description": "Enables the unzip command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-unzip"
+        },
+        {
+          "description": "Denies the unzip command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-unzip"
+        },
+        {
+          "description": "Enables the update_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-update-command-by-id"
+        },
+        {
+          "description": "Denies the update_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-update-command-by-id"
+        },
+        {
+          "description": "Enables the update_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-update-extension-data-by-id"
+        },
+        {
+          "description": "Denies the update_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-update-extension-data-by-id"
+        },
+        {
+          "description": "Enables the verify_auth command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-verify-auth"
+        },
+        {
+          "description": "Denies the verify_auth command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-verify-auth"
+        },
+        {
+          "description": "This enables all permissions for Jarvis",
+          "type": "string",
+          "const": "allow-all-store"
+        }
+      ]
+    }
+  }
+}

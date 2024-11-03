@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-set-extension-folder"
+description = "Enables the set_extension_folder command without any pre-configured scope."
+commands.allow = ["set_extension_folder"]
+
+[[permission]]
+identifier = "deny-set-extension-folder"
+description = "Denies the set_extension_folder command without any pre-configured scope."
+commands.deny = ["set_extension_folder"]

@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-open-devtools"
+description = "Enables the open_devtools command without any pre-configured scope."
+commands.allow = ["open_devtools"]
+
+[[permission]]
+identifier = "deny-open-devtools"
+description = "Denies the open_devtools command without any pre-configured scope."
+commands.deny = ["open_devtools"]

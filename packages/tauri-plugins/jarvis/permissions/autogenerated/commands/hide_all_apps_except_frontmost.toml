@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-hide-all-apps-except-frontmost"
+description = "Enables the hide_all_apps_except_frontmost command without any pre-configured scope."
+commands.allow = ["hide_all_apps_except_frontmost"]
+
+[[permission]]
+identifier = "deny-hide-all-apps-except-frontmost"
+description = "Denies the hide_all_apps_except_frontmost command without any pre-configured scope."
+commands.deny = ["hide_all_apps_except_frontmost"]

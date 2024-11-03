@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-show-desktop"
+description = "Enables the show_desktop command without any pre-configured scope."
+commands.allow = ["show_desktop"]
+
+[[permission]]
+identifier = "deny-show-desktop"
+description = "Denies the show_desktop command without any pre-configured scope."
+commands.deny = ["show_desktop"]

@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-file-search"
+description = "Enables the file_search command without any pre-configured scope."
+commands.allow = ["file_search"]
+
+[[permission]]
+identifier = "deny-file-search"
+description = "Denies the file_search command without any pre-configured scope."
+commands.deny = ["file_search"]

@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-unregister-extension-spawned-process"
+description = "Enables the unregister_extension_spawned_process command without any pre-configured scope."
+commands.allow = ["unregister_extension_spawned_process"]
+
+[[permission]]
+identifier = "deny-unregister-extension-spawned-process"
+description = "Denies the unregister_extension_spawned_process command without any pre-configured scope."
+commands.deny = ["unregister_extension_spawned_process"]

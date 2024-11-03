@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-decompress-tarball"
+description = "Enables the decompress_tarball command without any pre-configured scope."
+commands.allow = ["decompress_tarball"]
+
+[[permission]]
+identifier = "deny-decompress-tarball"
+description = "Denies the decompress_tarball command without any pre-configured scope."
+commands.deny = ["decompress_tarball"]

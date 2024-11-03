@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-run-powershell"
+description = "Enables the run_powershell command without any pre-configured scope."
+commands.allow = ["run_powershell"]
+
+[[permission]]
+identifier = "deny-run-powershell"
+description = "Denies the run_powershell command without any pre-configured scope."
+commands.deny = ["run_powershell"]

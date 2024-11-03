@@ -1,14 +1,18 @@
 <script lang="ts">
-	import { Alert, Avatar, Button } from "@kksh/svelte5"
+	import { commandLaunchers } from "@/cmds"
+	import { builtinCmds } from "@/cmds/builtin"
+	import CommandPalette from "@/components/main/CommandPalette.svelte"
+	import { appState } from "@/stores"
+	import { appConfig } from "@/stores/appConfig"
+	import { extensions } from "@/stores/extensions"
+	import "@kksh/ui"
 </script>
 
-<Button>Click me</Button>
-<button class="bg-red-500">hi</button>
-<Alert.Root>
-	<Alert.Title>Heads up!</Alert.Title>
-	<Alert.Description>You can add components to your app using the cli.</Alert.Description>
-</Alert.Root>
-<Avatar.Root>
-	<Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
-	<Avatar.Fallback>CN</Avatar.Fallback>
-</Avatar.Root>
+<CommandPalette
+	class="h-screen"
+	extensions={$extensions}
+	{appState}
+	{appConfig}
+	{commandLaunchers}
+	{builtinCmds}
+/>

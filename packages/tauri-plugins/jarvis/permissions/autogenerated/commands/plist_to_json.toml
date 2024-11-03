@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-plist-to-json"
+description = "Enables the plist_to_json command without any pre-configured scope."
+commands.allow = ["plist_to_json"]
+
+[[permission]]
+identifier = "deny-plist-to-json"
+description = "Denies the plist_to_json command without any pre-configured scope."
+commands.deny = ["plist_to_json"]

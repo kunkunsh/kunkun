@@ -1,25 +1,54 @@
 {
-  "name": "kunkun",
-  "private": true,
-  "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
-  },
-  "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
-    "@kksh/svelte5": "0.1.2-beta.3",
-    "prettier": "^3.2.5",
-    "prettier-plugin-svelte": "^3.2.7",
-    "prettier-plugin-tailwindcss": "^0.6.8",
-    "svelte": "^5.0.0",
-    "svelte-check": "^4.0.0",
-    "turbo": "^2.2.3",
-    "typescript": "5.5.4"
-  },
-  "packageManager": "pnpm@8.15.6",
-  "engines": {
-    "node": ">=18"
-  }
+	"name": "kunkun",
+	"private": true,
+	"scripts": {
+		"build": "turbo build",
+		"dev": "turbo dev",
+		"test": "turbo run test",
+		"prepare": "turbo run prepare",
+		"lint": "turbo lint",
+		"format": "prettier --write \"**/*.{ts,tsx,md,svelte}\""
+	},
+	"devDependencies": {
+		"@ianvs/prettier-plugin-sort-imports": "^4.3.1",
+		"@kksh/api": "workspace:*",
+		"@kksh/svelte5": "0.1.2-beta.4",
+		"prettier": "^3.2.5",
+		"prettier-plugin-svelte": "^3.2.7",
+		"prettier-plugin-tailwindcss": "^0.6.8",
+		"svelte": "^5.0.0",
+		"svelte-check": "^4.0.0",
+		"turbo": "^2.2.3",
+		"typescript": "5.5.4"
+	},
+	"packageManager": "pnpm@9.12.3",
+	"engines": {
+		"node": ">=22"
+	},
+	"dependencies": {
+		"@changesets/cli": "^2.27.9",
+		"@iconify/svelte": "^4.0.2",
+		"@supabase/supabase-js": "^2.46.1",
+		"@tauri-apps/api": "^2.0.3",
+		"@tauri-apps/cli": "^2.0.4",
+		"@tauri-apps/plugin-deep-link": "^2.0.0",
+		"@tauri-apps/plugin-dialog": "^2.0.1",
+		"@tauri-apps/plugin-fs": "^2.0.1",
+		"@tauri-apps/plugin-global-shortcut": "^2.0.0",
+		"@tauri-apps/plugin-http": "^2.0.1",
+		"@tauri-apps/plugin-log": "^2.0.0",
+		"@tauri-apps/plugin-notification": "^2.0.0",
+		"@tauri-apps/plugin-os": "^2.0.0",
+		"@tauri-apps/plugin-process": "2.0.0",
+		"@tauri-apps/plugin-shell": "^2.0.1",
+		"@tauri-apps/plugin-store": "^2.1.0",
+		"@tauri-apps/plugin-updater": "^2.0.0",
+		"@tauri-apps/plugin-upload": "^2.0.0",
+		"supabase": "^1.207.9",
+		"tauri-plugin-network-api": "workspace:*",
+		"tauri-plugin-shellx-api": "^2.0.11",
+		"tauri-plugin-system-info-api": "workspace:*",
+		"valibot": "^0.40.0",
+		"zod": "^3.23.8"
+	}
 }

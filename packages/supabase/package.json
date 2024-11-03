@@ -1,0 +1,19 @@
+{
+	"name": "@kksh/supabase",
+	"type": "module",
+	"scripts": {
+		"prepare": "bun setup.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@kksh/api": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
+}

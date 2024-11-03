@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-server-is-running"
+description = "Enables the server_is_running command without any pre-configured scope."
+commands.allow = ["server_is_running"]
+
+[[permission]]
+identifier = "deny-server-is-running"
+description = "Denies the server_is_running command without any pre-configured scope."
+commands.deny = ["server_is_running"]

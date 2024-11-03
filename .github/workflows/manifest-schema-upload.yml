@@ -1,0 +1,33 @@
+name: Update Extension Manifest Schema
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: "true"
+      - uses: pnpm/action-setup@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+          cache-dependency-path: ./pnpm-lock.yaml
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.1.27
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Install Dependencies
+        run: pnpm install
+      - name: Setup
+        run: pnpm prepare
+      - name: Update Schema
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: pnpm --filter @kksh/schema upload-schema-to-supabase

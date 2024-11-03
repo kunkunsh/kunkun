@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-app-is-dev"
+description = "Enables the app_is_dev command without any pre-configured scope."
+commands.allow = ["app_is_dev"]
+
+[[permission]]
+identifier = "deny-app-is-dev"
+description = "Denies the app_is_dev command without any pre-configured scope."
+commands.deny = ["app_is_dev"]

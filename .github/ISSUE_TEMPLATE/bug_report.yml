@@ -1,0 +1,43 @@
+name: Bug Report
+description: File a bug report.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear description of what the bug is. Include screenshots if applicable. If you intend to submit a PR for this issue, tell us in the description. Thanks!
+      placeholder: Bug description
+    validations:
+      required: true
+  
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: A clear description of what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: system-info
+    attributes:
+      label: System Info
+      description: Output of `npx envinfo --system --npmPackages @kksh/api --binaries --browsers`
+      render: bash
+      placeholder: System, Binaries, Browsers
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contributes
+    attributes:
+      label: Contributes
+      options:
+        - label: I am willing to submit a PR to fix this issue
+        - label: I am willing to submit a PR with failing tests

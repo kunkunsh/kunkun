@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-get-all-extensions-by-identifier"
+description = "Enables the get_all_extensions_by_identifier command without any pre-configured scope."
+commands.allow = ["get_all_extensions_by_identifier"]
+
+[[permission]]
+identifier = "deny-get-all-extensions-by-identifier"
+description = "Denies the get_all_extensions_by_identifier command without any pre-configured scope."
+commands.deny = ["get_all_extensions_by_identifier"]

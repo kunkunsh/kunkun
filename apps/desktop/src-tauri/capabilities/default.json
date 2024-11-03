@@ -1,10 +1,164 @@
 {
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Capability for the main window",
-  "windows": ["main"],
-  "permissions": [
-    "core:default",
-    "shell:allow-open"
-  ]
+	"$schema": "../gen/schemas/desktop-schema.json",
+	"identifier": "default",
+	"description": "Capability for the main window",
+	"windows": ["main*"],
+	"permissions": [
+		{
+			"identifier": "http:default",
+			"allow": [
+				{
+					"url": "https://*"
+				},
+				{
+					"url": "http://*"
+				},
+				{
+					"url": "http://*:*"
+				}
+			]
+		},
+		"os:default",
+		"os:allow-platform",
+		"core:path:default",
+		"core:event:default",
+		"core:window:default",
+		"core:window:allow-start-dragging",
+		"core:window:allow-set-focus",
+		"core:window:allow-toggle-maximize",
+		"core:window:allow-internal-toggle-maximize",
+		"core:window:allow-close",
+		"core:window:allow-create",
+		"core:window:allow-set-decorations",
+		"core:window:allow-show",
+		"core:window:allow-hide",
+		"core:window:allow-destroy",
+		"core:image:default",
+		"core:webview:default",
+		"core:webview:allow-create-webview",
+		"core:webview:allow-create-webview-window",
+		"core:app:default",
+		"core:resources:default",
+		"core:menu:default",
+		"core:tray:default",
+		"core:tray:allow-new",
+		"core:tray:allow-set-tooltip",
+		"core:tray:allow-set-icon",
+		"core:tray:allow-set-menu",
+		"core:tray:allow-set-title",
+		"core:tray:allow-set-visible",
+		"core:tray:allow-set-show-menu-on-left-click",
+		"notification:default",
+		"clipboard:monitor-all",
+		"clipboard:read-all",
+		"clipboard:write-all",
+		"fs:default",
+		"fs:allow-app-meta",
+		"fs:allow-home-read-recursive",
+		"shellx:allow-execute",
+		"shellx:allow-open",
+		"shellx:allow-kill",
+		"shellx:allow-spawn",
+		"shellx:allow-stdin-write",
+		"shellx:allow-fix-path-env",
+		"dialog:default",
+		"dialog:allow-open",
+		"dialog:allow-confirm",
+		"dialog:allow-save",
+		"dialog:allow-message",
+		"dialog:allow-ask",
+		"global-shortcut:default",
+		"global-shortcut:allow-is-registered",
+		"global-shortcut:allow-register",
+		"global-shortcut:allow-unregister",
+		"jarvis:allow-all",
+		"store:default",
+		"store:allow-clear",
+		"store:allow-delete",
+		"store:allow-entries",
+		"store:allow-get",
+		"store:allow-has",
+		"store:allow-keys",
+		"store:allow-length",
+		"store:allow-load",
+		"store:allow-reset",
+		"store:allow-save",
+		"store:allow-set",
+		"store:allow-values",
+		"log:default",
+		"updater:default",
+		"log:allow-log",
+		"fs:allow-exists",
+		"fs:allow-stat",
+		"fs:read-all",
+		"fs:write-all",
+		"fs:allow-rename",
+		"fs:scope-temp-recursive",
+		"fs:scope-temp",
+		"fs:scope-home-recursive",
+		"fs:allow-mkdir",
+		"fs:allow-app-write-recursive",
+		"fs:allow-app-read-recursive",
+		"fs:allow-appcache-write",
+		"fs:allow-appcache-write-recursive",
+		"fs:allow-appconfig-write",
+		"fs:allow-home-write-recursive",
+		"fs:allow-appdata-read-recursive",
+		"fs:allow-appdata-write-recursive",
+		{
+			"identifier": "fs:scope",
+			"allow": [
+				{
+					"path": "$DESKTOP"
+				},
+				{
+					"path": "$DESKTOP/**"
+				},
+				{
+					"path": "$DOWNLOAD"
+				},
+				{
+					"path": "$DOWNLOAD/**"
+				},
+				{
+					"path": "$DOCUMENT"
+				},
+				{
+					"path": "$DOCUMENT/**"
+				},
+				{
+					"path": "$TEMP/**"
+				},
+				{
+					"path": "$TEMP"
+				}
+			]
+		},
+		"notification:allow-is-permission-granted",
+		"notification:allow-notify",
+		"notification:allow-request-permission",
+		"global-shortcut:allow-register-all",
+		"global-shortcut:allow-unregister-all",
+		"clipboard:allow-clear",
+		"cli:default",
+		"upload:default",
+		"process:default",
+		"system-info:allow-all",
+		"shell:default",
+		{
+			"identifier": "shell:allow-spawn",
+			"allow": [
+				{
+					"name": "deno",
+					"cmd": "deno",
+					"args": [
+						{
+							"validator": ".+"
+						}
+					]
+				}
+			]
+		},
+		"deep-link:default"
+	]
 }

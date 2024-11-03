@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-refresh-applications-list-in-bg"
+description = "Enables the refresh_applications_list_in_bg command without any pre-configured scope."
+commands.allow = ["refresh_applications_list_in_bg"]
+
+[[permission]]
+identifier = "deny-refresh-applications-list-in-bg"
+description = "Denies the refresh_applications_list_in_bg command without any pre-configured scope."
+commands.deny = ["refresh_applications_list_in_bg"]

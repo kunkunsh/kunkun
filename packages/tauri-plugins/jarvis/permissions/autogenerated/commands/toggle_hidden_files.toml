@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-toggle-hidden-files"
+description = "Enables the toggle_hidden_files command without any pre-configured scope."
+commands.allow = ["toggle_hidden_files"]
+
+[[permission]]
+identifier = "deny-toggle-hidden-files"
+description = "Denies the toggle_hidden_files command without any pre-configured scope."
+commands.deny = ["toggle_hidden_files"]
