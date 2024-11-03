@@ -1,6 +1,8 @@
-name: Upload Extension Manifest Schema
+name: Update Extension Manifest Schema
 
 on:
+  push:
+    branches: ["dev"]
   workflow_dispatch:
 
 jobs:
@@ -27,5 +29,5 @@ jobs:
         run: pnpm install
       - name: Setup
         run: pnpm run setup
-      - name: Upload Schema
+      - name: Update Schema
         run: pnpm --filter @kksh/schema upload-schema-to-supabase

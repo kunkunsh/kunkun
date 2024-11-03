@@ -1,4 +1,5 @@
 import { clean, gte, parse, satisfies, sort } from "semver"
+import * as v from "valibot"
 
 export const breakingChangesVersionCheckpoints = [
 	{ version: "0.0.1", changelog: "" },
@@ -27,5 +28,5 @@ export function isVersionBetween(v: string, start: string, end: string) {
  * @param version
  */
 export function isCompatible(version: string) {
-	return gte(version, sortedCheckpointVersions[sortedCheckpointVersions.length - 1])
+	return gte(version, v.parse(v.string(), sortedCheckpointVersions.at(-1)))
 }
