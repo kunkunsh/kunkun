@@ -1,5 +1,5 @@
-import { goto } from "$app/navigation"
 import { appState } from "@/stores"
+import { goto } from "$app/navigation"
 import { goBack, goHome } from "./route"
 
 export function goHomeOnEscape(e: KeyboardEvent) {
