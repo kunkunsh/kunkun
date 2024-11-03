@@ -63,7 +63,9 @@ export function getExtensionByIdentifierExpectExists(identifier: string): Promis
 // }
 
 export function deleteExtensionByPath(path: string) {
-	return invoke<void>(generateJarvisPluginCommand("delete_extension_by_path"), { path })
+	return invoke<void>(generateJarvisPluginCommand("delete_extension_by_path"), {
+		path
+	})
 }
 
 export function deleteExtensionByExtId(extId: string) {
@@ -97,7 +99,9 @@ export function getCommandsByExtId(extId: number) {
 }
 
 export function deleteCommandById(cmdId: number) {
-	return invoke<void>(generateJarvisPluginCommand("delete_command_by_id"), { cmdId })
+	return invoke<void>(generateJarvisPluginCommand("delete_command_by_id"), {
+		cmdId
+	})
 }
 
 export function updateCommandById(data: {
@@ -192,7 +196,10 @@ export async function searchExtensionData(searchParams: {
 			data: null | string
 			searchText: null | string
 		})[]
-	>(generateJarvisPluginCommand("search_extension_data"), { ...searchParams, fields })
+	>(generateJarvisPluginCommand("search_extension_data"), {
+		...searchParams,
+		fields
+	})
 
 	return items.map(convertRawExtDataToExtData).filter((item) => item) as ExtData[]
 }

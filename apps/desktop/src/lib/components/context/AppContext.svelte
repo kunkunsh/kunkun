@@ -9,8 +9,11 @@
 		appConfig,
 		appState,
 		children
-	}: { appConfig: Writable<AppConfig>; appState: Writable<AppState>; children: Snippet<[]> } =
-		$props()
+	}: {
+		appConfig: Writable<AppConfig>
+		appState: Writable<AppState>
+		children: Snippet<[]>
+	} = $props()
 
 	setAppConfigContext(appConfig)
 	setAppStateContext(appState)

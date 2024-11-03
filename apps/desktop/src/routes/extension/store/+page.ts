@@ -35,5 +35,10 @@ export const load: PageLoad = async (): Promise<{
 	)
 	console.log(get(upgradableExpsMap))
 
-	return { storeExtList, installedStoreExts, installedExtsMap, upgradableExpsMap }
+	return {
+		storeExtList,
+		installedStoreExts,
+		installedExtsMap,
+		upgradableExpsMap
+	}
 }

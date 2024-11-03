@@ -34,6 +34,7 @@
 		"lint": "eslint ."
 	},
 	"devDependencies": {
+		"@types/bun": "latest",
 		"@kksh/api": "workspace:*",
 		"bits-ui": "1.0.0-next.36",
 		"clsx": "^2.1.1",

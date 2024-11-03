@@ -36,7 +36,9 @@
 	async function onExtItemUpgrade(ext: SBExt) {
 		const res = await supabaseAPI.getLatestExtPublish(ext.identifier)
 		if (res.error)
-			return toast.error("Fail to get latest extension", { description: res.error.message })
+			return toast.error("Fail to get latest extension", {
+				description: res.error.message
+			})
 		const tarballUrl = supabaseAPI.translateExtensionFilePathToUrl(res.data.tarball_path)
 		return extensions.upgradeStoreExtension(ext.identifier, tarballUrl).then((newExt) => {
 			toast.success(`${ext.name} Upgraded to ${newExt.version}`)
@@ -47,7 +49,9 @@
 		console.log("onExtItemInstall", ext)
 		const res = await supabaseAPI.getLatestExtPublish(ext.identifier)
 		if (res.error)
-			return toast.error("Fail to get latest extension", { description: res.error.message })
+			return toast.error("Fail to get latest extension", {
+				description: res.error.message
+			})
 
 		const tarballUrl = supabaseAPI.translateExtensionFilePathToUrl(res.data.tarball_path)
 		const installDir = await getExtensionsFolder()

@@ -158,7 +158,11 @@ export interface IUiIframe {
 	 */
 	showMoveButton: (position?: Position) => Promise<void>
 	showRefreshButton: (position?: Position) => Promise<void>
-	getTheme: () => Promise<{ theme: ThemeColor; radius: Radius; lightMode: LightMode }>
+	getTheme: () => Promise<{
+		theme: ThemeColor
+		radius: Radius
+		lightMode: LightMode
+	}>
 	reloadPage: () => Promise<void>
 	startDragging: () => Promise<void>
 	toggleMaximize: () => Promise<void>

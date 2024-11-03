@@ -81,7 +81,11 @@ export class Dropdown implements ListSchema.Dropdown, IComponent<ListSchema.Drop
 	sections: DropdownSection[]
 	defaultValue: string
 
-	constructor(model: IconConstructorPatch<ListSchema.Dropdown> & { sections: DropdownSection[] }) {
+	constructor(
+		model: IconConstructorPatch<ListSchema.Dropdown> & {
+			sections: DropdownSection[]
+		}
+	) {
 		this.tooltip = model.tooltip
 		this.sections = model.sections
 		this.defaultValue = model.defaultValue

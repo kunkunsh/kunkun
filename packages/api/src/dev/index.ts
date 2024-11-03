@@ -45,7 +45,9 @@ export async function refreshTemplateWorkerExtensionViaServer() {
 		console.warn("Will Refresh Every Instance")
 	}
 	for (const port of ports) {
-		fetch(`http://localhost:${port}/refresh-worker-extension`, { method: "POST" }).catch((err) => {
+		fetch(`http://localhost:${port}/refresh-worker-extension`, {
+			method: "POST"
+		}).catch((err) => {
 			console.error("Failed to send refresh worker extension request", err)
 		})
 	}

@@ -21,7 +21,10 @@
 				<HoverCard.Trigger class="flex items-center">
 					<IconMultiplexer
 						class="border"
-						icon={{ type: IconEnum.Iconify, value: "material-symbols:info-outline" }}
+						icon={{
+							type: IconEnum.Iconify,
+							value: "material-symbols:info-outline"
+						}}
 					/>
 				</HoverCard.Trigger>
 				<HoverCard.Content class="max-h-96 w-96 overflow-x-auto overflow-y-auto">
