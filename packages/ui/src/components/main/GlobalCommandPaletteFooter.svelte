@@ -7,6 +7,6 @@
 
 <footer data-tauri-drag-region class={cn("h-12 border-t", className)}>
 	<Avatar.Root class="p-2">
-		<Avatar.Image src="/logo-w-bg.png" alt="Kunkun Logo" class="select-none invert dark:invert-0" />
+		<Avatar.Image src="/favicon.png" alt="Kunkun Logo" class="select-none invert dark:invert-0" />
 	</Avatar.Root>
 </footer>

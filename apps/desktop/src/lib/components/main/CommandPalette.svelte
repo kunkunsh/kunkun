@@ -1,4 +1,7 @@
 <!-- This file renders the main command palette, a list of commands -->
+<!-- This is not placed in @kksh/ui because it depends on the app config and is very complex, 
+passing everything through props will be very complicated and hard to maintain.
+-->
 <script lang="ts">
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extension/utils"
@@ -29,10 +32,6 @@
 		appState: Writable<AppState>
 		builtinCmds: BuiltinCmd[]
 	} = $props()
-	// const appConfig = getAppConfigContext()
-
-	let highlightedCmd = $state("")
-	let searchTerm = $state("")
 </script>
 
 <Command.Root

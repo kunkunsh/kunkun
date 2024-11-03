@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { appConfig, winExtMap } from "@/stores"
-	import { cn } from "@/utils"
+	import { cn } from "@kksh/ui/utils"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goHome } from "@/utils/route"
 	import { positionToTailwindClasses } from "@/utils/style"
