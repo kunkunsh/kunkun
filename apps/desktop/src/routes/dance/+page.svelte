@@ -13,12 +13,18 @@
 </script>
 
 <svelte:window on:keydown={goBackOnEscape} />
-<Button variant="outline" size="icon" onclick={goBack} class="absolute left-2 top-2">
+<Button
+	variant="outline"
+	size="icon"
+	onclick={goBack}
+	class="absolute left-2 top-2"
+	data-tauri-drag-region
+>
 	<ArrowLeft class="size-4" />
 </Button>
-<Layouts.Center class="h-screen w-screen">
+<Layouts.Center class="h-screen w-screen" data-tauri-drag-region>
 	<GridAnimation
-		class="max-h-full max-w-full invert dark:invert-0"
+		class="pointer-events-none max-h-full max-w-full invert dark:invert-0"
 		{fps}
 		frames={decodedFrames}
 		scale={1}
