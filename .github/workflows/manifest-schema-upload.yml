@@ -1,7 +1,6 @@
 name: Update Extension Manifest Schema
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
