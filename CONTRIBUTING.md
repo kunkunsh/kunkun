@@ -26,3 +26,20 @@ If you are interested in contributing to the project, please read the following 
 - [cmake](https://cmake.org/)
   - MacOS: `brew install cmake`
   - Linux: `sudo apt install -y cmake`
+
+### Setup
+
+```bash
+git clone https://github.com/kunkunsh/kunkun.git --recursive
+pnpm install
+pnpm run setup
+```
+
+### Run Desktop App
+
+```bash
+pnpm --filter @kksh/desktop tauri dev
+# or run it within the desktop app directory
+cd apps/desktop
+pnpm tauri dev
+```

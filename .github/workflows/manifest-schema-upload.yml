@@ -30,4 +30,6 @@ jobs:
       - name: Setup
         run: pnpm run setup
       - name: Update Schema
+        env:
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: pnpm --filter @kksh/schema upload-schema-to-supabase
