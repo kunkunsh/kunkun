@@ -111,9 +111,9 @@ importers:
 
   apps/desktop:
     dependencies:
-      '@kksh/extensions':
+      '@kksh/extension':
         specifier: workspace:*
-        version: link:../../packages/extensions
+        version: link:../../packages/extension
       '@kksh/supabase':
         specifier: workspace:*
         version: link:../../packages/supabase
@@ -373,7 +373,7 @@ importers:
         specifier: ^2.35.1
         version: 2.46.0(eslint@8.57.1)(svelte@5.1.9)
 
-  packages/extensions:
+  packages/extension:
     dependencies:
       typescript:
         specifier: ^5.0.0
@@ -381,7 +381,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.12
+        version: 1.1.13
 
   packages/schema:
     dependencies:
@@ -444,9 +444,9 @@ importers:
       '@kksh/eslint-config':
         specifier: workspace:*
         version: link:../config-eslint
-      '@kksh/extensions':
+      '@kksh/extension':
         specifier: workspace:*
-        version: link:../extensions
+        version: link:../extension
       '@kksh/supabase':
         specifier: workspace:*
         version: link:../supabase

@@ -13,7 +13,7 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"@kksh/extensions": "workspace:*",
+		"@kksh/extension": "workspace:*",
 		"@kksh/ui": "workspace:*",
 		"@kksh/supabase": "workspace:*",
 		"@tauri-apps/api": "^2",

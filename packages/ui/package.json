@@ -32,7 +32,7 @@
 	"devDependencies": {
 		"@kksh/eslint-config": "workspace:*",
 		"@kksh/supabase": "workspace:*",
-		"@kksh/extensions": "workspace:*",
+		"@kksh/extension": "workspace:*",
 		"@kksh/types": "workspace:*",
 		"@kksh/utils": "workspace:*",
 		"@kksh/typescript-config": "workspace:*",

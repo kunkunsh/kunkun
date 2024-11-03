@@ -1,6 +1,6 @@
 import { getExtensionsFolder } from "@/constants"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
-import { isExtPathInDev, loadAllExtensionsFromDb } from "@kksh/extensions"
+import { isExtPathInDev, loadAllExtensionsFromDb } from "@kksh/extension"
 import { derived, get, writable, type Readable, type Writable } from "svelte/store"
 import { appConfig } from "./appConfig"
 

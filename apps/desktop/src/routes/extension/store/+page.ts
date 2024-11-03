@@ -1,7 +1,7 @@
 import { appConfig, extensions } from "@/stores"
 import { supabaseAPI } from "@/supabase"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
-import { isExtPathInDev } from "@kksh/extensions"
+import { isExtPathInDev } from "@kksh/extension"
 import { ExtItem, type Tables } from "@kksh/supabase"
 import { error } from "@sveltejs/kit"
 import { derived, get, type Readable } from "svelte/store"

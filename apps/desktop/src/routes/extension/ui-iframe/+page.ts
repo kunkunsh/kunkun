@@ -1,6 +1,6 @@
 import { db, unregisterExtensionWindow } from "@kksh/api/commands"
 import type { Ext as ExtInfoInDB, ExtPackageJsonExtra } from "@kksh/api/models"
-import { loadExtensionManifestFromDisk } from "@kksh/extensions"
+import { loadExtensionManifestFromDisk } from "@kksh/extension"
 import { join } from "@tauri-apps/api/path"
 import { error } from "@tauri-apps/plugin-log"
 import { goto } from "$app/navigation"
