@@ -7,7 +7,8 @@
 		"src/ui/worker/index.ts",
 		"src/models/index.ts",
 		"src/commands/index.ts",
-		"src/ui/api/permissions.ts"
+		"src/ui/api/permissions.ts",
+		"src/supabase/index.ts"
 	],
 	"visibilityFilters": {
 		"protected": false,

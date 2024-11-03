@@ -1,6 +1,6 @@
 import fs from "fs"
 import path from "path"
-import { PACKAGES_PATHS } from "@kksh/ci/index"
+import { PACKAGES_PATHS } from "@kksh/ci"
 import { expect, test } from "bun:test"
 import { safeParse } from "valibot"
 import { ExtPackageJson } from "../manifest"

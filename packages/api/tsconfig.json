@@ -1,9 +1,7 @@
 {
-	"extends": "../typescript-config/base.json",
 	"compilerOptions": {
 		// Enable latest features
 		"lib": ["ESNext", "DOM"],
-		"types": ["./deno.d.ts"],
 		"target": "ESNext",
 		"module": "ESNext",
 		"moduleDetection": "force",
@@ -25,6 +23,5 @@
 		"noUnusedLocals": false,
 		"noUnusedParameters": false,
 		"noPropertyAccessFromIndexSignature": false
-	},
-	"exclude": ["dist", "node_modules"]
+	}
 }

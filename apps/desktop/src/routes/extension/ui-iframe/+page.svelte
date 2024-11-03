@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { appConfig, winExtMap } from "@/stores"
-	import { cn } from "@kksh/ui/utils"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goHome } from "@/utils/route"
 	import { positionToTailwindClasses } from "@/utils/style"
@@ -22,6 +21,7 @@
 	} from "@kksh/api/ui"
 	import { toast, type IUiIframeServer2 } from "@kksh/api/ui/iframe"
 	import { Button } from "@kksh/svelte5"
+	import { cn } from "@kksh/ui/utils"
 	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import { goto } from "$app/navigation"
 	import { page } from "$app/stores"

@@ -48,8 +48,8 @@ describe("Verify Nested Form Schema Parsing", () => {
 	})
 	test("Nested Form", () => {
 		const result = v.parse(FormSchema.Form, nestedForm)
-		expect(result.fields[0].key).toEqual("form2")
-		expect((result.fields[0] as FormSchema.Form).fields[0].key).toEqual("input1")
+		expect(result.fields[0]?.key).toEqual("form2")
+		expect((result.fields[0] as FormSchema.Form).fields[0]?.key).toEqual("input1")
 		// console.log(result)
 		expect((result.fields[2] as FormSchema.ArrayField).content).toBeDefined()
 	})

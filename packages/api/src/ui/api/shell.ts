@@ -366,7 +366,10 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 	 * @returns
 	 */
 	async function hasCommand(command: string): Promise<boolean> {
-		const targetCmd = command.split(" ")[0]
+		const targetCmd = command.trim().split(" ")[0]
+		if (!targetCmd) {
+			return false
+		}
 		const isOnWindows = await likelyOnWindows()
 		const whereCmd = isOnWindows ? "where" : "which"
 		const cmd = createCommand(whereCmd, [targetCmd])

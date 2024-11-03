@@ -21,14 +21,14 @@ function matchRegexArgs(args: string[], regexes: string[]): boolean {
 		return false
 	}
 	for (let i = 0; i < args.length; i++) {
-		let regex = regexes[i]
+		let regex = regexes[i]!
 		if (!regex.startsWith("^")) {
 			regex = `^${regex}`
 		}
 		if (!regex.endsWith("$")) {
 			regex = `${regex}$`
 		}
-		if (!new RegExp(regex).test(args[i])) {
+		if (!new RegExp(regex).test(args[i]!)) {
 			return false
 		}
 	}
