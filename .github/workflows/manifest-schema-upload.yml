@@ -1,17 +1,11 @@
-name: CI
+name: Upload Extension Manifest Schema
+
 on:
-  push:
   workflow_dispatch:
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build-test:
-    strategy:
-      matrix:
-        os: [ubuntu-24.04, macos-14, windows-latest]
-    runs-on: ${{ matrix.os }}
+  upload:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,7 +27,5 @@ jobs:
         run: pnpm install
       - name: Setup
         run: pnpm run setup
-      - name: Build
-        run: pnpm run build
-      - name: Test
-        run: pnpm run test
+      - name: Upload Schema
+        run: pnpm --filter @kksh/schema upload-schema-to-supabase
