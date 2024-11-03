@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Dance from "@/components/dance.svelte"
 	import { appConfig, winExtMap } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goHome } from "@/utils/route"
@@ -21,12 +22,16 @@
 	} from "@kksh/api/ui"
 	import { toast, type IUiIframeServer2 } from "@kksh/api/ui/iframe"
 	import { Button } from "@kksh/svelte5"
+	import { Layouts } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
+	import { error as svelteError } from "@sveltejs/kit"
 	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import { goto } from "$app/navigation"
 	import { page } from "$app/stores"
 	import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon, XIcon } from "lucide-svelte"
 	import { onDestroy, onMount } from "svelte"
+	import { fade } from "svelte/transition"
+	import Layout from "../../+layout.svelte"
 	import type { PageData } from "./$types"
 
 	let { data }: { data: PageData } = $props()
@@ -133,16 +138,26 @@
 		}
 	}
 
+	function onIframeLoaded() {
+		setTimeout(() => {
+			iframeRef.focus()
+			uiControl.iframeLoaded = true
+		}, 300)
+	}
+
 	onMount(() => {
 		appWin.show()
-		console.log("how", appWin.label)
-
-		console.log(iframeRef.contentWindow)
 		if (iframeRef?.contentWindow) {
 			exposeApiToWindow(iframeRef.contentWindow, serverAPI)
 		} else {
 			toast.warning("iframeRef.contentWindow not available")
 		}
+
+		setTimeout(() => {
+			if (!uiControl.iframeLoaded) {
+				toast.error("Extension failed to load")
+			}
+		}, 3_000)
 	})
 
 	onDestroy(() => {
@@ -150,7 +165,7 @@
 	})
 </script>
 
-<svelte:window on:keydown|preventDefault={goBackOnEscape} />
+<svelte:window on:keydown={goBackOnEscape} />
 
 {#if uiControl.backBtnPosition}
 	<Button
@@ -190,9 +205,17 @@
 {/if}
 
 <main class="h-screen">
+	{#if !uiControl.iframeLoaded}
+		<div class="bg-background absolute h-screen w-screen" out:fade>
+			<Layouts.Center class="h-full w-full" hidden={true}>
+				<Dance />
+			</Layouts.Center>
+		</div>
+	{/if}
 	<iframe
 		bind:this={iframeRef}
 		class="h-full"
+		onload={onIframeLoaded}
 		width="100%"
 		height="100%"
 		frameborder="0"
