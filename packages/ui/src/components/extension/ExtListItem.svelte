@@ -5,6 +5,7 @@
 	import { Button, Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { humanReadableNumber } from "@kksh/utils"
+	import { greaterThan, parse as parseSemver } from "@std/semver"
 	import { CircleCheckBigIcon, MoveRightIcon } from "lucide-svelte"
 	import { parse } from "valibot"
 
@@ -36,7 +37,10 @@
 
 	<span class="flex items-center space-x-3">
 		{#if installedVersion}
-			{#if isUpgradable}
+			{@const upgradable = ext.version
+				? greaterThan(parseSemver(ext.version), parseSemver(installedVersion))
+				: false}
+			{#if upgradable}
 				<Button
 					variant="outline"
 					size="sm"
