@@ -105,16 +105,15 @@ export const builtinCmds: BuiltinCmd[] = [
 	// 		goto("/ext-permission-inspector")
 	// 	}
 	// },
-	// {
-	// 	name: "Extension Loading Troubleshooter",
-	// 	iconifyIcon: "material-symbols:troubleshoot",
-	// 	description: "",
-	// 	function: async () => {
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 		goto("/extension-load-troubleshooter")
-	// 	}
-	// },
+	{
+		name: "Extension Loading Troubleshooter",
+		iconifyIcon: "material-symbols:troubleshoot",
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/troubleshooters/extension-loading")
+		}
+	},
 	// {
 	// 	name: "Create Quicklink",
 	// 	iconifyIcon: "material-symbols:link",
