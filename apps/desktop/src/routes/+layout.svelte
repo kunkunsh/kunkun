@@ -11,6 +11,7 @@
 		updateTheme,
 		type ThemeConfig
 	} from "@kksh/svelte5"
+	import { ViewTransition } from "@kksh/ui"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { attachConsole } from "@tauri-apps/plugin-log"
 	import { onDestroy, onMount } from "svelte"
@@ -32,6 +33,7 @@
 	})
 </script>
 
+<ViewTransition />
 <ModeWatcher />
 <Toaster richColors />
 <AppContext {appConfig} {appState}>

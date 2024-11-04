@@ -2,6 +2,8 @@
 	import { SBExt } from "@kksh/api/supabase"
 	import { Button, Command } from "@kksh/svelte5"
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
+	import { cn } from "@kksh/ui/utils"
+	import { afterNavigate, beforeNavigate } from "$app/navigation"
 	import { type Snippet } from "svelte"
 	import ArrowLeft from "svelte-radix/ArrowLeft.svelte"
 	import type { Writable } from "svelte/store"
@@ -16,7 +18,8 @@
 		upgradableExpsMap,
 		isUpgradable,
 		appState,
-		onGoBack
+		onGoBack,
+		searchTerm = $bindable("")
 	}: {
 		storeExtList: SBExt[]
 		installedExtsMap: Record<string, string>
@@ -27,6 +30,7 @@
 		isUpgradable: (dbExt: SBExt, installedExtVersion: string) => boolean
 		onGoBack?: () => void
 		appState: Writable<{ searchTerm: string }>
+		searchTerm: string
 	} = $props()
 </script>
 
@@ -40,7 +44,7 @@
 		autofocus
 		placeholder="Type a command or search..."
 		leftSlot={leftSlot as Snippet}
-		bind:value={$appState.searchTerm}
+		bind:value={searchTerm}
 	/>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty>No results found.</Command.Empty>

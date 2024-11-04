@@ -1,10 +1,11 @@
 <script lang="ts">
+	import autoAnimate from "@formkit/auto-animate"
 	import Icon from "@iconify/svelte"
 	import { ExtPackageJsonExtra, IconEnum, KunkunExtManifest } from "@kksh/api/models"
 	import { type Tables } from "@kksh/api/supabase/types"
 	import { Button, ScrollArea, Separator } from "@kksh/svelte5"
-	import { IconMultiplexer } from "@kksh/ui"
-	import { greaterThan, parse as parseSemver } from "@std/semver"
+	import { Constants, IconMultiplexer } from "@kksh/ui"
+	import { cn } from "@kksh/ui/utils"
 	import { CircleCheckBigIcon, MoveRightIcon, Trash2Icon } from "lucide-svelte"
 	import DialogImageCarousel from "../common/DialogImageCarousel.svelte"
 	import PlatformsIcons from "../common/PlatformsIcons.svelte"
@@ -20,7 +21,8 @@
 		onInstallSelected,
 		onUpgradeSelected,
 		onUninstallSelected,
-		btnLoading = $bindable(false),
+		showBtn,
+		loading,
 		imageDialogOpen = $bindable(false)
 	}: {
 		ext: Tables<"ext_publish">
@@ -32,7 +34,16 @@
 		onUpgradeSelected?: () => void
 		onUninstallSelected?: () => void
 		onEnterPressed?: () => void
-		btnLoading: boolean
+		showBtn: {
+			upgrade: boolean
+			install: boolean
+			uninstall: boolean
+		}
+		loading: {
+			install: boolean
+			uninstall: boolean
+			upgrade: boolean
+		}
 		imageDialogOpen: boolean
 	} = $props()
 
@@ -57,12 +68,12 @@
 {#snippet upgradeBtn()}
 	<Button
 		class="w-full bg-yellow-600 hover:bg-yellow-500"
-		disabled={btnLoading}
+		disabled={loading.upgrade}
 		variant="destructive"
 		onclick={onUpgradeSelected}
 	>
 		<span>Upgrade</span>
-		{#if btnLoading}
+		{#if loading.upgrade}
 			{@render spinLoader()}
 		{:else}
 			<Icon icon="carbon:upgrade" class="inline h-5 w-5" />
@@ -76,12 +87,12 @@
 {#snippet uninstallBtn()}
 	<Button
 		class="w-full bg-red-600 hover:bg-red-500"
-		disabled={btnLoading}
+		disabled={loading.uninstall}
 		variant="destructive"
 		onclick={onUninstallSelected}
 	>
 		<span>Uninstall</span>
-		{#if btnLoading}
+		{#if loading.uninstall}
 			{@render spinLoader()}
 		{:else}
 			<Trash2Icon class="h-5 w-5" />
@@ -92,11 +103,11 @@
 {#snippet installBtn()}
 	<Button
 		class="w-full bg-green-700 text-white hover:bg-green-600"
-		disabled={btnLoading}
+		disabled={loading.install}
 		onclick={onInstallSelected}
 	>
 		<span>Install</span>
-		{#if btnLoading}
+		{#if loading.install}
 			{@render spinLoader()}
 		{:else}
 			<Icon icon="mi:enter" class="h-5 w-5" />
@@ -107,10 +118,16 @@
 <div data-tauri-drag-region class="h-14"></div>
 <ScrollArea class="container pb-12">
 	<div class="flex items-center gap-4">
-		<IconMultiplexer icon={manifest.icon} class="h-12 w-12" />
+		<span class="h-12 w-12">
+			<IconMultiplexer
+				icon={manifest.icon}
+				class={cn(Constants.CLASSNAMES.EXT_LOGO, "h-full w-full")}
+				data-flip-id={`${Constants.CLASSNAMES.EXT_LOGO}-${ext.identifier}`}
+			/>
+		</span>
 		<div>
 			<span class="flex items-center">
-				<strong class="text-xl">{manifest?.name}</strong>
+				<strong class="ext-name text-xl">{manifest?.name}</strong>
 				{#if isInstalled}
 					<CircleCheckBigIcon class="ml-2 inline text-green-400" />
 				{/if}
@@ -178,18 +195,14 @@
 	</ul>
 </ScrollArea>
 
-<footer class="fixed bottom-0 mb-1 h-10 w-full px-2">
-	{#if isInstalled}
-		{@const isUpgradable = installedExt
-			? greaterThan(parseSemver(ext.version), parseSemver(installedExt.version))
-			: false}
-		{#if isUpgradable}
-			<div class="flex gap-2">
-				{@render upgradeBtn()}
-				{@render uninstallBtn()}
-			</div>
-		{:else}{@render uninstallBtn()}{/if}
-	{:else}
+<footer class="fixed bottom-0 mb-1 flex h-10 w-full space-x-2 px-2" use:autoAnimate>
+	{#if showBtn.upgrade}
+		{@render upgradeBtn()}
+	{/if}
+	{#if showBtn.uninstall}
+		{@render uninstallBtn()}
+	{/if}
+	{#if showBtn.install}
 		{@render installBtn()}
 	{/if}
 </footer>

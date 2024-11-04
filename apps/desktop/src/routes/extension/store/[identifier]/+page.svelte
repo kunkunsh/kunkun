@@ -1,27 +1,55 @@
 <script lang="ts">
 	import { getExtensionsFolder } from "@/constants.js"
-	import { appConfig } from "@/stores/appConfig.js"
 	import { extensions, installedStoreExts } from "@/stores/extensions.js"
-	import { supabase, supabaseAPI, supabaseExtensionsStorage } from "@/supabase"
-	import { goBackOnEscape } from "@/utils/key"
+	import { supabaseAPI } from "@/supabase"
 	import { goBack } from "@/utils/route.js"
-	import { isExtPathInDev } from "@kksh/extension"
-	import { installTarballUrl } from "@kksh/extension/install"
 	import { Button } from "@kksh/svelte5"
 	import { StoreExtDetail } from "@kksh/ui/extension"
-	import * as path from "@tauri-apps/api/path"
+	import { greaterThan, parse as parseSemver } from "@std/semver"
 	import { error } from "@tauri-apps/plugin-log"
 	import { ArrowLeftIcon } from "lucide-svelte"
+	import { onMount } from "svelte"
 	import { toast } from "svelte-sonner"
 	import { get, derived as storeDerived } from "svelte/store"
-	import * as v from "valibot"
 
 	const { data } = $props()
 	let { ext, manifest } = data
 	const installedExt = storeDerived(installedStoreExts, ($e) => {
 		return $e.find((e) => e.kunkun.identifier === ext.identifier)
 	})
-	let btnLoading = $state(false)
+
+	const isUpgradable = $derived(
+		$installedExt
+			? greaterThan(parseSemver(ext.version), parseSemver($installedExt.version))
+			: false
+	)
+	$effect(() => {
+		console.log("isUpgradable", isUpgradable)
+		if (isUpgradable) {
+			showBtn.upgrade = true
+			showBtn.install = false
+			showBtn.uninstall = true
+		}
+	})
+
+	onMount(() => {
+		showBtn = {
+			install: !installedExt,
+			upgrade: isUpgradable,
+			uninstall: !!installedExt
+		}
+	})
+
+	let loading = $state({
+		install: false,
+		uninstall: false,
+		upgrade: false
+	})
+	let showBtn = $state({
+		install: false,
+		upgrade: false,
+		uninstall: false
+	})
 	let imageDialogOpen = $state(false)
 	let delayedImageDialogOpen = $state(false)
 	$effect(() => {
@@ -36,7 +64,7 @@
 	)
 
 	async function onInstallSelected() {
-		btnLoading = true
+		loading.install = true
 		const tarballUrl = supabaseAPI.translateExtensionFilePathToUrl(ext.tarball_path)
 		const installDir = await getExtensionsFolder()
 		return extensions
@@ -52,12 +80,14 @@
 				toast.error("Fail to install tarball", { description: err })
 			})
 			.finally(() => {
-				btnLoading = false
+				loading.install = false
+				showBtn.install = false
+				showBtn.uninstall = true
 			})
 	}
 
 	function onUpgradeSelected() {
-		btnLoading = true
+		loading.upgrade = true
 		const tarballUrl = supabaseAPI.translateExtensionFilePathToUrl(ext.tarball_path)
 		return extensions
 			.upgradeStoreExtension(ext.identifier, tarballUrl)
@@ -68,12 +98,16 @@
 				toast.error("Fail to upgrade extension", { description: err })
 			})
 			.finally(() => {
-				btnLoading = false
+				setTimeout(() => {
+					loading.upgrade = false
+					showBtn.upgrade = false
+					showBtn.uninstall = true
+				}, 2000)
 			})
 	}
 
 	function onUninstallSelected() {
-		btnLoading = true
+		loading.uninstall = true
 		return extensions
 			.uninstallStoreExtensionByIdentifier(ext.identifier)
 			.then((uninstalledExt) => {
@@ -84,7 +118,9 @@
 				error(`Fail to uninstall store extension (${ext.identifier}): ${err}`)
 			})
 			.finally(() => {
-				btnLoading = false
+				loading.uninstall = false
+				showBtn.uninstall = false
+				showBtn.install = true
 			})
 	}
 
@@ -111,7 +147,8 @@
 	{manifest}
 	installedExt={$installedExt}
 	{demoImages}
-	bind:btnLoading
+	{showBtn}
+	{loading}
 	{onInstallSelected}
 	{onUpgradeSelected}
 	{onUninstallSelected}

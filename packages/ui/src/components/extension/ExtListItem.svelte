@@ -3,8 +3,8 @@
 	import { Icon as TIcon } from "@kksh/api/models"
 	import { SBExt } from "@kksh/api/supabase"
 	import { Button, Command } from "@kksh/svelte5"
-	import { IconMultiplexer } from "@kksh/ui"
-	import { humanReadableNumber } from "@kksh/ui/utils"
+	import { Constants, IconMultiplexer } from "@kksh/ui"
+	import { cn, humanReadableNumber } from "@kksh/ui/utils"
 	import { greaterThan, parse as parseSemver } from "@std/semver"
 	import { CircleCheckBigIcon, MoveRightIcon } from "lucide-svelte"
 	import { parse } from "valibot"
@@ -15,8 +15,10 @@
 		onSelect,
 		onUpgrade,
 		onInstall,
-		isUpgradable
+		isUpgradable,
+		class: className
 	}: {
+		class?: string
 		ext: SBExt
 		installedVersion?: string
 		onSelect: () => void
@@ -26,11 +28,17 @@
 	} = $props()
 </script>
 
-<Command.Item class="flex items-center justify-between" {onSelect}>
+<Command.Item class={cn("flex items-center justify-between", className)} {onSelect}>
 	<span class="flex items-center space-x-2">
-		<IconMultiplexer icon={parse(TIcon, ext.icon)} class="!h-6 !w-6 shrink-0" />
+		<span class="!h-6 !w-6">
+			<IconMultiplexer
+				icon={parse(TIcon, ext.icon)}
+				class={cn(Constants.CLASSNAMES.EXT_LOGO, "!h-6 !w-6 shrink-0")}
+				data-flip-id={`${Constants.CLASSNAMES.EXT_LOGO}-${ext.identifier}`}
+			/>
+		</span>
 		<span class="flex flex-col gap-0">
-			<div class="font-semibold">{ext.name}</div>
+			<div class="ext-name font-semibold">{ext.name}</div>
 			<small class="text-muted-foreground font-mono">{ext.short_description}</small>
 		</span>
 	</span>
@@ -74,3 +82,9 @@
 		<span class="w-4 text-center font-mono">{humanReadableNumber(ext.downloads)}</span>
 	</span>
 </Command.Item>
+
+<style>
+	/* .ext-logo-image {
+		view-transition-name: var(--ext-logo-img);
+	} */
+</style>

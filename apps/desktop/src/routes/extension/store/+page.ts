@@ -33,7 +33,6 @@ export const load: PageLoad = async (): Promise<{
 			})
 		)
 	)
-	console.log(get(upgradableExpsMap))
 
 	return {
 		storeExtList,
