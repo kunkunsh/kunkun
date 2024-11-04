@@ -2,11 +2,10 @@
 	import { SBExt } from "@kksh/api/supabase"
 	import { Button, Command } from "@kksh/svelte5"
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
-	import { cn } from "@kksh/ui/utils"
-	import { afterNavigate, beforeNavigate } from "$app/navigation"
 	import { type Snippet } from "svelte"
 	import ArrowLeft from "svelte-radix/ArrowLeft.svelte"
 	import type { Writable } from "svelte/store"
+	import { CLASSNAMES } from "../../constants"
 	import ExtListItem from "./ExtListItem.svelte"
 
 	let {
@@ -35,7 +34,13 @@
 </script>
 
 {#snippet leftSlot()}
-	<Button variant="outline" size="icon" onclick={onGoBack}>
+	<Button
+		variant="outline"
+		size="icon"
+		onclick={onGoBack}
+		class={CLASSNAMES.BACK_BUTTON}
+		data-flip-id={CLASSNAMES.BACK_BUTTON}
+	>
 		<ArrowLeft class="size-4" />
 	</Button>
 {/snippet}

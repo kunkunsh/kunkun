@@ -8,7 +8,9 @@
 	let flipState: Flip.FlipState
 
 	beforeNavigate(() => {
-		flipState = Flip.getState(`.${Constants.CLASSNAMES.EXT_LOGO}`)
+		flipState = Flip.getState(
+			`.${Constants.CLASSNAMES.EXT_LOGO}, .${Constants.CLASSNAMES.BACK_BUTTON}`
+		)
 	})
 
 	afterNavigate(() => {
@@ -17,7 +19,7 @@
 		}
 
 		Flip.from(flipState, {
-			targets: ".kk-ext-logo",
+			targets: `.${Constants.CLASSNAMES.EXT_LOGO}, .${Constants.CLASSNAMES.BACK_BUTTON}`,
 			duration: 0.5,
 			absolute: true,
 			scale: true,
