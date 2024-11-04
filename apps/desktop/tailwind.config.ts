@@ -9,7 +9,7 @@ const config: Config = {
 		"./node_modules/@kksh/ui/src/**/*.{html,js,svelte,ts}",
 		"../../node_modules/@kksh/svelte5/src/**/*.{html,js,svelte,ts}"
 	],
-	safelist: ["dark"],
+	safelist: ["dark", "bg-red-500/30"],
 	theme: {
 		container: {
 			center: true,

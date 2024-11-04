@@ -1,7 +1,11 @@
-import { appState } from "@/stores"
+import { appConfig, appState } from "@/stores"
+import { checkUpdateAndInstall } from "@/utils/updater"
 import type { BuiltinCmd } from "@kksh/ui/types"
+import { getVersion } from "@tauri-apps/api/app"
+import { exit } from "@tauri-apps/plugin-process"
 import { dev } from "$app/environment"
 import { goto } from "$app/navigation"
+import { toast } from "svelte-sonner"
 
 export const builtinCmds: BuiltinCmd[] = [
 	{
@@ -30,23 +34,23 @@ export const builtinCmds: BuiltinCmd[] = [
 	// 		supabase.auth.signOut()
 	// 	}
 	// },
-	// {
-	// 	name: "Show Draggable Area",
-	// 	iconifyIcon: "mingcute:move-fill",
-	// 	description: "",
-	// 	function: async () => {
-	// 		// select all html elements with attribute data-tauri-drag-region
-	// 		const elements = document.querySelectorAll("[data-tauri-drag-region]")
-	// 		elements.forEach((el) => {
-	// 			el.classList.add("bg-red-500/30")
-	// 		})
-	// 		setTimeout(() => {
-	// 			elements.forEach((el) => {
-	// 				el.classList.remove("bg-red-500/30")
-	// 			})
-	// 		}, 2_000)
-	// 	}
-	// },
+	{
+		name: "Show Draggable Area",
+		iconifyIcon: "mingcute:move-fill",
+		description: "",
+		function: async () => {
+			// select all html elements with attribute data-tauri-drag-region
+			const elements = document.querySelectorAll("[data-tauri-drag-region]")
+			elements.forEach((el) => {
+				el.classList.add("bg-red-500/30")
+			})
+			setTimeout(() => {
+				elements.forEach((el) => {
+					el.classList.remove("bg-red-500/30")
+				})
+			}, 2_000)
+		}
+	},
 	// {
 	// 	name: "Add Dev Extension",
 	// 	iconifyIcon: "lineicons:dev",
@@ -57,14 +61,14 @@ export const builtinCmds: BuiltinCmd[] = [
 	// 		goto("/add-dev-ext")
 	// 	}
 	// },
-	// {
-	// 	name: "Kunkun Version",
-	// 	iconifyIcon: "stash:version-solid",
-	// 	description: "",
-	// 	function: async () => {
-	// 		toast.success(`Kunkun Version: ${await getVersion()}`)
-	// 	}
-	// },
+	{
+		name: "Kunkun Version",
+		iconifyIcon: "stash:version-solid",
+		description: "",
+		function: async () => {
+			toast.success(`Kunkun Version: ${await getVersion()}`)
+		}
+	},
 	{
 		name: "Set Dev Extension Path",
 		iconifyIcon: "lineicons:dev",
@@ -143,30 +147,32 @@ export const builtinCmds: BuiltinCmd[] = [
 	// 		appStateStore.setSearchTermSync("")
 	// 	}
 	// },
-	// {
-	// 	name: "Check Update",
-	// 	iconifyIcon: "material-symbols:update",
-	// 	description: "Check for updates",
-	// 	function: async () => {
-	// 		checkUpdateAndInstall()
-	// 	}
-	// },
-	// {
-	// 	name: "Check Beta Update",
-	// 	iconifyIcon: "material-symbols:update",
-	// 	description: "Check for Beta updates",
-	// 	function: async () => {
-	// 		checkUpdateAndInstall(true)
-	// 	}
-	// },
-	// {
-	// 	name: "Reload",
-	// 	iconifyIcon: "tabler:reload",
-	// 	description: "Reload this page",
-	// 	function: async () => {
-	// 		location.reload()
-	// 	}
-	// },
+	{
+		name: "Check Update",
+		iconifyIcon: "material-symbols:update",
+		description: "Check for updates",
+		function: async () => {
+			checkUpdateAndInstall()
+			appState.clearSearchTerm()
+		}
+	},
+	{
+		name: "Check Beta Update",
+		iconifyIcon: "material-symbols:update",
+		description: "Check for Beta updates",
+		function: async () => {
+			checkUpdateAndInstall({ beta: true })
+			appState.clearSearchTerm()
+		}
+	},
+	{
+		name: "Reload",
+		iconifyIcon: "tabler:reload",
+		description: "Reload this page",
+		function: async () => {
+			location.reload()
+		}
+	},
 	{
 		name: "Dance",
 		iconifyIcon: "mdi:dance-pole",
@@ -174,33 +180,43 @@ export const builtinCmds: BuiltinCmd[] = [
 		function: async () => {
 			goto("/dance")
 		}
+	},
+	{
+		name: "Quit Kunkun",
+		iconifyIcon: "emojione:cross-mark-button",
+		description: "Quit Kunkun",
+		function: async () => {
+			exit(0)
+		}
+	},
+	{
+		name: "Toggle Dev Extension HMR",
+		iconifyIcon: "ri:toggle-line",
+		description: "Load dev extensions from their dev server URLs",
+		function: async () => {
+			appConfig.update((config) => {
+				toast.success(`Dev Extension HMR toggled to: ${!config.hmr}`)
+				return {
+					...config,
+					hmr: !config.hmr
+				}
+			})
+			appState.clearSearchTerm()
+		}
+	},
+	{
+		name: "Toggle Hide On Blur",
+		iconifyIcon: "ri:toggle-line",
+		description: "Toggle Hide On Blur",
+		function: async () => {
+			appConfig.update((config) => {
+				toast.success(`"Hide on Blur" toggled to: ${!config.hideOnBlur}`)
+				return {
+					...config,
+					hideOnBlur: !config.hideOnBlur
+				}
+			})
+			appState.clearSearchTerm()
+		}
 	}
-	// {
-	// 	name: "Quit Kunkun",
-	// 	iconifyIcon: "emojione:cross-mark-button",
-	// 	description: "Quit Kunkun",
-	// 	function: async () => {
-	// 		exit(0)
-	// 	}
-	// },
-	// {
-	// 	name: "Toggle Dev Extension Live Load Mode",
-	// 	iconifyIcon: "ri:toggle-line",
-	// 	description: "Load dev extensions from their dev server URLs",
-	// 	function: async () => {
-	// 		toggleDevExtensionLiveLoadMode()
-	// 	}
-	// },
-	// {
-	// 	name: "Toggle Hide On Blur",
-	// 	iconifyIcon: "ri:toggle-line",
-	// 	description: "Toggle Hide On Blur",
-	// 	function: async () => {
-	// 		const appConfig = useAppConfigStore()
-	// 		appConfig.setHideOnBlur(!appConfig.hideOnBlur)
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 		toast.success(`"Hide on Blur" toggled to: ${appConfig.hideOnBlur}`)
-	// 	}
-	// }
 ]

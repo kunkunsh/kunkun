@@ -153,6 +153,9 @@ importers:
       mode-watcher:
         specifier: ^0.4.1
         version: 0.4.1(svelte@5.1.9)
+      semver:
+        specifier: ^7.6.3
+        version: 7.6.3
       svelte-radix:
         specifier: ^2.0.1
         version: 2.0.1(svelte@5.1.9)
@@ -193,6 +196,9 @@ importers:
       '@types/bun':
         specifier: latest
         version: 1.1.13
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
