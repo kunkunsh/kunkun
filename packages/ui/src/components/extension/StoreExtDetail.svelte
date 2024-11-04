@@ -4,7 +4,8 @@
 	import { ExtPackageJsonExtra, IconEnum, KunkunExtManifest } from "@kksh/api/models"
 	import { type Tables } from "@kksh/api/supabase/types"
 	import { Button, ScrollArea, Separator } from "@kksh/svelte5"
-	import { IconMultiplexer } from "@kksh/ui"
+	import { Constants, IconMultiplexer } from "@kksh/ui"
+	import { cn } from "@kksh/ui/utils"
 	import { CircleCheckBigIcon, MoveRightIcon, Trash2Icon } from "lucide-svelte"
 	import DialogImageCarousel from "../common/DialogImageCarousel.svelte"
 	import PlatformsIcons from "../common/PlatformsIcons.svelte"
@@ -117,8 +118,12 @@
 <div data-tauri-drag-region class="h-14"></div>
 <ScrollArea class="container pb-12">
 	<div class="flex items-center gap-4">
-		<span style:--ext-logo-img="ext-logo-{ext.identifier}" class="ext-logo-image">
-			<IconMultiplexer icon={manifest.icon} class="h-12 w-12" />
+		<span class="h-12 w-12">
+			<IconMultiplexer
+				icon={manifest.icon}
+				class={cn(Constants.CLASSNAMES.EXT_LOGO, "h-full w-full")}
+				data-flip-id={`${Constants.CLASSNAMES.EXT_LOGO}-${ext.identifier}`}
+			/>
 		</span>
 		<div>
 			<span class="flex items-center">

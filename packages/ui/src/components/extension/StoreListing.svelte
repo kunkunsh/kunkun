@@ -2,10 +2,11 @@
 	import { SBExt } from "@kksh/api/supabase"
 	import { Button, Command } from "@kksh/svelte5"
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
+	import { cn } from "@kksh/ui/utils"
+	import { afterNavigate, beforeNavigate } from "$app/navigation"
 	import { type Snippet } from "svelte"
 	import ArrowLeft from "svelte-radix/ArrowLeft.svelte"
 	import type { Writable } from "svelte/store"
-	import { cn } from "../../utils"
 	import ExtListItem from "./ExtListItem.svelte"
 
 	let {
@@ -31,7 +32,6 @@
 		appState: Writable<{ searchTerm: string }>
 		searchTerm: string
 	} = $props()
-	let selected = $state(false)
 </script>
 
 {#snippet leftSlot()}
@@ -53,10 +53,7 @@
 				{ext}
 				installedVersion={installedExtsMap[ext.identifier]}
 				isUpgradable={!!upgradableExpsMap[ext.identifier]}
-				onSelect={() => {
-					selected = true
-					onExtItemSelected(ext)
-				}}
+				onSelect={() => onExtItemSelected(ext)}
 				onUpgrade={() => onExtItemUpgrade(ext)}
 				onInstall={() => onExtItemInstall(ext)}
 			/>

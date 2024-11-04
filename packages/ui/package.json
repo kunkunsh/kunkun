@@ -51,6 +51,7 @@
 	},
 	"dependencies": {
 		"@formkit/auto-animate": "^0.8.2",
-		"@std/semver": "npm:@jsr/std__semver@^1.0.3"
+		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
+		"gsap": "^3.12.5"
 	}
 }
