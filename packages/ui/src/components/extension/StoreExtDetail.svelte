@@ -125,8 +125,8 @@
 				data-flip-id={`${Constants.CLASSNAMES.EXT_LOGO}-${ext.identifier}`}
 			/>
 		</span>
-		<div>
-			<span class="flex items-center">
+		<div class="w-full">
+			<span class="flex items-center w-full" use:autoAnimate>
 				<strong class="ext-name text-xl">{manifest?.name}</strong>
 				{#if isInstalled}
 					<CircleCheckBigIcon class="ml-2 inline text-green-400" />

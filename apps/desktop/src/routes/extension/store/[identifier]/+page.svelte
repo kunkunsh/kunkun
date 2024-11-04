@@ -36,9 +36,9 @@
 
 	onMount(() => {
 		showBtn = {
-			install: !installedExt,
+			install: !$installedExt,
 			upgrade: isUpgradable,
-			uninstall: !!installedExt
+			uninstall: !!$installedExt
 		}
 	})
 
@@ -140,7 +140,6 @@
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
-
 <Button
 	variant="outline"
 	size="icon"

@@ -5,6 +5,7 @@ passing everything through props will be very complicated and hard to maintain.
 <script lang="ts">
 	import { systemCommands } from "@/cmds/system"
 	import { devStoreExts, installedStoreExts } from "@/stores"
+	import { getActiveElementNodeName } from "@/utils/dom"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extension/utils"
 	import { Command } from "@kksh/svelte5"
@@ -35,8 +36,20 @@ passing everything through props will be very complicated and hard to maintain.
 		appState: Writable<AppState>
 		builtinCmds: BuiltinCmd[]
 	} = $props()
+
+	function onKeyDown(event: KeyboardEvent) {
+		if (event.key === "Escape") {
+			if (getActiveElementNodeName() === "INPUT") {
+				;(event.target as HTMLInputElement).value = ""
+				if ((event.target as HTMLInputElement | undefined)?.id === "main-command-input") {
+					$appState.searchTerm = ""
+				}
+			}
+		}
+	}
 </script>
 
+<svelte:window on:keydown={onKeyDown} />
 <Command.Root
 	class={cn("rounded-lg border shadow-md", className)}
 	bind:value={$appState.highlightedCmd}
@@ -44,6 +57,7 @@ passing everything through props will be very complicated and hard to maintain.
 >
 	<CustomCommandInput
 		autofocus
+		id="main-command-input"
 		placeholder="Type a command or search..."
 		bind:value={$appState.searchTerm}
 	/>
@@ -51,7 +65,7 @@ passing everything through props will be very complicated and hard to maintain.
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
 		<BuiltinCmds {builtinCmds} />
 		<SystemCmds {systemCommands} />
-		{#if $appConfig.extensionPath && $devStoreExts.length > 0}
+		{#if $appConfig.extensionsInstallDir && $devStoreExts.length > 0}
 			<ExtCmdsGroup
 				extensions={$devStoreExts}
 				heading="Dev Extensions"
@@ -60,7 +74,7 @@ passing everything through props will be very complicated and hard to maintain.
 				hmr={$appConfig.hmr}
 			/>
 		{/if}
-		{#if $appConfig.extensionPath && $installedStoreExts.length > 0}
+		{#if $appConfig.extensionsInstallDir && $installedStoreExts.length > 0}
 			<ExtCmdsGroup
 				extensions={$installedStoreExts}
 				heading="Extensions"

@@ -21,7 +21,7 @@ export const defaultAppConfig: AppConfig = {
 	launchAtLogin: true,
 	showInTray: true,
 	devExtensionPath: null,
-	extensionPath: undefined,
+	extensionsInstallDir: undefined,
 	hmr: false,
 	hideOnBlur: true,
 	extensionAutoUpgrade: true,
@@ -40,20 +40,17 @@ function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 
 	async function init() {
 		debug("Initializing app config")
-		const appDataDir = await path.appDataDir()
-		// const appConfigPath = await path.join(appDataDir, "appConfig.json")
-		// debug(`appConfigPath: ${appConfigPath}`)
 		const persistStore = await load("kk-config.json", { autoSave: true })
 		const loadedConfig = await persistStore.get("config")
 		const parseRes = v.safeParse(PersistedAppConfig, loadedConfig)
 		if (parseRes.success) {
 			console.log("Parse Persisted App Config Success", parseRes.output)
-			const extensionPath = await path.join(appDataDir, "extensions")
+			const extensionsInstallDir = await getExtensionsFolder()
 			update((config) => ({
 				...config,
 				...parseRes.output,
 				isInitialized: true,
-				extensionPath,
+				extensionsInstallDir,
 				platform: os.platform()
 			}))
 		} else {

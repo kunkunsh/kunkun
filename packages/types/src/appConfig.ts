@@ -23,6 +23,6 @@ export type PersistedAppConfig = v.InferOutput<typeof PersistedAppConfig>
 
 export type AppConfig = PersistedAppConfig & {
 	isInitialized: boolean
-	extensionPath?: string
+	extensionsInstallDir?: string
 	platform: Platform
 }

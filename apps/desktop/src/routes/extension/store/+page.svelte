@@ -65,7 +65,6 @@
 </script>
 
 <svelte:window on:keydown={goBackOnEscapeClearSearchTerm} />
-
 {#snippet leftSlot()}
 	<Button
 		variant="outline"

@@ -25,7 +25,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	}
 
 	function getExtensionsFromStore() {
-		const extContainerPath = get(appConfig).extensionPath
+		const extContainerPath = get(appConfig).extensionsInstallDir
 		if (!extContainerPath) return []
 		return get(extensions).filter((ext) => !extAPI.isExtPathInDev(extContainerPath, ext.extPath))
 	}
@@ -83,7 +83,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		identifier: string,
 		tarballUrl: string
 	): Promise<ExtPackageJsonExtra> {
-		const extsDir = get(appConfig).extensionPath
+		const extsDir = get(appConfig).extensionsInstallDir
 		if (!extsDir) throw new Error("Extension path not set")
 		return uninstallStoreExtensionByIdentifier(identifier).then(() =>
 			installFromTarballUrl(tarballUrl, extsDir)
@@ -109,7 +109,7 @@ export const extensions = createExtensionsStore()
 export const installedStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
 	extensions,
 	($extensionsStore) => {
-		const extContainerPath = get(appConfig).extensionPath
+		const extContainerPath = get(appConfig).extensionsInstallDir
 		if (!extContainerPath) return []
 		return $extensionsStore.filter((ext) => !extAPI.isExtPathInDev(extContainerPath, ext.extPath))
 	}
@@ -117,7 +117,7 @@ export const installedStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
 export const devStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
 	extensions,
 	($extensionsStore) => {
-		const extContainerPath = get(appConfig).extensionPath
+		const extContainerPath = get(appConfig).extensionsInstallDir
 		if (!extContainerPath) return []
 		return $extensionsStore.filter((ext) => extAPI.isExtPathInDev(extContainerPath, ext.extPath))
 	}
