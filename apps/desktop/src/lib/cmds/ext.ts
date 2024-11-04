@@ -51,7 +51,11 @@ export async function onCustomUiCmdSelect(
 	} else {
 		console.log("Launch main window")
 		return winExtMap
-			.registerExtensionWithWindow({ windowLabel: "main", extPath: ext.extPath, dist: cmd.dist })
+			.registerExtensionWithWindow({
+				windowLabel: "main",
+				extPath: ext.extPath,
+				dist: cmd.dist
+			})
 			.then(() => goto(url2))
 	}
 }

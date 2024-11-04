@@ -3,7 +3,9 @@ import { ExtensionLabelMap } from "../models/extension"
 import { generateJarvisPluginCommand } from "./common"
 
 export function isWindowLabelRegistered(label: string): Promise<boolean> {
-	return invoke(generateJarvisPluginCommand("is_window_label_registered"), { label })
+	return invoke(generateJarvisPluginCommand("is_window_label_registered"), {
+		label
+	})
 }
 
 /**
@@ -25,7 +27,9 @@ export function registerExtensionWindow(options: {
 
 export function unregisterExtensionWindow(label: string): Promise<void> {
 	console.log("unregisterExtensionWindow", label)
-	return invoke(generateJarvisPluginCommand("unregister_extension_window"), { label })
+	return invoke(generateJarvisPluginCommand("unregister_extension_window"), {
+		label
+	})
 }
 
 export function registerExtensionSpawnedProcess(windowLabel: string, pid: number): Promise<void> {

@@ -2,6 +2,9 @@
 	"name": "@kksh/utils",
 	"module": "index.ts",
 	"type": "module",
+	"scripts": {
+		"test": "bun test"
+	},
 	"exports": {
 		".": "./src/index.ts"
 	},
@@ -10,5 +13,8 @@
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"lz-string": "^1.5.0"
 	}
 }

@@ -3,6 +3,7 @@
 passing everything through props will be very complicated and hard to maintain.
 -->
 <script lang="ts">
+	import { devStoreExts, installedStoreExts } from "@/stores"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extension/utils"
 	import { Command } from "@kksh/svelte5"
@@ -47,22 +48,18 @@ passing everything through props will be very complicated and hard to maintain.
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
 		<BuiltinCmds {builtinCmds} />
-		{#if $appConfig.extensionPath}
+		{#if $appConfig.extensionPath && $devStoreExts.length > 0}
 			<ExtCmdsGroup
-				extensions={extensions.filter((ext) =>
-					isExtPathInDev($appConfig.extensionPath!, ext.extPath)
-				)}
+				extensions={$devStoreExts}
 				heading="Dev Extensions"
 				isDev={true}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 				hmr={$appConfig.hmr}
 			/>
 		{/if}
-		{#if $appConfig.extensionPath}
+		{#if $appConfig.extensionPath && $installedStoreExts.length > 0}
 			<ExtCmdsGroup
-				extensions={extensions.filter(
-					(ext) => !isExtPathInDev($appConfig.extensionPath!, ext.extPath)
-				)}
+				extensions={$installedStoreExts}
 				heading="Extensions"
 				isDev={false}
 				hmr={false}

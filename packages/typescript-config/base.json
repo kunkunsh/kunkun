@@ -21,6 +21,8 @@
 		"paths": {
 			"@kksh/ui/*": ["./packages/ui/*"],
 			"@kksh/ui": ["./packages/ui"],
+			"@kksh/utils/*": ["./packages/utils/*"],
+			"@kksh/utils": ["./packages/utils"],
 			"@kksh/desktop/*": ["./apps/desktop/*"],
 			"@kksh/desktop": ["./apps/desktop"],
 			"@kksh/ci/*": ["./packages/ci/*"],

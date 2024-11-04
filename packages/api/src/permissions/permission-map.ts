@@ -24,16 +24,17 @@ export {
 	UpdownloadPermissionMap
 } from "tauri-api-adapter/permissions"
 
-export const SecurityPermissionMap: { mac: Record<keyof ISecurity["mac"], SecurityPermission[]> } =
-	{
-		mac: {
-			revealSecurityPane: ["security:mac:all", "security:mac:reveal-security-pane"],
-			verifyFingerprint: ["security:mac:all", "security:mac:verify-fingerprint"],
-			requestScreenCapturePermission: ["security:mac:all", "security:mac:request-permission"],
-			checkScreenCapturePermission: ["security:mac:all", "security:mac:check-permission"],
-			resetPermission: ["security:mac:all", "security:mac:reset-screencapture-permission"]
-		}
+export const SecurityPermissionMap: {
+	mac: Record<keyof ISecurity["mac"], SecurityPermission[]>
+} = {
+	mac: {
+		revealSecurityPane: ["security:mac:all", "security:mac:reveal-security-pane"],
+		verifyFingerprint: ["security:mac:all", "security:mac:verify-fingerprint"],
+		requestScreenCapturePermission: ["security:mac:all", "security:mac:request-permission"],
+		checkScreenCapturePermission: ["security:mac:all", "security:mac:check-permission"],
+		resetPermission: ["security:mac:all", "security:mac:reset-screencapture-permission"]
 	}
+}
 
 export const FsPermissionMap: Record<keyof IFs, KunkunFsPermission[]> = {
 	readDir: ["fs:read", "fs:read-dir"],

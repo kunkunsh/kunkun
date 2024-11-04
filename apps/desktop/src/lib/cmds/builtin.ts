@@ -74,7 +74,7 @@ export const builtinCmds: BuiltinCmd[] = [
 			appState.clearSearchTerm()
 			goto("/settings/set-dev-ext-path")
 		}
-	}
+	},
 	// {
 	// 	name: "Extension Window Troubleshooter",
 	// 	iconifyIcon: "material-symbols:window-outline",
@@ -167,14 +167,14 @@ export const builtinCmds: BuiltinCmd[] = [
 	// 		location.reload()
 	// 	}
 	// },
-	// {
-	// 	name: "Dance",
-	// 	iconifyIcon: "mdi:dance-pole",
-	// 	description: "Dance",
-	// 	function: async () => {
-	// 		goto("/dance")
-	// 	}
-	// },
+	{
+		name: "Dance",
+		iconifyIcon: "mdi:dance-pole",
+		description: "Dance",
+		function: async () => {
+			goto("/dance")
+		}
+	}
 	// {
 	// 	name: "Quit Kunkun",
 	// 	iconifyIcon: "emojione:cross-mark-button",

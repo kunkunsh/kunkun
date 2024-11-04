@@ -106,19 +106,19 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 
 export const extensions = createExtensionsStore()
 
-// export const devExtensions: Readable<ExtPackageJsonExtra[]> = derived(
-// 	extensions,
-// 	($extensionsStore, set) => {
-// 		getExtensionsFolder().then((extFolder) => {
-// 			set($extensionsStore.filter((ext) => !ext.extPath.startsWith(extFolder)))
-// 		})
-// 	}
-// )
 export const installedStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
 	extensions,
 	($extensionsStore) => {
 		const extContainerPath = get(appConfig).extensionPath
 		if (!extContainerPath) return []
 		return $extensionsStore.filter((ext) => !extAPI.isExtPathInDev(extContainerPath, ext.extPath))
+	}
+)
+export const devStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
+	extensions,
+	($extensionsStore) => {
+		const extContainerPath = get(appConfig).extensionPath
+		if (!extContainerPath) return []
+		return $extensionsStore.filter((ext) => extAPI.isExtPathInDev(extContainerPath, ext.extPath))
 	}
 )
