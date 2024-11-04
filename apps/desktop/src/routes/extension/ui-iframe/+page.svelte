@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Dance from "@/components/dance.svelte"
+	import DanceTransition from "@/components/dance/dance-transition.svelte"
+	import Dance from "@/components/dance/dance.svelte"
 	import { appConfig, winExtMap } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goHome } from "@/utils/route"
@@ -205,16 +206,12 @@
 {/if}
 
 <main class="h-screen">
-	{#if !uiControl.iframeLoaded}
-		<div class="bg-background absolute h-screen w-screen" out:fade>
-			<Layouts.Center class="h-full w-full" hidden={true}>
-				<Dance />
-			</Layouts.Center>
-		</div>
-	{/if}
+	<DanceTransition delay={300} autoHide={false} show={!uiControl.iframeLoaded} />
 	<iframe
 		bind:this={iframeRef}
-		class="h-full"
+		class={cn("h-full", {
+			hidden: !uiControl.iframeLoaded
+		})}
 		onload={onIframeLoaded}
 		width="100%"
 		height="100%"

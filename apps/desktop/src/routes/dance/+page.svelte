@@ -1,9 +1,9 @@
 <script lang="ts">
+	import Dance from "@/components/dance/dance.svelte"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goBack } from "@/utils/route"
 	import { Button } from "@kksh/svelte5"
 	import { Layouts } from "@kksh/ui"
-	import Dance from "$lib/components/dance.svelte"
 	import ArrowLeft from "svelte-radix/ArrowLeft.svelte"
 </script>
 

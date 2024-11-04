@@ -5,6 +5,7 @@
 	import { type Snippet } from "svelte"
 	import ArrowLeft from "svelte-radix/ArrowLeft.svelte"
 	import type { Writable } from "svelte/store"
+	import { cn } from "../../utils"
 	import ExtListItem from "./ExtListItem.svelte"
 
 	let {
@@ -16,7 +17,8 @@
 		upgradableExpsMap,
 		isUpgradable,
 		appState,
-		onGoBack
+		onGoBack,
+		searchTerm = $bindable("")
 	}: {
 		storeExtList: SBExt[]
 		installedExtsMap: Record<string, string>
@@ -27,7 +29,9 @@
 		isUpgradable: (dbExt: SBExt, installedExtVersion: string) => boolean
 		onGoBack?: () => void
 		appState: Writable<{ searchTerm: string }>
+		searchTerm: string
 	} = $props()
+	let selected = $state(false)
 </script>
 
 {#snippet leftSlot()}
@@ -40,7 +44,7 @@
 		autofocus
 		placeholder="Type a command or search..."
 		leftSlot={leftSlot as Snippet}
-		bind:value={$appState.searchTerm}
+		bind:value={searchTerm}
 	/>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty>No results found.</Command.Empty>
@@ -49,7 +53,10 @@
 				{ext}
 				installedVersion={installedExtsMap[ext.identifier]}
 				isUpgradable={!!upgradableExpsMap[ext.identifier]}
-				onSelect={() => onExtItemSelected(ext)}
+				onSelect={() => {
+					selected = true
+					onExtItemSelected(ext)
+				}}
 				onUpgrade={() => onExtItemUpgrade(ext)}
 				onInstall={() => onExtItemInstall(ext)}
 			/>

@@ -14,6 +14,7 @@
 	},
 	"license": "MIT",
 	"dependencies": {
+		"@formkit/auto-animate": "^0.8.2",
 		"@kksh/extension": "workspace:*",
 		"@kksh/supabase": "workspace:*",
 		"@kksh/ui": "workspace:*",

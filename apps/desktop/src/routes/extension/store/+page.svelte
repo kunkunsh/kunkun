@@ -46,7 +46,6 @@
 	}
 
 	async function onExtItemInstall(ext: SBExt) {
-		console.log("onExtItemInstall", ext)
 		const res = await supabaseAPI.getLatestExtPublish(ext.identifier)
 		if (res.error)
 			return toast.error("Fail to get latest extension", {
@@ -77,5 +76,6 @@
 	{onExtItemUpgrade}
 	{onExtItemInstall}
 	{isUpgradable}
+	bind:searchTerm={$appState.searchTerm}
 	onGoBack={goBack}
 />

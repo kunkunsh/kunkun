@@ -34,8 +34,8 @@
 		"lint": "eslint ."
 	},
 	"devDependencies": {
-		"@types/bun": "latest",
 		"@kksh/api": "workspace:*",
+		"@types/bun": "latest",
 		"bits-ui": "1.0.0-next.36",
 		"clsx": "^2.1.1",
 		"lucide-svelte": "^0.454.0",
@@ -50,6 +50,7 @@
 		"tailwindcss-animate": "^1.0.7"
 	},
 	"dependencies": {
+		"@formkit/auto-animate": "^0.8.2",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3"
 	}
 }
