@@ -295,7 +295,7 @@ export const rawSystemCommands = [
 	}
 ]
 
-export async function getSystemCommands(): Promise<SysCommand[]> {
+export function getSystemCommands(): SysCommand[] {
 	return rawSystemCommands
 		.filter(async (cmd) => cmd.platforms.includes(platform())) // Filter out system commands that are not supported on the current platform
 		.map((cmd) => ({

@@ -3,6 +3,7 @@
 passing everything through props will be very complicated and hard to maintain.
 -->
 <script lang="ts">
+	import { systemCommands } from "@/cmds/system"
 	import { devStoreExts, installedStoreExts } from "@/stores"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extension/utils"
@@ -12,7 +13,8 @@ passing everything through props will be very complicated and hard to maintain.
 		BuiltinCmds,
 		CustomCommandInput,
 		ExtCmdsGroup,
-		GlobalCommandPaletteFooter
+		GlobalCommandPaletteFooter,
+		SystemCmds
 	} from "@kksh/ui/main"
 	import type { BuiltinCmd, CommandLaunchers } from "@kksh/ui/types"
 	import { cn } from "@kksh/ui/utils"
@@ -48,6 +50,7 @@ passing everything through props will be very complicated and hard to maintain.
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
 		<BuiltinCmds {builtinCmds} />
+		<SystemCmds {systemCommands} />
 		{#if $appConfig.extensionPath && $devStoreExts.length > 0}
 			<ExtCmdsGroup
 				extensions={$devStoreExts}
