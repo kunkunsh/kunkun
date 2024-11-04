@@ -4,6 +4,8 @@
 	import { supabaseAPI } from "@/supabase"
 	import { goBack } from "@/utils/route.js"
 	import { Button } from "@kksh/svelte5"
+	import { cn } from "@kksh/svelte5/utils"
+	import { Constants } from "@kksh/ui"
 	import { StoreExtDetail } from "@kksh/ui/extension"
 	import { greaterThan, parse as parseSemver } from "@std/semver"
 	import { error } from "@tauri-apps/plugin-log"
@@ -139,7 +141,13 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-<Button variant="outline" size="icon" class="fixed left-3 top-3" onclick={goBack}>
+<Button
+	variant="outline"
+	size="icon"
+	class={cn("fixed left-3 top-3", Constants.CLASSNAMES.BACK_BUTTON)}
+	data-flip-id={Constants.CLASSNAMES.BACK_BUTTON}
+	onclick={goBack}
+>
 	<ArrowLeftIcon />
 </Button>
 <StoreExtDetail
