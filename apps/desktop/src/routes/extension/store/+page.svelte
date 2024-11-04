@@ -6,12 +6,15 @@
 	import { goBack } from "@/utils/route"
 	import { SBExt } from "@kksh/api/supabase"
 	import { isUpgradable } from "@kksh/extension"
-	import { StoreListing } from "@kksh/ui/extension"
+	import { Button, Command } from "@kksh/svelte5"
+	import { Constants } from "@kksh/ui"
+	import { ExtListItem } from "@kksh/ui/extension"
+	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
 	import { goto } from "$app/navigation"
+	import { ArrowLeft } from "lucide-svelte"
 	import { toast } from "svelte-sonner"
-	import { type PageData } from "./$types"
 
-	let { data }: { data: PageData } = $props()
+	let { data } = $props()
 	const { storeExtList, installedStoreExts, installedExtsMap, upgradableExpsMap } = data
 
 	// function isUpgradeable(item: DbExtItem): boolean {
@@ -62,15 +65,37 @@
 </script>
 
 <svelte:window on:keydown={goBackOnEscapeClearSearchTerm} />
-<StoreListing
-	{storeExtList}
-	{appState}
-	installedExtsMap={$installedExtsMap}
-	upgradableExpsMap={$upgradableExpsMap}
-	{onExtItemSelected}
-	{onExtItemUpgrade}
-	{onExtItemInstall}
-	{isUpgradable}
-	bind:searchTerm={$appState.searchTerm}
-	onGoBack={goBack}
-/>
+
+{#snippet leftSlot()}
+	<Button
+		variant="outline"
+		size="icon"
+		onclick={goBack}
+		class={Constants.CLASSNAMES.BACK_BUTTON}
+		data-flip-id={Constants.CLASSNAMES.BACK_BUTTON}
+	>
+		<ArrowLeft class="size-4" />
+	</Button>
+{/snippet}
+<Command.Root class="h-screen rounded-lg border shadow-md">
+	<CustomCommandInput
+		autofocus
+		placeholder="Type a command or search..."
+		{leftSlot}
+		bind:value={$appState.searchTerm}
+	/>
+	<Command.List class="max-h-screen grow">
+		<Command.Empty>No results found.</Command.Empty>
+		{#each storeExtList as ext}
+			<ExtListItem
+				{ext}
+				installedVersion={$installedExtsMap[ext.identifier]}
+				isUpgradable={!!$upgradableExpsMap[ext.identifier]}
+				onSelect={() => onExtItemSelected(ext)}
+				onUpgrade={() => onExtItemUpgrade(ext)}
+				onInstall={() => onExtItemInstall(ext)}
+			/>
+		{/each}
+	</Command.List>
+	<GlobalCommandPaletteFooter />
+</Command.Root>
