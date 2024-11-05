@@ -86,8 +86,12 @@ jobs:
 
       - name: Debug
         run: |
+          echo "version: ${{ steps.appversion.outputs.version }}"
+          echo "contains beta: ${{ contains(steps.appversion.outputs.version, 'beta') }}"
+          echo "platform_windows: ${{ inputs.platform_windows }}"
+          echo "version and windows: ${{ contains(steps.appversion.outputs.version, 'beta') && inputs.platform_windows }}"
           echo "Args: ${{ contains(steps.appversion.outputs.version, 'beta') && inputs.platform_windows && '-b nsis' || '' }}"
-  
+
       - name: Get file name
         id: filename
         working-directory: apps/desktop
@@ -150,8 +154,8 @@ jobs:
       RETENTION_DAYS: ${{ needs.preprocess.outputs.retention_days }}
       FILE_PREFIX: ${{ needs.preprocess.outputs.file_prefix }}
       # BUILD_TIME: ${{ needs.preprocess.outputs.build_time }}
-      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
-      TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+      TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
       NO_STRIP: true
     steps:
       - name: Checkout repository
