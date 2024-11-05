@@ -2,10 +2,12 @@ import { appConfig, appState } from "@/stores"
 import { checkUpdateAndInstall } from "@/utils/updater"
 import type { BuiltinCmd } from "@kksh/ui/types"
 import { getVersion } from "@tauri-apps/api/app"
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { exit } from "@tauri-apps/plugin-process"
 import { dev } from "$app/environment"
 import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
+import { v4 as uuidv4 } from "uuid"
 
 export const builtinCmds: BuiltinCmd[] = [
 	{
@@ -79,42 +81,39 @@ export const builtinCmds: BuiltinCmd[] = [
 			goto("/settings/set-dev-ext-path")
 		}
 	},
-	// {
-	// 	name: "Extension Window Troubleshooter",
-	// 	iconifyIcon: "material-symbols:window-outline",
-	// 	description: "",
-	// 	function: async () => {
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 		// goto("/window-troubleshooter")
-	// 		const winLabel = `main:window-troubleshooter-${uuidv4()}`
-	// 		console.log(winLabel)
-	// 		new WebviewWindow(winLabel, {
-	// 			url: "/window-troubleshooter",
-	// 			title: "Window Troubleshooter"
-	// 		})
-	// 	}
-	// },
-	// {
-	// 	name: "Extension Permission Inspector",
-	// 	iconifyIcon: "hugeicons:inspect-code",
-	// 	description: "",
-	// 	function: async () => {
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 		goto("/ext-permission-inspector")
-	// 	}
-	// },
-	// {
-	// 	name: "Extension Loading Troubleshooter",
-	// 	iconifyIcon: "material-symbols:troubleshoot",
-	// 	description: "",
-	// 	function: async () => {
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 		goto("/extension-load-troubleshooter")
-	// 	}
-	// },
+	{
+		name: "Extension Window Troubleshooter",
+		iconifyIcon: "material-symbols:window-outline",
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			// goto("/window-troubleshooter")
+			const winLabel = `main:extension-window-troubleshooter-${uuidv4()}`
+			console.log(winLabel)
+			new WebviewWindow(winLabel, {
+				url: "/troubleshooters/extension-window",
+				title: "Extension Window Troubleshooter"
+			})
+		}
+	},
+	{
+		name: "Extension Permission Inspector",
+		iconifyIcon: "hugeicons:inspect-code",
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/extension/permission-inspector")
+		}
+	},
+	{
+		name: "Extension Loading Troubleshooter",
+		iconifyIcon: "material-symbols:troubleshoot",
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/troubleshooters/extension-loading")
+		}
+	},
 	// {
 	// 	name: "Create Quicklink",
 	// 	iconifyIcon: "material-symbols:link",

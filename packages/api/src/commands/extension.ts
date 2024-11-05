@@ -26,7 +26,6 @@ export function registerExtensionWindow(options: {
 }
 
 export function unregisterExtensionWindow(label: string): Promise<void> {
-	console.log("unregisterExtensionWindow", label)
 	return invoke(generateJarvisPluginCommand("unregister_extension_window"), {
 		label
 	})
