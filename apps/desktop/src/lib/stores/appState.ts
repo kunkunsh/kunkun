@@ -1,4 +1,4 @@
-import type { AppState } from "@/types"
+import type { AppState } from "@kksh/types"
 import { get, writable, type Writable } from "svelte/store"
 
 export const defaultAppState: AppState = {
@@ -15,9 +15,7 @@ function createAppState(): Writable<AppState> & AppStateAPI {
 	const store = writable<AppState>(defaultAppState)
 
 	return {
-		subscribe: store.subscribe,
-		update: store.update,
-		set: store.set,
+		...store,
 		get: () => get(store),
 		clearSearchTerm: () => {
 			store.update((state) => ({ ...state, searchTerm: "" }))

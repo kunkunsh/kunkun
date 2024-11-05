@@ -40,6 +40,7 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 	async function init() {}
 
 	return {
+		...store,
 		init,
 		registerExtensionWithWindow: async ({
 			extPath,
@@ -114,10 +115,7 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 			return unregisterExtensionSpawnedProcess(windowLabel, pid).then(() => {
 				ext.pids = ext.pids.filter((p) => p !== pid)
 			})
-		},
-		subscribe: store.subscribe,
-		update: store.update,
-		set: store.set
+		}
 	}
 }
 

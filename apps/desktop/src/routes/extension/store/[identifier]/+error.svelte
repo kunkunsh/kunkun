@@ -12,12 +12,12 @@
 
 <svelte:window on:keydown={handleKeyDown} />
 
-<Layouts.Center class="h-screen">
+<Layouts.Center class="min-h-screen py-5">
 	<Error.RawErrorJSONPreset
 		title="Fail to Load Extension"
-		class="w-fit max-w-screen-sm"
+		class="w-fit max-w-screen-sm border-2 border-red-500"
 		message={$page.error?.message ?? "Unknown Error"}
-		onnGoBack={() => goto("/")}
+		onGoBack={() => goto("/")}
 		rawJsonError={JSON.stringify($page, null, 2)}
 	/>
 </Layouts.Center>

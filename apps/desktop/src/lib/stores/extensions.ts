@@ -16,11 +16,11 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	uninstallStoreExtensionByIdentifier: (identifier: string) => Promise<ExtPackageJsonExtra>
 	upgradeStoreExtension: (identifier: string, tarballUrl: string) => Promise<ExtPackageJsonExtra>
 } {
-	const { subscribe, update, set } = writable<ExtPackageJsonExtra[]>([])
+	const store = writable<ExtPackageJsonExtra[]>([])
 
 	function init() {
 		return extAPI.loadAllExtensionsFromDb().then((exts) => {
-			set(exts)
+			store.set(exts)
 		})
 	}
 
@@ -43,7 +43,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		return extAPI
 			.loadExtensionManifestFromDisk(await path.join(extPath, "package.json"))
 			.then((ext) => {
-				update((exts) => {
+				store.update((exts) => {
 					const existingExt = exts.find((e) => e.extPath === ext.extPath)
 					if (existingExt) return exts
 					return [...exts, ext]
@@ -69,7 +69,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 
 		return extAPI
 			.uninstallExtensionByPath(targetPath)
-			.then(() => update((exts) => exts.filter((ext) => ext.extPath !== targetExt.extPath)))
+			.then(() => store.update((exts) => exts.filter((ext) => ext.extPath !== targetExt.extPath)))
 			.then(() => targetExt)
 	}
 
@@ -91,16 +91,14 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	}
 
 	return {
+		...store,
 		init,
 		getExtensionsFromStore,
 		findStoreExtensionByIdentifier,
 		registerNewExtensionByPath,
 		installFromTarballUrl,
 		uninstallStoreExtensionByIdentifier,
-		upgradeStoreExtension,
-		subscribe,
-		update,
-		set
+		upgradeStoreExtension
 	}
 }
 
