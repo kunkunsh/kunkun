@@ -3,7 +3,7 @@
 	import { goBack } from "@/utils/route"
 	import { db } from "@kksh/api/commands"
 	import { loadExtensionManifestFromDisk } from "@kksh/extension"
-	import { Button, Dialog, Table, ScrollArea } from "@kksh/svelte5"
+	import { Button, Dialog, ScrollArea, Table } from "@kksh/svelte5"
 	import { join } from "@tauri-apps/api/path"
 	import { exists } from "@tauri-apps/plugin-fs"
 	import { ArrowLeftIcon } from "lucide-svelte"

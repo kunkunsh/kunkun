@@ -126,7 +126,7 @@
 			/>
 		</span>
 		<div class="w-full">
-			<span class="flex items-center w-full" use:autoAnimate>
+			<span class="flex w-full items-center" use:autoAnimate>
 				<strong class="ext-name text-xl">{manifest?.name}</strong>
 				{#if isInstalled}
 					<CircleCheckBigIcon class="ml-2 inline text-green-400" />

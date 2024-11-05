@@ -95,16 +95,15 @@ export const builtinCmds: BuiltinCmd[] = [
 	// 		})
 	// 	}
 	// },
-	// {
-	// 	name: "Extension Permission Inspector",
-	// 	iconifyIcon: "hugeicons:inspect-code",
-	// 	description: "",
-	// 	function: async () => {
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 		goto("/ext-permission-inspector")
-	// 	}
-	// },
+	{
+		name: "Extension Permission Inspector",
+		iconifyIcon: "hugeicons:inspect-code",
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/extension/permission-inspector")
+		}
+	},
 	{
 		name: "Extension Loading Troubleshooter",
 		iconifyIcon: "material-symbols:troubleshoot",
