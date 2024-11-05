@@ -13,7 +13,12 @@ export const load: PageLoad = async ({
 }): Promise<{
 	ext: Tables<"ext_publish">
 	manifest: KunkunExtManifest
+	params: {
+		identifier: string
+	}
 }> => {
+	console.log("store[identifier] params", params)
+
 	const { error: dbError, data: ext } = await supabaseAPI.getLatestExtPublish(params.identifier)
 	if (dbError) {
 		return error(400, {
@@ -30,6 +35,7 @@ export const load: PageLoad = async ({
 
 	return {
 		ext,
+		params,
 		manifest: parseManifest.output
 	}
 }
