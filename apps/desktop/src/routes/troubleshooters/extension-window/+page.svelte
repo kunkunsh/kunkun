@@ -12,7 +12,7 @@
 
 	const appWin = getCurrentWebviewWindow()
 	let winLabelMap = $state<ExtensionLabelMap>({})
-	let refreshEverySecond = $state(false)
+	let refreshEverySecond = $state(true)
 	let refreshCount = $state(0)
 
 	async function refresh() {

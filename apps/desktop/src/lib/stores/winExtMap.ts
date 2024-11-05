@@ -58,11 +58,11 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 					await killProcesses(winExtMap[windowLabel].pids)
 					delete winExtMap[windowLabel]
 				} else {
-					winExtMap[windowLabel] = {
-						windowLabel,
-						extPath,
-						pids: []
-					}
+					// winExtMap[windowLabel] = {
+					// 	windowLabel,
+					// 	extPath,
+					// 	pids: []
+					// }
 				}
 			}
 			const returnedWinLabel = await registerExtensionWindow({
@@ -70,6 +70,11 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 				windowLabel,
 				dist
 			})
+			winExtMap[returnedWinLabel] = {
+				windowLabel: returnedWinLabel,
+				extPath,
+				pids: []
+			}
 			store.set(winExtMap)
 			return returnedWinLabel
 		},

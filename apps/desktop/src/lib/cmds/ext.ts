@@ -1,3 +1,4 @@
+import { appState } from "@/stores"
 import { winExtMap } from "@/stores/winExtMap"
 import { trimSlash } from "@/utils/url"
 import { constructExtensionSupportDir } from "@kksh/api"
@@ -48,6 +49,9 @@ export async function onCustomUiCmdSelect(
 		})
 		console.log("Launch new window, ", winLabel)
 		const window = launchNewExtWindow(winLabel, url2, cmd.window)
+		window.onCloseRequested(async (event) => {
+			await winExtMap.unregisterExtensionFromWindow(winLabel)
+		})
 	} else {
 		console.log("Launch main window")
 		return winExtMap
@@ -58,4 +62,5 @@ export async function onCustomUiCmdSelect(
 			})
 			.then(() => goto(url2))
 	}
+	appState.clearSearchTerm()
 }
