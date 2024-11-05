@@ -1,4 +1,5 @@
 import { appConfig, appState } from "@/stores"
+import { supabase } from "@/supabase"
 import { checkUpdateAndInstall } from "@/utils/updater"
 import type { BuiltinCmd } from "@kksh/ui/types"
 import { getVersion } from "@tauri-apps/api/app"
@@ -19,23 +20,22 @@ export const builtinCmds: BuiltinCmd[] = [
 			goto("/extension/store")
 		}
 	},
-	// {
-	// 	name: "Sign In",
-	// 	iconifyIcon: "mdi:login-variant",
-	// 	description: "",
-	// 	function: async () => {
-	// 		goto("/auth")
-	// 	}
-	// },
-	// {
-	// 	name: "Sign Out",
-	// 	iconifyIcon: "mdi:logout-variant",
-	// 	description: "",
-	// 	function: async () => {
-	// 		const supabase = useSupabaseClient()
-	// 		supabase.auth.signOut()
-	// 	}
-	// },
+	{
+		name: "Sign In",
+		iconifyIcon: "mdi:login-variant",
+		description: "",
+		function: async () => {
+			goto("/auth")
+		}
+	},
+	{
+		name: "Sign Out",
+		iconifyIcon: "mdi:logout-variant",
+		description: "",
+		function: async () => {
+			supabase.auth.signOut()
+		}
+	},
 	{
 		name: "Show Draggable Area",
 		iconifyIcon: "mingcute:move-fill",

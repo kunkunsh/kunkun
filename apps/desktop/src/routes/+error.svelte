@@ -11,12 +11,12 @@
 
 <svelte:window on:keydown={handleKeyDown} />
 
-<Layouts.Center class="h-screen">
+<Layouts.Center class="min-h-screen py-5">
 	<Error.RawErrorJSONPreset
-		title="Unknown Error"
-		class="w-fit max-w-screen-sm"
+		title="Error"
+		class="w-fit max-w-screen-sm border-2 border-red-500"
 		message={$page.error?.message ?? "Unknown Error"}
-		onnGoBack={() => window.history.back()}
+		onGoBack={() => window.history.back()}
 		rawJsonError={JSON.stringify($page, null, 2)}
 	/>
 </Layouts.Center>

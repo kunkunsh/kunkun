@@ -36,7 +36,7 @@ interface AppConfigAPI {
 }
 
 function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
-	const { subscribe, update, set } = writable<AppConfig>(defaultAppConfig)
+	const store = writable<AppConfig>(defaultAppConfig)
 
 	async function init() {
 		debug("Initializing app config")
@@ -46,7 +46,7 @@ function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 		if (parseRes.success) {
 			console.log("Parse Persisted App Config Success", parseRes.output)
 			const extensionsInstallDir = await getExtensionsFolder()
-			update((config) => ({
+			store.update((config) => ({
 				...config,
 				...parseRes.output,
 				isInitialized: true,
@@ -60,7 +60,7 @@ function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 			await persistStore.set("config", v.parse(PersistedAppConfig, defaultAppConfig))
 		}
 
-		subscribe(async (config) => {
+		store.subscribe(async (config) => {
 			console.log("Saving app config", config)
 			await persistStore.set("config", config)
 			updateTheme(config.theme)
@@ -68,15 +68,13 @@ function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 	}
 
 	return {
-		setTheme: (theme: ThemeConfig) => update((config) => ({ ...config, theme })),
+		...store,
+		setTheme: (theme: ThemeConfig) => store.update((config) => ({ ...config, theme })),
 		setDevExtensionPath: (devExtensionPath: string | null) => {
 			console.log("setDevExtensionPath", devExtensionPath)
-			update((config) => ({ ...config, devExtensionPath }))
+			store.update((config) => ({ ...config, devExtensionPath }))
 		},
-		init,
-		subscribe,
-		update,
-		set
+		init
 	}
 }
 
