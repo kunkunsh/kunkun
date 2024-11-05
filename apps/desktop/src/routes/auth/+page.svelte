@@ -1,12 +1,15 @@
 <script lang="ts">
+	import { auth } from "@/stores"
 	import { supabase } from "@/supabase"
 	import { goBackOnEscape } from "@/utils/key"
-	import { goBack } from "@/utils/route"
+	import { goBack, goHome } from "@/utils/route"
 	import Icon from "@iconify/svelte"
 	import { DEEP_LINK_PATH_AUTH_CONFIRM } from "@kksh/api"
 	import { Button, Card } from "@kksh/svelte5"
 	import { Layouts } from "@kksh/ui"
+	import { goto } from "$app/navigation"
 	import { ArrowLeft } from "lucide-svelte"
+	import { onMount } from "svelte"
 	import { toast } from "svelte-sonner"
 	import { open } from "tauri-plugin-shellx-api"
 
@@ -27,19 +30,20 @@
 			data.url && open(data.url)
 		}
 	}
+
+	onMount(() => {
+		if ($auth.session) {
+			toast.success("Already Signed In")
+			goHome()
+		}
+	})
 </script>
 
 <svelte:window on:keydown={goBackOnEscape} />
-<Button
-	variant="outline"
-	size="icon"
-	onclick={goBack}
-	class="absolute left-2 top-2"
-	data-tauri-drag-region
->
+<Button variant="outline" size="icon" onclick={goBack} class="absolute left-2 top-2 z-50">
 	<ArrowLeft class="size-4" />
 </Button>
-
+<div class="absolute h-10 w-full" data-tauri-drag-region></div>
 <Layouts.Center class="h-screen w-screen" data-tauri-drag-region>
 	<Card.Root class="w-80">
 		<Card.Header class="flex flex-col items-center">

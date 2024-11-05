@@ -12,7 +12,7 @@ interface AuthAPI {
 }
 
 function createAuth(): Writable<State> & AuthAPI {
-	const store = writable<State>()
+	const store = writable<State>({ session: null, user: null })
 	async function refresh() {
 		const {
 			data: { session },

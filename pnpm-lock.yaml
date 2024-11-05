@@ -415,9 +415,6 @@ importers:
       '@kksh/supabase':
         specifier: workspace:*
         version: link:../supabase
-      '@supabase/supabase-js':
-        specifier: ^2.43.4
-        version: 2.46.1
       typescript:
         specifier: ^5.0.0
         version: 5.5.4
@@ -431,9 +428,6 @@ importers:
       '@types/bun':
         specifier: latest
         version: 1.1.13
-      supabase:
-        specifier: '>=1.8.1'
-        version: 1.207.9
 
   packages/supabase:
     dependencies:

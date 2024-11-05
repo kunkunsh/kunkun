@@ -1,11 +1,9 @@
-import { appConfig, appState } from "@/stores"
-import { supabase } from "@/supabase"
+import { appConfig, appState, auth } from "@/stores"
 import { checkUpdateAndInstall } from "@/utils/updater"
 import type { BuiltinCmd } from "@kksh/ui/types"
 import { getVersion } from "@tauri-apps/api/app"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { exit } from "@tauri-apps/plugin-process"
-import { dev } from "$app/environment"
 import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
 import { v4 as uuidv4 } from "uuid"
@@ -33,7 +31,10 @@ export const builtinCmds: BuiltinCmd[] = [
 		iconifyIcon: "mdi:logout-variant",
 		description: "",
 		function: async () => {
-			supabase.auth.signOut()
+			auth
+				.signOut()
+				.then(() => toast.success("Signed out"))
+				.catch((err) => toast.error("Failed to sign out: ", { description: err.message }))
 		}
 	},
 	{

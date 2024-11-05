@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goHome } from "@/utils/route"
 	import { Error, Layouts } from "@kksh/ui"
 	import { page } from "$app/stores"
 
@@ -16,7 +17,7 @@
 		title="Error"
 		class="w-fit max-w-screen-sm border-2 border-red-500"
 		message={$page.error?.message ?? "Unknown Error"}
-		onGoBack={() => window.history.back()}
+		onGoBack={goHome}
 		rawJsonError={JSON.stringify($page, null, 2)}
 	/>
 </Layouts.Center>

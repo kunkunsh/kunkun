@@ -2,7 +2,7 @@
 	import { auth } from "@/stores"
 	import { supabase } from "@/supabase"
 	import { goHomeOnEscape } from "@/utils/key"
-	import { goBack } from "@/utils/route"
+	import { goBack, goHome } from "@/utils/route"
 	import { Avatar, Button } from "@kksh/svelte5"
 	import { goto } from "$app/navigation"
 	import { ArrowLeft } from "lucide-svelte"
@@ -51,14 +51,17 @@
 
 <svelte:window on:keydown={goHomeOnEscape} />
 <Button
+	class="absolute left-2 top-2 z-50"
 	variant="outline"
 	size="icon"
-	onclick={goBack}
-	class="absolute left-2 top-2"
-	data-tauri-drag-region
+	onclick={() => {
+		console.log("go Home")
+		goto("/")
+	}}
 >
 	<ArrowLeft class="size-4" />
 </Button>
+<div class="h-10 w-full" data-tauri-drag-region></div>
 <main class="container pt-10">
 	<div class="flex grow items-center justify-center pt-16">
 		<div class="flex flex-col items-center gap-4">

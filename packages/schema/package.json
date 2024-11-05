@@ -15,8 +15,7 @@
 	},
 	"devDependencies": {
 		"@gcornut/valibot-json-schema": "^0.42.0",
-		"@types/bun": "latest",
-		"supabase": ">=1.8.1"
+		"@types/bun": "latest"
 	},
 	"peerDependencies": {
 		"@kksh/supabase": "workspace:*",
@@ -25,7 +24,6 @@
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.583.0",
 		"@kksh/api": "workspace:*",
-		"@supabase/supabase-js": "^2.43.4",
 		"valibot": "^0.40.0"
 	}
 }

@@ -8,7 +8,7 @@ import {
 import type { UnlistenFn } from "@tauri-apps/api/event"
 import { extname } from "@tauri-apps/api/path"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
-import { onOpenUrl } from "@tauri-apps/plugin-deep-link"
+import * as deepLink from "@tauri-apps/plugin-deep-link"
 import { error } from "@tauri-apps/plugin-log"
 import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
@@ -24,7 +24,8 @@ export function initDeeplink(): Promise<UnlistenFn> {
 	if (!isInMainWindow()) {
 		return Promise.resolve(() => {})
 	}
-	return onOpenUrl((urls) => {
+	// deepLink.getCurrent()
+	return deepLink.onOpenUrl((urls) => {
 		console.log("deep link:", urls)
 		urls.forEach(handleDeepLink)
 	})
