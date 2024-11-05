@@ -77,7 +77,17 @@ jobs:
           name: tauri-config
           path: apps/desktop/src-tauri/tauri.conf.json
           retention-days: 1
+      - name: Get App Version
+        id: appversion
+        run: |
+          echo "platform_windows: ${{ inputs.platform_windows }}"
+          echo "version=$(node -p "require('./apps/desktop/package.json').version")"
+          echo "version=$(node -p "require('./apps/desktop/package.json').version")" >> $env:GITHUB_OUTPUT
 
+      - name: Debug
+        run: |
+          echo "Args: ${{ contains(steps.appversion.outputs.version, 'beta') && inputs.platform_windows && '-b nsis' || '' }}"
+  
       - name: Get file name
         id: filename
         working-directory: apps/desktop
