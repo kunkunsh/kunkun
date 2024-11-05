@@ -220,6 +220,10 @@ jobs:
           echo "version=$(node -p "require('./apps/desktop/package.json').version")"
           echo "version=$(node -p "require('./apps/desktop/package.json').version")" >> $env:GITHUB_OUTPUT
 
+      - name: Debug
+        run: |
+          echo "Args: ${{ contains(steps.appversion.outputs.version, 'beta') && inputs.platform_windows && '-b nsis' || '' }}"
+
       - name: Build the app
         working-directory: apps/desktop
         env:
