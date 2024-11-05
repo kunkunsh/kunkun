@@ -67,7 +67,8 @@ jobs:
 
       - name: Update tauri.conf.json
         if: ${{ github.event_name != 'schedule' && !inputs.updater }}
-        run: yq -i '.tauri.updater.active = false' src-tauri/tauri.conf.json
+        run: yq -i '.bundle.active = false' src-tauri/tauri.conf.json
+        working-directory: apps/desktop
 
       - name: Upload tauri-config
         if: ${{ github.event_name != 'schedule' && !inputs.updater }}
