@@ -30,7 +30,8 @@
 		"semver": "^7.6.3",
 		"svelte-radix": "^2.0.1",
 		"svelte-sonner": "^0.3.28",
-		"sveltekit-superforms": "^2.20.0"
+		"sveltekit-superforms": "^2.20.0",
+		"uuid": "^11.0.2"
 	},
 	"devDependencies": {
 		"@kksh/types": "workspace:*",

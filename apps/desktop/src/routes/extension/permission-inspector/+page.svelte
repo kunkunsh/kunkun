@@ -62,7 +62,7 @@
 	}
 </script>
 
-<svelte:window on:keydown|preventDefault={goBackOnEscape} />
+<svelte:window on:keydown={goBackOnEscape} />
 
 <main class="container w-screen pt-10">
 	<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" onclick={goBack}>
