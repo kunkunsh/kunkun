@@ -1,7 +1,7 @@
 <script lang="ts">
 	import autoAnimate from "@formkit/auto-animate"
 	import Icon from "@iconify/svelte"
-	import { Button, buttonVariants, Collapsible, ScrollArea } from "@kksh/svelte5"
+	import { Button, ButtonModule, Collapsible, ScrollArea } from "@kksh/svelte5"
 	import { Error, Layouts, Shiki } from "@kksh/ui"
 	import { ChevronsUpDown } from "lucide-svelte"
 	import { type Snippet } from "svelte"
@@ -45,7 +45,7 @@
 		<div class="flex items-center justify-between space-x-4 px-4">
 			<h4 class="text-sm font-semibold">Raw Error JSON</h4>
 			<Collapsible.Trigger
-				class={buttonVariants({ variant: "ghost", size: "sm", class: "w-9 p-0" })}
+				class={ButtonModule.buttonVariants({ variant: "ghost", size: "sm", class: "w-9 p-0" })}
 			>
 				<ChevronsUpDown class="size-4" />
 			</Collapsible.Trigger>

@@ -2,7 +2,7 @@
 	import { IconEnum } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
-	import { DraggableCommandGroup } from "@kksh/ui/custom"
+	import { DraggableCommandGroup } from "../custom"
 	import type { BuiltinCmd } from "./types"
 
 	const { builtinCmds }: { builtinCmds: BuiltinCmd[] } = $props()

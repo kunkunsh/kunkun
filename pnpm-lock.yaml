@@ -88,8 +88,8 @@ importers:
         specifier: workspace:*
         version: link:packages/api
       '@kksh/svelte5':
-        specifier: 0.1.2-beta.4
-        version: 0.1.2-beta.4(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)
+        specifier: 0.1.2-beta.8
+        version: 0.1.2-beta.8(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)
       prettier:
         specifier: ^3.2.5
         version: 3.3.3
@@ -1279,12 +1279,12 @@ packages:
   '@jsr/std__semver@1.0.3':
     resolution: {integrity: sha512-d1uBT0Muxhd3yBIw9ZE1Q/4N1Y0td0EJe1AqwM3hP05IMwaWQV/miksQOPR3rup3bVovuIvqBm7WJcoUripdQA==, tarball: https://npm.jsr.io/~/11/@jsr/std__semver/1.0.3.tgz}
 
-  '@kksh/svelte5@0.1.2-beta.4':
-    resolution: {integrity: sha512-QUA3wl4aOUcnfTo37/l37fWlhwf0lbtnNugDiwBJgrjaLeNF6nEzlYFKxxsA7erR6hY6VZCeVlf01S3ZgPva4w==}
+  '@kksh/svelte5@0.1.2-beta.8':
+    resolution: {integrity: sha512-cXReqYbZ/KXICucNREz6T/1DguTlGjvkq2qlUriYH/lgfgsUjbq8ZPhVsCIb0qlDT9IYIu5Pc/8X+azGqFirRA==}
     peerDependencies:
-      lucide-svelte: ^0.416.0
-      svelte: ^5.0.0
-      svelte-sonner: ^0.3.27
+      lucide-svelte: ^0.454.0
+      svelte: ^5.1.10
+      svelte-sonner: ^0.3.28
 
   '@manypkg/find-root@1.1.0':
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
@@ -3760,11 +3760,11 @@ packages:
       svelte:
         optional: true
 
-  svelte-persisted-store@0.11.0:
-    resolution: {integrity: sha512-9RgJ5DrawGyyfK22A80cfu8Jose3CV8YjEZKz9Tn94rQ0tWyEmYr+XI+wrVF6wjRbW99JMDSVcFRiM3XzVJj/w==}
+  svelte-persisted-store@0.12.0:
+    resolution: {integrity: sha512-BdBQr2SGSJ+rDWH8/aEV5GthBJDapVP0GP3fuUCA7TjYG5ctcB+O9Mj9ZC0+Jo1oJMfZUd1y9H68NFRR5MyIJA==}
     engines: {node: '>=0.14'}
     peerDependencies:
-      svelte: ^3.48.0 || ^4.0.0 || ^5.0.0-next.0
+      svelte: ^3.48.0 || ^4 || ^5
 
   svelte-radix@2.0.1:
     resolution: {integrity: sha512-YrX44Dj+Rp6YZuPSjdmyd6P8QTkb2NXwySUCZYzjwkP6Cl3dZaTBPPeaSOutP3v3ycQ2XwyNOpyn4p0QcN+uYQ==}
@@ -5274,11 +5274,11 @@ snapshots:
 
   '@jsr/std__semver@1.0.3': {}
 
-  '@kksh/svelte5@0.1.2-beta.4(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)':
+  '@kksh/svelte5@0.1.2-beta.8(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)':
     dependencies:
       lucide-svelte: 0.454.0(svelte@5.1.9)
       svelte: 5.1.9
-      svelte-persisted-store: 0.11.0(svelte@5.1.9)
+      svelte-persisted-store: 0.12.0(svelte@5.1.9)
       svelte-sonner: 0.3.28(svelte@5.1.9)
 
   '@manypkg/find-root@1.1.0':
@@ -7918,7 +7918,7 @@ snapshots:
     optionalDependencies:
       svelte: 5.1.9
 
-  svelte-persisted-store@0.11.0(svelte@5.1.9):
+  svelte-persisted-store@0.12.0(svelte@5.1.9):
     dependencies:
       svelte: 5.1.9
 
