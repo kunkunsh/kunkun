@@ -10,3 +10,4 @@ export { default as GridAnimation } from "./components/animation/grid-animation.
 export { default as ViewTransition } from "./components/transition/view-transition.svelte"
 export * as Constants from "./constants"
 export * as Form from "./components/ui/form"
+export { default as ModeToggle } from "./components/theme/mode-toggle.svelte"

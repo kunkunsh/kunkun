@@ -1,12 +1,10 @@
 import { getExtensionsFolder } from "@/constants"
-import { themeConfigStore, updateTheme, type ThemeConfig } from "@kksh/svelte5"
+import { createTauriSyncStore, type WithSyncStore } from "@/utils/sync-store"
+import { updateTheme, type ThemeConfig } from "@kksh/svelte5"
 import { PersistedAppConfig, type AppConfig } from "@kksh/types"
-import * as path from "@tauri-apps/api/path"
-import { remove } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
 import * as os from "@tauri-apps/plugin-os"
 import { load } from "@tauri-apps/plugin-store"
-import { get, writable, type Writable } from "svelte/store"
 import * as v from "valibot"
 
 export const defaultAppConfig: AppConfig = {
@@ -35,8 +33,8 @@ interface AppConfigAPI {
 	setDevExtensionPath: (devExtensionPath: string | null) => void
 }
 
-function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
-	const store = writable<AppConfig>(defaultAppConfig)
+function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
+	const store = createTauriSyncStore("app-config", defaultAppConfig)
 
 	async function init() {
 		debug("Initializing app config")

@@ -2,7 +2,7 @@
 	import { IconEnum, SysCommand } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
-	import { DraggableCommandGroup } from "@kksh/ui/custom"
+	import { DraggableCommandGroup } from "../custom"
 
 	const { systemCommands }: { systemCommands: SysCommand[] } = $props()
 </script>

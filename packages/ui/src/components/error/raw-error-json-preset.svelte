@@ -13,7 +13,7 @@
 		class: className,
 		rawJsonError,
 		onGoBack,
-		footer
+		footer: footer2
 	}: {
 		title: string
 		message: string
@@ -58,8 +58,8 @@
 	</Collapsible.Root>
 	<br />
 	{#snippet footer()}
-		{#if footer}
-			{@render footer()}
+		{#if footer2}
+			{@render footer2()}
 		{:else}
 			<Button variant="default" class="w-full" onclick={onGoBack} disabled={enterDown}>
 				Go Back
