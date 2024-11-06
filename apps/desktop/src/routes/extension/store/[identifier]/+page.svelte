@@ -16,7 +16,6 @@
 	import { get, derived as storeDerived } from "svelte/store"
 
 	const { data } = $props()
-	// let { ext, manifest } = data
 	const ext = $derived(data.ext)
 	const manifest = $derived(data.manifest)
 	const installedExt = storeDerived(installedStoreExts, ($e) => {
@@ -117,20 +116,21 @@
 			.uninstallStoreExtensionByIdentifier(ext.identifier)
 			.then((uninstalledExt) => {
 				toast.success(`${uninstalledExt.name} Uninstalled`)
+				loading.uninstall = false
+				showBtn.uninstall = false
+				showBtn.install = true
 			})
 			.catch((err) => {
 				toast.error("Fail to uninstall extension", { description: err })
 				error(`Fail to uninstall store extension (${ext.identifier}): ${err}`)
 			})
-			.finally(() => {
-				loading.uninstall = false
-				showBtn.uninstall = false
-				showBtn.install = true
-			})
+			.finally(() => {})
 	}
 
 	function onEnterPressed() {
-		return onInstallSelected()
+		if (showBtn.install) {
+			return onInstallSelected()
+		}
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
@@ -153,6 +153,7 @@
 	<ArrowLeftIcon />
 </Button>
 <StoreExtDetail
+	class="px-5"
 	{ext}
 	{manifest}
 	installedExt={$installedExt}

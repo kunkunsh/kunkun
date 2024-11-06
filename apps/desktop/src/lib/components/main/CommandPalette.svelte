@@ -38,6 +38,8 @@ passing everything through props will be very complicated and hard to maintain.
 	} = $props()
 
 	function onKeyDown(event: KeyboardEvent) {
+		console.log(event.key)
+
 		if (event.key === "Escape") {
 			if (getActiveElementNodeName() === "INPUT") {
 				;(event.target as HTMLInputElement).value = ""

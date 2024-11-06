@@ -434,6 +434,9 @@ importers:
       '@kksh/api':
         specifier: workspace:*
         version: link:../api
+      '@supabase/supabase-js':
+        specifier: ^2.46.1
+        version: 2.46.1
       typescript:
         specifier: ^5.0.0
         version: 5.5.4
@@ -466,9 +469,15 @@ importers:
         specifier: ^3.12.5
         version: 3.12.5
     devDependencies:
+      '@iconify/svelte':
+        specifier: ^4.0.2
+        version: 4.0.2(svelte@5.1.9)
       '@kksh/api':
         specifier: workspace:*
         version: link:../api
+      '@kksh/svelte5':
+        specifier: ^0.1.2-beta.8
+        version: 0.1.2-beta.8(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)
       '@types/bun':
         specifier: latest
         version: 1.1.13
