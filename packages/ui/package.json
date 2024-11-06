@@ -35,6 +35,7 @@
 	},
 	"devDependencies": {
 		"@kksh/api": "workspace:*",
+		"@kksh/svelte5": "^0.1.2-beta.8",
 		"@types/bun": "latest",
 		"bits-ui": "1.0.0-next.36",
 		"clsx": "^2.1.1",
