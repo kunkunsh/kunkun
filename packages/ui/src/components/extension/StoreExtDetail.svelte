@@ -1,7 +1,7 @@
 <script lang="ts">
 	import autoAnimate from "@formkit/auto-animate"
 	import Icon from "@iconify/svelte"
-	import { ExtPackageJsonExtra, IconEnum, KunkunExtManifest } from "@kksh/api/models"
+	import { ExtPackageJson, IconEnum, KunkunExtManifest } from "@kksh/api/models"
 	import { type Tables } from "@kksh/api/supabase/types"
 	import { Button, ScrollArea, Separator } from "@kksh/svelte5"
 	import { Constants, IconMultiplexer } from "@kksh/ui"
@@ -26,7 +26,7 @@
 		imageDialogOpen = $bindable(false)
 	}: {
 		ext: Tables<"ext_publish">
-		installedExt?: ExtPackageJsonExtra
+		installedExt?: ExtPackageJson
 		manifest: KunkunExtManifest
 		demoImages: string[]
 		class?: string
