@@ -116,7 +116,7 @@
 {/snippet}
 
 <div data-tauri-drag-region class="h-14"></div>
-<ScrollArea class="container pb-12">
+<ScrollArea class={cn("w-full pb-12", className)}>
 	<div class="flex items-center gap-4">
 		<span class="h-12 w-12">
 			<IconMultiplexer
