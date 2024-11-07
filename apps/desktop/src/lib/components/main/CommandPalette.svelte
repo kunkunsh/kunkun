@@ -6,9 +6,10 @@ passing everything through props will be very complicated and hard to maintain.
 	import { systemCommands } from "@/cmds/system"
 	import { devStoreExts, installedStoreExts } from "@/stores"
 	import { getActiveElementNodeName } from "@/utils/dom"
+	import { openDevTools } from "@kksh/api/commands"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extension/utils"
-	import { Command } from "@kksh/svelte5"
+	import { Button, Command, DropdownMenu } from "@kksh/svelte5"
 	import type { AppConfig, AppState } from "@kksh/types"
 	import {
 		BuiltinCmds,
@@ -19,6 +20,9 @@ passing everything through props will be very complicated and hard to maintain.
 	} from "@kksh/ui/main"
 	import type { BuiltinCmd, CommandLaunchers } from "@kksh/ui/types"
 	import { cn } from "@kksh/ui/utils"
+	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+	import { exit } from "@tauri-apps/plugin-process"
+	import { EllipsisVerticalIcon } from "lucide-svelte"
 	import type { Writable } from "svelte/store"
 
 	const {
@@ -62,7 +66,26 @@ passing everything through props will be very complicated and hard to maintain.
 		id="main-command-input"
 		placeholder="Type a command or search..."
 		bind:value={$appState.searchTerm}
-	/>
+	>
+		{#snippet rightSlot()}
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger>
+					<Button variant="outline" size="icon"><EllipsisVerticalIcon /></Button>
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content>
+					<DropdownMenu.Group>
+						<DropdownMenu.GroupHeading>Settings</DropdownMenu.GroupHeading>
+						<DropdownMenu.Separator />
+						<DropdownMenu.Item onclick={() => exit()}>Quit</DropdownMenu.Item>
+						<DropdownMenu.Item onclick={() => openDevTools()}>Open Dev Tools</DropdownMenu.Item>
+						<DropdownMenu.Item onclick={() => getCurrentWebviewWindow().hide()}
+							>Close Window</DropdownMenu.Item
+						>
+					</DropdownMenu.Group>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
+		{/snippet}
+	</CustomCommandInput>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
 		{#if $appConfig.extensionsInstallDir && $devStoreExts.length > 0}

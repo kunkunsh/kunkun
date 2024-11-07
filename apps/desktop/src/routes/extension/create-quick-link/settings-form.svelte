@@ -1,20 +1,26 @@
 <script lang="ts">
-	// import { Form, Input } from "@kksh/svelte5"
 	import { Input } from "@kksh/svelte5"
 	import { Form } from "@kksh/ui"
-	// import { FormControl } from "@kksh/svelte5/components/ui/form"
-	// import FormField from "@kksh/svelte5/components/ui/form/form-field.svelte"
-	import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms"
-	import { zodClient } from "sveltekit-superforms/adapters"
+	import { applyAction } from "$app/forms"
+	import { defaults, superForm, type Infer, type SuperValidated } from "sveltekit-superforms"
+	import { valibotClient, zod, zodClient } from "sveltekit-superforms/adapters"
 	import { formSchema, type FormSchema } from "./schema"
 
-	export let data: SuperValidated<Infer<FormSchema>>
-
-	const form = superForm(data, {
-		validators: zodClient(formSchema)
+	const form = superForm(defaults(zod(formSchema)), {
+		validators: zodClient(formSchema),
+		SPA: true,
+		onUpdate({ form }) {
+			console.log(form)
+			console.log(form.valid)
+		}
 	})
 
-	const { form: formData, enhance } = form
+	const { form: formData, enhance, errors } = form
+
+	function onSubmit(event: Event) {
+		event.preventDefault()
+		console.log($formData)
+	}
 </script>
 
 <form method="POST" use:enhance>
