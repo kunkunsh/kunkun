@@ -46,6 +46,7 @@
 		"@tauri-apps/cli": "^2.0.4",
 		"@types/bun": "latest",
 		"@types/semver": "^7.5.8",
+		"@unocss/preset-attributify": "^0.64.0",
 		"autoprefixer": "^10.4.20",
 		"clsx": "^2.1.1",
 		"embla-carousel-svelte": "^8.3.1",
@@ -56,6 +57,7 @@
 		"tailwindcss-animate": "^1.0.7",
 		"tslib": "^2.8.1",
 		"typescript": "^5.6.3",
+		"unocss": "^0.64.0",
 		"vaul-svelte": "^0.3.2",
 		"vite": "^5.4.10"
 	}
