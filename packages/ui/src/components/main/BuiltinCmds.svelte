@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { IconEnum } from "@kksh/api/models"
+	import { CmdTypeEnum, IconEnum } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "../custom"
-	import type { BuiltinCmd } from "./types"
+	import type { BuiltinCmd, CmdValue } from "./types"
 
 	const { builtinCmds }: { builtinCmds: BuiltinCmd[] } = $props()
 </script>
@@ -15,6 +15,10 @@
 			onSelect={() => {
 				cmd.function()
 			}}
+			value={JSON.stringify({
+				cmdName: cmd.name,
+				cmdType: CmdTypeEnum.Builtin
+			} satisfies CmdValue)}
 		>
 			<span class="flex gap-2">
 				<IconMultiplexer

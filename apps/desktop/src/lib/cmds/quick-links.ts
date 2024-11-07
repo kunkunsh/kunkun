@@ -1,4 +1,4 @@
-import type { QuickLinkQuery } from "@/stores/quick-links"
+import type { CmdQuery } from "@kksh/ui/types"
 
 /**
  * Given some link like https://google.com/search?q={argument}&query={query}
@@ -10,6 +10,6 @@ export function findAllArgsInLink(link: string): string[] {
 	return matches.map((match) => match[1])
 }
 
-export function onQuickLinkSelect(cmd: QuickLinkQuery) {
+export function onQuickLinkSelect(cmd: CmdQuery) {
 	const args = findAllArgsInLink(cmd.value)
 }

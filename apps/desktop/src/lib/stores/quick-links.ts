@@ -1,20 +1,16 @@
 import { createQuickLinkCommand, getAllQuickLinkCommands } from "@kksh/extension/db"
+import type { CmdQuery } from "@kksh/ui/types"
 import { get, writable, type Writable } from "svelte/store"
 
-export type QuickLinkQuery = {
-	value: string
-	name: string
-}
-
 export interface QuickLinkAPI {
-	get: () => QuickLinkQuery[]
+	get: () => CmdQuery[]
 	init: () => Promise<void>
 	refresh: () => Promise<void>
 	createQuickLink: (name: string, link: string) => Promise<void>
 }
 
-function createQuickLinksStore(): Writable<QuickLinkQuery[]> & QuickLinkAPI {
-	const store = writable<QuickLinkQuery[]>([])
+function createQuickLinksStore(): Writable<CmdQuery[]> & QuickLinkAPI {
+	const store = writable<CmdQuery[]>([])
 
 	async function init() {
 		refresh()

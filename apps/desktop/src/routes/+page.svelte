@@ -4,6 +4,8 @@
 	import { builtinCmds } from "@/cmds/builtin"
 	import { systemCommands } from "@/cmds/system"
 	import { appConfig, appState, devStoreExts, installedStoreExts, quickLinks } from "@/stores"
+	import { cmdQueries } from "@/stores/cmdQuery"
+	import { commandScore } from "@/utils/command-score"
 	import { getActiveElementNodeName } from "@/utils/dom"
 	import { openDevTools } from "@kksh/api/commands"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
@@ -12,13 +14,14 @@
 	import type { AppConfig, AppState } from "@kksh/types"
 	import {
 		BuiltinCmds,
+		CmdInputQueries,
 		CustomCommandInput,
 		ExtCmdsGroup,
 		GlobalCommandPaletteFooter,
 		QuickLinks,
 		SystemCmds
 	} from "@kksh/ui/main"
-	import type { BuiltinCmd, CommandLaunchers } from "@kksh/ui/types"
+	import type { BuiltinCmd, CmdValue, CommandLaunchers } from "@kksh/ui/types"
 	import { cn } from "@kksh/ui/utils"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { exit } from "@tauri-apps/plugin-process"
@@ -38,9 +41,23 @@
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
+<pre>{JSON.stringify($cmdQueries, null, 2)}</pre>
+
+{#snippet queriesSlot()}
+	<h1>hihi</h1>
+	<!-- <CmdInputQueries queries={$cmdQueries} /> -->
+{/snippet}
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
+	filter={(value, search, keywords) => {
+		// console.log(value, search, keywords)
+		return commandScore(
+			value.startsWith("{") ? (JSON.parse(value) as CmdValue).cmdName : value,
+			search,
+			keywords
+		)
+	}}
 	loop
 >
 	<CustomCommandInput
@@ -48,6 +65,7 @@
 		id="main-command-input"
 		placeholder="Type a command or search..."
 		bind:value={$appState.searchTerm}
+		{queriesSlot}
 	>
 		{#snippet rightSlot()}
 			<DropdownMenu.Root>
@@ -69,8 +87,9 @@
 		{/snippet}
 	</CustomCommandInput>
 	<Command.List class="max-h-screen grow">
-		<QuickLinks quickLinks={$quickLinks} />
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
+		<QuickLinks quickLinks={$quickLinks} />
+		<Command.Separator />
 		{#if $appConfig.extensionsInstallDir && $devStoreExts.length > 0}
 			<ExtCmdsGroup
 				extensions={$devStoreExts}
@@ -79,6 +98,7 @@
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 				hmr={$appConfig.hmr}
 			/>
+			<Command.Separator />
 		{/if}
 		{#if $appConfig.extensionsInstallDir && $installedStoreExts.length > 0}
 			<ExtCmdsGroup
@@ -88,10 +108,11 @@
 				hmr={false}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 			/>
+			<Command.Separator />
 		{/if}
 		<BuiltinCmds {builtinCmds} />
-		<SystemCmds {systemCommands} />
 		<Command.Separator />
+		<SystemCmds {systemCommands} />
 	</Command.List>
 	<GlobalCommandPaletteFooter />
 </Command.Root>

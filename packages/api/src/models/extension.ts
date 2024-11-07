@@ -41,6 +41,8 @@ export type Ext = InferOutput<typeof Ext>
 
 export enum CmdTypeEnum {
 	HeadlessWorker = "headless_worker",
+	Builtin = "builtin",
+	System = "system",
 	UiWorker = "ui_worker",
 	UiIframe = "ui_iframe",
 	QuickLink = "quick_link",

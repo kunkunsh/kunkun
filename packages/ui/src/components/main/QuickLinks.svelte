@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { QuickLinkQuery } from "@/stores"
-	import { IconEnum } from "@kksh/api/models"
+	import { CmdTypeEnum, IconEnum } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "../custom"
+	import { type CmdQuery, CmdValue } from "./types"
 
-	const { quickLinks }: { quickLinks: QuickLinkQuery[] } = $props()
+	const { quickLinks }: { quickLinks: CmdQuery[] } = $props()
 </script>
 
 <DraggableCommandGroup heading="Quick Links">
@@ -15,7 +15,11 @@
 			onSelect={() => {
 				console.log(cmd)
 			}}
-			value={JSON.stringify({ cmdName: cmd.name })}
+			value={JSON.stringify({
+				cmdName: cmd.name,
+				cmdType: CmdTypeEnum.QuickLink,
+				data: cmd.value
+			} satisfies CmdValue)}
 		>
 			<span class="flex gap-2">
 				<!-- <IconMultiplexer

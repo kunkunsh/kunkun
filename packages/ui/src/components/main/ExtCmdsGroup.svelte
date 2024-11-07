@@ -1,11 +1,11 @@
 <!-- This file renders a group of extension commands -->
 <!-- Input props to this component is an array of ExtPackageJsonExtra[] -->
 <script lang="ts">
-	import { CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
+	import { CmdTypeEnum, CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
 	import { Badge, Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "../custom"
-	import type { OnExtCmdSelect } from "./types"
+	import type { CmdValue, OnExtCmdSelect } from "./types"
 
 	const {
 		extensions,
@@ -28,6 +28,10 @@
 		onSelect={() => {
 			onExtCmdSelect(ext, cmd, { isDev, hmr })
 		}}
+		value={JSON.stringify({
+			cmdName: cmd.name,
+			cmdType: cmd.type
+		} satisfies CmdValue)}
 	>
 		<span class="flex gap-2">
 			<IconMultiplexer icon={cmd.icon ?? ext.kunkun.icon} class="!h-5 !w-5 shrink-0" />

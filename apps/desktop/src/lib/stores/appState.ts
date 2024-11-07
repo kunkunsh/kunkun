@@ -1,5 +1,8 @@
+import { findAllArgsInLink } from "@/cmds/quick-links"
+import { CmdTypeEnum } from "@kksh/api/models"
 import type { AppState } from "@kksh/types"
-import { get, writable, type Writable } from "svelte/store"
+import type { CmdValue } from "@kksh/ui/types"
+import { derived, get, writable, type Writable } from "svelte/store"
 
 export const defaultAppState: AppState = {
 	searchTerm: "",
@@ -24,3 +27,13 @@ function createAppState(): Writable<AppState> & AppStateAPI {
 }
 
 export const appState = createAppState()
+
+// export const cmdQueries = derived(appState, ($appState) => {
+// 	if ($appState.highlightedCmd.startsWith("{")) {
+// 		const parsedCmd = JSON.parse($appState.highlightedCmd) as CmdValue
+// 		if (parsedCmd.cmdType === CmdTypeEnum.QuickLink && parsedCmd.data) {
+// 			return findAllArgsInLink(parsedCmd.data).map((arg) => ({ name: arg, value: "" }))
+// 		}
+// 	}
+// 	return []
+// })
