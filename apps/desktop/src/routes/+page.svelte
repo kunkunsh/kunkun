@@ -41,12 +41,7 @@
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
-<pre>{JSON.stringify($cmdQueries, null, 2)}</pre>
-
-{#snippet queriesSlot()}
-	<h1>hihi</h1>
-	<!-- <CmdInputQueries queries={$cmdQueries} /> -->
-{/snippet}
+<!-- <pre>{JSON.stringify($cmdQueries, null, 2)}</pre> -->
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
@@ -63,9 +58,8 @@
 	<CustomCommandInput
 		autofocus
 		id="main-command-input"
-		placeholder="Type a command or search..."
+		placeholder={$cmdQueries.length === 0 ? "Type a command or search..." : undefined}
 		bind:value={$appState.searchTerm}
-		{queriesSlot}
 	>
 		{#snippet rightSlot()}
 			<DropdownMenu.Root>
@@ -84,6 +78,33 @@
 					</DropdownMenu.Group>
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
+		{/snippet}
+
+		{#snippet queriesSlot()}
+			<span
+				class={cn("absolute flex space-x-2")}
+				style={`left: ${$appState.searchTerm.length + 3}ch`}
+			>
+				{#each $cmdQueries as cmdQuery}
+					{@const queryWidth = Math.max(cmdQuery.name.length, cmdQuery.value.length) + 2}
+					<input
+						class="bg-muted rounded-md border border-gray-300 pl-2 font-mono focus:outline-none dark:border-gray-600"
+						type="text"
+						placeholder={cmdQuery.name}
+						style={`width: ${queryWidth}ch`}
+						bind:value={cmdQuery.value}
+					/>
+				{/each}
+				<!-- <input
+					on:keydown={(event) => event.key === "Enter" && emit("enter")}
+					class="bg-muted rounded-md border border-gray-300 pl-2 font-mono focus:outline-none dark:border-gray-600"
+					type="text"
+					placeholder={quickLink.name}
+					style={`width: ${queryWidth(quickLink)}ch`}
+					bind:value={quickLinkInputs[idx].value}
+				/> -->
+			</span>
+			<!-- <CmdInputQueries queries={$cmdQueries} /> -->
 		{/snippet}
 	</CustomCommandInput>
 	<Command.List class="max-h-screen grow">
