@@ -3,7 +3,7 @@
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "../custom"
-	import { type CmdQuery, CmdValue } from "./types"
+	import { CmdValue, type CmdQuery } from "./types"
 
 	const { quickLinks }: { quickLinks: CmdQuery[] } = $props()
 </script>
