@@ -115,16 +115,15 @@ export const builtinCmds: BuiltinCmd[] = [
 			goto("/troubleshooters/extension-loading")
 		}
 	},
-	// {
-	// 	name: "Create Quicklink",
-	// 	iconifyIcon: "material-symbols:link",
-	// 	description: "Create a Quicklink",
-	// 	function: async () => {
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 		goto("/create-quicklink")
-	// 	}
-	// },
+	{
+		name: "Create Quicklink",
+		iconifyIcon: "material-symbols:link",
+		description: "Create a Quicklink",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/extension/create-quick-link")
+		}
+	},
 	// {
 	// 	name: "Settings",
 	// 	iconifyIcon: "solar:settings-linear",

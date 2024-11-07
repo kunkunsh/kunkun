@@ -41,6 +41,8 @@ export type Ext = InferOutput<typeof Ext>
 
 export enum CmdTypeEnum {
 	HeadlessWorker = "headless_worker",
+	Builtin = "builtin",
+	System = "system",
 	UiWorker = "ui_worker",
 	UiIframe = "ui_iframe",
 	QuickLink = "quick_link",
@@ -55,11 +57,17 @@ export const ExtCmd = object({
 	name: string(),
 	type: CmdType,
 	data: string(),
-	alias: optional(string()),
-	hotkey: optional(string()),
+	alias: nullable(optional(string())),
+	hotkey: nullable(optional(string())),
 	enabled: boolean()
 })
 export type ExtCmd = InferOutput<typeof ExtCmd>
+
+export const QuickLinkCmd = object({
+	...ExtCmd.entries,
+	data: object({ link: string(), icon: Icon })
+})
+export type QuickLinkCmd = InferOutput<typeof QuickLinkCmd>
 
 export const ExtData = object({
 	dataId: number(),

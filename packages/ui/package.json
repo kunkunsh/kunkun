@@ -35,19 +35,24 @@
 	},
 	"devDependencies": {
 		"@kksh/api": "workspace:*",
+		"@kksh/svelte5": "^0.1.2-beta.8",
 		"@types/bun": "latest",
-		"bits-ui": "1.0.0-next.36",
+		"bits-ui": "1.0.0-next.45",
+		"@iconify/svelte": "^4.0.2",
 		"clsx": "^2.1.1",
+		"formsnap": "2.0.0-next.1",
 		"lucide-svelte": "^0.454.0",
 		"mode-watcher": "^0.4.1",
 		"paneforge": "1.0.0-next.1",
 		"shiki": "^1.22.2",
 		"svelte-radix": "^2.0.1",
 		"svelte-sonner": "^0.3.28",
+		"sveltekit-superforms": "^2.20.0",
 		"tailwind-merge": "^2.5.4",
 		"tailwind-variants": "^0.2.1",
 		"tailwindcss": "^3.4.14",
-		"tailwindcss-animate": "^1.0.7"
+		"tailwindcss-animate": "^1.0.7",
+		"zod": "^3.23.8"
 	},
 	"dependencies": {
 		"@formkit/auto-animate": "^0.8.2",

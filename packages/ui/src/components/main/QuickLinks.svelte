@@ -3,28 +3,27 @@
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "../custom"
-	import type { BuiltinCmd, CmdValue } from "./types"
+	import { CmdValue, type CmdQuery, type QuickLink } from "./types"
 
-	const { builtinCmds }: { builtinCmds: BuiltinCmd[] } = $props()
+	const { quickLinks }: { quickLinks: QuickLink[] } = $props()
 </script>
 
-<DraggableCommandGroup heading="Builtin Commands">
-	{#each builtinCmds as cmd}
+<DraggableCommandGroup heading="Quick Links">
+	{#each quickLinks as cmd}
 		<Command.Item
 			class="flex justify-between"
 			onSelect={() => {
-				cmd.function()
+				console.log(cmd)
 			}}
+			keywords={["quick", "link"]}
 			value={JSON.stringify({
 				cmdName: cmd.name,
-				cmdType: CmdTypeEnum.Builtin
+				cmdType: CmdTypeEnum.QuickLink,
+				data: cmd.link
 			} satisfies CmdValue)}
 		>
 			<span class="flex gap-2">
-				<IconMultiplexer
-					icon={{ value: cmd.iconifyIcon, type: IconEnum.Iconify }}
-					class="!h-5 !w-5 shrink-0"
-				/>
+				<IconMultiplexer icon={cmd.icon} class="!h-5 !w-5 shrink-0" />
 				<span>{cmd.name}</span>
 			</span>
 		</Command.Item>

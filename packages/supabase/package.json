@@ -8,7 +8,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@kksh/api": "workspace:*"
+		"@kksh/api": "workspace:*",
+		"@supabase/supabase-js": "^2.46.1"
 	},
 	"devDependencies": {
 		"@types/bun": "latest"

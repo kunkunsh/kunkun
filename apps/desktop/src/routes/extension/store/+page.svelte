@@ -76,7 +76,7 @@
 		<ArrowLeft class="size-4" />
 	</Button>
 {/snippet}
-<Command.Root class="h-screen rounded-lg border shadow-md">
+<Command.Root class="h-screen rounded-lg border shadow-md" loop>
 	<CustomCommandInput
 		autofocus
 		placeholder="Type a command or search..."

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import AppContext from "@/components/context/AppContext.svelte"
 	import "../app.css"
-	import { appConfig, appState, extensions } from "@/stores"
+	import { appConfig, appState, extensions, quickLinks } from "@/stores"
 	import { initDeeplink } from "@/utils/deeplink"
 	import { isInMainWindow } from "@/utils/window"
 	import {
@@ -21,8 +21,9 @@
 	const unlisteners: UnlistenFn[] = []
 
 	onMount(async () => {
-		unlisteners.push(await attachConsole())
-		unlisteners.push(await initDeeplink())
+		attachConsole().then((unlistener) => unlisteners.push(unlistener))
+		initDeeplink().then((unlistener) => unlisteners.push(unlistener))
+		quickLinks.init()
 		appConfig.init()
 		if (isInMainWindow()) {
 			extensions.init()

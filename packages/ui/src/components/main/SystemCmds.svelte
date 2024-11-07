@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { IconEnum, SysCommand } from "@kksh/api/models"
+	import { CmdTypeEnum, IconEnum, SysCommand } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
-	import { DraggableCommandGroup } from "@kksh/ui/custom"
+	import { DraggableCommandGroup } from "../custom"
+	import { CmdValue } from "./types"
 
 	const { systemCommands }: { systemCommands: SysCommand[] } = $props()
 </script>
@@ -14,6 +15,10 @@
 			onSelect={() => {
 				cmd.function()
 			}}
+			value={JSON.stringify({
+				cmdName: cmd.name,
+				cmdType: CmdTypeEnum.System
+			} satisfies CmdValue)}
 		>
 			<span class="flex gap-2">
 				{#if cmd.icon}

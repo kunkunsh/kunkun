@@ -2,6 +2,7 @@ import { CmdTypeEnum, CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@k
 import type { CommandLaunchers, OnExtCmdSelect } from "@kksh/ui/types"
 import * as v from "valibot"
 import { onCustomUiCmdSelect, onTemplateUiCmdSelect } from "./ext"
+import { onQuickLinkSelect } from "./quick-links"
 
 const onExtCmdSelect: OnExtCmdSelect = (
 	ext: ExtPackageJsonExtra,
@@ -20,4 +21,4 @@ const onExtCmdSelect: OnExtCmdSelect = (
 	}
 }
 
-export const commandLaunchers = { onExtCmdSelect } satisfies CommandLaunchers
+export const commandLaunchers = { onExtCmdSelect, onQuickLinkSelect } satisfies CommandLaunchers
