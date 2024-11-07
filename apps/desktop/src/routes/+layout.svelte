@@ -1,4 +1,5 @@
 <script lang="ts">
+	import "virtual:uno.css"
 	import AppContext from "@/components/context/AppContext.svelte"
 	import "../app.css"
 	import { appConfig, appState, extensions, quickLinks } from "@/stores"

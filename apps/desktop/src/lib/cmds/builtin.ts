@@ -54,16 +54,15 @@ export const builtinCmds: BuiltinCmd[] = [
 			}, 2_000)
 		}
 	},
-	// {
-	// 	name: "Add Dev Extension",
-	// 	iconifyIcon: "lineicons:dev",
-	// 	description: "",
-	// 	function: async () => {
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 		goto("/add-dev-ext")
-	// 	}
-	// },
+	{
+		name: "Add Dev Extension",
+		iconifyIcon: "lineicons:dev",
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/settings/add-dev-extension")
+		}
+	},
 	{
 		name: "Kunkun Version",
 		iconifyIcon: "stash:version-solid",

@@ -1,6 +1,5 @@
 import { getExtensionsFolder } from "@/constants"
 import type { LayoutLoad } from "./$types"
-import "virtual:uno.css"
 
 // Tauri doesn't have a Node.js server to do proper SSR
 // so we will use adapter-static to prerender the app (SSG)
