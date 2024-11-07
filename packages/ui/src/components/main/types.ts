@@ -21,6 +21,7 @@ export type OnExtCmdSelect = (
 
 export type CommandLaunchers = {
 	onExtCmdSelect: OnExtCmdSelect
+	onQuickLinkSelect: (quickLink: CmdValue, queries: CmdQuery[]) => void
 }
 
 /**

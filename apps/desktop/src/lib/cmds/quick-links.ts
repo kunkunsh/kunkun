@@ -1,4 +1,6 @@
-import type { CmdQuery } from "@kksh/ui/types"
+import { appState } from "@/stores"
+import type { CmdQuery, CmdValue } from "@kksh/ui/types"
+import { open } from "tauri-plugin-shellx-api"
 
 /**
  * Given some link like https://google.com/search?q={argument}&query={query}
@@ -10,6 +12,14 @@ export function findAllArgsInLink(link: string): string[] {
 	return matches.map((match) => match[1])
 }
 
-export function onQuickLinkSelect(cmd: CmdQuery) {
-	const args = findAllArgsInLink(cmd.value)
+export function onQuickLinkSelect(quickLink: CmdValue, queries: CmdQuery[]) {
+	console.log(quickLink, queries)
+	let qlink = quickLink.data
+	for (const arg of queries) {
+		console.log(`replace all {${arg.name}} with ${arg.value}`)
+		qlink = qlink.replaceAll(`{${arg.name}}`, arg.value)
+	}
+	appState.clearSearchTerm()
+	console.log(qlink)
+	open(qlink)
 }

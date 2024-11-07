@@ -21,14 +21,3 @@ function createCmdQueryStore(): Writable<CmdQuery[]> {
 }
 
 export const cmdQueries = createCmdQueryStore()
-
-// export const cmdQueries = derived(appState, ($appState) => {
-// 	console.log($appState.highlightedCmd)
-// 	if ($appState.highlightedCmd.startsWith("{")) {
-// 		const parsedCmd = JSON.parse($appState.highlightedCmd) as CmdValue
-// 		if (parsedCmd.cmdType === CmdTypeEnum.QuickLink && parsedCmd.data) {
-// 			return findAllArgsInLink(parsedCmd.data)
-// 		}
-// 	}
-// 	return []
-// })

@@ -8,12 +8,10 @@
 		class: className,
 		value = $bindable(""),
 		leftSlot,
-		queriesSlot,
 		rightSlot,
 		...restProps
 	}: CommandPrimitive.InputProps & {
 		leftSlot?: Snippet
-		queriesSlot?: Snippet
 		rightSlot?: Snippet
 	} = $props()
 </script>
@@ -29,6 +27,5 @@
 		bind:value
 		{...restProps}
 	/>
-	{@render queriesSlot?.()}
 	{@render rightSlot?.()}
 </div>

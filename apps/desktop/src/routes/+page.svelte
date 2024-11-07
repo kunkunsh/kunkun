@@ -14,7 +14,6 @@
 	import type { AppConfig, AppState } from "@kksh/types"
 	import {
 		BuiltinCmds,
-		CmdInputQueries,
 		CustomCommandInput,
 		ExtCmdsGroup,
 		GlobalCommandPaletteFooter,
@@ -46,7 +45,6 @@
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
 	filter={(value, search, keywords) => {
-		// console.log(value, search, keywords)
 		return commandScore(
 			value.startsWith("{") ? (JSON.parse(value) as CmdValue).cmdName : value,
 			search,
@@ -62,6 +60,32 @@
 		bind:value={$appState.searchTerm}
 	>
 		{#snippet rightSlot()}
+			<span
+				class={cn("absolute flex space-x-2")}
+				style={`left: ${$appState.searchTerm.length + 3}ch`}
+			>
+				{#each $cmdQueries as cmdQuery}
+					{@const queryWidth = Math.max(cmdQuery.name.length, cmdQuery.value.length) + 2}
+					<input
+						class="bg-muted rounded-md border border-gray-300 pl-2 font-mono focus:outline-none dark:border-gray-600"
+						type="text"
+						placeholder={cmdQuery.name}
+						style={`width: ${queryWidth}ch`}
+						onkeydown={(evt) => {
+							if (evt.key === "Enter") {
+								evt.preventDefault()
+								evt.stopPropagation()
+								commandLaunchers.onQuickLinkSelect(
+									JSON.parse($appState.highlightedCmd),
+									$cmdQueries
+								)
+							}
+						}}
+						bind:value={cmdQuery.value}
+					/>
+				{/each}
+			</span>
+
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
 					<Button variant="outline" size="icon"><EllipsisVerticalIcon /></Button>
@@ -78,33 +102,6 @@
 					</DropdownMenu.Group>
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
-		{/snippet}
-
-		{#snippet queriesSlot()}
-			<span
-				class={cn("absolute flex space-x-2")}
-				style={`left: ${$appState.searchTerm.length + 3}ch`}
-			>
-				{#each $cmdQueries as cmdQuery}
-					{@const queryWidth = Math.max(cmdQuery.name.length, cmdQuery.value.length) + 2}
-					<input
-						class="bg-muted rounded-md border border-gray-300 pl-2 font-mono focus:outline-none dark:border-gray-600"
-						type="text"
-						placeholder={cmdQuery.name}
-						style={`width: ${queryWidth}ch`}
-						bind:value={cmdQuery.value}
-					/>
-				{/each}
-				<!-- <input
-					on:keydown={(event) => event.key === "Enter" && emit("enter")}
-					class="bg-muted rounded-md border border-gray-300 pl-2 font-mono focus:outline-none dark:border-gray-600"
-					type="text"
-					placeholder={quickLink.name}
-					style={`width: ${queryWidth(quickLink)}ch`}
-					bind:value={quickLinkInputs[idx].value}
-				/> -->
-			</span>
-			<!-- <CmdInputQueries queries={$cmdQueries} /> -->
 		{/snippet}
 	</CustomCommandInput>
 	<Command.List class="max-h-screen grow">
