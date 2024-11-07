@@ -117,6 +117,9 @@ importers:
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
+      '@huakunshen/comlink':
+        specifier: ^4.4.1
+        version: 4.4.1
       '@kksh/extension':
         specifier: workspace:*
         version: link:../../packages/extension
