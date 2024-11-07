@@ -15,7 +15,6 @@
 	} from "sveltekit-superforms"
 	import { valibot, valibotClient, zod, zodClient } from "sveltekit-superforms/adapters"
 	import * as v from "valibot"
-	import SettingsForm from "./settings-form.svelte"
 
 	const formSchema = v.object({
 		name: v.pipe(v.string(), v.minLength(1), v.maxLength(100)),
