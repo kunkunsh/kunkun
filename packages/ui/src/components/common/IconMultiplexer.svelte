@@ -12,17 +12,37 @@
 </script>
 
 {#if icon.type === IconEnum.RemoteUrl}
-	<img loading="lazy" class={cn("", className)} src={icon.value} alt="" {...restProps} />
+	<img
+		loading="lazy"
+		class={cn("", className, { invert: icon.invert })}
+		src={icon.value}
+		alt=""
+		{...restProps}
+	/>
 {:else if icon.type === IconEnum.Iconify}
-	<Icon icon={icon.value} class={cn("", className)} {...restProps} />
+	<Icon icon={icon.value} class={cn("", className, { invert: icon.invert })} {...restProps} />
 {:else if icon.type === IconEnum.Base64PNG}
-	<img loading="lazy" src="data:image/png;base64, {icon.value}" alt="" {...restProps} />
+	<img
+		class={cn(className, { invert: icon.invert })}
+		loading="lazy"
+		src="data:image/png;base64, {icon.value}"
+		alt=""
+		{...restProps}
+	/>
 {:else if icon.type === IconEnum.Text}
-	<Button class={cn("shrink-0 text-center", className)} size="icon" {...restProps}>
+	<Button
+		class={cn("shrink-0 text-center", className, { invert: icon.invert })}
+		size="icon"
+		{...restProps}
+	>
 		{icon.value}
 	</Button>
 {:else if icon.type === IconEnum.Svg}
-	<span {...restProps}>{@html icon.value}</span>
+	<span {...restProps} class={cn(className, { invert: icon.invert })}>{@html icon.value}</span>
 {:else}
-	<Icon icon="mingcute:appstore-fill" class={cn("", className)} {...restProps} />
+	<Icon
+		icon="mingcute:appstore-fill"
+		class={cn("", className, { invert: icon.invert })}
+		{...restProps}
+	/>
 {/if}

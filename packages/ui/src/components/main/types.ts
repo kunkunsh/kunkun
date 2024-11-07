@@ -1,5 +1,6 @@
 import {
 	CmdType,
+	Icon,
 	type CustomUiCmd,
 	type ExtPackageJsonExtra,
 	type TemplateUiCmd
@@ -35,3 +36,4 @@ export const CmdValue = v.object({
 export type CmdValue = v.InferOutput<typeof CmdValue>
 
 export type CmdQuery = { name: string; value: string }
+export type QuickLink = { name: string; link: string; icon: Icon }

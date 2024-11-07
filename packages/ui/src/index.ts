@@ -1,5 +1,5 @@
 export { default as Shiki } from "./components/code/shiki.svelte"
-export { IconMultiplexer } from "./components/common"
+export * from "./components/common"
 export * as Layouts from "./components/layouts/index"
 export * as Error from "./components/error/index"
 export * as Common from "./components/common/index"

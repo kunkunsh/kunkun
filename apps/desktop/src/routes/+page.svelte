@@ -40,7 +40,6 @@
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
-<!-- <pre>{JSON.stringify($cmdQueries, null, 2)}</pre> -->
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
@@ -106,7 +105,6 @@
 	</CustomCommandInput>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
-		<QuickLinks quickLinks={$quickLinks} />
 		<Command.Separator />
 		{#if $appConfig.extensionsInstallDir && $devStoreExts.length > 0}
 			<ExtCmdsGroup
@@ -128,6 +126,7 @@
 			/>
 			<Command.Separator />
 		{/if}
+		<QuickLinks quickLinks={$quickLinks} />
 		<BuiltinCmds {builtinCmds} />
 		<Command.Separator />
 		<SystemCmds {systemCommands} />
