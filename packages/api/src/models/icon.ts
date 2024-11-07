@@ -26,7 +26,7 @@ export type IconType = InferOutput<typeof IconType>
 export const Icon = object({
 	type: IconType,
 	value: string(),
-	invert: optional(boolean(), false)
+	invert: optional(boolean())
 })
 export type Icon = InferOutput<typeof Icon>
 export const IconNode = object({
