@@ -14,6 +14,7 @@
 	import { type PaneAPI } from "paneforge"
 	import { onMount, type Snippet } from "svelte"
 	import { StrikeSeparator } from "../../common"
+	import ListDetail from "./list-detail.svelte"
 	import ListItem from "./list-item.svelte"
 
 	let {
@@ -43,13 +44,16 @@
 		loading: boolean
 		listViewContent: ListSchema.List
 	} = $props()
+	let mounted = $state(false)
 	let leftPane: PaneAPI | undefined
 	let rightPane: PaneAPI | undefined
 	let isScrolling = $state(false)
 	let highlightedValue = $state<string>("")
-	const defaultDetailWidth = $state(
-		listViewContent.detail ? (listViewContent.detail?.width ?? 70) : 0
-	)
+	let privateSearchTerm = $state("")
+	// let detailWidth = $derived()
+	let prevDetailWidth = $state(0)
+
+	const detailWidth = $derived(listViewContent.detail ? (listViewContent.detail?.width ?? 70) : 0)
 
 	function internalOnHighlightedItemChanged(value: string) {
 		onHighlightedItemChanged?.(value)
@@ -70,11 +74,9 @@
 	})
 
 	$effect(() => {
-		onSearchTermChange?.(searchTerm)
-	})
-
-	onMount(() => {
-		console.log(rightPane)
+		if (privateSearchTerm !== searchTerm) {
+			onSearchTermChange?.(privateSearchTerm)
+		}
 	})
 
 	function onScroll(e: Event) {
@@ -90,8 +92,11 @@
 	}
 
 	$effect(() => {
-		if (listViewContent.detail?.width) {
-			rightPane?.resize(listViewContent.detail.width)
+		if (detailWidth != prevDetailWidth) {
+			console.log("detailWidth changed from ", prevDetailWidth, "to", detailWidth)
+			prevDetailWidth = detailWidth
+			rightPane?.resize(detailWidth)
+			// rightPane?.resize(detailWidth)
 		}
 	})
 </script>
@@ -112,7 +117,7 @@
 	}}
 >
 	<CustomCommandInput
-		bind:value={searchTerm}
+		bind:value={privateSearchTerm}
 		placeholder={searchBarPlaceholder}
 		autofocus
 		onkeydown={(e) => {
@@ -140,7 +145,7 @@
 	{/if}
 
 	<Resizable.PaneGroup direction="horizontal">
-		<Resizable.Pane defaultSize={100 - defaultDetailWidth} bind:this={leftPane}>
+		<Resizable.Pane bind:this={leftPane}>
 			<Command.List class="max-h-screen grow" onscroll={onScroll}>
 				<Command.Empty>No results found.</Command.Empty>
 				{#each listViewContent.sections || [] as section}
@@ -166,10 +171,9 @@
 			</Command.List>
 		</Resizable.Pane>
 		<Resizable.Handle withHandle />
-		<Resizable.Pane defaultSize={defaultDetailWidth} bind:this={rightPane}>
+		<Resizable.Pane defaultSize={detailWidth} bind:this={rightPane}>
 			{#if listViewContent.detail}
-				<!-- <ListDetail detail={listViewContent.detail} /> -->
-				<div>Detail Not Implemented</div>
+				<ListDetail detail={listViewContent.detail} />
 			{/if}
 		</Resizable.Pane>
 	</Resizable.PaneGroup>

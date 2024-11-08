@@ -508,6 +508,9 @@ importers:
       gsap:
         specifier: ^3.12.5
         version: 3.12.5
+      svelte-markdown:
+        specifier: ^0.4.1
+        version: 0.4.1(svelte@5.1.9)
     devDependencies:
       '@iconify/svelte':
         specifier: ^4.0.2
@@ -2139,6 +2142,9 @@ packages:
   '@types/madge@5.0.3':
     resolution: {integrity: sha512-NlQJd0qRAoyu+pawTDhLxkW940QT2dqASfwd2g/xEZu2F4Xjwa7TVRSPdbmZwUF1ygvAh0/nepeN7JjwEuOXCA==}
 
+  '@types/marked@5.0.2':
+    resolution: {integrity: sha512-OucS4KMHhFzhz27KxmWg7J+kIYqyqoW5kdIEI319hqARQQUTqhao3M/F+uFnDXD0Rg72iDDZxZNxq5gvctmLlg==}
+
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
 
@@ -3459,6 +3465,11 @@ packages:
     resolution: {integrity: sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==}
     hasBin: true
 
+  marked@5.1.2:
+    resolution: {integrity: sha512-ahRPGXJpjMjwSOlBoTMZAK7ATXkli5qCPxZ21TG44rx1KEo44bii4ekgTDQPNRQ4Kh7JMb9Ub1PVk1NxRSsorg==}
+    engines: {node: '>= 16'}
+    hasBin: true
+
   mdast-util-to-hast@13.2.0:
     resolution: {integrity: sha512-QGYKEuUsYT9ykKBCMOEDLsU5JRObWQusAolFMeko/tYPufNkRffBAQjIE+99jbA87xv6FgmjLtwjh9wBWajwAA==}
 
@@ -4256,6 +4267,11 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  svelte-markdown@0.4.1:
+    resolution: {integrity: sha512-pOlLY6EruKJaWI9my/2bKX8PdTeP5CM0s4VMmwmC2prlOkjAf+AOmTM4wW/l19Y6WZ87YmP8+ZCJCCwBChWjYw==}
+    peerDependencies:
+      svelte: ^4.0.0
 
   svelte-persisted-store@0.12.0:
     resolution: {integrity: sha512-BdBQr2SGSJ+rDWH8/aEV5GthBJDapVP0GP3fuUCA7TjYG5ctcB+O9Mj9ZC0+Jo1oJMfZUd1y9H68NFRR5MyIJA==}
@@ -6734,6 +6750,8 @@ snapshots:
     dependencies:
       '@types/node': 22.8.7
 
+  '@types/marked@5.0.2': {}
+
   '@types/mdast@4.0.4':
     dependencies:
       '@types/unist': 3.0.3
@@ -8258,6 +8276,8 @@ snapshots:
       punycode.js: 2.3.1
       uc.micro: 2.1.0
 
+  marked@5.1.2: {}
+
   mdast-util-to-hast@13.2.0:
     dependencies:
       '@types/hast': 3.0.4
@@ -8973,6 +8993,12 @@ snapshots:
       postcss: 8.4.47
       postcss-scss: 4.0.9(postcss@8.4.47)
     optionalDependencies:
+      svelte: 5.1.9
+
+  svelte-markdown@0.4.1(svelte@5.1.9):
+    dependencies:
+      '@types/marked': 5.0.2
+      marked: 5.1.2
       svelte: 5.1.9
 
   svelte-persisted-store@0.12.0(svelte@5.1.9):

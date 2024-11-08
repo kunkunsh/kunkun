@@ -113,13 +113,13 @@ class ExtensionTemplate extends WorkerExtension {
 							}),
 							tagList
 						]),
-// 						new Markdown(`
-// <img src="https://github.com/huakunshen.png" />
-// <img src="https://github.com/huakunshen.png" />
-// <img src="https://github.com/huakunshen.png" />
-// 										`)
+						new Markdown(`
+<img src="https://github.com/huakunshen.png" />
+<img src="https://github.com/huakunshen.png" />
+<img src="https://github.com/huakunshen.png" />
+										`)
 					],
-					width: 70
+					width: 50
 				})
 			})
 		)
