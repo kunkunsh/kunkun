@@ -1,7 +1,10 @@
 <script lang="ts">
+	import { cn } from "@kksh/ui/utils"
 	import SvelteMarkdown from "svelte-markdown"
 
-	const { markdown }: { markdown: string } = $props()
+	const { markdown, class: className }: { markdown: string; class?: string } = $props()
 </script>
 
-<SvelteMarkdown source={markdown} />
+<div class={cn("prose dark:prose-invert", className)}>
+	<SvelteMarkdown source={markdown} />
+</div>

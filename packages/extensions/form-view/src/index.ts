@@ -7,6 +7,7 @@ import {
 	Icon,
 	IconEnum,
 	List,
+	Markdown,
 	path,
 	shell,
 	toast,
@@ -20,6 +21,10 @@ class ExtensionTemplate extends WorkerExtension {
 		toast.success(`Form submitted: ${JSON.stringify(value)}`)
 	}
 	async load() {
+		const markdown = new Markdown(`# Hello World
+<img src="https://github.com/huakunshen.png" />`)
+		// markdown.toModel
+		return ui.render(markdown)
 		const form = new Form.Form({
 			title: "Form 1",
 			key: "form1",

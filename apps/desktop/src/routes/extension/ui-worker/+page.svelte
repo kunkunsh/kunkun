@@ -238,7 +238,7 @@
 </script>
 
 {#if loadingBar}
-	<LoadingBar color="white" />
+	<LoadingBar class="fixed left-0 top-0 w-full" color="white" />
 {/if}
 {#if loaded && listViewContent !== undefined}
 	<Templates.ListView
@@ -270,4 +270,6 @@
 	</Templates.ListView>
 {:else if loaded && formViewContent !== undefined}
 	<Templates.FormView {formViewContent} onGoBack={goBack} />
+{:else if loaded && markdownViewContent !== undefined}
+	<Templates.MarkdownView {markdownViewContent} onGoBack={goBack} />
 {/if}

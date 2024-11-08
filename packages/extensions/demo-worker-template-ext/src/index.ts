@@ -114,6 +114,7 @@ class ExtensionTemplate extends WorkerExtension {
 							tagList
 						]),
 						new Markdown(`
+# Hello World
 <img src="https://github.com/huakunshen.png" />
 <img src="https://github.com/huakunshen.png" />
 <img src="https://github.com/huakunshen.png" />
