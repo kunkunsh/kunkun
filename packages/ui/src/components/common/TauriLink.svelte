@@ -21,7 +21,7 @@
 
 <button
 	class={cn(
-		"font-medium text-blue-600 hover:cursor-pointer hover:underline dark:text-blue-500 text-left",
+		"text-left font-medium text-blue-600 hover:cursor-pointer hover:underline dark:text-blue-500",
 		className
 	)}
 	onclick={handleClick}

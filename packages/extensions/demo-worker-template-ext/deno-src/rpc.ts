@@ -1,4 +1,4 @@
-import { expose } from '@kunkun/api/runtime/deno'
+import { expose } from "@kunkun/api/runtime/deno"
 
 export interface API {
 	add(a: number, b: number): Promise<number>

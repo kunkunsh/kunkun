@@ -33,11 +33,11 @@ import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
 import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
 import type { DenoSysOptions } from "../permissions/schema"
+import type { MarkdownSchema } from "./worker"
 import { type IComponent } from "./worker/components/interfaces"
 import type { Markdown } from "./worker/components/markdown"
 import * as FormSchema from "./worker/schema/form"
 import * as ListSchema from "./worker/schema/list"
-import type { MarkdownSchema } from "./worker"
 
 type PromiseWrap<T extends (...args: any[]) => any> = (
 	...args: Parameters<T>

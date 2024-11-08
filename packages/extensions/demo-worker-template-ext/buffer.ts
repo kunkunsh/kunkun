@@ -1,3 +1,3 @@
-import Buffer from 'node:buffer'
+import Buffer from "node:buffer"
 
-console.log(Buffer);
+console.log(Buffer)

@@ -6,7 +6,12 @@
 	const { class: className, children }: { class?: string; children: Snippet } = $props()
 </script>
 
-<div class={cn("flex items-center justify-center space-x-5 whitespace-nowrap select-none cursor-default", className)}>
+<div
+	class={cn(
+		"flex cursor-default select-none items-center justify-center space-x-5 whitespace-nowrap",
+		className
+	)}
+>
 	<span class="w-full">
 		<Separator />
 	</span>
