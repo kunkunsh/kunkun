@@ -13,7 +13,7 @@
 </script>
 
 <Badge
-	style={`style: ${color ? color : "var(--muted-foreground)"}; background-color: ${color ? `${color}30` : "var(--muted)"};`}
+	style={`style: ${color ? color : "var(--muted-foreground)"}; background-color: ${color ? `${color}` : "var(--muted)"};`}
 >
 	{text}
 </Badge>

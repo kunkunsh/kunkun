@@ -12,10 +12,10 @@ import {
 	Markdown,
 	open,
 	path,
+	security,
 	shell,
 	toast,
 	ui,
-	security,
 	WorkerExtension
 } from "@kksh/api/ui/worker"
 import { IconType } from "@kunkun/api/models"
@@ -126,7 +126,6 @@ class ExtensionTemplate extends WorkerExtension {
 	}
 
 	async onSearchTermChange(term: string): Promise<void> {
-		console.log("Search term changed to:", term)
 		return ui.render(
 			new List.List({
 				// items: allItems.filter((item) => item.title.toLowerCase().includes(term.toLowerCase())),

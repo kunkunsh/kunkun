@@ -83,7 +83,6 @@
 		const element = e.target as HTMLElement
 		if (!isScrolling && element?.scrollHeight - element?.scrollTop === element?.clientHeight) {
 			isScrolling = true
-			console.log("onListScrolledToBottom")
 			onListScrolledToBottom?.()
 			setTimeout(() => {
 				isScrolling = false
@@ -93,10 +92,9 @@
 
 	$effect(() => {
 		if (detailWidth != prevDetailWidth) {
-			console.log("detailWidth changed from ", prevDetailWidth, "to", detailWidth)
+			// this watches width update from extension, when pane is resized manually, this will not trigger
 			prevDetailWidth = detailWidth
 			rightPane?.resize(detailWidth)
-			// rightPane?.resize(detailWidth)
 		}
 	})
 </script>
