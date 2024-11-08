@@ -21,7 +21,10 @@ export function buildFormSchema(form: FormSchema.Form): v.ObjectSchema<any, unde
 		} else if (field.nodeName === FormNodeNameEnum.Number) {
 			fieldSchema = v.number()
 		} else if (field.nodeName === FormNodeNameEnum.Select) {
-			fieldSchema = v.picklist((field as FormSchema.SelectField).options)
+			fieldSchema = v.string()
+			// fieldSchema = v.picklist((field as FormSchema.SelectField).options)
+			// schema = v.object({ ...schema.entries, [field.key]: fieldSchema })
+			// continue
 		} else if (field.nodeName === FormNodeNameEnum.Boolean) {
 			fieldSchema = v.boolean()
 		} else if (field.nodeName === FormNodeNameEnum.Date) {

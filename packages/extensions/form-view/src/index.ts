@@ -28,14 +28,16 @@ class ExtensionTemplate extends WorkerExtension {
 				new Form.DateField({
 					key: "birthday",
 					label: "Date of Birth",
-					hideLabel: false
+					hideLabel: false,
+					description: "Enter your date of birth"
 				}),
 				new Form.NumberField({
 					key: "age",
 					label: "Age",
 					default: 18,
 					placeholder: "Enter your age",
-					optional: true
+					optional: true,
+					description: "Enter your age"
 				}),
 				new Form.InputField({
 					key: "name",
@@ -50,6 +52,12 @@ class ExtensionTemplate extends WorkerExtension {
 					key: "isActive",
 					label: "Is Active",
 					description: "Is the user active?"
+				}),
+				new Form.SelectField({
+					key: "gender",
+					label: "Gender",
+					options: ["Male", "Female", "Other"],
+					description: "Select your gender"
 				})
 			]
 		})

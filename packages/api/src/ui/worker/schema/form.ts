@@ -55,7 +55,7 @@ export const BaseField = object({
 	placeholder: optional(string()),
 	optional: optional(boolean()),
 	description: optional(string()),
-	default: optional(union([string(), number(), boolean()]))
+	default: optional(any())
 })
 export type BaseField = InferOutput<typeof BaseField>
 
@@ -86,7 +86,8 @@ export type NumberField = InferOutput<typeof NumberField>
 // with zod enum
 export const SelectField = object({
 	...BaseField.entries,
-	options: array(string())
+	options: array(string()),
+	default: optional(string())
 })
 export type SelectField = InferOutput<typeof SelectField>
 
@@ -95,8 +96,7 @@ export type SelectField = InferOutput<typeof SelectField>
 /* -------------------------------------------------------------------------- */
 export const BooleanField = object({
 	...BaseField.entries,
-	component: optional(union([literal("checkbox"), literal("switch")])),
-	default: optional(boolean())
+	component: optional(union([literal("checkbox"), literal("switch")]))
 })
 export type BooleanField = InferOutput<typeof BooleanField>
 
@@ -104,7 +104,8 @@ export type BooleanField = InferOutput<typeof BooleanField>
 /*                                    Date                                    */
 /* -------------------------------------------------------------------------- */
 export const DateField = object({
-	...BaseField.entries
+	...BaseField.entries,
+	default: optional(string())
 })
 export type DateField = InferOutput<typeof DateField>
 
@@ -124,9 +125,9 @@ export type ArrayField = InferOutput<typeof ArrayField>
 /* -------------------------------------------------------------------------- */
 export const FormField = union([
 	ArrayField, // this must be placed first, otherwise its content field won't be parsed
+	SelectField,
 	InputField,
 	NumberField,
-	SelectField,
 	BooleanField,
 	DateField
 ])

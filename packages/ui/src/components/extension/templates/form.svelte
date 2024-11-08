@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { DateValue } from "@internationalized/date"
 	import { FormNodeNameEnum, FormSchema } from "@kksh/api/ui/worker"
-	import { Button, Checkbox, Form, Input, Label } from "@kksh/svelte5"
+	import { Button, Checkbox, Form, Input, Label, Select } from "@kksh/svelte5"
 	import { DatePickerWithPreset, Shiki } from "@kksh/ui"
 	import { buildFormSchema, cn } from "@kksh/ui/utils"
 	import { onMount } from "svelte"
@@ -21,6 +21,9 @@
 		onSubmit?: (formData: Record<string, any>) => void
 	} = $props()
 	const formSchema = $derived(buildFormSchema(formViewContent))
+	onMount(() => {
+		console.log(formSchema)
+	})
 	const form = $derived(
 		superForm(defaults(valibot(formSchema)), {
 			validators: valibotClient(formSchema),
@@ -73,7 +76,22 @@
 			{:else if field.nodeName === FormNodeNameEnum.Date}
 				{@const field2 = field as FormSchema.DateField}
 				<DatePickerWithPreset class="w-full" bind:value={$formData[field2.key]} />
-			{:else if field.nodeName === FormNodeNameEnum.Select}{:else if field.nodeName === FormNodeNameEnum.Array}
+			{:else if field.nodeName === FormNodeNameEnum.Select}
+				{@const field2 = field as FormSchema.SelectField}
+				<Select.Root type="single" name="favoriteFruit" bind:value={$formData[field2.key]}>
+					<Select.Trigger class="w-80">
+						{$formData[field2.key] ? $formData[field2.key] : "Select"}
+					</Select.Trigger>
+					<Select.Content>
+						<Select.Group>
+							<!-- <Select.GroupHeading>Fruits</Select.GroupHeading> -->
+							{#each field2.options as option}
+								<Select.Item value={option} label={option}>{option}</Select.Item>
+							{/each}
+						</Select.Group>
+					</Select.Content>
+				</Select.Root>
+			{:else if field.nodeName === FormNodeNameEnum.Array}
 				<span>
 					Array is not supported yet
 					<TauriLink href="https://github.com/kunkunsh/kunkun/issues/19"
@@ -115,3 +133,4 @@
 		<Button type="submit">{formViewContent.submitBtnText ?? "Submit"}</Button>
 	</form>
 {/key}
+<!-- <SuperDebug data={$formData} /> -->

@@ -12,7 +12,7 @@
 <Button class="fixed left-2 top-2" size="icon" variant="outline" onclick={onGoBack}>
 	<ArrowLeftIcon />
 </Button>
-<main class="container flex flex-col gap-2">
+<main class="container flex flex-col gap-2 pb-4">
 	<h1 class="text-2xl font-bold">{formViewContent.title}</h1>
 	<Form {formViewContent} />
 </main>
