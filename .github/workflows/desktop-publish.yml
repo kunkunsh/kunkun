@@ -1,0 +1,110 @@
+name: "Desktop App Publish"
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  publish-tauri:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        settings:
+          - platform: "macos-14" # for Arm based macs (M1 and above).
+            args: "--target aarch64-apple-darwin --verbose"
+          - platform: "macos-14" # for Intel based macs.
+            args: "--target x86_64-apple-darwin --verbose"
+          - platform: "macos-14" # for Both Arm and Intel based macs.
+            args: "--target universal-apple-darwin --verbose"
+          - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
+            args: "--verbose"
+          - platform: "windows-latest"
+            args: "--verbose"
+
+    runs-on: ${{ matrix.settings.platform }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: "true"
+
+      - name: install dependencies (ubuntu only)
+        if: matrix.settings.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+        # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
+      - name: Install protobuf (Mac)
+        if: matrix.settings.platform == 'macos-14'
+        run: |
+          brew install protobuf
+      - name: Install Protobuf (Ubuntu)
+        if: matrix.settings.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt install -y protobuf-compiler
+      - name: Install protoc and openssl for windows
+        if: matrix.settings.platform == 'windows-latest'
+        run: |
+          choco install protoc
+          choco install openssl
+          echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
+          echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
+          echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib"' >> $env:GITHUB_ENV
+      - uses: pnpm/action-setup@v4
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "pnpm" # Set this to npm, yarn or pnpm.
+          cache-dependency-path: ./pnpm-lock.yaml
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
+          targets: ${{ matrix.settings.platform == 'macos-14' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+      - name: Add rust target (macos only)
+        if: matrix.settings.platform == 'macos-14'
+        run: |
+          rustup target add aarch64-apple-darwin
+          rustup target add x86_64-apple-darwin
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./apps/desktop/src-tauri -> target"
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.1.27
+      - name: Install Dependencies
+        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
+        run: |
+          pnpm install
+          pnpm prepare
+      - name: Get App Version
+        if: matrix.settings.platform == 'windows-latest'
+        id: appversion
+        run: |
+          echo "version=$(node -p "require('./apps/desktop/package.json').version")" >> $env:GITHUB_OUTPUT
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          CI: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: Kunkun-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: "Kunkun v__VERSION__"
+          releaseBody: "See the assets to download this version and install."
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.settings.args }} ${{ contains(steps.appversion.outputs.version, 'beta') && matrix.settings.platform == 'windows-latest' && '-b nsis' || '' }}
+          projectPath: "./apps/desktop"
