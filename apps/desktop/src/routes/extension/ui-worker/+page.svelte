@@ -147,10 +147,8 @@
 				// }
 			} else if (view.nodeName === FormNodeNameEnum.Form) {
 				listViewContent = undefined
-				console.log("render form", view)
 				clearViewContent("form")
 				const parsedForm = v.parse(FormSchema.Form, view)
-				console.log("parsedForm", parsedForm)
 				formViewContent = parsedForm
 				// TODO: convert form to zod schema
 				// const zodSchema = convertFormToZod(parsedForm)
@@ -212,9 +210,9 @@
 	$effect(() => {
 		launchWorkerExt()
 
-		onDestroy(() => {
+		return () => {
 			worker?.terminate()
-		})
+		}
 	})
 	onMount(async () => {
 		setTimeout(() => {
@@ -234,6 +232,7 @@
 	onDestroy(() => {
 		unlistenRefreshWorkerExt?.()
 		extensionLoadingBar = false
+		appState.setActionPanel(undefined)
 	})
 </script>
 
@@ -262,10 +261,25 @@
 		}}
 		onHighlightedItemChanged={(value) => {
 			workerAPI?.onHighlightedListItemChanged(value)
+			if (listViewContent?.defaultAction) {
+				appState.setDefaultAction(listViewContent.defaultAction)
+			}
+			if (listViewContent?.actions) {
+				appState.setActionPanel(listViewContent.actions)
+			}
 		}}
 	>
 		{#snippet footer()}
-			<GlobalCommandPaletteFooter />
+			<GlobalCommandPaletteFooter
+				defaultAction={$appState.defaultAction}
+				actionPanel={$appState.actionPanel}
+				onDefaultActionSelected={() => {
+					workerAPI?.onEnterPressedOnSearchBar()
+				}}
+				onActionSelected={(value) => {
+					workerAPI?.onActionSelected(value)
+				}}
+			/>
 		{/snippet}
 	</Templates.ListView>
 {:else if loaded && formViewContent !== undefined}

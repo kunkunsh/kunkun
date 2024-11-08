@@ -1,5 +1,5 @@
 import { findAllArgsInLink } from "@/cmds/quick-links"
-import { CmdTypeEnum } from "@kksh/api/models"
+import { Action as ActionSchema, CmdTypeEnum } from "@kksh/api/models"
 import type { AppState } from "@kksh/types"
 import type { CmdValue } from "@kksh/ui/types"
 import { derived, get, writable, type Writable } from "svelte/store"
@@ -7,13 +7,17 @@ import { derived, get, writable, type Writable } from "svelte/store"
 export const defaultAppState: AppState = {
 	searchTerm: "",
 	highlightedCmd: "",
-	loadingBar: false
+	loadingBar: false,
+	defaultAction: "",
+	actionPanel: undefined
 }
 
 interface AppStateAPI {
 	clearSearchTerm: () => void
 	get: () => AppState
 	setLoadingBar: (loadingBar: boolean) => void
+	setDefaultAction: (defaultAction: string) => void
+	setActionPanel: (actionPanel?: ActionSchema.ActionPanel) => void
 }
 
 function createAppState(): Writable<AppState> & AppStateAPI {
@@ -27,18 +31,14 @@ function createAppState(): Writable<AppState> & AppStateAPI {
 		},
 		setLoadingBar: (loadingBar: boolean) => {
 			store.update((state) => ({ ...state, loadingBar }))
+		},
+		setDefaultAction: (defaultAction: string) => {
+			store.update((state) => ({ ...state, defaultAction }))
+		},
+		setActionPanel: (actionPanel?: ActionSchema.ActionPanel) => {
+			store.update((state) => ({ ...state, actionPanel }))
 		}
 	}
 }
 
 export const appState = createAppState()
-
-// export const cmdQueries = derived(appState, ($appState) => {
-// 	if ($appState.highlightedCmd.startsWith("{")) {
-// 		const parsedCmd = JSON.parse($appState.highlightedCmd) as CmdValue
-// 		if (parsedCmd.cmdType === CmdTypeEnum.QuickLink && parsedCmd.data) {
-// 			return findAllArgsInLink(parsedCmd.data).map((arg) => ({ name: arg, value: "" }))
-// 		}
-// 	}
-// 	return []
-// })

@@ -43,10 +43,15 @@ class ExtensionTemplate extends WorkerExtension {
 		console.log("Form submitted", value)
 	}
 
+	async onEnterPressedOnSearchBar(): Promise<void> {
+		console.log("Enter pressed on search bar")
+	}
+
 	async load() {
 		// console.log("Check screen capture permission:", await security.mac.checkScreenCapturePermission())
 		// await security.mac.revealSecurityPane("AllFiles")
 		// console.log(await security.mac.verifyFingerprint())
+		ui.setSearchBarPlaceholder("Search for items")
 		ui.showLoadingBar(true)
 		setTimeout(() => {
 			ui.showLoadingBar(false)
@@ -77,53 +82,64 @@ class ExtensionTemplate extends WorkerExtension {
 				})
 			]
 		})
-
-		return ui.render(
-			new List.List({
-				items: allItems,
-				defaultAction: "Top Default Action",
-				detail: new List.ItemDetail({
-					children: [
-						new List.ItemDetailMetadata([
-							new List.ItemDetailMetadataLabel({
-								title: "Label Title",
-								text: "Label Text"
-							}),
-							new List.ItemDetailMetadataLabel({
-								title: "Label Title",
-								text: "Label Text",
-								icon: new Icon({
-									type: IconType.enum.Iconify,
-									value: "mingcute:appstore-fill"
-								})
-							}),
-							new List.ItemDetailMetadataSeparator(),
-							new List.ItemDetailMetadataLabel({
-								title: "Label Title",
-								text: "Label Text"
-							}),
-							new List.ItemDetailMetadataLink({
-								title: "Link Title",
-								text: "Link Text",
-								url: "https://github.com/huakunshen"
-							}),
-							new List.ItemDetailMetadataLabel({
-								title: "Label Title",
-								text: "Label Text"
-							}),
-							tagList
-						]),
-						new Markdown(`
+		const list = new List.List({
+			items: allItems,
+			defaultAction: "Top Default Action",
+			detail: new List.ItemDetail({
+				children: [
+					new List.ItemDetailMetadata([
+						new List.ItemDetailMetadataLabel({
+							title: "Label Title",
+							text: "Label Text"
+						}),
+						new List.ItemDetailMetadataLabel({
+							title: "Label Title",
+							text: "Label Text",
+							icon: new Icon({
+								type: IconType.enum.Iconify,
+								value: "mingcute:appstore-fill"
+							})
+						}),
+						new List.ItemDetailMetadataSeparator(),
+						new List.ItemDetailMetadataLabel({
+							title: "Label Title",
+							text: "Label Text"
+						}),
+						new List.ItemDetailMetadataLink({
+							title: "Link Title",
+							text: "Link Text",
+							url: "https://github.com/huakunshen"
+						}),
+						new List.ItemDetailMetadataLabel({
+							title: "Label Title",
+							text: "Label Text"
+						}),
+						tagList
+					]),
+					new Markdown(`
 # Hello World
 <img src="https://github.com/huakunshen.png" />
 <img src="https://github.com/huakunshen.png" />
 <img src="https://github.com/huakunshen.png" />
-										`)
-					],
-					width: 50
-				})
+							`)
+				],
+				width: 50
+			}),
+			actions: new Action.ActionPanel({
+				items: [
+					new Action.Action({
+						title: "Action 1",
+						value: "action 1",
+						icon: new Icon({ type: IconType.enum.Iconify, value: "material-symbols:add-reaction" })
+					}),
+					new Action.Action({ title: "Action 2", value: "action 2" }),
+					new Action.Action({ title: "Action 3", value: "action 3" }),
+					new Action.Action({ title: "Action 4", value: "action 4" })
+				]
 			})
-		)
+		})
+
+		return ui.render(list)
 	}
 
 	async onSearchTermChange(term: string): Promise<void> {
@@ -131,7 +147,7 @@ class ExtensionTemplate extends WorkerExtension {
 			new List.List({
 				// items: allItems.filter((item) => item.title.toLowerCase().includes(term.toLowerCase())),
 				inherits: ["items", "sections"],
-				// defaultAction: "Top Default Action",
+				defaultAction: "Top Default Action",
 				detail: new List.ItemDetail({
 					children: [
 						new List.ItemDetailMetadata([

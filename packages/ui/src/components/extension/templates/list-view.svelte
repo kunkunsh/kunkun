@@ -1,14 +1,7 @@
 <script lang="ts">
-	import {
-		FormNodeNameEnum,
-		FormSchema,
-		ListSchema,
-		type IComponent,
-		type IDb,
-		type WorkerExtension
-	} from "@kksh/api/ui/worker"
+	import { ListSchema } from "@kksh/api/ui/worker"
 	import { Button, Command, Progress, Resizable } from "@kksh/svelte5"
-	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
+	import { CustomCommandInput } from "@kksh/ui/main"
 	import { commandScore } from "@kksh/ui/utils"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import { type PaneAPI } from "paneforge"
@@ -55,22 +48,8 @@
 
 	const detailWidth = $derived(listViewContent.detail ? (listViewContent.detail?.width ?? 70) : 0)
 
-	function internalOnHighlightedItemChanged(value: string) {
-		onHighlightedItemChanged?.(value)
-		if (listViewContent.actions) {
-			// 	appUiStore.setActionPanel(props.modelValue.actions)
-		} else {
-			// 	appUiStore.setActionPanel(item?.actions)
-		}
-		if (listViewContent.defaultAction) {
-			// 	appUiStore.setDefaultAction(props.modelValue.defaultAction)
-		} else {
-			// 	appUiStore.setDefaultAction(item?.defaultAction)
-		}
-	}
-
 	$effect(() => {
-		internalOnHighlightedItemChanged(highlightedValue)
+		onHighlightedItemChanged?.(highlightedValue)
 	})
 
 	$effect(() => {
@@ -139,7 +118,7 @@
 		{/snippet}
 	</CustomCommandInput>
 	{#if pbar}
-		<Progress value={pbar} class="h-[1.5px] rounded-none" />
+		<Progress value={50} class="h-0.4 rounded-none" />
 	{/if}
 
 	<Resizable.PaneGroup direction="horizontal">
@@ -175,6 +154,5 @@
 			{/if}
 		</Resizable.Pane>
 	</Resizable.PaneGroup>
-
 	{@render footer?.()}
 </Command.Root>
