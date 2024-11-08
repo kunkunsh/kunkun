@@ -1,12 +1,42 @@
 <script lang="ts">
-	import { Avatar } from "@kksh/svelte5"
+	import Icon from "@iconify/svelte"
+	import { Action as ActionSchema } from "@kksh/api/models"
+	import { Avatar, Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
+	import Kbd from "../common/Kbd.svelte"
+	import ActionPanel from "./ActionPanel.svelte"
 
-	const { class: className }: { class?: string } = $props()
+	const {
+		class: className,
+		defaultAction,
+		actionPanel,
+		onDefaultActionSelected,
+		onActionSelected
+	}: {
+		class?: string
+		defaultAction?: string
+		actionPanel?: ActionSchema.ActionPanel
+		onDefaultActionSelected?: () => void
+		onActionSelected?: (value: string) => void
+	} = $props()
 </script>
 
-<footer data-tauri-drag-region class={cn("h-12 select-none border-t", className)}>
+<flex
+	data-tauri-drag-region
+	class={cn("h-12 select-none items-center justify-between gap-4 border-t px-2", className)}
+>
 	<Avatar.Root class="p-2">
 		<Avatar.Image src="/favicon.png" alt="Kunkun Logo" class="select-none invert dark:invert-0" />
 	</Avatar.Root>
-</footer>
+	<flex class="items-center gap-1">
+		{#if defaultAction}
+			<Button size="default" class="h-full" variant="ghost" onclick={onDefaultActionSelected}>
+				{defaultAction}
+				<Kbd><Icon icon="tdesign:enter" /></Kbd>
+			</Button>
+		{/if}
+		{#if actionPanel}
+			<ActionPanel {actionPanel} {onActionSelected} />
+		{/if}
+	</flex>
+</flex>

@@ -58,8 +58,6 @@
 			</Select.Content>
 		</Select.Root>
 
-        
-
 		<!-- <div class="grid gap-4 py-4">
 			<div class="grid grid-cols-4 items-center gap-4">
 				<Label for="name" class="text-right">Name</Label>

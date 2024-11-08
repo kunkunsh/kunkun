@@ -8,47 +8,14 @@ pub fn tauri_file_server(
     extension_folder_path: PathBuf,
     dist: Option<String>,
 ) -> tauri::http::Response<Vec<u8>> {
-    // let host = request.uri().host().unwrap();
-    // let host_parts: Vec<&str> = host.split(".").collect();
-    // if host_parts.len() != 3 {
-    //     return tauri::http::Response::builder()
-    //         .status(tauri::http::StatusCode::NOT_FOUND)
-    //         .header("Access-Control-Allow-Origin", "*")
-    //         .body("Invalid Host".as_bytes().to_vec())
-    //         .unwrap();
-    // }
-    // expect 3 parts, ext_identifier, dist and ext_type
-    // let ext_identifier = host_parts[0];
-    // let dist = host_parts[1];
-    // let ext_type = host_parts[2]; // ext or dev-ext
-    // let app_state = app.state::<tauri_plugin_jarvis::model::app_state::AppState>();
-    // let app_state: tauri:State<tauri_plugin_jarvis::model::app_state::AppState> = app.state();
-    // let extension_folder_path: Option<PathBuf> = match ext_type {
-    //     "ext" => Some(app_state.extension_path.lock().unwrap().clone()),
-    //     "dev-ext" => app_state.dev_extension_path.lock().unwrap().clone(),
-    //     _ => None,
-    // };
-    // let extension_folder_path = match extension_folder_path {
-    //     Some(path) => path,
-    //     None => {
-    //         return tauri::http::Response::builder()
-    //             .status(tauri::http::StatusCode::NOT_FOUND)
-    //             .header("Access-Control-Allow-Origin", "*")
-    //             .body("Extension Folder Not Found".as_bytes().to_vec())
-    //             .unwrap()
-    //     }
-    // };
-    println!("dist: {:?}", dist);
     let path = &request.uri().path()[1..]; // skip the first /
     let path = urlencoding::decode(path).unwrap().to_string();
     let mut url_file_path = extension_folder_path;
-    // .join(ext_identifier)
     match dist {
         Some(dist) => url_file_path = url_file_path.join(dist),
         None => {}
     }
     url_file_path = url_file_path.join(path);
-    println!("url_file_path: {:?}", url_file_path);
     // check if it's file or directory, if file and exist, return file, if directory, return index.html, if neither, check .html
     if url_file_path.is_file() {
         // println!("1st case url_file_path: {:?}", url_file_path);

@@ -10,7 +10,10 @@ import { appConfig } from "./appConfig"
 function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	init: () => Promise<void>
 	getExtensionsFromStore: () => ExtPackageJsonExtra[]
+	installTarball: (tarballPath: string, extsDir: string) => Promise<ExtPackageJsonExtra>
+	installDevExtensionDir: (dirPath: string) => Promise<ExtPackageJsonExtra>
 	installFromTarballUrl: (tarballUrl: string, installDir: string) => Promise<ExtPackageJsonExtra>
+	installFromNpmPackageName: (name: string, installDir: string) => Promise<ExtPackageJsonExtra>
 	findStoreExtensionByIdentifier: (identifier: string) => ExtPackageJsonExtra | undefined
 	registerNewExtensionByPath: (extPath: string) => Promise<ExtPackageJsonExtra>
 	uninstallStoreExtensionByIdentifier: (identifier: string) => Promise<ExtPackageJsonExtra>
@@ -56,8 +59,32 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 			})
 	}
 
+	/**
+	 * Install extension from tarball file
+	 * @param tarballPath absolute path to the tarball file
+	 * @param extsDir absolute path to the extensions directory
+	 * @returns loaded extension
+	 */
+	async function installTarball(tarballPath: string, extsDir: string) {
+		return extAPI.installTarballUrl(tarballPath, extsDir).then((extInstallPath) => {
+			return registerNewExtensionByPath(extInstallPath)
+		})
+	}
+
+	async function installDevExtensionDir(dirPath: string) {
+		return extAPI.installDevExtensionDir(dirPath).then((ext) => {
+			return registerNewExtensionByPath(ext.extPath)
+		})
+	}
+
 	async function installFromTarballUrl(tarballUrl: string, extsDir: string) {
 		return extAPI.installTarballUrl(tarballUrl, extsDir).then((extInstallPath) => {
+			return registerNewExtensionByPath(extInstallPath)
+		})
+	}
+
+	async function installFromNpmPackageName(name: string, extsDir: string) {
+		return extAPI.installFromNpmPackageName(name, extsDir).then((extInstallPath) => {
 			return registerNewExtensionByPath(extInstallPath)
 		})
 	}
@@ -96,7 +123,10 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		getExtensionsFromStore,
 		findStoreExtensionByIdentifier,
 		registerNewExtensionByPath,
+		installTarball,
+		installDevExtensionDir,
 		installFromTarballUrl,
+		installFromNpmPackageName,
 		uninstallStoreExtensionByIdentifier,
 		upgradeStoreExtension
 	}

@@ -17,6 +17,12 @@
 	import { attachConsole } from "@tauri-apps/plugin-log"
 	import { onDestroy, onMount } from "svelte"
 
+	onMount(() => {
+		setTimeout(() => {
+			import("virtual:uno.css")
+		}, 1000)
+	})
+
 	let { children } = $props()
 	const unlisteners: UnlistenFn[] = []
 

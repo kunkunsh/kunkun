@@ -1,4 +1,5 @@
 import { sveltekit } from "@sveltejs/kit/vite"
+import UnoCSS from "unocss/vite"
 import { defineConfig } from "vite"
 
 // @ts-expect-error process is a nodejs global
@@ -6,7 +7,7 @@ const host = process.env.TAURI_DEV_HOST
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-	plugins: [sveltekit()],
+	plugins: [UnoCSS(), sveltekit()],
 
 	// Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
 	//

@@ -65,7 +65,8 @@ export type BaseField = InferOutput<typeof BaseField>
 export const InputField = object({
 	...BaseField.entries,
 	type: optional(InputTypes),
-	component: optional(union([literal("textarea"), literal("default")]))
+	component: optional(union([literal("textarea"), literal("default")])),
+	default: optional(string())
 })
 export type InputField = InferOutput<typeof InputField>
 
@@ -74,7 +75,8 @@ export type InputField = InferOutput<typeof InputField>
 /* -------------------------------------------------------------------------- */
 export const NumberField = object({
 	...BaseField.entries,
-	nodeName: FormNodeName
+	nodeName: FormNodeName,
+	default: optional(number())
 })
 export type NumberField = InferOutput<typeof NumberField>
 
@@ -84,7 +86,8 @@ export type NumberField = InferOutput<typeof NumberField>
 // with zod enum
 export const SelectField = object({
 	...BaseField.entries,
-	options: array(string())
+	options: array(string()),
+	default: optional(string())
 })
 export type SelectField = InferOutput<typeof SelectField>
 
@@ -101,7 +104,8 @@ export type BooleanField = InferOutput<typeof BooleanField>
 /*                                    Date                                    */
 /* -------------------------------------------------------------------------- */
 export const DateField = object({
-	...BaseField.entries
+	...BaseField.entries,
+	default: optional(string())
 })
 export type DateField = InferOutput<typeof DateField>
 
@@ -121,14 +125,22 @@ export type ArrayField = InferOutput<typeof ArrayField>
 /* -------------------------------------------------------------------------- */
 export const FormField = union([
 	ArrayField, // this must be placed first, otherwise its content field won't be parsed
+	SelectField,
 	InputField,
 	NumberField,
-	SelectField,
 	BooleanField,
 	DateField
 ])
 export type FormField = InferOutput<typeof FormField>
 // export type Form = InferOutput<typeof Form>
+export const Form: GenericSchema<Form> = object({
+	nodeName: FormNodeName,
+	key: string(),
+	fields: array(union([lazy(() => Form), FormField])),
+	title: optional(string()),
+	description: optional(string()),
+	submitBtnText: optional(string())
+})
 export type Form = {
 	nodeName: FormNodeName
 	title?: string
@@ -137,8 +149,3 @@ export type Form = {
 	key: string
 	fields: (FormField | Form)[]
 }
-export const Form: GenericSchema<Form> = object({
-	nodeName: FormNodeName,
-	key: string(),
-	fields: array(union([lazy(() => Form), FormField]))
-})

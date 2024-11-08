@@ -3,19 +3,18 @@
 	import { goBackOnEscape } from "@/utils/key"
 	import { goBack } from "@/utils/route"
 	import { Icon, IconEnum, IconType } from "@kksh/api/models"
-	import { createQuickLinkCommand } from "@kksh/extension/db"
 	import { Button, Input } from "@kksh/svelte5"
 	import { Form, IconSelector } from "@kksh/ui"
 	import { dev } from "$app/environment"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import { toast } from "svelte-sonner"
 	import SuperDebug, { defaults, superForm } from "sveltekit-superforms"
-	import { valibot, valibotClient, zod, zodClient } from "sveltekit-superforms/adapters"
+	import { valibot, valibotClient } from "sveltekit-superforms/adapters"
 	import * as v from "valibot"
 
 	const formSchema = v.object({
 		name: v.pipe(v.string(), v.minLength(1), v.maxLength(100)),
-		link: v.pipe(v.string(), v.minLength(5), v.maxLength(1000)),
+		link: v.pipe(v.string(), v.url(), v.minLength(5), v.maxLength(1000)),
 		iconType: IconType,
 		iconValue: v.string(),
 		invertIcon: v.boolean()
@@ -63,7 +62,7 @@
 	$effect(() => {
 		$formData.iconType = icon.type
 		$formData.iconValue = icon.value
-		$formData.invertIcon = icon.invert
+		$formData.invertIcon = icon.invert ?? false
 	})
 </script>
 
@@ -99,12 +98,11 @@
 		<input name="iconType" hidden type="text" bind:value={$formData.iconType} />
 		<input name="iconValue" hidden type="text" bind:value={$formData.iconValue} />
 		<input name="invertIcon" hidden type="text" bind:value={$formData.invertIcon} />
-		<br />
-		<Form.Button>Submit</Form.Button>
+		<Form.Button class="my-1">Submit</Form.Button>
 	</form>
 </div>
 {#if dev}
-	<div class="p-3">
+	<div class="p-5">
 		<SuperDebug data={$formData} />
 	</div>
 {/if}

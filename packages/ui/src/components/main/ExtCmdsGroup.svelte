@@ -30,7 +30,8 @@
 		}}
 		value={JSON.stringify({
 			cmdName: cmd.name,
-			cmdType: cmd.type
+			cmdType: cmd.type,
+			data: { isDev: heading === "Dev Extensions" }
 		} satisfies CmdValue)}
 	>
 		<span class="flex gap-2">
