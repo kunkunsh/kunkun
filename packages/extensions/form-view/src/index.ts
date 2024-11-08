@@ -27,16 +27,20 @@ class ExtensionTemplate extends WorkerExtension {
 			fields: [
 				new Form.DateField({
 					key: "birthday",
-					label: "Date of Birth"
+					label: "Date of Birth",
+					hideLabel: false
 				}),
 				new Form.NumberField({
 					key: "age",
 					label: "Age",
-					placeholder: "Enter your age"
+					default: 18,
+					placeholder: "Enter your age",
+					optional: true
 				}),
 				new Form.InputField({
 					key: "name",
-					label: "Name"
+					label: "Name",
+					default: "Huakun"
 				}),
 				new Form.InputField({
 					key: "name2",

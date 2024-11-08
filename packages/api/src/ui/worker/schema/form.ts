@@ -55,7 +55,7 @@ export const BaseField = object({
 	placeholder: optional(string()),
 	optional: optional(boolean()),
 	description: optional(string()),
-	default: optional(any())
+	default: optional(union([string(), number(), boolean()]))
 })
 export type BaseField = InferOutput<typeof BaseField>
 
@@ -65,7 +65,8 @@ export type BaseField = InferOutput<typeof BaseField>
 export const InputField = object({
 	...BaseField.entries,
 	type: optional(InputTypes),
-	component: optional(union([literal("textarea"), literal("default")]))
+	component: optional(union([literal("textarea"), literal("default")])),
+	default: optional(string())
 })
 export type InputField = InferOutput<typeof InputField>
 
@@ -74,7 +75,8 @@ export type InputField = InferOutput<typeof InputField>
 /* -------------------------------------------------------------------------- */
 export const NumberField = object({
 	...BaseField.entries,
-	nodeName: FormNodeName
+	nodeName: FormNodeName,
+	default: optional(number())
 })
 export type NumberField = InferOutput<typeof NumberField>
 
@@ -93,7 +95,8 @@ export type SelectField = InferOutput<typeof SelectField>
 /* -------------------------------------------------------------------------- */
 export const BooleanField = object({
 	...BaseField.entries,
-	component: optional(union([literal("checkbox"), literal("switch")]))
+	component: optional(union([literal("checkbox"), literal("switch")])),
+	default: optional(boolean())
 })
 export type BooleanField = InferOutput<typeof BooleanField>
 

@@ -38,20 +38,40 @@
 	const { form: formData, enhance, errors } = $derived(form)
 </script>
 
+{#snippet error(messages?: string[])}
+	{#if messages}
+		<ul>
+			{#each messages as message}
+				<li><small class="text-red-500">{message}</small></li>
+			{/each}
+		</ul>
+	{/if}
+{/snippet}
 {#key formViewContent}
-	<form class={cn("flex flex-col gap-1", className)} use:enhance>
+	<form class={cn("flex flex-col gap-2", className)} use:enhance>
 		{#each formViewContent.fields as field}
+			{@const _field = field as FormSchema.BaseField}
+			{#if _field.label && !_field.hideLabel}
+				<Label class="select-none" for={field.key}>{_field.label}</Label>
+			{/if}
 			{#if field.nodeName === FormNodeNameEnum.Number}
 				{@const field2 = field as FormSchema.NumberField}
-				<Label class="select-none" for={field2.key}>{field2.label}</Label>
-				<Input type="number" name={field.key} bind:value={$formData[field.key]} />
+				<Input
+					type="number"
+					name={field.key}
+					bind:value={$formData[field.key]}
+					placeholder={field2.placeholder}
+				/>
 			{:else if field.nodeName === FormNodeNameEnum.Input}
 				{@const field2 = field as FormSchema.InputField}
-				<Label class="select-none" for={field2.key}>{field2.label}</Label>
-				<Input type="text" name={field2.key} bind:value={$formData[field2.key]} />
+				<Input
+					type="text"
+					name={field2.key}
+					bind:value={$formData[field2.key]}
+					placeholder={field2.placeholder}
+				/>
 			{:else if field.nodeName === FormNodeNameEnum.Date}
 				{@const field2 = field as FormSchema.DateField}
-				<Label class="select-none" for={field2.key}>{field2.label}</Label>
 				<DatePickerWithPreset class="w-full" bind:value={$formData[field2.key]} />
 			{:else if field.nodeName === FormNodeNameEnum.Select}{:else if field.nodeName === FormNodeNameEnum.Array}
 				<span>
@@ -69,13 +89,11 @@
 				</span>
 			{:else if field.nodeName === FormNodeNameEnum.Boolean}
 				{@const field2 = field as FormSchema.InputField}
-				<Label class="select-none" for={field2.key}>{field2.label}</Label>
-
 				<div class="flex items-center space-x-2">
 					<Checkbox name={field2.key} bind:checked={$formData[field2.key]} />
 					<Label
 						id="terms-label"
-						for="terms"
+						for={field2.key}
 						class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 					>
 						{field2.description}
@@ -89,7 +107,10 @@
 					>
 				</span>
 			{/if}
-			<p class="text-muted-foreground select-none text-sm">{field.description}</p>
+			{#if field.description}
+				<p class="text-muted-foreground select-none text-sm">{field.description}</p>
+			{/if}
+			{@render error($errors[field.key] as string[] | undefined)}
 		{/each}
 		<Button type="submit">{formViewContent.submitBtnText ?? "Submit"}</Button>
 	</form>
