@@ -191,6 +191,7 @@
 		const workerScript = await readTextFile(scriptPath)
 		const blob = new Blob([workerScript], { type: "application/javascript" })
 		const blobURL = URL.createObjectURL(blob)
+		worker = new Worker(blobURL)
 		const serverAPI: Record<string, any> = constructJarvisServerAPIWithPermissions(
 			loadedExt.kunkun.permissions,
 			loadedExt.extPath
@@ -201,7 +202,6 @@
 		serverAPI.app = {
 			language: () => Promise.resolve("en")
 		} satisfies IApp
-		worker = new Worker(blobURL)
 		exposeApiToWorker(worker, serverAPI)
 		workerAPI = wrap<WorkerExtension>(worker)
 		await workerAPI.load()

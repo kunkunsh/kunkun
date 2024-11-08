@@ -53,9 +53,7 @@
 	})
 
 	$effect(() => {
-		if (privateSearchTerm !== searchTerm) {
-			onSearchTermChange?.(privateSearchTerm)
-		}
+		onSearchTermChange?.(searchTerm)
 	})
 
 	function onScroll(e: Event) {
@@ -94,7 +92,7 @@
 	}}
 >
 	<CustomCommandInput
-		bind:value={privateSearchTerm}
+		bind:value={searchTerm}
 		placeholder={searchBarPlaceholder}
 		autofocus
 		onkeydown={(e) => {
