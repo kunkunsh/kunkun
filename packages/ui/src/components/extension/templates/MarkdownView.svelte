@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { MarkdownSchema } from "@kksh/api/ui/worker"
+	import { MarkdownSchema } from "@kksh/api/models"
 	import { Button } from "@kksh/svelte5"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import Markdown from "./Markdown.svelte"

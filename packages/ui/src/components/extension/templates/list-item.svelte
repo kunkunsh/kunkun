@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { List, ListSchema, WorkerExtension } from "@kksh/api/ui/worker"
+	import { ListSchema } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "../../common"
 

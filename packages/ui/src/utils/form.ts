@@ -1,4 +1,4 @@
-import { FormNodeNameEnum, type FormSchema } from "@kksh/api/ui/worker"
+import { FormNodeNameEnum, type FormSchema } from "@kksh/api/models"
 import type { BaseIssue, BaseSchema } from "valibot"
 import * as v from "valibot"
 

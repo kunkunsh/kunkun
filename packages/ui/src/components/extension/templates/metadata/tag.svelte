@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Color, ListSchema } from "@kksh/api/ui/worker"
+	import type { Color, ListSchema } from "@kksh/api/models"
 	import { Badge } from "@kksh/svelte5"
 
 	const {

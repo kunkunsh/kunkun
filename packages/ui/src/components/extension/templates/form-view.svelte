@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { FormNodeNameEnum, FormSchema } from "@kksh/api/ui/worker"
+	import { FormNodeNameEnum, FormSchema } from "@kksh/api/models"
 	import { Button } from "@kksh/svelte5"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import Form from "./form.svelte"

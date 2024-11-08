@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ListSchema, MarkdownSchema, NodeNameEnum } from "@kksh/api/ui/worker"
+	import { ListSchema, MarkdownSchema, NodeNameEnum } from "@kksh/api/models"
 	import Markdown from "./Markdown.svelte"
 	import Metadata from "./metadata/Metadata.svelte"
 
