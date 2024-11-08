@@ -21,8 +21,7 @@ export async function onTemplateUiCmdSelect(
 	{ isDev, hmr }: { isDev: boolean; hmr: boolean }
 ) {
 	await createExtSupportDir(ext.extPath)
-	console.log("onTemplateUiCmdSelect", ext, cmd, isDev, hmr)
-
+	// console.log("onTemplateUiCmdSelect", ext, cmd, isDev, hmr)
 	const url = `/extension/ui-worker?extPath=${encodeURIComponent(ext.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({ extPath: ext.extPath })
@@ -42,7 +41,7 @@ export async function onCustomUiCmdSelect(
 	cmd: CustomUiCmd,
 	{ isDev, hmr }: { isDev: boolean; hmr: boolean }
 ) {
-	console.log("onCustomUiCmdSelect", ext, cmd, isDev, hmr)
+	// console.log("onCustomUiCmdSelect", ext, cmd, isDev, hmr)
 	await createExtSupportDir(ext.extPath)
 	let url = cmd.main
 

@@ -5,7 +5,6 @@
 	import { systemCommands } from "@/cmds/system"
 	import { appConfig, appState, devStoreExts, installedStoreExts, quickLinks } from "@/stores"
 	import { cmdQueries } from "@/stores/cmdQuery"
-	import { commandScore } from "@/utils/command-score"
 	import { getActiveElementNodeName } from "@/utils/dom"
 	import { openDevTools } from "@kksh/api/commands"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
@@ -21,7 +20,7 @@
 		SystemCmds
 	} from "@kksh/ui/main"
 	import type { BuiltinCmd, CmdValue, CommandLaunchers } from "@kksh/ui/types"
-	import { cn } from "@kksh/ui/utils"
+	import { cn, commandScore } from "@kksh/ui/utils"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { exit } from "@tauri-apps/plugin-process"
 	import { EllipsisVerticalIcon } from "lucide-svelte"
@@ -105,7 +104,6 @@
 	</CustomCommandInput>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
-		<Command.Separator />
 		{#if $appConfig.extensionsInstallDir && $devStoreExts.length > 0}
 			<ExtCmdsGroup
 				extensions={$devStoreExts}
@@ -114,7 +112,6 @@
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 				hmr={$appConfig.hmr}
 			/>
-			<Command.Separator />
 		{/if}
 		{#if $appConfig.extensionsInstallDir && $installedStoreExts.length > 0}
 			<ExtCmdsGroup
@@ -124,11 +121,9 @@
 				hmr={false}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 			/>
-			<Command.Separator />
 		{/if}
 		<QuickLinks quickLinks={$quickLinks} />
 		<BuiltinCmds {builtinCmds} />
-		<Command.Separator />
 		<SystemCmds {systemCommands} />
 	</Command.List>
 	<GlobalCommandPaletteFooter />

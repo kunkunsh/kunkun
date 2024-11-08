@@ -9,17 +9,17 @@ import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
 import type { PageLoad } from "./$types"
 
-export const load: PageLoad = async ({
-	url
-}): Promise<{
-	extPath: string
-	scriptPath: string
-	// workerScript: string
-	pkgJsonPath: string
-	cmdName: string
-	loadedExt: ExtPackageJsonExtra
-	extInfoInDB: ExtInfoInDB
-}> => {
+// : Promise<{
+// 	extPath: string
+// 	scriptPath: string
+// 	// workerScript: string
+// 	pkgJsonPath: string
+// 	cmdName: string
+// 	loadedExt: ExtPackageJsonExtra
+// 	extInfoInDB: ExtInfoInDB
+// }>
+
+export const load: PageLoad = async ({ url }) => {
 	// both query parameter must exist
 	const extPath = url.searchParams.get("extPath")
 	const cmdName = url.searchParams.get("cmdName")

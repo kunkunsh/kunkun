@@ -6,12 +6,14 @@ import { derived, get, writable, type Writable } from "svelte/store"
 
 export const defaultAppState: AppState = {
 	searchTerm: "",
-	highlightedCmd: ""
+	highlightedCmd: "",
+	loadingBar: false
 }
 
 interface AppStateAPI {
 	clearSearchTerm: () => void
 	get: () => AppState
+	setLoadingBar: (loadingBar: boolean) => void
 }
 
 function createAppState(): Writable<AppState> & AppStateAPI {
@@ -22,6 +24,9 @@ function createAppState(): Writable<AppState> & AppStateAPI {
 		get: () => get(store),
 		clearSearchTerm: () => {
 			store.update((state) => ({ ...state, searchTerm: "" }))
+		},
+		setLoadingBar: (loadingBar: boolean) => {
+			store.update((state) => ({ ...state, loadingBar }))
 		}
 	}
 }

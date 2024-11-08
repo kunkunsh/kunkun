@@ -7,7 +7,7 @@ export enum KUNKUN_EXT_IDENTIFIER {
 }
 
 export const KUNKUN_DESKTOP_APP_SERVER_PORTS = [1566, 1567, 1568, 9559, 9560, 9561]
-export const DESKTOP_SERVICE_NAME = "Kunkun"
+export const DESKTOP_SERVICE_NAME = "kunkun"
 
 /* -------------------------------------------------------------------------- */
 /*                                  Deep Link                                 */

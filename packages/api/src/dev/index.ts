@@ -15,7 +15,7 @@ export function checkLocalKunkunService(port: number): Promise<boolean> {
 			return res.json()
 		})
 		.then((data) => {
-			return data["service_name"] === DESKTOP_SERVICE_NAME
+			return data["service_name"].toLowerCase() === DESKTOP_SERVICE_NAME.toLowerCase()
 		})
 		.catch((err) => {
 			// fetch fail, i.e. server not on this port

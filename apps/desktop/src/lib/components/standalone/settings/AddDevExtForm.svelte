@@ -120,7 +120,9 @@
 
 <Layouts.Center>
 	<DragNDrop
-		onDrop={handleDragNDropInstall}
+		onDrop={(e) => {
+			handleDragNDropInstall(e.payload.paths)
+		}}
 		onEnter={() => (dragging = true)}
 		onCancelled={() => (dragging = false)}
 	>

@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { appState } from "@/stores/appState.js"
 	import { winExtMap } from "@/stores/winExtMap.js"
+	import { listenToRefreshDevExt } from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
 	import { type Remote } from "@huakunshen/comlink"
 	import { db } from "@kksh/api/commands"
@@ -23,15 +25,23 @@
 		type IDb,
 		type WorkerExtension
 	} from "@kksh/api/ui/worker"
+	import { Button } from "@kksh/svelte5"
+	import { LoadingBar } from "@kksh/ui"
+	import { Templates } from "@kksh/ui/extension"
+	import { GlobalCommandPaletteFooter } from "@kksh/ui/main"
+	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { readTextFile } from "@tauri-apps/plugin-fs"
+	import { debug } from "@tauri-apps/plugin-log"
 	import { goto } from "$app/navigation"
+	import { ArrowLeftIcon } from "lucide-svelte"
 	import { onDestroy, onMount } from "svelte"
 	import * as v from "valibot"
 
 	const { data } = $props()
 	let { loadedExt, scriptPath, extInfoInDB } = $derived(data)
 	let workerAPI: Remote<WorkerExtension> | undefined = undefined
+	let unlistenRefreshWorkerExt: UnlistenFn | undefined
 	let worker: Worker | undefined
 	let listViewContent = $state<ListSchema.List>()
 	let formViewContent = $state<FormSchema.Form>()
@@ -42,6 +52,8 @@
 	let searchTerm = $state("")
 	let searchBarPlaceholder = $state("")
 	const appWin = getCurrentWebviewWindow()
+	const loadingBar = $derived($appState.loadingBar || extensionLoadingBar)
+	let loaded = $state(false)
 
 	async function goBack() {
 		if (isInMainWindow()) {
@@ -165,6 +177,7 @@
 			searchTerm = term
 		},
 		async setSearchBarPlaceholder(placeholder: string) {
+			console.log("setSearchBarPlaceholder", placeholder)
 			searchBarPlaceholder = placeholder
 		},
 		async goBack() {
@@ -191,6 +204,7 @@
 			language: () => Promise.resolve("en")
 		} satisfies IApp
 		worker = new Worker(blobURL)
+		exposeApiToWorker(worker, serverAPI)
 		workerAPI = wrap<WorkerExtension>(worker)
 		await workerAPI.load()
 	}
@@ -202,10 +216,60 @@
 			worker?.terminate()
 		})
 	})
-	onMount(async () => {})
+	onMount(async () => {
+		setTimeout(() => {
+			appState.setLoadingBar(true)
+			appWin.show()
+		}, 100)
+		unlistenRefreshWorkerExt = await listenToRefreshDevExt(() => {
+			debug("Refreshing Worker Extension")
+			launchWorkerExt()
+		})
+		setTimeout(() => {
+			appState.setLoadingBar(false)
+			loaded = true
+		}, 500)
+	})
 
-	onDestroy(() => {})
+	onDestroy(() => {
+		unlistenRefreshWorkerExt?.()
+		extensionLoadingBar = false
+	})
 </script>
 
-<!-- <div class="h-10 bg-red-500" data-tauri-drag-region></div> -->
-<pre>listViewContent: {JSON.stringify(listViewContent, null, 2)}</pre>
+<!-- <Button variant="outline" size="icon" class="fixed left-2 top-2 z-50" onclick={goBack}>
+	<ArrowLeftIcon class="h-4 w-4" />
+</Button> -->
+<!-- <div class="h-10 w-full" data-tauri-drag-region></div> -->
+{#if loadingBar}
+	<LoadingBar color="white" />
+{/if}
+{#if loaded && listViewContent !== undefined}
+	<Templates.ListView
+		bind:searchTerm
+		bind:searchBarPlaceholder
+		{pbar}
+		{listViewContent}
+		{loading}
+		onGoBack={goBack}
+		onListScrolledToBottom={() => {
+			workerAPI?.onListScrolledToBottom()
+		}}
+		onEnterKeyPressed={() => {
+			workerAPI?.onEnterPressedOnSearchBar()
+		}}
+		onListItemSelected={(value: string) => {
+			workerAPI?.onListItemSelected(value)
+		}}
+		onSearchTermChange={(searchTerm) => {
+			workerAPI?.onSearchTermChange(searchTerm)
+		}}
+		onHighlightedItemChanged={(value) => {
+			workerAPI?.onHighlightedListItemChanged(value)
+		}}
+	>
+		{#snippet footer()}
+			<GlobalCommandPaletteFooter />
+		{/snippet}
+	</Templates.ListView>
+{/if}
