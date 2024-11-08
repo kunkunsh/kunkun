@@ -23,4 +23,6 @@
 <Button class="fixed left-2 top-2" onclick={onGoBack} variant="outline" size="icon">
 	<ArrowLeftIcon />
 </Button>
-<Markdown markdown={markdownViewContent.content} />
+<main class="container my-5">
+	<Markdown markdown={markdownViewContent.content} />
+</main>

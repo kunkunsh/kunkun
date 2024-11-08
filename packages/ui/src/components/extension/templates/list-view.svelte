@@ -144,7 +144,7 @@
 
 	<Resizable.PaneGroup direction="horizontal">
 		<Resizable.Pane bind:this={leftPane}>
-			<Command.List class="max-h-screen grow" onscroll={onScroll}>
+			<Command.List class="h-full max-h-screen" onscroll={onScroll}>
 				<Command.Empty>No results found.</Command.Empty>
 				{#each listViewContent.sections || [] as section}
 					<Command.Group heading={section.title}>
