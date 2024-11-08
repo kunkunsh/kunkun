@@ -11,7 +11,8 @@
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
 	import { commandScore } from "@kksh/ui/utils"
 	import { ArrowLeftIcon } from "lucide-svelte"
-	import type { Snippet } from "svelte"
+	import { type PaneAPI } from "paneforge"
+	import { onMount, type Snippet } from "svelte"
 	import { StrikeSeparator } from "../../common"
 	import ListItem from "./list-item.svelte"
 
@@ -42,7 +43,8 @@
 		loading: boolean
 		listViewContent: ListSchema.List
 	} = $props()
-
+	let leftPane: PaneAPI | undefined
+	let rightPane: PaneAPI | undefined
 	let isScrolling = $state(false)
 	let highlightedValue = $state<string>("")
 	const defaultDetailWidth = $state(
@@ -71,6 +73,10 @@
 		onSearchTermChange?.(searchTerm)
 	})
 
+	onMount(() => {
+		console.log(rightPane)
+	})
+
 	function onScroll(e: Event) {
 		const element = e.target as HTMLElement
 		if (!isScrolling && element?.scrollHeight - element?.scrollTop === element?.clientHeight) {
@@ -82,6 +88,12 @@
 			}, 500)
 		}
 	}
+
+	$effect(() => {
+		if (listViewContent.detail?.width) {
+			rightPane?.resize(listViewContent.detail.width)
+		}
+	})
 </script>
 
 <Command.Root
@@ -102,11 +114,18 @@
 	<CustomCommandInput
 		bind:value={searchTerm}
 		placeholder={searchBarPlaceholder}
+		autofocus
 		onkeydown={(e) => {
 			if (e.key === "Enter") {
 				e.preventDefault()
-				e.stopPropagation()
 				onEnterKeyPressed?.()
+			} else if (e.key === "Escape") {
+				e.preventDefault()
+				if (searchTerm.length > 0) {
+					searchTerm = ""
+				} else {
+					onGoBack?.()
+				}
 			}
 		}}
 	>
@@ -121,7 +140,7 @@
 	{/if}
 
 	<Resizable.PaneGroup direction="horizontal">
-		<Resizable.Pane defaultSize={100 - defaultDetailWidth}>
+		<Resizable.Pane defaultSize={100 - defaultDetailWidth} bind:this={leftPane}>
 			<Command.List class="max-h-screen grow" onscroll={onScroll}>
 				<Command.Empty>No results found.</Command.Empty>
 				{#each listViewContent.sections || [] as section}
@@ -147,7 +166,7 @@
 			</Command.List>
 		</Resizable.Pane>
 		<Resizable.Handle withHandle />
-		<Resizable.Pane defaultSize={defaultDetailWidth}>
+		<Resizable.Pane defaultSize={defaultDetailWidth} bind:this={rightPane}>
 			{#if listViewContent.detail}
 				<!-- <ListDetail detail={listViewContent.detail} /> -->
 				<div>Detail Not Implemented</div>

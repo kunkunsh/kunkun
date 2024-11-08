@@ -1,0 +1,114 @@
+{
+  "$schema": "../../packages/schema/manifest-json-schema.json",
+  "name": "demo-template-extension",
+  "version": "0.0.3",
+  "type": "module",
+  "kunkun": {
+    "name": "Demo Template Extension",
+    "shortDescription": "Demo Template Extension",
+    "longDescription": "Demo Template Extension",
+    "identifier": "demo-worker-template-ext",
+    "permissions": [
+      "fetch:all",
+      "shell:kill",
+      "security:mac:all",
+      {
+        "permission": "shell:deno:execute",
+        "allow": [
+          {
+            "path": "$EXTENSION/deno-src/deno-script.ts",
+            "env": [
+              "npm_package_config_libvips",
+              "CWD"
+            ],
+            "ffi": "*",
+            "read": [
+              "$DESKTOP"
+            ]
+          },
+          {
+            "path": "$EXTENSION/deno-src/rpc.ts",
+            "ffi": "*"
+          }
+        ]
+      },
+      {
+        "permission": "open:file",
+        "allow": [
+          {
+            "path": "$EXTENSION/src/deno-script.ts"
+          }
+        ]
+      },
+      "shell:stdin-write",
+      {
+        "permission": "shell:execute",
+        "allow": [
+          {
+            "cmd": {
+              "program": "ls",
+              "args": [
+                "-l"
+              ]
+            }
+          },
+          {
+            "cmd": {
+              "program": "bash",
+              "args": [
+                "-c",
+                ".+"
+              ]
+            }
+          },
+          {
+            "cmd": {
+              "program": "deno",
+              "args": [
+                "-A",
+                ".+",
+                ".+"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "demoImages": [],
+    "icon": {
+      "type": "iconify",
+      "value": "carbon:demo"
+    },
+    "customUiCmds": [],
+    "templateUiCmds": [
+      {
+        "name": "Demo Worker Template",
+        "main": "dist/index.js",
+        "cmds": []
+      }
+    ]
+  },
+  "scripts": {
+    "dev": "bun build.ts dev",
+    "build": "bun build.ts"
+  },
+  "dependencies": {
+    "@hk/comlink-stdio": "npm:@jsr/hk__comlink-stdio@^0.1.6",
+    "@kksh/api": "workspace:*",
+    "@kunkun/api": "npm:@jsr/kunkun__api@^0.0.13"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/bun": "latest",
+    "rollup-plugin-visualizer": "^5.12.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "./dist",
+    ".gitignore"
+  ]
+}
