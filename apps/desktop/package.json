@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/desktop",
-	"version": "0.1.9-beta.8",
+	"version": "0.1.10",
 	"description": "",
 	"type": "module",
 	"scripts": {
