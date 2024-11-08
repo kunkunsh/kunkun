@@ -78,7 +78,7 @@
 	}
 
 	const extUiAPI: IUiWorker = {
-		async render(view: IComponent<ListSchema.List | FormSchema.Form | Markdown>) {
+		async render(view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) {
 			if (view.nodeName === NodeNameEnum.List) {
 				clearViewContent("list")
 				const parsedListView = v.parse(ListSchema.List, view)

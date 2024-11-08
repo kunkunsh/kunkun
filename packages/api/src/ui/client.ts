@@ -37,6 +37,7 @@ import { type IComponent } from "./worker/components/interfaces"
 import type { Markdown } from "./worker/components/markdown"
 import * as FormSchema from "./worker/schema/form"
 import * as ListSchema from "./worker/schema/list"
+import type { MarkdownSchema } from "./worker"
 
 type PromiseWrap<T extends (...args: any[]) => any> = (
 	...args: Parameters<T>
@@ -116,7 +117,7 @@ export interface IToast {
 }
 
 export interface IUiWorker {
-	render: (view: IComponent<ListSchema.List | FormSchema.Form | Markdown>) => Promise<void>
+	render: (view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) => Promise<void>
 	goBack: () => Promise<void>
 	showLoadingBar: (loading: boolean) => Promise<void>
 	setScrollLoading: (loading: boolean) => Promise<void>
