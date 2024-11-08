@@ -1,7 +1,8 @@
 <script lang="ts">
 	import AppContext from "@/components/context/AppContext.svelte"
 	import "../app.css"
-	import { appConfig, appState, extensions } from "@/stores"
+	import { appConfig, appState, extensions, quickLinks } from "@/stores"
+	import { initDeeplink } from "@/utils/deeplink"
 	import { isInMainWindow } from "@/utils/window"
 	import {
 		ModeWatcher,
@@ -16,11 +17,19 @@
 	import { attachConsole } from "@tauri-apps/plugin-log"
 	import { onDestroy, onMount } from "svelte"
 
+	onMount(() => {
+		setTimeout(() => {
+			import("virtual:uno.css")
+		}, 1000)
+	})
+
 	let { children } = $props()
 	const unlisteners: UnlistenFn[] = []
 
 	onMount(async () => {
-		unlisteners.push(await attachConsole())
+		attachConsole().then((unlistener) => unlisteners.push(unlistener))
+		initDeeplink().then((unlistener) => unlisteners.push(unlistener))
+		quickLinks.init()
 		appConfig.init()
 		if (isInMainWindow()) {
 			extensions.init()

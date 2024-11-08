@@ -9,13 +9,15 @@
 	import { StoreExtDetail } from "@kksh/ui/extension"
 	import { greaterThan, parse as parseSemver } from "@std/semver"
 	import { error } from "@tauri-apps/plugin-log"
+	import { goto } from "$app/navigation"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
 	import { toast } from "svelte-sonner"
 	import { get, derived as storeDerived } from "svelte/store"
 
 	const { data } = $props()
-	let { ext, manifest } = data
+	const ext = $derived(data.ext)
+	const manifest = $derived(data.manifest)
 	const installedExt = storeDerived(installedStoreExts, ($e) => {
 		return $e.find((e) => e.kunkun.identifier === ext.identifier)
 	})
@@ -36,9 +38,9 @@
 
 	onMount(() => {
 		showBtn = {
-			install: !installedExt,
+			install: !$installedExt,
 			upgrade: isUpgradable,
-			uninstall: !!installedExt
+			uninstall: !!$installedExt
 		}
 	})
 
@@ -114,43 +116,44 @@
 			.uninstallStoreExtensionByIdentifier(ext.identifier)
 			.then((uninstalledExt) => {
 				toast.success(`${uninstalledExt.name} Uninstalled`)
+				loading.uninstall = false
+				showBtn.uninstall = false
+				showBtn.install = true
 			})
 			.catch((err) => {
 				toast.error("Fail to uninstall extension", { description: err })
 				error(`Fail to uninstall store extension (${ext.identifier}): ${err}`)
 			})
-			.finally(() => {
-				loading.uninstall = false
-				showBtn.uninstall = false
-				showBtn.install = true
-			})
+			.finally(() => {})
 	}
 
 	function onEnterPressed() {
-		return onInstallSelected()
+		if (showBtn.install) {
+			return onInstallSelected()
+		}
 	}
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === "Escape") {
 			if (!delayedImageDialogOpen) {
-				goBack()
+				goto("/extension/store")
 			}
 		}
 	}
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
-
 <Button
 	variant="outline"
 	size="icon"
 	class={cn("fixed left-3 top-3", Constants.CLASSNAMES.BACK_BUTTON)}
 	data-flip-id={Constants.CLASSNAMES.BACK_BUTTON}
-	onclick={goBack}
+	onclick={() => goto("/extension/store")}
 >
 	<ArrowLeftIcon />
 </Button>
 <StoreExtDetail
+	class="px-5"
 	{ext}
 	{manifest}
 	installedExt={$installedExt}

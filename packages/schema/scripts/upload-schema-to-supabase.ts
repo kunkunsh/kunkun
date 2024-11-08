@@ -1,10 +1,9 @@
 import { ExtPackageJson } from "@kksh/api/models"
-import { type Database } from "@kksh/supabase"
-import { createClient } from "@supabase/supabase-js"
+import { createSB } from "@kksh/supabase"
 import { parse, string } from "valibot"
 import { getJsonSchema } from "../src"
 
-const supabase = createClient<Database>(
+const supabase = createSB(
 	parse(string(), process.env.SUPABASE_URL),
 	parse(string(), process.env.SUPABASE_SERVICE_ROLE_KEY)
 )

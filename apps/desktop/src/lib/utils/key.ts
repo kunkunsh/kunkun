@@ -23,3 +23,13 @@ export function goBackOnEscapeClearSearchTerm(e: KeyboardEvent) {
 		}
 	}
 }
+
+export function goHomeOnEscapeClearSearchTerm(e: KeyboardEvent) {
+	if (e.key === "Escape") {
+		if (appState.get().searchTerm) {
+			appState.clearSearchTerm()
+		} else {
+			goHome()
+		}
+	}
+}

@@ -145,6 +145,9 @@ export class Form implements IComponent<FormSchema.Form> {
 	constructor(model: OmitNodeName<FormSchema.Form & { fields: (AllFormFields | Form)[] }>) {
 		this.fields = model.fields
 		this.key = model.key
+		this.title = model.title
+		this.description = model.description
+		this.submitBtnText = model.submitBtnText
 	}
 
 	toModel(): FormSchema.Form {

@@ -2,8 +2,8 @@
 	import { getExtensionsFolder } from "@/constants"
 	import { appState, extensions } from "@/stores"
 	import { supabaseAPI } from "@/supabase"
-	import { goBackOnEscapeClearSearchTerm } from "@/utils/key"
-	import { goBack } from "@/utils/route"
+	import { goBackOnEscapeClearSearchTerm, goHomeOnEscapeClearSearchTerm } from "@/utils/key"
+	import { goBack, goHome } from "@/utils/route"
 	import { SBExt } from "@kksh/api/supabase"
 	import { isUpgradable } from "@kksh/extension"
 	import { Button, Command } from "@kksh/svelte5"
@@ -64,20 +64,19 @@
 	}
 </script>
 
-<svelte:window on:keydown={goBackOnEscapeClearSearchTerm} />
-
+<svelte:window on:keydown={goHomeOnEscapeClearSearchTerm} />
 {#snippet leftSlot()}
 	<Button
 		variant="outline"
 		size="icon"
-		onclick={goBack}
+		onclick={goHome}
 		class={Constants.CLASSNAMES.BACK_BUTTON}
 		data-flip-id={Constants.CLASSNAMES.BACK_BUTTON}
 	>
 		<ArrowLeft class="size-4" />
 	</Button>
 {/snippet}
-<Command.Root class="h-screen rounded-lg border shadow-md">
+<Command.Root class="h-screen rounded-lg border shadow-md" loop>
 	<CustomCommandInput
 		autofocus
 		placeholder="Type a command or search..."

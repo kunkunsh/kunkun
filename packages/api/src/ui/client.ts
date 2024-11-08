@@ -33,6 +33,7 @@ import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
 import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
 import type { DenoSysOptions } from "../permissions/schema"
+import type { MarkdownSchema } from "./worker"
 import { type IComponent } from "./worker/components/interfaces"
 import type { Markdown } from "./worker/components/markdown"
 import * as FormSchema from "./worker/schema/form"
@@ -116,7 +117,7 @@ export interface IToast {
 }
 
 export interface IUiWorker {
-	render: (view: IComponent<ListSchema.List | FormSchema.Form | Markdown>) => Promise<void>
+	render: (view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) => Promise<void>
 	goBack: () => Promise<void>
 	showLoadingBar: (loading: boolean) => Promise<void>
 	setScrollLoading: (loading: boolean) => Promise<void>

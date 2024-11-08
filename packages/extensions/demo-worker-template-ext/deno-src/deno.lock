@@ -1,0 +1,23 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@hk/comlink-stdio@~0.1.5": "0.1.5",
+    "jsr:@kunkun/api@^0.0.14": "0.0.14"
+  },
+  "jsr": {
+    "@hk/comlink-stdio@0.1.5": {
+      "integrity": "1fd67d5d53ab4571e745584d66b480b5be402f6ca6b2c9e591230fa1d23f85ee"
+    },
+    "@kunkun/api@0.0.14": {
+      "integrity": "a21a255748164992ca93fc292451677261dffca336922a6bed7eb8703c6e880b",
+      "dependencies": [
+        "jsr:@hk/comlink-stdio"
+      ]
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@kunkun/api@^0.0.14"
+    ]
+  }
+}

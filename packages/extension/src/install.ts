@@ -88,6 +88,11 @@ export async function installTarballUrl(tarballUrl: string, extsDir: string): Pr
 	}
 }
 
+/**
+ * Install dev extension from a local directory
+ * @param extPath Path to the extension directory
+ * @returns
+ */
 export async function installDevExtensionDir(extPath: string): Promise<ExtPackageJsonExtra> {
 	const manifestPath = await path.join(extPath, "package.json")
 	if (!(await fs.exists(manifestPath))) {

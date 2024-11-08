@@ -10,22 +10,25 @@ import { appConfig } from "./appConfig"
 function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	init: () => Promise<void>
 	getExtensionsFromStore: () => ExtPackageJsonExtra[]
+	installTarball: (tarballPath: string, extsDir: string) => Promise<ExtPackageJsonExtra>
+	installDevExtensionDir: (dirPath: string) => Promise<ExtPackageJsonExtra>
 	installFromTarballUrl: (tarballUrl: string, installDir: string) => Promise<ExtPackageJsonExtra>
+	installFromNpmPackageName: (name: string, installDir: string) => Promise<ExtPackageJsonExtra>
 	findStoreExtensionByIdentifier: (identifier: string) => ExtPackageJsonExtra | undefined
 	registerNewExtensionByPath: (extPath: string) => Promise<ExtPackageJsonExtra>
 	uninstallStoreExtensionByIdentifier: (identifier: string) => Promise<ExtPackageJsonExtra>
 	upgradeStoreExtension: (identifier: string, tarballUrl: string) => Promise<ExtPackageJsonExtra>
 } {
-	const { subscribe, update, set } = writable<ExtPackageJsonExtra[]>([])
+	const store = writable<ExtPackageJsonExtra[]>([])
 
 	function init() {
 		return extAPI.loadAllExtensionsFromDb().then((exts) => {
-			set(exts)
+			store.set(exts)
 		})
 	}
 
 	function getExtensionsFromStore() {
-		const extContainerPath = get(appConfig).extensionPath
+		const extContainerPath = get(appConfig).extensionsInstallDir
 		if (!extContainerPath) return []
 		return get(extensions).filter((ext) => !extAPI.isExtPathInDev(extContainerPath, ext.extPath))
 	}
@@ -43,7 +46,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		return extAPI
 			.loadExtensionManifestFromDisk(await path.join(extPath, "package.json"))
 			.then((ext) => {
-				update((exts) => {
+				store.update((exts) => {
 					const existingExt = exts.find((e) => e.extPath === ext.extPath)
 					if (existingExt) return exts
 					return [...exts, ext]
@@ -56,8 +59,32 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 			})
 	}
 
+	/**
+	 * Install extension from tarball file
+	 * @param tarballPath absolute path to the tarball file
+	 * @param extsDir absolute path to the extensions directory
+	 * @returns loaded extension
+	 */
+	async function installTarball(tarballPath: string, extsDir: string) {
+		return extAPI.installTarballUrl(tarballPath, extsDir).then((extInstallPath) => {
+			return registerNewExtensionByPath(extInstallPath)
+		})
+	}
+
+	async function installDevExtensionDir(dirPath: string) {
+		return extAPI.installDevExtensionDir(dirPath).then((ext) => {
+			return registerNewExtensionByPath(ext.extPath)
+		})
+	}
+
 	async function installFromTarballUrl(tarballUrl: string, extsDir: string) {
 		return extAPI.installTarballUrl(tarballUrl, extsDir).then((extInstallPath) => {
+			return registerNewExtensionByPath(extInstallPath)
+		})
+	}
+
+	async function installFromNpmPackageName(name: string, extsDir: string) {
+		return extAPI.installFromNpmPackageName(name, extsDir).then((extInstallPath) => {
 			return registerNewExtensionByPath(extInstallPath)
 		})
 	}
@@ -69,7 +96,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 
 		return extAPI
 			.uninstallExtensionByPath(targetPath)
-			.then(() => update((exts) => exts.filter((ext) => ext.extPath !== targetExt.extPath)))
+			.then(() => store.update((exts) => exts.filter((ext) => ext.extPath !== targetExt.extPath)))
 			.then(() => targetExt)
 	}
 
@@ -83,7 +110,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		identifier: string,
 		tarballUrl: string
 	): Promise<ExtPackageJsonExtra> {
-		const extsDir = get(appConfig).extensionPath
+		const extsDir = get(appConfig).extensionsInstallDir
 		if (!extsDir) throw new Error("Extension path not set")
 		return uninstallStoreExtensionByIdentifier(identifier).then(() =>
 			installFromTarballUrl(tarballUrl, extsDir)
@@ -91,16 +118,17 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	}
 
 	return {
+		...store,
 		init,
 		getExtensionsFromStore,
 		findStoreExtensionByIdentifier,
 		registerNewExtensionByPath,
+		installTarball,
+		installDevExtensionDir,
 		installFromTarballUrl,
+		installFromNpmPackageName,
 		uninstallStoreExtensionByIdentifier,
-		upgradeStoreExtension,
-		subscribe,
-		update,
-		set
+		upgradeStoreExtension
 	}
 }
 
@@ -109,7 +137,7 @@ export const extensions = createExtensionsStore()
 export const installedStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
 	extensions,
 	($extensionsStore) => {
-		const extContainerPath = get(appConfig).extensionPath
+		const extContainerPath = get(appConfig).extensionsInstallDir
 		if (!extContainerPath) return []
 		return $extensionsStore.filter((ext) => !extAPI.isExtPathInDev(extContainerPath, ext.extPath))
 	}
@@ -117,7 +145,7 @@ export const installedStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
 export const devStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
 	extensions,
 	($extensionsStore) => {
-		const extContainerPath = get(appConfig).extensionPath
+		const extContainerPath = get(appConfig).extensionsInstallDir
 		if (!extContainerPath) return []
 		return $extensionsStore.filter((ext) => extAPI.isExtPathInDev(extContainerPath, ext.extPath))
 	}

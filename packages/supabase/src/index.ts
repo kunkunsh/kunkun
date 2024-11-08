@@ -2,7 +2,11 @@ import type { Database } from "@kksh/api/supabase/types"
 import { createClient } from "@supabase/supabase-js"
 
 export function createSB(supabaseUrl: string, supabaseAnonKey: string) {
-	return createClient<Database>(supabaseUrl, supabaseAnonKey)
+	return createClient<Database>(supabaseUrl, supabaseAnonKey, {
+		auth: {
+			flowType: "pkce"
+		}
+	})
 }
 export { SupabaseAPI } from "./api"
 

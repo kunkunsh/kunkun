@@ -1,7 +1,7 @@
 <script lang="ts">
 	import autoAnimate from "@formkit/auto-animate"
 	import Icon from "@iconify/svelte"
-	import { ExtPackageJsonExtra, IconEnum, KunkunExtManifest } from "@kksh/api/models"
+	import { ExtPackageJson, IconEnum, KunkunExtManifest } from "@kksh/api/models"
 	import { type Tables } from "@kksh/api/supabase/types"
 	import { Button, ScrollArea, Separator } from "@kksh/svelte5"
 	import { Constants, IconMultiplexer } from "@kksh/ui"
@@ -26,7 +26,7 @@
 		imageDialogOpen = $bindable(false)
 	}: {
 		ext: Tables<"ext_publish">
-		installedExt?: ExtPackageJsonExtra
+		installedExt?: ExtPackageJson
 		manifest: KunkunExtManifest
 		demoImages: string[]
 		class?: string
@@ -116,7 +116,7 @@
 {/snippet}
 
 <div data-tauri-drag-region class="h-14"></div>
-<ScrollArea class="container pb-12">
+<ScrollArea class={cn("w-full pb-12", className)}>
 	<div class="flex items-center gap-4">
 		<span class="h-12 w-12">
 			<IconMultiplexer
@@ -125,8 +125,8 @@
 				data-flip-id={`${Constants.CLASSNAMES.EXT_LOGO}-${ext.identifier}`}
 			/>
 		</span>
-		<div>
-			<span class="flex items-center">
+		<div class="w-full">
+			<span class="flex w-full items-center" use:autoAnimate>
 				<strong class="ext-name text-xl">{manifest?.name}</strong>
 				{#if isInstalled}
 					<CircleCheckBigIcon class="ml-2 inline text-green-400" />

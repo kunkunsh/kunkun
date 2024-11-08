@@ -40,6 +40,7 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 	async function init() {}
 
 	return {
+		...store,
 		init,
 		registerExtensionWithWindow: async ({
 			extPath,
@@ -58,11 +59,11 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 					await killProcesses(winExtMap[windowLabel].pids)
 					delete winExtMap[windowLabel]
 				} else {
-					winExtMap[windowLabel] = {
-						windowLabel,
-						extPath,
-						pids: []
-					}
+					// winExtMap[windowLabel] = {
+					// 	windowLabel,
+					// 	extPath,
+					// 	pids: []
+					// }
 				}
 			}
 			const returnedWinLabel = await registerExtensionWindow({
@@ -70,6 +71,11 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 				windowLabel,
 				dist
 			})
+			winExtMap[returnedWinLabel] = {
+				windowLabel: returnedWinLabel,
+				extPath,
+				pids: []
+			}
 			store.set(winExtMap)
 			return returnedWinLabel
 		},
@@ -109,10 +115,7 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 			return unregisterExtensionSpawnedProcess(windowLabel, pid).then(() => {
 				ext.pids = ext.pids.filter((p) => p !== pid)
 			})
-		},
-		subscribe: store.subscribe,
-		update: store.update,
-		set: store.set
+		}
 	}
 }
 

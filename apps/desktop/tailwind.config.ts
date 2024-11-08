@@ -1,3 +1,4 @@
+import typography from "@tailwindcss/typography"
 import type { Config } from "tailwindcss"
 import tailwindcssAnimate from "tailwindcss-animate"
 import { fontFamily } from "tailwindcss/defaultTheme"
@@ -9,7 +10,7 @@ const config: Config = {
 		"./node_modules/@kksh/ui/src/**/*.{html,js,svelte,ts}",
 		"../../node_modules/@kksh/svelte5/src/**/*.{html,js,svelte,ts}"
 	],
-	safelist: ["dark"],
+	safelist: ["dark", "bg-red-500/30"],
 	theme: {
 		container: {
 			center: true,
@@ -94,7 +95,7 @@ const config: Config = {
 			}
 		}
 	},
-	plugins: [tailwindcssAnimate]
+	plugins: [tailwindcssAnimate, typography]
 }
 
 export default config

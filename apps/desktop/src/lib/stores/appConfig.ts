@@ -1,12 +1,10 @@
 import { getExtensionsFolder } from "@/constants"
-import { themeConfigStore, updateTheme, type ThemeConfig } from "@kksh/svelte5"
+import { createTauriSyncStore, type WithSyncStore } from "@/utils/sync-store"
+import { updateTheme, type ThemeConfig } from "@kksh/svelte5"
 import { PersistedAppConfig, type AppConfig } from "@kksh/types"
-import * as path from "@tauri-apps/api/path"
-import { remove } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
 import * as os from "@tauri-apps/plugin-os"
 import { load } from "@tauri-apps/plugin-store"
-import { get, writable, type Writable } from "svelte/store"
 import * as v from "valibot"
 
 export const defaultAppConfig: AppConfig = {
@@ -21,7 +19,7 @@ export const defaultAppConfig: AppConfig = {
 	launchAtLogin: true,
 	showInTray: true,
 	devExtensionPath: null,
-	extensionPath: undefined,
+	extensionsInstallDir: undefined,
 	hmr: false,
 	hideOnBlur: true,
 	extensionAutoUpgrade: true,
@@ -35,25 +33,22 @@ interface AppConfigAPI {
 	setDevExtensionPath: (devExtensionPath: string | null) => void
 }
 
-function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
-	const { subscribe, update, set } = writable<AppConfig>(defaultAppConfig)
+function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
+	const store = createTauriSyncStore("app-config", defaultAppConfig)
 
 	async function init() {
 		debug("Initializing app config")
-		const appDataDir = await path.appDataDir()
-		// const appConfigPath = await path.join(appDataDir, "appConfig.json")
-		// debug(`appConfigPath: ${appConfigPath}`)
 		const persistStore = await load("kk-config.json", { autoSave: true })
 		const loadedConfig = await persistStore.get("config")
 		const parseRes = v.safeParse(PersistedAppConfig, loadedConfig)
 		if (parseRes.success) {
 			console.log("Parse Persisted App Config Success", parseRes.output)
-			const extensionPath = await path.join(appDataDir, "extensions")
-			update((config) => ({
+			const extensionsInstallDir = await getExtensionsFolder()
+			store.update((config) => ({
 				...config,
 				...parseRes.output,
 				isInitialized: true,
-				extensionPath,
+				extensionsInstallDir,
 				platform: os.platform()
 			}))
 		} else {
@@ -63,7 +58,7 @@ function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 			await persistStore.set("config", v.parse(PersistedAppConfig, defaultAppConfig))
 		}
 
-		subscribe(async (config) => {
+		store.subscribe(async (config) => {
 			console.log("Saving app config", config)
 			await persistStore.set("config", config)
 			updateTheme(config.theme)
@@ -71,15 +66,13 @@ function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 	}
 
 	return {
-		setTheme: (theme: ThemeConfig) => update((config) => ({ ...config, theme })),
+		...store,
+		setTheme: (theme: ThemeConfig) => store.update((config) => ({ ...config, theme })),
 		setDevExtensionPath: (devExtensionPath: string | null) => {
 			console.log("setDevExtensionPath", devExtensionPath)
-			update((config) => ({ ...config, devExtensionPath }))
+			store.update((config) => ({ ...config, devExtensionPath }))
 		},
-		init,
-		subscribe,
-		update,
-		set
+		init
 	}
 }
 

@@ -1,0 +1,47 @@
+{
+	"$schema": "https://schema.kunkun.sh",
+	"name": "form-view",
+	"version": "0.0.2",
+	"type": "module",
+	"kunkun": {
+		"name": "Form View",
+		"shortDescription": "A Worker Extension Template",
+		"longDescription": "A Worker Extension Template",
+		"identifier": "form-view",
+		"permissions": [
+			"fetch:all",
+			"clipboard:read-all"
+		],
+		"demoImages": [],
+		"icon": {
+			"type": "iconify",
+			"value": "fluent:form-multiple-28-filled"
+		},
+		"customUiCmds": [],
+		"templateUiCmds": [
+			{
+				"name": "Dev Form View",
+				"main": "dist/index.js",
+				"cmds": []
+			}
+		]
+	},
+	"scripts": {
+		"dev": "bun build.ts dev",
+		"build": "bun build.ts"
+	},
+	"dependencies": {
+		"@kksh/api": "workspace:*",
+		"i18next": "^23.15.1"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"files": [
+		"./dist",
+		".gitignore"
+	]
+}
