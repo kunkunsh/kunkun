@@ -19,8 +19,6 @@ function createQuickLinksStore(): Writable<QuickLink[]> & QuickLinkAPI {
 
 	async function refresh() {
 		const cmds = await getAllQuickLinkCommands()
-		console.log(cmds)
-
 		store.set(cmds.map((cmd) => ({ link: cmd.data.link, name: cmd.name, icon: cmd.data.icon })))
 	}
 

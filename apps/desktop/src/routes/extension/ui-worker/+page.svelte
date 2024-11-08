@@ -147,8 +147,10 @@
 				// }
 			} else if (view.nodeName === FormNodeNameEnum.Form) {
 				listViewContent = undefined
+				console.log("render form", view)
 				clearViewContent("form")
 				const parsedForm = v.parse(FormSchema.Form, view)
+				console.log("parsedForm", parsedForm)
 				formViewContent = parsedForm
 				// TODO: convert form to zod schema
 				// const zodSchema = convertFormToZod(parsedForm)
@@ -235,10 +237,6 @@
 	})
 </script>
 
-<!-- <Button variant="outline" size="icon" class="fixed left-2 top-2 z-50" onclick={goBack}>
-	<ArrowLeftIcon class="h-4 w-4" />
-</Button> -->
-<!-- <div class="h-10 w-full" data-tauri-drag-region></div> -->
 {#if loadingBar}
 	<LoadingBar color="white" />
 {/if}
@@ -270,4 +268,6 @@
 			<GlobalCommandPaletteFooter />
 		{/snippet}
 	</Templates.ListView>
+{:else if loaded && formViewContent !== undefined}
+	<Templates.FormView {formViewContent} onGoBack={goBack} />
 {/if}

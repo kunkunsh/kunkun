@@ -1,5 +1,5 @@
 {
-  "$schema": "../../packages/schema/manifest-json-schema.json",
+  "$schema": "../../schema/manifest-json-schema.json",
   "name": "demo-template-extension",
   "version": "0.0.3",
   "type": "module",

@@ -129,6 +129,14 @@ export const FormField = union([
 ])
 export type FormField = InferOutput<typeof FormField>
 // export type Form = InferOutput<typeof Form>
+export const Form: GenericSchema<Form> = object({
+	nodeName: FormNodeName,
+	key: string(),
+	fields: array(union([lazy(() => Form), FormField])),
+	title: optional(string()),
+	description: optional(string()),
+	submitBtnText: optional(string())
+})
 export type Form = {
 	nodeName: FormNodeName
 	title?: string
@@ -137,8 +145,3 @@ export type Form = {
 	key: string
 	fields: (FormField | Form)[]
 }
-export const Form: GenericSchema<Form> = object({
-	nodeName: FormNodeName,
-	key: string(),
-	fields: array(union([lazy(() => Form), FormField]))
-})

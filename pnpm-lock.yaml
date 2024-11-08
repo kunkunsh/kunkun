@@ -444,6 +444,22 @@ importers:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.24.3)
 
+  packages/extensions/form-view:
+    dependencies:
+      '@kksh/api':
+        specifier: workspace:*
+        version: link:../../api
+      i18next:
+        specifier: ^23.15.1
+        version: 23.16.5
+      typescript:
+        specifier: ^5.0.0
+        version: 5.6.3
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.1.13
+
   packages/schema:
     dependencies:
       '@aws-sdk/client-s3':
@@ -502,6 +518,9 @@ importers:
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
+      '@internationalized/date':
+        specifier: ^3.5.6
+        version: 3.5.6
       '@std/semver':
         specifier: npm:@jsr/std__semver@^1.0.3
         version: '@jsr/std__semver@1.0.3'
@@ -3175,6 +3194,9 @@ packages:
 
   human-id@1.0.2:
     resolution: {integrity: sha512-UNopramDEhHJD+VR+ehk8rOslwSfByxPIZyJRfV739NDhN5LF1fa1MqnzKm2lGTQRjNrjK19Q5fhkgIfjlVUKw==}
+
+  i18next@23.16.5:
+    resolution: {integrity: sha512-KTlhE3EP9x6pPTAW7dy0WKIhoCpfOGhRQlO+jttQLgzVaoOjWwBWramu7Pp0i+8wDNduuzXfe3kkVbzrKyrbTA==}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -8008,6 +8030,10 @@ snapshots:
       - supports-color
 
   human-id@1.0.2: {}
+
+  i18next@23.16.5:
+    dependencies:
+      '@babel/runtime': 7.26.0
 
   iconv-lite@0.4.24:
     dependencies:

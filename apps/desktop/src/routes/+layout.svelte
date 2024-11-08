@@ -1,5 +1,4 @@
 <script lang="ts">
-	import "virtual:uno.css"
 	import AppContext from "@/components/context/AppContext.svelte"
 	import "../app.css"
 	import { appConfig, appState, extensions, quickLinks } from "@/stores"
@@ -17,6 +16,12 @@
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { attachConsole } from "@tauri-apps/plugin-log"
 	import { onDestroy, onMount } from "svelte"
+
+	onMount(() => {
+		setTimeout(() => {
+			import("virtual:uno.css")
+		}, 1000)
+	})
 
 	let { children } = $props()
 	const unlisteners: UnlistenFn[] = []
