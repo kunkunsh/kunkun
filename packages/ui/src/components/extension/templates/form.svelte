@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { DateValue } from "@internationalized/date"
-	import { FormNodeNameEnum, FormSchema } from "@kksh/api/ui/worker"
+	import { FormNodeNameEnum, FormSchema } from "@kksh/api/models"
 	import { Button, Checkbox, Form, Input, Label, Select } from "@kksh/svelte5"
 	import { DatePickerWithPreset, Shiki } from "@kksh/ui"
 	import { buildFormSchema, cn } from "@kksh/ui/utils"

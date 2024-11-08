@@ -1,11 +1,5 @@
 <script lang="ts">
-	import {
-		List,
-		ListSchema,
-		MarkdownSchema,
-		NodeNameEnum,
-		WorkerExtension
-	} from "@kksh/api/ui/worker"
+	import { List, ListSchema, MarkdownSchema, NodeNameEnum } from "@kksh/api/models"
 	import { Separator } from "@kksh/svelte5"
 	import Label from "./label.svelte"
 	import Link from "./link.svelte"

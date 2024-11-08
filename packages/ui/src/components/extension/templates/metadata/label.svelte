@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { IconType, List, ListSchema } from "@kksh/api/ui/worker"
+	import type { IconType, List, ListSchema } from "@kksh/api/models"
 	import { IconMultiplexer } from "../../../common"
 
 	const {

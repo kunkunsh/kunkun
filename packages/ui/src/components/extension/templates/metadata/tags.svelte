@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Color, ListSchema } from "@kksh/api/ui/worker"
+	import type { Color, ListSchema } from "@kksh/api/models"
 	import Tag from "./tag.svelte"
 
 	const {

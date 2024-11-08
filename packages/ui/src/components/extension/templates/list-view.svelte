@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ListSchema } from "@kksh/api/ui/worker"
+	import { ListSchema } from "@kksh/api/models"
 	import { Button, Command, Progress, Resizable } from "@kksh/svelte5"
 	import { CustomCommandInput } from "@kksh/ui/main"
 	import { commandScore } from "@kksh/ui/utils"
