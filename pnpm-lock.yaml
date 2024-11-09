@@ -585,6 +585,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.14)
+      tauri-plugin-shellx-api:
+        specifier: ^2.0.11
+        version: 2.0.11
       zod:
         specifier: ^3.23.8
         version: 3.23.8
