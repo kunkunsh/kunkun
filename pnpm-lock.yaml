@@ -168,6 +168,9 @@ importers:
       sveltekit-superforms:
         specifier: ^2.20.0
         version: 2.20.0(@sveltejs/kit@2.7.4(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.9)(vite@5.4.10(@types/node@22.8.7)(terser@5.36.0)))(svelte@5.1.9)(vite@5.4.10(@types/node@22.8.7)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.1.9)(typescript@5.6.3)
+      tauri-plugin-clipboard-api:
+        specifier: ^2.1.11
+        version: 2.1.11(typescript@5.6.3)
       uuid:
         specifier: ^11.0.2
         version: 11.0.2

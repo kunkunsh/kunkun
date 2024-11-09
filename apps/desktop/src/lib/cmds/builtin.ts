@@ -203,6 +203,21 @@ export const builtinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "Pin Current Screenshot",
+		iconifyIcon: "material-symbols:screenshot-monitor-outline",
+		description: "Pin the current screenshot",
+		function: async () => {
+			appState.clearSearchTerm()
+			new WebviewWindow(`main:pinned-screenshot-${uuidv4()}`, {
+				url: "/extension/pin-screenshot",
+				title: "Pinned Screenshot",
+				hiddenTitle: true,
+				titleBarStyle: "transparent",
+				decorations: false
+			})
+		}
+	},
+	{
 		name: "Toggle Hide On Blur",
 		iconifyIcon: "ri:toggle-line",
 		description: "Toggle Hide On Blur",
