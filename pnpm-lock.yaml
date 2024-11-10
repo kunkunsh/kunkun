@@ -88,8 +88,8 @@ importers:
         specifier: workspace:*
         version: link:packages/api
       '@kksh/svelte5':
-        specifier: 0.1.2-beta.8
-        version: 0.1.2-beta.8(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)
+        specifier: 0.1.6
+        version: 0.1.6(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)
       prettier:
         specifier: ^3.2.5
         version: 3.3.3
@@ -541,8 +541,8 @@ importers:
         specifier: workspace:*
         version: link:../api
       '@kksh/svelte5':
-        specifier: ^0.1.2-beta.8
-        version: 0.1.2-beta.8(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)
+        specifier: ^0.1.6
+        version: 0.1.6(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)
       '@types/bun':
         specifier: latest
         version: 1.1.13
@@ -1524,8 +1524,8 @@ packages:
   '@jsr/std__semver@1.0.3':
     resolution: {integrity: sha512-d1uBT0Muxhd3yBIw9ZE1Q/4N1Y0td0EJe1AqwM3hP05IMwaWQV/miksQOPR3rup3bVovuIvqBm7WJcoUripdQA==, tarball: https://npm.jsr.io/~/11/@jsr/std__semver/1.0.3.tgz}
 
-  '@kksh/svelte5@0.1.2-beta.8':
-    resolution: {integrity: sha512-cXReqYbZ/KXICucNREz6T/1DguTlGjvkq2qlUriYH/lgfgsUjbq8ZPhVsCIb0qlDT9IYIu5Pc/8X+azGqFirRA==}
+  '@kksh/svelte5@0.1.6':
+    resolution: {integrity: sha512-3sv4V27pkNhXy96UHOgyvNgwrzAL5JP72LC0RloE4M1rw/Wd60L/MhCKqzD+WSG+ZStjQXtmXeIUyXHCjQzPhg==}
     peerDependencies:
       lucide-svelte: ^0.454.0
       svelte: ^5.1.10
@@ -5984,7 +5984,7 @@ snapshots:
 
   '@jsr/std__semver@1.0.3': {}
 
-  '@kksh/svelte5@0.1.2-beta.8(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)':
+  '@kksh/svelte5@0.1.6(lucide-svelte@0.454.0(svelte@5.1.9))(svelte-sonner@0.3.28(svelte@5.1.9))(svelte@5.1.9)':
     dependencies:
       lucide-svelte: 0.454.0(svelte@5.1.9)
       svelte: 5.1.9

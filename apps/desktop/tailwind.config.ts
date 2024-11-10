@@ -8,7 +8,7 @@ const config: Config = {
 	content: [
 		"./src/**/*.{html,js,svelte,ts}",
 		"./node_modules/@kksh/ui/src/**/*.{html,js,svelte,ts}",
-		"../../node_modules/@kksh/svelte5/src/**/*.{html,js,svelte,ts}"
+		"../../node_modules/@kksh/svelte5/dist/**/*.{html,js,svelte,ts}"
 	],
 	safelist: ["dark", "bg-red-500/30"],
 	theme: {
