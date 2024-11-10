@@ -12,6 +12,10 @@ export type BuiltinCmd = {
 	description: string
 	iconifyIcon: string
 	function: () => Promise<void>
+	flags?: {
+		dev?: boolean // commands only available in dev mode
+		developer?: boolean // commands only available in developer mode
+	}
 }
 
 export type OnExtCmdSelect = (

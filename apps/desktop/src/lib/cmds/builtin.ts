@@ -4,12 +4,14 @@ import type { BuiltinCmd } from "@kksh/ui/types"
 import { getVersion } from "@tauri-apps/api/app"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { exit } from "@tauri-apps/plugin-process"
+import { dev } from "$app/environment"
 import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
+import { derived } from "svelte/store"
 import * as clipboard from "tauri-plugin-clipboard-api"
 import { v4 as uuidv4 } from "uuid"
 
-export const builtinCmds: BuiltinCmd[] = [
+export const rawBuiltinCmds: BuiltinCmd[] = [
 	{
 		name: "Store",
 		iconifyIcon: "streamline:store-2-solid",
@@ -240,5 +242,35 @@ export const builtinCmds: BuiltinCmd[] = [
 			})
 			appState.clearSearchTerm()
 		}
+	},
+	{
+		name: "MDNS Debugger",
+		iconifyIcon: "material-symbols:wifi-find",
+		description: "MDNS Debugger",
+		function: async () => {
+			goto("/troubleshooters/mdns-debugger")
+		},
+		flags: {
+			developer: true
+		}
+	},
+	{
+		name: "Toggle Developer Mode",
+		iconifyIcon: "hugeicons:developer",
+		description: "Toggle Developer Mode",
+		function: async () => {
+			appConfig.update((config) => {
+				toast.success(`Developer Mode toggled to: ${!config.developerMode}`)
+				return { ...config, developerMode: !config.developerMode }
+			})
+		}
 	}
 ]
+
+export const builtinCmds = derived(appConfig, ($appConfig) => {
+	return rawBuiltinCmds.filter((cmd) => {
+		const passDeveloper = cmd.flags?.developer ? $appConfig.developerMode : true
+		const passDev = cmd.flags?.dev ? dev : true
+		return passDeveloper && passDev
+	})
+})

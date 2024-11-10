@@ -38,7 +38,7 @@
 	}
 </script>
 
-<svelte:window on:keydown={onKeyDown} />
+<!-- <svelte:window on:keydown={onKeyDown} /> -->
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
@@ -123,7 +123,7 @@
 			/>
 		{/if}
 		<QuickLinks quickLinks={$quickLinks} />
-		<BuiltinCmds {builtinCmds} />
+		<BuiltinCmds builtinCmds={$builtinCmds} />
 		<SystemCmds {systemCommands} />
 	</Command.List>
 	<GlobalCommandPaletteFooter />

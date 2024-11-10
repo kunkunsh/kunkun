@@ -21,6 +21,7 @@
 		"@kksh/ui": "workspace:*",
 		"@kksh/utils": "workspace:*",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
+		"@tanstack/table-core": "^8.20.5",
 		"@tauri-apps/api": "^2",
 		"@tauri-apps/plugin-shell": "^2",
 		"bits-ui": "1.0.0-next.36",

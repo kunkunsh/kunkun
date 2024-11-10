@@ -25,8 +25,12 @@
 	data-tauri-drag-region
 	class={cn("h-12 select-none items-center justify-between gap-4 border-t px-2", className)}
 >
-	<Avatar.Root class="p-2">
-		<Avatar.Image src="/favicon.png" alt="Kunkun Logo" class="select-none invert dark:invert-0" />
+	<Avatar.Root class="p-1.5">
+		<Avatar.Image
+			src="/favicon.png"
+			alt="Kunkun Logo"
+			class="h-full select-none invert dark:invert-0"
+		/>
 	</Avatar.Root>
 	<flex class="items-center gap-1">
 		{#if defaultAction}
