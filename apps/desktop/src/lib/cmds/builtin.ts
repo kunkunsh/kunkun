@@ -6,6 +6,7 @@ import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { exit } from "@tauri-apps/plugin-process"
 import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
+import * as clipboard from "tauri-plugin-clipboard-api"
 import { v4 as uuidv4 } from "uuid"
 
 export const builtinCmds: BuiltinCmd[] = [
@@ -200,6 +201,29 @@ export const builtinCmds: BuiltinCmd[] = [
 				}
 			})
 			appState.clearSearchTerm()
+		}
+	},
+	{
+		name: "Pin Current Screenshot",
+		iconifyIcon: "material-symbols:screenshot-monitor-outline",
+		description: "Pin the current screenshot",
+		function: async () => {
+			appState.clearSearchTerm()
+			if (!(await clipboard.hasImage())) {
+				toast.error("No screenshot in clipboard")
+				return
+			}
+			const window = new WebviewWindow(`main:pinned-screenshot-${uuidv4()}`, {
+				url: "/extension/pin-screenshot",
+				title: "Pinned Screenshot",
+				hiddenTitle: true,
+				titleBarStyle: "transparent",
+				decorations: false,
+				visible: false
+			})
+			setTimeout(() => {
+				window.show()
+			}, 2_000)
 		}
 	},
 	{
