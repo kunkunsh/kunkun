@@ -9,7 +9,7 @@
 </script>
 
 <DraggableCommandGroup heading="Builtin Commands">
-	{#each builtinCmds as cmd}
+	{#each builtinCmds as cmd (cmd.id)}
 		<Command.Item
 			class="flex justify-between"
 			onSelect={() => {
@@ -19,6 +19,7 @@
 				cmdName: cmd.name,
 				cmdType: CmdTypeEnum.Builtin
 			} satisfies CmdValue)}
+			keywords={cmd.keywords}
 		>
 			<span class="flex gap-2">
 				<IconMultiplexer
@@ -26,6 +27,10 @@
 					class="!h-5 !w-5 shrink-0"
 				/>
 				<span>{cmd.name}</span>
+				<!-- <pre>{JSON.stringify({
+						cmdName: cmd.name,
+						cmdType: CmdTypeEnum.Builtin
+					})}</pre> -->
 			</span>
 		</Command.Item>
 	{/each}

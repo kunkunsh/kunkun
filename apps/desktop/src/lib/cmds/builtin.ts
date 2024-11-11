@@ -4,12 +4,14 @@ import type { BuiltinCmd } from "@kksh/ui/types"
 import { getVersion } from "@tauri-apps/api/app"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { exit } from "@tauri-apps/plugin-process"
+import { dev } from "$app/environment"
 import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
+import { derived } from "svelte/store"
 import * as clipboard from "tauri-plugin-clipboard-api"
 import { v4 as uuidv4 } from "uuid"
 
-export const builtinCmds: BuiltinCmd[] = [
+export const rawBuiltinCmds: BuiltinCmd[] = [
 	{
 		name: "Store",
 		iconifyIcon: "streamline:store-2-solid",
@@ -95,7 +97,8 @@ export const builtinCmds: BuiltinCmd[] = [
 				url: "/troubleshooters/extension-window",
 				title: "Extension Window Troubleshooter"
 			})
-		}
+		},
+		keywords: ["extension", "window", "troubleshooter"]
 	},
 	{
 		name: "Extension Permission Inspector",
@@ -104,7 +107,8 @@ export const builtinCmds: BuiltinCmd[] = [
 		function: async () => {
 			appState.clearSearchTerm()
 			goto("/extension/permission-inspector")
-		}
+		},
+		keywords: ["extension"]
 	},
 	{
 		name: "Extension Loading Troubleshooter",
@@ -113,7 +117,8 @@ export const builtinCmds: BuiltinCmd[] = [
 		function: async () => {
 			appState.clearSearchTerm()
 			goto("/troubleshooters/extension-loading")
-		}
+		},
+		keywords: ["extension", "troubleshooter"]
 	},
 	{
 		name: "Create Quicklink",
@@ -124,28 +129,15 @@ export const builtinCmds: BuiltinCmd[] = [
 			goto("/extension/create-quick-link")
 		}
 	},
-	// {
-	// 	name: "Settings",
-	// 	iconifyIcon: "solar:settings-linear",
-	// 	description: "Open Settings",
-	// 	function: async () => {
-	// 		const windows = await getAllWebviewWindows()
-	// 		const found = windows.find((w) => w.label === SettingsWindowLabel)
-	// 		if (found) {
-	// 			ElNotification.error("Settings Page is already open")
-	// 		} else {
-	// 			const win = await newSettingsPage()
-	// 			setTimeout(() => {
-	// 				// this is a backup, if window is not properly loaded,
-	// 				// the show() will not be called within setting page, we call it here with a larger delay,
-	// 				// at least the window will be shown
-	// 				win.show()
-	// 			}, 800)
-	// 		}
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 	}
-	// },
+	{
+		name: "Settings",
+		iconifyIcon: "solar:settings-linear",
+		description: "Open Settings",
+		function: async () => {
+			goto("/settings")
+			appState.clearSearchTerm()
+		}
+	},
 	{
 		name: "Check Update",
 		iconifyIcon: "material-symbols:update",
@@ -227,6 +219,18 @@ export const builtinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "MDNS Debugger",
+		iconifyIcon: "material-symbols:wifi-find",
+		description: "MDNS Debugger",
+		function: async () => {
+			goto("/troubleshooters/mdns-debugger")
+		},
+		flags: {
+			developer: true
+		},
+		keywords: ["mdns", "debugger", "troubleshooter"]
+	},
+	{
 		name: "Toggle Hide On Blur",
 		iconifyIcon: "ri:toggle-line",
 		description: "Toggle Hide On Blur",
@@ -240,5 +244,24 @@ export const builtinCmds: BuiltinCmd[] = [
 			})
 			appState.clearSearchTerm()
 		}
+	},
+	{
+		name: "Toggle Developer Mode",
+		iconifyIcon: "hugeicons:developer",
+		description: "Toggle Developer Mode",
+		function: async () => {
+			appConfig.update((config) => {
+				toast.success(`Developer Mode toggled to: ${!config.developerMode}`)
+				return { ...config, developerMode: !config.developerMode }
+			})
+		}
 	}
-]
+].map((cmd) => ({ ...cmd, id: uuidv4() }))
+
+export const builtinCmds = derived(appConfig, ($appConfig) => {
+	return rawBuiltinCmds.filter((cmd) => {
+		const passDeveloper = cmd.flags?.developer ? $appConfig.developerMode : true
+		const passDev = cmd.flags?.dev ? dev : true
+		return passDeveloper && passDev
+	})
+})

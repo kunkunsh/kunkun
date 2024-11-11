@@ -5,6 +5,7 @@ import { PersistedAppConfig, type AppConfig } from "@kksh/types"
 import { debug, error } from "@tauri-apps/plugin-log"
 import * as os from "@tauri-apps/plugin-os"
 import { load } from "@tauri-apps/plugin-store"
+import { get } from "svelte/store"
 import * as v from "valibot"
 
 export const defaultAppConfig: AppConfig = {
@@ -24,13 +25,16 @@ export const defaultAppConfig: AppConfig = {
 	hideOnBlur: true,
 	extensionAutoUpgrade: true,
 	joinBetaProgram: false,
-	onBoarded: false
+	onBoarded: false,
+	developerMode: false
 }
 
 interface AppConfigAPI {
 	init: () => Promise<void>
+	get: () => AppConfig
 	setTheme: (theme: ThemeConfig) => void
 	setDevExtensionPath: (devExtensionPath: string | null) => void
+	setTriggerHotkey: (triggerHotkey: string[]) => void
 }
 
 function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
@@ -67,10 +71,14 @@ function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
 
 	return {
 		...store,
+		get: () => get(store),
 		setTheme: (theme: ThemeConfig) => store.update((config) => ({ ...config, theme })),
 		setDevExtensionPath: (devExtensionPath: string | null) => {
 			console.log("setDevExtensionPath", devExtensionPath)
 			store.update((config) => ({ ...config, devExtensionPath }))
+		},
+		setTriggerHotkey: (triggerHotkey: string[]) => {
+			store.update((config) => ({ ...config, triggerHotkey }))
 		},
 		init
 	}

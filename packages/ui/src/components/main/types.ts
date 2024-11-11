@@ -8,10 +8,16 @@ import {
 import * as v from "valibot"
 
 export type BuiltinCmd = {
+	id: string
 	name: string
 	description: string
 	iconifyIcon: string
+	keywords?: string[]
 	function: () => Promise<void>
+	flags?: {
+		dev?: boolean // commands only available in dev mode
+		developer?: boolean // commands only available in developer mode
+	}
 }
 
 export type OnExtCmdSelect = (

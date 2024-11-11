@@ -77,12 +77,7 @@
 	})
 </script>
 
-<svelte:window on:keydown={goBackOnEscape} />
-<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" onclick={goBack}>
-	<ArrowLeftIcon class="h-4 w-4" />
-</Button>
-<div class="absolute left-0 top-0 h-10 w-screen" data-tauri-drag-region></div>
-<div class="container pt-10">
+<div class="container">
 	<h1 class="text-2xl font-bold">Extension Loading Troubleshooter</h1>
 	<Button class="my-2" onclick={check}>Check</Button>
 	<Dialog.Root bind:open={isDialogOpen}>

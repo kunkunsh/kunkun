@@ -48,6 +48,7 @@ tauri-plugin-store = "2.1.0"
 tauri-plugin-deep-link = "2"
 tauri-plugin-log = { version = "2.0.1", features = ["colored"] }
 zip = "2.1.3"
+uuid = "1.11.0"
 # tauri-plugin-devtools = "2.0.0"
 
 [target."cfg(target_os = \"macos\")".dependencies]

@@ -3,7 +3,7 @@
 <script lang="ts">
 	import { cn } from "@kksh/ui/utils"
 	import { mode } from "mode-watcher"
-	import { createHighlighterCore } from "shiki/core"
+	import { createHighlighterCore, type HighlighterCore } from "shiki/core"
 	import { createOnigurumaEngine } from "shiki/engine/oniguruma"
 	import { onMount } from "svelte"
 
@@ -19,17 +19,29 @@
 		class?: string
 	} = $props()
 	let html = $state("")
+	let highlighter: HighlighterCore
 
-	onMount(async () => {
-		const highlighter = await createHighlighterCore({
-			themes: [import("shiki/themes/vitesse-dark.mjs"), import("shiki/themes/vitesse-light.mjs")],
-			langs: [import("shiki/langs/json.mjs"), import("shiki/langs/typescript.mjs")],
-			engine: createOnigurumaEngine(import("shiki/wasm"))
-		})
+	function refresh() {
 		html = highlighter.codeToHtml(code, {
 			lang,
 			theme: theme ?? ($mode === "dark" ? "vitesse-dark" : "vitesse-light")
 		})
+	}
+	onMount(async () => {
+		highlighter = await createHighlighterCore({
+			themes: [import("shiki/themes/vitesse-dark.mjs"), import("shiki/themes/vitesse-light.mjs")],
+			langs: [import("shiki/langs/json.mjs"), import("shiki/langs/typescript.mjs")],
+			engine: createOnigurumaEngine(import("shiki/wasm"))
+		})
+		refresh()
+	})
+
+	$effect(() => {
+		code // keep this here to watch for code changes
+		highlighter
+		if (highlighter) {
+			refresh()
+		}
 	})
 </script>
 

@@ -8,7 +8,7 @@ const config: Config = {
 	content: [
 		"./src/**/*.{html,js,svelte,ts}",
 		"./node_modules/@kksh/ui/src/**/*.{html,js,svelte,ts}",
-		"../../node_modules/@kksh/svelte5/src/**/*.{html,js,svelte,ts}"
+		"../../node_modules/@kksh/svelte5/dist/**/*.{html,js,svelte,ts}"
 	],
 	safelist: ["dark", "bg-red-500/30"],
 	theme: {
@@ -77,10 +77,10 @@ const config: Config = {
 			keyframes: {
 				"accordion-down": {
 					from: { height: "0" },
-					to: { height: "var(--radix-accordion-content-height)" }
+					to: { height: "var(--bits-accordion-content-height)" }
 				},
 				"accordion-up": {
-					from: { height: "var(--radix-accordion-content-height)" },
+					from: { height: "var(--bits-accordion-content-height)" },
 					to: { height: "0" }
 				},
 				"caret-blink": {

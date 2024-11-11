@@ -3215,6 +3215,7 @@ dependencies = [
  "tauri-plugin-upload",
  "tokio",
  "urlencoding",
+ "uuid",
  "zip 2.2.0",
 ]
 

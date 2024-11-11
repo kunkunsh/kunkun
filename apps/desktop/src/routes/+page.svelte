@@ -5,8 +5,9 @@
 	import { systemCommands } from "@/cmds/system"
 	import { appConfig, appState, devStoreExts, installedStoreExts, quickLinks } from "@/stores"
 	import { cmdQueries } from "@/stores/cmdQuery"
-	import { getActiveElementNodeName } from "@/utils/dom"
-	import { openDevTools } from "@kksh/api/commands"
+	import { getActiveElementNodeName, isKeyboardEventFromInputElement } from "@/utils/dom"
+	import Icon from "@iconify/svelte"
+	import { openDevTools, toggleDevTools } from "@kksh/api/commands"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extension/utils"
 	import { Button, Command, DropdownMenu } from "@kksh/svelte5"
@@ -23,22 +24,29 @@
 	import { cn, commandScore } from "@kksh/ui/utils"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { exit } from "@tauri-apps/plugin-process"
-	import { EllipsisVerticalIcon } from "lucide-svelte"
-	import type { Writable } from "svelte/store"
+	import { CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 
+	let inputEle: HTMLInputElement | null = null
 	function onKeyDown(event: KeyboardEvent) {
 		if (event.key === "Escape") {
-			if (getActiveElementNodeName() === "INPUT") {
-				;(event.target as HTMLInputElement).value = ""
-				if ((event.target as HTMLInputElement | undefined)?.id === "main-command-input") {
-					$appState.searchTerm = ""
-				}
-			}
+			;(event.target as HTMLInputElement).value = ""
+			$appState.searchTerm = ""
 		}
 	}
 </script>
 
-<svelte:window on:keydown={onKeyDown} />
+<svelte:window
+	on:keydown={(e) => {
+		if (e.key === "/") {
+			if (isKeyboardEventFromInputElement(e)) {
+				e.preventDefault()
+			} else {
+				e.preventDefault()
+				inputEle?.focus()
+			}
+		}
+	}}
+/>
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
@@ -53,9 +61,11 @@
 >
 	<CustomCommandInput
 		autofocus
+		bind:ref={inputEle}
 		id="main-command-input"
 		placeholder={$cmdQueries.length === 0 ? "Type a command or search..." : undefined}
 		bind:value={$appState.searchTerm}
+		onkeydown={onKeyDown}
 	>
 		{#snippet rightSlot()}
 			<span
@@ -88,15 +98,42 @@
 				<DropdownMenu.Trigger>
 					<Button variant="outline" size="icon"><EllipsisVerticalIcon /></Button>
 				</DropdownMenu.Trigger>
-				<DropdownMenu.Content>
+				<DropdownMenu.Content class="w-80">
 					<DropdownMenu.Group>
-						<DropdownMenu.GroupHeading>Settings</DropdownMenu.GroupHeading>
 						<DropdownMenu.Separator />
-						<DropdownMenu.Item onclick={() => exit()}>Quit</DropdownMenu.Item>
-						<DropdownMenu.Item onclick={() => openDevTools()}>Open Dev Tools</DropdownMenu.Item>
-						<DropdownMenu.Item onclick={() => getCurrentWebviewWindow().hide()}
-							>Close Window</DropdownMenu.Item
+						<DropdownMenu.Item onclick={() => exit()}>
+							<CircleXIcon class="h-4 w-4 text-red-500" />
+							Quit
+						</DropdownMenu.Item>
+						<DropdownMenu.Item onclick={() => getCurrentWebviewWindow().hide()}>
+							<CircleXIcon class="h-4 w-4 text-red-500" />
+							Close Window
+						</DropdownMenu.Item>
+					</DropdownMenu.Group>
+					<DropdownMenu.Separator />
+					<DropdownMenu.Group>
+						<DropdownMenu.GroupHeading data-tauri-drag-region>Developer</DropdownMenu.GroupHeading>
+						<DropdownMenu.Item onclick={toggleDevTools}>
+							<Icon icon="mingcute:code-fill" class="mr-2 h-5 w-5 text-green-500" />
+							Toggle Devtools
+							<DropdownMenu.Shortcut>⌃+Shift+I</DropdownMenu.Shortcut>
+						</DropdownMenu.Item>
+						<DropdownMenu.Item onclick={() => location.reload()}>
+							<RefreshCcwIcon class="mr-2 h-4 w-4 text-green-500" />
+							Reload Window
+							<DropdownMenu.Shortcut>⌃+Shift+R</DropdownMenu.Shortcut>
+						</DropdownMenu.Item>
+						<DropdownMenu.Item
+							onclick={() => {
+								appConfig.update((config) => ({ ...config, hmr: !config.hmr }))
+							}}
 						>
+							<Icon
+								icon={$appConfig.hmr ? "fontisto:toggle-on" : "fontisto:toggle-off"}
+								class={cn("mr-1 h-5 w-5", $appConfig.hmr ? "text-green-500" : "")}
+							/>
+							Toggle Dev Extension HMR
+						</DropdownMenu.Item>
 					</DropdownMenu.Group>
 				</DropdownMenu.Content>
 			</DropdownMenu.Root>
@@ -123,7 +160,7 @@
 			/>
 		{/if}
 		<QuickLinks quickLinks={$quickLinks} />
-		<BuiltinCmds {builtinCmds} />
+		<BuiltinCmds builtinCmds={$builtinCmds} />
 		<SystemCmds {systemCommands} />
 	</Command.List>
 	<GlobalCommandPaletteFooter />
