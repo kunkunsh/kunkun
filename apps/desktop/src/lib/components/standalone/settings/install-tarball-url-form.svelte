@@ -51,10 +51,10 @@
 	<Form.Field {form} name="url">
 		<Form.Control>
 			{#snippet children({ props })}
-				<flex items-center gap-2>
+				<div class="flex items-center gap-2">
 					<Input {...props} bind:value={$formData.url} placeholder="Tarball URL" />
 					<Form.Button class="my-1">Install</Form.Button>
-				</flex>
+				</div>
 			{/snippet}
 		</Form.Control>
 		<Form.FieldErrors />

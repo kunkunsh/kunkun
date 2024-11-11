@@ -24,6 +24,9 @@
 	import { Flip } from "gsap/Flip"
 	import { onDestroy, onMount } from "svelte"
 
+	/* -------------------------------------------------------------------------- */
+	/*                             Gsap Flip Animation                            */
+	/* -------------------------------------------------------------------------- */
 	gsap.registerPlugin(Flip)
 	let flipState: Flip.FlipState
 

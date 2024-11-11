@@ -19,16 +19,11 @@
 	const sidebar = useSidebar()
 </script>
 
-{#if sidebar.state === "collapsed"}
-	<Button variant="outline" size="icon" class="left-2 top-2 z-50 mt-2" onclick={goHome}>
-		<ArrowLeftIcon class="h-4 w-4" />
-	</Button>
-{/if}
 <main class="container">
 	<h2 class="text-2xl font-bold">Add Dev Extension</h2>
 	<small>
 		There are 4 options to install an extension in developer mode. Either load it from your local
 		tarball file, a tarball remote URL, npm package name or load from a remote URL.
 	</small>
-	<AddDevExtForm />
+	<AddDevExtForm  />
 </main>
