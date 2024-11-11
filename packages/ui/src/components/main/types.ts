@@ -12,6 +12,7 @@ export type BuiltinCmd = {
 	name: string
 	description: string
 	iconifyIcon: string
+	keywords?: string[]
 	function: () => Promise<void>
 	flags?: {
 		dev?: boolean // commands only available in dev mode

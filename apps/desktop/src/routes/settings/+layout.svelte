@@ -2,11 +2,12 @@
 	import { goBackOnEscape, goHomeOnEscape } from "@/utils/key"
 	import { goBack, goHome } from "@/utils/route"
 	import { SideBar } from "@kksh/svelte5"
-	import SidebarTrigger from "./sidebar-trigger.svelte"
+	import SidebarTrigger from "$lib/components/common/sidebar-trigger.svelte"
 	import SettingsSidebar from "./sidebar.svelte"
 
 	let { children } = $props()
 	function onKeyDown(e: KeyboardEvent) {
+		console.log(e)
 		if (e.key === "Escape") {
 			let target = e.target as HTMLElement
 			if (target instanceof HTMLInputElement) {

@@ -65,11 +65,7 @@
 	}
 </script>
 
-<svelte:window on:keydown={onKeyDown} />
-<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" onclick={goBack}>
-	<ArrowLeftIcon class="h-4 w-4" />
-</Button>
-<main class="container h-screen w-screen pt-10">
+<main class="container h-screen w-full">
 	<div class="flex items-center justify-between space-x-2">
 		<div class="flex items-center space-x-2">
 			<Checkbox id="refreshEverySecond" bind:checked={refreshEverySecond} />

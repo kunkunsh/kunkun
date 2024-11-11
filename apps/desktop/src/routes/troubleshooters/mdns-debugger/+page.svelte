@@ -20,10 +20,6 @@
 	})
 </script>
 
-<svelte:window on:keydown={goBackOnEscape} />
-<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" onclick={goBack}>
-	<ArrowLeftIcon class="h-4 w-4" />
-</Button>
 <div class="h-10" data-tauri-drag-region></div>
 <main class="container">
 	<Button onclick={refreshPeers}>Refresh mDNS Peers</Button>

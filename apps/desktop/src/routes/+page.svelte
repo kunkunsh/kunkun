@@ -31,10 +31,6 @@
 			$appState.searchTerm = ""
 		}
 	}
-
-	$effect(() => {
-		console.log($appState.highlightedCmd)
-	})
 </script>
 
 <Command.Root

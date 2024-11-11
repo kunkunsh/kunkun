@@ -19,6 +19,7 @@
 				cmdName: cmd.name,
 				cmdType: CmdTypeEnum.Builtin
 			} satisfies CmdValue)}
+			keywords={cmd.keywords}
 		>
 			<span class="flex gap-2">
 				<IconMultiplexer

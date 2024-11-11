@@ -1,29 +1,21 @@
 <script lang="ts">
-	import { goBack, goHome } from "@/utils/route"
-	import Icon from "@iconify/svelte"
+	import { goHome } from "@/utils/route"
 	import { Button, SideBar } from "@kksh/svelte5"
+	import { Constants } from "@kksh/ui"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import Blocks from "lucide-svelte/icons/blocks"
-	import Calendar from "lucide-svelte/icons/calendar"
 	import Cog from "lucide-svelte/icons/cog"
-	import Command from "lucide-svelte/icons/command"
 	import FileCode2 from "lucide-svelte/icons/file-code-2"
-	import House from "lucide-svelte/icons/house"
-	import Inbox from "lucide-svelte/icons/inbox"
 	import Info from "lucide-svelte/icons/info"
 	import Route from "lucide-svelte/icons/route"
-	import Search from "lucide-svelte/icons/search"
-	import Settings from "lucide-svelte/icons/settings"
 	import SquareTerminal from "lucide-svelte/icons/square-terminal"
 
-	// Menu items.
 	const items = [
 		{
 			title: "General",
 			url: "/settings",
 			icon: Cog
 		},
-
 		{
 			title: "Developer",
 			url: "/settings/developer",
@@ -56,7 +48,12 @@
 	<SideBar.Header>
 		<SideBar.Menu>
 			<SideBar.MenuItem data-tauri-drag-region>
-				<Button variant="outline" size="icon" class="z-50" onclick={goHome}>
+				<Button
+					variant="outline"
+					size="icon"
+					class="z-50 {Constants.CLASSNAMES.BACK_BUTTON}"
+					onclick={goHome}
+				>
 					<ArrowLeftIcon class="h-4 w-4" />
 				</Button>
 			</SideBar.MenuItem>

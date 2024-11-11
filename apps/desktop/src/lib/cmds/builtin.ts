@@ -97,7 +97,8 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 				url: "/troubleshooters/extension-window",
 				title: "Extension Window Troubleshooter"
 			})
-		}
+		},
+		keywords: ["extension", "window", "troubleshooter"]
 	},
 	{
 		name: "Extension Permission Inspector",
@@ -106,7 +107,8 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		function: async () => {
 			appState.clearSearchTerm()
 			goto("/extension/permission-inspector")
-		}
+		},
+		keywords: ["extension"]
 	},
 	{
 		name: "Extension Loading Troubleshooter",
@@ -115,7 +117,8 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		function: async () => {
 			appState.clearSearchTerm()
 			goto("/troubleshooters/extension-loading")
-		}
+		},
+		keywords: ["extension", "troubleshooter"]
 	},
 	{
 		name: "Create Quicklink",
@@ -224,7 +227,8 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		flags: {
 			developer: true
-		}
+		},
+		keywords: ["mdns", "debugger", "troubleshooter"]
 	},
 	{
 		name: "Toggle Hide On Blur",
