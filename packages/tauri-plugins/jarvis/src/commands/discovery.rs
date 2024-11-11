@@ -39,5 +39,6 @@ pub async fn get_peers(
     state: tauri::State<'_, Peers>,
 ) -> Result<HashMap<String, ServiceInfoMod>, String> {
     let _peers = state.peers.lock().unwrap();
+    println!("get_peers: {:?}", _peers);
     Ok(_peers.to_owned())
 }

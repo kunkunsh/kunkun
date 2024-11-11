@@ -5,12 +5,19 @@
 	import type { MdnsPeers } from "@kksh/api/models"
 	import { Button } from "@kksh/svelte5"
 	import { ArrowLeftIcon } from "lucide-svelte"
+	import { onMount } from "svelte"
+
+	let peers: MdnsPeers = $state({})
 
 	async function refreshPeers() {
-		const peers = await getPeers()
-		data.peers = peers
+		console.log("refreshPeers")
+		peers = await getPeers()
+		console.log("peers", peers)
 	}
-	let { data } = $props()
+
+	onMount(async () => {
+		await refreshPeers()
+	})
 </script>
 
 <svelte:window on:keydown={goBackOnEscape} />
@@ -20,5 +27,5 @@
 <div class="h-10" data-tauri-drag-region></div>
 <main class="container">
 	<Button onclick={refreshPeers}>Refresh mDNS Peers</Button>
-	<pre>{JSON.stringify(data.peers, null, 2)}</pre>
+	<pre>{JSON.stringify(peers, null, 2)}</pre>
 </main>

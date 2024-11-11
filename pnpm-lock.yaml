@@ -544,8 +544,8 @@ importers:
         specifier: latest
         version: 1.1.13
       bits-ui:
-        specifier: 1.0.0-next.45
-        version: 1.0.0-next.45(svelte@5.1.9)
+        specifier: 1.0.0-next.49
+        version: 1.0.0-next.49(svelte@5.1.9)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -2325,12 +2325,6 @@ packages:
     resolution: {integrity: sha512-XFZ7/bK7j/K+5iktxX/ZpmoFHjYjpPzP5EOO/4bWiaFg5TG1iMcfjDhlBTQnJxD6BoVoHuqeZPHZvaTgF4Iv3Q==}
     peerDependencies:
       svelte: ^4.0.0 || ^5.0.0-next.118
-
-  bits-ui@1.0.0-next.45:
-    resolution: {integrity: sha512-kt7gYIirEo2Rg1hMudcGEzSHogQTA22d/j1x8v+wIshsIqqcCN6DXJZpTojSCQWxny8IEa9CRnLwAzY4B2qf1Q==}
-    engines: {node: '>=18', pnpm: '>=8.7.0'}
-    peerDependencies:
-      svelte: ^5.0.0-next.1
 
   bits-ui@1.0.0-next.49:
     resolution: {integrity: sha512-7EoNj7pu9+RVv6MM1kGVvDzH2aA38v07Q+BDSq8yiLIHxZ5dTkDHwoikhtT/+jMU25c0uYvHq44GEQX+027IFw==}
@@ -6710,16 +6704,6 @@ snapshots:
       '@melt-ui/svelte': 0.76.2(svelte@5.1.9)
       nanoid: 5.0.8
       svelte: 5.1.9
-
-  bits-ui@1.0.0-next.45(svelte@5.1.9):
-    dependencies:
-      '@floating-ui/core': 1.6.8
-      '@floating-ui/dom': 1.6.12
-      '@internationalized/date': 3.5.6
-      esm-env: 1.1.4
-      runed: 0.15.3(svelte@5.1.9)
-      svelte: 5.1.9
-      svelte-toolbelt: 0.4.6(svelte@5.1.9)
 
   bits-ui@1.0.0-next.49(svelte@5.1.9):
     dependencies:

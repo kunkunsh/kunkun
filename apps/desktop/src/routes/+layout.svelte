@@ -3,6 +3,7 @@
 	import "../app.css"
 	import { appConfig, appState, extensions, quickLinks } from "@/stores"
 	import { initDeeplink } from "@/utils/deeplink"
+	import { globalKeyDownHandler } from "@/utils/key"
 	import { isInMainWindow } from "@/utils/window"
 	import {
 		ModeWatcher,
@@ -36,6 +37,7 @@
 	})
 </script>
 
+<svelte:window on:keydown={globalKeyDownHandler} />
 <ViewTransition />
 <ModeWatcher />
 <Toaster richColors />
