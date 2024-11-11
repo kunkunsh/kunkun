@@ -9,6 +9,7 @@
 	import Info from "lucide-svelte/icons/info"
 	import Route from "lucide-svelte/icons/route"
 	import SquareTerminal from "lucide-svelte/icons/square-terminal"
+	import { onMount } from "svelte"
 
 	const items = [
 		{
@@ -42,6 +43,7 @@
 			icon: Info
 		}
 	]
+	let currentItem = $state(items.find((item) => window.location.pathname === item.url))
 </script>
 
 <SideBar.Root>
@@ -66,7 +68,12 @@
 				<SideBar.Menu>
 					{#each items as item (item.title)}
 						<SideBar.MenuItem>
-							<SideBar.MenuButton>
+							<SideBar.MenuButton
+								isActive={currentItem?.url === item.url}
+								onclick={() => {
+									currentItem = item
+								}}
+							>
 								{#snippet child({ props })}
 									<a href={item.url} {...props}>
 										<item.icon />

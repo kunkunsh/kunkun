@@ -21,14 +21,13 @@
 			}
 		}
 	}
-	const { useSidebar } = SideBar
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
 
 <SideBar.Provider style="--sidebar-width: 13rem;">
 	<SettingsSidebar />
-	<main class="w-full border-4 border-blue-500">
+	<main class="w-full">
 		<SidebarTrigger />
 		{@render children?.()}
 	</main>

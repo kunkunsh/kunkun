@@ -25,10 +25,11 @@
 			icon: Network
 		}
 	]
+	let currentItem = $state(items.find((item) => window.location.pathname === item.url))
 </script>
 
 <SideBar.Root>
-	<SideBar.Header>
+	<SideBar.Header class="h-12">
 		<SideBar.Menu>
 			<SideBar.MenuItem data-tauri-drag-region>
 				<Button
@@ -49,7 +50,12 @@
 				<SideBar.Menu>
 					{#each items as item (item.title)}
 						<SideBar.MenuItem>
-							<SideBar.MenuButton>
+							<SideBar.MenuButton
+								isActive={currentItem?.url === item.url}
+								onclick={() => {
+									currentItem = item
+								}}
+							>
 								{#snippet child({ props })}
 									<a href={item.url} {...props}>
 										<item.icon />
