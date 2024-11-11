@@ -8,6 +8,7 @@ import {
 import * as v from "valibot"
 
 export type BuiltinCmd = {
+	id: string
 	name: string
 	description: string
 	iconifyIcon: string

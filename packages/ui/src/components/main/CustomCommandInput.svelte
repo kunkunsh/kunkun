@@ -7,14 +7,12 @@
 		ref = $bindable(null),
 		class: className,
 		value = $bindable(""),
-		onKeyDown,
 		leftSlot,
 		rightSlot,
 		...restProps
 	}: CommandPrimitive.InputProps & {
 		leftSlot?: Snippet
 		rightSlot?: Snippet
-		onKeyDown?: (event: KeyboardEvent) => void
 	} = $props()
 </script>
 

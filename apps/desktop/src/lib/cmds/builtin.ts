@@ -252,7 +252,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 			})
 		}
 	}
-]
+].map((cmd) => ({ ...cmd, id: uuidv4() }))
 
 export const builtinCmds = derived(appConfig, ($appConfig) => {
 	return rawBuiltinCmds.filter((cmd) => {

@@ -24,16 +24,11 @@
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { exit } from "@tauri-apps/plugin-process"
 	import { EllipsisVerticalIcon } from "lucide-svelte"
-	import type { Writable } from "svelte/store"
 
 	function onKeyDown(event: KeyboardEvent) {
 		if (event.key === "Escape") {
-			if (getActiveElementNodeName() === "INPUT") {
-				;(event.target as HTMLInputElement).value = ""
-				if ((event.target as HTMLInputElement | undefined)?.id === "main-command-input") {
-					$appState.searchTerm = ""
-				}
-			}
+			;(event.target as HTMLInputElement).value = ""
+			$appState.searchTerm = ""
 		}
 	}
 
@@ -42,7 +37,6 @@
 	})
 </script>
 
-<!-- <svelte:window on:keydown={onKeyDown} /> -->
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
@@ -60,6 +54,7 @@
 		id="main-command-input"
 		placeholder={$cmdQueries.length === 0 ? "Type a command or search..." : undefined}
 		bind:value={$appState.searchTerm}
+		onkeydown={onKeyDown}
 	>
 		{#snippet rightSlot()}
 			<span
@@ -126,7 +121,7 @@
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 			/>
 		{/if}
-		<!-- <QuickLinks quickLinks={$quickLinks} /> -->
+		<QuickLinks quickLinks={$quickLinks} />
 		<BuiltinCmds builtinCmds={$builtinCmds} />
 		<SystemCmds {systemCommands} />
 	</Command.List>

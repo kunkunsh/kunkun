@@ -9,7 +9,7 @@
 </script>
 
 <DraggableCommandGroup heading="Builtin Commands">
-	{#each builtinCmds as cmd}
+	{#each builtinCmds as cmd (cmd.id)}
 		<Command.Item
 			class="flex justify-between"
 			onSelect={() => {
