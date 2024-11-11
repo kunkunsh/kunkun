@@ -27,11 +27,9 @@
 <svelte:window on:keydown={onKeyDown} />
 
 <SideBar.Provider style="--sidebar-width: 13rem;">
-	{@const sidebar = useSidebar()}
 	<SettingsSidebar />
-	<main class="w-full">
+	<main class="w-full border-4 border-blue-500">
 		<SidebarTrigger />
-
 		{@render children?.()}
 	</main>
 </SideBar.Provider>

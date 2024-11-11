@@ -24,8 +24,7 @@
 		<ArrowLeftIcon class="h-4 w-4" />
 	</Button>
 {/if}
-<!-- <div class="fixed left-0 top-0 h-10 w-screen" data-tauri-drag-region></div> -->
-<main class="container pt-10">
+<main class="container">
 	<h2 class="text-2xl font-bold">Add Dev Extension</h2>
 	<small>
 		There are 4 options to install an extension in developer mode. Either load it from your local

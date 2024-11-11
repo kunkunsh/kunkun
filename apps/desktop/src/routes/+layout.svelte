@@ -65,6 +65,7 @@
 	})
 </script>
 
+<svelte:window on:keydown={globalKeyDownHandler} />
 <ViewTransition />
 <ModeWatcher />
 <Toaster richColors />

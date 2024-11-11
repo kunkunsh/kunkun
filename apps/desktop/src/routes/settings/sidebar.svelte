@@ -45,13 +45,13 @@
 </script>
 
 <SideBar.Root>
-	<SideBar.Header>
+	<SideBar.Header class="h-12">
 		<SideBar.Menu>
 			<SideBar.MenuItem data-tauri-drag-region>
 				<Button
 					variant="outline"
 					size="icon"
-					class="z-50 {Constants.CLASSNAMES.BACK_BUTTON}"
+					class={Constants.CLASSNAMES.BACK_BUTTON}
 					onclick={goHome}
 				>
 					<ArrowLeftIcon class="h-4 w-4" />

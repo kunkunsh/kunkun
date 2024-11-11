@@ -4,31 +4,18 @@
 	import Icon from "@iconify/svelte"
 	import { Button, Card, SideBar } from "@kksh/svelte5"
 	import { Layouts, TauriLink } from "@kksh/ui"
-	import { cn } from "@kksh/ui/utils"
 	import { getVersion } from "@tauri-apps/api/app"
-	import { ArrowLeftIcon } from "lucide-svelte"
-	import GitHub from "lucide-svelte/icons/github"
 	import { onMount } from "svelte"
 
 	let appVersion = ""
 	onMount(async () => {
 		appVersion = await getVersion()
 	})
-
-	export let className: string | undefined = undefined
-
-	const { useSidebar } = SideBar
-	const sidebar = useSidebar()
 </script>
 
-{#if sidebar.state === "collapsed"}
-	<Button variant="outline" size="icon" class="left-2 top-2 z-50 mt-2" onclick={goHome}>
-		<ArrowLeftIcon class="h-4 w-4" />
-	</Button>
-{/if}
-<Layouts.Center class="absolute top-0 h-screen w-screen">
-	<Card.Root class={cn("flex h-full items-center justify-center border-none", className)}>
-		<Card.Content class="flex w-full items-center space-x-5">
+<Layouts.Center class="absolute left-0 top-0 h-full w-full overflow-hidden border">
+	<div>
+		<div class="flex w-full items-center space-x-5">
 			<img src="/favicon.png" class="w-44" alt="Logo" />
 			<div class="flex flex-col space-y-1">
 				<p class="text-3xl font-bold">KunKun Shell</p>
@@ -67,6 +54,6 @@
 					Check for Updates
 				</Button>
 			</div>
-		</Card.Content>
-	</Card.Root>
+		</div>
+	</div>
 </Layouts.Center>
