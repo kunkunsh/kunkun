@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { goBackOnEscape, goHomeOnEscape } from "@/utils/key"
-	import { goBack } from "@/utils/route"
+	import { goBack, goHome } from "@/utils/route"
 	import { SideBar } from "@kksh/svelte5"
+	import SidebarTrigger from "./sidebar-trigger.svelte"
 	import SettingsSidebar from "./sidebar.svelte"
 
 	let { children } = $props()
@@ -10,23 +11,26 @@
 			let target = e.target as HTMLElement
 			if (target instanceof HTMLInputElement) {
 				if (target.value === "") {
-					goBack()
+					goHome()
 				} else {
 					target.value = ""
 				}
 			} else {
-				goBack()
+				goHome()
 			}
 		}
 	}
+	const { useSidebar } = SideBar
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
 
-<SideBar.Provider>
+<SideBar.Provider style="--sidebar-width: 13rem;">
+	{@const sidebar = useSidebar()}
 	<SettingsSidebar />
 	<main class="w-full">
+		<SidebarTrigger />
+
 		{@render children?.()}
-		<SideBar.Trigger class="fixed top-0" />
 	</main>
 </SideBar.Provider>

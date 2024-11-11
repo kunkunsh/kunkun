@@ -3,10 +3,10 @@
 	import DevExtPathForm from "@/components/standalone/settings/DevExtPathForm.svelte"
 	import { appConfig, extensions } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
-	import { goBack } from "@/utils/route"
+	import { goBack, goHome } from "@/utils/route"
 	import * as extAPI from "@kksh/extension"
 	import { installFromNpmPackageName } from "@kksh/extension"
-	import { Button, Separator } from "@kksh/svelte5"
+	import { Button, Separator, SideBar } from "@kksh/svelte5"
 	import { StrikeSeparator } from "@kksh/ui"
 	import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
 	import * as fs from "@tauri-apps/plugin-fs"
@@ -14,9 +14,17 @@
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import { toast } from "svelte-sonner"
 	import * as v from "valibot"
+
+	const { useSidebar } = SideBar
+	const sidebar = useSidebar()
 </script>
 
-<div class="fixed left-0 top-0 h-10 w-screen" data-tauri-drag-region></div>
+{#if sidebar.state === "collapsed"}
+	<Button variant="outline" size="icon" class="left-2 top-2 z-50 mt-2" onclick={goHome}>
+		<ArrowLeftIcon class="h-4 w-4" />
+	</Button>
+{/if}
+<!-- <div class="fixed left-0 top-0 h-10 w-screen" data-tauri-drag-region></div> -->
 <main class="container pt-10">
 	<h2 class="text-2xl font-bold">Add Dev Extension</h2>
 	<small>
