@@ -1,4 +1,6 @@
 import { appState } from "@/stores"
+import { toggleDevTools } from "@kksh/api/commands"
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { goto } from "$app/navigation"
@@ -69,14 +71,28 @@ export function goHomeOrCloseOnEscapeWithInput(e: KeyboardEvent) {
 	}
 }
 
-export function globalKeyDownHandler(e: KeyboardEvent) {
-	console.log("globalKeyDownHandler", e.key)
+export async function globalKeyDownHandler(e: KeyboardEvent) {
 	const _platform = platform()
 	if ((_platform === "macos" && e.metaKey) || (_platform === "windows" && e.ctrlKey)) {
 		if (e.key === ",") {
 			e.preventDefault()
 			goto("/settings")
 		}
+	}
+	// Toggle Devtools with control + shift + I
+	if (e.ctrlKey && e.shiftKey && e.key === "I") {
+		e.preventDefault()
+		toggleDevTools()
+	}
+	// Reload window with control + shift + R
+	if (e.ctrlKey && e.shiftKey && e.key === "R") {
+		e.preventDefault()
+		const appWin = getCurrentWebviewWindow()
+		await appWin.hide()
+		location.reload()
+		setTimeout(() => {
+			appWin.show()
+		}, 1_000)
 	}
 }
 
