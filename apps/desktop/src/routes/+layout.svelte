@@ -3,7 +3,9 @@
 	import "../app.css"
 	import { appConfig, appState, extensions, quickLinks } from "@/stores"
 	import { initDeeplink } from "@/utils/deeplink"
+	import { updateAppHotkey } from "@/utils/hotkey"
 	import { globalKeyDownHandler, goBackOrCloseOnEscape } from "@/utils/key"
+	import { listenToWindowBlur } from "@/utils/tauri-events"
 	import { isInMainWindow } from "@/utils/window"
 	import {
 		ModeWatcher,
@@ -51,9 +53,27 @@
 	onMount(async () => {
 		attachConsole().then((unlistener) => unlisteners.push(unlistener))
 		initDeeplink().then((unlistener) => unlisteners.push(unlistener))
+
 		quickLinks.init()
 		appConfig.init()
 		if (isInMainWindow()) {
+			if ($appConfig.triggerHotkey) {
+				updateAppHotkey($appConfig.triggerHotkey)
+			}
+			unlisteners.push(
+				await listenToWindowBlur(() => {
+					const win = getCurrentWebviewWindow()
+					win.isFocused().then((isFocused) => {
+						// this extra is focused check may be needed because blur event got triggered somehow when window show()
+						// for edge case: when settings page is opened and focused, switch to main window, the blur event is triggered for main window
+						if (!isFocused) {
+							if ($appConfig.hideOnBlur) {
+								win.hide()
+							}
+						}
+					})
+				})
+			)
 			extensions.init()
 		} else {
 		}

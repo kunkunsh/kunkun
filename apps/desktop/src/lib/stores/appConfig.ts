@@ -34,6 +34,7 @@ interface AppConfigAPI {
 	get: () => AppConfig
 	setTheme: (theme: ThemeConfig) => void
 	setDevExtensionPath: (devExtensionPath: string | null) => void
+	setTriggerHotkey: (triggerHotkey: string[]) => void
 }
 
 function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
@@ -75,6 +76,9 @@ function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
 		setDevExtensionPath: (devExtensionPath: string | null) => {
 			console.log("setDevExtensionPath", devExtensionPath)
 			store.update((config) => ({ ...config, devExtensionPath }))
+		},
+		setTriggerHotkey: (triggerHotkey: string[]) => {
+			store.update((config) => ({ ...config, triggerHotkey }))
 		},
 		init
 	}

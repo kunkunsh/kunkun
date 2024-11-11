@@ -3,6 +3,7 @@ import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { goto } from "$app/navigation"
 import { isKeyboardEventFromInputElement } from "./dom"
+import { modifierKeySet } from "./js"
 import { goBack, goHome, goHomeOrCloseDependingOnWindow } from "./route"
 import { isInMainWindow } from "./window"
 
@@ -77,4 +78,26 @@ export function globalKeyDownHandler(e: KeyboardEvent) {
 			goto("/settings")
 		}
 	}
+}
+
+export function isLetter(letter: string): boolean {
+	if (letter.length != 1) return false
+	return letter.match(/[a-zA-Z]/) ? true : false
+}
+
+export function isShortcut(letters: string[]): boolean {
+	// letters contain at least one modifier key and one non-modifier key
+
+	let hasModifier = false
+	let hasNonModifier = false
+
+	for (let letter of letters) {
+		if (modifierKeySet.has(letter)) {
+			hasModifier = true
+		} else {
+			hasNonModifier = true
+		}
+	}
+
+	return hasModifier && hasNonModifier
 }
