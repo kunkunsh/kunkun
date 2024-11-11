@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goBackOnEscape } from "@/utils/key.js"
 	import { goBack } from "@/utils/route"
 	import { getPeers } from "@kksh/api/commands"
 	import type { MdnsPeers } from "@kksh/api/models"
@@ -12,6 +13,7 @@
 	let { data } = $props()
 </script>
 
+<svelte:window on:keydown={goBackOnEscape} />
 <Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" onclick={goBack}>
 	<ArrowLeftIcon class="h-4 w-4" />
 </Button>

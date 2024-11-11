@@ -1,4 +1,4 @@
-import { getExtensionsFolder } from "@/constants"
+import { getExtensionsFolder, IS_IN_TAURI } from "@/constants"
 import type { LayoutLoad } from "./$types"
 
 // Tauri doesn't have a Node.js server to do proper SSR
@@ -8,5 +8,5 @@ export const prerender = true
 export const ssr = false
 
 export const load: LayoutLoad = async () => {
-	return { extsInstallDir: await getExtensionsFolder() }
+	return { extsInstallDir: IS_IN_TAURI ? await getExtensionsFolder() : "" }
 }

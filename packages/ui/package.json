@@ -37,7 +37,7 @@
 		"tauri-plugin-shellx-api": "^2.0.11",
 		"@iconify/svelte": "^4.0.2",
 		"@kksh/api": "workspace:*",
-		"@kksh/svelte5": "^0.1.6",
+		"@kksh/svelte5": "^0.1.9",
 		"@types/bun": "latest",
 		"bits-ui": "1.0.0-next.45",
 		"clsx": "^2.1.1",

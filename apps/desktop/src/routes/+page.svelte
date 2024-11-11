@@ -36,6 +36,10 @@
 			}
 		}
 	}
+
+	$effect(() => {
+		console.log($appState.highlightedCmd)
+	})
 </script>
 
 <!-- <svelte:window on:keydown={onKeyDown} /> -->
@@ -122,7 +126,7 @@
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 			/>
 		{/if}
-		<QuickLinks quickLinks={$quickLinks} />
+		<!-- <QuickLinks quickLinks={$quickLinks} /> -->
 		<BuiltinCmds builtinCmds={$builtinCmds} />
 		<SystemCmds {systemCommands} />
 	</Command.List>

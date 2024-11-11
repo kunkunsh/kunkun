@@ -126,28 +126,15 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 			goto("/extension/create-quick-link")
 		}
 	},
-	// {
-	// 	name: "Settings",
-	// 	iconifyIcon: "solar:settings-linear",
-	// 	description: "Open Settings",
-	// 	function: async () => {
-	// 		const windows = await getAllWebviewWindows()
-	// 		const found = windows.find((w) => w.label === SettingsWindowLabel)
-	// 		if (found) {
-	// 			ElNotification.error("Settings Page is already open")
-	// 		} else {
-	// 			const win = await newSettingsPage()
-	// 			setTimeout(() => {
-	// 				// this is a backup, if window is not properly loaded,
-	// 				// the show() will not be called within setting page, we call it here with a larger delay,
-	// 				// at least the window will be shown
-	// 				win.show()
-	// 			}, 800)
-	// 		}
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 	}
-	// },
+	{
+		name: "Settings",
+		iconifyIcon: "solar:settings-linear",
+		description: "Open Settings",
+		function: async () => {
+			goto("/settings")
+			appState.clearSearchTerm()
+		}
+	},
 	{
 		name: "Check Update",
 		iconifyIcon: "material-symbols:update",
@@ -229,6 +216,17 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "MDNS Debugger",
+		iconifyIcon: "material-symbols:wifi-find",
+		description: "MDNS Debugger",
+		function: async () => {
+			goto("/troubleshooters/mdns-debugger")
+		},
+		flags: {
+			developer: true
+		}
+	},
+	{
 		name: "Toggle Hide On Blur",
 		iconifyIcon: "ri:toggle-line",
 		description: "Toggle Hide On Blur",
@@ -241,17 +239,6 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 				}
 			})
 			appState.clearSearchTerm()
-		}
-	},
-	{
-		name: "MDNS Debugger",
-		iconifyIcon: "material-symbols:wifi-find",
-		description: "MDNS Debugger",
-		function: async () => {
-			goto("/troubleshooters/mdns-debugger")
-		},
-		flags: {
-			developer: true
 		}
 	},
 	{
