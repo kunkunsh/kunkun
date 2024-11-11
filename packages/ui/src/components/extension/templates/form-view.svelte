@@ -16,4 +16,3 @@
 	<h1 class="text-2xl font-bold">{formViewContent.title}</h1>
 	<Form {formViewContent} />
 </main>
-<!-- <pre>{JSON.stringify(formViewContent, null, 2)}</pre> -->

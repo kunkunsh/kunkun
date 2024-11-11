@@ -2,7 +2,8 @@ import { appState } from "@/stores"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { goto } from "$app/navigation"
-import { goBack, goHome } from "./route"
+import { isKeyboardEventFromInputElement } from "./dom"
+import { goBack, goHome, goHomeOrCloseDependingOnWindow } from "./route"
 import { isInMainWindow } from "./window"
 
 export function goHomeOnEscape(e: KeyboardEvent) {
@@ -48,6 +49,21 @@ export function goBackOrCloseOnEscape(e: KeyboardEvent) {
 			goBack()
 		} else {
 			getCurrentWindow().close()
+		}
+	}
+}
+
+export function goHomeOrCloseOnEscapeWithInput(e: KeyboardEvent) {
+	if (e.key === "Escape") {
+		if (isKeyboardEventFromInputElement(e)) {
+			const target = e.target as HTMLInputElement
+			if (target.value === "") {
+				goHomeOrCloseDependingOnWindow()
+			} else {
+				target.value = ""
+			}
+		} else {
+			goHomeOrCloseDependingOnWindow()
 		}
 	}
 }

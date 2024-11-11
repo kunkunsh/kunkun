@@ -1,29 +1,13 @@
 <script lang="ts">
-	import { goBackOnEscape, goHomeOnEscape } from "@/utils/key"
-	import { goBack, goHome } from "@/utils/route"
+	import { goHomeOrCloseOnEscapeWithInput } from "@/utils/key"
 	import { SideBar } from "@kksh/svelte5"
 	import SidebarTrigger from "$lib/components/common/sidebar-trigger.svelte"
 	import SettingsSidebar from "./sidebar.svelte"
 
 	let { children } = $props()
-	function onKeyDown(e: KeyboardEvent) {
-		console.log(e)
-		if (e.key === "Escape") {
-			let target = e.target as HTMLElement
-			if (target instanceof HTMLInputElement) {
-				if (target.value === "") {
-					goHome()
-				} else {
-					target.value = ""
-				}
-			} else {
-				goHome()
-			}
-		}
-	}
 </script>
 
-<svelte:window on:keydown={onKeyDown} />
+<svelte:window on:keydown={goHomeOrCloseOnEscapeWithInput} />
 
 <SideBar.Provider style="--sidebar-width: 13rem;">
 	<SettingsSidebar />

@@ -5,7 +5,7 @@
 	import { systemCommands } from "@/cmds/system"
 	import { appConfig, appState, devStoreExts, installedStoreExts, quickLinks } from "@/stores"
 	import { cmdQueries } from "@/stores/cmdQuery"
-	import { getActiveElementNodeName } from "@/utils/dom"
+	import { getActiveElementNodeName, isKeyboardEventFromInputElement } from "@/utils/dom"
 	import { openDevTools } from "@kksh/api/commands"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extension/utils"
@@ -25,6 +25,7 @@
 	import { exit } from "@tauri-apps/plugin-process"
 	import { EllipsisVerticalIcon } from "lucide-svelte"
 
+	let inputEle: HTMLInputElement | null = null
 	function onKeyDown(event: KeyboardEvent) {
 		if (event.key === "Escape") {
 			;(event.target as HTMLInputElement).value = ""
@@ -33,6 +34,18 @@
 	}
 </script>
 
+<svelte:window
+	on:keydown={(e) => {
+		if (e.key === "/") {
+			if (isKeyboardEventFromInputElement(e)) {
+				e.preventDefault()
+			} else {
+				e.preventDefault()
+				inputEle?.focus()
+			}
+		}
+	}}
+/>
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
@@ -47,6 +60,7 @@
 >
 	<CustomCommandInput
 		autofocus
+		bind:ref={inputEle}
 		id="main-command-input"
 		placeholder={$cmdQueries.length === 0 ? "Type a command or search..." : undefined}
 		bind:value={$appState.searchTerm}
