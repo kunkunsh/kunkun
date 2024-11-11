@@ -13,13 +13,15 @@ impl Peers {
     }
 
     pub fn remove_peer(&self, service_type: String, fullname: String) {
-        let peers = self.peers.lock().unwrap();
-        // find the peer by service_type and fullname
-        let peer = peers
+        let peer = self
+            .peers
+            .lock()
+            .unwrap()
             .iter()
-            .find(|(_, peer)| peer.fullname == fullname && peer.service_type == service_type);
-        if let Some((hostname, _)) = peer {
-            self.peers.lock().unwrap().remove(hostname);
+            .find(|(_, peer)| peer.fullname == fullname && peer.service_type == service_type)
+            .map(|(hostname, _)| hostname.clone());
+        if let Some(hostname) = peer {
+            self.peers.lock().unwrap().remove(&hostname);
         }
     }
 
