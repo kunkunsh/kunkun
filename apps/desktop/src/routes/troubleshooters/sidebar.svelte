@@ -7,7 +7,7 @@
 	import Loader from "lucide-svelte/icons/loader"
 	import Network from "lucide-svelte/icons/network"
 
-	// Menu items.
+	let { class: className }: { class?: string } = $props()
 	const items = [
 		{
 			title: "Extension Loading",
@@ -28,7 +28,7 @@
 	let currentItem = $state(items.find((item) => window.location.pathname === item.url))
 </script>
 
-<SideBar.Root>
+<SideBar.Root class={className}>
 	<SideBar.Header class="h-12">
 		<SideBar.Menu>
 			<SideBar.MenuItem data-tauri-drag-region>

@@ -8,7 +8,7 @@
 	const sidebar = useSidebar()
 </script>
 
-<div class="flex h-10 items-center gap-2 pl-1 pt-1" data-tauri-drag-region>
+<div class="fixed flex h-10 w-full items-center gap-2 pl-1 pt-1" data-tauri-drag-region>
 	<SideBar.Trigger class="z-50" />
 	{#if sidebar.state === "collapsed"}
 		<Button
@@ -21,3 +21,4 @@
 		</Button>
 	{/if}
 </div>
+<div class="h-10"></div>

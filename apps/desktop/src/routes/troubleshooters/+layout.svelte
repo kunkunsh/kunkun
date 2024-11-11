@@ -10,8 +10,8 @@
 <svelte:window on:keydown={goHomeOrCloseOnEscapeWithInput} />
 
 <SideBar.Provider style="--sidebar-width: 12rem;">
-	<TroubleshootersSidebar />
-	<main class="w-full">
+	<TroubleshootersSidebar class="flex-none" />
+	<main class="grow overflow-x-clip">
 		<SidebarTrigger />
 		{@render children?.()}
 	</main>

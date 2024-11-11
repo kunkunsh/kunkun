@@ -65,7 +65,7 @@
 	}
 </script>
 
-<main class="container h-screen w-full">
+<main class="container">
 	<div class="flex items-center justify-between space-x-2">
 		<div class="flex items-center space-x-2">
 			<Checkbox id="refreshEverySecond" bind:checked={refreshEverySecond} />
