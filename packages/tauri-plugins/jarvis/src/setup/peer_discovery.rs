@@ -2,11 +2,13 @@ use crate::commands::discovery::Peers;
 use mdns_sd::ServiceEvent;
 use tauri::{AppHandle, Manager, Runtime};
 use tauri_plugin_network::network::mdns::MdnsService;
+use uuid::Uuid;
 
 pub fn setup_mdns(my_port: u16) -> anyhow::Result<MdnsService> {
     let mdns = MdnsService::new("kunkun")?;
+    let id = Uuid::new_v4();
     mdns.register(
-        "desktop",
+        &format!("desktop-{}", id),
         &MdnsService::get_default_ips_str(),
         my_port,
         None,
