@@ -1,12 +1,13 @@
 <script lang="ts">
 	import AppContext from "@/components/context/AppContext.svelte"
 	import "../app.css"
-	import { appConfig, appState, extensions, quickLinks } from "@/stores"
+	import { appConfig, appState, extensions, quickLinks, winExtMap } from "@/stores"
 	import { initDeeplink } from "@/utils/deeplink"
 	import { updateAppHotkey } from "@/utils/hotkey"
 	import { globalKeyDownHandler, goBackOrCloseOnEscape } from "@/utils/key"
 	import { listenToWindowBlur } from "@/utils/tauri-events"
 	import { isInMainWindow } from "@/utils/window"
+	import { listenToKillProcessEvent, listenToRecordExtensionProcessEvent } from "@kksh/api/events"
 	import {
 		ModeWatcher,
 		themeConfigStore,
@@ -78,6 +79,18 @@
 				})
 			)
 			extensions.init()
+			unlisteners.push(
+				await listenToRecordExtensionProcessEvent(async (event) => {
+					console.log("record extension process event", event)
+					winExtMap.registerProcess(event.payload.windowLabel, event.payload.pid)
+				})
+			)
+			unlisteners.push(
+				await listenToKillProcessEvent((event) => {
+					console.log("kill process event", event)
+					winExtMap.unregisterProcess(event.payload.pid)
+				})
+			)
 		} else {
 		}
 		getCurrentWebviewWindow().show()

@@ -29,7 +29,6 @@ export function positionToTailwindClasses(position: Position) {
 			if (parseOutput.output.left) {
 				className += ` left-[${parseOutput.output.left / 4}rem]`
 			}
-			console.log(position, className)
 			return className
 	}
 }

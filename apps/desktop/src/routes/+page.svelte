@@ -5,13 +5,10 @@
 	import { systemCommands } from "@/cmds/system"
 	import { appConfig, appState, devStoreExts, installedStoreExts, quickLinks } from "@/stores"
 	import { cmdQueries } from "@/stores/cmdQuery"
-	import { getActiveElementNodeName, isKeyboardEventFromInputElement } from "@/utils/dom"
+	import { isKeyboardEventFromInputElement } from "@/utils/dom"
 	import Icon from "@iconify/svelte"
-	import { openDevTools, toggleDevTools } from "@kksh/api/commands"
-	import type { ExtPackageJsonExtra } from "@kksh/api/models"
-	import { isExtPathInDev } from "@kksh/extension/utils"
+	import { toggleDevTools } from "@kksh/api/commands"
 	import { Button, Command, DropdownMenu } from "@kksh/svelte5"
-	import type { AppConfig, AppState } from "@kksh/types"
 	import {
 		BuiltinCmds,
 		CustomCommandInput,
@@ -20,12 +17,11 @@
 		QuickLinks,
 		SystemCmds
 	} from "@kksh/ui/main"
-	import type { BuiltinCmd, CmdValue, CommandLaunchers } from "@kksh/ui/types"
+	import type { CmdValue } from "@kksh/ui/types"
 	import { cn, commandScore } from "@kksh/ui/utils"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { exit } from "@tauri-apps/plugin-process"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
-	import { onMount } from "svelte"
 
 	let inputEle: HTMLInputElement | null = null
 	function onKeyDown(event: KeyboardEvent) {
@@ -136,7 +132,7 @@
 						>
 							<Icon
 								icon={$appConfig.hmr ? "fontisto:toggle-on" : "fontisto:toggle-off"}
-								class={cn("mr-1 h-5 w-5", $appConfig.hmr ? "text-green-500" : "")}
+								class={cn("mr-1 h-5 w-5", { "text-green-500": $appConfig.hmr })}
 							/>
 							Toggle Dev Extension HMR
 						</DropdownMenu.Item>

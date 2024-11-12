@@ -112,7 +112,6 @@
 	} satisfies IApp
 
 	function onBackBtnClicked() {
-		console.log("onBackBtnClicked")
 		if (isInMainWindow()) {
 			goHome()
 		} else {

@@ -30,6 +30,7 @@ type API = {
 		dist?: string
 	}) => Promise<string>
 	unregisterExtensionFromWindow: (windowLabel: string) => Promise<void>
+	cleanupProcessesFromWindow: (windowLabel: string) => Promise<void>
 	registerProcess: (windowLabel: string, pid: number) => Promise<void>
 	unregisterProcess: (pid: number) => Promise<void>
 }
@@ -84,11 +85,10 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 			if (winExtMap[windowLabel]) {
 				// clean up processes spawned by extension but not killed by itself
 				const extLabelMap = await getExtLabelMap() // realtime data from core process
-				Object.entries(extLabelMap).forEach(([label, ext]) => {
-					if (label === windowLabel) {
-						killProcesses(ext.processes)
-					}
-				})
+				if (extLabelMap[windowLabel]) {
+					console.log("kill processes", extLabelMap[windowLabel].processes)
+					killProcesses(extLabelMap[windowLabel].processes)
+				}
 				await unregisterExtensionWindow(windowLabel)
 				delete winExtMap[windowLabel]
 				store.set(winExtMap)
@@ -96,9 +96,15 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 				warn(`Window ${windowLabel} does not have an extension registered`)
 			}
 		},
+		cleanupProcessesFromWindow: async (windowLabel: string) => {
+			const winExtMap = get(store)
+			if (winExtMap[windowLabel]) {
+				await killProcesses(winExtMap[windowLabel].pids)
+			}
+		},
 		registerProcess: async (windowLabel: string, pid: number) => {
 			const winExtMap = get(store)
-			registerExtensionSpawnedProcess(windowLabel, pid)
+			await registerExtensionSpawnedProcess(windowLabel, pid)
 			if (!winExtMap[windowLabel]) {
 				throw new Error(`Window ${windowLabel} does not have an extension registered`)
 			}

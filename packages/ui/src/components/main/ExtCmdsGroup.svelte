@@ -38,12 +38,12 @@
 			<IconMultiplexer icon={cmd.icon ?? ext.kunkun.icon} class="!h-5 !w-5 shrink-0" />
 			<span>{cmd.name}</span>
 		</span>
-		<span class="flex gap-2">
+		<span class="flex gap-1">
 			{#if isDev}
-				<Badge class="rounded-sm bg-green-500 px-1">Dev</Badge>
+				<Badge class="scale-75 rounded-sm bg-green-500 px-1">Dev</Badge>
 			{/if}
 			{#if hmr}
-				<Badge class="rounded-sm px-1">HMR</Badge>
+				<Badge class="scale-75 rounded-sm px-1">HMR</Badge>
 			{/if}
 		</span>
 	</Command.Item>

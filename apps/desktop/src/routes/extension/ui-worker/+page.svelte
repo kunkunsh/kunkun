@@ -56,14 +56,9 @@
 	let loaded = $state(false)
 
 	async function goBack() {
-		console.log("goBack")
 		if (isInMainWindow()) {
-			console.log("goBack in main window")
-			// if in main window, then winExtMap store must contain this
-			// winExtMap.unregisterExtensionFromWindow(appWin.label)
 			goto("/")
 		} else {
-			console.log("goBack in webview window")
 			appWin.close()
 		}
 	}
@@ -235,6 +230,7 @@
 
 	onDestroy(() => {
 		unlistenRefreshWorkerExt?.()
+		winExtMap.unregisterExtensionFromWindow(appWin.label)
 		extensionLoadingBar = false
 		appState.setActionPanel(undefined)
 	})

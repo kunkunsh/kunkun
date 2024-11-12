@@ -63,7 +63,6 @@ export async function onCustomUiCmdSelect(
 			const newUrl = `http://${addr}`
 			url2 = `/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
 		}
-		console.log("URL 2", url2)
 		const window = launchNewExtWindow(winLabel, url2, cmd.window)
 		window.onCloseRequested(async (event) => {
 			await winExtMap.unregisterExtensionFromWindow(winLabel)
@@ -81,7 +80,6 @@ export async function onCustomUiCmdSelect(
 			const newUrl = `http://${addr}`
 			url2 = `/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
 		}
-		console.log("URL 2", url2)
 		goto(url2)
 	}
 	appState.clearSearchTerm()
