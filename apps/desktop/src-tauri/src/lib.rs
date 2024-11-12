@@ -113,8 +113,12 @@ pub fn run() {
                 Some(ext) => {
                     // let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
                     // let extension_path = app_state.extension_path.lock().unwrap().clone();
-                    // tauri_file_server(app_handle, request, extension_path)
-                    tauri_file_server(app_handle, request, ext.path.clone(), ext.dist.clone())
+                    tauri_file_server(
+                        app_handle,
+                        request,
+                        ext.info.path.clone(),
+                        ext.info.dist.clone(),
+                    )
                 }
                 None => tauri::http::Response::builder()
                     .status(tauri::http::StatusCode::NOT_FOUND)

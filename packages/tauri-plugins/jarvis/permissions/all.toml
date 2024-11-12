@@ -58,6 +58,7 @@ commands.allow = [
     "is_window_label_registered",
     "register_extension_window",
     "unregister_extension_window",
+    "spawn_extension_file_server",
     "register_extension_spawned_process",
     "unregister_extension_spawned_process",
     "get_ext_label_map",

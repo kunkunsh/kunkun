@@ -1,14 +1,20 @@
 use crate::JarvisState;
 use crate::{
     model::{
-        extension::Extension,
+        extension::{Extension, ExtensionInfo},
         manifest::{ExtPackageJsonExtra, MANIFEST_FILE_NAME},
     },
     utils::manifest::load_jarvis_ext_manifest,
 };
 use std::collections::HashMap;
-use std::{fmt::format, path::PathBuf};
-use tauri::{command, AppHandle, Runtime, State, Window};
+use std::net::{SocketAddr, TcpListener};
+use std::{
+    path::PathBuf,
+    sync::{Arc, Mutex},
+};
+use tauri::{AppHandle, Runtime, State, Window};
+use tower_http::cors::CorsLayer;
+use tower_http::services::ServeDir;
 
 /// manifest_path can be folder of package.json
 /// If it's a folder, join it with package.json
@@ -61,6 +67,9 @@ pub async fn is_window_label_registered<R: Runtime>(
         .contains_key(label.as_str()))
 }
 
+/// When ui iframe ext loaded, register the window containing the iframe with the extension info
+/// Extension info contains path to extension command and dist path, so Kunkun's custom file server knows where to load
+/// static files from when a request is received from a window.
 #[tauri::command]
 pub async fn register_extension_window<R: Runtime>(
     _app: AppHandle<R>,
@@ -74,17 +83,14 @@ pub async fn register_extension_window<R: Runtime>(
         None => format!("main:ext:{}", uuid::Uuid::new_v4()),
     };
     let mut label_ext_map = state.window_label_ext_map.lock().unwrap();
-    // if label_ext_map.contains_key(window_label_2.as_str()) {
-    //     return Err(format!(
-    //         "Window with label {} is already registered",
-    //         &window_label_2
-    //     ));
-    // }
     let ext = Extension {
-        path: extension_path,
-        processes: vec![],
-        dist: dist,
-        // identifier: manifest.kunkun.identifier,
+        info: ExtensionInfo {
+            path: extension_path,
+            processes: vec![],
+            dist: dist,
+        },
+        shutdown_handle: Arc::new(Mutex::new(None)),
+        server_handle: Arc::new(Mutex::new(None)),
     };
     label_ext_map.insert(window_label_2.clone(), ext);
     Ok(window_label_2)
@@ -106,7 +112,7 @@ pub async fn register_extension_spawned_process<R: Runtime>(
         ));
     }
     let ext = label_ext_map.get_mut(window_label.as_str()).unwrap();
-    ext.processes.push(pid);
+    ext.info.processes.push(pid);
     Ok(())
 }
 
@@ -121,6 +127,7 @@ pub async fn unregister_extension_spawned_process<R: Runtime>(
     label_ext_map
         .get_mut(window_label.as_str())
         .unwrap()
+        .info
         .processes
         .retain(|p| *p != pid);
     Ok(())
@@ -131,20 +138,95 @@ pub async fn get_ext_label_map<R: Runtime>(
     _app: AppHandle<R>,
     _window: Window<R>,
     state: State<'_, JarvisState>,
-) -> Result<HashMap<String, Extension>, String> {
-    Ok(state.window_label_ext_map.lock().unwrap().clone())
+) -> Result<HashMap<String, ExtensionInfo>, String> {
+    let label_ext_map = state.window_label_ext_map.lock().unwrap();
+    // turn label_ext_map from HashMap<String, Extension> to HashMap<String, ExtensionInfo>
+    let label_ext_map_info: HashMap<String, ExtensionInfo> = label_ext_map
+        .iter()
+        .map(|(label, ext)| (label.clone(), ext.info.clone()))
+        .collect();
+    Ok(label_ext_map_info)
 }
 
+/// unregister extension window
 #[tauri::command]
 pub async fn unregister_extension_window<R: Runtime>(
     _app: AppHandle<R>,
     state: State<'_, JarvisState>,
     label: String,
-) -> Result<bool, String> {
-    Ok(state
-        .window_label_ext_map
-        .lock()
-        .unwrap()
-        .remove(label.as_str())
-        .is_some())
+) -> Result<(), String> {
+    // find extension, if there is shutdown handle, shutdown it
+    let mut label_ext_map = state.window_label_ext_map.lock().unwrap();
+    // find extension info with window_label
+    let ext = label_ext_map.get(label.as_str()).cloned();
+    // drop(label_ext_map);
+    match ext {
+        Some(ext) => {
+            let shutdown_handle = ext.shutdown_handle.lock().unwrap();
+            if let Some(shutdown_handle) = shutdown_handle.as_ref() {
+                shutdown_handle.shutdown();
+                log::info!("Shutdown extension file server with label {}", label);
+            }
+            let server_handle = ext.server_handle.lock().unwrap();
+            if let Some(server_handle) = server_handle.as_ref() {
+                server_handle.abort();
+                log::info!("Abort extension file server with label {}", label);
+            }
+            label_ext_map.remove(label.as_str());
+            log::info!("Unregistered extension window with label {}", label);
+        }
+        None => return Err(format!("Extension with label {} not found", label)),
+    }
+    // state
+    //     .window_label_ext_map
+    //     .lock()
+    //     .unwrap()
+    //     .remove(label.as_str())
+    //     .is_some()
+    Ok(())
+}
+
+/// spawn extension file server, only for Windows
+#[tauri::command]
+pub async fn spawn_extension_file_server<R: Runtime>(
+    _app: AppHandle<R>,
+    state: State<'_, JarvisState>,
+    window_label: String,
+) -> Result<SocketAddr, String> {
+    let mut label_ext_map = state.window_label_ext_map.lock().unwrap();
+    // find extension info with window_label
+    let ext = label_ext_map.get(window_label.as_str());
+    if ext.is_none() {
+        return Err(format!("Extension with label {} not found", window_label));
+    }
+    let ext = ext.unwrap();
+    let mut ext_path = ext.info.path.clone();
+    if let Some(dist) = ext.info.dist.clone() {
+        ext_path = ext_path.join(dist);
+    }
+    // TODO: spawn file server
+    let shutdown_handle = axum_server::Handle::new();
+    let shutdown_handle_clone = shutdown_handle.clone();
+    let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+    let addr = listener.local_addr().unwrap();
+    let rest_router = axum::Router::new()
+        .layer(CorsLayer::permissive())
+        .nest_service("/", ServeDir::new(ext_path));
+
+    let server_handle = tauri::async_runtime::spawn(async move {
+        // axum_server::bind(addr)
+        axum_server::from_tcp(listener)
+            .handle(shutdown_handle_clone)
+            .serve(rest_router.into_make_service())
+            // .serve(combined_router.into_make_service())
+            .await
+            .unwrap();
+    });
+    // add server handle and shutdown handle to extension
+    let mut ext = label_ext_map.get_mut(window_label.as_str()).unwrap();
+    ext.server_handle.lock().unwrap().replace(server_handle);
+    ext.shutdown_handle.lock().unwrap().replace(shutdown_handle);
+
+    // TODO: add server handle and shutdown handle
+    Ok(addr)
 }

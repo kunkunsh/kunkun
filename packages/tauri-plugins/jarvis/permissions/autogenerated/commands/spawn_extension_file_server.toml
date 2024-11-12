@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-spawn-extension-file-server"
+description = "Enables the spawn_extension_file_server command without any pre-configured scope."
+commands.allow = ["spawn_extension_file_server"]
+
+[[permission]]
+identifier = "deny-spawn-extension-file-server"
+description = "Denies the spawn_extension_file_server command without any pre-configured scope."
+commands.deny = ["spawn_extension_file_server"]

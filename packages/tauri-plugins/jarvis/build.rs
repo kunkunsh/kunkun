@@ -62,6 +62,7 @@ const COMMANDS: &[&str] = &[
     "register_extension_spawned_process",
     "unregister_extension_spawned_process",
     "unregister_extension_window",
+    "spawn_extension_file_server",
     "get_ext_label_map",
     // "ext_store_wrapper_set",
     // "ext_store_wrapper_get",

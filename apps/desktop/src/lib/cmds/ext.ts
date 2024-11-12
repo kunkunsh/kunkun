@@ -2,10 +2,12 @@ import { appState } from "@/stores"
 import { winExtMap } from "@/stores/winExtMap"
 import { trimSlash } from "@/utils/url"
 import { constructExtensionSupportDir } from "@kksh/api"
+import { spawnExtensionFileServer } from "@kksh/api/commands"
 import { CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
 import { launchNewExtWindow } from "@kksh/extension"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import * as fs from "@tauri-apps/plugin-fs"
+import { platform } from "@tauri-apps/plugin-os"
 import { goto } from "$app/navigation"
 
 export async function createExtSupportDir(extPath: string) {
@@ -44,28 +46,43 @@ export async function onCustomUiCmdSelect(
 	// console.log("onCustomUiCmdSelect", ext, cmd, isDev, hmr)
 	await createExtSupportDir(ext.extPath)
 	let url = cmd.main
-
-	if (hmr && isDev && cmd.devMain) {
+	const useDevMain = hmr && isDev && cmd.devMain
+	if (useDevMain) {
 		url = cmd.devMain
 	} else {
 		url = decodeURIComponent(convertFileSrc(`${trimSlash(cmd.main)}`, "ext"))
 	}
-	const url2 = `/extension/ui-iframe?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
+	let url2 = `/extension/ui-iframe?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({
 			extPath: ext.extPath,
 			dist: cmd.dist
 		})
-		console.log("Launch new window, ", winLabel)
+		if (platform() === "windows" && !useDevMain) {
+			const addr = await spawnExtensionFileServer(winLabel)
+			const newUrl = `http://${addr}`
+			url2 = `/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
+		}
+		console.log("URL 2", url2)
 		const window = launchNewExtWindow(winLabel, url2, cmd.window)
 		window.onCloseRequested(async (event) => {
 			await winExtMap.unregisterExtensionFromWindow(winLabel)
 		})
 	} else {
 		console.log("Launch main window")
-		return winExtMap
-			.registerExtensionWithWindow({ windowLabel: "main", extPath: ext.extPath, dist: cmd.dist })
-			.then(() => goto(url2))
+		const winLabel = await winExtMap.registerExtensionWithWindow({
+			windowLabel: "main",
+			extPath: ext.extPath,
+			dist: cmd.dist
+		})
+		if (platform() === "windows" && !useDevMain) {
+			const addr = await spawnExtensionFileServer(winLabel) // addr has format "127.0.0.1:<port>"
+			console.log("Extension file server address: ", addr)
+			const newUrl = `http://${addr}`
+			url2 = `/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
+		}
+		console.log("URL 2", url2)
+		goto(url2)
 	}
 	appState.clearSearchTerm()
 }
