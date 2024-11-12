@@ -1,20 +1,12 @@
 <script lang="ts">
 	import DanceTransition from "@/components/dance/dance-transition.svelte"
-	import Dance from "@/components/dance/dance.svelte"
 	import { appConfig, winExtMap } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goHome } from "@/utils/route"
 	import { positionToTailwindClasses } from "@/utils/style"
 	import { isInMainWindow } from "@/utils/window"
-	import { db, getExtLabelMap } from "@kksh/api/commands"
-	import {
-		CustomPosition,
-		ExtPackageJsonExtra,
-		LightMode,
-		Radius,
-		ThemeColor,
-		type Position
-	} from "@kksh/api/models"
+	import { db } from "@kksh/api/commands"
+	import { ThemeColor, type Position } from "@kksh/api/models"
 	import {
 		constructJarvisServerAPIWithPermissions,
 		exposeApiToWindow,
@@ -23,16 +15,11 @@
 	} from "@kksh/api/ui"
 	import { toast, type IUiIframeServer2 } from "@kksh/api/ui/iframe"
 	import { Button } from "@kksh/svelte5"
-	import { Layouts } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
-	import { error as svelteError } from "@sveltejs/kit"
 	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import { goto } from "$app/navigation"
-	import { page } from "$app/stores"
 	import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon, XIcon } from "lucide-svelte"
 	import { onDestroy, onMount } from "svelte"
-	import { fade } from "svelte/transition"
-	import Layout from "../../+layout.svelte"
 	import type { PageData } from "./$types"
 
 	let { data }: { data: PageData } = $props()
@@ -60,15 +47,7 @@
 	})
 
 	const iframeUiAPI: IUiIframeServer2 = {
-		// async iframeUiStartDragging() {
-		// 	console.log("start dragging")
-		// 	appWin.startDragging().catch(console.error)
-		// },
-		// iframeUiGoHome: async () => {
-		// 	navigateTo(localePath("/"))
-		// },
 		goBack: async () => {
-			console.log("goBack iframe ui API called")
 			if (isInMainWindow()) {
 				goto("/")
 			} else {
@@ -166,13 +145,16 @@
 	onDestroy(() => {
 		winExtMap.unregisterExtensionFromWindow(appWin.label)
 	})
+
+	const backBtnPositionClass = $derived(positionToTailwindClasses(uiControl.backBtnPosition))
+	const moveBtnPositionClass = $derived(positionToTailwindClasses(uiControl.moveBtnPosition))
+	const refreshBtnPositionClass = $derived(positionToTailwindClasses(uiControl.refreshBtnPosition))
 </script>
 
 <svelte:window on:keydown={goBackOnEscape} />
-
 {#if uiControl.backBtnPosition}
 	<Button
-		class={cn("absolute", positionToTailwindClasses(uiControl.backBtnPosition))}
+		class={cn("absolute", backBtnPositionClass)}
 		size="icon"
 		variant="outline"
 		onclick={onBackBtnClicked}
@@ -186,7 +168,7 @@
 {/if}
 {#if uiControl.moveBtnPosition}
 	<Button
-		class={cn("absolute", positionToTailwindClasses(uiControl.moveBtnPosition))}
+		class={cn("absolute", moveBtnPositionClass)}
 		size="icon"
 		variant="outline"
 		data-tauri-drag-region
@@ -196,7 +178,7 @@
 {/if}
 {#if uiControl.refreshBtnPosition}
 	<Button
-		class={cn("absolute", positionToTailwindClasses(uiControl.refreshBtnPosition))}
+		class={cn("absolute", refreshBtnPositionClass)}
 		size="icon"
 		variant="outline"
 		onclick={iframeUiAPI.reloadPage}
