@@ -47,9 +47,9 @@
 				<Switch bind:checked={$appConfig} />
 			</li> -->
 	</ul>
-	{#if dev}
+	<!-- {#if dev}
 		<Shiki class="w-full overflow-x-auto" lang="json" code={JSON.stringify($appConfig, null, 2)} />
-	{/if}
+	{/if} -->
 </main>
 
 <style scoped>

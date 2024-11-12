@@ -1610,6 +1610,32 @@ Denies the sleep_displays command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-spawn-extension-file-server`
+
+</td>
+<td>
+
+Enables the spawn_extension_file_server command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-spawn-extension-file-server`
+
+</td>
+<td>
+
+Denies the spawn_extension_file_server command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-start-server`
 
 </td>

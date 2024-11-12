@@ -24,7 +24,7 @@
 	import { cn, commandScore } from "@kksh/ui/utils"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { exit } from "@tauri-apps/plugin-process"
-	import { CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
+	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 
 	let inputEle: HTMLInputElement | null = null
 	function onKeyDown(event: KeyboardEvent) {
@@ -100,7 +100,6 @@
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content class="w-80">
 					<DropdownMenu.Group>
-						<DropdownMenu.Separator />
 						<DropdownMenu.Item onclick={() => exit()}>
 							<CircleXIcon class="h-4 w-4 text-red-500" />
 							Quit
@@ -116,12 +115,12 @@
 						<DropdownMenu.Item onclick={toggleDevTools}>
 							<Icon icon="mingcute:code-fill" class="mr-2 h-5 w-5 text-green-500" />
 							Toggle Devtools
-							<DropdownMenu.Shortcut>⌃+Shift+I</DropdownMenu.Shortcut>
+							<DropdownMenu.Shortcut><span class="flex items-center">⌃+<ArrowBigUpIcon class="w-4 h-4" />+I</span></DropdownMenu.Shortcut>
 						</DropdownMenu.Item>
 						<DropdownMenu.Item onclick={() => location.reload()}>
 							<RefreshCcwIcon class="mr-2 h-4 w-4 text-green-500" />
 							Reload Window
-							<DropdownMenu.Shortcut>⌃+Shift+R</DropdownMenu.Shortcut>
+							<DropdownMenu.Shortcut><span class="flex items-center">⌃+<ArrowBigUpIcon class="w-4 h-4" />+R</span></DropdownMenu.Shortcut>
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
 							onclick={() => {

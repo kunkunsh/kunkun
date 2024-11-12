@@ -125,6 +125,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::extension::register_extension_spawned_process,
             commands::extension::unregister_extension_spawned_process,
             commands::extension::get_ext_label_map,
+            commands::extension::spawn_extension_file_server,
             /* ---------------------- extension storage API wrapper --------------------- */
             // commands::storage::ext_store_wrapper_set,
             // commands::storage::ext_store_wrapper_get,

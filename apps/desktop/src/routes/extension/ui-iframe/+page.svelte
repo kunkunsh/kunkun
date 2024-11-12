@@ -68,6 +68,7 @@
 		// 	navigateTo(localePath("/"))
 		// },
 		goBack: async () => {
+			console.log("goBack iframe ui API called")
 			if (isInMainWindow()) {
 				goto("/")
 			} else {
@@ -132,6 +133,7 @@
 	} satisfies IApp
 
 	function onBackBtnClicked() {
+		console.log("onBackBtnClicked")
 		if (isInMainWindow()) {
 			goHome()
 		} else {
@@ -173,13 +175,12 @@
 		class={cn("absolute", positionToTailwindClasses(uiControl.backBtnPosition))}
 		size="icon"
 		variant="outline"
-		data-tauri-drag-region
 		onclick={onBackBtnClicked}
 	>
 		{#if appWin.label === "main"}
-			<ArrowLeftIcon class="w-4" data-tauri-drag-region />
+			<ArrowLeftIcon class="w-4" />
 		{:else}
-			<XIcon class="w-4" data-tauri-drag-region />
+			<XIcon class="w-4" />
 		{/if}
 	</Button>
 {/if}
@@ -198,7 +199,6 @@
 		class={cn("absolute", positionToTailwindClasses(uiControl.refreshBtnPosition))}
 		size="icon"
 		variant="outline"
-		data-tauri-drag-region
 		onclick={iframeUiAPI.reloadPage}
 	>
 		<RefreshCcwIcon class="w-4" />

@@ -31,6 +31,12 @@ export function unregisterExtensionWindow(label: string): Promise<void> {
 	})
 }
 
+export function spawnExtensionFileServer(windowLabel: string): Promise<string> {
+	return invoke<string>(generateJarvisPluginCommand("spawn_extension_file_server"), {
+		windowLabel
+	})
+}
+
 export function registerExtensionSpawnedProcess(windowLabel: string, pid: number): Promise<void> {
 	return invoke(generateJarvisPluginCommand("register_extension_spawned_process"), {
 		windowLabel,

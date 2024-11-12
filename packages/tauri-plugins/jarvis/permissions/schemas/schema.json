@@ -910,6 +910,16 @@
           "const": "deny-sleep-displays"
         },
         {
+          "description": "Enables the spawn_extension_file_server command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-spawn-extension-file-server"
+        },
+        {
+          "description": "Denies the spawn_extension_file_server command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-spawn-extension-file-server"
+        },
+        {
           "description": "Enables the start_server command without any pre-configured scope.",
           "type": "string",
           "const": "allow-start-server"
