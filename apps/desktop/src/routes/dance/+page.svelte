@@ -13,7 +13,6 @@
 	size="icon"
 	onclick={goBack}
 	class="absolute left-2 top-2"
-	data-tauri-drag-region
 >
 	<ArrowLeft class="size-4" />
 </Button>
