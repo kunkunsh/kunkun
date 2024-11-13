@@ -247,6 +247,7 @@ export type IShell = {
 	): Promise<{
 		rpcChannel: RPCChannel<LocalAPI, RemoteAPI>
 		process: Child
+		command: DenoCommand<string>
 	}>
 	RPCChannel: typeof RPCChannel
 }
@@ -295,7 +296,8 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 		const stdioRPC = new RPCChannel<LocalAPI, RemoteAPI>(stdio, localAPIImplementation)
 		return {
 			rpcChannel: stdioRPC,
-			process: denoProcess
+			process: denoProcess,
+			command: denoCmd
 		}
 	}
 

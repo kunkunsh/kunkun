@@ -64,7 +64,9 @@ export const DenoSysOptions = union([
 	literal("networkInterfaces"),
 	literal("systemMemoryInfo"),
 	literal("uid"),
-	literal("gid")
+	literal("gid"),
+	literal("cpus"),
+	string()
 ])
 
 export type DenoSysOptions = InferOutput<typeof DenoSysOptions>

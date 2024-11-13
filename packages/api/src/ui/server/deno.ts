@@ -95,6 +95,7 @@ export async function verifyDenoCmdPermission(
 	let allowAllSys = false
 	const denySys: string[] = []
 	let denyAllSys = false
+
 	for (const perm of pathMatchedPerms) {
 		if (perm.allow) {
 			for (const allow of perm.allow) {
@@ -277,25 +278,25 @@ export async function verifyDenoCmdPermission(
 		throw new Error("allowAllSys is not allowed")
 	}
 
-	if (difference(config.allowEnv, allowEnv).length > 0) {
+	if (!allowAllEnv && difference(config.allowEnv, allowEnv).length > 0) {
 		throw new Error(`allowEnv is not allowed: ${difference(config.allowEnv, allowEnv)}`)
 	}
-	if (difference(config.allowNet, allowNet).length > 0) {
+	if (!allowAllNet && difference(config.allowNet, allowNet).length > 0) {
 		throw new Error(`allowNet is not allowed: ${difference(config.allowNet, allowNet)}`)
 	}
-	if (difference(config.allowRead, allowRead).length > 0) {
+	if (!allowAllRead && difference(config.allowRead, allowRead).length > 0) {
 		throw new Error(`allowRead is not allowed: ${difference(config.allowRead, allowRead)}`)
 	}
-	if (difference(config.allowWrite, allowWrite).length > 0) {
+	if (!allowAllWrite && difference(config.allowWrite, allowWrite).length > 0) {
 		throw new Error(`allowWrite is not allowed: ${difference(config.allowWrite, allowWrite)}`)
 	}
-	if (difference(config.allowRun, allowRun).length > 0) {
+	if (!allowAllRun && difference(config.allowRun, allowRun).length > 0) {
 		throw new Error(`allowRun is not allowed: ${difference(config.allowRun, allowRun)}`)
 	}
-	if (difference(config.allowFfi, allowFfi).length > 0) {
+	if (!allowAllFfi && difference(config.allowFfi, allowFfi).length > 0) {
 		throw new Error(`allowFfi is not allowed: ${difference(config.allowFfi, allowFfi)}`)
 	}
-	if (difference(config.allowSys, allowSys).length > 0) {
+	if (!allowAllSys && difference(config.allowSys, allowSys).length > 0) {
 		throw new Error(`allowSys is not allowed: ${difference(config.allowSys, allowSys)}`)
 	}
 }
