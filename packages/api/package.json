@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/api",
-	"version": "0.0.28",
+	"version": "0.0.33",
 	"type": "module",
 	"exports": {
 		".": "./src/index.ts",
@@ -63,7 +63,7 @@
 		"svelte-sonner": "^0.3.28",
 		"tauri-api-adapter": "0.3.8",
 		"tauri-plugin-network-api": "2.0.4",
-		"tauri-plugin-shellx-api": "^2.0.11",
+		"tauri-plugin-shellx-api": "^2.0.14",
 		"tauri-plugin-system-info-api": "2.0.8",
 		"valibot": "^0.40.0"
 	},

@@ -10,7 +10,7 @@ import {
 	unregisterExtensionSpawnedProcess,
 	unregisterExtensionWindow
 } from "@kksh/api/commands"
-import { warn } from "@tauri-apps/plugin-log"
+import { debug, warn } from "@tauri-apps/plugin-log"
 import { get, writable, type Writable } from "svelte/store"
 
 export type WinExtMap = Record<
@@ -99,6 +99,7 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 		cleanupProcessesFromWindow: async (windowLabel: string) => {
 			const winExtMap = get(store)
 			if (winExtMap[windowLabel]) {
+				debug(`Cleaning up processes from window ${windowLabel}: ${winExtMap[windowLabel].pids}`)
 				await killProcesses(winExtMap[windowLabel].pids)
 			}
 		},

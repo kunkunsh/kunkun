@@ -9,7 +9,7 @@ import type { UnlistenFn } from "@tauri-apps/api/event"
 import { extname } from "@tauri-apps/api/path"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as deepLink from "@tauri-apps/plugin-deep-link"
-import { error } from "@tauri-apps/plugin-log"
+import { error, info } from "@tauri-apps/plugin-log"
 import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
 import * as v from "valibot"
@@ -20,7 +20,7 @@ const StorePathSearchParams = v.object({
 })
 
 export function initDeeplink(): Promise<UnlistenFn> {
-	console.log("init deeplink")
+	info("init deeplink")
 	if (!isInMainWindow()) {
 		return Promise.resolve(() => {})
 	}

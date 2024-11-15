@@ -21,6 +21,10 @@ export abstract class WorkerExtension {
 		return Promise.resolve()
 	}
 
+	onFilesDropped(paths: string[]): Promise<void> {
+		return Promise.resolve()
+	}
+
 	onBeforeGoBack(): Promise<void> {
 		return Promise.resolve()
 	}

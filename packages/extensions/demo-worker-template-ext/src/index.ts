@@ -56,13 +56,35 @@ class ExtensionTemplate extends WorkerExtension {
 		setTimeout(() => {
 			ui.showLoadingBar(false)
 		}, 2000)
-		const { rpcChannel, process } = await shell.createDenoRpcChannel<
+		const { rpcChannel, process, command } = await shell.createDenoRpcChannel<
 			{},
 			{
 				add(a: number, b: number): Promise<number>
 				subtract(a: number, b: number): Promise<number>
+				// readImageMetadata(path: string): Promise<any>
 			}
-		>("$EXTENSION/deno-src/rpc.ts", [], {}, {})
+		>(
+			"$EXTENSION/deno-src/rpc.ts",
+			[],
+			{
+				allowEnv: ["npm_package_config_libvips"],
+				// allowAllEnv: true,
+				// allowFfi: ["*sharp-darwin-arm64.node"],
+				allowAllFfi: true,
+				allowAllRead: true,
+				allowAllSys: true,
+				// allowRun: ["*exiftool"]
+				allowAllRun: true
+			},
+			{}
+		)
+		// const child = new Child(process.pid)
+		command.stdout.on("data", (data) => {
+			console.log("stdout", data.toString())
+		})
+		command.stderr.on("data", (data) => {
+			console.log("stderr", data.toString())
+		})
 		const api = rpcChannel.getApi()
 		await api.add(1, 2).then(console.log)
 		await api.subtract(1, 2).then(console.log)

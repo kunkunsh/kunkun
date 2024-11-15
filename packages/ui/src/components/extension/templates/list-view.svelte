@@ -13,7 +13,9 @@
 	let {
 		searchTerm = $bindable(""),
 		searchBarPlaceholder = $bindable(""),
+		inputRef = $bindable<HTMLInputElement | null>(null),
 		pbar,
+		highlightedValue = $bindable<string>(""),
 		onGoBack,
 		onListScrolledToBottom,
 		onEnterKeyPressed,
@@ -26,7 +28,9 @@
 	}: {
 		searchTerm: string
 		searchBarPlaceholder: string
+		inputRef?: HTMLInputElement | null
 		pbar: number | null
+		highlightedValue?: string
 		onGoBack?: () => void
 		onListScrolledToBottom?: () => void
 		onEnterKeyPressed?: () => void
@@ -37,19 +41,27 @@
 		loading: boolean
 		listViewContent: ListSchema.List
 	} = $props()
-	let mounted = $state(false)
 	let leftPane: PaneAPI | undefined
 	let rightPane: PaneAPI | undefined
 	let isScrolling = $state(false)
-	let highlightedValue = $state<string>("")
 	let privateSearchTerm = $state("")
 	// let detailWidth = $derived()
 	let prevDetailWidth = $state(0)
 
 	const detailWidth = $derived(listViewContent.detail ? (listViewContent.detail?.width ?? 70) : 0)
 
+	export function inputFocus() {
+		inputRef?.focus()
+	}
+
+	export function setHighlightedValue(value: string) {
+		highlightedValue = value
+	}
+
 	$effect(() => {
-		onHighlightedItemChanged?.(highlightedValue)
+		if (highlightedValue.startsWith("{")) {
+			onHighlightedItemChanged?.(JSON.parse(highlightedValue).value)
+		}
 	})
 
 	$effect(() => {
@@ -80,6 +92,7 @@
 	class="h-screen w-full rounded-lg border shadow-md"
 	shouldFilter={listViewContent.filter !== "none"}
 	bind:value={highlightedValue}
+	loop
 	filter={(value, search, keywords) => {
 		if (!value.startsWith("{")) {
 			return -1
@@ -95,6 +108,7 @@
 		bind:value={searchTerm}
 		placeholder={searchBarPlaceholder}
 		autofocus
+		bind:ref={inputRef}
 		onkeydown={(e) => {
 			if (e.key === "Enter") {
 				e.preventDefault()

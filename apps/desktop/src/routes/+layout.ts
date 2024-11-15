@@ -1,4 +1,5 @@
 import { getExtensionsFolder, IS_IN_TAURI } from "@/constants"
+import { error } from "@tauri-apps/plugin-log"
 import type { LayoutLoad } from "./$types"
 
 // Tauri doesn't have a Node.js server to do proper SSR
