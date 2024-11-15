@@ -3,6 +3,8 @@ import { Channel, invoke } from "@tauri-apps/api/core"
 import { emitTo } from "@tauri-apps/api/event"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import {
+	hasCommand,
+	whereIsCommand,
 	type ChildProcess,
 	type CommandEvent,
 	type InternalSpawnOptions,
@@ -197,18 +199,18 @@ export function constructShellApi(
 		)
 		return executeNodeScript(script)
 	}
-	async function hasCommand(command: string): Promise<boolean> {
-		// check if command is clean, check if it's a single command without arguments or semicolons with regex.
-		if (!/^[a-zA-Z0-9_-]+$/.test(command)) {
-			return Promise.reject(new Error("Invalid command"))
-		}
-		return hasCommand(command)
-	}
 	async function likelyOnWindows(): Promise<boolean> {
 		return likelyOnWindows()
 	}
 
 	return {
+		whereIsCommand(command: string): Promise<string | null> {
+			const cleanedCommand = command.trim().split(" ")[0]
+			if (!cleanedCommand) {
+				return Promise.resolve(null)
+			}
+			return whereIsCommand(cleanedCommand).then((res) => (res === "" ? null : res))
+		},
 		async recordSpawnedProcess(pid: number): Promise<void> {
 			// get window label
 			const curWin = await getCurrentWindow()
@@ -286,7 +288,13 @@ export function constructShellApi(
 		executePythonScript,
 		executeZshScript,
 		executeNodeScript,
-		hasCommand,
+		hasCommand: (command: string): Promise<boolean> => {
+			// check if command is clean, check if it's a single command without arguments or semicolons with regex.
+			if (!/^[a-zA-Z0-9_-]+$/.test(command)) {
+				return Promise.reject(new Error("Invalid command"))
+			}
+			return hasCommand(command)
+		},
 		likelyOnWindows
 	}
 }

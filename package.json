@@ -46,7 +46,7 @@
 		"@tauri-apps/plugin-upload": "^2.0.0",
 		"supabase": "^1.207.9",
 		"tauri-plugin-network-api": "workspace:*",
-		"tauri-plugin-shellx-api": "^2.0.11",
+		"tauri-plugin-shellx-api": "^2.0.14",
 		"tauri-plugin-system-info-api": "workspace:*",
 		"valibot": "^0.40.0",
 		"zod": "^3.23.8"

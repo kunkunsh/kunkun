@@ -101,7 +101,7 @@ class BaseShellCommand<O extends IOPayload> extends EventEmitter<CommandEvents> 
 	}
 }
 
-class Command<O extends IOPayload> extends BaseShellCommand<O> {
+export class Command<O extends IOPayload> extends BaseShellCommand<O> {
 	api: Remote<IShellServer>
 
 	constructor(
@@ -158,7 +158,7 @@ class Command<O extends IOPayload> extends BaseShellCommand<O> {
 	}
 }
 
-class DenoCommand<O extends IOPayload> extends BaseShellCommand<O> {
+export class DenoCommand<O extends IOPayload> extends BaseShellCommand<O> {
 	config: DenoRunConfig
 	scriptPath: string
 	api: Remote<IShellServer>
@@ -250,6 +250,7 @@ export type IShell = {
 		command: DenoCommand<string>
 	}>
 	RPCChannel: typeof RPCChannel
+	whereIsCommand: (command: string) => Promise<string | null>
 }
 
 export class TauriShellStdio implements StdioInterface {
@@ -355,28 +356,11 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 	 * @returns Whether the current platform is likely to be Windows.
 	 */
 	function likelyOnWindows(): Promise<boolean> {
-		return createCommand("powershell.exe", ["-Command", "echo $env:OS"])
-			.execute()
-			.then((out) => out.code === 0 && out.stdout.toLowerCase().includes("windows"))
-			.catch(() => false)
-	}
-
-	/**
-	 * Determine if a command is available with `which` or `where` command.
-	 * Support Windows, Mac, Linux
-	 * @param command
-	 * @returns
-	 */
-	async function hasCommand(command: string): Promise<boolean> {
-		const targetCmd = command.trim().split(" ")[0]
-		if (!targetCmd) {
-			return false
-		}
-		const isOnWindows = await likelyOnWindows()
-		const whereCmd = isOnWindows ? "where" : "which"
-		const cmd = createCommand(whereCmd, [targetCmd])
-		const out = await cmd.execute()
-		return out.code === 0
+		// return createCommand("powershell.exe", ["-Command", "echo $env:OS"])
+		// 	.execute()
+		// 	.then((out) => out.code === 0 && out.stdout.toLowerCase().includes("windows"))
+		// 	.catch(() => false)
+		return api.likelyOnWindows()
 	}
 
 	return {
@@ -393,14 +377,15 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 		executePythonScript,
 		executeZshScript,
 		executeNodeScript,
-		hasCommand,
+		hasCommand: api.hasCommand,
 		likelyOnWindows,
 		createCommand,
 		createDenoCommand,
 		Child,
 		TauriShellStdio,
 		createDenoRpcChannel,
-		RPCChannel
+		RPCChannel,
+		whereIsCommand: api.whereIsCommand
 	}
 }
 
