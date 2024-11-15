@@ -5,7 +5,7 @@ import fs from "fs-extra"
 import { verifyCmd } from "../src/commands/verify"
 
 const rootDir = getRootDir()
-const extensionsDir = path.join(rootDir, "../../extensions")
+const extensionsDir = path.join(rootDir, "../../packages/extensions")
 const templatesDir = path.join(rootDir, "../../templates")
 
 const extsPaths = fs
