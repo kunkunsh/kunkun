@@ -1,0 +1,44 @@
+{
+	"name": "kksh",
+	"module": "dist/cli.js",
+	"version": "0.0.23",
+	"type": "module",
+	"bin": {
+		"kksh": "./dist/cli.js",
+		"docker-entrypoint.sh": "./dist/docker/entrypoint.sh"
+	},
+	"author": "Huakun",
+	"scripts": {
+		"build": "bun build.ts",
+		"test": "cross-env NODE_ENV=test bun test --coverage"
+	},
+	"devDependencies": {
+		"@rollup/plugin-json": "^6.1.0",
+		"@rollup/plugin-replace": "^5.0.7",
+		"@rollup/plugin-terser": "^0.4.4",
+		"@rollup/plugin-typescript": "^11.1.6",
+		"@types/bun": "latest",
+		"@types/debug": "^4.1.12",
+		"@types/fs-extra": "^11.0.4",
+		"cross-env": "^7.0.3",
+		"rollup": "^4.24.0",
+		"rollup-plugin-visualizer": "^5.12.0"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@inquirer/prompts": "^5.2.1",
+		"@kksh/api": "workspace:*",
+		"chalk": "^5.3.0",
+		"commander": "^12.1.0",
+		"console-table-printer": "^2.12.1",
+		"debug": "^4.3.6",
+		"fs-extra": "^11.2.0",
+		"inquirer": "^10.1.2",
+		"valibot": "^0.40.0"
+	},
+	"files": [
+		"dist"
+	]
+}
