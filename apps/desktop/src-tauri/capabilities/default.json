@@ -62,6 +62,7 @@
 		"shellx:allow-spawn",
 		"shellx:allow-stdin-write",
 		"shellx:allow-fix-path-env",
+		"shellx:allow-where-is-command",
 		"dialog:default",
 		"dialog:allow-open",
 		"dialog:allow-confirm",

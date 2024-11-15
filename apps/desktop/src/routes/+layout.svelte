@@ -9,6 +9,7 @@
 	import { isInMainWindow } from "@/utils/window"
 	import { listenToKillProcessEvent, listenToRecordExtensionProcessEvent } from "@kksh/api/events"
 	import {
+		Button,
 		ModeWatcher,
 		themeConfigStore,
 		ThemeWrapper,
@@ -19,11 +20,12 @@
 	import { Constants, ViewTransition } from "@kksh/ui"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
-	import { attachConsole } from "@tauri-apps/plugin-log"
+	import { attachConsole, error, info } from "@tauri-apps/plugin-log"
 	import { afterNavigate, beforeNavigate } from "$app/navigation"
 	import { gsap } from "gsap"
 	import { Flip } from "gsap/Flip"
 	import { onDestroy, onMount } from "svelte"
+	import * as shellx from "tauri-plugin-shellx-api"
 
 	/* -------------------------------------------------------------------------- */
 	/*                             Gsap Flip Animation                            */
@@ -57,6 +59,15 @@
 	onMount(async () => {
 		attachConsole().then((unlistener) => unlisteners.push(unlistener))
 		initDeeplink().then((unlistener) => unlisteners.push(unlistener))
+		shellx
+			.fixPathEnv()
+			.then(() => {
+				info("fixed path env")
+				shellx.hasCommand("ffprobe").then((res) => {
+					console.log("has ffprobe:", res)
+				})
+			})
+			.catch(error)
 
 		quickLinks.init()
 		appConfig.init()

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { appState } from "@/stores/appState.js"
 	import { winExtMap } from "@/stores/winExtMap.js"
-	import { listenToRefreshDevExt } from "@/utils/tauri-events.js"
+	import { listenToFileDrop, listenToRefreshDevExt } from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
 	import { type Remote } from "@huakunshen/comlink"
 	import { db } from "@kksh/api/commands"
@@ -42,6 +42,7 @@
 	let { loadedExt, scriptPath, extInfoInDB } = $derived(data)
 	let workerAPI: Remote<WorkerExtension> | undefined = undefined
 	let unlistenRefreshWorkerExt: UnlistenFn | undefined
+	let unlistenFileDrop: UnlistenFn | undefined
 	let worker: Worker | undefined
 	let listViewContent = $state<ListSchema.List>()
 	let formViewContent = $state<FormSchema.Form>()
@@ -54,6 +55,7 @@
 	const appWin = getCurrentWebviewWindow()
 	const loadingBar = $derived($appState.loadingBar || extensionLoadingBar)
 	let loaded = $state(false)
+	let listview: Templates.ListView | undefined = $state(undefined)
 
 	async function goBack() {
 		if (isInMainWindow()) {
@@ -208,7 +210,6 @@
 
 	$effect(() => {
 		launchWorkerExt()
-
 		return () => {
 			worker?.terminate()
 		}
@@ -220,7 +221,13 @@
 		}, 100)
 		unlistenRefreshWorkerExt = await listenToRefreshDevExt(() => {
 			debug("Refreshing Worker Extension")
+			winExtMap.cleanupProcessesFromWindow(appWin.label)
 			launchWorkerExt()
+		})
+		unlistenFileDrop = await listenToFileDrop((evt) => {
+			workerAPI?.onFilesDropped(evt.payload.paths)
+			appWin.setFocus()
+			listview?.inputFocus()
 		})
 		setTimeout(() => {
 			appState.setLoadingBar(false)
@@ -230,6 +237,7 @@
 
 	onDestroy(() => {
 		unlistenRefreshWorkerExt?.()
+		unlistenFileDrop?.()
 		winExtMap.unregisterExtensionFromWindow(appWin.label)
 		extensionLoadingBar = false
 		appState.setActionPanel(undefined)
@@ -243,6 +251,7 @@
 	<Templates.ListView
 		bind:searchTerm
 		bind:searchBarPlaceholder
+		bind:this={listview}
 		{pbar}
 		{listViewContent}
 		{loading}
