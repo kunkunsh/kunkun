@@ -1,0 +1,47 @@
+{
+	"$schema": "./node_modules/@kksh/api/dist/schema.json",
+	"name": "template-ext-worker",
+	"version": "0.0.2",
+	"type": "module",
+	"kunkun": {
+		"name": "TODO: Extension Display Name",
+		"shortDescription": "A Worker Extension Template",
+		"longDescription": "A Worker Extension Template",
+		"identifier": "template-ext-worker",
+		"permissions": [
+			"fetch:all",
+			"clipboard:read-all"
+		],
+		"demoImages": [],
+		"icon": {
+			"type": "iconify",
+			"value": "material-symbols:extension"
+		},
+		"customUiCmds": [],
+		"templateUiCmds": [
+			{
+				"name": "TODO: Template Command Display Name",
+				"main": "dist/index.js",
+				"cmds": []
+			}
+		]
+	},
+	"scripts": {
+		"dev": "bun build.ts dev",
+		"build": "bun build.ts"
+	},
+	"dependencies": {
+		"@kksh/api": "workspace:*",
+		"i18next": "^23.15.1"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"files": [
+		"./dist",
+		".gitignore"
+	]
+}

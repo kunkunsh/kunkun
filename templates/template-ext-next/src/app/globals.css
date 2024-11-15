@@ -1,0 +1,6 @@
+@import url("@kksh/react/css");
+@import url("@kksh/react/themes");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

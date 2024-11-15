@@ -1,0 +1,6 @@
+@import url("@kksh/react/css");
+@import url("@kksh/react/themes");
+/* @tailwind base; */
+/* This adds white border to command components under dark mode */
+@tailwind components;
+@tailwind utilities;
