@@ -6,7 +6,7 @@ import chalk from "chalk"
 import { Command, Option } from "commander"
 import fs from "fs-extra"
 import pkgJson from "./package.json"
-import { createKunkunVersion, getTemplateRoot, isProduction } from "./src/constants"
+import { createKunkunVersion, getTemplateRoot, isProduction, NODE_ENV } from "./src/constants"
 import { cleanExtension, patchHBS, patchManifestJsonSchema, patchPkgJsonDep } from "./src/patch"
 import { getLatestNpmPkgVersion, tarExtract } from "./src/utils"
 
@@ -64,7 +64,7 @@ if (!fs.existsSync(outdir)) {
 
 async function copyTemplate(templateTgz: string, targetFolderName: string): Promise<string> {
 	const destDir = path.join(outdir, targetFolderName)
-
+	
 	if (!fs.existsSync(templateTgz)) {
 		console.error(`Worker Extension Template not found at ${templateTgz}`)
 		process.exit(1)
