@@ -32,6 +32,7 @@
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { readTextFile } from "@tauri-apps/plugin-fs"
+	import { fetch } from "@tauri-apps/plugin-http"
 	import { debug } from "@tauri-apps/plugin-log"
 	import { goto } from "$app/navigation"
 	import { RPCChannel, WorkerParentIO } from "kkrpc/browser"
@@ -222,6 +223,11 @@
 		}
 	})
 	onMount(async () => {
+		fetch(
+			"http://ip-api.com/json?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,proxy,hosting,query"
+		).then((res) => {
+			console.log("debug fetch", res)
+		})
 		setTimeout(() => {
 			appState.setLoadingBar(true)
 			appWin.show()
