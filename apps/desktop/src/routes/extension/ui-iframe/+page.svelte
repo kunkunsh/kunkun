@@ -1,5 +1,6 @@
 <script lang="ts">
 	import DanceTransition from "@/components/dance/dance-transition.svelte"
+	import { RPCChannel, IframeParentIO } from "kkrpc/browser"
 	import { appConfig, winExtMap } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goHome } from "@/utils/route"
@@ -9,7 +10,7 @@
 	import { ThemeColor, type Position } from "@kksh/api/models"
 	import {
 		constructJarvisServerAPIWithPermissions,
-		exposeApiToWindow,
+		// exposeApiToWindow,
 		type IApp,
 		type IUiIframe
 	} from "@kksh/api/ui"
@@ -129,7 +130,9 @@
 	onMount(() => {
 		appWin.show()
 		if (iframeRef?.contentWindow) {
-			exposeApiToWindow(iframeRef.contentWindow, serverAPI)
+			const io = new IframeParentIO(iframeRef.contentWindow)
+			const rpc = new RPCChannel(io, { expose: serverAPI })
+			// exposeApiToWindow(iframeRef.contentWindow, serverAPI)
 		} else {
 			toast.warning("iframeRef.contentWindow not available")
 		}

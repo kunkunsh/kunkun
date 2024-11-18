@@ -1,6 +1,6 @@
 import { type Buffer } from "node:buffer"
 import { RPCChannel, type StdioInterface } from "@hk/comlink-stdio/browser"
-import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
+// import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
 import { Channel, invoke } from "@tauri-apps/api/core"
 import { constructShellAPI as constructShellAPI1 } from "tauri-api-adapter/client"
 import {
@@ -25,8 +25,8 @@ import type { IShellServer } from "../server/server-types.ts"
 export class Child {
 	/** The child process `pid`. */
 	pid: number
-	api: Remote<IShellServer>
-	constructor(pid: number, api: Remote<IShellServer>) {
+	api: IShellServer
+	constructor(pid: number, api: IShellServer) {
 		this.pid = pid
 		this.api = api
 	}
@@ -102,12 +102,12 @@ class BaseShellCommand<O extends IOPayload> extends EventEmitter<CommandEvents> 
 }
 
 export class Command<O extends IOPayload> extends BaseShellCommand<O> {
-	api: Remote<IShellServer>
+	api: IShellServer
 
 	constructor(
 		program: string,
 		args: string | string[] = [],
-		api: Remote<IShellServer>,
+		api: IShellServer,
 		options?: SpawnOptions
 	) {
 		super(program, args, options)
@@ -122,27 +122,22 @@ export class Command<O extends IOPayload> extends BaseShellCommand<O> {
 		}
 
 		return this.api
-			.rawSpawn(
-				this.program,
-				args,
-				this.options,
-				comlinkProxy((evt) => {
-					switch (evt.event) {
-						case "Error":
-							this.emit("error", evt.payload)
-							break
-						case "Terminated":
-							this.emit("close", evt.payload)
-							break
-						case "Stdout":
-							this.stdout.emit("data", evt.payload as O)
-							break
-						case "Stderr":
-							this.stderr.emit("data", evt.payload as O)
-							break
-					}
-				})
-			)
+			.rawSpawn(this.program, args, this.options, (evt) => {
+				switch (evt.event) {
+					case "Error":
+						this.emit("error", evt.payload)
+						break
+					case "Terminated":
+						this.emit("close", evt.payload)
+						break
+					case "Stdout":
+						this.stdout.emit("data", evt.payload as O)
+						break
+					case "Stderr":
+						this.stderr.emit("data", evt.payload as O)
+						break
+				}
+			})
 			.then(async (pid) => {
 				await this.api.recordSpawnedProcess(pid) // report spawned process to main process for process auto cleanup
 				return new Child(pid, this.api)
@@ -161,14 +156,9 @@ export class Command<O extends IOPayload> extends BaseShellCommand<O> {
 export class DenoCommand<O extends IOPayload> extends BaseShellCommand<O> {
 	config: DenoRunConfig
 	scriptPath: string
-	api: Remote<IShellServer>
+	api: IShellServer
 
-	constructor(
-		scriptPath: string,
-		args: string[],
-		config: DenoRunConfig,
-		api: Remote<IShellServer>
-	) {
+	constructor(scriptPath: string, args: string[], config: DenoRunConfig, api: IShellServer) {
 		super("deno", args)
 		this.config = config
 		this.scriptPath = scriptPath
@@ -181,27 +171,22 @@ export class DenoCommand<O extends IOPayload> extends BaseShellCommand<O> {
 
 	spawn(): Promise<Child> {
 		return this.api
-			.denoRawSpawn(
-				this.scriptPath,
-				this.config,
-				this.args,
-				comlinkProxy((evt) => {
-					switch (evt.event) {
-						case "Error":
-							this.emit("error", evt.payload)
-							break
-						case "Terminated":
-							this.emit("close", evt.payload)
-							break
-						case "Stdout":
-							this.stdout.emit("data", evt.payload as O)
-							break
-						case "Stderr":
-							this.stderr.emit("data", evt.payload as O)
-							break
-					}
-				})
-			)
+			.denoRawSpawn(this.scriptPath, this.config, this.args, (evt) => {
+				switch (evt.event) {
+					case "Error":
+						this.emit("error", evt.payload)
+						break
+					case "Terminated":
+						this.emit("close", evt.payload)
+						break
+					case "Stdout":
+						this.stdout.emit("data", evt.payload as O)
+						break
+					case "Stderr":
+						this.stderr.emit("data", evt.payload as O)
+						break
+				}
+			})
 			.then(async (pid) => {
 				await this.api.recordSpawnedProcess(pid)
 				return new Child(pid, this.api)
@@ -271,7 +256,7 @@ export class TauriShellStdio implements StdioInterface {
 	}
 }
 
-export function constructShellAPI(api: Remote<IShellServer>): IShell {
+export function constructShellAPI(api: IShellServer): IShell {
 	// const originalAPI = constructShellAPI1(api)
 	function createCommand(program: string, args: string | string[] = [], options?: SpawnOptions) {
 		return new Command<string>(program, args, api, options)

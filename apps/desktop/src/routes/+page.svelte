@@ -25,12 +25,6 @@
 	import { onMount } from "svelte"
 	import { hasCommand, whereIsCommand } from "tauri-plugin-shellx-api"
 
-	onMount(() => {
-		hasCommand("ffmpeg").then((has) => {
-			console.log("has", has)
-		})
-	})
-
 	let inputEle: HTMLInputElement | null = null
 	function onKeyDown(event: KeyboardEvent) {
 		if (event.key === "Escape") {

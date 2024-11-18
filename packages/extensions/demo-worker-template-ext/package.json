@@ -12,6 +12,7 @@
 			"fetch:all",
 			"shell:kill",
 			"security:mac:all",
+			"clipboard:read-all",
 			{
 				"permission": "shell:deno:spawn",
 				"allow": [

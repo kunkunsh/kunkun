@@ -3,6 +3,7 @@ import {
 	Action,
 	app,
 	Child,
+	clipboard,
 	expose,
 	Form,
 	fs,
@@ -48,6 +49,9 @@ class ExtensionTemplate extends WorkerExtension {
 	}
 
 	async load() {
+		clipboard.readText().then((text) => {
+			console.log("Clipboard text:", text)
+		})
 		// console.log("Check screen capture permission:", await security.mac.checkScreenCapturePermission())
 		// await security.mac.revealSecurityPane("AllFiles")
 		// console.log(await security.mac.verifyFingerprint())

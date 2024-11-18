@@ -3,11 +3,11 @@
 	import { winExtMap } from "@/stores/winExtMap.js"
 	import { listenToFileDrop, listenToRefreshDevExt } from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
-	import { type Remote } from "@huakunshen/comlink"
+	// import { type Remote } from "@huakunshen/comlink"
 	import { db } from "@kksh/api/commands"
 	import {
 		constructJarvisServerAPIWithPermissions,
-		exposeApiToWorker,
+		// exposeApiToWorker,
 		type IApp,
 		type IUiWorker
 	} from "@kksh/api/ui"
@@ -20,7 +20,7 @@
 		MarkdownSchema,
 		NodeNameEnum,
 		toast,
-		wrap,
+		// wrap,
 		type IComponent,
 		type IDb,
 		type WorkerExtension
@@ -34,13 +34,15 @@
 	import { readTextFile } from "@tauri-apps/plugin-fs"
 	import { debug } from "@tauri-apps/plugin-log"
 	import { goto } from "$app/navigation"
+	import { RPCChannel, WorkerParentIO } from "kkrpc/browser"
+	// import { RPCChannel, WorkerParentIO } from "kkrpc/worker"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import { onDestroy, onMount } from "svelte"
 	import * as v from "valibot"
 
 	const { data } = $props()
 	let { loadedExt, scriptPath, extInfoInDB } = $derived(data)
-	let workerAPI: Remote<WorkerExtension> | undefined = undefined
+	let workerAPI: WorkerExtension | undefined = undefined
 	let unlistenRefreshWorkerExt: UnlistenFn | undefined
 	let unlistenFileDrop: UnlistenFn | undefined
 	let worker: Worker | undefined
@@ -203,8 +205,13 @@
 		serverAPI.app = {
 			language: () => Promise.resolve("en")
 		} satisfies IApp
-		exposeApiToWorker(worker, serverAPI)
-		workerAPI = wrap<WorkerExtension>(worker)
+		const io = new WorkerParentIO(worker)
+		const rpc = new RPCChannel<typeof serverAPI, WorkerExtension>(io, {
+			expose: serverAPI
+		})
+		workerAPI = rpc.getAPI()
+		// exposeApiToWorker(worker, serverAPI)
+		// workerAPI = wrap<WorkerExtension>(worker)
 		await workerAPI.load()
 	}
 
