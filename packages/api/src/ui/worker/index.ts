@@ -3,6 +3,7 @@
 /* -------------------------------------------------------------------------- */
 // import { wrap, type Endpoint, type Remote } from "@huakunshen/comlink"
 // import { RPCChannel, WorkerChildIO, type DestroyableIoInterface } from "kkrpc/browser"
+import { RPCChannel, WorkerChildIO, type DestroyableIoInterface } from "kkrpc/browser"
 import type {
 	IClipboard,
 	IDialog,
@@ -24,11 +25,6 @@ import {
 	// constructShellAPI,
 	constructUpdownloadAPI
 } from "tauri-api-adapter/client"
-import {
-	RPCChannel,
-	WorkerChildIO,
-	type DestroyableIoInterface
-} from "../../../../../vendors/kkrpc/packages/kkrpc/browser-mod"
 import { constructEventAPI } from "../api/event"
 import { constructPathAPI } from "../api/path"
 import { constructShellAPI } from "../api/shell"

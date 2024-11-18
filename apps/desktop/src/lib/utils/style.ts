@@ -12,23 +12,45 @@ export function positionToTailwindClasses(position: Position) {
 		case "bottom-right":
 			return "bottom-2 right-2"
 		default:
-			let className = ""
-			const parseOutput = v.safeParse(CustomPosition, position)
-			if (!parseOutput.success) {
-				return ""
-			}
-			if (parseOutput.output.top) {
-				className += ` top-[${parseOutput.output.top / 4}rem]`
-			}
-			if (parseOutput.output.right) {
-				className += ` right-[${parseOutput.output.right / 4}rem]`
-			}
-			if (parseOutput.output.bottom) {
-				className += ` bottom-[${parseOutput.output.bottom / 4}rem]`
-			}
-			if (parseOutput.output.left) {
-				className += ` left-[${parseOutput.output.left / 4}rem]`
-			}
-			return className
+			return ""
 	}
+}
+
+export function positionToCssStyleObj(position?: Position) {
+	if (!position) {
+		return {}
+	}
+	if (typeof position === "string") {
+		return {}
+	}
+	const parseRes = v.safeParse(CustomPosition, position)
+	if (!parseRes.success) {
+		return {}
+	}
+	const customPos = parseRes.output
+	const ret: {
+		top?: string
+		bottom?: string
+		left?: string
+		right?: string
+	} = {}
+	if (customPos.bottom != undefined) {
+		ret.bottom = `${customPos.bottom}rem`
+	}
+	if (customPos.top != undefined) {
+		ret.top = `${customPos.top}rem`
+	}
+	if (customPos.left != undefined) {
+		ret.left = `${customPos.left}rem`
+	}
+	if (customPos.right != undefined) {
+		ret.right = `${customPos.right}rem`
+	}
+	return ret
+}
+
+export function positionToCssStyleString(position?: Position) {
+	return Object.entries(positionToCssStyleObj(position))
+		.map(([key, value]) => `${key}: ${value}`)
+		.join(";")
 }
