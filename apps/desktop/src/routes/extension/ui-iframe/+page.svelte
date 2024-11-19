@@ -3,13 +3,13 @@
 	import { appConfig, winExtMap } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goHome } from "@/utils/route"
-	import { positionToTailwindClasses } from "@/utils/style"
+	import { positionToCssStyleString, positionToTailwindClasses } from "@/utils/style"
 	import { isInMainWindow } from "@/utils/window"
 	import { db } from "@kksh/api/commands"
-	import { ThemeColor, type Position } from "@kksh/api/models"
+	import { CustomPosition, ThemeColor, type Position } from "@kksh/api/models"
 	import {
 		constructJarvisServerAPIWithPermissions,
-		exposeApiToWindow,
+		// exposeApiToWindow,
 		type IApp,
 		type IUiIframe
 	} from "@kksh/api/ui"
@@ -18,8 +18,10 @@
 	import { cn } from "@kksh/ui/utils"
 	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import { goto } from "$app/navigation"
+	import { IframeParentIO, RPCChannel } from "kkrpc/browser"
 	import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon, XIcon } from "lucide-svelte"
 	import { onDestroy, onMount } from "svelte"
+	import * as v from "valibot"
 	import type { PageData } from "./$types"
 
 	let { data }: { data: PageData } = $props()
@@ -64,6 +66,8 @@
 			uiControl.showRefreshBtn = false
 		},
 		showBackButton: async (position?: Position) => {
+			console.log("showBackBtn", position)
+
 			uiControl.showBackBtn = true
 			uiControl.backBtnPosition = position ?? "top-left"
 		},
@@ -129,7 +133,9 @@
 	onMount(() => {
 		appWin.show()
 		if (iframeRef?.contentWindow) {
-			exposeApiToWindow(iframeRef.contentWindow, serverAPI)
+			const io = new IframeParentIO(iframeRef.contentWindow)
+			const rpc = new RPCChannel(io, { expose: serverAPI })
+			// exposeApiToWindow(iframeRef.contentWindow, serverAPI)
 		} else {
 			toast.warning("iframeRef.contentWindow not available")
 		}
@@ -144,19 +150,16 @@
 	onDestroy(() => {
 		winExtMap.unregisterExtensionFromWindow(appWin.label)
 	})
-
-	const backBtnPositionClass = $derived(positionToTailwindClasses(uiControl.backBtnPosition))
-	const moveBtnPositionClass = $derived(positionToTailwindClasses(uiControl.moveBtnPosition))
-	const refreshBtnPositionClass = $derived(positionToTailwindClasses(uiControl.refreshBtnPosition))
 </script>
 
 <svelte:window on:keydown={goBackOnEscape} />
 {#if uiControl.backBtnPosition}
 	<Button
-		class={cn("absolute", backBtnPositionClass)}
+		class={cn("absolute", positionToTailwindClasses(uiControl.backBtnPosition))}
 		size="icon"
 		variant="outline"
 		onclick={onBackBtnClicked}
+		style={`${positionToCssStyleString(uiControl.backBtnPosition)}`}
 	>
 		{#if appWin.label === "main"}
 			<ArrowLeftIcon class="w-4" />
@@ -167,7 +170,8 @@
 {/if}
 {#if uiControl.moveBtnPosition}
 	<Button
-		class={cn("absolute", moveBtnPositionClass)}
+		class={cn("absolute", positionToTailwindClasses(uiControl.moveBtnPosition))}
+		style={`${positionToCssStyleString(uiControl.moveBtnPosition)}`}
 		size="icon"
 		variant="outline"
 		data-tauri-drag-region
@@ -177,7 +181,8 @@
 {/if}
 {#if uiControl.refreshBtnPosition}
 	<Button
-		class={cn("absolute", refreshBtnPositionClass)}
+		class={cn("absolute", positionToTailwindClasses(uiControl.refreshBtnPosition))}
+		style={`${positionToCssStyleString(uiControl.refreshBtnPosition)}`}
 		size="icon"
 		variant="outline"
 		onclick={iframeUiAPI.reloadPage}

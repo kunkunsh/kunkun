@@ -8,12 +8,7 @@
 </script>
 
 <svelte:window on:keydown={goBackOnEscape} />
-<Button
-	variant="outline"
-	size="icon"
-	onclick={goBack}
-	class="absolute left-2 top-2"
->
+<Button variant="outline" size="icon" onclick={goBack} class="absolute left-2 top-2">
 	<ArrowLeft class="size-4" />
 </Button>
 <Layouts.Center class="h-screen w-screen" data-tauri-drag-region>

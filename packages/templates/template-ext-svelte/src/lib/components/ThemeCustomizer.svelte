@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { ThemeCustomizerButton, type ThemeConfig, updateTheme } from '@kksh/svelte';
-	import { ui } from '@kksh/api/ui/iframe';
-	import { onMount } from 'svelte';
+	import { ui } from "@kksh/api/ui/iframe"
+	import { ThemeCustomizerButton, updateTheme, type ThemeConfig } from "@kksh/svelte"
+	import { onMount } from "svelte"
 
 	let config: ThemeConfig = {
 		radius: 0.5,
-		theme: 'zinc',
-		lightMode: 'auto'
-	};
+		theme: "zinc",
+		lightMode: "auto"
+	}
 	onMount(() => {
 		ui.getTheme().then((theme) => {
-			config = theme;
-		});
-	});
+			config = theme
+		})
+	})
 
-	$: updateTheme(config);
+	$: updateTheme(config)
 </script>
 
 <ThemeCustomizerButton bind:config />

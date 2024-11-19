@@ -9,5 +9,6 @@
     "titleBar.activeBackground": "#2f0ec4",
     "titleBar.activeForeground": "#FFFBFC"
   },
-  "svelte.enable-ts-plugin": true
+  "svelte.enable-ts-plugin": true,
+  "deno.enable": false
 }

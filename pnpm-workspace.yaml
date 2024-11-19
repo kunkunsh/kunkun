@@ -4,4 +4,8 @@ packages:
   - "packages/extensions/*"
   - "packages/templates/*"
   - "packages/tauri-plugins/*"
-  - "vendors/*"
+  - "vendors/tauri-plugin-network"
+  - "vendors/tauri-plugin-system-info"
+  - "vendors/kkrpc/packages/kkrpc"
+  - "vendors/tauri-api-adapter/packages/tauri-api-adapter"
+

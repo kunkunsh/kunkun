@@ -3,15 +3,16 @@
 	import { winExtMap } from "@/stores/winExtMap.js"
 	import { listenToFileDrop, listenToRefreshDevExt } from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
-	import { type Remote } from "@huakunshen/comlink"
+	// import { type Remote } from "@huakunshen/comlink"
 	import { db } from "@kksh/api/commands"
 	import {
 		constructJarvisServerAPIWithPermissions,
-		exposeApiToWorker,
+		// exposeApiToWorker,
 		type IApp,
 		type IUiWorker
 	} from "@kksh/api/ui"
 	import {
+		clipboard,
 		// constructJarvisExtDBToServerDbAPI,
 		FormNodeNameEnum,
 		FormSchema,
@@ -20,7 +21,7 @@
 		MarkdownSchema,
 		NodeNameEnum,
 		toast,
-		wrap,
+		// wrap,
 		type IComponent,
 		type IDb,
 		type WorkerExtension
@@ -32,15 +33,18 @@
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { readTextFile } from "@tauri-apps/plugin-fs"
+	import { fetch } from "@tauri-apps/plugin-http"
 	import { debug } from "@tauri-apps/plugin-log"
 	import { goto } from "$app/navigation"
+	import { RPCChannel, WorkerParentIO } from "kkrpc/browser"
+	// import { RPCChannel, WorkerParentIO } from "kkrpc/worker"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import { onDestroy, onMount } from "svelte"
 	import * as v from "valibot"
 
 	const { data } = $props()
 	let { loadedExt, scriptPath, extInfoInDB } = $derived(data)
-	let workerAPI: Remote<WorkerExtension> | undefined = undefined
+	let workerAPI: WorkerExtension | undefined = undefined
 	let unlistenRefreshWorkerExt: UnlistenFn | undefined
 	let unlistenFileDrop: UnlistenFn | undefined
 	let worker: Worker | undefined
@@ -81,7 +85,15 @@
 		async render(view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) {
 			if (view.nodeName === NodeNameEnum.List) {
 				clearViewContent("list")
-				const parsedListView = v.parse(ListSchema.List, view)
+				const parsedListViewRes = v.safeParse(ListSchema.List, view)
+				if (!parsedListViewRes.success) {
+					toast.error("Invalid List View", {
+						description: "See console for details"
+					})
+					console.error("Fail to parse List View", v.flatten(parsedListViewRes.issues))
+					return
+				}
+				const parsedListView = parsedListViewRes.output
 				const updateFields = {
 					sections: true,
 					items: true,
@@ -203,8 +215,13 @@
 		serverAPI.app = {
 			language: () => Promise.resolve("en")
 		} satisfies IApp
-		exposeApiToWorker(worker, serverAPI)
-		workerAPI = wrap<WorkerExtension>(worker)
+		const io = new WorkerParentIO(worker)
+		const rpc = new RPCChannel<typeof serverAPI, WorkerExtension>(io, {
+			expose: serverAPI
+		})
+		workerAPI = rpc.getAPI()
+		// exposeApiToWorker(worker, serverAPI)
+		// workerAPI = wrap<WorkerExtension>(worker)
 		await workerAPI.load()
 	}
 

@@ -8,12 +8,16 @@ export const breakingChangesVersionCheckpoints = [
 	{
 		version: "0.0.17",
 		changelog: "New Custom UI loading method, remove base url config requirement."
+	},
+	{
+		version: "0.0.34",
+		changelog: "Replace comlink with kkrpc, extensions using comlink won't work anymore."
 	}
 ]
 const checkpointVersions = breakingChangesVersionCheckpoints.map((c) => c.version)
 const sortedCheckpointVersions = sort(checkpointVersions)
 
-export const version = "0.0.33"
+export const version = "0.0.41"
 
 export function isVersionBetween(v: string, start: string, end: string) {
 	const vCleaned = clean(v)

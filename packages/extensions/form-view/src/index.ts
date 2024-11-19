@@ -21,6 +21,7 @@ class ExtensionTemplate extends WorkerExtension {
 		toast.success(`Form submitted: ${JSON.stringify(value)}`)
 	}
 	async load() {
+		console.log("form-view load")
 		const markdown = new Markdown(`# Hello World
 <img src="https://github.com/huakunshen.png" />`)
 		// markdown.toModel

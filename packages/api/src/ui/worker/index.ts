@@ -1,7 +1,9 @@
 /* -------------------------------------------------------------------------- */
 /*                                     API                                    */
 /* -------------------------------------------------------------------------- */
-import { wrap, type Endpoint, type Remote } from "@huakunshen/comlink"
+// import { wrap, type Endpoint, type Remote } from "@huakunshen/comlink"
+// import { RPCChannel, WorkerChildIO, type DestroyableIoInterface } from "kkrpc/browser"
+import { RPCChannel, WorkerChildIO, type DestroyableIoInterface } from "kkrpc/browser"
 import type {
 	IClipboard,
 	IDialog,
@@ -41,8 +43,9 @@ import type {
 	IUtils
 } from "../client"
 import type { IShellServer } from "../server/server-types"
+import type { WorkerExtension } from "./ext"
 
-export { expose, wrap } from "@huakunshen/comlink"
+// export { expose, wrap } from "@huakunshen/comlink"
 export { WorkerExtension } from "./ext"
 export type { IDb } from "../client"
 /**
@@ -50,36 +53,44 @@ export type { IDb } from "../client"
  * There may be server API changes for them, but the client API can be inherited
  */
 type API = {
-	db: Remote<IDb> // for kunkun
-	system: Remote<ISystem> // for kunkun
-	open: Remote<IOpen> // for kunkun
-	clipboard: Remote<IClipboard> // inherit from tauri-api-adapter
-	dialog: Remote<IDialog> // inherit from tauri-api-adapter
-	fetch: Remote<IFetchInternal> // inherit from tauri-api-adapter
-	event: Remote<IEvent> // for kunkun, override tauri-api-adapter's event API, expose only specified event, disallow, emit and listen
-	fs: Remote<IFs> // customized for kunkun, add file search API on top of tauri-api-adapter's fs API
-	log: Remote<ILogger> // inherit from tauri-api-adapter
-	notification: Remote<INotification> // inherit from tauri-api-adapter
-	toast: Remote<IToast> // for kunkun
-	os: Remote<IOs> // inherit from tauri-api-adapter
-	path: Remote<IPath> // inherit from tauri-api-adapter
-	shell: Remote<IShellServer> // inherit from tauri-api-adapter
+	db: IDb // for kunkun
+	system: ISystem // for kunkun
+	open: IOpen // for kunkun
+	clipboard: IClipboard // inherit from tauri-api-adapter
+	dialog: IDialog // inherit from tauri-api-adapter
+	fetch: IFetchInternal // inherit from tauri-api-adapter
+	event: IEvent // for kunkun, override tauri-api-adapter's event API, expose only specified event, disallow, emit and listen
+	fs: IFs // customized for kunkun, add file search API on top of tauri-api-adapter's fs API
+	log: ILogger // inherit from tauri-api-adapter
+	notification: INotification // inherit from tauri-api-adapter
+	toast: IToast // for kunkun
+	os: IOs // inherit from tauri-api-adapter
+	path: IPath // inherit from tauri-api-adapter
+	shell: IShellServer // inherit from tauri-api-adapter
 	updownload: IUpdownload // inherit from tauri-api-adapter
-	sysInfo: Remote<ISystemInfo> // inherit from tauri-api-adapter
-	network: Remote<INetwork> // inherit from tauri-api-adapter
-	workerUi: Remote<IUiWorker> // for kunkun
+	sysInfo: ISystemInfo // inherit from tauri-api-adapter
+	network: INetwork // inherit from tauri-api-adapter
+	workerUi: IUiWorker // for kunkun
 	security: ISecurity // for kunkun
 	utils: IUtils // for kunkun
 	app: IApp
 }
 
-const _api = wrap(globalThis as Endpoint) as unknown as API
-export const event = constructEventAPI(_api.event) // this is different from event api from tauri-api-adapter
-export const fetch = constructFetchAPI(_api.fetch)
-export const path = constructPathAPI(_api.path)
-export const shell = constructShellAPI(_api.shell)
-export const toast = constructToastAPI(_api.toast)
-export const updownload = constructUpdownloadAPI(_api.updownload)
+// const _api = wrap(globalThis as Endpoint) as unknown as API
+const io = new WorkerChildIO()
+const rpc = new RPCChannel<{}, API, DestroyableIoInterface>(io, {})
+export const api = rpc.getAPI()
+
+export function expose(api: WorkerExtension) {
+	rpc.expose(api)
+}
+
+export const event = constructEventAPI(api.event) // this is different from event api from tauri-api-adapter
+export const fetch = constructFetchAPI(api.fetch)
+export const path = constructPathAPI(api.path)
+export const shell = constructShellAPI(api.shell)
+export const toast = constructToastAPI(api.toast)
+export const updownload = constructUpdownloadAPI(api.updownload)
 export const {
 	db,
 	os,
@@ -96,7 +107,7 @@ export const {
 	app,
 	security,
 	workerUi: ui
-} = _api
+} = api
 export { Child, RPCChannel, Command, DenoCommand } from "../api/shell"
 /* -------------------------------------------------------------------------- */
 /*                             UI Component Schema                            */
@@ -112,3 +123,14 @@ export { Icon } from "./components/icon"
 export { IconEnum, IconType, IconNode } from "../../models/icon"
 export * as schema from "./schema"
 export { NodeName, NodeNameEnum, FormNodeName, FormNodeNameEnum } from "../../models/constants"
+
+/* -------------------------------------------------------------------------- */
+/*                                   Expose                                   */
+/* -------------------------------------------------------------------------- */
+// export function expose(api: WorkerExtension) {
+// 	const io = new WorkerChildIO()
+// 	const rpc = new RPCChannel(io, {
+// 		expose: api
+// 	})
+// 	return rpc.getAPI()
+// }

@@ -1,35 +1,29 @@
 {
-	"$schema": "./node_modules/@kksh/api/dist/schema.json",
-	"name": "template-ext-sveltekit",
+	"$schema": "https://schema.kunkun.sh",
+	"name": "ext-sveltekit-exp",
 	"version": "0.0.3",
 	"private": true,
 	"kunkun": {
 		"name": "TODO: Change Display Name",
 		"shortDescription": "A Custom UI template for sveltekit",
 		"longDescription": "A Custom UI template for sveltekit",
-		"identifier": "template-ext-sveltekit",
+		"identifier": "ext-sveltekit-exp",
 		"icon": {
 			"type": "iconify",
-			"value": "logos:svelte-icon"
+			"value": "carbon:debug"
 		},
 		"demoImages": [],
 		"permissions": [
 			"clipboard:read-text",
-			"notification:all"
+			"notification:all",
+			"dialog:all"
 		],
 		"customUiCmds": [
 			{
 				"main": "/",
 				"dist": "build",
 				"devMain": "http://localhost:5173",
-				"name": "Sveltekit Template Home Page",
-				"cmds": []
-			},
-			{
-				"main": "about",
-				"dist": "build",
-				"devMain": "http://localhost:5173/about",
-				"name": "Sveltekit Template About Page",
+				"name": "Custom UI Command Playground",
 				"cmds": []
 			}
 		],

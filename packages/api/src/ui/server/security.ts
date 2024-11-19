@@ -1,6 +1,6 @@
-import { macSecurity } from "@kksh/api/commands"
 import { Command, open } from "tauri-plugin-shellx-api"
 import * as v from "valibot"
+import { macSecurity } from "../../commands"
 import { SecurityPermissionMap, type SecurityPermission } from "../../permissions"
 import { checkPermission } from "../../utils/permission-check"
 import { MacSecurityOptions, type ISecurity } from "../client"

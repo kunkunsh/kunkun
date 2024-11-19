@@ -2,10 +2,10 @@
  * This is a E2E test, create every template from production build and run `npm install` and `npm run build`
  * When running `npm install` with bun shell, it fails in bun test environment, so I simply run everything as regular ts without test()
  */
-import { $ } from "bun"
-import { afterAll, beforeAll, describe, expect, test } from "bun:test"
 import os from "os"
 import path from "path"
+import { $ } from "bun"
+import { afterAll, beforeAll, describe, expect, test } from "bun:test"
 import fs from "fs-extra"
 import { getRootDir } from "../src/constants"
 

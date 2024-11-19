@@ -12,7 +12,6 @@ async function build() {
 			minify: true,
 			target: "browser"
 		})
-		console.log(output)
 		await refreshTemplateWorkerExtension()
 	} catch (error) {
 		console.error(error)

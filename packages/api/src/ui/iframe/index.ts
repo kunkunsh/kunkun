@@ -1,4 +1,5 @@
-import { windowEndpoint, wrap, type Remote } from "@huakunshen/comlink"
+// import { windowEndpoint, wrap, type Remote } from "@huakunshen/comlink"
+import { IframeChildIO, RPCChannel, type DestroyableIoInterface } from "kkrpc/browser"
 import type {
 	IClipboard,
 	IDialog,
@@ -39,7 +40,7 @@ import type {
 import type { IShellServer } from "../server/server-types"
 
 export { type IUiIframe } from "../client"
-export { expose, wrap } from "@huakunshen/comlink"
+// export { expose, wrap } from "@huakunshen/comlink"
 // export { type IDbServer } from "../server/db"
 export { type IUiIframeServer2, type IUiIframeServer1 } from "../server/server-types"
 
@@ -48,35 +49,39 @@ export { type IUiIframeServer2, type IUiIframeServer1 } from "../server/server-t
  * There may be server API changes for them, but the client API can be inherited
  */
 type API = {
-	db: Remote<IDb> // for kunkun
-	system: Remote<ISystem> // for kunkun
-	open: Remote<IOpen> // for kunkun
-	clipboard: Remote<IClipboard> // inherit from tauri-api-adapter
-	dialog: Remote<IDialog> // inherit from tauri-api-adapter
-	fetch: Remote<IFetchInternal> // inherit from tauri-api-adapter
-	event: Remote<IEvent> // for kunkun, override tauri-api-adapter's event API, expose only specified event, disallow, emit and listen
-	fs: Remote<IFs> // customized for kunkun, add file search API on top of tauri-api-adapter's fs API
-	log: Remote<ILogger> // inherit from tauri-api-adapter
-	notification: Remote<INotification> // inherit from tauri-api-adapter
-	toast: Remote<IToast> // for kunkun
-	os: Remote<IOs> // inherit from tauri-api-adapter
-	path: Remote<IPath> // inherit from tauri-api-adapter
-	shell: Remote<IShellServer> // inherit from tauri-api-adapter
+	db: IDb // for kunkun
+	system: ISystem // for kunkun
+	open: IOpen // for kunkun
+	clipboard: IClipboard // inherit from tauri-api-adapter
+	dialog: IDialog // inherit from tauri-api-adapter
+	fetch: IFetchInternal // inherit from tauri-api-adapter
+	event: IEvent // for kunkun, override tauri-api-adapter's event API, expose only specified event, disallow, emit and listen
+	fs: IFs // customized for kunkun, add file search API on top of tauri-api-adapter's fs API
+	log: ILogger // inherit from tauri-api-adapter
+	notification: INotification // inherit from tauri-api-adapter
+	toast: IToast // for kunkun
+	os: IOs // inherit from tauri-api-adapter
+	path: IPath // inherit from tauri-api-adapter
+	shell: IShellServer // inherit from tauri-api-adapter
 	updownload: IUpdownload // inherit from tauri-api-adapter
-	sysInfo: Remote<ISystemInfo> // inherit from tauri-api-adapter
-	network: Remote<INetwork> // inherit from tauri-api-adapter
-	iframeUi: Remote<IUiIframe> // for kunkun
+	sysInfo: ISystemInfo // inherit from tauri-api-adapter
+	network: INetwork // inherit from tauri-api-adapter
+	iframeUi: IUiIframe // for kunkun
 	utils: IUtils // for kunkun
 	security: ISecurity // for kunkun
 	app: IApp
 }
-const _api = wrap(windowEndpoint(globalThis.parent)) as unknown as API
-export const event = constructEventAPI(_api.event) // this is different from event api from tauri-api-adapter
-export const fetch = constructFetchAPI(_api.fetch)
-export const path = constructPathAPI(_api.path)
-export const shell = constructShellAPI(_api.shell)
-export const updownload = constructUpdownloadAPI(_api.updownload)
-export const ui = constructIframeUiAPI(_api)
+// export const api = wrap(windowEndpoint(globalThis.parent)) as unknown as API
+const io = new IframeChildIO()
+const rpc = new RPCChannel<{}, API, DestroyableIoInterface>(io, {})
+export const api = rpc.getAPI()
+
+export const event = constructEventAPI(api.event) // this is different from event api from tauri-api-adapter
+export const fetch = constructFetchAPI(api.fetch)
+export const path = constructPathAPI(api.path)
+export const shell = constructShellAPI(api.shell)
+export const updownload = constructUpdownloadAPI(api.updownload)
+export const ui = constructIframeUiAPI(api)
 export const {
 	db,
 	os,
@@ -92,5 +97,5 @@ export const {
 	utils,
 	open,
 	app
-} = _api
+} = api
 export { Child, RPCChannel } from "../api/shell"

@@ -255,6 +255,8 @@ export async function verifyDenoCmdPermission(
 
 	// now we have command requested permissions, we need to compare with permissions defined in manifest
 	/* ----------------------- Check Allow All Permissions ---------------------- */
+	console.log("config: ", config)
+	console.log("allowAllEnv: ", allowAllEnv)
 
 	if (config.allowAllEnv && !allowAllEnv) {
 		throw new Error("allowAllEnv is not allowed")

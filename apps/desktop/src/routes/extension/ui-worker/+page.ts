@@ -21,6 +21,7 @@ import type { PageLoad } from "./$types"
 
 export const load: PageLoad = async ({ url }) => {
 	// both query parameter must exist
+
 	const extPath = url.searchParams.get("extPath")
 	const cmdName = url.searchParams.get("cmdName")
 	if (!extPath || !cmdName) {
@@ -63,6 +64,7 @@ export const load: PageLoad = async ({ url }) => {
 	if (!(await exists(scriptPath))) {
 		sbError(404, `Command script not found at ${scriptPath}`)
 	}
+
 	// const workerScript = await readTextFile(scriptPath)
 	return {
 		extPath: extPath!,
