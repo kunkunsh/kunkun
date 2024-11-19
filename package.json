@@ -10,16 +10,16 @@
 		"format": "prettier --write \"**/*.{ts,tsx,md,svelte}\""
 	},
 	"devDependencies": {
-		"@ianvs/prettier-plugin-sort-imports": "^4.3.1",
+		"@ianvs/prettier-plugin-sort-imports": "^4.4.0",
 		"@kksh/api": "workspace:*",
-		"@kksh/svelte5": "0.1.9",
-		"prettier": "^3.2.5",
-		"prettier-plugin-svelte": "^3.2.7",
+		"@kksh/svelte5": "0.1.10",
+		"prettier": "^3.3.3",
+		"prettier-plugin-svelte": "^3.2.8",
 		"prettier-plugin-tailwindcss": "^0.6.8",
-		"svelte": "^5.0.0",
-		"svelte-check": "^4.0.0",
-		"turbo": "^2.2.3",
-		"typescript": "5.5.4"
+		"svelte": "^5.2.3",
+		"svelte-check": "^4.0.9",
+		"turbo": "^2.3.0",
+		"typescript": "5.6.3"
 	},
 	"packageManager": "pnpm@9.12.3",
 	"engines": {
