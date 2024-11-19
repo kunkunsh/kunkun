@@ -64,7 +64,7 @@ if (!fs.existsSync(outdir)) {
 
 async function copyTemplate(templateTgz: string, targetFolderName: string): Promise<string> {
 	const destDir = path.join(outdir, targetFolderName)
-	
+
 	if (!fs.existsSync(templateTgz)) {
 		console.error(`Worker Extension Template not found at ${templateTgz}`)
 		process.exit(1)

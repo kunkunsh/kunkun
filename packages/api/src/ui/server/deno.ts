@@ -95,7 +95,7 @@ export async function verifyDenoCmdPermission(
 	let allowAllSys = false
 	const denySys: string[] = []
 	let denyAllSys = false
-	
+
 	for (const perm of pathMatchedPerms) {
 		if (perm.allow) {
 			for (const allow of perm.allow) {

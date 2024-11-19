@@ -109,7 +109,7 @@
 	}
 </script>
 
-<div class="flex justify-center gap-3 my-3">
+<div class="my-3 flex justify-center gap-3">
 	<Button size="sm" onclick={pickExtFolders}>Install from Extension Folders</Button>
 	<Button size="sm" onclick={pickExtFiles}>Install from Extension Tarball File</Button>
 </div>

@@ -25,5 +25,5 @@
 		There are 4 options to install an extension in developer mode. Either load it from your local
 		tarball file, a tarball remote URL, npm package name or load from a remote URL.
 	</small>
-	<AddDevExtForm  />
+	<AddDevExtForm />
 </main>
