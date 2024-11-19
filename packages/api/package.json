@@ -59,7 +59,7 @@
 		"minimatch": "^10.0.1",
 		"semver": "^7.6.3",
 		"svelte-sonner": "^0.3.28",
-		"tauri-api-adapter": "^0.3.12",
+		"tauri-api-adapter": "^0.3.13",
 		"tauri-plugin-network-api": "2.0.4",
 		"tauri-plugin-shellx-api": "^2.0.14",
 		"tauri-plugin-system-info-api": "2.0.8",

@@ -430,8 +430,8 @@ importers:
         specifier: ^0.3.28
         version: 0.3.28(svelte@5.2.3)
       tauri-api-adapter:
-        specifier: ^0.3.12
-        version: 0.3.12(typescript@5.6.3)
+        specifier: ^0.3.13
+        version: 0.3.13(typescript@5.6.3)
       tauri-plugin-network-api:
         specifier: 2.0.4
         version: 2.0.4(typescript@5.6.3)
@@ -6970,11 +6970,6 @@ packages:
     peerDependencies:
       typescript: ^5.6.3
 
-  kkrpc@0.0.7:
-    resolution: {integrity: sha512-fjiXFHouKiZWLw7SGlOFuObPGxadGns15cvakNTFWa1MwgvKwm4LlUpjuDCibpxYnRRCbjeqWuBnJygzRbRnQQ==}
-    peerDependencies:
-      typescript: ^5.0.0
-
   kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
@@ -9028,8 +9023,8 @@ packages:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
 
-  tauri-api-adapter@0.3.12:
-    resolution: {integrity: sha512-a5tFPN0gN6W5dSOXMIySikECqJwpy6YL33p3ZBp83BoCb0Tco9NX0KuasRQQNsYzYXYRf2HZbBVoB2pn59UdTA==}
+  tauri-api-adapter@0.3.13:
+    resolution: {integrity: sha512-ex4z3Zish6by1ew1ialbLc5g3dhly+6ihepJeJwVRQoMJdUTyfCX2dVPYW74i+px1hFXKFu3MYTheS7uBOeCbg==}
     peerDependencies:
       typescript: ^5.0.0
 
@@ -17352,14 +17347,6 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  kkrpc@0.0.7(typescript@5.6.3):
-    dependencies:
-      typescript: 5.6.3
-      ws: 8.18.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
   kleur@3.0.3: {}
 
   kleur@4.1.5: {}
@@ -19843,7 +19830,7 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  tauri-api-adapter@0.3.12(typescript@5.6.3):
+  tauri-api-adapter@0.3.13(typescript@5.6.3):
     dependencies:
       '@tauri-apps/api': 2.1.1
       '@tauri-apps/plugin-dialog': 2.0.1
@@ -19854,7 +19841,7 @@ snapshots:
       '@tauri-apps/plugin-os': 2.0.0
       '@tauri-apps/plugin-shell': 2.0.1
       '@tauri-apps/plugin-upload': 2.1.0
-      kkrpc: 0.0.7(typescript@5.6.3)
+      kkrpc: 0.0.12(typescript@5.6.3)
       rimraf: 6.0.1
       shx: 0.3.4
       tauri-plugin-clipboard-api: 2.1.11(typescript@5.6.3)
