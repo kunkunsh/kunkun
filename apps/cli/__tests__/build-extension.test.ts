@@ -20,15 +20,17 @@ const templateNames = ["react", "vue", "nuxt", "svelte", "sveltekit", "next", "t
 fs.rmdirSync(testDir, { recursive: true })
 fs.mkdirpSync(testDir)
 const testTemplateDirs: string[] = []
-for (const templateName of templateNames) {
-	const folderName = `${templateName}-ext`
-	await $`node ${createKKIndexjsPath} --outdir ${testDir} --name ${folderName} --template ${templateName}`
-	const templateDir = path.join(testDir, folderName)
-	console.log("templateDir", templateDir)
-	await $`pnpm install`.cwd(templateDir).quiet()
-	await $`pnpm build`.cwd(templateDir).quiet()
-	testTemplateDirs.push(templateDir)
-}
+await Promise.all(
+	templateNames.map(async (templateName) => {
+		const folderName = `${templateName}-ext`
+		await $`node ${createKKIndexjsPath} --outdir ${testDir} --name ${folderName} --template ${templateName}`
+		const templateDir = path.join(testDir, folderName)
+		console.log("templateDir", templateDir)
+		await $`pnpm install`.cwd(templateDir).quiet()
+		await $`pnpm build`.cwd(templateDir).quiet()
+		testTemplateDirs.push(templateDir)
+	})
+)
 
 test("Build And Verify", async () => {
 	for (const templateDir of testTemplateDirs) {
