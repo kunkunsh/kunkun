@@ -12,6 +12,7 @@
 		type IUiWorker
 	} from "@kksh/api/ui"
 	import {
+		clipboard,
 		// constructJarvisExtDBToServerDbAPI,
 		FormNodeNameEnum,
 		FormSchema,
@@ -84,7 +85,15 @@
 		async render(view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) {
 			if (view.nodeName === NodeNameEnum.List) {
 				clearViewContent("list")
-				const parsedListView = v.parse(ListSchema.List, view)
+				const parsedListViewRes = v.safeParse(ListSchema.List, view)
+				if (!parsedListViewRes.success) {
+					toast.error("Invalid List View", {
+						description: "See console for details"
+					})
+					console.error("Fail to parse List View", v.flatten(parsedListViewRes.issues))
+					return
+				}
+				const parsedListView = parsedListViewRes.output
 				const updateFields = {
 					sections: true,
 					items: true,
@@ -223,11 +232,6 @@
 		}
 	})
 	onMount(async () => {
-		fetch(
-			"http://ip-api.com/json?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,proxy,hosting,query"
-		).then((res) => {
-			console.log("debug fetch", res)
-		})
 		setTimeout(() => {
 			appState.setLoadingBar(true)
 			appWin.show()

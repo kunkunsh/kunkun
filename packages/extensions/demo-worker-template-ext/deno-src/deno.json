@@ -1,6 +1,6 @@
 {
 	"imports": {
-		"@hk/photographer-toolbox": "jsr:@hk/photographer-toolbox@^0.1.3",
-		"@kunkun/api": "jsr:@kunkun/api@^0.0.27"
+		"@hk/photographer-toolbox": "jsr:@hk/photographer-toolbox@^0.1.8",
+		"@kunkun/api": "jsr:@kunkun/api@^0.0.38"
 	}
 }

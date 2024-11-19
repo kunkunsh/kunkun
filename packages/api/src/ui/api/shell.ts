@@ -1,7 +1,6 @@
 import { type Buffer } from "node:buffer"
-import { RPCChannel, type StdioInterface } from "@hk/comlink-stdio/browser"
-// import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
 import { Channel, invoke } from "@tauri-apps/api/core"
+import { RPCChannel, type IoInterface } from "kkrpc/browser"
 import { constructShellAPI as constructShellAPI1 } from "tauri-api-adapter/client"
 import {
 	// Child,
@@ -238,7 +237,8 @@ export type IShell = {
 	whereIsCommand: (command: string) => Promise<string | null>
 }
 
-export class TauriShellStdio implements StdioInterface {
+export class TauriShellStdio implements IoInterface {
+	name = "tauri-shell-stdio"
 	constructor(
 		private readStream: EventEmitter<OutputEvents<IOPayload>>, // stdout of child process
 		private childProcess: Child
@@ -279,7 +279,7 @@ export function constructShellAPI(api: IShellServer): IShell {
 		const denoCmd = createDenoCommand(scriptPath, args, config)
 		const denoProcess = await denoCmd.spawn()
 		const stdio = new TauriShellStdio(denoCmd.stdout, denoProcess)
-		const stdioRPC = new RPCChannel<LocalAPI, RemoteAPI>(stdio, localAPIImplementation)
+		const stdioRPC = new RPCChannel<LocalAPI, RemoteAPI>(stdio, { expose: localAPIImplementation })
 		return {
 			rpcChannel: stdioRPC,
 			process: denoProcess,
@@ -374,4 +374,4 @@ export function constructShellAPI(api: IShellServer): IShell {
 	}
 }
 
-export { RPCChannel } from "@hk/comlink-stdio/browser"
+export { RPCChannel } from "kkrpc/browser"

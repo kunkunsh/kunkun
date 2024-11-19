@@ -276,8 +276,8 @@ importers:
         specifier: ^3.12.5
         version: 3.12.5
       kkrpc:
-        specifier: ^0.0.7
-        version: 0.0.7(typescript@5.6.3)
+        specifier: ^0.0.10
+        version: 0.0.10(typescript@5.6.3)
       lz-string:
         specifier: ^1.5.0
         version: 1.5.0
@@ -381,9 +381,6 @@ importers:
 
   packages/api:
     dependencies:
-      '@hk/comlink-stdio':
-        specifier: npm:comlink-stdio@^0.1.7
-        version: comlink-stdio@0.1.7(typescript@5.5.4)
       '@tauri-apps/api':
         specifier: ^2.1.1
         version: 2.1.1
@@ -430,8 +427,8 @@ importers:
         specifier: ^2.1.0
         version: 2.1.0
       kkrpc:
-        specifier: ^0.0.7
-        version: 0.0.7(typescript@5.5.4)
+        specifier: workspace:*
+        version: link:../../vendors/kkrpc/packages/kkrpc
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -543,9 +540,6 @@ importers:
 
   packages/extensions/demo-worker-template-ext:
     dependencies:
-      '@hk/comlink-stdio':
-        specifier: npm:@jsr/hk__comlink-stdio@^0.1.6
-        version: '@jsr/hk__comlink-stdio@0.1.7'
       '@kksh/api':
         specifier: workspace:*
         version: link:../../api
@@ -5187,11 +5181,6 @@ packages:
   colorette@1.4.0:
     resolution: {integrity: sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g==}
 
-  comlink-stdio@0.1.7:
-    resolution: {integrity: sha512-LTTyZfEq3KuDKnNSFDsDbJzNh5F6h+MTd13D6K7yRt9zvnP2nxZ5DgyaAaw2H87vQUzJ1T93Se1o3FHk9Ch7cw==}
-    peerDependencies:
-      typescript: ^5.0.0
-
   comma-separated-tokens@2.0.3:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
 
@@ -7040,6 +7029,11 @@ packages:
   kind-of@6.0.3:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
+
+  kkrpc@0.0.10:
+    resolution: {integrity: sha512-lkQKVnN9f6JrS4ybKbGkV4mtuGhWYLTnaWx60ysytEap+sP5jcTbAuJlSrY6JqlwaohiS0X3ZbvJ2rAXYRdTng==}
+    peerDependencies:
+      typescript: ^5.0.0
 
   kkrpc@0.0.7:
     resolution: {integrity: sha512-fjiXFHouKiZWLw7SGlOFuObPGxadGns15cvakNTFWa1MwgvKwm4LlUpjuDCibpxYnRRCbjeqWuBnJygzRbRnQQ==}
@@ -15270,10 +15264,6 @@ snapshots:
 
   colorette@1.4.0: {}
 
-  comlink-stdio@0.1.7(typescript@5.5.4):
-    dependencies:
-      typescript: 5.5.4
-
   comma-separated-tokens@2.0.3: {}
 
   commander@12.1.0: {}
@@ -17372,6 +17362,14 @@ snapshots:
       json-buffer: 3.0.1
 
   kind-of@6.0.3: {}
+
+  kkrpc@0.0.10(typescript@5.6.3):
+    dependencies:
+      typescript: 5.6.3
+      ws: 8.18.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
 
   kkrpc@0.0.7(typescript@5.5.4):
     dependencies:

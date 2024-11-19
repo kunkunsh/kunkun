@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/api",
-	"version": "0.0.35",
+	"version": "0.0.37",
 	"type": "module",
 	"exports": {
 		".": "./src/index.ts",
@@ -39,7 +39,6 @@
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
-		"@hk/comlink-stdio": "npm:comlink-stdio@^0.1.7",
 		"@tauri-apps/api": "^2.1.1",
 		"@tauri-apps/cli": "^2.1.0",
 		"@tauri-apps/plugin-deep-link": "^2.0.0",
@@ -55,7 +54,7 @@
 		"@tauri-apps/plugin-store": "^2.1.0",
 		"@tauri-apps/plugin-updater": "^2.0.0",
 		"@tauri-apps/plugin-upload": "^2.1.0",
-		"kkrpc": "^0.0.7",
+		"kkrpc": "workspace:*",
 		"lodash": "^4.17.21",
 		"minimatch": "^10.0.1",
 		"semver": "^7.6.3",

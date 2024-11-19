@@ -17,9 +17,6 @@
 				"permission": "shell:deno:spawn",
 				"allow": [
 					{
-						"path": "$EXTENSION/deno-src/deno-script.ts"
-					},
-					{
 						"path": "$EXTENSION/deno-src/rpc.ts",
 						"env": "*",
 						"ffi": "*",
@@ -90,7 +87,6 @@
 		"build": "bun build.ts"
 	},
 	"dependencies": {
-		"@hk/comlink-stdio": "npm:@jsr/hk__comlink-stdio@^0.1.6",
 		"@kksh/api": "workspace:*",
 		"@kunkun/api": "npm:@jsr/kunkun__api@^0.0.13"
 	},
