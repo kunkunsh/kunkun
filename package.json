@@ -50,5 +50,14 @@
 		"tauri-plugin-system-info-api": "workspace:*",
 		"valibot": "^0.40.0",
 		"zod": "^3.23.8"
-	}
+	},
+	"workspaces": [
+		"apps/*",
+		"packages/*",
+		"packages/extensions/*",
+		"packages/templates/*",
+		"packages/tauri-plugins/*",
+		"vendors/tauri-plugin-network",
+		"vendors/tauri-plugin-system-info"
+	]
 }
