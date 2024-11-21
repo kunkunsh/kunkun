@@ -29,8 +29,10 @@ export const BaseIcon = v.object({
 	value: v.string(),
 	invert: v.optional(v.boolean()),
 	darkInvert: v.optional(v.boolean()),
-	hexColor: v.optional(v.pipe(v.string(), v.hexColor("The hex color is badly formatted."))),
-	bgColor: v.optional(v.pipe(v.string(), v.hexColor("The hex color is badly formatted.")))
+	hexColor: v.string(),
+	bgColor: v.string()
+	// hexColor: v.optional(v.pipe(v.string(), v.hexColor("The hex color is badly formatted."))),
+	// bgColor: v.optional(v.pipe(v.string(), v.hexColor("The hex color is badly formatted.")))
 })
 
 export const Icon: v.GenericSchema<Icon> = v.object({

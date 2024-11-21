@@ -1,5 +1,5 @@
-import { toJSONSchema } from "@gcornut/valibot-json-schema"
+import { toJsonSchema } from "@valibot/to-json-schema"
 
 export function getJsonSchema(schema: any) {
-	return JSON.stringify(toJSONSchema({ schema }), null, 2)
+	return JSON.stringify(toJsonSchema(schema), null, 2)
 }
