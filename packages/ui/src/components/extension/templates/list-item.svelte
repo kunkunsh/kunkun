@@ -3,7 +3,7 @@
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "../../common"
 
-	let { item, onSelect }: { item: ListSchema.Item; onSelect?: () => void } = $props()
+	const { item, onSelect }: { item: ListSchema.Item; onSelect?: () => void } = $props()
 </script>
 
 <Command.Item class="gap-2" {onSelect} value={JSON.stringify(item)}>
