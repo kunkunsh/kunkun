@@ -23,8 +23,6 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 
 	function init() {
 		return extAPI.loadAllExtensionsFromDb().then((exts) => {
-			console.log("loadAllExtensionsFromDb", exts);
-			
 			store.set(exts)
 		})
 	}

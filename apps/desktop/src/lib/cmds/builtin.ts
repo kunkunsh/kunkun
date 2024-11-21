@@ -1,4 +1,4 @@
-import { appConfig, appState, auth } from "@/stores"
+import { appConfig, appState, auth, extensions } from "@/stores"
 import { checkUpdateAndInstall } from "@/utils/updater"
 import type { BuiltinCmd } from "@kksh/ui/types"
 import { getVersion } from "@tauri-apps/api/app"
@@ -162,6 +162,16 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Reload this page",
 		function: async () => {
 			location.reload()
+		}
+	},
+	{
+		name: "Reload Extensions",
+		iconifyIcon: "tabler:reload",
+		description: "Reload Extensions",
+		function: async () => {
+			extensions.init().then(() => {
+				appState.clearSearchTerm()
+			})
 		}
 	},
 	{
