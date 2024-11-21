@@ -1,7 +1,7 @@
 {
 	"name": "kksh",
 	"module": "dist/cli.js",
-	"version": "0.0.23",
+	"version": "0.0.24",
 	"type": "module",
 	"bin": {
 		"kksh": "./dist/cli.js",
@@ -13,16 +13,10 @@
 		"test": "cross-env NODE_ENV=test bun test --coverage"
 	},
 	"devDependencies": {
-		"@rollup/plugin-json": "^6.1.0",
-		"@rollup/plugin-replace": "^5.0.7",
-		"@rollup/plugin-terser": "^0.4.4",
-		"@rollup/plugin-typescript": "^11.1.6",
 		"@types/bun": "latest",
 		"@types/debug": "^4.1.12",
 		"@types/fs-extra": "^11.0.4",
-		"cross-env": "^7.0.3",
-		"rollup": "^4.24.0",
-		"rollup-plugin-visualizer": "^5.12.0"
+		"cross-env": "^7.0.3"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
