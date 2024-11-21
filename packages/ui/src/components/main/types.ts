@@ -11,7 +11,7 @@ export type BuiltinCmd = {
 	id: string
 	name: string
 	description: string
-	iconifyIcon: string
+	icon: Icon
 	keywords?: string[]
 	function: () => Promise<void>
 	flags?: {

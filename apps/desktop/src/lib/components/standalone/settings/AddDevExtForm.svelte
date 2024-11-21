@@ -102,7 +102,6 @@
 		if (!selected) {
 			return toast.warning("No File Selected")
 		}
-		console.log(selected)
 		for (const tarballPath of selected) {
 			await extensions.installTarball(tarballPath, $appConfig.devExtensionPath)
 		}
@@ -129,7 +128,10 @@
 		<Card.Root
 			class={cn("h-36 w-96", dragging ? "border-lime-400/30" : "text-white hover:text-blue-200")}
 		>
-			<div class="flex h-full cursor-pointer items-center justify-center">
+			<button
+				class="flex h-full w-full cursor-pointer items-center justify-center"
+				onclick={pickExtFolders}
+			>
 				<div class={cn("flex flex-col items-center", dragging ? "text-lime-400/70" : "")}>
 					<IconMultiplexer
 						icon={{ value: "mdi:folder-cog-outline", type: IconEnum.Iconify }}
@@ -138,7 +140,7 @@
 					<small class="select-none font-mono text-xs">Drag and Drop</small>
 					<small class="select-none font-mono text-xs">Extension Folder or Tarball</small>
 				</div>
-			</div>
+			</button>
 		</Card.Root>
 	</DragNDrop>
 </Layouts.Center>

@@ -255,8 +255,6 @@ export async function verifyDenoCmdPermission(
 
 	// now we have command requested permissions, we need to compare with permissions defined in manifest
 	/* ----------------------- Check Allow All Permissions ---------------------- */
-	console.log("config: ", config)
-	console.log("allowAllEnv: ", allowAllEnv)
 
 	if (config.allowAllEnv && !allowAllEnv) {
 		throw new Error("allowAllEnv is not allowed")
@@ -280,26 +278,40 @@ export async function verifyDenoCmdPermission(
 		throw new Error("allowAllSys is not allowed")
 	}
 
-	if (!allowAllEnv && difference(config.allowEnv, allowEnv).length > 0) {
-		throw new Error(`allowEnv is not allowed: ${difference(config.allowEnv, allowEnv)}`)
+	function isSubsetOf<T>(subset: T[] | undefined, superset: T[]): boolean {
+		if (!subset) {
+			// if subset is undefined, this means extension didn't request this permission
+			return true
+		}
+		return subset.every((item) => superset.includes(item))
 	}
-	if (!allowAllNet && difference(config.allowNet, allowNet).length > 0) {
-		throw new Error(`allowNet is not allowed: ${difference(config.allowNet, allowNet)}`)
+
+	function getDisallowed(allowEnv: string[], userAllow: string[]): string[] {
+		return userAllow.filter((env) => !allowEnv?.includes(env))
 	}
-	if (!allowAllRead && difference(config.allowRead, allowRead).length > 0) {
-		throw new Error(`allowRead is not allowed: ${difference(config.allowRead, allowRead)}`)
+
+	if (!allowAllEnv && !isSubsetOf(config.allowEnv, allowEnv)) {
+		throw new Error(`allowEnv is not allowed: ${getDisallowed(allowEnv, config.allowEnv ?? [])}`)
 	}
-	if (!allowAllWrite && difference(config.allowWrite, allowWrite).length > 0) {
-		throw new Error(`allowWrite is not allowed: ${difference(config.allowWrite, allowWrite)}`)
+	if (!allowAllNet && !isSubsetOf(config.allowNet, allowNet)) {
+		throw new Error(`allowNet is not allowed: ${getDisallowed(allowNet, config.allowNet ?? [])}`)
 	}
-	if (!allowAllRun && difference(config.allowRun, allowRun).length > 0) {
-		throw new Error(`allowRun is not allowed: ${difference(config.allowRun, allowRun)}`)
+	if (!allowAllRead && !isSubsetOf(config.allowRead, allowRead)) {
+		throw new Error(`allowRead is not allowed: ${getDisallowed(allowRead, config.allowRead ?? [])}`)
 	}
-	if (!allowAllFfi && difference(config.allowFfi, allowFfi).length > 0) {
-		throw new Error(`allowFfi is not allowed: ${difference(config.allowFfi, allowFfi)}`)
+	if (!allowAllWrite && !isSubsetOf(config.allowWrite, allowWrite)) {
+		throw new Error(
+			`allowWrite is not allowed: ${getDisallowed(allowWrite, config.allowWrite ?? [])}`
+		)
 	}
-	if (!allowAllSys && difference(config.allowSys, allowSys).length > 0) {
-		throw new Error(`allowSys is not allowed: ${difference(config.allowSys, allowSys)}`)
+	if (!allowAllRun && !isSubsetOf(config.allowRun, allowRun)) {
+		throw new Error(`allowRun is not allowed: ${getDisallowed(allowRun, config.allowRun ?? [])}`)
+	}
+	if (!allowAllFfi && !isSubsetOf(config.allowFfi, allowFfi)) {
+		throw new Error(`allowFfi is not allowed: ${getDisallowed(allowFfi, config.allowFfi ?? [])}`)
+	}
+	if (!allowAllSys && !isSubsetOf(config.allowSys, allowSys)) {
+		throw new Error(`allowSys is not allowed: ${getDisallowed(allowSys, config.allowSys ?? [])}`)
 	}
 }
 

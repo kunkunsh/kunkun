@@ -60,10 +60,6 @@
 	}
 
 	$effect(() => {
-		console.log("onListItemSelected", onListItemSelected)
-	})
-
-	$effect(() => {
 		if (highlightedValue.startsWith("{")) {
 			onHighlightedItemChanged?.(JSON.parse(highlightedValue).value)
 		}

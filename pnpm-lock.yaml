@@ -629,17 +629,17 @@ importers:
         version: link:../supabase
       typescript:
         specifier: ^5.0.0
-        version: 5.5.4
+        version: 5.6.3
       valibot:
         specifier: ^0.40.0
-        version: 0.40.0(typescript@5.5.4)
+        version: 0.40.0(typescript@5.6.3)
     devDependencies:
-      '@gcornut/valibot-json-schema':
-        specifier: ^0.42.0
-        version: 0.42.0(esbuild@0.24.0)(typescript@5.5.4)
       '@types/bun':
         specifier: latest
         version: 1.1.13
+      '@valibot/to-json-schema':
+        specifier: 1.0.0-beta.3
+        version: 1.0.0-beta.3(valibot@0.40.0(typescript@5.6.3))
 
   packages/supabase:
     dependencies:
@@ -1958,10 +1958,6 @@ packages:
 
   '@gcornut/valibot-json-schema@0.31.0':
     resolution: {integrity: sha512-3xGptCurm23e7nuPQkdrE5rEs1FeTPHhAUsBuwwqG4/YeZLwJOoYZv+fmsppUEfo5y9lzUwNQrNqLS/q7HMc7g==}
-    hasBin: true
-
-  '@gcornut/valibot-json-schema@0.42.0':
-    resolution: {integrity: sha512-4Et4AN6wmqeA0PfU5Clkv/IS27wiefsWf6TemAZrb75uzkClYEFavim7SboeKwbll9Nbsn2Iv0LT/HS5H7orZg==}
     hasBin: true
 
   '@hapi/hoek@9.3.0':
@@ -4395,6 +4391,11 @@ packages:
     peerDependencies:
       '@unovis/ts': 1.4.4
       vue: ^3
+
+  '@valibot/to-json-schema@1.0.0-beta.3':
+    resolution: {integrity: sha512-20XQh1u5sOLwS3NOB7oHCo3clQ9h4GlavXgLKMux2PYpHowb7P97cND0dg8T3+fE1WoKVACcLppvzAPpSx0F+Q==}
+    peerDependencies:
+      valibot: ^1.0.0 || ^1.0.0-beta.5 || ^1.0.0-rc
 
   '@vee-validate/zod@4.14.7':
     resolution: {integrity: sha512-UD0Tfyz1cKKd7BinnUztqKL+oeMjg/T4ZEguN/uZV4DsR9z7gdrD0lOuOU7aVl9UpVK6NM7MhDka35Lj7b/DTw==}
@@ -9486,14 +9487,6 @@ packages:
       typescript:
         optional: true
 
-  valibot@0.42.1:
-    resolution: {integrity: sha512-3keXV29Ar5b//Hqi4MbSdV7lfVp6zuYLZuA9V1PvQUsXqogr+u5lvLPLk3A4f74VUXDnf/JfWMN6sB+koJ/FFw==}
-    peerDependencies:
-      typescript: '>=5'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
   valibot@1.0.0-beta.7:
     resolution: {integrity: sha512-8CsDu3tqyg7quEHMzCOYdQ/d9NlmVQKtd4AlFje6oJpvqo70EIZjSakKIeWltJyNAiUtdtLe0LAk4625gavoeQ==}
     peerDependencies:
@@ -11128,16 +11121,6 @@ snapshots:
       esbuild: 0.24.0
       esbuild-runner: 2.2.2(esbuild@0.24.0)
     optional: true
-
-  '@gcornut/valibot-json-schema@0.42.0(esbuild@0.24.0)(typescript@5.5.4)':
-    dependencies:
-      valibot: 0.42.1(typescript@5.5.4)
-    optionalDependencies:
-      '@types/json-schema': 7.0.15
-      esbuild-runner: 2.2.2(esbuild@0.24.0)
-    transitivePeerDependencies:
-      - esbuild
-      - typescript
 
   '@hapi/hoek@9.3.0':
     optional: true
@@ -14311,6 +14294,10 @@ snapshots:
     dependencies:
       '@unovis/ts': 1.4.4
       vue: 3.5.13(typescript@5.6.3)
+
+  '@valibot/to-json-schema@1.0.0-beta.3(valibot@0.40.0(typescript@5.6.3))':
+    dependencies:
+      valibot: 0.40.0(typescript@5.6.3)
 
   '@vee-validate/zod@4.14.7(vue@3.5.13(typescript@5.6.3))':
     dependencies:
@@ -20362,10 +20349,6 @@ snapshots:
   valibot@0.40.0(typescript@5.6.3):
     optionalDependencies:
       typescript: 5.6.3
-
-  valibot@0.42.1(typescript@5.5.4):
-    optionalDependencies:
-      typescript: 5.5.4
 
   valibot@1.0.0-beta.7(typescript@5.6.3):
     optionalDependencies:

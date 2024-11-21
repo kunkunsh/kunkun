@@ -1,8 +1,8 @@
+import { generateJarvisPluginCommand } from "@kksh/api/commands"
+import { AppInfo, IconEnum, SysCommand } from "@kksh/api/models"
 import { invoke } from "@tauri-apps/api/core"
 import { platform } from "@tauri-apps/plugin-os"
 import { parse } from "valibot"
-import { AppInfo, IconEnum, SysCommand } from "../models"
-import { generateJarvisPluginCommand } from "./common"
 
 export function openTrash(): Promise<void> {
 	return invoke(generateJarvisPluginCommand("open_trash"))
@@ -119,56 +119,80 @@ export function getSelectedFilesInFileExplorer(): Promise<string[]> {
 export const rawSystemCommands = [
 	{
 		name: "Open Trash",
-		icon: "uil:trash",
+		icon: {
+			value: "uil:trash",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: openTrash,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Empty Trash",
-		icon: "uil:trash",
+		icon: {
+			value: "uil:trash",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: true,
 		function: emptyTrash,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Shutdown",
-		icon: "mdi:shutdown",
+		icon: {
+			value: "mdi:shutdown",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: true,
 		function: shutdown,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Reboot",
-		icon: "mdi:restart",
+		icon: {
+			value: "mdi:restart",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: true,
 		function: reboot,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Sleep",
-		icon: "carbon:asleep",
+		icon: {
+			value: "carbon:asleep",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: sleep,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Toggle System Appearance",
-		icon: "line-md:light-dark",
+		icon: {
+			value: "line-md:light-dark",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: toggleSystemAppearance,
 		platforms: ["macos"]
 	},
 	{
 		name: "Show Desktop",
-		icon: "bi:window-desktop",
+		icon: {
+			value: "bi:window-desktop",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: showDesktop,
 		platforms: ["macos"]
 	},
 	{
 		name: "Quit App",
-		icon: "charm:cross",
+		icon: {
+			value: "charm:cross",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: quitAllApps,
 		platforms: []
@@ -176,119 +200,170 @@ export const rawSystemCommands = [
 	},
 	{
 		name: "Sleep Displays",
-		icon: "solar:display-broken",
+		icon: {
+			value: "solar:display-broken",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: sleepDisplays,
 		platforms: ["macos"]
 	},
 	{
 		name: "Set Volume to 0%",
-		icon: "flowbite:volume-mute-outline",
+		icon: {
+			value: "flowbite:volume-mute-outline",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: setVolumeTo0,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Set Volume to 25%",
-		icon: "flowbite:volume-down-solid",
+		icon: {
+			value: "flowbite:volume-down-solid",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: setVolumeTo25,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Set Volume to 50%",
-		icon: "flowbite:volume-down-solid",
+		icon: {
+			value: "flowbite:volume-down-solid",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: setVolumeTo50,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Set Volume to 75%",
-		icon: "flowbite:volume-down-solid",
+		icon: {
+			value: "flowbite:volume-down-solid",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: setVolumeTo75,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Set Volume to 100%",
-		icon: "flowbite:volume-up-solid",
+		icon: {
+			value: "flowbite:volume-up-solid",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: setVolumeTo100,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Turn Volume Up",
-		icon: "flowbite:volume-down-solid",
+		icon: {
+			value: "flowbite:volume-up-solid",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: turnVolumeUp,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Turn Volume Down",
-		icon: "flowbite:volume-down-outline",
+		icon: {
+			value: "flowbite:volume-down-outline",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: turnVolumeDown,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Toggle Mute",
-		icon: "flowbite:volume-down-outline",
+		icon: {
+			value: "flowbite:volume-down-outline",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: toggleMute,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Mute",
-		icon: "flowbite:volume-mute-solid",
+		icon: {
+			value: "flowbite:volume-mute-solid",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: mute,
 		platforms: ["macos", "linux"]
 	},
 	{
 		name: "Unmute",
-		icon: "flowbite:volume-mute-solid",
+		icon: {
+			value: "flowbite:volume-mute-solid",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: unmute,
 		platforms: ["macos", "linux"]
 	},
 	{
 		name: "Toggle Stage Manager",
-		icon: "material-symbols:dashboard",
+		icon: {
+			value: "material-symbols:dashboard",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: toggleStageManager,
 		platforms: []
 	},
 	{
 		name: "Toggle Bluetooth",
-		icon: "material-symbols:bluetooth",
+		icon: {
+			value: "material-symbols:bluetooth",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: toggleBluetooth,
 		platforms: []
 	},
 	{
 		name: "Toggle Hidden Files",
-		icon: "mdi:hide",
+		icon: {
+			value: "mdi:hide",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: toggleHiddenFiles,
 		platforms: []
 	},
 	{
 		name: "Eject All Disks",
-		icon: "ph:eject-fill",
+		icon: {
+			value: "ph:eject-fill",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: true,
 		function: ejectAllDisks,
 		platforms: ["macos"]
 	},
 	{
 		name: "Log Out User",
-		icon: "ic:baseline-logout",
+		icon: {
+			value: "ic:baseline-logout",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: logoutUser,
 		platforms: ["macos", "linux", "windows"]
 	},
 	{
 		name: "Hide All Apps Except Frontmost",
-		icon: "mdi:hide",
+		icon: {
+			value: "mdi:hide",
+			type: IconEnum.Iconify
+		},
 		confirmRequired: false,
 		function: hideAllAppsExceptFrontmost,
 		platforms: []
@@ -301,10 +376,7 @@ export function getSystemCommands(): SysCommand[] {
 		.map((cmd) => ({
 			name: cmd.name,
 			value: "system-cmd" + cmd.name.split(" ").join("-").toLowerCase(),
-			icon: {
-				value: cmd.icon,
-				type: IconEnum.Iconify
-			},
+			icon: cmd.icon,
 			keywords: cmd.name.split(" "),
 			function: cmd.function,
 			confirmRequired: cmd.confirmRequired

@@ -1,5 +1,6 @@
-import { appConfig, appState, auth } from "@/stores"
+import { appConfig, appState, auth, extensions } from "@/stores"
 import { checkUpdateAndInstall } from "@/utils/updater"
+import { IconEnum } from "@kksh/api/models"
 import type { BuiltinCmd } from "@kksh/ui/types"
 import { getVersion } from "@tauri-apps/api/app"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
@@ -10,11 +11,15 @@ import { toast } from "svelte-sonner"
 import { derived } from "svelte/store"
 import * as clipboard from "tauri-plugin-clipboard-api"
 import { v4 as uuidv4 } from "uuid"
+import { hexColor } from "valibot"
 
 export const rawBuiltinCmds: BuiltinCmd[] = [
 	{
 		name: "Store",
-		iconifyIcon: "streamline:store-2-solid",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "streamline:store-2-solid"
+		},
 		description: "Go to Extension Store",
 		function: async () => {
 			appState.clearSearchTerm()
@@ -23,7 +28,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Sign In",
-		iconifyIcon: "mdi:login-variant",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "mdi:login-variant"
+		},
 		description: "",
 		function: async () => {
 			goto("/auth")
@@ -31,7 +39,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Sign Out",
-		iconifyIcon: "mdi:logout-variant",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "mdi:logout-variant"
+		},
 		description: "",
 		function: async () => {
 			auth
@@ -42,7 +53,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Show Draggable Area",
-		iconifyIcon: "mingcute:move-fill",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "mingcute:move-fill"
+		},
 		description: "",
 		function: async () => {
 			// select all html elements with attribute data-tauri-drag-region
@@ -59,7 +73,11 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Add Dev Extension",
-		iconifyIcon: "lineicons:dev",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "lineicons:dev",
+			hexColor: "#0f0"
+		},
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
@@ -68,7 +86,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Kunkun Version",
-		iconifyIcon: "stash:version-solid",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "stash:version-solid"
+		},
 		description: "",
 		function: async () => {
 			toast.success(`Kunkun Version: ${await getVersion()}`)
@@ -76,7 +97,11 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Set Dev Extension Path",
-		iconifyIcon: "lineicons:dev",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "lineicons:dev",
+			hexColor: "#0f0"
+		},
 		description: "",
 		function: async () => {
 			// const appStateStore = useAppStateStore()
@@ -86,7 +111,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Extension Window Troubleshooter",
-		iconifyIcon: "material-symbols:window-outline",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:window-outline"
+		},
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
@@ -102,7 +130,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Extension Permission Inspector",
-		iconifyIcon: "hugeicons:inspect-code",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "hugeicons:inspect-code"
+		},
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
@@ -112,7 +143,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Extension Loading Troubleshooter",
-		iconifyIcon: "material-symbols:troubleshoot",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:troubleshoot"
+		},
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
@@ -122,7 +156,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Create Quicklink",
-		iconifyIcon: "material-symbols:link",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:link"
+		},
 		description: "Create a Quicklink",
 		function: async () => {
 			appState.clearSearchTerm()
@@ -131,7 +168,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Settings",
-		iconifyIcon: "solar:settings-linear",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "solar:settings-linear"
+		},
 		description: "Open Settings",
 		function: async () => {
 			goto("/settings")
@@ -140,7 +180,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Check Update",
-		iconifyIcon: "material-symbols:update",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:update"
+		},
 		description: "Check for updates",
 		function: async () => {
 			checkUpdateAndInstall()
@@ -149,7 +192,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Check Beta Update",
-		iconifyIcon: "material-symbols:update",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:update"
+		},
 		description: "Check for Beta updates",
 		function: async () => {
 			checkUpdateAndInstall({ beta: true })
@@ -158,15 +204,34 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Reload",
-		iconifyIcon: "tabler:reload",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "tabler:reload"
+		},
 		description: "Reload this page",
 		function: async () => {
 			location.reload()
 		}
 	},
 	{
+		name: "Reload Extensions",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "tabler:reload"
+		},
+		description: "Reload Extensions",
+		function: async () => {
+			extensions.init().then(() => {
+				appState.clearSearchTerm()
+			})
+		}
+	},
+	{
 		name: "Dance",
-		iconifyIcon: "mdi:dance-pole",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "mdi:dance-pole"
+		},
 		description: "Dance",
 		function: async () => {
 			goto("/dance")
@@ -174,7 +239,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Quit Kunkun",
-		iconifyIcon: "emojione:cross-mark-button",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "emojione:cross-mark-button"
+		},
 		description: "Quit Kunkun",
 		function: async () => {
 			exit(0)
@@ -182,7 +250,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Toggle Dev Extension HMR",
-		iconifyIcon: "ri:toggle-line",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "ri:toggle-line"
+		},
 		description: "Load dev extensions from their dev server URLs",
 		function: async () => {
 			appConfig.update((config) => {
@@ -197,7 +268,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Pin Current Screenshot",
-		iconifyIcon: "material-symbols:screenshot-monitor-outline",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:screenshot-monitor-outline"
+		},
 		description: "Pin the current screenshot",
 		function: async () => {
 			appState.clearSearchTerm()
@@ -220,7 +294,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "MDNS Debugger",
-		iconifyIcon: "material-symbols:wifi-find",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:wifi-find"
+		},
 		description: "MDNS Debugger",
 		function: async () => {
 			goto("/troubleshooters/mdns-debugger")
@@ -232,7 +309,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Toggle Hide On Blur",
-		iconifyIcon: "ri:toggle-line",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "ri:toggle-line"
+		},
 		description: "Toggle Hide On Blur",
 		function: async () => {
 			appConfig.update((config) => {
@@ -247,7 +327,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Toggle Developer Mode",
-		iconifyIcon: "hugeicons:developer",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "hugeicons:developer"
+		},
 		description: "Toggle Developer Mode",
 		function: async () => {
 			appConfig.update((config) => {

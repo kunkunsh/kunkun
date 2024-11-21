@@ -1,11 +1,18 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@3.0.3/schema.json",
-  "changelog": "@changesets/cli/changelog",
-  "commit": false,
-  "fixed": [],
-  "linked": [],
-  "access": "restricted",
-  "baseBranch": "main",
-  "updateInternalDependencies": "patch",
-  "ignore": []
+	"$schema": "https://unpkg.com/@changesets/config@3.0.3/schema.json",
+	"changelog": "@changesets/cli/changelog",
+	"commit": false,
+	"fixed": [],
+	"linked": [],
+	"access": "restricted",
+	"baseBranch": "develop",
+	"updateInternalDependencies": "patch",
+	"ignore": [
+		"@kksh/desktop",
+		"@kksh/supabase",
+		"@kksh/utils",
+		"@kksh/extension",
+		"@kksh/schema",
+		"@kksh/supabase"
+	]
 }

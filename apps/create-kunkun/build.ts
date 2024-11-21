@@ -31,6 +31,7 @@ fs.emptyDirSync(tmpDistTemplatesPath)
 console.log(getRootDir())
 
 const templatesPath = path.join(getRootDir(), "../..", "packages/templates")
+console.log(`Copy from ${templatesPath} to ${tmpDistTemplatesPath}`)
 fs.copySync(templatesPath, tmpDistTemplatesPath, { dereference: os.platform() === "win32" })
 
 /* -------------------------------------------------------------------------- */
