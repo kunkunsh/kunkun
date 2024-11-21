@@ -3,12 +3,12 @@
 	import {
 		Button,
 		Command,
-		CommandFooter,
+		// CommandFooter,
 		ModeWatcher,
 		Separator,
 		ThemeWrapper,
 		updateTheme
-	} from "@kksh/svelte"
+	} from "@kksh/svelte5"
 	import ThemeCustomizer from "$lib/components/ThemeCustomizer.svelte"
 	import {
 		Calculator,
@@ -49,23 +49,22 @@
 			<Command.List>
 				<Command.Empty>No results found.</Command.Empty>
 				<Command.Group heading="Suggestions">
-					<Command.Item onSelect={(v) => console.log("selected:", v)}>
+					<Command.Item>
 						<Calendar class="mr-2 h-4 w-4" />
-
 						<span>Calendar</span>
 					</Command.Item>
-					<Command.Item onSelect={(v) => console.log("selected:", v)}>
+					<Command.Item>
 						<Smile class="mr-2 h-4 w-4" />
 						<span>Search Emoji</span>
 					</Command.Item>
-					<Command.Item onSelect={(v) => console.log("selected:", v)}>
+					<Command.Item>
 						<Calculator class="mr-2 h-4 w-4" />
 						<span>Calculator</span>
 					</Command.Item>
 				</Command.Group>
 				<Command.Separator />
 				<Command.Group heading="Settings">
-					<Command.Item onSelect={(v) => console.log("selected:", v)}>
+					<Command.Item>
 						<User class="mr-2 h-4 w-4" />
 						<span>Profile</span>
 						<Command.Shortcut>⌘P</Command.Shortcut>
@@ -75,7 +74,7 @@
 						<span>Billing</span>
 						<Command.Shortcut>⌘B</Command.Shortcut>
 					</Command.Item>
-					<Command.Item onSelect={(v) => console.log("selected:", v)}>
+					<Command.Item>
 						<Settings class="mr-2 h-4 w-4" />
 						<span>Settings</span>
 						<Command.Shortcut>⌘S</Command.Shortcut>
@@ -83,7 +82,7 @@
 				</Command.Group>
 			</Command.List>
 		</div>
-		<CommandFooter>
+		<div class="flex items-center justify-between">
 			<SettingsIcon class="ml-2 h-4 w-4" />
 			<div class="flex items-center space-x-2">
 				<Button variant="ghost" size="sm">
@@ -93,6 +92,6 @@
 				<Separator orientation="vertical" />
 				<ThemeCustomizer />
 			</div>
-		</CommandFooter>
+		</div>
 	</Command.Root>
 </ThemeWrapper>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ThemeCustomizerButton, type ThemeConfig, updateTheme } from '@kksh/svelte';
+	import { ThemeCustomizerButton, type ThemeConfig, updateTheme } from '@kksh/svelte5';
 	import { ui } from '@kksh/api/ui/iframe';
 	import { onMount } from 'svelte';
 

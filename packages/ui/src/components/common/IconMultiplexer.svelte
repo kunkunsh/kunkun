@@ -9,16 +9,29 @@
 		class: className,
 		...restProps
 	}: { icon: TIcon; class?: string; [key: string]: any } = $props()
+
+	let remoteIconError = $state(false)
 </script>
 
 {#if icon.type === IconEnum.RemoteUrl}
-	<img
-		loading="lazy"
-		class={cn("", className, { invert: icon.invert })}
-		src={icon.value}
-		alt=""
-		{...restProps}
-	/>
+	{#if !remoteIconError}
+		<img
+			loading="lazy"
+			class={cn("", className, { invert: icon.invert })}
+			src={icon.value}
+			alt=""
+			onerror={() => {
+				remoteIconError = true
+			}}
+			{...restProps}
+		/>
+	{:else}
+		<Icon
+			icon="carbon:unknown-filled"
+			class={cn("", className, { invert: icon.invert })}
+			{...restProps}
+		/>
+	{/if}
 {:else if icon.type === IconEnum.Iconify}
 	<Icon icon={icon.value} class={cn("", className, { invert: icon.invert })} {...restProps} />
 {:else if icon.type === IconEnum.Base64PNG}

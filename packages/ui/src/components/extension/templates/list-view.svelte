@@ -7,6 +7,7 @@
 	import { type PaneAPI } from "paneforge"
 	import { onMount, type Snippet } from "svelte"
 	import { StrikeSeparator } from "../../common"
+	import { DraggableCommandGroup } from "../../custom"
 	import ListDetail from "./list-detail.svelte"
 	import ListItem from "./list-item.svelte"
 
@@ -57,6 +58,10 @@
 	export function setHighlightedValue(value: string) {
 		highlightedValue = value
 	}
+
+	$effect(() => {
+		console.log("onListItemSelected", onListItemSelected)
+	})
 
 	$effect(() => {
 		if (highlightedValue.startsWith("{")) {
@@ -138,19 +143,14 @@
 			<Command.List class="h-full max-h-screen" onscroll={onScroll}>
 				<Command.Empty>No results found.</Command.Empty>
 				{#each listViewContent.sections || [] as section}
-					<Command.Group heading={section.title}>
+					<DraggableCommandGroup heading={section.title}>
 						{#each section.items as item}
-							<ListItem {item} />
+							<ListItem {item} onSelect={() => onListItemSelected?.(item.value)} />
 						{/each}
-					</Command.Group>
+					</DraggableCommandGroup>
 				{/each}
 				{#each listViewContent.items || [] as item}
-					<ListItem
-						{item}
-						onSelect={() => {
-							onListItemSelected?.(item.value)
-						}}
-					/>
+					<ListItem {item} onSelect={() => onListItemSelected?.(item.value)} />
 				{/each}
 				{#if loading}
 					<StrikeSeparator class="h-20">

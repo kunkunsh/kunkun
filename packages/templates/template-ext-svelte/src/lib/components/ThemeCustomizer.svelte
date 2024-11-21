@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { ui } from "@kksh/api/ui/iframe"
-	import { ThemeCustomizerButton, updateTheme, type ThemeConfig } from "@kksh/svelte"
+	import { ThemeCustomizerButton, updateTheme, type ThemeConfig } from "@kksh/svelte5"
 	import { onMount } from "svelte"
 
 	let config: ThemeConfig = {

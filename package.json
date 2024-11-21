@@ -21,7 +21,7 @@
 		"turbo": "^2.3.0",
 		"typescript": "5.6.3"
 	},
-	"packageManager": "pnpm@9.12.3",
+	"packageManager": "pnpm@9.14.1",
 	"engines": {
 		"node": ">=22"
 	},
@@ -50,5 +50,14 @@
 		"tauri-plugin-system-info-api": "workspace:*",
 		"valibot": "^0.40.0",
 		"zod": "^3.23.8"
-	}
+	},
+	"workspaces": [
+		"apps/*",
+		"packages/*",
+		"packages/extensions/*",
+		"packages/templates/*",
+		"packages/tauri-plugins/*",
+		"vendors/tauri-plugin-network",
+		"vendors/tauri-plugin-system-info"
+	]
 }
