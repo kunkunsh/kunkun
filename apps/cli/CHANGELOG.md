@@ -1,5 +1,12 @@
 # kksh
 
+## 0.0.25
+
+### Patch Changes
+
+- Updated dependencies
+  - @kksh/api@0.0.43
+
 ## 0.0.22
 
 ### Patch Changes
