@@ -63,9 +63,6 @@
 			.fixPathEnv()
 			.then(() => {
 				info("fixed path env")
-				shellx.hasCommand("ffprobe").then((res) => {
-					console.log("has ffprobe:", res)
-				})
 			})
 			.catch(error)
 

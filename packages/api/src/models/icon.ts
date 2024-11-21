@@ -1,13 +1,4 @@
-import {
-	boolean,
-	enum_,
-	literal,
-	nullable,
-	object,
-	optional,
-	string,
-	type InferOutput
-} from "valibot"
+import * as v from "valibot"
 import { NodeName, NodeNameEnum } from "./constants"
 
 /* -------------------------------------------------------------------------- */
@@ -20,17 +11,37 @@ export enum IconEnum {
 	Base64PNG = "base64-png",
 	Text = "text"
 }
-export const IconType = enum_(IconEnum)
-export type IconType = InferOutput<typeof IconType>
+export const IconType = v.enum_(IconEnum)
+export type IconType = v.InferOutput<typeof IconType>
 
-export const Icon = object({
+export type Icon = {
+	type: IconType
+	value: string
+	invert?: boolean
+	darkInvert?: boolean
+	hexColor?: string
+	bgColor?: string
+	fallback?: Icon
+}
+
+export const BaseIcon = v.object({
 	type: IconType,
-	value: string(),
-	invert: optional(boolean())
+	value: v.string(),
+	invert: v.optional(v.boolean()),
+	darkInvert: v.optional(v.boolean()),
+	hexColor: v.optional(v.pipe(v.string(), v.hexColor("The hex color is badly formatted."))),
+	bgColor: v.optional(v.pipe(v.string(), v.hexColor("The hex color is badly formatted.")))
 })
-export type Icon = InferOutput<typeof Icon>
-export const IconNode = object({
+
+export const Icon: v.GenericSchema<Icon> = v.object({
+	...BaseIcon.entries,
+	fallback: v.optional(v.lazy(() => Icon))
+})
+
+export const IconNode = v.object({
+	...BaseIcon.entries,
 	nodeName: NodeName,
-	...Icon.entries
+	fallback: v.optional(v.lazy(() => Icon))
 })
-export type IconNode = InferOutput<typeof IconNode>
+
+export type IconNode = v.InferOutput<typeof IconNode>
