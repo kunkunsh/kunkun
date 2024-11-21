@@ -22,15 +22,8 @@
 			keywords={cmd.keywords}
 		>
 			<span class="flex gap-2">
-				<IconMultiplexer
-					icon={{ value: cmd.iconifyIcon, type: IconEnum.Iconify }}
-					class="!h-5 !w-5 shrink-0"
-				/>
+				<IconMultiplexer icon={cmd.icon} class="!h-5 !w-5 shrink-0" />
 				<span>{cmd.name}</span>
-				<!-- <pre>{JSON.stringify({
-						cmdName: cmd.name,
-						cmdType: CmdTypeEnum.Builtin
-					})}</pre> -->
 			</span>
 		</Command.Item>
 	{/each}

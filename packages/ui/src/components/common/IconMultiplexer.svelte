@@ -3,7 +3,10 @@
 	import { IconEnum, IconType, Icon as TIcon } from "@kksh/api/models"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
+	import * as v from "valibot"
 	import { styleObjectToString } from "../../utils/style"
+
+	const hexColorValidator = v.pipe(v.string(), v.hexColor("The hex color is badly formatted."))
 
 	const {
 		icon,
@@ -13,10 +16,20 @@
 
 	let remoteIconError = $state(false)
 
+	function fillHexColor(style: Record<string, string>, key: string, value?: string) {
+		if (!value) return
+		const parseRes = v.safeParse(hexColorValidator, value)
+		if (!parseRes.success) {
+			console.error(v.flatten(parseRes.issues))
+			return
+		}
+		if (parseRes.output) style[key] = parseRes.output
+	}
+
 	let customStyle = $derived.by(() => {
 		const style: Record<string, string> = {}
-		if (icon.hexColor) style.color = icon.hexColor
-		if (icon.bgColor) style["background-color"] = icon.bgColor
+		fillHexColor(style, "color", icon.hexColor)
+		fillHexColor(style, "background-color", icon.bgColor)
 		return style
 	})
 
