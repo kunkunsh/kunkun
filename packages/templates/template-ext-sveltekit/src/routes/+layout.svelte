@@ -1,7 +1,7 @@
 <script>
 	import '../app.css';
 	import { ModeWatcher } from 'mode-watcher';
-	import { ThemeWrapper, updateTheme } from '@kksh/svelte';
+	import { ThemeWrapper, updateTheme } from '@kksh/svelte5';
 	import { onMount } from 'svelte';
 	import { ui } from '@kksh/api/ui/iframe';
 
