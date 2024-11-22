@@ -17,7 +17,24 @@ jobs:
         with:
           submodules: "true"
       - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable      
+        uses: dtolnay/rust-toolchain@stable
+      - name: Install protobuf (Mac)
+        if: matrix.os == 'macos-14'
+        run: |
+          brew install protobuf
+      - name: Install protoc and openssl for windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install protoc
+          choco install openssl
+          echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
+          echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
+          echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib\\VC\\x64\\MDd"' >> $env:GITHUB_ENV
+      - name: Install Protobuf (Ubuntu)
+        if: matrix.os == 'ubuntu-24.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
       - name: Rust Test
         run: cargo test
       - uses: pnpm/action-setup@v4
@@ -43,20 +60,4 @@ jobs:
       - name: JS Test
         if: matrix.os == 'ubuntu-24.04'
         run: pnpm test
-      - name: Install protobuf (Mac)
-        if: matrix.os == 'macos-14'
-        run: |
-          brew install protobuf
-      - name: Install protoc and openssl for windows
-        if: matrix.os == 'windows-latest'
-        run: |
-          choco install protoc
-          choco install openssl
-          echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
-          echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
-          echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib\\VC\\x64\\MDd"' >> $env:GITHUB_ENV
-      - name: Install Protobuf (Ubuntu)
-        if: matrix.os == 'ubuntu-24.04'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y protobuf-compiler libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+      
