@@ -52,7 +52,7 @@ jobs:
           choco install openssl
           echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
           echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
-          echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib"' >> $env:GITHUB_ENV
+          echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib\\VC\\x64\\MDd"' >> $env:GITHUB_ENV
       - uses: pnpm/action-setup@v4
       - name: setup node
         uses: actions/setup-node@v4
