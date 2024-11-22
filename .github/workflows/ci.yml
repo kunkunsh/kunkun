@@ -45,9 +45,10 @@ jobs:
         run: |
           brew install protobuf
       - name: Install Protobuf (Ubuntu)
-        if: matrix.os == 'ubuntu-22.04'
+        if: matrix.os == 'ubuntu-24.04'
         run: |
-          sudo apt install -y protobuf-compiler
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
       - name: Install protoc and openssl for windows
         if: matrix.os == 'windows-latest'
         run: |
