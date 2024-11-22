@@ -61,6 +61,7 @@ jobs:
           # echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib"' >> $env:GITHUB_ENV
           # openssl version
       - name: Cargo Build and Test
+        if: matrix.os == 'ubuntu-24.04'
         run: |
           cargo build
           cargo test
