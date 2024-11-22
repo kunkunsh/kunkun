@@ -1,5 +1,6 @@
 use hello_world::greeter_server::Greeter;
 use hello_world::{HelloReply, HelloRequest};
+use tauri::AppHandle;
 use tonic::{Request, Response, Status};
 
 pub mod hello_world {
@@ -8,8 +9,11 @@ pub mod hello_world {
         tonic::include_file_descriptor_set!("helloworld_descriptor");
 }
 
-#[derive(Debug, Default)]
-pub struct MyGreeter {}
+#[derive(Debug)]
+pub struct MyGreeter {
+    pub app_handle: AppHandle,
+    pub name: String,
+}
 
 #[tonic::async_trait]
 impl Greeter for MyGreeter {
@@ -19,7 +23,12 @@ impl Greeter for MyGreeter {
     ) -> Result<Response<HelloReply>, Status> {
         println!("Got a request: {:?}", request);
         let reply = HelloReply {
-            message: format!("Hello {}!", request.into_inner().name), // We must use .into_inner() as the fields of gRPC requests and responses are private
+            message: format!(
+                "Hello {} from {} by Kunkun {}!",
+                request.into_inner().name,
+                self.name,
+                self.app_handle.package_info().version
+            ), // We must use .into_inner() as the fields of gRPC requests and responses are private
         };
 
         Ok(Response::new(reply)) // Send back our formatted greeting

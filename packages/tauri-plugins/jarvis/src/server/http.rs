@@ -1,8 +1,13 @@
-use super::grpc::greeter::hello_world::greeter_server::GreeterServer;
+use super::grpc::{
+    file_transfer::file_transfer::file_transfer_server::FileTransferServer,
+    greeter::hello_world::greeter_server::GreeterServer,
+};
+
 use super::grpc::greeter::MyGreeter;
 /// This module is responsible for controlling the main server
 use super::model::ServerState;
 use super::Protocol;
+use crate::server::grpc::file_transfer::MyFileTransfer;
 use crate::server::tls::{CERT_PEM, KEY_PEM};
 use crate::utils::path::get_default_extensions_dir;
 use axum::http::{HeaderValue, Method, StatusCode, Uri};
@@ -23,7 +28,6 @@ async fn start_server(
     shtdown_handle: axum_server::Handle,
     options: ServerOptions,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let greeter = MyGreeter::default();
     let server_state = ServerState {
         app_handle: app_handle.clone(),
     };
@@ -31,13 +35,24 @@ async fn start_server(
         .register_encoded_file_descriptor_set(
             super::grpc::greeter::hello_world::FILE_DESCRIPTOR_SET,
         )
+        .register_encoded_file_descriptor_set(
+            super::grpc::file_transfer::file_transfer::FILE_DESCRIPTOR_SET,
+        )
         .build()
         .unwrap();
+    let greeter = MyGreeter {
+        app_handle: app_handle.clone(),
+        name: "jarvis".to_string(),
+    };
+    let file_transfer = MyFileTransfer {
+        app_handle: app_handle.clone(),
+    };
     let grpc_router = TonicServer::builder()
         .add_service(reflection_service)
         .add_service(GreeterServer::new(greeter))
+        .add_service(FileTransferServer::new(file_transfer))
         .into_router();
-    let mut rest_router = axum::Router::new()
+    let rest_router = axum::Router::new()
         .route(
             "/refresh-worker-extension",
             post(super::rest::refresh_worker_extension),

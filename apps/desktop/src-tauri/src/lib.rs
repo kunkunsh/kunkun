@@ -145,15 +145,16 @@ pub fn run() {
             //     Err(_) => AppSettings::default(),
             // };
             // let dev_extension_path: Option<PathBuf> = app_settings.dev_extension_path.clone();
-            let my_port = tauri_plugin_network::network::scan::find_available_port_from_list(
-                tauri_plugin_jarvis::server::CANDIDATE_PORTS.to_vec(),
-            )
-            .unwrap();
-            log::info!("Jarvis Server Port: {}", my_port);
+            // let my_port = tauri_plugin_network::network::scan::find_available_port_from_list(
+            //     tauri_plugin_jarvis::server::CANDIDATE_PORTS.to_vec(),
+            // )
+            // .unwrap();
+            // log::info!("Jarvis Server Port: {}", my_port);
             // log::info!(
             //     "App Settings Dev Extension Path: {:?}",
             //     app_settings.dev_extension_path.clone(),
             // );
+            let my_port = 9559;
             app.manage(tauri_plugin_jarvis::server::http::Server::new(
                 app.handle().clone(),
                 my_port,
