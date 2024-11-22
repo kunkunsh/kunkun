@@ -60,5 +60,7 @@ jobs:
           # echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
           # echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib"' >> $env:GITHUB_ENV
           # openssl version
-      - name: Rust Test
-        run: cargo test
+      - name: Cargo Build and Test
+        run: |
+          cargo build
+          cargo test
