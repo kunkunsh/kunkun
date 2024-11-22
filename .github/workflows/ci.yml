@@ -16,6 +16,19 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: "true"
+
+      - name: Install protoc and openssl for windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install protoc
+          choco install openssl
+          echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
+          echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
+          echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib"' >> $env:GITHUB_ENV
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable      
+      - name: Rust Test
+        run: cargo test
       - uses: pnpm/action-setup@v4
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -29,8 +42,7 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable
+      
       - name: Install Dependencies
         run: pnpm install
       - name: Setup
@@ -49,14 +61,3 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y protobuf-compiler libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
-      - name: Install protoc and openssl for windows
-        if: matrix.os == 'windows-latest'
-        run: |
-          choco install protoc
-          choco install openssl
-          echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
-          echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
-          echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib"' >> $env:GITHUB_ENV
-
-      - name: Rust Test
-        run: cargo test
