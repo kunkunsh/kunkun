@@ -27,3 +27,8 @@ applications = { path = "./vendors/applications-rs" }
 tauri-plugin-jarvis = { path = "./packages/tauri-plugins/jarvis" }
 tauri-plugin-system-info = { path = "./vendors/tauri-plugin-system-info" }
 db = { path = "./packages/db" }
+axum = { version = "0.6.20" }
+axum-extra = { version = "0.8.0" }
+axum-server = { version = "0.5", features = ["tls-rustls"] }
+rustls = { version = "0.23", features = ["ring"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"] }

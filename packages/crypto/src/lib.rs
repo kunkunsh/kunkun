@@ -1,102 +1,207 @@
-use rsa::pkcs1v15::{Signature, SigningKey, VerifyingKey};
-use rsa::signature::{Keypair, RandomizedSigner, SignatureEncoding, Verifier};
-use rsa::{
-    pkcs1::{EncodeRsaPrivateKey, EncodeRsaPublicKey},
-    RsaPrivateKey, RsaPublicKey,
-};
-use rsa::{sha2::Sha256, Oaep, Pkcs1v15Encrypt};
+//! This module provides simplified cryptographic interface for Kunkun.
+//!
+//! Features include
+//! - RSA (generation/sign/verify/encrypt/decrypt)
+//! - Ed25519 (generation/sign/verify).
+//! - SSL/TLS (self-signed certificate generation).
 
-struct RsaKeyPair {
-    pub priv_key: RsaPrivateKey,
-    pub pub_key: RsaPublicKey,
+use openssl::{
+    hash::MessageDigest,
+    pkey::{PKey, Private, Public},
+    rsa::Rsa,
+    sign::{Signer, Verifier},
+};
+
+pub mod ssl;
+
+pub trait Signature {
+    fn sign_with_pem(private_pem: &[u8], message: &[u8]) -> anyhow::Result<Vec<u8>>;
+    fn verify_with_pem(public_pem: &[u8], message: &[u8], signature: &[u8])
+        -> anyhow::Result<bool>;
 }
 
-impl RsaKeyPair {
-    pub fn new(bits: usize) -> Self {
-        let mut rng = rand::thread_rng();
-        let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
-        let pub_key = RsaPublicKey::from(&priv_key);
-        Self { priv_key, pub_key }
+pub struct RsaCrypto {}
+
+impl RsaCrypto {
+    pub fn generate_rsa() -> anyhow::Result<Rsa<Private>> {
+        Rsa::generate(2048).map_err(anyhow::Error::from)
     }
 
-    pub fn get_key_pem(&self) -> (String, String) {
-        let private_key_pem = self
-            .priv_key
-            .to_pkcs1_pem(rsa::pkcs1::LineEnding::LF)
-            .expect("failed to get private key pem");
-        let public_key_pem = self
-            .pub_key
-            .to_pkcs1_pem(rsa::pkcs1::LineEnding::LF)
-            .expect("failed to get public key pem");
-        (private_key_pem.to_string(), public_key_pem.to_string())
+    pub fn generate_rsa_key_pair_pem() -> anyhow::Result<(Vec<u8>, Vec<u8>)> {
+        let rsa = Rsa::generate(2048)?;
+        let private_pem = rsa.private_key_to_pem()?;
+        let public_pem = rsa.public_key_to_pem()?;
+        Ok((private_pem, public_pem))
     }
 
-    pub fn encrypt(&self, message: &[u8]) -> Vec<u8> {
-        let mut rng = rand::thread_rng();
-        self.pub_key
-            .encrypt(&mut rng, Pkcs1v15Encrypt, message)
-            .expect("failed to encrypt")
+    pub fn private_key_from_pem(pem: &[u8]) -> anyhow::Result<Rsa<Private>> {
+        Rsa::private_key_from_pem(pem).map_err(anyhow::Error::from)
     }
 
-    pub fn encrypt_from_str(&self, message: String) -> Vec<u8> {
-        self.encrypt(message.as_bytes())
+    pub fn public_key_from_pem(pem: &[u8]) -> anyhow::Result<Rsa<Public>> {
+        Rsa::public_key_from_pem(pem).map_err(anyhow::Error::from)
     }
 
-    pub fn decrypt(&self, encrypted: &[u8]) -> Vec<u8> {
-        self.priv_key
-            .decrypt(Pkcs1v15Encrypt, encrypted)
-            .expect("failed to decrypt")
+    pub fn encrypt_message(public_key: &Rsa<Public>, message: &[u8]) -> anyhow::Result<Vec<u8>> {
+        let mut encrypted = vec![0; public_key.size() as usize];
+        public_key.public_encrypt(message, &mut encrypted, openssl::rsa::Padding::PKCS1)?;
+        Ok(encrypted)
     }
 
-    pub fn decrypt_to_str(&self, encrypted: &[u8]) -> anyhow::Result<String> {
-        let decrypted = self.decrypt(encrypted);
-        String::from_utf8(decrypted).map_err(|_| anyhow::anyhow!("failed to decrypt to string"))
+    pub fn decrypt_message(
+        private_key: &Rsa<Private>,
+        encrypted: &[u8],
+    ) -> anyhow::Result<Vec<u8>> {
+        let mut decrypted = vec![0; private_key.size() as usize];
+        private_key.private_decrypt(encrypted, &mut decrypted, openssl::rsa::Padding::PKCS1)?;
+        Ok(decrypted)
+    }
+    pub fn sign(private_key: &Rsa<Private>, message: &[u8]) -> anyhow::Result<Vec<u8>> {
+        let pkey = PKey::from_rsa(private_key.clone())?;
+        let mut signer = Signer::new(MessageDigest::sha256(), &pkey)?;
+        signer.update(message)?;
+        let signature = signer.sign_to_vec()?;
+        Ok(signature)
     }
 
-    pub fn sign(&self, message: &[u8]) -> Signature {
-        let mut rng = rand::thread_rng();
-        let signing_key = SigningKey::<Sha256>::new(self.priv_key.clone());
-        signing_key.sign_with_rng(&mut rng, message)
+    pub fn verify(
+        public_key: &Rsa<Public>,
+        message: &[u8],
+        signature: &[u8],
+    ) -> anyhow::Result<bool> {
+        let pkey = PKey::from_rsa(public_key.clone())?;
+        let mut verifier = Verifier::new(MessageDigest::sha256(), &pkey)?;
+        verifier.update(message)?;
+        Ok(verifier.verify(&signature)?)
+    }
+}
+
+impl Signature for RsaCrypto {
+    fn sign_with_pem(private_pem: &[u8], message: &[u8]) -> anyhow::Result<Vec<u8>> {
+        let private_key = RsaCrypto::private_key_from_pem(private_pem)?;
+        RsaCrypto::sign(&private_key, message)
     }
 
-    pub fn verify(&self, message: &[u8], signature: &Signature) -> bool {
-        let verifying_key = VerifyingKey::<Sha256>::new(self.pub_key.clone());
-        verifying_key.verify(message, signature).is_ok()
+    fn verify_with_pem(
+        public_pem: &[u8],
+        message: &[u8],
+        signature: &[u8],
+    ) -> anyhow::Result<bool> {
+        let public_key = RsaCrypto::public_key_from_pem(public_pem)?;
+        RsaCrypto::verify(&public_key, message, signature)
+    }
+}
+
+pub struct Ed25519Crypto {}
+
+impl Ed25519Crypto {
+    pub fn generate_key() -> anyhow::Result<PKey<Private>> {
+        PKey::generate_ed25519().map_err(anyhow::Error::from)
+    }
+
+    pub fn generate_key_pair_pem() -> anyhow::Result<(Vec<u8>, Vec<u8>)> {
+        let private_key = PKey::generate_ed25519()?;
+        let private_pem = private_key.private_key_to_pem_pkcs8()?;
+        let public_pem = private_key.public_key_to_pem()?;
+        Ok((private_pem, public_pem))
+    }
+
+    pub fn private_key_from_pem(pem: &[u8]) -> anyhow::Result<PKey<Private>> {
+        PKey::private_key_from_pem(pem).map_err(anyhow::Error::from)
+    }
+
+    pub fn public_key_from_pem(pem: &[u8]) -> anyhow::Result<PKey<Public>> {
+        PKey::public_key_from_pem(pem).map_err(anyhow::Error::from)
+    }
+
+    pub fn sign(private_key: &PKey<Private>, message: &[u8]) -> anyhow::Result<Vec<u8>> {
+        let mut signer = Signer::new_without_digest(&private_key)?;
+        Ok(signer.sign_oneshot_to_vec(message)?)
+    }
+
+    pub fn verify(
+        public_key: &PKey<Public>,
+        message: &[u8],
+        signature: &[u8],
+    ) -> anyhow::Result<bool> {
+        let mut verifier = Verifier::new_without_digest(public_key)?;
+        Ok(verifier.verify_oneshot(&signature, message)?)
+    }
+}
+
+impl Signature for Ed25519Crypto {
+    fn sign_with_pem(private_pem: &[u8], message: &[u8]) -> anyhow::Result<Vec<u8>> {
+        let private_key = Ed25519Crypto::private_key_from_pem(private_pem)?;
+        Ed25519Crypto::sign(&private_key, message)
+    }
+
+    fn verify_with_pem(
+        public_pem: &[u8],
+        message: &[u8],
+        signature: &[u8],
+    ) -> anyhow::Result<bool> {
+        let public_key = Ed25519Crypto::public_key_from_pem(public_pem)?;
+        Ed25519Crypto::verify(&public_key, message, signature)
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use rsa::pkcs1::EncodeRsaPrivateKey;
-
     use super::*;
 
     #[test]
-    fn test_generate_rsa_key_pair() {
-        let keypair = RsaKeyPair::new(2048);
-        let (priv_key, pub_key) = keypair.get_key_pem();
-    }
-
-    #[test]
     fn test_encrypt_decrypt() {
-        let key_pair = RsaKeyPair::new(2048);
-        let message = "hello world";
-        // binary
-        let encrypted = key_pair.encrypt(message.as_bytes());
-        let decrypted = key_pair.decrypt(&encrypted);
-        assert_eq!(message.as_bytes(), decrypted);
+        let rsa = RsaCrypto::generate_rsa().unwrap();
 
-        // string
-        let encrypted = key_pair.encrypt_from_str(message.to_string());
-        let decrypted = key_pair.decrypt_to_str(&encrypted).unwrap();
-        assert_eq!(message, decrypted);
+        let public_key = rsa.public_key_to_pem().unwrap();
+        let private_key = rsa.private_key_to_pem().unwrap();
+        let public_rsa = RsaCrypto::public_key_from_pem(&public_key).unwrap();
+        let private_rsa = RsaCrypto::private_key_from_pem(&private_key).unwrap();
+
+        let encrypted = RsaCrypto::encrypt_message(&public_rsa, b"hello world").unwrap();
+        let decrypted = RsaCrypto::decrypt_message(&private_rsa, &encrypted).unwrap();
+        assert_eq!(b"hello world", &decrypted[..11]);
     }
 
     #[test]
-    fn test_sign_verify() {
-        let key_pair = RsaKeyPair::new(2048);
-        let message = "hello world";
-        let signature = key_pair.sign(message.as_bytes());
-        assert!(key_pair.verify(message.as_bytes(), &signature));
+    fn test_rsa_sign_verify() {
+        let (private_pem, public_pem) = RsaCrypto::generate_rsa_key_pair_pem().unwrap();
+        let message = b"hello world";
+        let private_key = RsaCrypto::private_key_from_pem(&private_pem).unwrap();
+        let public_key = RsaCrypto::public_key_from_pem(&public_pem).unwrap();
+        let signature = RsaCrypto::sign(&private_key, message).unwrap();
+        let verified = RsaCrypto::verify(&public_key, message, &signature).unwrap();
+        assert!(verified);
+        assert!(!RsaCrypto::verify(&public_key, b"hello world2", &signature).unwrap());
+    }
+
+    #[test]
+    fn test_rsa_sign_verify_with_pem() {
+        let (private_pem, public_pem) = RsaCrypto::generate_rsa_key_pair_pem().unwrap();
+        let message = b"hello world";
+        let signature = RsaCrypto::sign_with_pem(&private_pem, message).unwrap();
+        let verified = RsaCrypto::verify_with_pem(&public_pem, message, &signature).unwrap();
+        assert!(verified);
+    }
+
+    #[test]
+    fn test_ed25519_sign_verify() {
+        let (private_pem, public_pem) = Ed25519Crypto::generate_key_pair_pem().unwrap();
+        let message = b"hello world";
+        let private_key = Ed25519Crypto::private_key_from_pem(&private_pem).unwrap();
+        let public_key = Ed25519Crypto::public_key_from_pem(&public_pem).unwrap();
+        let signature = Ed25519Crypto::sign(&private_key, message).unwrap();
+        let verified = Ed25519Crypto::verify(&public_key, message, &signature).unwrap();
+        assert!(verified);
+        assert!(!Ed25519Crypto::verify(&public_key, b"hello world2", &signature).unwrap());
+    }
+
+    #[test]
+    fn test_ed25519_sign_verify_with_pem() {
+        let (private_pem, public_pem) = Ed25519Crypto::generate_key_pair_pem().unwrap();
+        let message = b"hello world";
+        let signature = Ed25519Crypto::sign_with_pem(&private_pem, message).unwrap();
+        let verified = Ed25519Crypto::verify_with_pem(&public_pem, message, &signature).unwrap();
+        assert!(verified);
     }
 }

@@ -29,12 +29,16 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
       - name: Install Dependencies
         run: pnpm install
       - name: Setup
         run: pnpm prepare
       - name: Build
         run: pnpm build
-      - name: Test
+      - name: JS Test
         if: matrix.os == 'ubuntu-24.04'
         run: pnpm test
+      - name: Rust Test
+        run: cargo test
