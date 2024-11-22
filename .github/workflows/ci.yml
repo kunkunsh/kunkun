@@ -40,5 +40,22 @@ jobs:
       - name: JS Test
         if: matrix.os == 'ubuntu-24.04'
         run: pnpm test
+      - name: Install protobuf (Mac)
+        if: matrix.settings.platform == 'macos-14'
+        run: |
+          brew install protobuf
+      - name: Install Protobuf (Ubuntu)
+        if: matrix.settings.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt install -y protobuf-compiler
+      - name: Install protoc and openssl for windows
+        if: matrix.settings.platform == 'windows-latest'
+        run: |
+          choco install protoc
+          choco install openssl
+          echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
+          echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
+          echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib"' >> $env:GITHUB_ENV
+
       - name: Rust Test
         run: cargo test
