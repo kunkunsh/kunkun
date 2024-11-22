@@ -117,8 +117,7 @@ const COMMANDS: &[&str] = &[
 fn main() {
     let out_dir = std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap());
     tonic_build::configure()
-        .file_descriptor_set_path(out_dir.join("helloworld_descriptor.bin"))
-        .file_descriptor_set_path(out_dir.join("file_transfer_descriptor.bin"))
+        .file_descriptor_set_path(out_dir.join("kk_grpc.bin"))
         .compile(
             &["proto/helloworld.proto", "proto/file-transfer.proto"],
             &["proto"],
