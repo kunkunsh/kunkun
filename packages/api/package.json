@@ -57,6 +57,7 @@
 		"kkrpc": "^0.0.12",
 		"lodash": "^4.17.21",
 		"minimatch": "^10.0.1",
+		"node-fetch": "^3.3.2",
 		"semver": "^7.6.3",
 		"svelte-sonner": "^0.3.28",
 		"tauri-api-adapter": "^0.3.13",
