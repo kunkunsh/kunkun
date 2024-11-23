@@ -1,0 +1,16 @@
+{
+	"name": "jarvis",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"prepare": "bun setup.ts"
+	},
+	"devDependencies": {
+		"@kksh/supabase": "workspace:*",
+		"@kksh/ci": "workspace:*",
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
+}

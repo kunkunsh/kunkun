@@ -3,7 +3,6 @@ use super::grpc::{
     file_transfer::file_transfer::file_transfer_server::FileTransferServer,
     greeter::hello_world::greeter_server::GreeterServer,
 };
-/// This module is responsible for controlling the main server
 use super::model::ServerState;
 use super::Protocol;
 use crate::server::grpc::file_transfer::MyFileTransfer;
@@ -13,6 +12,8 @@ use axum::http::{HeaderValue, Method, StatusCode, Uri};
 use axum::routing::{get, get_service, post};
 use axum_server::tls_rustls::RustlsConfig;
 use base64::prelude::*;
+/// This module is responsible for controlling the main server
+use obfstr::obfstr as s;
 use std::sync::Mutex;
 use std::{net::SocketAddr, path::PathBuf, sync::Arc};
 use tauri::AppHandle;
@@ -83,10 +84,10 @@ async fn start_server(
             let (key_pem, cert_pem) = if cfg!(debug_assertions) {
                 // In debug mode, use the base64 encoded certs from env
                 let cert_pem = BASE64_STANDARD
-                    .decode(env!("BASE64_CERT_PEM"))
+                    .decode(s!(env!("BASE64_CERT_PEM")).to_string())
                     .expect("Failed to decode cert_pem");
                 let key_pem = BASE64_STANDARD
-                    .decode(env!("BASE64_KEY_PEM"))
+                    .decode(s!(env!("BASE64_KEY_PEM")).to_string())
                     .expect("Failed to decode key_pem");
                 (key_pem, cert_pem)
             } else {

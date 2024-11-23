@@ -148,9 +148,18 @@ fn setup_grpc_protos() {
         .expect("Failed to compile protos");
 }
 
+fn setup_server_public_key() {
+    let raw_server_public_key = include_bytes!("./keys/server_public_key.pem").to_vec();
+    println!(
+        "cargo:rustc-env=BASE64_SERVER_PUBLIC_KEY={}",
+        BASE64_STANDARD.encode(raw_server_public_key)
+    );
+}
+
 fn main() {
     setup_ssl_server_certs_env();
     setup_grpc_protos();
+    setup_server_public_key();
     tauri_plugin::Builder::new(COMMANDS)
         .android_path("android")
         .ios_path("ios")
