@@ -158,7 +158,7 @@ pub fn run() {
             app.manage(tauri_plugin_jarvis::server::http::Server::new(
                 app.handle().clone(),
                 my_port,
-                Protocol::Http,
+                Protocol::Https,
                 // Protocol::Https,
             ));
             app.manage(tauri_plugin_jarvis::model::app_state::AppState {});

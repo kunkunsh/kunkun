@@ -1,20 +1,26 @@
 import { exec } from "child_process"
+import https from "https"
 import os from "node:os"
+import fetch from "node-fetch"
 import {
 	DEEP_LINK_PATH_REFRESH_DEV_EXTENSION,
 	DESKTOP_SERVICE_NAME,
 	KUNKUN_DESKTOP_APP_SERVER_PORTS
 } from "../constants"
 
+const httpsAgent = new https.Agent({
+	rejectUnauthorized: false // Accept self-signed certificates
+})
+
 export function checkLocalKunkunService(port: number): Promise<boolean> {
-	return fetch(`http://localhost:${port}/info`)
+	return fetch(`https://localhost:${port}/info`, { agent: httpsAgent })
 		.then((res) => {
 			if (!res.ok) {
 				return false
 			}
 			return res.json()
 		})
-		.then((data) => {
+		.then((data: any) => {
 			return data["service_name"].toLowerCase() === DESKTOP_SERVICE_NAME.toLowerCase()
 		})
 		.catch((err) => {
@@ -45,8 +51,9 @@ export async function refreshTemplateWorkerExtensionViaServer() {
 		console.warn("Will Refresh Every Instance")
 	}
 	for (const port of ports) {
-		fetch(`http://localhost:${port}/refresh-worker-extension`, {
-			method: "POST"
+		fetch(`https://localhost:${port}/refresh-worker-extension`, {
+			method: "POST",
+			agent: httpsAgent
 		}).catch((err) => {
 			console.error("Failed to send refresh worker extension request", err)
 		})
