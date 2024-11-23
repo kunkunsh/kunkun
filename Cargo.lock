@@ -6690,6 +6690,7 @@ dependencies = [
  "axum",
  "axum-extra",
  "axum-server",
+ "base64 0.22.1",
  "chrono",
  "crypto",
  "db",

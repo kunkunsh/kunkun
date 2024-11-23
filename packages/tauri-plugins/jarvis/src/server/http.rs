@@ -1,9 +1,8 @@
+use super::grpc::greeter::MyGreeter;
 use super::grpc::{
     file_transfer::file_transfer::file_transfer_server::FileTransferServer,
     greeter::hello_world::greeter_server::GreeterServer,
 };
-
-use super::grpc::greeter::MyGreeter;
 /// This module is responsible for controlling the main server
 use super::model::ServerState;
 use super::Protocol;
@@ -13,6 +12,7 @@ use crate::utils::path::get_default_extensions_dir;
 use axum::http::{HeaderValue, Method, StatusCode, Uri};
 use axum::routing::{get, get_service, post};
 use axum_server::tls_rustls::RustlsConfig;
+use base64::prelude::*;
 use std::sync::Mutex;
 use std::{net::SocketAddr, path::PathBuf, sync::Arc};
 use tauri::AppHandle;
@@ -79,7 +79,12 @@ async fn start_server(
         Protocol::Https => {
             let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
             println!("manifest_dir: {}", manifest_dir.display());
-            let tls_config = RustlsConfig::from_pem(CERT_PEM.to_vec(), KEY_PEM.to_vec()).await?;
+            let cert_pem = BASE64_STANDARD.decode(env!("BASE64_CERT_PEM")).unwrap();
+            let key_pem = BASE64_STANDARD.decode(env!("BASE64_KEY_PEM")).unwrap();
+            println!("cert_pem: {}", String::from_utf8(cert_pem.clone()).unwrap());
+            println!("key_pem: {}", String::from_utf8(key_pem.clone()).unwrap());
+            let tls_config = RustlsConfig::from_pem(cert_pem, key_pem).await?;
+            // let tls_config = RustlsConfig::from_pem(CERT_PEM.to_vec(), KEY_PEM.to_vec()).await?;
             // let tls_config = RustlsConfig::from_pem_file(
             //     manifest_dir.join("self_signed_certs").join("server.crt"),
             //     manifest_dir.join("self_signed_certs").join("server.key"),

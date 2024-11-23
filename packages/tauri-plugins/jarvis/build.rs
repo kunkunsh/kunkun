@@ -1,3 +1,5 @@
+use base64::prelude::*;
+
 const COMMANDS: &[&str] = &[
     "open_devtools",
     "close_devtools",
@@ -114,7 +116,30 @@ const COMMANDS: &[&str] = &[
     "get_peers",
 ];
 
-fn main() {
+fn setup_ssl_server_certs_env() {
+    // read cert_pem and key_pem from environment variables, if doesn't exist, use the default ones
+    let cert_pem = match std::env::var("CERT_PEM") {
+        Ok(cert) => cert.into_bytes(),
+        Err(_) => include_bytes!("./self_signed_certs/cert.pem").to_vec(),
+    };
+    let key_pem = match std::env::var("KEY_PEM") {
+        Ok(key) => key.into_bytes(),
+        Err(_) => include_bytes!("./self_signed_certs/key.pem").to_vec(),
+    };
+
+    println!("cert_pem: {:?}", cert_pem);
+    println!("key_pem: {:?}", key_pem);
+    println!(
+        "cargo:rustc-env=BASE64_CERT_PEM={}",
+        BASE64_STANDARD.encode(cert_pem)
+    );
+    println!(
+        "cargo:rustc-env=BASE64_KEY_PEM={}",
+        BASE64_STANDARD.encode(key_pem)
+    );
+}
+
+fn setup_grpc_protos() {
     let out_dir = std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap());
     tonic_build::configure()
         .file_descriptor_set_path(out_dir.join("kk_grpc.bin"))
@@ -123,6 +148,11 @@ fn main() {
             &["proto"],
         )
         .expect("Failed to compile protos");
+}
+
+fn main() {
+    setup_ssl_server_certs_env();
+    setup_grpc_protos();
     tauri_plugin::Builder::new(COMMANDS)
         .android_path("android")
         .ios_path("ios")

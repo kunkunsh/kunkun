@@ -79,8 +79,6 @@ impl Signature for RsaCrypto {
     }
 }
 
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -119,5 +117,4 @@ mod tests {
         let verified = RsaCrypto::verify_with_pem(&public_pem, message, &signature).unwrap();
         assert!(verified);
     }
-
 }

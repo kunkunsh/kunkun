@@ -42,7 +42,7 @@ zip = "1.1.4"
 rust_search = "2.1.0"
 plist = "1.7.0"
 crypto = { workspace = true }
-
+base64 = { workspace = true }
 
 [target.'cfg(target_os = "macos")'.dependencies]
 tauri-icns = "0.1.0"
@@ -54,3 +54,4 @@ ico = "0.3.0"
 [build-dependencies]
 tauri-plugin = { version = "2.0.3", features = ["build"] }
 tonic-build = "0.11"
+base64 = { workspace = true }
