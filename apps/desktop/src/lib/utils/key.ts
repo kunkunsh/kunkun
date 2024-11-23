@@ -73,7 +73,6 @@ export function goHomeOrCloseOnEscapeWithInput(e: KeyboardEvent) {
 
 export async function globalKeyDownHandler(e: KeyboardEvent) {
 	const _platform = platform()
-	console.log("globalKeyDownHandler", e.key, e.metaKey, e.ctrlKey)
 	if ((_platform === "macos" && e.metaKey) || (_platform === "windows" && e.ctrlKey)) {
 		if (e.key === ",") {
 			e.preventDefault()
