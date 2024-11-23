@@ -13,14 +13,14 @@
 	})
 </script>
 
-<Layouts.Center class="absolute left-0 top-0 h-full w-full overflow-hidden border">
-	<div>
+<Layouts.Center class="w-full grow -translate-y-10 overflow-hidden">
+	<div class="">
 		<div class="flex w-full items-center space-x-5">
 			<img src="/favicon.png" class="w-44" alt="Logo" />
 			<div class="flex flex-col space-y-1">
 				<p class="text-3xl font-bold">KunKun Shell</p>
 				<p class="text-xs">Version: {appVersion}</p>
-				<p>
+				<p class="flex gap-1">
 					<strong class="font-bold">Author: </strong>
 					<a
 						href="https://github.com/HuakunShen"

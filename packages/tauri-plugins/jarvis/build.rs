@@ -116,8 +116,8 @@ const COMMANDS: &[&str] = &[
     "get_peers",
 ];
 
-fn setup_ssl_server_certs_env() {
-    // read cert_pem and key_pem from environment variables, if doesn't exist, use the default ones
+fn main() {
+    // SSL Cert
     let cert_pem = match std::env::var("CERT_PEM") {
         Ok(cert) => cert.into_bytes(),
         Err(_) => include_bytes!("./self_signed_certs/cert.pem").to_vec(),
@@ -135,9 +135,8 @@ fn setup_ssl_server_certs_env() {
         "cargo:rustc-env=BASE64_KEY_PEM={}",
         BASE64_STANDARD.encode(key_pem)
     );
-}
 
-fn setup_grpc_protos() {
+    // GRPC
     let out_dir = std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap());
     tonic_build::configure()
         .file_descriptor_set_path(out_dir.join("kk_grpc.bin"))
@@ -146,20 +145,14 @@ fn setup_grpc_protos() {
             &["proto"],
         )
         .expect("Failed to compile protos");
-}
 
-fn setup_server_public_key() {
+    // Server Public Key
     let raw_server_public_key = include_bytes!("./keys/server_public_key.pem").to_vec();
     println!(
         "cargo:rustc-env=BASE64_SERVER_PUBLIC_KEY={}",
         BASE64_STANDARD.encode(raw_server_public_key)
     );
-}
 
-fn main() {
-    setup_ssl_server_certs_env();
-    setup_grpc_protos();
-    setup_server_public_key();
     tauri_plugin::Builder::new(COMMANDS)
         .android_path("android")
         .ios_path("ios")

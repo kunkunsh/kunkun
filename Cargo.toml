@@ -34,3 +34,4 @@ rustls = { version = "0.23", features = ["ring"] }
 reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
 crypto = { path = "./packages/crypto" }
 base64 = "0.22.1"
+obfstr = "0.4.4"

@@ -3321,6 +3321,7 @@ dependencies = [
  "log",
  "mac-security-rs",
  "mdns-sd",
+ "obfstr",
  "objc",
  "serde",
  "serde_json",

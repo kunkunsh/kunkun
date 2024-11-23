@@ -98,8 +98,6 @@ async fn start_server(
                     .expect("Failed to generate self-signed certificate")
             };
 
-            println!("cert_pem: {}", String::from_utf8(cert_pem.clone()).unwrap());
-            println!("key_pem: {}", String::from_utf8(key_pem.clone()).unwrap());
             let tls_config = RustlsConfig::from_pem(cert_pem, key_pem).await?;
             axum_server::bind_rustls(server_addr, tls_config)
                 .handle(shtdown_handle)

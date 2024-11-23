@@ -3,6 +3,7 @@ import { checkUpdateAndInstall } from "@/utils/updater"
 import { IconEnum } from "@kksh/api/models"
 import type { BuiltinCmd } from "@kksh/ui/types"
 import { getVersion } from "@tauri-apps/api/app"
+import { appDataDir } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { exit } from "@tauri-apps/plugin-process"
 import { dev } from "$app/environment"
@@ -10,6 +11,7 @@ import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
 import { derived } from "svelte/store"
 import * as clipboard from "tauri-plugin-clipboard-api"
+import { open } from "tauri-plugin-shellx-api"
 import { v4 as uuidv4 } from "uuid"
 import { hexColor } from "valibot"
 
@@ -337,6 +339,18 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 				toast.success(`Developer Mode toggled to: ${!config.developerMode}`)
 				return { ...config, developerMode: !config.developerMode }
 			})
+		}
+	},
+	{
+		name: "Open App Data Dir",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "mdi:folder-open"
+		},
+		description: "Open App Data Dir",
+		function: async () => {
+			console.log(await appDataDir())
+			open(await appDataDir())
 		}
 	}
 ].map((cmd) => ({ ...cmd, id: uuidv4() }))

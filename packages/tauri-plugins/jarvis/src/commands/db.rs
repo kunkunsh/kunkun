@@ -5,6 +5,8 @@ use db::{
 use std::{path::PathBuf, sync::Mutex};
 use tauri::{utils::acl::identifier, State};
 
+use crate::utils::db::get_db;
+
 #[derive(Debug)]
 pub struct DBState {
     pub db: Mutex<JarvisDB>,
@@ -13,7 +15,7 @@ pub struct DBState {
 
 impl DBState {
     pub fn new(path: PathBuf, key: Option<String>) -> anyhow::Result<Self> {
-        let db = JarvisDB::new(path, key)?;
+        let db = get_db(path, key)?;
         db.init()?;
         Ok(Self { db: Mutex::new(db) })
     }

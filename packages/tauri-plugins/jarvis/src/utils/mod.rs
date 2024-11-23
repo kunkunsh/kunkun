@@ -1,3 +1,4 @@
+pub mod db;
 pub mod fs;
 pub mod icns;
 pub mod manifest;

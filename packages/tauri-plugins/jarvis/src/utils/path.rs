@@ -16,5 +16,9 @@ pub fn get_default_extensions_storage_dir<R: Runtime>(
 }
 
 pub fn get_kunkun_db_path<R: Runtime>(app: &AppHandle<R>) -> anyhow::Result<PathBuf> {
-    Ok(app.path().app_data_dir()?.join("kk.db"))
+    Ok(app.path().app_data_dir()?.join(if cfg!(debug_assertions) {
+        "kk.dev.db"
+    } else {
+        "kk.db"
+    }))
 }

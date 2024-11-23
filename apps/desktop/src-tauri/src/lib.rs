@@ -23,6 +23,16 @@ pub fn run() {
     let context = tauri::generate_context!();
     let mut builder = tauri::Builder::default();
 
+    let db_key = if cfg!(debug_assertions) {
+        None
+    } else {
+        let db_enc_key_env = obfstr::obfstr!(env!("DB_ENCRYPTION_KEY")).to_string();
+        match db_enc_key_env == "none" {
+            true => None,
+            false => Some(db_enc_key_env),
+        }
+    };
+
     #[cfg(debug_assertions)]
     {
         println!("Install crabnebula devtools");
@@ -91,7 +101,7 @@ pub fn run() {
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_shellx::init(shell_unlocked))
-        .plugin(tauri_plugin_jarvis::init())
+        .plugin(tauri_plugin_jarvis::init(db_key.clone()))
         .plugin(tauri_plugin_clipboard::init())
         .plugin(tauri_plugin_network::init())
         .plugin(tauri_plugin_system_info::init());
@@ -127,7 +137,7 @@ pub fn run() {
                     .unwrap(),
             }
         })
-        .setup(|app| {
+        .setup(move |app| {
             setup::window::setup_window(app.handle());
             setup::tray::create_tray(app.handle())?;
             #[cfg(all(not(target_os = "macos"), debug_assertions))]
@@ -158,8 +168,8 @@ pub fn run() {
             app.manage(tauri_plugin_jarvis::server::http::Server::new(
                 app.handle().clone(),
                 my_port,
+                // Protocol::Http,
                 Protocol::Https,
-                // Protocol::Https,
             ));
             app.manage(tauri_plugin_jarvis::model::app_state::AppState {});
             tauri_plugin_jarvis::setup::server::setup_server(app.handle())?; // start the server
@@ -174,13 +184,20 @@ pub fn run() {
             // setup::db::setup_db(app)?;
             /* ------------------------- Clipboard History Setup ------------------------ */
             let db_path = get_kunkun_db_path(app.app_handle())?;
-            let db_key: Option<String> = None;
-            let jarvis_db = JarvisDB::new(db_path.clone(), db_key.clone())?;
+
+            // println!("DB_ENCRYPTION_KEY: {:?}", db_key);
+            // let jarvis_db = JarvisDB::new(db_path.clone(), db_key.clone())?;
             // The clipboard extension should be created in setup_db, ext is guaranteed to be Some
+            // let jarvis_db = app
+            //     .state::<tauri_plugin_jarvis::commands::db::DBState>()
+            //     .db
+            //     .lock()
+            //     .unwrap();
+
+            let jarvis_db = tauri_plugin_jarvis::utils::db::get_db(db_path, db_key)?;
             let ext = jarvis_db.get_unique_extension_by_identifier(
                 tauri_plugin_jarvis::constants::KUNKUN_CLIPBOARD_EXT_IDENTIFIER,
             )?;
-
             app.manage(
                 tauri_plugin_jarvis::model::clipboard_history::ClipboardHistory::new(
                     jarvis_db,

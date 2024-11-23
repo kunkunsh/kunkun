@@ -32,7 +32,9 @@
 	/* -------------------------------------------------------------------------- */
 	gsap.registerPlugin(Flip)
 	let flipState: Flip.FlipState
-
+	function onKeydown(e: KeyboardEvent) {
+		console.log(e.key)
+	}
 	beforeNavigate(() => {
 		flipState = Flip.getState(
 			`.${Constants.CLASSNAMES.EXT_LOGO}, .${Constants.CLASSNAMES.BACK_BUTTON}`
@@ -55,8 +57,12 @@
 
 	let { children } = $props()
 	const unlisteners: UnlistenFn[] = []
-
+	onDestroy(() => {
+		unlisteners.forEach((unlistener) => unlistener())
+		window.removeEventListener("keydown", onKeydown)
+	})
 	onMount(async () => {
+		window.addEventListener("keydown", onKeydown)
 		attachConsole().then((unlistener) => unlisteners.push(unlistener))
 		initDeeplink().then((unlistener) => unlisteners.push(unlistener))
 		shellx
@@ -104,12 +110,14 @@
 		getCurrentWebviewWindow().show()
 	})
 
-	onDestroy(() => {
-		unlisteners.forEach((unlistener) => unlistener())
-	})
+	// $effect(() => {
+
+	// 	window.addEventListener("keydown", onKeydown)
+	// 	return () => window.removeEventListener("keydown", onKeydown)
+	// })
 </script>
 
-<svelte:window on:keydown={globalKeyDownHandler} />
+<!-- <svelte:window on:keydown={globalKeyDownHandler} /> -->
 <ViewTransition />
 <ModeWatcher />
 <Toaster richColors />
