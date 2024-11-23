@@ -127,8 +127,6 @@ fn setup_ssl_server_certs_env() {
         Err(_) => include_bytes!("./self_signed_certs/key.pem").to_vec(),
     };
 
-    println!("cert_pem: {:?}", cert_pem);
-    println!("key_pem: {:?}", key_pem);
     println!(
         "cargo:rustc-env=BASE64_CERT_PEM={}",
         BASE64_STANDARD.encode(cert_pem)

@@ -79,17 +79,27 @@ async fn start_server(
         Protocol::Https => {
             let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
             println!("manifest_dir: {}", manifest_dir.display());
-            let cert_pem = BASE64_STANDARD.decode(env!("BASE64_CERT_PEM")).unwrap();
-            let key_pem = BASE64_STANDARD.decode(env!("BASE64_KEY_PEM")).unwrap();
+
+            let (key_pem, cert_pem) = if cfg!(debug_assertions) {
+                // In debug mode, use the base64 encoded certs from env
+                let cert_pem = BASE64_STANDARD
+                    .decode(env!("BASE64_CERT_PEM"))
+                    .expect("Failed to decode cert_pem");
+                let key_pem = BASE64_STANDARD
+                    .decode(env!("BASE64_KEY_PEM"))
+                    .expect("Failed to decode key_pem");
+                (key_pem, cert_pem)
+            } else {
+                // In release mode, generate new self-signed certs every time app starts for safety
+                let rsa =
+                    crypto::RsaCrypto::generate_rsa().expect("Failed to generate RSA key pair");
+                crypto::ssl::generate_self_signed_certificate(&rsa, 365)
+                    .expect("Failed to generate self-signed certificate")
+            };
+
             println!("cert_pem: {}", String::from_utf8(cert_pem.clone()).unwrap());
             println!("key_pem: {}", String::from_utf8(key_pem.clone()).unwrap());
             let tls_config = RustlsConfig::from_pem(cert_pem, key_pem).await?;
-            // let tls_config = RustlsConfig::from_pem(CERT_PEM.to_vec(), KEY_PEM.to_vec()).await?;
-            // let tls_config = RustlsConfig::from_pem_file(
-            //     manifest_dir.join("self_signed_certs").join("server.crt"),
-            //     manifest_dir.join("self_signed_certs").join("server.key"),
-            // )
-            // .await?;
             axum_server::bind_rustls(server_addr, tls_config)
                 .handle(shtdown_handle)
                 .serve(combined_router.into_make_service())
