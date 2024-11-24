@@ -3,7 +3,7 @@ import { ExtPackageJson, ExtPackageJsonExtra } from "@kksh/api/models"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
-import { flatten, safeParse } from "valibot"
+import * as v from "valibot"
 import { upsertExtension } from "./db"
 
 /**
@@ -14,11 +14,10 @@ import { upsertExtension } from "./db"
 export function loadExtensionManifestFromDisk(manifestPath: string): Promise<ExtPackageJsonExtra> {
 	debug(`loadExtensionManifestFromDisk: ${manifestPath}`)
 	return readTextFile(manifestPath).then(async (content) => {
-		const parse = safeParse(ExtPackageJson, JSON.parse(content))
+		const parse = v.safeParse(ExtPackageJson, JSON.parse(content))
 		if (parse.issues) {
 			error(`Fail to load extension from ${manifestPath}. See console for parse error.`)
-			console.error(parse.issues)
-			console.error(JSON.stringify(flatten<typeof ExtPackageJson>(parse.issues), null, 2))
+			console.error(v.flatten<typeof ExtPackageJson>(parse.issues))
 			throw new Error(`Invalid manifest: ${manifestPath}`)
 		} else {
 			// debug(`Loaded extension ${parse.output.kunkun.identifier} from ${manifestPath}`)
@@ -55,7 +54,9 @@ export function loadAllExtensionsFromDisk(
 }
 
 export async function loadAllExtensionsFromDb(): Promise<ExtPackageJsonExtra[]> {
+	console.log("loadAllExtensionsFromDb start")
 	const allDbExts = await (await db.getAllExtensions()).filter((ext) => ext.path)
+	console.log("allDbExts", allDbExts)
 	const results: ExtPackageJsonExtra[] = []
 	for (const ext of allDbExts) {
 		if (!ext.path) continue
@@ -66,7 +67,7 @@ export async function loadAllExtensionsFromDb(): Promise<ExtPackageJsonExtra[]> 
 			console.error(err)
 			error(`Failed to load extension ${ext.path} from database.`)
 			// delete this extension from database
-			await db.deleteExtensionByPath(ext.path)
+			// await db.deleteExtensionByPath(ext.path)
 		}
 	}
 	return results

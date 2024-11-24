@@ -27,13 +27,13 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		})
 	}
 
-	function getExtensionsFromStore() {
+	function getExtensionsFromStore(): ExtPackageJsonExtra[] {
 		const extContainerPath = get(appConfig).extensionsInstallDir
 		if (!extContainerPath) return []
 		return get(extensions).filter((ext) => !extAPI.isExtPathInDev(extContainerPath, ext.extPath))
 	}
 
-	function findStoreExtensionByIdentifier(identifier: string) {
+	function findStoreExtensionByIdentifier(identifier: string): ExtPackageJsonExtra | undefined {
 		return get(extensions).find((ext) => ext.kunkun.identifier === identifier)
 	}
 
@@ -42,7 +42,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	 * @param extPath absolute path to the extension folder
 	 * @returns loaded extension
 	 */
-	async function registerNewExtensionByPath(extPath: string) {
+	async function registerNewExtensionByPath(extPath: string): Promise<ExtPackageJsonExtra> {
 		return extAPI
 			.loadExtensionManifestFromDisk(await path.join(extPath, "package.json"))
 			.then((ext) => {
@@ -65,16 +65,25 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	 * @param extsDir absolute path to the extensions directory
 	 * @returns loaded extension
 	 */
-	async function installTarball(tarballPath: string, extsDir: string) {
+	async function installTarball(
+		tarballPath: string,
+		extsDir: string
+	): Promise<ExtPackageJsonExtra> {
 		return extAPI.installTarballUrl(tarballPath, extsDir).then((extInstallPath) => {
 			return registerNewExtensionByPath(extInstallPath)
 		})
 	}
 
-	async function installDevExtensionDir(dirPath: string) {
-		return extAPI.installDevExtensionDir(dirPath).then((ext) => {
-			return registerNewExtensionByPath(ext.extPath)
-		})
+	async function installDevExtensionDir(dirPath: string): Promise<ExtPackageJsonExtra> {
+		return extAPI
+			.installDevExtensionDir(dirPath)
+			.then((ext) => {
+				return registerNewExtensionByPath(ext.extPath)
+			})
+			.catch((err) => {
+				console.error(err)
+				return Promise.reject(err)
+			})
 	}
 
 	async function installFromTarballUrl(tarballUrl: string, extsDir: string) {
@@ -92,8 +101,6 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	async function uninstallExtensionByPath(targetPath: string) {
 		const targetExt = get(extensions).find((ext) => ext.extPath === targetPath)
 		if (!targetExt) throw new Error(`Extension ${targetPath} not registered in DB`)
-		console.log(extAPI)
-
 		return extAPI
 			.uninstallExtensionByPath(targetPath)
 			.then(() => store.update((exts) => exts.filter((ext) => ext.extPath !== targetExt.extPath)))

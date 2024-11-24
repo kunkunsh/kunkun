@@ -13,3 +13,11 @@ pub struct ServerState {
     // that holds some api specific state
     pub app_handle: AppHandle,
 }
+
+#[derive(Serialize, Debug, Clone)]
+pub struct FileTransferProgressPayload {
+    pub progress: f64,
+    pub sent_bytes: u64,
+    pub total_size: u64,
+    pub chunk_count: u64,
+}
