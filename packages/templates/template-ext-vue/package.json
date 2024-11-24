@@ -1,8 +1,7 @@
 {
-	"$schema": "./node_modules/@kksh/api/dist/schema.json",
 	"name": "template-ext-vue",
 	"private": true,
-	"version": "0.0.2",
+	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -18,17 +17,16 @@
 		"radix-vue": "^1.9.5",
 		"tailwind-merge": "^2.4.0",
 		"tailwindcss-animate": "^1.0.7",
-		"vue": "^3.4.31"
+		"vue": "^3.5.12"
 	},
 	"devDependencies": {
-		"@types/node": "^20.14.12",
-		"@vitejs/plugin-vue": "^5.0.5",
+		"@vitejs/plugin-vue": "^5.1.4",
 		"autoprefixer": "^10.4.20",
-		"postcss": "^8.4.47",
-		"tailwindcss": "^3.4.9",
-		"typescript": "^5.2.2",
-		"vite": "^5.4.9",
-		"vue-tsc": "^2.0.24"
+		"postcss": "^8.4.49",
+		"tailwindcss": "^3.4.15",
+		"typescript": "~5.6.2",
+		"vite": "^5.4.10",
+		"vue-tsc": "^2.1.8"
 	},
 	"kunkun": {
 		"name": "TODO: Change Display Name",

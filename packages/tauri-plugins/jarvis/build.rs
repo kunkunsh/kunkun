@@ -1,3 +1,5 @@
+use base64::prelude::*;
+
 const COMMANDS: &[&str] = &[
     "open_devtools",
     "close_devtools",
@@ -115,11 +117,42 @@ const COMMANDS: &[&str] = &[
 ];
 
 fn main() {
+    // SSL Cert
+    let cert_pem = match std::env::var("CERT_PEM") {
+        Ok(cert) => cert.into_bytes(),
+        Err(_) => include_bytes!("./self_signed_certs/cert.pem").to_vec(),
+    };
+    let key_pem = match std::env::var("KEY_PEM") {
+        Ok(key) => key.into_bytes(),
+        Err(_) => include_bytes!("./self_signed_certs/key.pem").to_vec(),
+    };
+
+    println!(
+        "cargo:rustc-env=BASE64_CERT_PEM={}",
+        BASE64_STANDARD.encode(cert_pem)
+    );
+    println!(
+        "cargo:rustc-env=BASE64_KEY_PEM={}",
+        BASE64_STANDARD.encode(key_pem)
+    );
+
+    // GRPC
     let out_dir = std::path::PathBuf::from(std::env::var("OUT_DIR").unwrap());
     tonic_build::configure()
-        .file_descriptor_set_path(out_dir.join("helloworld_descriptor.bin"))
-        .compile(&["proto/helloworld.proto"], &["proto"])
+        .file_descriptor_set_path(out_dir.join("kk_grpc.bin"))
+        .compile(
+            &["proto/helloworld.proto", "proto/file-transfer.proto"],
+            &["proto"],
+        )
         .expect("Failed to compile protos");
+
+    // Server Public Key
+    let raw_server_public_key = include_bytes!("./keys/server_public_key.pem").to_vec();
+    println!(
+        "cargo:rustc-env=BASE64_SERVER_PUBLIC_KEY={}",
+        BASE64_STANDARD.encode(raw_server_public_key)
+    );
+
     tauri_plugin::Builder::new(COMMANDS)
         .android_path("android")
         .ios_path("ios")

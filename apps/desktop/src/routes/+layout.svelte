@@ -32,7 +32,6 @@
 	/* -------------------------------------------------------------------------- */
 	gsap.registerPlugin(Flip)
 	let flipState: Flip.FlipState
-
 	beforeNavigate(() => {
 		flipState = Flip.getState(
 			`.${Constants.CLASSNAMES.EXT_LOGO}, .${Constants.CLASSNAMES.BACK_BUTTON}`
@@ -55,7 +54,9 @@
 
 	let { children } = $props()
 	const unlisteners: UnlistenFn[] = []
-
+	onDestroy(() => {
+		unlisteners.forEach((unlistener) => unlistener())
+	})
 	onMount(async () => {
 		attachConsole().then((unlistener) => unlisteners.push(unlistener))
 		initDeeplink().then((unlistener) => unlisteners.push(unlistener))
@@ -102,10 +103,6 @@
 		} else {
 		}
 		getCurrentWebviewWindow().show()
-	})
-
-	onDestroy(() => {
-		unlisteners.forEach((unlistener) => unlistener())
 	})
 </script>
 

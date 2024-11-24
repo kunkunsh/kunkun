@@ -1,5 +1,5 @@
 use super::model::{ServerInfo, ServerState};
-use crate::constants::KUNKUN_REFRESH_WORKER_EXTENSION;
+use crate::constants::{KUNKUN_REFRESH_WORKER_EXTENSION, SERVER_PUBLIC_KEY};
 use axum::extract::State;
 use tauri::Emitter;
 
@@ -16,6 +16,7 @@ pub async fn get_server_info(State(state): State<ServerState>) -> axum::Json<Ser
     axum::Json(ServerInfo {
         service_name: pkg_info.name.to_string(),
         service_version: pkg_info.version.to_string(),
+        public_key: String::from_utf8(SERVER_PUBLIC_KEY.clone()).unwrap(),
     })
 }
 

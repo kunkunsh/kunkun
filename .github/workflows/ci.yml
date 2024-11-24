@@ -29,12 +29,39 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
       - name: Install Dependencies
         run: pnpm install
       - name: Setup
         run: pnpm prepare
       - name: Build
         run: pnpm build
-      - name: Test
+      - name: JS Test
         if: matrix.os == 'ubuntu-24.04'
         run: pnpm test
+      - name: Install protobuf (Mac)
+        if: matrix.os == 'macos-14'
+        run: |
+          brew install protobuf
+      - name: Install Protobuf (Ubuntu)
+        if: matrix.os == 'ubuntu-24.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+      - name: Install protoc and openssl for windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          choco install protoc
+          echo "VCPKG_ROOT=$env:VCPKG_INSTALLATION_ROOT" | Out-File -FilePath $env:GITHUB_ENV -Append
+          vcpkg install openssl:x64-windows-static-md
+          # choco install openssl -y
+          # echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
+          # echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
+          # echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib"' >> $env:GITHUB_ENV
+          # openssl version
+      - name: Cargo Build and Test
+        if: matrix.os == 'ubuntu-24.04'
+        run: |
+          cargo build
+          cargo test

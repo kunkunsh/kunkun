@@ -19,9 +19,9 @@ tar = "0.4.40"
 flate2 = "1.0.30"
 window-vibrancy = "0.5.0"
 tauri-plugin-store = "2.0.1"
-axum = { version = "0.6.20" }
-axum-extra = { version = "0.8.0" }
-axum-server = { version = "0.5", features = ["tls-rustls"] }
+axum = { workspace = true }
+axum-extra = { workspace = true }
+axum-server = { workspace = true }
 tower = { version = "0.4", features = ["util"] }
 tower-http = { version = "0.4.0", features = ["fs", "trace", "cors"] }
 tonic = "0.11"
@@ -41,6 +41,9 @@ mac-security-rs = { workspace = true }
 zip = "1.1.4"
 rust_search = "2.1.0"
 plist = "1.7.0"
+crypto = { workspace = true }
+base64 = { workspace = true }
+obfstr = { workspace = true }
 
 [target.'cfg(target_os = "macos")'.dependencies]
 tauri-icns = "0.1.0"
@@ -50,5 +53,6 @@ tauri-winres = "0.1.1"
 ico = "0.3.0"
 
 [build-dependencies]
-tauri-plugin = { version = "2.0.1", features = ["build"] }
+tauri-plugin = { version = "2.0.3", features = ["build"] }
 tonic-build = "0.11"
+base64 = { workspace = true }

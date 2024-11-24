@@ -1,0 +1,21 @@
+[package]
+name = "crypto"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+openssl = "0.10.68"
+rand = "0.8.5"
+ring = "0.17.8"
+rsa = { version = "0.9.6", features = ["sha2"] }
+sha2 = "0.10.8"
+anyhow = { workspace = true }
+hex = "0.4.3"
+axum = { workspace = true }
+tokio = { workspace = true }
+rustls = { workspace = true }
+axum-server = { workspace = true }
+reqwest = { workspace = true }
+aes = "0.8.4"
+block-padding = "0.3.3"
+cbc = { version = "0.1.2", features = ["alloc"] }

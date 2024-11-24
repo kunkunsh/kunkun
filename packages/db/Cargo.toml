@@ -4,10 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-rusqlite = { version = "0.31.0", features = [
-    "bundled",
-    # "bundled-sqlcipher"
-] }
+rusqlite = { version = "0.31.0", features = ["bundled", "bundled-sqlcipher"] }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
 tempfile = "3.10.1"

@@ -11,7 +11,7 @@
 
 <SideBar.Provider style="--sidebar-width: 13rem;">
 	<SettingsSidebar />
-	<main class="grow overflow-x-clip">
+	<main class="grow overflow-x-clip flex flex-col">
 		<SidebarTrigger />
 		{@render children?.()}
 	</main>

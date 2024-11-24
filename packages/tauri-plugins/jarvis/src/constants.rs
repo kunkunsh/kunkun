@@ -1,3 +1,5 @@
+use base64::prelude::*;
+
 /* -------------------------------------------------------------------------- */
 /*                        Buildin Extension Identifiers                       */
 /* -------------------------------------------------------------------------- */
@@ -11,3 +13,10 @@ pub const KUNKUN_DEV_EXT_IDENTIFIER: &str = "sh.kunkun.ext.dev";
 /*                            Kunkun Builtin Events                           */
 /* -------------------------------------------------------------------------- */
 pub const KUNKUN_REFRESH_WORKER_EXTENSION: &str = "kunkun://refresh-dev-extension";
+
+pub static BASE64_SERVER_PUBLIC_KEY: &str = env!("BASE64_SERVER_PUBLIC_KEY");
+pub static SERVER_PUBLIC_KEY: std::sync::LazyLock<Vec<u8>> = std::sync::LazyLock::new(|| {
+    BASE64_STANDARD
+        .decode(BASE64_SERVER_PUBLIC_KEY)
+        .expect("Failed to decode base64 encoded server public key")
+});

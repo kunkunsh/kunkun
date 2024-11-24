@@ -54,7 +54,7 @@ impl<R: Runtime, T: Manager<R>> crate::JarvisExt<R> for T {
 }
 
 /// Initializes the plugin.
-pub fn init<R: Runtime>() -> TauriPlugin<R> {
+pub fn init<R: Runtime>(db_key: Option<String>) -> TauriPlugin<R> {
     Builder::new("jarvis")
         .invoke_handler(tauri::generate_handler![
             /* ------------------------------ dev commands ------------------------------ */
@@ -169,7 +169,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             /* -------------------------------------------------------------------------- */
             commands::discovery::get_peers
         ])
-        .setup(|app, api| {
+        .setup(move |app, api| {
             // #[cfg(mobile)]
             // let jarvis = mobile::init(app, api)?;
             #[cfg(desktop)]
@@ -182,7 +182,6 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             app.manage(JarvisState::default());
             app.manage(commands::apps::ApplicationsState::default());
             let db_path = get_kunkun_db_path(app)?;
-            let db_key: Option<String> = None;
             app.manage(commands::db::DBState::new(db_path.clone(), db_key.clone())?);
             setup::db::setup_db(app)?;
             println!("Jarvis Plugin Initialized");

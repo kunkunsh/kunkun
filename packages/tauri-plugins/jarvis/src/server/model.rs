@@ -5,6 +5,7 @@ use tauri::{AppHandle, Runtime};
 pub struct ServerInfo {
     pub service_name: String,
     pub service_version: String,
+    pub public_key: String,
 }
 
 #[derive(Clone)]

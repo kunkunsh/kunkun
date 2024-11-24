@@ -1,7 +1,4 @@
-import { type Buffer } from "node:buffer"
-import { Channel, invoke } from "@tauri-apps/api/core"
 import { RPCChannel, type IoInterface } from "kkrpc/browser"
-import { constructShellAPI as constructShellAPI1 } from "tauri-api-adapter/client"
 import {
 	// Child,
 	EventEmitter,
@@ -244,7 +241,7 @@ export class TauriShellStdio implements IoInterface {
 		private childProcess: Child
 	) {}
 
-	read(): Promise<string | Buffer | Uint8Array | null> {
+	read(): Promise<string | Uint8Array | null> {
 		return new Promise((resolve, reject) => {
 			this.readStream.on("data", (chunk) => {
 				resolve(chunk)

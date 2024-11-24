@@ -1,13 +1,19 @@
-use super::grpc::greeter::hello_world::greeter_server::GreeterServer;
 use super::grpc::greeter::MyGreeter;
-/// This module is responsible for controlling the main server
+use super::grpc::{
+    file_transfer::file_transfer::file_transfer_server::FileTransferServer,
+    greeter::hello_world::greeter_server::GreeterServer,
+};
 use super::model::ServerState;
 use super::Protocol;
+use crate::server::grpc::file_transfer::MyFileTransfer;
 use crate::server::tls::{CERT_PEM, KEY_PEM};
 use crate::utils::path::get_default_extensions_dir;
 use axum::http::{HeaderValue, Method, StatusCode, Uri};
 use axum::routing::{get, get_service, post};
 use axum_server::tls_rustls::RustlsConfig;
+use base64::prelude::*;
+/// This module is responsible for controlling the main server
+use obfstr::obfstr as s;
 use std::sync::Mutex;
 use std::{net::SocketAddr, path::PathBuf, sync::Arc};
 use tauri::AppHandle;
@@ -23,7 +29,6 @@ async fn start_server(
     shtdown_handle: axum_server::Handle,
     options: ServerOptions,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let greeter = MyGreeter::default();
     let server_state = ServerState {
         app_handle: app_handle.clone(),
     };
@@ -31,13 +36,24 @@ async fn start_server(
         .register_encoded_file_descriptor_set(
             super::grpc::greeter::hello_world::FILE_DESCRIPTOR_SET,
         )
+        .register_encoded_file_descriptor_set(
+            super::grpc::file_transfer::file_transfer::FILE_DESCRIPTOR_SET,
+        )
         .build()
         .unwrap();
+    let greeter = MyGreeter {
+        app_handle: app_handle.clone(),
+        name: "jarvis".to_string(),
+    };
+    let file_transfer = MyFileTransfer {
+        app_handle: app_handle.clone(),
+    };
     let grpc_router = TonicServer::builder()
         .add_service(reflection_service)
         .add_service(GreeterServer::new(greeter))
+        .add_service(FileTransferServer::new(file_transfer))
         .into_router();
-    let mut rest_router = axum::Router::new()
+    let rest_router = axum::Router::new()
         .route(
             "/refresh-worker-extension",
             post(super::rest::refresh_worker_extension),
@@ -64,12 +80,25 @@ async fn start_server(
         Protocol::Https => {
             let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
             println!("manifest_dir: {}", manifest_dir.display());
-            let tls_config = RustlsConfig::from_pem(CERT_PEM.to_vec(), KEY_PEM.to_vec()).await?;
-            // let tls_config = RustlsConfig::from_pem_file(
-            //     manifest_dir.join("self_signed_certs").join("server.crt"),
-            //     manifest_dir.join("self_signed_certs").join("server.key"),
-            // )
-            // .await?;
+
+            let (key_pem, cert_pem) = if cfg!(debug_assertions) {
+                // In debug mode, use the base64 encoded certs from env
+                let cert_pem = BASE64_STANDARD
+                    .decode(s!(env!("BASE64_CERT_PEM")).to_string())
+                    .expect("Failed to decode cert_pem");
+                let key_pem = BASE64_STANDARD
+                    .decode(s!(env!("BASE64_KEY_PEM")).to_string())
+                    .expect("Failed to decode key_pem");
+                (key_pem, cert_pem)
+            } else {
+                // In release mode, generate new self-signed certs every time app starts for safety
+                let rsa =
+                    crypto::RsaCrypto::generate_rsa().expect("Failed to generate RSA key pair");
+                crypto::ssl::generate_self_signed_certificate(&rsa, 365)
+                    .expect("Failed to generate self-signed certificate")
+            };
+
+            let tls_config = RustlsConfig::from_pem(cert_pem, key_pem).await?;
             axum_server::bind_rustls(server_addr, tls_config)
                 .handle(shtdown_handle)
                 .serve(combined_router.into_make_service())

@@ -52,3 +52,5 @@ PUBLIC_SUPABASE_PROJECT_ID=${process.env.SUPABASE_PROJECT_ID}
 )
 // writeFileSync(join(__dirname, "../packages/gql/.env"), envContent)
 writeFileSync(join(REPO_ROOT, "packages/schema/.env"), envContent)
+
+writeFileSync(join(REPO_ROOT, "packages/tauri-plugins/jarvis/.env"), envContent)

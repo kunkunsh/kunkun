@@ -27,6 +27,8 @@
 		if (error) {
 			toast.error("Failed to sign in with OAuth", { description: error.message })
 		} else {
+			console.log(data.url);
+			
 			data.url && open(data.url)
 		}
 	}

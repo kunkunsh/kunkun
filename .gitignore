@@ -38,3 +38,4 @@ yarn-error.log*
 *.pem
 stats.html
 target/
+.idea/

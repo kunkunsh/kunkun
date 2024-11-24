@@ -1,0 +1,18 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "ui:dev",
+			"type": "shell",
+			"isBackground": true,
+			"command": "pnpm",
+			"args": ["-F", "desktop", "dev"]
+		},
+		{
+			"label": "ui:build",
+			"type": "shell",
+			"command": "pnpm",
+			"args": ["-F", "desktop", "build"]
+		}
+	]
+}
