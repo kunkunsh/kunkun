@@ -59,6 +59,7 @@ async fn start_server(
             post(super::rest::refresh_worker_extension),
         )
         .route("/info", get(super::rest::get_server_info))
+        .route("/download-file", get(super::rest::download_file))
         .layer(CorsLayer::permissive())
         .with_state(server_state);
 
