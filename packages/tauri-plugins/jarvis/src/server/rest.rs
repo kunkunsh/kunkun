@@ -4,6 +4,7 @@ use super::{
 };
 use crate::{
     constants::{KUNKUN_REFRESH_WORKER_EXTENSION, SERVER_PUBLIC_KEY},
+    models::FileTransferState,
     server::model::FileTransferProgressPayload,
     JarvisState,
 };
@@ -64,8 +65,27 @@ pub async fn download_file(
         return (StatusCode::FORBIDDEN, "Forbidden").into_response();
     };
     println!("auth_header: {}", auth_header_str);
-    let file_path = PathBuf::from("/Users/hk/Downloads/WACV_2025_Caroline_Huakun.pdf");
-    let file_name = file_path.file_name().unwrap().to_str().unwrap();
+    // let file_path = PathBuf::from("/Users/hk/Downloads/WACV_2025_Caroline_Huakun.pdf");
+    let file_transfer_state = state
+        .app_handle
+        .state::<FileTransferState>()
+        .files
+        .lock()
+        .unwrap()
+        .to_owned();
+    // find file by code
+    let file = match file_transfer_state
+        .iter()
+        .find(|f| f.code == auth_header_str)
+    {
+        Some(file) => file,
+        None => return (StatusCode::NOT_FOUND, "File not found").into_response(),
+    };
+    let file_path = PathBuf::from(&file.filename);
+    let file_name = file_path
+        .file_name()
+        .and_then(|n| n.to_str())
+        .ok_or_else(|| (StatusCode::INTERNAL_SERVER_ERROR, "Invalid filename").into_response()).unwrap();
     let app_handle = state.app_handle.clone();
     let response = match File::open(&file_path).await {
         Ok(file) => {

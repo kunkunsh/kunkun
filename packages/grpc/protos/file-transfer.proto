@@ -10,8 +10,9 @@ message StartTransferRequest {
     string filename = 2;
     string code = 3;
     int64 file_size = 4;
+    string ssl_cert = 5;
 }
 
 message StartTransferResponse {
-    bool accept = 1;
+    // bool accept = 1;
 }

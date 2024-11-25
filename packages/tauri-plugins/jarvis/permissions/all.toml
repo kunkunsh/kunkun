@@ -90,4 +90,8 @@ commands.allow = [
     "request_screen_capture_access",
     "check_screen_capture_access",
     "get_peers",
+    # File Transfer
+    "get_files_to_send",
+    "local_net_send_file",
+    "download_file",
 ]

@@ -1,6 +1,7 @@
 use commands::discovery::Peers;
 use db::JarvisDB;
 use model::extension::Extension;
+use models::FileTransferState;
 use openssl::{
     pkey::{Private, Public},
     rsa::Rsa,
@@ -171,7 +172,13 @@ pub fn init<R: Runtime>(db_key: Option<String>) -> TauriPlugin<R> {
             /* -------------------------------------------------------------------------- */
             /*                                    MDNS                                    */
             /* -------------------------------------------------------------------------- */
-            commands::discovery::get_peers
+            commands::discovery::get_peers,
+            /* -------------------------------------------------------------------------- */
+            /*                                File Transfer                               */
+            /* -------------------------------------------------------------------------- */
+            commands::server::get_files_to_send,
+            commands::server::local_net_send_file,
+            commands::server::download_file,
         ])
         .setup(move |app, api| {
             utils::setup::setup_app_path(app);
@@ -179,6 +186,7 @@ pub fn init<R: Runtime>(db_key: Option<String>) -> TauriPlugin<R> {
 
             // manage state so it is accessible by the commands
             app.manage(JarvisState::new());
+            app.manage(FileTransferState::default());
             app.manage(commands::apps::ApplicationsState::default());
             let db_path = get_kunkun_db_path(app)?;
             app.manage(commands::db::DBState::new(db_path.clone(), db_key.clone())?);
