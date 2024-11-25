@@ -11,7 +11,7 @@ if (!fs.existsSync(srcPath)) {
 	fs.mkdirSync(srcPath)
 }
 
-await $`rm -rf ./src/protos`
+fs.rmSync(path.join(__dirname, "src/protos"), { recursive: true, force: true })
 const protosDir = path.join(__dirname, "protos")
 for (const file of fs.readdirSync(protosDir)) {
 	if (file.endsWith(".proto")) {
