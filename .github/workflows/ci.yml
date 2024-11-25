@@ -51,6 +51,8 @@ jobs:
       - name: Setup
         run: pnpm prepare
       - name: Build
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
         run: pnpm build
       - name: JS Test
         if: matrix.os == 'ubuntu-24.04'
