@@ -1,4 +1,7 @@
-use super::model::{ServerInfo, ServerState};
+use super::{
+    http::Server,
+    model::{ServerInfo, ServerState},
+};
 use crate::{
     constants::{KUNKUN_REFRESH_WORKER_EXTENSION, SERVER_PUBLIC_KEY},
     server::model::FileTransferProgressPayload,
@@ -26,6 +29,7 @@ pub async fn web_root() -> axum::Json<serde_json::Value> {
 pub async fn get_server_info(State(state): State<ServerState>) -> axum::Json<ServerInfo> {
     let pkg_info = state.app_handle.package_info();
     let jarvis_state = state.app_handle.state::<JarvisState>();
+
     let pub_key_pem = jarvis_state
         .rsa_public_key
         .public_key_to_pem()
@@ -34,6 +38,7 @@ pub async fn get_server_info(State(state): State<ServerState>) -> axum::Json<Ser
         service_name: pkg_info.name.to_string(),
         service_version: pkg_info.version.to_string(),
         public_key: String::from_utf8(pub_key_pem).expect("Failed to convert public key to string"),
+        ssl_cert: String::from_utf8(state.app_handle.state::<Server>().ssl_cert.clone()).unwrap(),
     })
 }
 

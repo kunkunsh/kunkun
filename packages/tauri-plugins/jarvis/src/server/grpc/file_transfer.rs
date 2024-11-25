@@ -1,7 +1,5 @@
 use file_transfer::file_transfer_server::FileTransfer;
-use file_transfer::{
-    SendTransferInfoResponse, StartTransferRequest, StartTransferResponse, TransferInfo,
-};
+use file_transfer::{StartTransferRequest, StartTransferResponse};
 use tauri::AppHandle;
 use tonic::{Request, Response, Status};
 
@@ -21,19 +19,8 @@ impl FileTransfer for MyFileTransfer {
         &self,
         request: Request<StartTransferRequest>, // Accept request of type StartTransferRequest
     ) -> Result<Response<StartTransferResponse>, Status> {
-        println!("Got a request: {:?}", request);
-        let reply = StartTransferResponse {
-            port: "8080".to_string(),
-        };
+        let reply = StartTransferResponse { accept: true };
 
         Ok(Response::new(reply)) // Send back our formatted greeting
-    }
-
-    async fn send_transfer_info(
-        &self,
-        request: Request<TransferInfo>,
-    ) -> Result<Response<SendTransferInfoResponse>, Status> {
-        println!("Got a request: {:?}", request);
-        Ok(Response::new(SendTransferInfoResponse {}))
     }
 }

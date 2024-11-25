@@ -1,11 +1,12 @@
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use tauri::{AppHandle, Runtime};
 
-#[derive(Serialize)]
+#[derive(Serialize, Debug, Deserialize)]
 pub struct ServerInfo {
     pub service_name: String,
     pub service_version: String,
     pub public_key: String,
+    pub ssl_cert: String,
 }
 
 #[derive(Clone)]

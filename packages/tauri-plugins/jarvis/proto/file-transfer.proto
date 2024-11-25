@@ -1,25 +1,17 @@
 syntax = "proto3";
 package file_transfer;
 
-
 service FileTransfer {
     rpc StartTransfer (StartTransferRequest) returns (StartTransferResponse);
-    rpc SendTransferInfo(TransferInfo) returns (SendTransferInfoResponse);
 }
 
 message StartTransferRequest {
-    string ssl_cert = 1;
+    string port = 1;
+    string filename = 2;
+    string code = 3;
+    int64 file_size = 4;
 }
 
 message StartTransferResponse {
-    string port = 1;
+    bool accept = 1;
 }
-
-message TransferInfo {
-    string filename = 1;
-    string code = 2;
-    int32 port = 3;
-}
-
-message SendTransferInfoResponse {}
-

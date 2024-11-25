@@ -1,4 +1,4 @@
-use crate::commands::discovery::Peers;
+use crate::commands::discovery::{Peers, ServiceInfoMod};
 use base64::prelude::*;
 use mdns_sd::ServiceEvent;
 use std::collections::HashMap;
@@ -38,9 +38,19 @@ pub fn handle_mdns_service_evt<R: Runtime>(
                 // },
                 ServiceEvent::ServiceResolved(info) => {
                     log::info!("Service Resolved: {:#?}", info);
-                    app_handle.state::<Peers>().add_peer(info.into());
-                    let peers = app_handle.state::<Peers>().peers.lock().unwrap().clone();
-                    log::info!("Peers: {:#?}", peers);
+                    match ServiceInfoMod::from(info).await {
+                        Ok(service_info) => {
+                            app_handle.state::<Peers>().add_peer(service_info).await;
+                            if let Ok(peers) = app_handle.state::<Peers>().peers.lock() {
+                                log::info!("Peers: {:#?}", peers.clone());
+                            } else {
+                                log::error!("Failed to acquire peers lock");
+                            }
+                        }
+                        Err(e) => {
+                            log::error!("Failed to create ServiceInfoMod: {}", e);
+                        }
+                    }
                 }
                 ServiceEvent::ServiceRemoved(service_type, fullname) => {
                     log::info!("Service Removed: {:?} {:?}", service_type, fullname);

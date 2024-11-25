@@ -141,7 +141,7 @@ fn main() {
     tonic_build::configure()
         .file_descriptor_set_path(out_dir.join("kk_grpc.bin"))
         .compile(
-            &["proto/file-transfer.proto", "proto/server-info.proto"],
+            &["proto/file-transfer.proto", "proto/kunkun.proto"],
             &["proto"],
         )
         .expect("Failed to compile protos");
