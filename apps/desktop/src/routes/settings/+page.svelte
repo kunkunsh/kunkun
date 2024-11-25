@@ -42,6 +42,11 @@
 			<Switch bind:checked={$appConfig.joinBetaProgram} />
 		</li>
 
+		<li>
+			<span>Developer Mode</span>
+			<Switch bind:checked={$appConfig.developerMode} />
+		</li>
+
 		<!-- <li>
 				<span>Language</span>
 				<Switch bind:checked={$appConfig} />

@@ -1,2 +1,2 @@
 pub mod file_transfer;
-pub mod greeter;
+pub mod server_info;

@@ -41,6 +41,8 @@ strum = { workspace = true }
 chrono = { workspace = true }
 strum_macros = { workspace = true }
 mac-security-rs = { workspace = true }
+sysinfo = { workspace = true }
+openssl = { workspace = true }
 zip = "1.1.4"
 rust_search = "2.1.0"
 plist = "1.7.0"

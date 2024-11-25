@@ -1,11 +1,11 @@
-use super::grpc::greeter::MyGreeter;
 use super::grpc::{
     file_transfer::file_transfer::file_transfer_server::FileTransferServer,
-    greeter::hello_world::greeter_server::GreeterServer,
+    server_info::server_info::server_info_server::ServerInfoServer,
 };
 use super::model::ServerState;
 use super::Protocol;
 use crate::server::grpc::file_transfer::MyFileTransfer;
+use crate::server::grpc::server_info::MyServerInfo;
 use crate::server::tls::{CERT_PEM, KEY_PEM};
 use crate::utils::path::get_default_extensions_dir;
 use axum::http::{HeaderValue, Method, StatusCode, Uri};
@@ -34,23 +34,22 @@ async fn start_server(
     };
     let reflection_service = tonic_reflection::server::Builder::configure()
         .register_encoded_file_descriptor_set(
-            super::grpc::greeter::hello_world::FILE_DESCRIPTOR_SET,
+            super::grpc::server_info::server_info::FILE_DESCRIPTOR_SET,
         )
         .register_encoded_file_descriptor_set(
             super::grpc::file_transfer::file_transfer::FILE_DESCRIPTOR_SET,
         )
         .build()
         .unwrap();
-    let greeter = MyGreeter {
-        app_handle: app_handle.clone(),
-        name: "jarvis".to_string(),
-    };
     let file_transfer = MyFileTransfer {
+        app_handle: app_handle.clone(),
+    };
+    let server_info = MyServerInfo {
         app_handle: app_handle.clone(),
     };
     let grpc_router = TonicServer::builder()
         .add_service(reflection_service)
-        .add_service(GreeterServer::new(greeter))
+        .add_service(ServerInfoServer::new(server_info))
         .add_service(FileTransferServer::new(file_transfer))
         .into_router();
     let rest_router = axum::Router::new()

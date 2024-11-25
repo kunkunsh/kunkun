@@ -1,5 +1,9 @@
 use super::model::{ServerInfo, ServerState};
-use crate::{constants::{KUNKUN_REFRESH_WORKER_EXTENSION, SERVER_PUBLIC_KEY}, server::model::FileTransferProgressPayload};
+use crate::{
+    constants::{KUNKUN_REFRESH_WORKER_EXTENSION, SERVER_PUBLIC_KEY},
+    server::model::FileTransferProgressPayload,
+    JarvisState,
+};
 use axum::{
     body::StreamBody,
     extract::{FromRequest, State},
@@ -7,7 +11,7 @@ use axum::{
     response::IntoResponse,
 };
 use std::path::PathBuf;
-use tauri::Emitter;
+use tauri::{Emitter, Manager};
 use tokio::fs::File;
 use tokio_stream::StreamExt;
 use tokio_util::io::ReaderStream;
@@ -21,10 +25,15 @@ pub async fn web_root() -> axum::Json<serde_json::Value> {
 
 pub async fn get_server_info(State(state): State<ServerState>) -> axum::Json<ServerInfo> {
     let pkg_info = state.app_handle.package_info();
+    let jarvis_state = state.app_handle.state::<JarvisState>();
+    let pub_key_pem = jarvis_state
+        .rsa_public_key
+        .public_key_to_pem()
+        .expect("Failed to convert public key to pem");
     axum::Json(ServerInfo {
         service_name: pkg_info.name.to_string(),
         service_version: pkg_info.version.to_string(),
-        public_key: String::from_utf8(SERVER_PUBLIC_KEY.clone()).unwrap(),
+        public_key: String::from_utf8(pub_key_pem).expect("Failed to convert public key to string"),
     })
 }
 
