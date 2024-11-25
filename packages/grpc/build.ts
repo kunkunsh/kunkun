@@ -23,10 +23,10 @@ const protosDir = path.join(__dirname, "protos")
 for (const file of fs.readdirSync(protosDir)) {
 	if (file.endsWith(".proto")) {
 		await $`
-        protoc 
-        --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts 
-        --ts_out=./src 
-        -I . 
+        protoc \
+        --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts \
+        --ts_out=./src \
+        -I . \
         ./protos/${file}`
 	}
 }
