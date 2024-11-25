@@ -52,10 +52,10 @@ async fn start_server(
         .add_service(FileTransferServer::new(file_transfer))
         .into_router();
     let rest_router = axum::Router::new()
-        // .route(
-        //     "/refresh-worker-extension",
-        //     post(super::rest::refresh_worker_extension),
-        // )
+        .route(
+            "/refresh-worker-extension",
+            post(super::rest::refresh_worker_extension),
+        )
         .route("/info", get(super::rest::get_server_info))
         .route("/download-file", get(super::rest::download_file))
         .layer(CorsLayer::permissive())
