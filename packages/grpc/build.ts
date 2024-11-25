@@ -1,7 +1,14 @@
 import fs from "fs"
+import os from "os"
 import path from "path"
 import { fileURLToPath } from "url"
 import { $ } from "bun"
+
+// skip this if on Windows, protoc-gen-ts is not supported
+if (os.platform() === "win32") {
+	console.log("Skipping build on Windows")
+	process.exit(0)
+}
 
 const filepath = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(filepath)
@@ -16,10 +23,10 @@ const protosDir = path.join(__dirname, "protos")
 for (const file of fs.readdirSync(protosDir)) {
 	if (file.endsWith(".proto")) {
 		await $`
-        protoc \
-        --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts \
-        --ts_out=./src \
-        -I . \
+        protoc 
+        --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts 
+        --ts_out=./src 
+        -I . 
         ./protos/${file}`
 	}
 }
