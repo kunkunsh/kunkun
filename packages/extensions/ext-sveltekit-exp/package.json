@@ -16,7 +16,15 @@
 		"permissions": [
 			"clipboard:read-text",
 			"notification:all",
-			"dialog:all"
+			"dialog:all",
+			"shell:kill",
+			"shell:stdin-write",
+			{
+				"permission": "shell:deno:spawn",
+				"allow": [
+					{}
+				]
+			}
 		],
 		"customUiCmds": [
 			{

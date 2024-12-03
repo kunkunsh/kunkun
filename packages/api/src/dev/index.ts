@@ -24,6 +24,7 @@ export function checkLocalKunkunService(port: number): Promise<boolean> {
 			return data["service_name"].toLowerCase() === DESKTOP_SERVICE_NAME.toLowerCase()
 		})
 		.catch((err) => {
+			// console.error("Failed to check local kunkun service", err)
 			// fetch fail, i.e. server not on this port
 			return false
 		})
@@ -41,6 +42,7 @@ export async function findLocalhostKunkunPorts(): Promise<number[]> {
 }
 
 export async function refreshTemplateWorkerExtensionViaServer() {
+	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 	const ports = await findLocalhostKunkunPorts()
 	console.log("Kunkun ports", ports)
 	if (ports.length === 0) {
