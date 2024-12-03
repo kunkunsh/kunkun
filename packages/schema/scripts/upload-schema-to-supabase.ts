@@ -1,6 +1,7 @@
 import { ExtPackageJson } from "@kksh/api/models"
 import { createSB } from "@kksh/supabase"
 import { parse, string } from "valibot"
+import * as v from "valibot"
 import { getJsonSchema } from "../src"
 
 const supabase = createSB(

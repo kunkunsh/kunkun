@@ -172,7 +172,6 @@ export const ExtPackageJson = object({
 	files: array(string("Files to include in the extension. e.g. ['dist']"))
 })
 export type ExtPackageJson = InferOutput<typeof ExtPackageJson>
-
 /**
  * Extra fields for ExtPackageJson
  * e.g. path to the extension
