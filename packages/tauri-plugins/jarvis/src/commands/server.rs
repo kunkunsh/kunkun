@@ -1,13 +1,11 @@
 use crate::server::grpc::client::get_grpc_tls_channel;
-use crate::server::grpc::file_transfer::file_transfer::file_transfer_client::FileTransferClient;
-use crate::server::grpc::file_transfer::file_transfer::{
-    StartTransferRequest, StartTransferResponse,
-};
 use crate::{
     model::app_state,
     models::{FileTransferInfo, FileTransferState},
     server::http::Server,
 };
+use grpc::file_transfer::file_transfer_client::FileTransferClient;
+use grpc::file_transfer::{StartTransferRequest, StartTransferResponse};
 use reqwest::tls::Certificate;
 use std::path::PathBuf;
 use uuid::Uuid;
@@ -107,22 +105,22 @@ pub async fn local_net_send_file(
     let mut client = FileTransferClient::new(tls_channel);
     println!("local_net_send_file: {:?}", files_to_send);
     // Send the transfer request
-    let response: tonic::Response<StartTransferResponse> = client
-        .start_transfer(StartTransferRequest {
-            port: port.to_string(),
-            filename: files_to_send[0]
-                .file_name()
-                .unwrap()
-                .to_str()
-                .unwrap()
-                .to_string(),
-            code: uuid.clone(),
-            file_size: files_to_send[0].metadata().unwrap().len() as i64,
-            ssl_cert: cert_pem,
-        })
-        .await
-        .map_err(|e| e.to_string())?;
-    println!("local_net_send_file response: {:?}", response);
+    // let response: tonic::Response<StartTransferResponse> = client
+    //     .start_transfer(StartTransferRequest {
+    //         port: port.to_string(),
+    //         filename: files_to_send[0]
+    //             .file_name()
+    //             .unwrap()
+    //             .to_str()
+    //             .unwrap()
+    //             .to_string(),
+    //         code: uuid.clone(),
+    //         file_size: files_to_send[0].metadata().unwrap().len() as i64,
+    //         ssl_cert: cert_pem,
+    //     })
+    //     .await
+    //     .map_err(|e| e.to_string())?;
+    // println!("local_net_send_file response: {:?}", response);
     // Only acquire the mutex after all async operations are complete
     let mut files = file_transfer.files.lock().unwrap();
     for file in files_to_send {

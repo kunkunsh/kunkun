@@ -5,12 +5,24 @@ service FileTransfer {
     rpc StartTransfer (StartTransferRequest) returns (StartTransferResponse);
 }
 
+enum FileType {
+    FILE = 0;
+    DIRECTORY = 1;
+}
+
+message FileNode {
+    string filename = 1;
+    int64 file_size = 2;
+    string id = 3;
+    FileType type = 4;
+    repeated FileNode children = 5;
+}
+
 message StartTransferRequest {
     string port = 1;
-    string filename = 2;
-    string code = 3;
-    int64 file_size = 4;
-    string ssl_cert = 5;
+    string code = 2;
+    string ssl_cert = 3;
+    FileNode root = 4;
 }
 
 message StartTransferResponse {

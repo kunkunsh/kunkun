@@ -2,7 +2,7 @@
 // use hello_world::{HelloReply, HelloRequest};
 // use server_info«::server_info_server::ServerInfo;
 // use server_info::{InfoRequest, InfoResponse};
-use kunkun::{
+use grpc::kunkun::{
     kunkun_server::{Kunkun, KunkunServer},
     Empty, ServerInfoResponse,
 };
@@ -11,11 +11,6 @@ use tauri::{AppHandle, Emitter, Manager};
 use tonic::{Request, Response, Status};
 
 use crate::{constants::KUNKUN_REFRESH_WORKER_EXTENSION, server::http::Server, JarvisState};
-
-pub mod kunkun {
-    tonic::include_proto!("kunkun"); // The string specified here must match the proto package name
-    pub const FILE_DESCRIPTOR_SET: &[u8] = tonic::include_file_descriptor_set!("kk_grpc");
-}
 
 #[derive(Debug)]
 pub struct KunkunService {
@@ -35,7 +30,8 @@ impl Kunkun for KunkunService {
             public_key: crypto::RsaCrypto::public_key_to_string(
                 &self.app_handle.state::<JarvisState>().rsa_public_key,
             ),
-            ssl_cert: String::from_utf8(self.app_handle.state::<Server>().ssl_cert.clone()).unwrap(),
+            ssl_cert: String::from_utf8(self.app_handle.state::<Server>().ssl_cert.clone())
+                .unwrap(),
         }))
     }
 

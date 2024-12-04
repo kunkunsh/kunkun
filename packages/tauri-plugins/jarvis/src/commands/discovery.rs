@@ -3,10 +3,11 @@ use std::{collections::HashMap, net::IpAddr, sync::Mutex};
 use crate::server::{
     grpc::{
         client::get_grpc_tls_channel,
-        kunkun::kunkun::{kunkun_client::KunkunClient, Empty, ServerInfoResponse},
+        // kunkun::kunkun::{kunkun_client::KunkunClient, Empty, ServerInfoResponse},
     },
     model::ServerInfo,
 };
+use grpc::kunkun::{kunkun_client::KunkunClient, Empty, ServerInfoResponse};
 // use crate::server::grpc::kunkun::kunkun::Empty
 use mdns_sd::ServiceInfo;
 use serde::{Deserialize, Serialize};

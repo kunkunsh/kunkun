@@ -8,6 +8,7 @@ members = [
     "packages/mac-security-rs",
     "packages/tauri-plugins/jarvis",
     "packages/crypto",
+    "packages/grpc",
 ]
 
 [workspace.dependencies]
@@ -25,6 +26,7 @@ strum = "0.26"
 strum_macros = "0.26"
 chrono = "0.4.38"
 applications = { path = "./vendors/applications-rs" }
+grpc = { path = "./packages/grpc" }
 tauri-plugin-jarvis = { path = "./packages/tauri-plugins/jarvis" }
 tauri-plugin-system-info = { path = "./vendors/tauri-plugin-system-info" }
 db = { path = "./packages/db" }

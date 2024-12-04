@@ -1,15 +1,17 @@
-use super::grpc::{
-    file_transfer::{file_transfer::file_transfer_server::FileTransferServer, MyFileTransfer},
-    kunkun::{kunkun::kunkun_server::KunkunServer, KunkunService},
-};
 use super::model::ServerState;
 use super::Protocol;
+use crate::server::grpc::file_transfer::MyFileTransfer;
+use crate::server::grpc::kunkun::KunkunService;
 use crate::server::tls::{CERT_PEM, KEY_PEM};
 use crate::utils::path::get_default_extensions_dir;
 use axum::http::{HeaderValue, Method, StatusCode, Uri};
 use axum::routing::{get, get_service, post};
 use axum_server::tls_rustls::RustlsConfig;
 use base64::prelude::*;
+use grpc::{
+    file_transfer::file_transfer_server::FileTransferServer,
+    kunkun::kunkun_server::{Kunkun, KunkunServer},
+};
 /// This module is responsible for controlling the main server
 use obfstr::obfstr as s;
 use std::sync::Mutex;
@@ -34,10 +36,8 @@ async fn start_server(
         app_handle: app_handle.clone(),
     };
     let reflection_service = tonic_reflection::server::Builder::configure()
-        .register_encoded_file_descriptor_set(super::grpc::kunkun::kunkun::FILE_DESCRIPTOR_SET)
-        .register_encoded_file_descriptor_set(
-            super::grpc::file_transfer::file_transfer::FILE_DESCRIPTOR_SET,
-        )
+        .register_encoded_file_descriptor_set(grpc::kunkun::FILE_DESCRIPTOR_SET)
+        .register_encoded_file_descriptor_set(grpc::file_transfer::FILE_DESCRIPTOR_SET)
         .build()
         .unwrap();
     let file_transfer = MyFileTransfer {
@@ -48,8 +48,8 @@ async fn start_server(
     };
     let grpc_router = TonicServer::builder()
         .add_service(reflection_service)
-        .add_service(KunkunServer::new(kk_service))
         .add_service(FileTransferServer::new(file_transfer))
+        .add_service(KunkunServer::new(kk_service))
         .into_router();
     let rest_router = axum::Router::new()
         .route(
