@@ -40,3 +40,5 @@ base64 = "0.22.1"
 obfstr = "0.4.4"
 sysinfo = "0.32.0"
 openssl = "0.10.68"
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.4.0", features = ["fs", "trace", "cors"] }

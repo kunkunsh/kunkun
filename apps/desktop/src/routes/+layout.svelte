@@ -13,7 +13,6 @@
 		ModeWatcher,
 		themeConfigStore,
 		ThemeWrapper,
-		Toaster,
 		updateTheme,
 		type ThemeConfig
 	} from "@kksh/svelte5"
@@ -25,6 +24,7 @@
 	import { gsap } from "gsap"
 	import { Flip } from "gsap/Flip"
 	import { onDestroy, onMount } from "svelte"
+	import { toast, Toaster } from "svelte-sonner"
 	import * as shellx from "tauri-plugin-shellx-api"
 
 	/* -------------------------------------------------------------------------- */

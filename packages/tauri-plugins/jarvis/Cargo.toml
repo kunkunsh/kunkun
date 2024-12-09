@@ -22,8 +22,8 @@ tauri-plugin-store = "2.0.1"
 axum = { workspace = true }
 axum-extra = { workspace = true }
 axum-server = { workspace = true }
-tower = { version = "0.4", features = ["util"] }
-tower-http = { version = "0.4.0", features = ["fs", "trace", "cors"] }
+tower = { workspace = true }
+tower-http = { workspace = true }
 tonic = { version = "0.11", features = ["tls"] }
 tonic-reflection = "0.11.0"
 uuid = { version = "1.8.0", features = ["v4"] }

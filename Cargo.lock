@@ -2506,11 +2506,13 @@ dependencies = [
 name = "grpc"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "prost",
  "serde",
  "serde_json",
  "tonic",
  "tonic-build",
+ "uuid",
 ]
 
 [[package]]
@@ -6852,9 +6854,8 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-upload"
-version = "2.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "116754130d3f95cf73552a0723376186a8f21607ac5ff350980af87a0eccba73"
+version = "2.2.1"
+source = "git+https://github.com/HuakunShen/tauri-plugins-workspace.git?branch=kunkun#70f6d77c69715683a0b63841b49bf6c0c3b98d4c"
 dependencies = [
  "futures-util",
  "log",
@@ -6864,7 +6865,7 @@ dependencies = [
  "serde_json",
  "tauri",
  "tauri-plugin",
- "thiserror 1.0.66",
+ "thiserror 2.0.3",
  "tokio",
  "tokio-util",
 ]

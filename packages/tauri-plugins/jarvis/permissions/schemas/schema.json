@@ -580,6 +580,26 @@
           "const": "deny-get-extension-folder"
         },
         {
+          "description": "Enables the get_file_transfer_bucket_by_key command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-file-transfer-bucket-by-key"
+        },
+        {
+          "description": "Denies the get_file_transfer_bucket_by_key command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-file-transfer-bucket-by-key"
+        },
+        {
+          "description": "Enables the get_file_transfer_bucket_keys command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-file-transfer-bucket-keys"
+        },
+        {
+          "description": "Denies the get_file_transfer_bucket_keys command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-file-transfer-bucket-keys"
+        },
+        {
           "description": "Enables the get_files_to_send command without any pre-configured scope.",
           "type": "string",
           "const": "allow-get-files-to-send"

@@ -8,6 +8,9 @@ serde = { workspace = true }
 serde_json = { workspace = true }
 tonic = { version = "0.11", features = ["tls"] }
 prost = "0.12"
+uuid = { version = "1.8.0", features = ["v4"] }
+anyhow = { workspace = true }
+# prost-types = { version = "0.13", features = ["serde"] }
 
 [build-dependencies]
 tonic-build = "0.11"

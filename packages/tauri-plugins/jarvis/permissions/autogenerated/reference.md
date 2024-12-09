@@ -752,6 +752,58 @@ Denies the get_extension_folder command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-get-file-transfer-bucket-by-key`
+
+</td>
+<td>
+
+Enables the get_file_transfer_bucket_by_key command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-file-transfer-bucket-by-key`
+
+</td>
+<td>
+
+Denies the get_file_transfer_bucket_by_key command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-get-file-transfer-bucket-keys`
+
+</td>
+<td>
+
+Enables the get_file_transfer_bucket_keys command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-file-transfer-bucket-keys`
+
+</td>
+<td>
+
+Denies the get_file_transfer_bucket_keys command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-get-files-to-send`
 
 </td>

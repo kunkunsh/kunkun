@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use tauri::{AppHandle, Runtime};
+use tauri::AppHandle;
 
 #[derive(Serialize, Debug, Deserialize)]
 pub struct ServerInfo {
@@ -21,4 +21,10 @@ pub struct FileTransferProgressPayload {
     pub sent_bytes: u64,
     pub total_size: u64,
     pub chunk_count: u64,
+}
+
+#[derive(Debug, Deserialize)]
+#[allow(dead_code)]
+pub struct DownloadFilePayload {
+    pub id: String,
 }

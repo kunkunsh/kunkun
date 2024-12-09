@@ -10,10 +10,11 @@ use crate::{
 };
 use axum::{
     body::StreamBody,
-    extract::{FromRequest, State},
+    extract::{FromRequest, Query, State},
     http::{header, HeaderMap, StatusCode},
     response::IntoResponse,
 };
+use rustls::lock::Mutex;
 use std::path::PathBuf;
 use tauri::{Emitter, Manager};
 use tokio::fs::File;
@@ -51,41 +52,45 @@ pub async fn refresh_worker_extension(State(state): State<ServerState>) -> &'sta
     "OK"
 }
 
+#[derive(Debug, serde::Deserialize)]
+pub struct Params {
+    pub id: String,
+}
+
 /// Download a file from the server
 /// Sample wget command: wget --header="Authorization: TOKEN" --no-check-certificate --content-disposition https://localhost:9559/download-file
 pub async fn download_file(
+    Query(params): Query<Params>,
     State(state): State<ServerState>,
     headers: HeaderMap,
 ) -> impl IntoResponse {
+    println!("download_file");
+    println!("params: {:?}", params);
     // read authorization header
     let auth_header = headers.get("Authorization");
+    // let file_id = headers.get("file_id");
     let auth_header_str = if let Some(auth_header) = auth_header {
         auth_header.to_str().unwrap()
     } else {
         return (StatusCode::FORBIDDEN, "Forbidden").into_response();
     };
-    println!("auth_header: {}", auth_header_str);
-    // let file_path = PathBuf::from("/Users/hk/Downloads/WACV_2025_Caroline_Huakun.pdf");
-    let file_transfer_state = state
-        .app_handle
-        .state::<FileTransferState>()
-        .files
-        .lock()
-        .unwrap()
-        .to_owned();
-    // find file by code
-    let file = match file_transfer_state
-        .iter()
-        .find(|f| f.code == auth_header_str)
-    {
-        Some(file) => file,
-        None => return (StatusCode::NOT_FOUND, "File not found").into_response(),
+    let file_transfer_state = state.app_handle.state::<FileTransferState>();
+    // !The mutex related operations must be done in a separate scope, otherwise it will conflict with tokio::fs::File::open, not sure why
+    let file_path = {
+        let buckets = file_transfer_state
+            .buckets
+            .lock()
+            .expect("Failed to get buckets mutex");
+        let bucket = match buckets.get(auth_header_str) {
+            Some(b) => b,
+            None => return (StatusCode::NOT_FOUND, "File not found").into_response(),
+        };
+        let file_path = match bucket.id_path_map.get(&params.id) {
+            Some(f) => f,
+            None => return (StatusCode::NOT_FOUND, "File not found").into_response(),
+        };
+        file_path.clone()
     };
-    let file_path = PathBuf::from(&file.filename);
-    let file_name = file_path
-        .file_name()
-        .and_then(|n| n.to_str())
-        .ok_or_else(|| (StatusCode::INTERNAL_SERVER_ERROR, "Invalid filename").into_response()).unwrap();
     let app_handle = state.app_handle.clone();
     let response = match File::open(&file_path).await {
         Ok(file) => {
@@ -137,7 +142,11 @@ pub async fn download_file(
                     ),
                     (
                         header::CONTENT_DISPOSITION,
-                        format!("attachment; filename={}", file_name).as_str(),
+                        format!(
+                            "attachment; filename={}",
+                            file_path.file_name().unwrap().to_str().unwrap()
+                        )
+                        .as_str(),
                     ),
                 ],
                 body,

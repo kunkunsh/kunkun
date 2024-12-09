@@ -12,7 +12,7 @@ enum FileType {
 
 message FileNode {
     string filename = 1;
-    int64 file_size = 2;
+    uint64 file_size = 2;
     string id = 3;
     FileType type = 4;
     repeated FileNode children = 5;

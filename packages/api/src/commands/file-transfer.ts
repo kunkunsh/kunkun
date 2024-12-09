@@ -1,9 +1,21 @@
 import { invoke } from "@tauri-apps/api/core"
-import type { FileTransferPayload } from "../models/file-transfer"
+import type { FilesBucket } from "../models/file-transfer"
 import { generateJarvisPluginCommand } from "./common"
 
-export function getFilesToSend(): Promise<FileTransferPayload[]> {
-	return invoke<FileTransferPayload[]>(generateJarvisPluginCommand("get_files_to_send"))
+export function getFileTransferBucketKeys(): Promise<string[]> {
+	return invoke<string[]>(generateJarvisPluginCommand("get_file_transfer_bucket_keys"))
+}
+
+export function getFileTransferBucketByKey(key: string): Promise<FilesBucket> {
+	return invoke<FilesBucket>(generateJarvisPluginCommand("get_file_transfer_bucket_by_key"), {
+		key
+	})
+}
+
+export function getAllFileTransferBuckets(): Promise<FilesBucket[]> {
+	return getFileTransferBucketKeys().then((keys) => {
+		return Promise.all(keys.map((key) => getFileTransferBucketByKey(key)))
+	})
 }
 
 export function localNetSendFile(

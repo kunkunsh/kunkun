@@ -53,7 +53,7 @@
 		"@tauri-apps/plugin-shell": "^2.0.1",
 		"@tauri-apps/plugin-store": "^2.1.0",
 		"@tauri-apps/plugin-updater": "^2.0.0",
-		"@tauri-apps/plugin-upload": "^2.1.0",
+		"@tauri-apps/plugin-upload": "https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03",
 		"kkrpc": "^0.0.13",
 		"lodash": "^4.17.21",
 		"minimatch": "^10.0.1",

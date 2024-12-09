@@ -176,7 +176,9 @@ pub fn init<R: Runtime>(db_key: Option<String>) -> TauriPlugin<R> {
             /* -------------------------------------------------------------------------- */
             /*                                File Transfer                               */
             /* -------------------------------------------------------------------------- */
-            commands::server::get_files_to_send,
+            // commands::server::get_files_to_send,
+            commands::server::get_file_transfer_bucket_keys,
+            commands::server::get_file_transfer_bucket_by_key,
             commands::server::local_net_send_file,
             commands::server::download_file,
         ])

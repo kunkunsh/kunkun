@@ -60,8 +60,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       '@tauri-apps/plugin-upload':
-        specifier: ^2.1.0
-        version: 2.1.0
+        specifier: https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03
+        version: https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03
       supabase:
         specifier: ^1.219.2
         version: 1.219.2
@@ -147,7 +147,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
@@ -187,7 +187,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -284,7 +284,7 @@ importers:
         version: 2.1.0
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
@@ -370,8 +370,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0
       '@tauri-apps/plugin-upload':
-        specifier: ^2.1.0
-        version: 2.1.0
+        specifier: https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03
+        version: https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03
       kkrpc:
         specifier: ^0.0.13
         version: 0.0.13(typescript@5.6.3)
@@ -408,7 +408,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
       '@types/lodash':
         specifier: ^4.17.13
         version: 4.17.13
@@ -445,7 +445,7 @@ importers:
         version: link:../typescript-config
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
 
   packages/config-eslint:
     dependencies:
@@ -485,7 +485,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
 
   packages/extensions/demo-worker-template-ext:
     dependencies:
@@ -510,7 +510,7 @@ importers:
         version: 11.1.6(rollup@4.27.4)(tslib@2.8.1)(typescript@5.6.3)
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.27.4)
@@ -617,7 +617,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
 
   packages/grpc:
     dependencies:
@@ -636,7 +636,7 @@ importers:
         version: 0.7.13
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
       '@types/google-protobuf':
         specifier: ^3.15.12
         version: 3.15.12
@@ -667,7 +667,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
       '@valibot/to-json-schema':
         specifier: 1.0.0-beta.3
         version: 1.0.0-beta.3(valibot@1.0.0-beta.9(typescript@5.6.3))
@@ -686,7 +686,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
 
   packages/tauri-plugins/jarvis:
     dependencies:
@@ -702,7 +702,7 @@ importers:
         version: link:../../supabase
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
 
   packages/templates/template-ext-next:
     dependencies:
@@ -1048,7 +1048,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
 
   packages/types:
     dependencies:
@@ -1058,7 +1058,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
 
   packages/typescript-config: {}
 
@@ -1091,7 +1091,7 @@ importers:
         version: 0.1.10(lucide-svelte@0.460.1(svelte@5.2.7))(svelte-sonner@0.3.28(svelte@5.2.7))(svelte@5.2.7)(sveltekit-superforms@2.20.1(@sveltejs/kit@2.8.1(@sveltejs/vite-plugin-svelte@4.0.1(svelte@5.2.7)(vite@5.4.11(@types/node@22.8.7)(terser@5.36.0)))(svelte@5.2.7)(vite@5.4.11(@types/node@22.8.7)(terser@5.36.0)))(@types/json-schema@7.0.15)(svelte@5.2.7)(typescript@5.7.2))
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
       bits-ui:
         specifier: 1.0.0-next.60
         version: 1.0.0-next.60(svelte@5.2.7)
@@ -1152,7 +1152,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.13
+        version: 1.1.14
 
   vendors/kkrpc/packages/kkrpc:
     dependencies:
@@ -3970,8 +3970,12 @@ packages:
   '@tauri-apps/plugin-upload@2.0.0':
     resolution: {integrity: sha512-MdBZn4RCVmFDjuC2rbpFGjAZAbePkxrc9T35+SKJJgfXbXYw0YOzvUTsDiU7F3NzDWepO+6EbVN3Upzi9rqt/A==}
 
-  '@tauri-apps/plugin-upload@2.1.0':
-    resolution: {integrity: sha512-nSIyxp2sAHsj+1RMs3obTP2lC1rzeWcMxHtzLYjnXLnJMXvWlFG0T7jEZ9Sg/OErvQxPVIvDW+12evuFKa5t8Q==}
+  '@tauri-apps/plugin-upload@2.2.1':
+    resolution: {integrity: sha512-2EyVhJYLAp2mJH0UzO3QGU0vPk/YWvAfdI2wXbczyzEZY/AZVa9wConyB1TV/NGhyJRim4LwWgkmnEvcKLkECw==}
+
+  '@tauri-apps/plugin-upload@https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03':
+    resolution: {tarball: https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03}
+    version: 2.2.1
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -4007,9 +4011,6 @@ packages:
 
   '@types/babel__traverse@7.20.6':
     resolution: {integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==}
-
-  '@types/bun@1.1.13':
-    resolution: {integrity: sha512-KmQxSBgVWCl6RSuerlLGZlIWfdxkKqat0nxN61+qu4y1KDn0Ll3j7v1Pl8GnaL3a/U6GGWVTJh75ap62kR1E8Q==}
 
   '@types/bun@1.1.14':
     resolution: {integrity: sha512-opVYiFGtO2af0dnWBdZWlioLBoxSdDO5qokaazLhq8XQtGZbY4pY3/JxY8Zdf/hEwGubbp7ErZXoN1+h2yesxA==}
@@ -4952,9 +4953,6 @@ packages:
 
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
-
-  bun-types@1.1.34:
-    resolution: {integrity: sha512-br5QygTEL/TwB4uQOb96Ky22j4Gq2WxWH/8Oqv20fk5HagwKXo/akB+LiYgSfzexCt6kkcUaVm+bKiPl71xPvw==}
 
   bun-types@1.1.37:
     resolution: {integrity: sha512-C65lv6eBr3LPJWFZ2gswyrGZ82ljnH8flVE03xeXxKhi2ZGtFiO4isRKTKnitbSqtRAcaqYSR6djt1whI66AbA==}
@@ -13850,7 +13848,11 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.1.1
 
-  '@tauri-apps/plugin-upload@2.1.0':
+  '@tauri-apps/plugin-upload@2.2.1':
+    dependencies:
+      '@tauri-apps/api': 2.1.1
+
+  '@tauri-apps/plugin-upload@https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03':
     dependencies:
       '@tauri-apps/api': 2.1.1
 
@@ -13893,10 +13895,6 @@ snapshots:
   '@types/babel__traverse@7.20.6':
     dependencies:
       '@babel/types': 7.26.0
-
-  '@types/bun@1.1.13':
-    dependencies:
-      bun-types: 1.1.34
 
   '@types/bun@1.1.14':
     dependencies:
@@ -15299,11 +15297,6 @@ snapshots:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
-
-  bun-types@1.1.34:
-    dependencies:
-      '@types/node': 20.12.14
-      '@types/ws': 8.5.13
 
   bun-types@1.1.37:
     dependencies:
@@ -20252,7 +20245,7 @@ snapshots:
       '@tauri-apps/plugin-notification': 2.0.0
       '@tauri-apps/plugin-os': 2.0.0
       '@tauri-apps/plugin-shell': 2.0.1
-      '@tauri-apps/plugin-upload': 2.1.0
+      '@tauri-apps/plugin-upload': 2.2.1
       kkrpc: 0.0.12(typescript@5.6.3)
       rimraf: 6.0.1
       shx: 0.3.4

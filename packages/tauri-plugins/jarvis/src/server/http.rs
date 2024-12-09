@@ -58,13 +58,10 @@ async fn start_server(
         )
         .route("/info", get(super::rest::get_server_info))
         .route("/download-file", get(super::rest::download_file))
+        // .route("/stream-file", get(super::rest::stream_file))
         .layer(CorsLayer::permissive())
         .with_state(server_state);
 
-    async fn fallback(uri: Uri) -> (StatusCode, String) {
-        println!("No route for {uri}");
-        (StatusCode::NOT_FOUND, format!("No route for {uri}"))
-    }
     let combined_router = axum::Router::new()
         .merge(grpc_router)
         .merge(rest_router)
