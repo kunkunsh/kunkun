@@ -109,9 +109,12 @@
 	<Layouts.Center>
 		<DragNDrop {onDrop} onEnter={() => (dragging = true)} onCancelled={() => (dragging = false)}>
 			<Card.Root
-				class={cn("h-36 w-96", dragging ? "border-lime-400/30" : "text-white hover:text-blue-200")}
+				class={cn(
+					"w-96 px-2 py-3",
+					dragging ? "border-lime-400/30" : "text-white hover:text-blue-200"
+				)}
 			>
-				<button class="flex h-full w-full cursor-pointer items-center justify-center">
+				<button class="flex h-full w-full cursor-pointer items-center justify-center pt-2">
 					<div class={cn("flex flex-col items-center", dragging ? "text-lime-400/70" : "")}>
 						<IconMultiplexer
 							icon={{ value: "mdi:file", type: IconEnum.Iconify }}
@@ -121,19 +124,19 @@
 						<small class="select-none font-mono text-xs">File To Send</small>
 					</div>
 				</button>
+				{#if files.length > 0}
+					<div class="w-full overflow-x-auto">
+						<div class="flex flex-nowrap gap-2 py-2">
+							{#each files as file}
+								<FileIcon filepath={file} />
+							{/each}
+						</div>
+					</div>
+				{/if}
 			</Card.Root>
 		</DragNDrop>
 	</Layouts.Center>
 	<div class="container">
-		{#if files.length > 0}
-			<div class="max-h-36 w-full overflow-auto whitespace-nowrap rounded-md border">
-				<div class="flex w-max space-x-4 p-4">
-					{#each files as file}
-						<FileIcon filepath={file} />
-					{/each}
-				</div>
-			</div>
-		{/if}
 		<!-- <Button onclick={getAllBuckets}>Get All Buckets</Button> -->
 		<Table.Root>
 			<Table.Caption>Peers in local network</Table.Caption>

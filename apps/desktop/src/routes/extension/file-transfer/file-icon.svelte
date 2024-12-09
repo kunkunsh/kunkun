@@ -16,7 +16,9 @@
 </script>
 
 <Popover.Root>
-	<Popover.Trigger class={ButtonModule.buttonVariants({ variant: "outline", size: "icon" })}>
+	<Popover.Trigger
+		class={ButtonModule.buttonVariants({ variant: "outline", size: "icon", class: "shrink-0" })}
+	>
 		{#if isDirectory}
 			<FolderIcon class="h-8 w-8 shrink-0" />
 		{:else}
