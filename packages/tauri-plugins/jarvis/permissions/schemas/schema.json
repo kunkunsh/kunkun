@@ -440,6 +440,16 @@
           "const": "deny-download-file"
         },
         {
+          "description": "Enables the download_files command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-download-files"
+        },
+        {
+          "description": "Denies the download_files command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-download-files"
+        },
+        {
           "description": "Enables the eject_all_disks command without any pre-configured scope.",
           "type": "string",
           "const": "allow-eject-all-disks"

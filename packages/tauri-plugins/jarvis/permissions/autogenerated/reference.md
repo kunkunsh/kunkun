@@ -388,6 +388,32 @@ Denies the download_file command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-download-files`
+
+</td>
+<td>
+
+Enables the download_files command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-download-files`
+
+</td>
+<td>
+
+Denies the download_files command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-eject-all-disks`
 
 </td>

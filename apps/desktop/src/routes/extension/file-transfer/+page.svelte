@@ -5,6 +5,7 @@
 	import { goBack } from "@/utils/route"
 	import {
 		downloadFile,
+		downloadFiles,
 		getAllFileTransferBuckets,
 		getPeers,
 		localNetSendFile
@@ -86,73 +87,27 @@
 			const confirmed = await confirm(`Download files?`)
 			if (!confirmed) return
 			console.log("confirmed", e.payload.root, e.payload.code)
+			const timestamp = new Date()
+				.toISOString()
+				.slice(0, 19)
+				.replace("T", " ")
+				.replaceAll(":", "-")
+				.replace(" ", "-")
+			// const downloadPath = await path.join(await path.downloadDir(), timestamp)
+			// if (!(await fs.exists(downloadPath))) {
+			// 	await fs.mkdir(downloadPath, { recursive: true })
+			// }
+			downloadFiles(e.payload, await path.downloadDir(), (progress) => {
+				console.log(progress)
+			})
 			// const root = e.payload.root
-			downloadFileNode(
-				e.payload.root,
-				await path.downloadDir(),
-				e.payload.code,
-				e.payload.sslCert,
-				e.payload.ip,
-				e.payload.port
-			)
-			// root.children.forEach(async (child) => {
-			// child.filename
-			// download(
-			// 	`https://${e.payload.ip}:${e.payload.port}/download-file`,
-			// 	await path.join(await path.downloadDir(), child.filename),
-			// 	(progress) => {
-			// 		console.log(progress)
-			// 	},
-			// 	new Map([
-			// 		["Authorization", e.payload.code],
-			// 		["file_id", child.id]
-			// 	])
-			// )
-			// get current time in yyyy-mm-dd-hh-mm-ss format
-
-			// const timestamp = new Date().toISOString().replace(/[-:Z]/g, "")
-			// const tmpDownloadFolder = await path.join(await path.downloadDir(), timestamp)
-			// await fs.mkdir(tmpDownloadFolder, { recursive: true })
-			// downloadFile(
+			// downloadFileNode(
+			// 	e.payload.root,
+			// 	await path.downloadDir(),
 			// 	e.payload.code,
-			// 	await path.join(tmpDownloadFolder, child.filename),
 			// 	e.payload.sslCert,
-			// 	`https://${e.payload.ip}:${e.payload.port}/download-file?id=${child.id}`
-			// )
-			// 	.then(() => {
-			// 		console.log("downloaded")
-			// 		toast.success(`Downloaded ${child.filename}`)
-			// 	})
-			// 	.catch((err) => {
-			// 		console.error(err)
-			// 		toast.error(`Error downloading ${child.filename}: ${err.message}`)
-			// 	})
-			// })
-			// const downloadPath = await path.join(await path.downloadDir(), e.payload.filename)
-			// console.log("downloadPath", downloadPath)
-
-			// downloadFile(
-			// 	e.payload.code,
-			// 	downloadPath,
-			// 	e.payload.sslCert,
-			// 	`https://${e.payload.ip}:${e.payload.port}/download-file`
-			// )
-			// 	.then(() => {
-			// 		console.log("downloaded")
-			// 		toast.success(`Downloaded ${e.payload.filename}`)
-			// 	})
-			// 	.catch((err) => {
-			// 		toast.error(`Error downloading ${e.payload.filename}: ${err.message}`)
-			// 	})
-			// const headers = new Map()
-			// headers.set("Authorization", e.payload.code)
-			// download(
-			// 	"https://localhost:9559/download-file",
-			// 	downloadPath,
-			// 	(progress) => {
-			// 		console.log(progress)
-			// 	},
-			// 	headers
+			// 	e.payload.ip,
+			// 	e.payload.port
 			// )
 		})
 	})
@@ -206,7 +161,7 @@
 	</ul>
 	<Button onclick={getAllBuckets}>Get All Buckets</Button>
 	<Table.Root>
-		<Table.Caption>A list of your recent invoices.</Table.Caption>
+		<Table.Caption>A list of peers in local network.</Table.Caption>
 		<Table.Header>
 			<Table.Row>
 				<Table.Head class="w-[100px]">Hostname</Table.Head>

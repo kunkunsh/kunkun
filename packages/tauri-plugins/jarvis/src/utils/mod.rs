@@ -4,6 +4,7 @@ pub mod icns;
 pub mod manifest;
 pub mod path;
 pub mod plist;
+pub mod reqwest;
 pub mod script;
 pub mod settings;
 pub mod setup;

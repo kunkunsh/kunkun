@@ -1,5 +1,5 @@
-import { invoke } from "@tauri-apps/api/core"
-import type { FilesBucket } from "../models/file-transfer"
+import { Channel, invoke } from "@tauri-apps/api/core"
+import type { FilesBucket, FileTransferPayload } from "../models/file-transfer"
 import { generateJarvisPluginCommand } from "./common"
 
 export function getFileTransferBucketKeys(): Promise<string[]> {
@@ -39,4 +39,29 @@ export function downloadFile(
 	url: string
 ): Promise<void> {
 	return invoke(generateJarvisPluginCommand("download_file"), { code, filePath, sslCert, url })
+}
+
+export type ProgressPayload = {
+	progress_bytes: number
+	total_bytes: number
+	transfer_speed_bytes_per_second: number
+	current_file_name: string
+	total_files: number
+	current_file_index: number
+}
+
+export function downloadFiles(
+	payload: FileTransferPayload,
+	saveDir: string,
+	onProgressHandler?: (progress: ProgressPayload) => void
+): Promise<void> {
+	const channel = new Channel<ProgressPayload>()
+	if (onProgressHandler) {
+		channel.onmessage = onProgressHandler
+	}
+	return invoke(generateJarvisPluginCommand("download_files"), {
+		payload,
+		saveDir,
+		onProgress: channel
+	})
 }
