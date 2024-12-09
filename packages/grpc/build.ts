@@ -10,6 +10,11 @@ if (os.platform() === "win32") {
 	process.exit(0)
 }
 
+if (process.env.CF_PAGES === "1") {
+	console.log("Skipping build in Cloudflare Pages, as cloudflare pages does not have protoc")
+	process.exit(0)
+}
+
 const filepath = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(filepath)
 
