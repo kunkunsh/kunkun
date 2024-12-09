@@ -120,7 +120,6 @@ const COMMANDS: &[&str] = &[
     "get_file_transfer_bucket_keys",
     "get_file_transfer_bucket_by_key",
     "local_net_send_file",
-    "download_file",
     "download_files",
     "file_transfer_preview_bucket",
 ];

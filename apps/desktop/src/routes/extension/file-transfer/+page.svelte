@@ -56,9 +56,10 @@
 		peers = await getPeers()
 		unlistenReq = await listen<FileTransferPayload>("file-transfer-request", async (e) => {
 			console.log(e)
-			const confirmed = await confirm(`Download files?`)
+			const confirmed = await confirm(
+				`Download files (${e.payload.totalFiles} files, ${prettyBytes(e.payload.totalBytes)})?`
+			)
 			if (!confirmed) return
-			console.log("confirmed", e.payload.root, e.payload.code)
 			downloadFiles(e.payload, await path.downloadDir(), (progress) => {
 				progressMap[e.payload.code] = progress
 				console.log(progress)
@@ -99,9 +100,11 @@
 		{#each progresses as progress}
 			{@const progressPerc = Math.round((progress.progressBytes / progress.totalBytes) * 100)}
 			<div class="flex items-center space-x-2">
-				<Progress value={progressPerc} />
-				<span>{progressPerc}%</span>
-				<span class="whitespace-nowrap">{prettyBytes(progress.transferSpeedBytesPerSecond)}ps</span>
+				<Progress value={progressPerc} class="whitespace-nowrap" />
+				<span class="w-12 whitespace-nowrap text-right">{progressPerc}%</span>
+				<span class="w-24 whitespace-nowrap text-right"
+					>{prettyBytes(progress.transferSpeedBytesPerSecond)}ps</span
+				>
 			</div>
 		{/each}
 	{/if}

@@ -19,6 +19,8 @@ export const FileNode: v.GenericSchema<FileNode> = v.object({
 export const FileTransferPayload = v.object({
 	port: v.string(),
 	code: v.string(),
+	totalBytes: v.number(),
+	totalFiles: v.number(),
 	sslCert: v.string(),
 	root: v.lazy(() => FileNode),
 	ip: v.string()

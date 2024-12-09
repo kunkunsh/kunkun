@@ -17,9 +17,9 @@ pub struct MyFileTransfer {
 #[serde(rename_all = "camelCase")]
 pub struct FileTransferPayload {
     pub port: String,
-    // pub filename: String,
     pub code: String,
-    // pub file_size: i64,
+    pub total_bytes: u128,
+    pub total_files: usize,
     pub root: FileNode,
     pub ip: String,
     pub ssl_cert: String,
@@ -37,16 +37,23 @@ impl FileTransfer for MyFileTransfer {
         println!("start_transfer remote addr: {:?}", request.remote_addr());
         let payload = request.into_inner();
         println!("start_transfer payload: {:?}", payload);
+        let root = if let Some(root) = payload.root {
+            root
+        } else {
+            return Err(Status::invalid_argument("root is required"));
+        };
+        let total_bytes = compute_total_size(&root);
+        let total_files = count_file_nodes(&root);
         // get ip from request
         self.app_handle
             .emit(
                 "file-transfer-request",
                 FileTransferPayload {
                     port: payload.port,
-                    // filename: payload.filename,
                     code: payload.code,
-                    // file_size: payload.file_size,
-                    root: payload.root.unwrap(),
+                    root,
+                    total_bytes,
+                    total_files,
                     ip: ip.to_string(),
                     ssl_cert: payload.ssl_cert,
                 },

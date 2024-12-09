@@ -1,11 +1,16 @@
 use crate::{
-    models::{FileTransferState, FilesBucket},
-    server::grpc::file_transfer::{compute_total_size, count_file_nodes, FileTransferPayload},
+    models::{FileTransferState, FilesBucket, PreviewFileTransferBucket},
+    server::grpc::{
+        client::get_grpc_tls_channel,
+        file_transfer::{self as ft, compute_total_size, count_file_nodes, FileTransferPayload},
+    },
     utils::{reqwest::build_ssl_reqwest_client, transfer_stats::TransferStats},
 };
 use futures_util::TryStreamExt;
-use grpc::file_transfer::{FileNode, FileType};
-use rustls::ticketer;
+use grpc::file_transfer::{
+    file_transfer_client::FileTransferClient, FileNode, FileType, StartTransferRequest,
+    StartTransferResponse,
+};
 use std::{
     collections::HashSet,
     path::{Path, PathBuf},
@@ -17,6 +22,7 @@ use tokio::{
     io::{AsyncWriteExt, BufWriter},
     sync::mpsc,
 };
+use uuid::Uuid;
 
 #[derive(Clone, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -65,8 +71,6 @@ async fn download_file(
             })
             .await
             .ok();
-
-        println!("downloading: {:#?}", stats);
     }
     file.flush().await?;
     Ok(())
@@ -191,5 +195,81 @@ pub async fn download_files(
     .await
     .map_err(|e| e.to_string())?;
 
+    Ok(())
+}
+
+#[tauri::command]
+pub async fn get_file_transfer_bucket_keys(
+    ft_state: tauri::State<'_, FileTransferState>,
+) -> Result<Vec<String>, String> {
+    let buckets = ft_state.buckets.lock().unwrap();
+    Ok(buckets.keys().cloned().collect())
+}
+
+#[tauri::command]
+pub async fn get_file_transfer_bucket_by_key(
+    ft_state: tauri::State<'_, FileTransferState>,
+    key: String,
+) -> Result<FilesBucket, String> {
+    let buckets = ft_state.buckets.lock().unwrap();
+    let bucket = match buckets.get(&key) {
+        Some(b) => b,
+        None => return Err(format!("Bucket not found for key: {}", key)),
+    };
+    Ok(bucket.clone())
+}
+
+#[tauri::command]
+pub async fn file_transfer_preview_bucket(
+    files: Vec<PathBuf>,
+) -> Result<PreviewFileTransferBucket, String> {
+    let (id_path_map, root) =
+        ft::build_file_node_and_id_path_map(&files).map_err(|err| err.to_string())?;
+    let total_bytes = compute_total_size(&root);
+    let total_files = count_file_nodes(&root);
+    Ok(PreviewFileTransferBucket {
+        total_bytes,
+        total_files,
+    })
+}
+
+#[tauri::command]
+pub async fn local_net_send_file(
+    file_transfer: tauri::State<'_, FileTransferState>,
+    files_to_send: Vec<PathBuf>,
+    ip: String,
+    port: u16,
+    cert_pem: String,
+) -> Result<(), String> {
+    let uuid = Uuid::new_v4().to_string();
+    let (id_path_map, root) =
+        ft::build_file_node_and_id_path_map(&files_to_send).map_err(|err| err.to_string())?;
+
+    // Scope the MutexGuard to drop it before await
+    {
+        let mut buckets = file_transfer.buckets.lock().unwrap();
+        buckets.insert(
+            uuid.clone(),
+            FilesBucket {
+                code: uuid.clone(),
+                id_path_map,
+            },
+        );
+    }
+
+    let tls_channel = get_grpc_tls_channel(&ip, port, &cert_pem)
+        .await
+        .map_err(|err| err.to_string())?;
+    let mut client = FileTransferClient::new(tls_channel);
+    // Send the transfer request
+    let response: tonic::Response<StartTransferResponse> = client
+        .start_transfer(StartTransferRequest {
+            port: port.to_string(),
+            root: Some(root),
+            code: uuid.clone(),
+            ssl_cert: cert_pem,
+        })
+        .await
+        .map_err(|e| e.to_string())?;
     Ok(())
 }
