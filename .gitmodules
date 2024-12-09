@@ -7,6 +7,3 @@
 [submodule "vendors/tauri-plugin-system-info"]
 	path = vendors/tauri-plugin-system-info
 	url = https://github.com/HuakunShen/tauri-plugin-system-info.git
-[submodule "vendors/kkrpc"]
-	path = vendors/kkrpc
-	url = https://github.com/kunkunsh/kkrpc.git
