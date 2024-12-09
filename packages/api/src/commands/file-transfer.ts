@@ -32,6 +32,17 @@ export function localNetSendFile(
 	})
 }
 
+export function fileTransferPreviewBucket(
+	files: string[]
+): Promise<{ total_bytes: number; total_files: number }> {
+	return invoke<{ total_bytes: number; total_files: number }>(
+		generateJarvisPluginCommand("file_transfer_preview_bucket"),
+		{
+			files
+		}
+	)
+}
+
 export function downloadFile(
 	code: string,
 	filePath: string,

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { ButtonModule, Popover } from "@kksh/svelte5"
+	import { Button, ButtonModule, Popover } from "@kksh/svelte5"
 	import { basename } from "@tauri-apps/api/path"
 	import { stat } from "@tauri-apps/plugin-fs"
-	import { FileIcon, FolderIcon } from "lucide-svelte"
+	import { DeleteIcon, FileIcon, FolderIcon, TrashIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
 
-	const { filepath } = $props()
+	const { filepath, onDelete } = $props()
 	let filename = $state("")
 	let isDirectory = $state(false)
 
@@ -26,7 +26,10 @@
 		{/if}
 	</Popover.Trigger>
 
-	<Popover.Content class="w-fit">
+	<Popover.Content class="w-fit space-y-2">
 		<pre class="text-xs">{filepath}</pre>
+		<Button variant="destructive" size="icon" class="" onclick={onDelete}>
+			<TrashIcon />
+		</Button>
 	</Popover.Content>
 </Popover.Root>

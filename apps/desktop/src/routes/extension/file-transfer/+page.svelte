@@ -6,6 +6,7 @@
 	import {
 		downloadFile,
 		downloadFiles,
+		fileTransferPreviewBucket,
 		getAllFileTransferBuckets,
 		getPeers,
 		localNetSendFile,
@@ -33,19 +34,18 @@
 	let peers: MdnsPeers = $state({})
 	let dragging = $state(false)
 	let files: string[] = $state([])
-	let progressMap = $state<Record<string, ProgressPayload>>({
-		// abc: {
-		// 	code: "abc",
-		// 	progress_bytes: 1000000,
-		// 	total_bytes: 10000000,
-		// 	transfer_speed_bytes_per_second: 1000000,
-		// 	current_file_name: "abc",
-		// 	total_files: 10,
-		// 	current_file_index: 1
-		// }
-	})
+	let progressMap = $state<Record<string, ProgressPayload>>({})
+	let previewBucketInfo = $state<{ total_bytes: number; total_files: number } | null>(null)
 	let progresses = $derived(Object.values(progressMap))
 	let unlistenReq: UnlistenFn
+
+	$effect(() => {
+		if (files.length > 0) {
+			fileTransferPreviewBucket(files).then((info) => {
+				previewBucketInfo = info
+			})
+		}
+	})
 
 	async function getAllBuckets() {
 		const allBuckets = await getAllFileTransferBuckets()
@@ -110,7 +110,7 @@
 		<DragNDrop {onDrop} onEnter={() => (dragging = true)} onCancelled={() => (dragging = false)}>
 			<Card.Root
 				class={cn(
-					"w-96 px-2 py-3",
+					"w-96 space-y-2 px-2 py-3",
 					dragging ? "border-lime-400/30" : "text-white hover:text-blue-200"
 				)}
 			>
@@ -125,10 +125,21 @@
 					</div>
 				</button>
 				{#if files.length > 0}
+					<div>
+						<pre><strong>Total Files:</strong> {previewBucketInfo?.total_files ?? 0}</pre>
+						<pre><strong>Total Bytes:</strong> {prettyBytes(
+								previewBucketInfo?.total_bytes ?? 0
+							)}</pre>
+					</div>
 					<div class="w-full overflow-x-auto">
 						<div class="flex flex-nowrap gap-2 py-2">
 							{#each files as file}
-								<FileIcon filepath={file} />
+								<FileIcon
+									filepath={file}
+									onDelete={() => {
+										files = files.filter((f) => f !== file)
+									}}
+								/>
 							{/each}
 						</div>
 					</div>

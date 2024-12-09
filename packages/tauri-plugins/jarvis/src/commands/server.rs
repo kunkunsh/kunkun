@@ -1,6 +1,6 @@
-use crate::models::FilesBucket;
+use crate::models::{FilesBucket, PreviewFileTransferBucket};
 use crate::server::grpc::client::get_grpc_tls_channel;
-use crate::server::grpc::file_transfer as ft;
+use crate::server::grpc::file_transfer::{self as ft, compute_total_size, count_file_nodes};
 use crate::{model::app_state, models::FileTransferState, server::http::Server};
 use grpc::file_transfer::file_transfer_client::FileTransferClient;
 use grpc::file_transfer::{StartTransferRequest, StartTransferResponse};
@@ -102,6 +102,20 @@ pub async fn get_file_transfer_bucket_by_key(
 }
 
 #[tauri::command]
+pub async fn file_transfer_preview_bucket(
+    files: Vec<PathBuf>,
+) -> Result<PreviewFileTransferBucket, String> {
+    let (id_path_map, root) =
+        ft::build_file_node_and_id_path_map(&files).map_err(|err| err.to_string())?;
+    let total_bytes = compute_total_size(&root);
+    let total_files = count_file_nodes(&root);
+    Ok(PreviewFileTransferBucket {
+        total_bytes,
+        total_files,
+    })
+}
+
+#[tauri::command]
 pub async fn local_net_send_file(
     file_transfer: tauri::State<'_, FileTransferState>,
     files_to_send: Vec<PathBuf>,
@@ -129,7 +143,6 @@ pub async fn local_net_send_file(
         .await
         .map_err(|err| err.to_string())?;
     let mut client = FileTransferClient::new(tls_channel);
-    println!("local_net_send_file: {:?}", files_to_send);
     // Send the transfer request
     let response: tonic::Response<StartTransferResponse> = client
         .start_transfer(StartTransferRequest {
@@ -140,7 +153,6 @@ pub async fn local_net_send_file(
         })
         .await
         .map_err(|e| e.to_string())?;
-    println!("local_net_send_file response: {:?}", response);
     Ok(())
 }
 

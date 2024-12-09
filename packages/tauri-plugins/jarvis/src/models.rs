@@ -25,3 +25,9 @@ pub struct FilesBucket {
 pub struct FileTransferState {
     pub buckets: Arc<Mutex<HashMap<String, FilesBucket>>>,
 }
+
+#[derive(Default, Serialize, Deserialize, Debug)]
+pub struct PreviewFileTransferBucket {
+    pub total_bytes: u128,
+    pub total_files: usize,
+}

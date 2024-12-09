@@ -480,6 +480,16 @@
           "const": "deny-file-search"
         },
         {
+          "description": "Enables the file_transfer_preview_bucket command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-file-transfer-preview-bucket"
+        },
+        {
+          "description": "Denies the file_transfer_preview_bucket command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-file-transfer-preview-bucket"
+        },
+        {
           "description": "Enables the get_all_extensions command without any pre-configured scope.",
           "type": "string",
           "const": "allow-get-all-extensions"

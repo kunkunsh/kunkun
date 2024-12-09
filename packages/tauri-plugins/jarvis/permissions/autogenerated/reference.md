@@ -492,6 +492,32 @@ Denies the file_search command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-file-transfer-preview-bucket`
+
+</td>
+<td>
+
+Enables the file_transfer_preview_bucket command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-file-transfer-preview-bucket`
+
+</td>
+<td>
+
+Denies the file_transfer_preview_bucket command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-get-all-extensions`
 
 </td>
