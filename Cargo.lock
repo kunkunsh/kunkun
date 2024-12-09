@@ -6635,6 +6635,7 @@ dependencies = [
  "tauri-plugin-clipboard",
  "tauri-plugin-network",
  "tauri-plugin-store",
+ "tauri-plugin-upload",
  "tauri-winres",
  "thiserror 1.0.66",
  "tokio",

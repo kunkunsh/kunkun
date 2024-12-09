@@ -38,6 +38,7 @@ tauri-plugin-network = { workspace = true }
 db = { workspace = true }
 rustls = { workspace = true }
 tauri-plugin-clipboard = { workspace = true }
+tauri-plugin-upload = { workspace = true }
 log = { workspace = true }
 strum = { workspace = true }
 chrono = { workspace = true }

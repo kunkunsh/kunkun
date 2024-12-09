@@ -40,7 +40,7 @@ tauri-plugin-dialog = "2.0.1"
 tauri-plugin-notification = "2.0.1"
 tauri-plugin-os = "2.0.1"
 tauri-plugin-http = "2.0.1"
-tauri-plugin-upload = { git = "https://github.com/HuakunShen/tauri-plugins-workspace.git", branch = "kunkun", package = "tauri-plugin-upload" }
+tauri-plugin-upload = { workspace = true }
 # tauri-plugin-upload = "2.2.1"
 tauri-plugin-jarvis = { workspace = true }
 tauri-plugin-network = { workspace = true }

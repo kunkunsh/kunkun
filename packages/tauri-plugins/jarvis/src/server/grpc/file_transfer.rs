@@ -170,9 +170,9 @@ pub fn count_file_nodes(node: &FileNode) -> usize {
     }
 }
 
-pub fn compute_total_size(node: &FileNode) -> u64 {
+pub fn compute_total_size(node: &FileNode) -> u128 {
     if node.r#type == FileType::File as i32 {
-        node.file_size as u64
+        node.file_size as u128
     } else {
         node.children
             .iter()
