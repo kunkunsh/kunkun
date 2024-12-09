@@ -27,11 +27,15 @@ fs.rmSync(path.join(__dirname, "src/protos"), { recursive: true, force: true })
 const protosDir = path.join(__dirname, "protos")
 for (const file of fs.readdirSync(protosDir)) {
 	if (file.endsWith(".proto")) {
-		await $`
-        protoc \
-        --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts \
-        --ts_out=./src \
-        -I . \
-        ./protos/${file}`
+		try {
+			await $`
+			protoc \
+			--plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts \
+			--ts_out=./src \
+			-I . \
+			./protos/${file}`
+		} catch (error) {
+			console.error(error)
+		}
 	}
 }
