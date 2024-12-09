@@ -1,12 +1,10 @@
 use commands::discovery::Peers;
-use db::JarvisDB;
 use model::extension::Extension;
 use models::FileTransferState;
 use openssl::{
     pkey::{Private, Public},
     rsa::Rsa,
 };
-use server::Protocol;
 use tauri::{
     plugin::{Builder, TauriPlugin},
     Manager, Runtime,
@@ -19,12 +17,8 @@ pub mod setup;
 pub mod syscmds;
 pub mod utils;
 pub use db;
-use std::{collections::HashMap, path::PathBuf, sync::Mutex};
-use tauri_plugin_store::StoreBuilder;
-use utils::{
-    path::{get_default_extensions_dir, get_kunkun_db_path},
-    settings::AppSettings,
-};
+use std::{collections::HashMap, sync::Mutex};
+use utils::path::get_kunkun_db_path;
 
 #[cfg(mobile)]
 mod mobile;

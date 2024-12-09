@@ -2,23 +2,20 @@ use super::model::ServerState;
 use super::Protocol;
 use crate::server::grpc::file_transfer::MyFileTransfer;
 use crate::server::grpc::kunkun::KunkunService;
-use crate::server::tls::{CERT_PEM, KEY_PEM};
-use crate::utils::path::get_default_extensions_dir;
-use axum::http::{HeaderValue, Method, StatusCode, Uri};
-use axum::routing::{get, get_service, post};
+use axum::routing::{get, post};
 use axum_server::tls_rustls::RustlsConfig;
 use base64::prelude::*;
 use grpc::{
     file_transfer::file_transfer_server::FileTransferServer,
-    kunkun::kunkun_server::{Kunkun, KunkunServer},
+    kunkun::kunkun_server::KunkunServer,
 };
 /// This module is responsible for controlling the main server
 use obfstr::obfstr as s;
 use std::sync::Mutex;
-use std::{net::SocketAddr, path::PathBuf, sync::Arc};
+use std::{net::SocketAddr, sync::Arc};
 use tauri::AppHandle;
 use tonic::transport::Server as TonicServer;
-use tower_http::{cors::CorsLayer, services::ServeDir};
+use tower_http::cors::CorsLayer;
 
 struct ServerOptions {
     ssl_cert: Vec<u8>,

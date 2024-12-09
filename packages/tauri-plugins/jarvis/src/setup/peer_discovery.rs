@@ -1,5 +1,4 @@
 use crate::commands::discovery::{Peers, ServiceInfoMod};
-use base64::prelude::*;
 use mdns_sd::ServiceEvent;
 use std::collections::HashMap;
 use sysinfo::System;

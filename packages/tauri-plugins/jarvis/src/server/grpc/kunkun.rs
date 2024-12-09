@@ -3,7 +3,7 @@
 // use server_info«::server_info_server::ServerInfo;
 // use server_info::{InfoRequest, InfoResponse};
 use grpc::kunkun::{
-    kunkun_server::{Kunkun, KunkunServer},
+    kunkun_server::Kunkun,
     Empty, ServerInfoResponse,
 };
 

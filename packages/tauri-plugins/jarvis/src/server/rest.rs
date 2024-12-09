@@ -3,19 +3,17 @@ use super::{
     model::{ServerInfo, ServerState},
 };
 use crate::{
-    constants::{KUNKUN_REFRESH_WORKER_EXTENSION, SERVER_PUBLIC_KEY},
+    constants::KUNKUN_REFRESH_WORKER_EXTENSION,
     models::FileTransferState,
     server::model::FileTransferProgressPayload,
     JarvisState,
 };
 use axum::{
     body::StreamBody,
-    extract::{FromRequest, Query, State},
+    extract::{Query, State},
     http::{header, HeaderMap, StatusCode},
     response::IntoResponse,
 };
-use rustls::lock::Mutex;
-use std::path::PathBuf;
 use tauri::{Emitter, Manager};
 use tokio::fs::File;
 use tokio_stream::StreamExt;
