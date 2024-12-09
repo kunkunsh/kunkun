@@ -9,8 +9,8 @@ if (os.platform() === "win32") {
 	console.log("Skipping build on Windows")
 	process.exit(0)
 }
-console.log("process.env.CF_PAGES", process.env.CF_PAGES)
-if (process.env.CF_PAGES === "1") {
+console.log("process.env.CF_PAGES", Bun.env.CF_PAGES)
+if (Bun.env.CF_PAGES === "1") {
 	console.log("Skipping build in Cloudflare Pages, as cloudflare pages does not have protoc")
 	process.exit(0)
 }
