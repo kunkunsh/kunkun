@@ -147,25 +147,29 @@ pub async fn download_files(
     let mut files_received: HashSet<String> = HashSet::new();
     tokio::spawn(async move {
         let mut total_transferred = 0u128;
-        let mut counter = 0;
+        let mut unreported_bytes = 0u128;
+        const REPORT_THRESHOLD: u128 = 1024 * 1024; // 1MB in bytes
+
         while let Some(progress) = progress_rx.recv().await {
-            total_transferred += progress.bytes_transferred as u128;
-            counter += 1;
+            total_transferred += progress.bytes_transferred;
+            unreported_bytes += progress.bytes_transferred;
             files_received.insert(progress.file_name.clone());
-            if counter >= 100 || total_transferred == total_bytes {
+
+            // Report progress when we've accumulated ~1MB of unreported bytes or reached the end
+            if unreported_bytes >= REPORT_THRESHOLD || total_transferred == total_bytes {
                 let bytes_per_second =
                     total_transferred as f64 / start_time.elapsed().as_secs_f64();
                 let payload = ProgressPayload {
                     progress_bytes: total_transferred,
-                    total_bytes: total_bytes,
+                    total_bytes,
                     transfer_speed_bytes_per_second: bytes_per_second,
                     current_file_name: progress.file_name,
-                    total_files: total_files,
+                    total_files,
                     current_file_index: files_received.len(),
                 };
 
                 on_progress_clone.send(payload).ok();
-                counter = 0;
+                unreported_bytes = 0;
             }
         }
     });
