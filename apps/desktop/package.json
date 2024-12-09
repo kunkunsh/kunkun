@@ -26,6 +26,7 @@
 		"gsap": "^3.12.5",
 		"kkrpc": "^0.0.12",
 		"lz-string": "^1.5.0",
+		"pretty-bytes": "^6.1.1",
 		"semver": "^7.6.3",
 		"svelte-sonner": "^0.3.28",
 		"sveltekit-superforms": "^2.20.1",

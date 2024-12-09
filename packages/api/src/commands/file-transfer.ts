@@ -42,12 +42,13 @@ export function downloadFile(
 }
 
 export type ProgressPayload = {
-	progress_bytes: number
-	total_bytes: number
-	transfer_speed_bytes_per_second: number
-	current_file_name: string
-	total_files: number
-	current_file_index: number
+	code: string
+	progressBytes: number
+	totalBytes: number
+	transferSpeedBytesPerSecond: number
+	currentFileName: string
+	totalFiles: number
+	currentFileIndex: number
 }
 
 export function downloadFiles(

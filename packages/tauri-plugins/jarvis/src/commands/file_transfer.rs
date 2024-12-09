@@ -21,6 +21,7 @@ use tokio::{
 #[derive(Clone, serde::Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ProgressPayload {
+    pub code: String,
     pub progress_bytes: u128,
     pub total_bytes: u128,
     pub transfer_speed_bytes_per_second: f64,
@@ -145,6 +146,7 @@ pub async fn download_files(
     let start_time = Instant::now();
     let on_progress_clone = on_progress.clone();
     let mut files_received: HashSet<String> = HashSet::new();
+    let code = payload.code.clone();
     tokio::spawn(async move {
         let mut total_transferred = 0u128;
         let mut unreported_bytes = 0u128;
@@ -159,7 +161,8 @@ pub async fn download_files(
             if unreported_bytes >= REPORT_THRESHOLD || total_transferred == total_bytes {
                 let bytes_per_second =
                     total_transferred as f64 / start_time.elapsed().as_secs_f64();
-                let payload = ProgressPayload {
+                let progress_payload = ProgressPayload {
+                    code: code.clone(),
                     progress_bytes: total_transferred,
                     total_bytes,
                     transfer_speed_bytes_per_second: bytes_per_second,
@@ -168,7 +171,7 @@ pub async fn download_files(
                     current_file_index: files_received.len(),
                 };
 
-                on_progress_clone.send(payload).ok();
+                on_progress_clone.send(progress_payload).ok();
                 unreported_bytes = 0;
             }
         }
