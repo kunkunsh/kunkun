@@ -1,0 +1,16 @@
+syntax = "proto3";
+package kunkun;
+
+service Kunkun {
+    rpc ServerInfo (Empty) returns (ServerInfoResponse);
+    rpc HMR (Empty) returns (Empty);
+}
+
+message Empty {}
+
+message ServerInfoResponse {
+    string service_name = 1;
+    string service_version = 2;
+    string public_key = 3;
+    string ssl_cert = 4; // self-signed ssl cert other hosts need to trust to set up secure connection
+}

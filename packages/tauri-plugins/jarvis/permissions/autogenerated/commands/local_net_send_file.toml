@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-local-net-send-file"
+description = "Enables the local_net_send_file command without any pre-configured scope."
+commands.allow = ["local_net_send_file"]
+
+[[permission]]
+identifier = "deny-local-net-send-file"
+description = "Denies the local_net_send_file command without any pre-configured scope."
+commands.deny = ["local_net_send_file"]

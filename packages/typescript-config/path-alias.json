@@ -1,0 +1,20 @@
+{
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"compilerOptions": {
+		"baseUrl": "../../",
+		"paths": {
+			"@kksh/ui/*": ["./packages/ui/*"],
+			"@kksh/ui": ["./packages/ui"],
+			"@kksh/utils/*": ["./packages/utils/*"],
+			"@kksh/utils": ["./packages/utils"],
+			"@kksh/desktop/*": ["./apps/desktop/*"],
+			"@kksh/desktop": ["./apps/desktop"],
+			"@kksh/ci/*": ["./packages/ci/*"],
+			"@kksh/ci": ["./packages/ci"],
+			"@kksh/supabase/*": ["./packages/supabase/*"],
+			"@kksh/supabase": ["./packages/supabase"],
+			"@kksh/schema/*": ["./packages/schema/*"],
+			"@kksh/schema": ["./packages/schema"]
+		}
+	}
+}

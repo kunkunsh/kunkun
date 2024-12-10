@@ -63,6 +63,7 @@
 			uiControl.showMoveBtn = false
 		},
 		hideRefreshButton: async () => {
+			console.log("hideRefreshButton")
 			uiControl.showRefreshBtn = false
 		},
 		showBackButton: async (position?: Position) => {
@@ -153,7 +154,7 @@
 </script>
 
 <svelte:window on:keydown={goBackOnEscape} />
-{#if uiControl.backBtnPosition}
+{#if uiControl.backBtnPosition && uiControl.showBackBtn}
 	<Button
 		class={cn("absolute", positionToTailwindClasses(uiControl.backBtnPosition))}
 		size="icon"
@@ -168,7 +169,7 @@
 		{/if}
 	</Button>
 {/if}
-{#if uiControl.moveBtnPosition}
+{#if uiControl.moveBtnPosition && uiControl.showMoveBtn}
 	<Button
 		class={cn("absolute", positionToTailwindClasses(uiControl.moveBtnPosition))}
 		style={`${positionToCssStyleString(uiControl.moveBtnPosition)}`}
@@ -179,7 +180,7 @@
 		<MoveIcon data-tauri-drag-region class="w-4" />
 	</Button>
 {/if}
-{#if uiControl.refreshBtnPosition}
+{#if uiControl.refreshBtnPosition && uiControl.showRefreshBtn}
 	<Button
 		class={cn("absolute", positionToTailwindClasses(uiControl.refreshBtnPosition))}
 		style={`${positionToCssStyleString(uiControl.refreshBtnPosition)}`}

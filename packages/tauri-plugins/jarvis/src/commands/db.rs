@@ -3,7 +3,7 @@ use db::{
     ExtDataField, JarvisDB, SQLSortOrder,
 };
 use std::{path::PathBuf, sync::Mutex};
-use tauri::{utils::acl::identifier, State};
+use tauri::State;
 
 use crate::utils::db::get_db;
 

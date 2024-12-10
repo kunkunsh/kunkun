@@ -98,4 +98,4 @@ export const {
 	open,
 	app
 } = api
-export { Child, RPCChannel } from "../api/shell"
+export { Child, RPCChannel, Command, DenoCommand } from "../api/shell"

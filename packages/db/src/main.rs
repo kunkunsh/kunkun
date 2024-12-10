@@ -1,5 +1,5 @@
 use db::JarvisDB;
-use rusqlite::{params, Connection, Result};
+use rusqlite::Result;
 
 fn main() -> Result<()> {
     let db = JarvisDB::new("jarvis.db", None)?;

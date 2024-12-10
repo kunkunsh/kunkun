@@ -40,7 +40,8 @@ tauri-plugin-dialog = "2.0.1"
 tauri-plugin-notification = "2.0.1"
 tauri-plugin-os = "2.0.1"
 tauri-plugin-http = "2.0.1"
-tauri-plugin-upload = "2.0.1"
+tauri-plugin-upload = { workspace = true }
+# tauri-plugin-upload = "2.2.1"
 tauri-plugin-jarvis = { workspace = true }
 tauri-plugin-network = { workspace = true }
 tauri-plugin-system-info = { workspace = true }
@@ -48,6 +49,7 @@ tauri-plugin-clipboard = { workspace = true }
 tauri-plugin-store = "2.1.0"
 tauri-plugin-deep-link = "2"
 tauri-plugin-log = { version = "2.0.1", features = ["colored"] }
+crypto = { workspace = true }
 zip = "2.1.3"
 uuid = "1.11.0"
 # tauri-plugin-devtools = "2.0.0"

@@ -74,6 +74,18 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "File Transfer",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "clarity:file-share-solid"
+		},
+		description: "",
+		function: async () => {
+			goto("/extension/file-transfer")
+			appState.clearSearchTerm()
+		}
+	},
+	{
 		name: "Add Dev Extension",
 		icon: {
 			type: IconEnum.Iconify,

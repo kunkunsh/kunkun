@@ -1,5 +1,6 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "./path-alias.json",
 	"compilerOptions": {
 		"declaration": true,
 		"declarationMap": true,
@@ -16,21 +17,6 @@
 		"strict": true,
 		"allowImportingTsExtensions": true,
 		"noEmit": true,
-		"target": "ES2022",
-		"baseUrl": "../../",
-		"paths": {
-			"@kksh/ui/*": ["./packages/ui/*"],
-			"@kksh/ui": ["./packages/ui"],
-			"@kksh/utils/*": ["./packages/utils/*"],
-			"@kksh/utils": ["./packages/utils"],
-			"@kksh/desktop/*": ["./apps/desktop/*"],
-			"@kksh/desktop": ["./apps/desktop"],
-			"@kksh/ci/*": ["./packages/ci/*"],
-			"@kksh/ci": ["./packages/ci"],
-			"@kksh/supabase/*": ["./packages/supabase/*"],
-			"@kksh/supabase": ["./packages/supabase"],
-			"@kksh/schema/*": ["./packages/schema/*"],
-			"@kksh/schema": ["./packages/schema"]
-		}
+		"target": "ES2022"
 	}
 }

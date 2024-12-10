@@ -1,0 +1,30 @@
+syntax = "proto3";
+package file_transfer;
+
+service FileTransfer {
+    rpc StartTransfer (StartTransferRequest) returns (StartTransferResponse);
+}
+
+enum FileType {
+    FILE = 0;
+    DIRECTORY = 1;
+}
+
+message FileNode {
+    string filename = 1;
+    uint64 file_size = 2;
+    string id = 3;
+    FileType type = 4;
+    repeated FileNode children = 5;
+}
+
+message StartTransferRequest {
+    string port = 1;
+    string code = 2;
+    string ssl_cert = 3;
+    FileNode root = 4;
+}
+
+message StartTransferResponse {
+    // bool accept = 1;
+}

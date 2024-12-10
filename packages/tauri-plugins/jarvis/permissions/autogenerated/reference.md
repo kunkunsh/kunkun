@@ -362,6 +362,58 @@ Denies the delete_extension_data_by_id command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-download-file`
+
+</td>
+<td>
+
+Enables the download_file command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-download-file`
+
+</td>
+<td>
+
+Denies the download_file command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-download-files`
+
+</td>
+<td>
+
+Enables the download_files command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-download-files`
+
+</td>
+<td>
+
+Denies the download_files command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-eject-all-disks`
 
 </td>
@@ -433,6 +485,32 @@ Enables the file_search command without any pre-configured scope.
 <td>
 
 Denies the file_search command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-file-transfer-preview-bucket`
+
+</td>
+<td>
+
+Enables the file_transfer_preview_bucket command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-file-transfer-preview-bucket`
+
+</td>
+<td>
+
+Denies the file_transfer_preview_bucket command without any pre-configured scope.
 
 </td>
 </tr>
@@ -726,6 +804,84 @@ Denies the get_extension_folder command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-get-file-transfer-bucket-by-key`
+
+</td>
+<td>
+
+Enables the get_file_transfer_bucket_by_key command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-file-transfer-bucket-by-key`
+
+</td>
+<td>
+
+Denies the get_file_transfer_bucket_by_key command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-get-file-transfer-bucket-keys`
+
+</td>
+<td>
+
+Enables the get_file_transfer_bucket_keys command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-file-transfer-bucket-keys`
+
+</td>
+<td>
+
+Denies the get_file_transfer_bucket_keys command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-get-files-to-send`
+
+</td>
+<td>
+
+Enables the get_files_to_send command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-files-to-send`
+
+</td>
+<td>
+
+Denies the get_files_to_send command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-get-history`
 
 </td>
@@ -953,6 +1109,32 @@ Enables the is_window_label_registered command without any pre-configured scope.
 <td>
 
 Denies the is_window_label_registered command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-local-net-send-file`
+
+</td>
+<td>
+
+Enables the local_net_send_file command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-local-net-send-file`
+
+</td>
+<td>
+
+Denies the local_net_send_file command without any pre-configured scope.
 
 </td>
 </tr>

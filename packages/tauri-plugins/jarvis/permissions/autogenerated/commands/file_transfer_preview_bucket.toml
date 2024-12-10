@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-file-transfer-preview-bucket"
+description = "Enables the file_transfer_preview_bucket command without any pre-configured scope."
+commands.allow = ["file_transfer_preview_bucket"]
+
+[[permission]]
+identifier = "deny-file-transfer-preview-bucket"
+description = "Denies the file_transfer_preview_bucket command without any pre-configured scope."
+commands.deny = ["file_transfer_preview_bucket"]

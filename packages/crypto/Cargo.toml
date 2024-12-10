@@ -4,13 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-openssl = "0.10.68"
 rand = "0.8.5"
 ring = "0.17.8"
-rsa = { version = "0.9.6", features = ["sha2"] }
-sha2 = "0.10.8"
+openssl = { workspace = true }
 anyhow = { workspace = true }
-hex = "0.4.3"
 axum = { workspace = true }
 tokio = { workspace = true }
 rustls = { workspace = true }

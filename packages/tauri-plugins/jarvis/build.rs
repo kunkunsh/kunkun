@@ -114,6 +114,14 @@ const COMMANDS: &[&str] = &[
     /*                                    MDNS                                    */
     /* -------------------------------------------------------------------------- */
     "get_peers",
+    /* -------------------------------------------------------------------------- */
+    /*                                File Transfer                               */
+    /* -------------------------------------------------------------------------- */
+    "get_file_transfer_bucket_keys",
+    "get_file_transfer_bucket_by_key",
+    "local_net_send_file",
+    "download_files",
+    "file_transfer_preview_bucket",
 ];
 
 fn main() {
@@ -141,8 +149,11 @@ fn main() {
     tonic_build::configure()
         .file_descriptor_set_path(out_dir.join("kk_grpc.bin"))
         .compile(
-            &["proto/helloworld.proto", "proto/file-transfer.proto"],
-            &["proto"],
+            &[
+                "../../grpc/protos/file-transfer.proto",
+                "../../grpc/protos/kunkun.proto",
+            ],
+            &["../../grpc/protos"],
         )
         .expect("Failed to compile protos");
 

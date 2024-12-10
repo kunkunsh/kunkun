@@ -223,7 +223,7 @@ pub async fn spawn_extension_file_server<R: Runtime>(
             .unwrap();
     });
     // add server handle and shutdown handle to extension
-    let mut ext = label_ext_map.get_mut(window_label.as_str()).unwrap();
+    let ext = label_ext_map.get_mut(window_label.as_str()).unwrap();
     ext.server_handle.lock().unwrap().replace(server_handle);
     ext.shutdown_handle.lock().unwrap().replace(shutdown_handle);
 

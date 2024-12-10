@@ -2,7 +2,7 @@ import fs from "fs"
 import path from "path"
 import { PACKAGES_PATHS } from "@kksh/ci"
 import { expect, test } from "bun:test"
-import { safeParse } from "valibot"
+import * as v from "valibot"
 import { ExtPackageJson } from "../manifest"
 
 test("Load and parse every extension in this repo", () => {
@@ -19,11 +19,12 @@ test("Load and parse every extension in this repo", () => {
 
 			const pkgJsonContent = fs.readFileSync(packageJsonPath, "utf-8")
 			const pkgJson = JSON.parse(pkgJsonContent)
+
 			// validate package.json
 			// const result = parse(ExtPackageJson, pkgJson)
-			const parse = safeParse(ExtPackageJson, pkgJson)
+			const parse = v.safeParse(ExtPackageJson, pkgJson)
 			if (parse.issues) {
-				console.log(parse.issues)
+				console.log(v.flatten(parse.issues))
 			}
 			expect(parse.success).toBe(true)
 		})

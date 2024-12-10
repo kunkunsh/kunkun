@@ -430,6 +430,26 @@
           "const": "deny-delete-extension-data-by-id"
         },
         {
+          "description": "Enables the download_file command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-download-file"
+        },
+        {
+          "description": "Denies the download_file command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-download-file"
+        },
+        {
+          "description": "Enables the download_files command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-download-files"
+        },
+        {
+          "description": "Denies the download_files command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-download-files"
+        },
+        {
           "description": "Enables the eject_all_disks command without any pre-configured scope.",
           "type": "string",
           "const": "allow-eject-all-disks"
@@ -458,6 +478,16 @@
           "description": "Denies the file_search command without any pre-configured scope.",
           "type": "string",
           "const": "deny-file-search"
+        },
+        {
+          "description": "Enables the file_transfer_preview_bucket command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-file-transfer-preview-bucket"
+        },
+        {
+          "description": "Denies the file_transfer_preview_bucket command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-file-transfer-preview-bucket"
         },
         {
           "description": "Enables the get_all_extensions command without any pre-configured scope.",
@@ -570,6 +600,36 @@
           "const": "deny-get-extension-folder"
         },
         {
+          "description": "Enables the get_file_transfer_bucket_by_key command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-file-transfer-bucket-by-key"
+        },
+        {
+          "description": "Denies the get_file_transfer_bucket_by_key command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-file-transfer-bucket-by-key"
+        },
+        {
+          "description": "Enables the get_file_transfer_bucket_keys command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-file-transfer-bucket-keys"
+        },
+        {
+          "description": "Denies the get_file_transfer_bucket_keys command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-file-transfer-bucket-keys"
+        },
+        {
+          "description": "Enables the get_files_to_send command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-files-to-send"
+        },
+        {
+          "description": "Denies the get_files_to_send command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-files-to-send"
+        },
+        {
           "description": "Enables the get_history command without any pre-configured scope.",
           "type": "string",
           "const": "allow-get-history"
@@ -658,6 +718,16 @@
           "description": "Denies the is_window_label_registered command without any pre-configured scope.",
           "type": "string",
           "const": "deny-is-window-label-registered"
+        },
+        {
+          "description": "Enables the local_net_send_file command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-local-net-send-file"
+        },
+        {
+          "description": "Denies the local_net_send_file command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-local-net-send-file"
         },
         {
           "description": "Enables the logout_user command without any pre-configured scope.",

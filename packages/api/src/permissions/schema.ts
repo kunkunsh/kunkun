@@ -11,41 +11,42 @@ import {
 	// AllPermissionSchema as TauriApiAdapterAllPermissionSchema,
 	UpdownloadPermissionSchema
 } from "tauri-api-adapter/permissions"
-import { array, literal, object, optional, string, union, type InferOutput } from "valibot"
+import * as v from "valibot"
 
-export const SystemPermissionSchema = union([
-	literal("system:volumn"),
-	literal("system:boot"),
-	literal("system:disk"),
-	literal("system:apps"),
-	literal("system:fs"),
-	literal("system:ui")
+export const SystemPermissionSchema = v.union([
+	v.literal("system:volumn"),
+	v.literal("system:boot"),
+	v.literal("system:disk"),
+	v.literal("system:apps"),
+	v.literal("system:fs"),
+	v.literal("system:ui")
 ])
-export const KunkunFsPermissionSchema = union([
+
+export const KunkunFsPermissionSchema = v.union([
 	FsPermissionSchema,
-	literal("fs:read-dir"),
-	literal("fs:stat"),
-	literal("fs:search")
+	v.literal("fs:read-dir"),
+	v.literal("fs:stat"),
+	v.literal("fs:search")
 ])
-export const EventPermissionSchema = union([
-	literal("event:drag-drop"),
-	literal("event:drag-enter"),
-	literal("event:drag-leave"),
-	literal("event:drag-over"),
-	literal("event:window-blur"),
-	literal("event:window-close-requested"),
-	literal("event:window-focus")
+export const EventPermissionSchema = v.union([
+	v.literal("event:drag-drop"),
+	v.literal("event:drag-enter"),
+	v.literal("event:drag-leave"),
+	v.literal("event:drag-over"),
+	v.literal("event:window-blur"),
+	v.literal("event:window-close-requested"),
+	v.literal("event:window-focus")
 ])
-export const SecurityPermissionSchema = union([
-	literal("security:mac:reveal-security-pane"),
-	literal("security:mac:verify-fingerprint"),
-	literal("security:mac:reset-screencapture-permission"),
-	literal("security:mac:request-permission"),
-	literal("security:mac:check-permission"),
-	literal("security:mac:all")
+export const SecurityPermissionSchema = v.union([
+	v.literal("security:mac:reveal-security-pane"),
+	v.literal("security:mac:verify-fingerprint"),
+	v.literal("security:mac:reset-screencapture-permission"),
+	v.literal("security:mac:request-permission"),
+	v.literal("security:mac:check-permission"),
+	v.literal("security:mac:all")
 ])
-export type SecurityPermission = InferOutput<typeof SecurityPermissionSchema>
-export type EventPermission = InferOutput<typeof EventPermissionSchema>
+export type SecurityPermission = v.InferOutput<typeof SecurityPermissionSchema>
+export type EventPermission = v.InferOutput<typeof EventPermissionSchema>
 // export const DenoRuntimePermissionSchema = union([
 // 	literal("deno:net"),
 // 	literal("deno:env"),
@@ -56,21 +57,21 @@ export type EventPermission = InferOutput<typeof EventPermissionSchema>
 // 	literal("deno:sys")
 // ])
 // export type DenoRuntimePermission = InferOutput<typeof DenoRuntimePermissionSchema>
-export const DenoSysOptions = union([
-	literal("hostname"),
-	literal("osRelease"),
-	literal("osUptime"),
-	literal("loadavg"),
-	literal("networkInterfaces"),
-	literal("systemMemoryInfo"),
-	literal("uid"),
-	literal("gid"),
-	literal("cpus"),
-	string()
+export const DenoSysOptions = v.union([
+	v.literal("hostname"),
+	v.literal("osRelease"),
+	v.literal("osUptime"),
+	v.literal("loadavg"),
+	v.literal("networkInterfaces"),
+	v.literal("systemMemoryInfo"),
+	v.literal("uid"),
+	v.literal("gid"),
+	v.literal("cpus"),
+	v.string()
 ])
 
-export type DenoSysOptions = InferOutput<typeof DenoSysOptions>
-export const DenoPermissionScopeSchema = object({
+export type DenoSysOptions = v.InferOutput<typeof DenoSysOptions>
+export const DenoPermissionScopeSchema = v.object({
 	/* ------------------------------ Deno Related ------------------------------ */
 	// net: optional(array(string())),
 	// env: optional(array(string())),
@@ -79,21 +80,21 @@ export const DenoPermissionScopeSchema = object({
 	// run: optional(array(string())),
 	// ffi: optional(array(string())),
 	// sys: optional(array(DenoSysOptions)),
-	net: optional(union([literal("*"), array(string())])),
-	env: optional(union([literal("*"), array(string())])),
-	read: optional(union([literal("*"), array(string())])),
-	write: optional(union([literal("*"), array(string())])),
-	run: optional(union([literal("*"), array(string())])),
-	ffi: optional(union([literal("*"), array(string())])),
-	sys: optional(union([literal("*"), array(DenoSysOptions)]))
+	net: v.optional(v.union([v.literal("*"), v.array(v.string())])),
+	env: v.optional(v.union([v.literal("*"), v.array(v.string())])),
+	read: v.optional(v.union([v.literal("*"), v.array(v.string())])),
+	write: v.optional(v.union([v.literal("*"), v.array(v.string())])),
+	run: v.optional(v.union([v.literal("*"), v.array(v.string())])),
+	ffi: v.optional(v.union([v.literal("*"), v.array(v.string())])),
+	sys: v.optional(v.union([v.literal("*"), v.array(DenoSysOptions)]))
 })
-export const PermissionScopeSchema = object({
-	path: optional(string()),
-	url: optional(string()),
-	cmd: optional(
-		object({
-			program: string(),
-			args: array(string())
+export const PermissionScopeSchema = v.object({
+	path: v.optional(v.string()),
+	url: v.optional(v.string()),
+	cmd: v.optional(
+		v.object({
+			program: v.string(),
+			args: v.array(v.string())
 		})
 	),
 	...DenoPermissionScopeSchema.entries
@@ -105,46 +106,46 @@ export const PermissionScopeSchema = object({
 // 	deny: optional(array(PermissionScopeSchema))
 // })
 // export type DenoPermissionScoped = InferOutput<typeof DenoPermissionScopedSchema>
-export type KunkunFsPermission = InferOutput<typeof KunkunFsPermissionSchema>
-export const FsPermissionScopedSchema = object({
+export type KunkunFsPermission = v.InferOutput<typeof KunkunFsPermissionSchema>
+export const FsPermissionScopedSchema = v.object({
 	permission: KunkunFsPermissionSchema,
-	allow: optional(array(PermissionScopeSchema)),
-	deny: optional(array(PermissionScopeSchema))
+	allow: v.optional(v.array(PermissionScopeSchema)),
+	deny: v.optional(v.array(PermissionScopeSchema))
 })
-export type FsPermissionScoped = InferOutput<typeof FsPermissionScopedSchema>
+export type FsPermissionScoped = v.InferOutput<typeof FsPermissionScopedSchema>
 
-export const OpenPermissionSchema = union([
-	literal("open:url"),
-	literal("open:file"),
-	literal("open:folder")
+export const OpenPermissionSchema = v.union([
+	v.literal("open:url"),
+	v.literal("open:file"),
+	v.literal("open:folder")
 ])
-export const OpenPermissionScopedSchema = object({
+export const OpenPermissionScopedSchema = v.object({
 	permission: OpenPermissionSchema,
-	allow: optional(array(PermissionScopeSchema)),
-	deny: optional(array(PermissionScopeSchema))
+	allow: v.optional(v.array(PermissionScopeSchema)),
+	deny: v.optional(v.array(PermissionScopeSchema))
 })
-export type OpenPermissionScoped = InferOutput<typeof OpenPermissionScopedSchema>
+export type OpenPermissionScoped = v.InferOutput<typeof OpenPermissionScopedSchema>
 
-export const ShellPermissionSchema = union([
-	literal("shell:execute"),
-	literal("shell:deno:execute"),
-	literal("shell:spawn"),
-	literal("shell:deno:spawn"),
-	literal("shell:open"),
-	literal("shell:kill"),
-	literal("shell:all"),
-	literal("shell:stdin-write")
+export const ShellPermissionSchema = v.union([
+	v.literal("shell:execute"),
+	v.literal("shell:deno:execute"),
+	v.literal("shell:spawn"),
+	v.literal("shell:deno:spawn"),
+	v.literal("shell:open"),
+	v.literal("shell:kill"),
+	v.literal("shell:all"),
+	v.literal("shell:stdin-write")
 ])
-export const ShellPermissionScopedSchema = object({
+export const ShellPermissionScopedSchema = v.object({
 	permission: ShellPermissionSchema,
-	allow: optional(array(PermissionScopeSchema)),
-	deny: optional(array(PermissionScopeSchema))
+	allow: v.optional(v.array(PermissionScopeSchema)),
+	deny: v.optional(v.array(PermissionScopeSchema))
 })
-export type ShellPermissionScoped = InferOutput<typeof ShellPermissionScopedSchema>
-export type ShellPermission = InferOutput<typeof ShellPermissionSchema>
+export type ShellPermissionScoped = v.InferOutput<typeof ShellPermissionScopedSchema>
+export type ShellPermission = v.InferOutput<typeof ShellPermissionSchema>
 
-export type SystemPermission = InferOutput<typeof SystemPermissionSchema>
-export const KunkunManifestPermission = union([
+export type SystemPermission = v.InferOutput<typeof SystemPermissionSchema>
+export const KunkunManifestPermission = v.union([
 	// TauriApiAdapterAllPermissionSchema,
 	ClipboardPermissionSchema,
 	EventPermissionSchema,
@@ -162,9 +163,9 @@ export const KunkunManifestPermission = union([
 	SecurityPermissionSchema
 	// FsScopePermissionSchema
 ])
-export const AllKunkunPermission = union([
+export const AllKunkunPermission = v.union([
 	KunkunManifestPermission,
 	KunkunFsPermissionSchema,
 	OpenPermissionSchema
 ])
-export type AllKunkunPermission = InferOutput<typeof AllKunkunPermission>
+export type AllKunkunPermission = v.InferOutput<typeof AllKunkunPermission>

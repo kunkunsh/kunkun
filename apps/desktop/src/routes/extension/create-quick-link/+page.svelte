@@ -19,6 +19,7 @@
 		iconValue: v.string(),
 		invertIcon: v.boolean()
 	})
+
 	let icon = $state<Icon>({
 		type: IconEnum.Iconify,
 		value: "material-symbols:link",

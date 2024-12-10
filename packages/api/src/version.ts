@@ -12,12 +12,16 @@ export const breakingChangesVersionCheckpoints = [
 	{
 		version: "0.0.34",
 		changelog: "Replace comlink with kkrpc, extensions using comlink won't work anymore."
+	},
+	{
+		version: "0.0.45",
+		changelog: "Upgrade valibot to 1.0.0-beta.8; incompatible with previous version 0.40.0"
 	}
 ]
 const checkpointVersions = breakingChangesVersionCheckpoints.map((c) => c.version)
 const sortedCheckpointVersions = sort(checkpointVersions)
 
-export const version = "0.0.44"
+export const version = "0.0.46"
 
 export function isVersionBetween(v: string, start: string, end: string) {
 	const vCleaned = clean(v)

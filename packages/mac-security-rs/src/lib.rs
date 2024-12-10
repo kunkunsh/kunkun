@@ -1,10 +1,8 @@
 #![cfg(target_os = "macos")]
 
 use localauthentication_rs::{LAPolicy, LocalAuthentication};
-use objc::runtime::{Object, BOOL, NO, YES};
-use objc::{msg_send, sel, sel_impl};
+use objc::runtime::{BOOL, YES};
 use serde::{Deserialize, Serialize};
-use std::ptr;
 
 #[link(name = "CoreGraphics", kind = "framework")]
 extern "C" {

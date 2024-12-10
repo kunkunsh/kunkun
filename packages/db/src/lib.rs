@@ -1,10 +1,10 @@
 pub mod models;
 pub mod schema;
 use models::CmdType;
-use rusqlite::{params, params_from_iter, Connection, Error, Result, ToSql};
+use rusqlite::{params, params_from_iter, Connection, Result, ToSql};
 use serde::{Deserialize, Serialize};
-use std::path::{self, Path};
-use strum_macros::{Display, EnumString};
+use std::path::{Path};
+use strum_macros::Display;
 
 pub const DB_VERSION: u32 = 1;
 

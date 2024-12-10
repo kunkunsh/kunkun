@@ -8,6 +8,7 @@ members = [
     "packages/mac-security-rs",
     "packages/tauri-plugins/jarvis",
     "packages/crypto",
+    "packages/grpc",
 ]
 
 [workspace.dependencies]
@@ -15,6 +16,7 @@ serde = { version = "1", features = ["derive"] }
 anyhow = "1.0.86"
 serde_json = "1"
 tokio = { version = "1.0", features = ["macros", "rt-multi-thread", "signal"] }
+tokio-util = "0.7.12"
 mdns-sd = "0.11.1"
 tauri-plugin-network = { path = "./vendors/tauri-plugin-network" }
 tauri-plugin-clipboard = "2.1.8"
@@ -24,6 +26,7 @@ strum = "0.26"
 strum_macros = "0.26"
 chrono = "0.4.38"
 applications = { path = "./vendors/applications-rs" }
+grpc = { path = "./packages/grpc" }
 tauri-plugin-jarvis = { path = "./packages/tauri-plugins/jarvis" }
 tauri-plugin-system-info = { path = "./vendors/tauri-plugin-system-info" }
 db = { path = "./packages/db" }
@@ -35,3 +38,9 @@ reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
 crypto = { path = "./packages/crypto" }
 base64 = "0.22.1"
 obfstr = "0.4.4"
+sysinfo = "0.32.0"
+openssl = "0.10.68"
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.4.0", features = ["fs", "trace", "cors"] }
+rayon = "1.10.0"
+tauri-plugin-upload = { git = "https://github.com/HuakunShen/tauri-plugins-workspace.git", branch = "kunkun", package = "tauri-plugin-upload" }

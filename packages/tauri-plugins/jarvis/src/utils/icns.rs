@@ -1,13 +1,12 @@
-use applications::utils::image::{self, RustImage, RustImageData};
+use applications::utils::image::{RustImage, RustImageData};
 use std::{
     ffi::OsStr,
     fs::File,
-    io::{BufReader, Cursor, Write},
-    path::{Path, PathBuf},
+    io::{BufReader, Cursor},
+    path::PathBuf,
 };
 #[cfg(target_os = "macos")]
 use tauri_icns::{IconFamily, IconType};
-use uuid::Uuid;
 
 #[cfg(target_os = "macos")]
 /// Load Apple icns
