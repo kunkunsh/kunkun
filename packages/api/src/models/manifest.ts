@@ -119,7 +119,7 @@ export const TemplateUiCmd = object({
 })
 export type TemplateUiCmd = InferOutput<typeof TemplateUiCmd>
 export const PermissionUnion = union([
-	KunkunManifestPermission,
+	// KunkunManifestPermission,
 	FsPermissionScopedSchema,
 	OpenPermissionScopedSchema,
 	ShellPermissionScopedSchema
