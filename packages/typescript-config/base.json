@@ -1,19 +1,22 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
+	"extends": "./path-alias.json",
 	"compilerOptions": {
-		"paths": {
-			"@kksh/ui/*": ["./packages/ui/*"],
-			"@kksh/ui": ["./packages/ui"],
-			"@kksh/utils/*": ["./packages/utils/*"],
-			"@kksh/utils": ["./packages/utils"],
-			"@kksh/desktop/*": ["./apps/desktop/*"],
-			"@kksh/desktop": ["./apps/desktop"],
-			"@kksh/ci/*": ["./packages/ci/*"],
-			"@kksh/ci": ["./packages/ci"],
-			"@kksh/supabase/*": ["./packages/supabase/*"],
-			"@kksh/supabase": ["./packages/supabase"],
-			"@kksh/schema/*": ["./packages/schema/*"],
-			"@kksh/schema": ["./packages/schema"]
-		}
+		"declaration": true,
+		"declarationMap": true,
+		"esModuleInterop": true,
+		"incremental": false,
+		"isolatedModules": true,
+		"lib": ["es2022", "DOM", "DOM.Iterable"],
+		"module": "ESNext",
+		"moduleDetection": "force",
+		"moduleResolution": "Bundler",
+		"noUncheckedIndexedAccess": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"allowImportingTsExtensions": true,
+		"noEmit": true,
+		"target": "ES2022"
 	}
 }
