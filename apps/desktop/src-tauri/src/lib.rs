@@ -3,7 +3,8 @@ mod setup;
 pub mod utils;
 use log;
 #[cfg(target_os = "macos")]
-use tauri::{ActivationPolicy, Manager};
+use tauri::ActivationPolicy;
+use tauri::Manager;
 use tauri_plugin_deep_link::DeepLinkExt;
 use tauri_plugin_jarvis::{
     db::JarvisDB,
