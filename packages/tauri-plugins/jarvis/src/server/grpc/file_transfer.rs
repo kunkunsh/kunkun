@@ -244,10 +244,23 @@ mod test {
         let manifest_path = std::env::var("CARGO_MANIFEST_DIR").unwrap();
         let src_path = PathBuf::from(manifest_path).join("src");
         let node = construct_node(&src_path).unwrap();
-        println!("{:#?}", node);
+        // println!("{:#?}", node);
         let count = count_file_nodes(&node);
-        assert!(count >= 7); // there may be a hidden DS_Store file
-        assert!(count <= 8); // there may be a hidden DS_Store file
+        // run "find . -type f | wc -l" to get a ground truth
+        if cfg!(target_os = "windows") {
+            return;
+        }
+        let stdout = String::from_utf8(
+            std::process::Command::new("find")
+                .arg(&src_path)
+                .arg("-type")
+                .arg("f")
+                .output()
+                .unwrap()
+                .stdout
+        ).unwrap();
+        let count2 = stdout.lines().count();
+        assert_eq!(count, count2);
     }
 
     #[test]
