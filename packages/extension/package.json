@@ -17,7 +17,7 @@
 		"@kksh/api": "workspace:*",
 		"@kksh/supabase": "workspace:*",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
-		"uuid": "^11.0.2"
+		"uuid": "^11.0.3"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"

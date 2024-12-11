@@ -1,26 +1,26 @@
-use super::grpc::greeter::MyGreeter;
-use super::grpc::{
-    file_transfer::file_transfer::file_transfer_server::FileTransferServer,
-    greeter::hello_world::greeter_server::GreeterServer,
-};
 use super::model::ServerState;
 use super::Protocol;
 use crate::server::grpc::file_transfer::MyFileTransfer;
-use crate::server::tls::{CERT_PEM, KEY_PEM};
-use crate::utils::path::get_default_extensions_dir;
-use axum::http::{HeaderValue, Method, StatusCode, Uri};
-use axum::routing::{get, get_service, post};
+use crate::server::grpc::kunkun::KunkunService;
+use axum::routing::{get, post};
 use axum_server::tls_rustls::RustlsConfig;
 use base64::prelude::*;
+use grpc::{
+    file_transfer::file_transfer_server::FileTransferServer,
+    kunkun::kunkun_server::KunkunServer,
+};
 /// This module is responsible for controlling the main server
 use obfstr::obfstr as s;
 use std::sync::Mutex;
-use std::{net::SocketAddr, path::PathBuf, sync::Arc};
+use std::{net::SocketAddr, sync::Arc};
 use tauri::AppHandle;
 use tonic::transport::Server as TonicServer;
-use tower_http::{cors::CorsLayer, services::ServeDir};
+use tower_http::cors::CorsLayer;
 
-struct ServerOptions {}
+struct ServerOptions {
+    ssl_cert: Vec<u8>,
+    ssl_key: Vec<u8>,
+}
 
 async fn start_server(
     protocol: Protocol,
@@ -33,25 +33,20 @@ async fn start_server(
         app_handle: app_handle.clone(),
     };
     let reflection_service = tonic_reflection::server::Builder::configure()
-        .register_encoded_file_descriptor_set(
-            super::grpc::greeter::hello_world::FILE_DESCRIPTOR_SET,
-        )
-        .register_encoded_file_descriptor_set(
-            super::grpc::file_transfer::file_transfer::FILE_DESCRIPTOR_SET,
-        )
+        .register_encoded_file_descriptor_set(grpc::kunkun::FILE_DESCRIPTOR_SET)
+        .register_encoded_file_descriptor_set(grpc::file_transfer::FILE_DESCRIPTOR_SET)
         .build()
         .unwrap();
-    let greeter = MyGreeter {
-        app_handle: app_handle.clone(),
-        name: "jarvis".to_string(),
-    };
     let file_transfer = MyFileTransfer {
+        app_handle: app_handle.clone(),
+    };
+    let kk_service = KunkunService {
         app_handle: app_handle.clone(),
     };
     let grpc_router = TonicServer::builder()
         .add_service(reflection_service)
-        .add_service(GreeterServer::new(greeter))
         .add_service(FileTransferServer::new(file_transfer))
+        .add_service(KunkunServer::new(kk_service))
         .into_router();
     let rest_router = axum::Router::new()
         .route(
@@ -59,13 +54,11 @@ async fn start_server(
             post(super::rest::refresh_worker_extension),
         )
         .route("/info", get(super::rest::get_server_info))
+        .route("/download-file", get(super::rest::download_file))
+        // .route("/stream-file", get(super::rest::stream_file))
         .layer(CorsLayer::permissive())
         .with_state(server_state);
 
-    async fn fallback(uri: Uri) -> (StatusCode, String) {
-        println!("No route for {uri}");
-        (StatusCode::NOT_FOUND, format!("No route for {uri}"))
-    }
     let combined_router = axum::Router::new()
         .merge(grpc_router)
         .merge(rest_router)
@@ -78,27 +71,7 @@ async fn start_server(
                 .await
         }
         Protocol::Https => {
-            let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-            println!("manifest_dir: {}", manifest_dir.display());
-
-            let (key_pem, cert_pem) = if cfg!(debug_assertions) {
-                // In debug mode, use the base64 encoded certs from env
-                let cert_pem = BASE64_STANDARD
-                    .decode(s!(env!("BASE64_CERT_PEM")).to_string())
-                    .expect("Failed to decode cert_pem");
-                let key_pem = BASE64_STANDARD
-                    .decode(s!(env!("BASE64_KEY_PEM")).to_string())
-                    .expect("Failed to decode key_pem");
-                (key_pem, cert_pem)
-            } else {
-                // In release mode, generate new self-signed certs every time app starts for safety
-                let rsa =
-                    crypto::RsaCrypto::generate_rsa().expect("Failed to generate RSA key pair");
-                crypto::ssl::generate_self_signed_certificate(&rsa, 365)
-                    .expect("Failed to generate self-signed certificate")
-            };
-
-            let tls_config = RustlsConfig::from_pem(cert_pem, key_pem).await?;
+            let tls_config = RustlsConfig::from_pem(options.ssl_cert, options.ssl_key).await?;
             axum_server::bind_rustls(server_addr, tls_config)
                 .handle(shtdown_handle)
                 .serve(combined_router.into_make_service())
@@ -114,16 +87,35 @@ pub struct Server {
     pub protocol: Mutex<Protocol>,
     pub port: u16,
     pub server_handle: Arc<std::sync::Mutex<Option<tauri::async_runtime::JoinHandle<()>>>>,
+    pub ssl_cert: Vec<u8>,
+    pub ssl_key: Vec<u8>,
 }
 
 impl Server {
     pub fn new(app_handle: AppHandle, port: u16, protocol: Protocol) -> Self {
+        let (key_pem, cert_pem) = if cfg!(debug_assertions) {
+            // In debug mode, use the base64 encoded certs from env
+            let cert_pem = BASE64_STANDARD
+                .decode(s!(env!("BASE64_CERT_PEM")).to_string())
+                .expect("Failed to decode cert_pem");
+            let key_pem = BASE64_STANDARD
+                .decode(s!(env!("BASE64_KEY_PEM")).to_string())
+                .expect("Failed to decode key_pem");
+            (key_pem, cert_pem)
+        } else {
+            // In release mode, generate new self-signed certs every time app starts for safety
+            let rsa = crypto::RsaCrypto::generate_rsa().expect("Failed to generate RSA key pair");
+            crypto::ssl::generate_self_signed_certificate(&rsa, 365)
+                .expect("Failed to generate self-signed certificate")
+        };
         Self {
             app_handle,
             protocol: Mutex::new(protocol),
             port,
             server_handle: Arc::new(std::sync::Mutex::new(None)),
             shtdown_handle: Arc::new(Mutex::new(None)),
+            ssl_cert: cert_pem,
+            ssl_key: key_pem,
         }
     }
 
@@ -143,6 +135,8 @@ impl Server {
         let _shutdown_handle = axum_server::Handle::new();
         *shtdown_handle = Some(_shutdown_handle.clone());
         let protocol = self.protocol.lock().unwrap().clone();
+        let ssl_cert = self.ssl_cert.clone();
+        let ssl_key = self.ssl_key.clone();
 
         *server_handle = Some(tauri::async_runtime::spawn(async move {
             match start_server(
@@ -150,7 +144,7 @@ impl Server {
                 server_addr,
                 app_handle,
                 _shutdown_handle,
-                ServerOptions {},
+                ServerOptions { ssl_cert, ssl_key },
             )
             .await
             {

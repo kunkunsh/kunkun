@@ -6,7 +6,10 @@ export const MdnsServiceInfo = object({
 	hostname: string(),
 	port: number(),
 	service_type: string(),
-	subType: optional(string())
+	subType: optional(string()),
+	properties: optional(record(string(), string())),
+	publicKey: string(),
+	sslCert: string()
 })
 
 export type MdnsServiceInfo = InferOutput<typeof MdnsServiceInfo>

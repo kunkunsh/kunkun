@@ -1,7 +1,10 @@
 use commands::discovery::Peers;
-use db::JarvisDB;
 use model::extension::Extension;
-use server::Protocol;
+use models::FileTransferState;
+use openssl::{
+    pkey::{Private, Public},
+    rsa::Rsa,
+};
 use tauri::{
     plugin::{Builder, TauriPlugin},
     Manager, Runtime,
@@ -14,15 +17,9 @@ pub mod setup;
 pub mod syscmds;
 pub mod utils;
 pub use db;
-use std::{collections::HashMap, path::PathBuf, sync::Mutex};
-use tauri_plugin_store::StoreBuilder;
-use utils::{
-    path::{get_default_extensions_dir, get_kunkun_db_path},
-    settings::AppSettings,
-};
+use std::{collections::HashMap, sync::Mutex};
+use utils::path::get_kunkun_db_path;
 
-#[cfg(desktop)]
-mod desktop;
 #[cfg(mobile)]
 mod mobile;
 
@@ -32,24 +29,26 @@ mod models;
 
 pub use error::{Error, Result};
 
-#[cfg(desktop)]
-use desktop::Jarvis;
 #[cfg(mobile)]
 use mobile::Jarvis;
 
-#[derive(Default)]
 pub struct JarvisState {
     pub window_label_ext_map: Mutex<HashMap<String, Extension>>,
+    // the pair of RSA keys are newly generated everytime the app is started and store only in memory, used for encryption and signing
+    pub rsa_private_key: Rsa<Private>,
+    pub rsa_public_key: Rsa<Public>,
 }
 
-/// Extensions to [`tauri::App`], [`tauri::AppHandle`] and [`tauri::Window`] to access the jarvis APIs.
-pub trait JarvisExt<R: Runtime> {
-    fn jarvis(&self) -> &Jarvis<R>;
-}
-
-impl<R: Runtime, T: Manager<R>> crate::JarvisExt<R> for T {
-    fn jarvis(&self) -> &Jarvis<R> {
-        self.state::<Jarvis<R>>().inner()
+impl JarvisState {
+    pub fn new() -> Self {
+        let private_key =
+            crypto::RsaCrypto::generate_rsa().expect("Failed to generate RSA key pair");
+        let public_key: Rsa<Public> = crypto::RsaCrypto::private_key_to_public_key(&private_key);
+        Self {
+            window_label_ext_map: Mutex::new(HashMap::new()),
+            rsa_private_key: private_key,
+            rsa_public_key: public_key,
+        }
     }
 }
 
@@ -167,19 +166,24 @@ pub fn init<R: Runtime>(db_key: Option<String>) -> TauriPlugin<R> {
             /* -------------------------------------------------------------------------- */
             /*                                    MDNS                                    */
             /* -------------------------------------------------------------------------- */
-            commands::discovery::get_peers
+            commands::discovery::get_peers,
+            /* -------------------------------------------------------------------------- */
+            /*                                File Transfer                               */
+            /* -------------------------------------------------------------------------- */
+            // commands::server::get_files_to_send,
+            commands::file_transfer::get_file_transfer_bucket_keys,
+            commands::file_transfer::get_file_transfer_bucket_by_key,
+            commands::file_transfer::local_net_send_file,
+            commands::file_transfer::download_files,
+            commands::file_transfer::file_transfer_preview_bucket,
         ])
         .setup(move |app, api| {
-            // #[cfg(mobile)]
-            // let jarvis = mobile::init(app, api)?;
-            #[cfg(desktop)]
-            let jarvis = desktop::init(app, api)?;
-            app.manage(jarvis);
             utils::setup::setup_app_path(app);
             utils::setup::setup_extension_storage(app);
 
             // manage state so it is accessible by the commands
-            app.manage(JarvisState::default());
+            app.manage(JarvisState::new());
+            app.manage(FileTransferState::default());
             app.manage(commands::apps::ApplicationsState::default());
             let db_path = get_kunkun_db_path(app)?;
             app.manage(commands::db::DBState::new(db_path.clone(), db_key.clone())?);

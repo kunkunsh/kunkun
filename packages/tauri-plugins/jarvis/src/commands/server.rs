@@ -1,5 +1,4 @@
-use crate::{model::app_state, server::http::Server};
-use std::path::PathBuf;
+use crate::server::http::Server;
 
 #[tauri::command]
 pub async fn start_server(server: tauri::State<'_, Server>) -> Result<(), String> {

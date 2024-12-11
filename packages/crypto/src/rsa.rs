@@ -14,6 +14,14 @@ impl RsaCrypto {
         Rsa::generate(2048).map_err(anyhow::Error::from)
     }
 
+    pub fn private_key_to_public_key(private_key: &Rsa<Private>) -> Rsa<Public> {
+        let public_key_pem = private_key
+            .public_key_to_pem()
+            .expect("Failed to convert private key to public key");
+        RsaCrypto::public_key_from_pem(&public_key_pem)
+            .expect("Failed to convert pem to public key")
+    }
+
     pub fn generate_rsa_key_pair_pem() -> anyhow::Result<(Vec<u8>, Vec<u8>)> {
         let rsa = Rsa::generate(2048)?;
         let private_pem = rsa.private_key_to_pem()?;
@@ -27,6 +35,15 @@ impl RsaCrypto {
 
     pub fn public_key_from_pem(pem: &[u8]) -> anyhow::Result<Rsa<Public>> {
         Rsa::public_key_from_pem(pem).map_err(anyhow::Error::from)
+    }
+
+    pub fn public_key_to_string(public_key: &Rsa<Public>) -> String {
+        String::from_utf8(
+            public_key
+                .public_key_to_pem()
+                .expect("Failed to convert public key to pem"),
+        )
+        .expect("Failed to convert public key pem to string")
     }
 
     pub fn encrypt_message(public_key: &Rsa<Public>, message: &[u8]) -> anyhow::Result<Vec<u8>> {

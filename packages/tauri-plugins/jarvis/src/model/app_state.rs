@@ -1,4 +1,3 @@
-use std::{path::PathBuf, sync::Mutex};
 
 pub struct AppState {
     // pub history: Mutex<Vec<Record>>,

@@ -1,7 +1,5 @@
-use super::manifest::Permissions;
 use serde::{Deserialize, Serialize};
 use std::{
-    net::SocketAddr,
     path::PathBuf,
     sync::{Arc, Mutex},
 };

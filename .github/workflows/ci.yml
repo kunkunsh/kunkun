@@ -31,15 +31,6 @@ jobs:
           deno-version: v2.x
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
-      - name: Install Dependencies
-        run: pnpm install
-      - name: Setup
-        run: pnpm prepare
-      - name: Build
-        run: pnpm build
-      - name: JS Test
-        if: matrix.os == 'ubuntu-24.04'
-        run: pnpm test
       - name: Install protobuf (Mac)
         if: matrix.os == 'macos-14'
         run: |
@@ -55,11 +46,17 @@ jobs:
           choco install protoc
           echo "VCPKG_ROOT=$env:VCPKG_INSTALLATION_ROOT" | Out-File -FilePath $env:GITHUB_ENV -Append
           vcpkg install openssl:x64-windows-static-md
-          # choco install openssl -y
-          # echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
-          # echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
-          # echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib"' >> $env:GITHUB_ENV
-          # openssl version
+      - name: Install Dependencies
+        run: pnpm install
+      - name: Setup
+        run: pnpm prepare
+      - name: Build
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+        run: pnpm build
+      - name: JS Test
+        if: matrix.os == 'ubuntu-24.04'
+        run: pnpm test
       - name: Cargo Build and Test
         if: matrix.os == 'ubuntu-24.04'
         run: |

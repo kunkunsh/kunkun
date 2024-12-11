@@ -173,8 +173,11 @@ pub fn run() {
             ));
             app.manage(tauri_plugin_jarvis::model::app_state::AppState {});
             tauri_plugin_jarvis::setup::server::setup_server(app.handle())?; // start the server
-
-            let mdns = tauri_plugin_jarvis::setup::peer_discovery::setup_mdns(my_port)?;
+            let jarvis_state = app.state::<tauri_plugin_jarvis::JarvisState>();
+            let mdns = tauri_plugin_jarvis::setup::peer_discovery::setup_mdns(
+                my_port,
+                crypto::RsaCrypto::public_key_to_string(&jarvis_state.rsa_public_key),
+            )?;
             tauri_plugin_jarvis::setup::peer_discovery::handle_mdns_service_evt(
                 app.handle(),
                 mdns.browse()?,
