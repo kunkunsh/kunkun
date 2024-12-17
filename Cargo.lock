@@ -3302,6 +3302,7 @@ name = "kunkun"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "base64 0.22.1",
  "chrono",
  "cocoa 0.24.1",
  "crypto",

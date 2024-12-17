@@ -3,7 +3,7 @@ pub mod schema;
 use models::CmdType;
 use rusqlite::{params, params_from_iter, Connection, Result, ToSql};
 use serde::{Deserialize, Serialize};
-use std::path::{Path};
+use std::path::Path;
 use strum_macros::Display;
 
 pub const DB_VERSION: u32 = 1;
@@ -36,6 +36,23 @@ pub enum SQLSortOrder {
 pub enum ExtDataField {
     Data,
     SearchText,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ExtDataSearchQuery {
+    pub ext_id: i32,
+    pub search_exact_match: bool,
+    pub data_id: Option<i32>,
+    pub data_type: Option<String>,
+    pub search_text: Option<String>,
+    pub after_created_at: Option<String>,
+    pub before_created_at: Option<String>,
+    pub limit: Option<i32>,
+    pub offset: Option<i32>,
+    pub order_by_created_at: Option<SQLSortOrder>,
+    pub order_by_updated_at: Option<SQLSortOrder>,
+    pub fields: Option<Vec<ExtDataField>>,
 }
 
 impl JarvisDB {
@@ -346,19 +363,47 @@ impl JarvisDB {
         Ok(())
     }
 
-    pub fn get_extension_data_by_id(&self, data_id: i32) -> Result<Option<models::ExtData>> {
-        let mut stmt = self.conn.prepare(
-            "SELECT data_id, ext_id, data_type, data, search_text, created_at, updated_at FROM extension_data WHERE data_id = ?1",
-        )?;
+    pub fn get_extension_data_by_id(
+        &self,
+        data_id: i32,
+        mut fields: Option<Vec<ExtDataField>>,
+    ) -> Result<Option<models::ExtData>> {
+        if fields.is_none() {
+            fields = Some(vec![ExtDataField::Data, ExtDataField::SearchText]);
+        }
+        let contains_data_field = fields.as_ref().map_or(false, |fields| {
+            fields.iter().any(|f| f == &ExtDataField::Data)
+        });
+        let contains_search_text_field = fields.as_ref().map_or(false, |fields| {
+            fields.iter().any(|f| f == &ExtDataField::SearchText)
+        });
+        let mut query = String::from("SELECT data_id, ext_id, data_type, created_at, updated_at");
+        if contains_data_field {
+            query.push_str(", data");
+        }
+        if contains_search_text_field {
+            query.push_str(", search_text");
+        }
+        query.push_str(
+            " FROM extension_data
+             WHERE data_id = ?1",
+        );
+        let mut stmt = self.conn.prepare(&query)?;
         let ext_data_iter = stmt.query_map(params![data_id], |row| {
             Ok(models::ExtData {
                 data_id: row.get(0)?,
                 ext_id: row.get(1)?,
                 data_type: row.get(2)?,
-                data: row.get(3)?,
-                search_text: row.get(4)?,
-                created_at: row.get(5)?,
-                updated_at: row.get(6)?,
+                created_at: row.get(3)?,
+                updated_at: row.get(4)?,
+                data: match contains_data_field {
+                    true => Some(row.get(5)?),
+                    false => None,
+                },
+                search_text: match contains_search_text_field {
+                    true => row.get(5 + contains_data_field as usize)?, // if contains_data_field is true, search_text is at index 6, otherwise 5
+                    false => None,
+                },
             })
         })?;
         let mut ext_data = Vec::new();
@@ -370,19 +415,9 @@ impl JarvisDB {
 
     pub fn search_extension_data(
         &self,
-        ext_id: i32,
-        search_exact_match: bool,
-        data_id: Option<i32>,
-        data_type: Option<&str>,
-        search_text: Option<&str>,
-        after_created_at: Option<&str>,
-        before_created_at: Option<&str>,
-        limit: Option<i32>,
-        order_by_created_at: Option<SQLSortOrder>,
-        order_by_updated_at: Option<SQLSortOrder>,
-        fields: Option<Vec<ExtDataField>>,
+        search_query: ExtDataSearchQuery,
     ) -> Result<Vec<models::ExtData>> {
-        let mut fields = fields;
+        let mut fields = search_query.fields;
         if fields.is_none() {
             fields = Some(vec![ExtDataField::Data, ExtDataField::SearchText]);
         }
@@ -403,67 +438,73 @@ impl JarvisDB {
             " FROM extension_data
              WHERE ext_id = ?1",
         );
-        let mut params: Vec<Box<dyn ToSql>> = vec![Box::new(ext_id)];
+        let mut params: Vec<Box<dyn ToSql>> = vec![Box::new(search_query.ext_id)];
         let mut param_index = 2;
 
-        if let Some(di) = data_id {
+        if let Some(di) = search_query.data_id {
             query.push_str(&format!(" AND data_id = ?{}", param_index));
             params.push(Box::new(di));
             param_index += 1;
         }
 
-        if let Some(dt) = data_type {
+        if let Some(dt) = search_query.data_type {
             query.push_str(&format!(" AND data_type = ?{}", param_index));
             params.push(Box::new(dt));
             param_index += 1;
         }
 
-        if search_exact_match {
-            if let Some(st) = search_text {
+        if search_query.search_exact_match {
+            if let Some(st) = search_query.search_text {
                 query.push_str(&format!(" AND search_text = ?{}", param_index));
                 params.push(Box::new(st));
                 param_index += 1;
             }
         } else {
-            if let Some(st) = search_text {
+            if let Some(st) = search_query.search_text {
                 query.push_str(&format!(" AND search_text LIKE ?{}", param_index));
                 params.push(Box::new(format!("%{}%", st)));
                 param_index += 1;
             }
         }
 
-        if let Some(after) = after_created_at {
+        if let Some(after) = search_query.after_created_at {
             query.push_str(&format!(" AND created_at > ?{}", param_index));
             params.push(Box::new(after));
             param_index += 1;
         }
 
-        if let Some(before) = before_created_at {
+        if let Some(before) = search_query.before_created_at {
             query.push_str(&format!(" AND created_at < ?{}", param_index));
             params.push(Box::new(before));
             param_index += 1;
         }
 
-        if let Some(order_by_created_at) = order_by_created_at {
+        if let Some(order_by_created_at) = search_query.order_by_created_at {
             query.push_str(&format!(
                 " ORDER BY created_at {}",
                 order_by_created_at.to_string()
             ));
         }
 
-        if let Some(order_by_updated_at) = order_by_updated_at {
+        if let Some(order_by_updated_at) = search_query.order_by_updated_at {
             query.push_str(&format!(
                 " ORDER BY updated_at {}",
                 order_by_updated_at.to_string()
             ));
         }
 
-        if let Some(limit) = limit {
+        if let Some(limit) = search_query.limit {
             query.push_str(&format!(" LIMIT ?{}", param_index));
             params.push(Box::new(limit));
+            param_index += 1;
+        }
+        if let Some(offset) = search_query.offset {
+            query.push_str(&format!(" OFFSET ?{}", param_index));
+            params.push(Box::new(offset));
+            param_index += 1;
         }
         let mut stmt = self.conn.prepare(&query)?;
-
+        println!("search_extension_data query: {}", query);
         let ext_data_iter =
             stmt.query_map(params_from_iter(params.iter().map(|p| p.as_ref())), |row| {
                 Ok(models::ExtData {
@@ -593,28 +634,40 @@ mod tests {
             .unwrap();
         /* ---------------------- Search with data_type == test --------------------- */
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                Some("test"),
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: Some("test".to_string()),
+                search_text: None,
+                after_created_at: None,
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
 
         assert_eq!(ext_data.len(), 1); // there is only one record with data_type == test
 
         /* ------------------------ Search without any filter ----------------------- */
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id, false, None, None, None, None, None, None, None, None, None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: None,
+                search_text: None,
+                after_created_at: None,
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         assert_eq!(ext_data.len(), 2); // one test, one setting
 
@@ -625,186 +678,196 @@ mod tests {
             .unwrap();
         /* ----------------------- both record contains world ----------------------- */
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                Some("data"),
-                Some("wOrLd"),
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: Some("data".to_string()),
+                search_text: Some("wOrLd".to_string()),
+                after_created_at: None,
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         assert_eq!(ext_data.len(), 2);
         /* ------------------------ search for rust with FTS ------------------------ */
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                Some("data"),
-                Some("rust"),
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: Some("data".to_string()),
+                search_text: Some("rust".to_string()),
+                after_created_at: None,
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         assert_eq!(ext_data.len(), 1);
 
         // get ext data with search text that does not exist
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                Some("test"),
-                Some("test"),
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: Some("test".to_string()),
+                search_text: Some("test".to_string()),
+                after_created_at: None,
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         assert_eq!(ext_data.len(), 0);
 
         /* ---------------- All 4 test records are created after 2021 --------------- */
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                None,
-                None,
-                Some("2021-01-01"),
-                None,
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: None,
+                search_text: None,
+                after_created_at: Some("2021-01-01".to_string()),
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         assert_eq!(ext_data.len(), 4);
 
         // I don't think this code(or I) could live long enough to see this test fail 2100
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                None,
-                None,
-                Some("2100-01-01"),
-                None,
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: None,
+                search_text: None,
+                after_created_at: None,
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         assert_eq!(ext_data.len(), 0);
 
         /* --------------- All 4 test records are created before 2030 --------------- */
         // if this code still runs in 2030, I will be very happy to fix this test
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                None,
-                None,
-                None,
-                Some("2030-01-01"),
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: None,
+                search_text: None,
+                after_created_at: None,
+                before_created_at: Some("2030-01-01".to_string()),
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         assert_eq!(ext_data.len(), 4);
 
         // get ext data with created_at filter that does not exist
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                None,
-                None,
-                None,
-                Some("2021-01-01"),
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: None,
+                search_text: None,
+                after_created_at: Some("2021-01-01".to_string()),
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         assert_eq!(ext_data.len(), 0);
 
         /* ---------------------- Delete ext data by data_id ---------------------- */
         // there is only one record with data_type == setting
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                Some("setting"),
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: Some("setting".to_string()),
+                search_text: None,
+                after_created_at: None,
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         let data_id = ext_data.first().unwrap().data_id;
         db.delete_extension_data_by_id(data_id).unwrap();
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                Some("setting"),
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: Some("setting".to_string()),
+                search_text: None,
+                after_created_at: None,
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         assert_eq!(ext_data.len(), 0);
 
         /* ---------------------- Update ext data by data_id ---------------------- */
         let ext_data = db
-            .search_extension_data(
-                ext.ext_id,
-                false,
-                None,
-                Some("data"),
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-                None,
-            )
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_exact_match: false,
+                data_type: Some("data".to_string()),
+                search_text: None,
+                after_created_at: None,
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
             .unwrap();
         let data_id = ext_data.first().unwrap().data_id;
         db.update_extension_data_by_id(data_id, "{\"name\": \"huakun\"}", Some("updated"))
             .unwrap();
-        let ext_data = db.get_extension_data_by_id(data_id).unwrap();
+        let ext_data = db.get_extension_data_by_id(data_id, None).unwrap();
         assert!(ext_data.is_some());
         let ext_data = ext_data.unwrap();
         assert_eq!(ext_data.data.unwrap(), "{\"name\": \"huakun\"}");

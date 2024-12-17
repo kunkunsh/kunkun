@@ -12,6 +12,7 @@
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
 	import { goto } from "$app/navigation"
 	import { ArrowLeft } from "lucide-svelte"
+	import type { Snippet } from "svelte"
 	import { toast } from "svelte-sonner"
 
 	let { data } = $props()
@@ -80,7 +81,7 @@
 	<CustomCommandInput
 		autofocus
 		placeholder="Type a command or search..."
-		{leftSlot}
+		leftSlot={leftSlot as Snippet}
 		bind:value={$appState.searchTerm}
 	/>
 	<Command.List class="max-h-screen grow">

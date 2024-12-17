@@ -155,7 +155,7 @@ export function createExtensionData(data: {
 	return invoke<void>(generateJarvisPluginCommand("create_extension_data"), data)
 }
 
-export function getExtensionDataById(dataId: number) {
+export function getExtensionDataById(dataId: number, fields?: ExtDataField[]) {
 	return invoke<
 		| (ExtData & {
 				createdAt: string
@@ -165,7 +165,8 @@ export function getExtensionDataById(dataId: number) {
 		  })
 		| undefined
 	>(generateJarvisPluginCommand("get_extension_data_by_id"), {
-		dataId
+		dataId,
+		fields
 	}).then(convertRawExtDataToExtData)
 }
 
@@ -184,6 +185,7 @@ export async function searchExtensionData(searchParams: {
 	afterCreatedAt?: string
 	beforeCreatedAt?: string
 	limit?: number
+	offset?: number
 	orderByCreatedAt?: SQLSortOrder
 	orderByUpdatedAt?: SQLSortOrder
 	fields?: ExtDataField[]
@@ -197,8 +199,10 @@ export async function searchExtensionData(searchParams: {
 			searchText: null | string
 		})[]
 	>(generateJarvisPluginCommand("search_extension_data"), {
-		...searchParams,
-		fields
+		searchQuery: {
+			...searchParams,
+			fields
+		}
 	})
 
 	return items.map(convertRawExtDataToExtData).filter((item) => item) as ExtData[]

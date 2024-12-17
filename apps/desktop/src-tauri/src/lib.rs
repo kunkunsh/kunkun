@@ -1,6 +1,7 @@
 use std::{path::PathBuf, sync::Mutex};
 mod setup;
 pub mod utils;
+use base64::prelude::*;
 use log;
 #[cfg(target_os = "macos")]
 use tauri::ActivationPolicy;
@@ -136,6 +137,61 @@ pub fn run() {
                     .body("Extension Not Found".as_bytes().to_vec())
                     .unwrap(),
             }
+        })
+        .register_uri_scheme_protocol("cbimg", |app, request| {
+            // sample url: cb_img?id=123
+            // parse id from url
+            let path = &request.uri().path()[1..]; // skip the first /
+            let path = urlencoding::decode(path).unwrap().to_string();
+            let query_params: Vec<&str> = path.split('?').collect();
+            let id = if query_params.len() > 1 {
+                query_params[1].split('=').nth(1).unwrap_or("")
+            } else {
+                return tauri::http::Response::builder()
+                    .status(tauri::http::StatusCode::BAD_REQUEST)
+                    .header("Access-Control-Allow-Origin", "*")
+                    .body("Invalid Request".as_bytes().to_vec())
+                    .unwrap();
+            };
+            let app_handle = app.app_handle();
+            let clipboard_history = app_handle
+                .state::<tauri_plugin_jarvis::model::clipboard_history::ClipboardHistory>(
+            );
+            let jarvis_db = clipboard_history.jarvis_db.lock().unwrap();
+            let img_data = jarvis_db.get_extension_data_by_id(id.parse::<i32>().unwrap(), None);
+            let image_data = if let Ok(img_data) = img_data {
+                let img_data = img_data.unwrap().data;
+                match img_data {
+                    Some(data) => match BASE64_STANDARD.decode(data) {
+                        Ok(img_data) => img_data,
+                        Err(e) => {
+                            return tauri::http::Response::builder()
+                                .status(tauri::http::StatusCode::NOT_FOUND)
+                                .header("Access-Control-Allow-Origin", "*")
+                                .body("Image Not Found".as_bytes().to_vec())
+                                .unwrap();
+                        }
+                    },
+                    None => {
+                        return tauri::http::Response::builder()
+                            .status(tauri::http::StatusCode::NOT_FOUND)
+                            .header("Access-Control-Allow-Origin", "*")
+                            .body("Image Not Found".as_bytes().to_vec())
+                            .unwrap();
+                    }
+                }
+            } else {
+                return tauri::http::Response::builder()
+                    .status(tauri::http::StatusCode::NOT_FOUND)
+                    .header("Access-Control-Allow-Origin", "*")
+                    .body("Image Not Found".as_bytes().to_vec())
+                    .unwrap();
+            };
+            return tauri::http::Response::builder()
+                .status(tauri::http::StatusCode::OK)
+                .header("Access-Control-Allow-Origin", "*")
+                .body(image_data)
+                .unwrap();
         })
         .setup(move |app| {
             setup::window::setup_window(app.handle());

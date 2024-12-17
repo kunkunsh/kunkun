@@ -19,6 +19,7 @@
 	} from "@kksh/ui/main"
 	import type { CmdValue } from "@kksh/ui/types"
 	import { cn, commandScore } from "@kksh/ui/utils"
+	import { convertFileSrc } from "@tauri-apps/api/core"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { exit } from "@tauri-apps/plugin-process"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
@@ -32,6 +33,8 @@
 			$appState.searchTerm = ""
 		}
 	}
+
+	// let imgSrc = convertFileSrc("/?id=15", "cbimg")
 </script>
 
 <svelte:window
@@ -46,6 +49,8 @@
 		}
 	}}
 />
+<!-- <pre>{imgSrc}</pre>
+<img class="border-2 border-red-500 w-64" src={imgSrc} alt="test" /> -->
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}

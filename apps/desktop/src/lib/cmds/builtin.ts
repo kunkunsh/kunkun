@@ -281,6 +281,18 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "Clipboard History",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "mdi:clipboard-outline"
+		},
+		description: "Clipboard History",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/extension/clipboard")
+		}
+	},
+	{
 		name: "Pin Current Screenshot",
 		icon: {
 			type: IconEnum.Iconify,
