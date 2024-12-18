@@ -191,7 +191,7 @@ pub async fn create_extension_data(
     db.db
         .lock()
         .unwrap()
-        .create_extension_data(ext_id, data_type, data, search_text)
+        .create_extension_data(ext_id, data_type, data, search_text, None)
         .map_err(|err| err.to_string())
 }
 

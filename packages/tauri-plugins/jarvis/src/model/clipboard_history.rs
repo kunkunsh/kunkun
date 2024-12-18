@@ -1,4 +1,7 @@
-use db::{models::{ExtDataSearchQuery, SearchMode}, JarvisDB};
+use db::{
+    models::{ExtDataSearchQuery, SearchMode},
+    JarvisDB,
+};
 use serde::{Deserialize, Serialize};
 use std::{str::FromStr, sync::Mutex};
 use strum_macros::{Display, EnumString};
@@ -44,6 +47,7 @@ impl ClipboardHistory {
             &record.content_type.to_string(),
             &record.value,
             Some(&record.text),
+            None,
         )?;
         Ok(())
     }

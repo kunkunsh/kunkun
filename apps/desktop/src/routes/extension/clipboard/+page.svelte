@@ -42,13 +42,11 @@
 			fields: ["search_text"],
 			orderByCreatedAt: SQLSortOrderEnum.Desc
 		})
-		console.log("initClipboardHistory result.length", result.length)
 		clipboardHistoryList = [...result, ...clipboardHistoryList]
 	}
 
 	onMount(async () => {
 		listenToNewClipboardItem(async (evt) => {
-			console.log("new clipboard item")
 			const result = await db.searchExtensionData({
 				extId: 1,
 				searchMode: SearchModeEnum.FTS,
@@ -56,7 +54,6 @@
 				fields: ["search_text"],
 				orderByCreatedAt: SQLSortOrderEnum.Desc
 			})
-			console.log("new item", result)
 			if (result.length > 0) {
 				clipboardHistoryList = [result[0], ...clipboardHistoryList]
 			}
@@ -129,7 +126,6 @@
 	}
 
 	async function onListScrolledToBottom() {
-		console.log("onListScrolledToBottom")
 		page++
 		await initClipboardHistory()
 	}
