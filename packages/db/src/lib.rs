@@ -2,6 +2,7 @@ pub mod models;
 pub mod schema;
 use models::{CmdType, ExtDataField, ExtDataSearchQuery, SearchMode};
 use rusqlite::{params, params_from_iter, Connection, Result, ToSql};
+use serde_json::{json, Value};
 use std::path::Path;
 
 pub const DB_VERSION: u32 = 1;
@@ -322,10 +323,11 @@ impl JarvisDB {
         data_type: &str,
         data: &str,
         search_text: Option<&str>,
+        metadata: Option<&str>,
     ) -> Result<()> {
         self.conn.execute(
-            "INSERT INTO extension_data (ext_id, data_type, data, search_text) VALUES (?1, ?2, ?3, ?4)",
-            params![ext_id, data_type, data, search_text],
+            "INSERT INTO extension_data (ext_id, data_type, data, search_text, metadata) VALUES (?1, ?2, ?3, ?4, ?5)",
+            params![ext_id, data_type, data, search_text, metadata],
         )?;
         Ok(())
     }
@@ -497,7 +499,7 @@ impl JarvisDB {
             param_index += 1;
         }
         let mut stmt = self.conn.prepare(&query)?;
-        println!("search_extension_data query: {}", query);
+        // println!("search_extension_data query: {}", query);
         let ext_data_iter =
             stmt.query_map(params_from_iter(params.iter().map(|p| p.as_ref())), |row| {
                 Ok(models::ExtData {
@@ -621,9 +623,9 @@ mod tests {
             .unwrap()
             .unwrap();
 
-        db.create_extension_data(ext.ext_id, "test", "{}", None)
+        db.create_extension_data(ext.ext_id, "test", "{}", None, None)
             .unwrap();
-        db.create_extension_data(ext.ext_id, "setting", "{}", None)
+        db.create_extension_data(ext.ext_id, "setting", "{}", None, None)
             .unwrap();
         /* ---------------------- Search with data_type == test --------------------- */
         let ext_data = db
@@ -665,10 +667,30 @@ mod tests {
         assert_eq!(ext_data.len(), 2); // one test, one setting
 
         // /* -------------------------- Test Full Text Search ------------------------- */
-        db.create_extension_data(ext.ext_id, "data", "{}", Some("hello world from rust"))
-            .unwrap();
-        db.create_extension_data(ext.ext_id, "data", "{}", Some("world is a mess"))
-            .unwrap();
+        let json_data = json!({
+            "name": "John Doe",
+            "age": 43,
+            "phones": [
+                "+44 1234567",
+                "+44 2345678"
+            ]
+        });
+        db.create_extension_data(
+            ext.ext_id,
+            "data",
+            "{}",
+            Some("hello world from rust"),
+            Some(json_data.to_string().as_str()),
+        )
+        .unwrap();
+        db.create_extension_data(
+            ext.ext_id,
+            "data",
+            "{}",
+            Some("world is a mess"),
+            Some(json_data.to_string().as_str()),
+        )
+        .unwrap();
         // Search Mode: Like
         let ext_data = db
             .search_extension_data(ExtDataSearchQuery {
