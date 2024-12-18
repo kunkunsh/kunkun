@@ -1,5 +1,6 @@
 use rusqlite::types::FromSql;
 use serde::{Deserialize, Serialize};
+use strum_macros::Display;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -71,6 +72,56 @@ pub struct Cmd {
     pub enabled: bool,
 }
 
+#[derive(Debug, Serialize, Deserialize, Display)]
+#[serde(rename_all = "UPPERCASE")]
+pub enum SQLSortOrder {
+    Asc,
+    Desc,
+}
+
+#[derive(Debug, Serialize, Deserialize, Display, PartialEq)]
+#[serde(rename_all = "snake_case")]
+pub enum ExtDataField {
+    Data,
+    SearchText,
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
+pub enum SearchMode {
+    #[serde(rename = "exact_match")]
+    ExactMatch,
+    #[serde(rename = "like")]
+    Like,
+    #[serde(rename = "fts")]
+    FTS,
+}
+
+impl SearchMode {
+    pub fn to_string(&self) -> String {
+        serde_json::to_string(self)
+            .map(|s| s.trim_matches('"').to_string())
+            .unwrap_or_else(|_| String::from(""))
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ExtDataSearchQuery {
+    pub ext_id: i32,
+    // pub search_exact_match: bool,
+    pub search_mode: SearchMode,
+    pub data_id: Option<i32>,
+    pub data_type: Option<String>,
+    pub search_text: Option<String>,
+    pub after_created_at: Option<String>,
+    pub before_created_at: Option<String>,
+    pub limit: Option<i32>,
+    pub offset: Option<i32>,
+    pub order_by_created_at: Option<SQLSortOrder>,
+    pub order_by_updated_at: Option<SQLSortOrder>,
+    pub fields: Option<Vec<ExtDataField>>,
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -85,5 +136,12 @@ mod tests {
         assert_eq!(worker.to_string(), "ui_worker");
         assert_eq!(headless_worker.to_string(), "headless_worker");
         assert_eq!(quick_link.to_string(), "quick_link");
+    }
+
+    #[test]
+    fn test_search_mode() {
+        assert_eq!(SearchMode::ExactMatch.to_string(), "exact_match");
+        assert_eq!(SearchMode::Like.to_string(), "like");
+        assert_eq!(SearchMode::FTS.to_string(), "fts");
     }
 }

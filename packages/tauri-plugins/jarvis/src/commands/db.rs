@@ -1,6 +1,6 @@
 use db::{
-    models::{Cmd, CmdType, Ext, ExtData},
-    ExtDataField, ExtDataSearchQuery, JarvisDB, SQLSortOrder,
+    models::{Cmd, CmdType, Ext, ExtData, ExtDataField, ExtDataSearchQuery, SQLSortOrder},
+    JarvisDB,
 };
 use std::{path::PathBuf, sync::Mutex};
 use tauri::State;

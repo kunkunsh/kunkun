@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS extension_data (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (ext_id) REFERENCES extensions (ext_id)
+	metadata JSON
 );
 
 -- Full-text search index for ext_data

@@ -54,17 +54,15 @@
 
 <Resizable.PaneGroup direction="vertical">
 	<Resizable.Pane defaultSize={50} class="px-2 py-1">
-		<!-- <div class="flex justify-center"> -->
-		<img
-			src={imgSrc}
+		<div
 			class={cn({
 				hidden: highlighted.dataType !== "Image",
-				"h-full": highlighted.dataType === "Image"
+				"h-full": highlighted.dataType === "Image",
+				"flex justify-center": highlighted.dataType === "Image"
 			})}
-			alt=""
-			bind:this={imgRef}
-		/>
-
+		>
+			<img src={imgSrc} alt="" class="h-full w-auto object-contain" bind:this={imgRef} />
+		</div>
 		{#if highlighted.dataType === "Image"}{:else if highlighted.dataType === "Text"}
 			<div class="text-sm">{txtData}</div>
 		{:else if highlighted.dataType === "Html"}
@@ -80,7 +78,6 @@
 	<Resizable.Pane defaultSize={50} class="space-y-1 px-4 pt-2">
 		<h2 class="font-mono font-bold">Information</h2>
 		{#if createTime}
-			<Separator />
 			{@render row("Copied At", formatDate(createTime))}
 		{/if}
 		<Separator />

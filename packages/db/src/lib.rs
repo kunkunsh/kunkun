@@ -1,10 +1,8 @@
 pub mod models;
 pub mod schema;
-use models::CmdType;
+use models::{CmdType, ExtDataField, ExtDataSearchQuery, SearchMode};
 use rusqlite::{params, params_from_iter, Connection, Result, ToSql};
-use serde::{Deserialize, Serialize};
 use std::path::Path;
-use strum_macros::Display;
 
 pub const DB_VERSION: u32 = 1;
 
@@ -22,37 +20,6 @@ pub fn get_connection<P: AsRef<Path>>(
 #[derive(Debug)]
 pub struct JarvisDB {
     pub conn: Connection,
-}
-
-#[derive(Debug, Serialize, Deserialize, Display)]
-#[serde(rename_all = "UPPERCASE")]
-pub enum SQLSortOrder {
-    Asc,
-    Desc,
-}
-
-#[derive(Debug, Serialize, Deserialize, Display, PartialEq)]
-#[serde(rename_all = "snake_case")]
-pub enum ExtDataField {
-    Data,
-    SearchText,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ExtDataSearchQuery {
-    pub ext_id: i32,
-    pub search_exact_match: bool,
-    pub data_id: Option<i32>,
-    pub data_type: Option<String>,
-    pub search_text: Option<String>,
-    pub after_created_at: Option<String>,
-    pub before_created_at: Option<String>,
-    pub limit: Option<i32>,
-    pub offset: Option<i32>,
-    pub order_by_created_at: Option<SQLSortOrder>,
-    pub order_by_updated_at: Option<SQLSortOrder>,
-    pub fields: Option<Vec<ExtDataField>>,
 }
 
 impl JarvisDB {
@@ -413,6 +380,26 @@ impl JarvisDB {
         Ok(ext_data.first().cloned())
     }
 
+    /// Sample Queries With Different Search Modes
+    /// ## Full Text Search (FTS) Mode:
+    /// ```sql
+    /// SELECT extension_data.*
+    /// FROM extension_data
+    /// JOIN extension_data_fts ON extension_data.data_id = extension_data_fts.data_id
+    /// WHERE extension_data_fts.search_text MATCH 'extension_data';
+    /// ```
+    /// ## Exact Match Mode:
+    /// ```sql
+    /// SELECT extension_data.*
+    /// FROM extension_data
+    /// WHERE extension_data.search_text = 'extension_data';
+    /// ```
+    /// ## Like Mode:
+    /// ```sql
+    /// SELECT extension_data.*
+    /// FROM extension_data
+    /// WHERE extension_data.search_text LIKE '%extension_data%';
+    /// ```
     pub fn search_extension_data(
         &self,
         search_query: ExtDataSearchQuery,
@@ -427,17 +414,18 @@ impl JarvisDB {
         let contains_search_text_field = fields.as_ref().map_or(false, |fields| {
             fields.iter().any(|f| f == &ExtDataField::SearchText)
         });
-        let mut query = String::from("SELECT data_id, ext_id, data_type, created_at, updated_at");
+        let mut query = String::from("SELECT ed.data_id as data_id, ed.ext_id as ext_id, ed.data_type as data_type, ed.created_at as created_at, ed.updated_at as updated_at");
         if contains_data_field {
-            query.push_str(", data");
+            query.push_str(", ed.data as data");
         }
         if contains_search_text_field {
-            query.push_str(", search_text");
+            query.push_str(", ed.search_text as search_text");
         }
-        query.push_str(
-            " FROM extension_data
-             WHERE ext_id = ?1",
-        );
+        query.push_str(" FROM extension_data ed");
+        if search_query.search_mode == SearchMode::FTS {
+            query.push_str(" JOIN extension_data_fts edf ON ed.data_id = edf.data_id");
+        }
+        query.push_str(" WHERE ed.ext_id = ?1");
         let mut params: Vec<Box<dyn ToSql>> = vec![Box::new(search_query.ext_id)];
         let mut param_index = 2;
 
@@ -453,18 +441,23 @@ impl JarvisDB {
             param_index += 1;
         }
 
-        if search_query.search_exact_match {
-            if let Some(st) = search_query.search_text {
-                query.push_str(&format!(" AND search_text = ?{}", param_index));
-                params.push(Box::new(st));
-                param_index += 1;
+        if let Some(st) = search_query.search_text {
+            match search_query.search_mode {
+                SearchMode::ExactMatch => {
+                    query.push_str(&format!(" AND ed.search_text = ?{}", param_index));
+                    params.push(Box::new(st));
+                }
+                SearchMode::Like => {
+                    query.push_str(&format!(" AND ed.search_text LIKE ?{}", param_index));
+                    params.push(Box::new(format!("{}", st)));
+                }
+                SearchMode::FTS => {
+                    // Join with FTS table and use MATCH operator
+                    query.push_str(&format!(" AND edf.search_text MATCH ?{}", param_index));
+                    params.push(Box::new(st));
+                }
             }
-        } else {
-            if let Some(st) = search_query.search_text {
-                query.push_str(&format!(" AND search_text LIKE ?{}", param_index));
-                params.push(Box::new(format!("%{}%", st)));
-                param_index += 1;
-            }
+            param_index += 1;
         }
 
         if let Some(after) = search_query.after_created_at {
@@ -638,7 +631,7 @@ mod tests {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::FTS,
                 data_type: Some("test".to_string()),
                 search_text: None,
                 after_created_at: None,
@@ -658,7 +651,7 @@ mod tests {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::FTS,
                 data_type: None,
                 search_text: None,
                 after_created_at: None,
@@ -671,20 +664,39 @@ mod tests {
             .unwrap();
         assert_eq!(ext_data.len(), 2); // one test, one setting
 
-        /* -------------------------- Test Full Text Search ------------------------- */
+        // /* -------------------------- Test Full Text Search ------------------------- */
         db.create_extension_data(ext.ext_id, "data", "{}", Some("hello world from rust"))
             .unwrap();
         db.create_extension_data(ext.ext_id, "data", "{}", Some("world is a mess"))
             .unwrap();
-        /* ----------------------- both record contains world ----------------------- */
+        // Search Mode: Like
         let ext_data = db
             .search_extension_data(ExtDataSearchQuery {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::Like,
                 data_type: Some("data".to_string()),
-                search_text: Some("wOrLd".to_string()),
+                search_text: Some("worl%".to_string()),
+                after_created_at: None,
+                before_created_at: None,
+                order_by_created_at: None,
+                order_by_updated_at: None,
+                limit: None,
+                offset: None,
+            })
+            .unwrap();
+        assert_eq!(ext_data.len(), 1);
+        /* ----------------------- both record contains world ----------------------- */
+        // Search Mode: FTS
+        let ext_data = db
+            .search_extension_data(ExtDataSearchQuery {
+                ext_id: ext.ext_id,
+                fields: None,
+                data_id: None,
+                search_mode: SearchMode::FTS,
+                data_type: Some("data".to_string()),
+                search_text: Some("wOrLd".to_string()), // FTS is case insensitive
                 after_created_at: None,
                 before_created_at: None,
                 order_by_created_at: None,
@@ -700,7 +712,7 @@ mod tests {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::FTS,
                 data_type: Some("data".to_string()),
                 search_text: Some("rust".to_string()),
                 after_created_at: None,
@@ -719,7 +731,7 @@ mod tests {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::FTS,
                 data_type: Some("test".to_string()),
                 search_text: Some("test".to_string()),
                 after_created_at: None,
@@ -738,7 +750,7 @@ mod tests {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::FTS,
                 data_type: None,
                 search_text: None,
                 after_created_at: Some("2021-01-01".to_string()),
@@ -751,13 +763,13 @@ mod tests {
             .unwrap();
         assert_eq!(ext_data.len(), 4);
 
-        // I don't think this code(or I) could live long enough to see this test fail 2100
+        // no filter, get all records
         let ext_data = db
             .search_extension_data(ExtDataSearchQuery {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::FTS,
                 data_type: None,
                 search_text: None,
                 after_created_at: None,
@@ -768,7 +780,7 @@ mod tests {
                 offset: None,
             })
             .unwrap();
-        assert_eq!(ext_data.len(), 0);
+        assert_eq!(ext_data.len(), 4);
 
         /* --------------- All 4 test records are created before 2030 --------------- */
         // if this code still runs in 2030, I will be very happy to fix this test
@@ -777,7 +789,7 @@ mod tests {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::FTS,
                 data_type: None,
                 search_text: None,
                 after_created_at: None,
@@ -796,7 +808,7 @@ mod tests {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::ExactMatch,
                 data_type: None,
                 search_text: None,
                 after_created_at: Some("2021-01-01".to_string()),
@@ -807,7 +819,7 @@ mod tests {
                 offset: None,
             })
             .unwrap();
-        assert_eq!(ext_data.len(), 0);
+        assert_eq!(ext_data.len(), 4);
 
         /* ---------------------- Delete ext data by data_id ---------------------- */
         // there is only one record with data_type == setting
@@ -816,7 +828,7 @@ mod tests {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::FTS,
                 data_type: Some("setting".to_string()),
                 search_text: None,
                 after_created_at: None,
@@ -834,7 +846,7 @@ mod tests {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::FTS,
                 data_type: Some("setting".to_string()),
                 search_text: None,
                 after_created_at: None,
@@ -853,7 +865,7 @@ mod tests {
                 ext_id: ext.ext_id,
                 fields: None,
                 data_id: None,
-                search_exact_match: false,
+                search_mode: SearchMode::FTS,
                 data_type: Some("data".to_string()),
                 search_text: None,
                 after_created_at: None,

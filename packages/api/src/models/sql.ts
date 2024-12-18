@@ -8,6 +8,15 @@ export enum SQLSortOrderEnum {
 export const SQLSortOrder = enum_(SQLSortOrderEnum)
 export type SQLSortOrder = InferOutput<typeof SQLSortOrder>
 
+export enum SearchModeEnum {
+	ExactMatch = "exact_match",
+	Like = "like",
+	FTS = "fts"
+}
+
+export const SearchMode = enum_(SearchModeEnum)
+export type SearchMode = InferOutput<typeof SearchMode>
+
 export function convertDateToSqliteString(date: Date) {
 	const pad = (num: number) => num.toString().padStart(2, "0")
 

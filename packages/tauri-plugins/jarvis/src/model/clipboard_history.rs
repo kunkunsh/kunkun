@@ -1,4 +1,4 @@
-use db::{ExtDataSearchQuery, JarvisDB};
+use db::{models::{ExtDataSearchQuery, SearchMode}, JarvisDB};
 use serde::{Deserialize, Serialize};
 use std::{str::FromStr, sync::Mutex};
 use strum_macros::{Display, EnumString};
@@ -50,22 +50,20 @@ impl ClipboardHistory {
 
     pub fn get_all_records(&self) -> anyhow::Result<Vec<Record>> {
         let jdb = self.jarvis_db.lock().unwrap();
-        let db_records = jdb.search_extension_data(
-            ExtDataSearchQuery {
-                ext_id: self.clipboard_ext_id,
-                fields: None,
-                data_id: None,
-                search_exact_match: false,
-                data_type: None,
-                search_text: None,
-                after_created_at: None,
-                before_created_at: None,
-                order_by_created_at: None,
-                order_by_updated_at: None,
-                limit: None,
-                offset: None,
-            },
-        )?;
+        let db_records = jdb.search_extension_data(ExtDataSearchQuery {
+            ext_id: self.clipboard_ext_id,
+            fields: None,
+            data_id: None,
+            search_mode: SearchMode::FTS,
+            data_type: None,
+            search_text: None,
+            after_created_at: None,
+            before_created_at: None,
+            order_by_created_at: None,
+            order_by_updated_at: None,
+            limit: None,
+            offset: None,
+        })?;
         let mut records = vec![];
         for r in db_records {
             match crate::utils::time::sqlite_timestamp_to_unix_timestamp(&r.created_at) {

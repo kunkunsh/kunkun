@@ -2,7 +2,7 @@ import { invoke } from "@tauri-apps/api/core"
 import { array, literal, optional, parse, safeParse, union, type InferOutput } from "valibot"
 import { KUNKUN_EXT_IDENTIFIER } from "../constants"
 import { CmdType, Ext, ExtCmd, ExtData } from "../models/extension"
-import { convertDateToSqliteString, SQLSortOrder } from "../models/sql"
+import { convertDateToSqliteString, SearchMode, SearchModeEnum, SQLSortOrder } from "../models/sql"
 import { generateJarvisPluginCommand } from "./common"
 
 /* -------------------------------------------------------------------------- */
@@ -178,7 +178,7 @@ export function getExtensionDataById(dataId: number, fields?: ExtDataField[]) {
  */
 export async function searchExtensionData(searchParams: {
 	extId: number
-	searchExactMatch: boolean
+	searchMode: SearchMode
 	dataId?: number
 	dataType?: string
 	searchText?: string
@@ -276,7 +276,7 @@ export class JarvisExtDB {
 
 	async search(searchParams: {
 		dataId?: number
-		fullTextSearch?: boolean
+		searchMode?: SearchMode
 		dataType?: string
 		searchText?: string
 		afterCreatedAt?: Date
@@ -294,7 +294,7 @@ export class JarvisExtDB {
 			: undefined
 		return searchExtensionData({
 			...searchParams,
-			searchExactMatch: searchParams.fullTextSearch ?? true,
+			searchMode: searchParams.searchMode ?? SearchModeEnum.FTS,
 			extId: this.extId,
 			beforeCreatedAt,
 			afterCreatedAt
