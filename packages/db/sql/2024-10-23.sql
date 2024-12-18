@@ -37,11 +37,11 @@ CREATE TABLE IF NOT EXISTS extension_data (
 	ext_id INTEGER NOT NULL,
 	data_type TEXT NOT NULL,
 	data JSON NOT NULL,
+	metadata JSON,
 	search_text TEXT,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (ext_id) REFERENCES extensions (ext_id)
-	metadata JSON
 );
 
 -- Full-text search index for ext_data
