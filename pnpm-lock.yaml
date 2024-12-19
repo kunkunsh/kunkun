@@ -1166,7 +1166,7 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       valibot:
-        specifier: ^1.0.0-beta.8
+        specifier: ^1.0.0-beta.9
         version: 1.0.0-beta.9(typescript@5.7.2)
     devDependencies:
       '@rollup/plugin-typescript':
@@ -1191,7 +1191,7 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       valibot:
-        specifier: ^1.0.0-beta.8
+        specifier: ^1.0.0-beta.9
         version: 1.0.0-beta.9(typescript@5.7.2)
     devDependencies:
       '@rollup/plugin-typescript':

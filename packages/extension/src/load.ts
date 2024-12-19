@@ -14,10 +14,13 @@ import { upsertExtension } from "./db"
 export function loadExtensionManifestFromDisk(manifestPath: string): Promise<ExtPackageJsonExtra> {
 	debug(`loadExtensionManifestFromDisk: ${manifestPath}`)
 	return readTextFile(manifestPath).then(async (content) => {
-		const parse = v.safeParse(ExtPackageJson, JSON.parse(content))
+		console.log("content", content)
+		const json = JSON.parse(content)
+		console.log("manifest json", json)
+		const parse = v.safeParse(ExtPackageJson, json)
 		if (parse.issues) {
 			error(`Fail to load extension from ${manifestPath}. See console for parse error.`)
-			console.error(v.flatten<typeof ExtPackageJson>(parse.issues))
+			console.error("Parse Error:", v.flatten<typeof ExtPackageJson>(parse.issues))
 			throw new Error(`Invalid manifest: ${manifestPath}`)
 		} else {
 			// debug(`Loaded extension ${parse.output.kunkun.identifier} from ${manifestPath}`)
