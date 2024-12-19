@@ -133,7 +133,11 @@ export function constructFsApi(permissions: FsPermissionScoped[], extensionDir: 
 				extensionDir,
 				options
 			).then(() => fsTruncate(path, len, options)),
-		writeFile: (path: string | URL, data: Uint8Array, options?: WriteFileOptions) =>
+		writeFile: (
+			path: string | URL,
+			data: Uint8Array | ReadableStream<Uint8Array>,
+			options?: WriteFileOptions
+		) =>
 			verifyGeneralPathScopedPermission(
 				FsPermissionMap.truncate,
 				permissions,

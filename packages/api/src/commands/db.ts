@@ -2,7 +2,7 @@ import { invoke } from "@tauri-apps/api/core"
 import { array, literal, optional, parse, safeParse, union, type InferOutput } from "valibot"
 import { KUNKUN_EXT_IDENTIFIER } from "../constants"
 import { CmdType, Ext, ExtCmd, ExtData } from "../models/extension"
-import { convertDateToSqliteString, SQLSortOrder } from "../models/sql"
+import { convertDateToSqliteString, SearchMode, SearchModeEnum, SQLSortOrder } from "../models/sql"
 import { generateJarvisPluginCommand } from "./common"
 
 /* -------------------------------------------------------------------------- */
@@ -155,7 +155,7 @@ export function createExtensionData(data: {
 	return invoke<void>(generateJarvisPluginCommand("create_extension_data"), data)
 }
 
-export function getExtensionDataById(dataId: number) {
+export function getExtensionDataById(dataId: number, fields?: ExtDataField[]) {
 	return invoke<
 		| (ExtData & {
 				createdAt: string
@@ -165,7 +165,8 @@ export function getExtensionDataById(dataId: number) {
 		  })
 		| undefined
 	>(generateJarvisPluginCommand("get_extension_data_by_id"), {
-		dataId
+		dataId,
+		fields
 	}).then(convertRawExtDataToExtData)
 }
 
@@ -177,13 +178,14 @@ export function getExtensionDataById(dataId: number) {
  */
 export async function searchExtensionData(searchParams: {
 	extId: number
-	searchExactMatch: boolean
+	searchMode: SearchMode
 	dataId?: number
 	dataType?: string
 	searchText?: string
 	afterCreatedAt?: string
 	beforeCreatedAt?: string
 	limit?: number
+	offset?: number
 	orderByCreatedAt?: SQLSortOrder
 	orderByUpdatedAt?: SQLSortOrder
 	fields?: ExtDataField[]
@@ -197,8 +199,10 @@ export async function searchExtensionData(searchParams: {
 			searchText: null | string
 		})[]
 	>(generateJarvisPluginCommand("search_extension_data"), {
-		...searchParams,
-		fields
+		searchQuery: {
+			...searchParams,
+			fields
+		}
 	})
 
 	return items.map(convertRawExtDataToExtData).filter((item) => item) as ExtData[]
@@ -272,7 +276,7 @@ export class JarvisExtDB {
 
 	async search(searchParams: {
 		dataId?: number
-		fullTextSearch?: boolean
+		searchMode?: SearchMode
 		dataType?: string
 		searchText?: string
 		afterCreatedAt?: Date
@@ -290,7 +294,7 @@ export class JarvisExtDB {
 			: undefined
 		return searchExtensionData({
 			...searchParams,
-			searchExactMatch: searchParams.fullTextSearch ?? true,
+			searchMode: searchParams.searchMode ?? SearchModeEnum.FTS,
 			extId: this.extId,
 			beforeCreatedAt,
 			afterCreatedAt

@@ -1,6 +1,6 @@
 use db::{
-    models::{Cmd, CmdType, Ext, ExtData},
-    ExtDataField, JarvisDB, SQLSortOrder,
+    models::{Cmd, CmdType, Ext, ExtData, ExtDataField, ExtDataSearchQuery, SQLSortOrder},
+    JarvisDB,
 };
 use std::{path::PathBuf, sync::Mutex};
 use tauri::State;
@@ -191,53 +191,32 @@ pub async fn create_extension_data(
     db.db
         .lock()
         .unwrap()
-        .create_extension_data(ext_id, data_type, data, search_text)
+        .create_extension_data(ext_id, data_type, data, search_text, None)
         .map_err(|err| err.to_string())
 }
 
 #[tauri::command]
 pub async fn get_extension_data_by_id(
     data_id: i32,
+    fields: Option<Vec<ExtDataField>>,
     db: State<'_, DBState>,
 ) -> Result<Option<ExtData>, String> {
     db.db
         .lock()
         .unwrap()
-        .get_extension_data_by_id(data_id)
+        .get_extension_data_by_id(data_id, fields)
         .map_err(|err| err.to_string())
 }
 
 #[tauri::command]
 pub async fn search_extension_data(
-    ext_id: i32,
-    search_exact_match: bool,
-    data_id: Option<i32>,
-    data_type: Option<&str>,
-    search_text: Option<&str>,
-    after_created_at: Option<&str>,
-    before_created_at: Option<&str>,
     db: State<'_, DBState>,
-    limit: Option<i32>,
-    order_by_created_at: Option<SQLSortOrder>,
-    order_by_updated_at: Option<SQLSortOrder>,
-    fields: Option<Vec<ExtDataField>>,
+    search_query: ExtDataSearchQuery,
 ) -> Result<Vec<ExtData>, String> {
     db.db
         .lock()
         .unwrap()
-        .search_extension_data(
-            ext_id,
-            search_exact_match,
-            data_id,
-            data_type,
-            search_text,
-            after_created_at,
-            before_created_at,
-            limit,
-            order_by_created_at,
-            order_by_updated_at,
-            fields,
-        )
+        .search_extension_data(search_query)
         .map_err(|err| err.to_string())
 }
 

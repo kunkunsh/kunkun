@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS extension_data (
 	ext_id INTEGER NOT NULL,
 	data_type TEXT NOT NULL,
 	data JSON NOT NULL,
+	metadata JSON,
 	search_text TEXT,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

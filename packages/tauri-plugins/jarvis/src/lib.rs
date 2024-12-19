@@ -190,6 +190,14 @@ pub fn init<R: Runtime>(db_key: Option<String>) -> TauriPlugin<R> {
             setup::db::setup_db(app)?;
             println!("Jarvis Plugin Initialized");
             app.manage(Peers::default());
+
+            // let jarvis_db = utils::db::get_db(db_path, db_key)?;
+            // let ext = jarvis_db
+            //     .get_unique_extension_by_identifier(constants::KUNKUN_CLIPBOARD_EXT_IDENTIFIER)?;
+            // app.manage(model::clipboard_history::ClipboardHistory::new(
+            //     jarvis_db,
+            //     ext.unwrap().ext_id,
+            // ));
             Ok(())
         })
         .build()

@@ -7,7 +7,6 @@
 	import { DEEP_LINK_PATH_AUTH_CONFIRM } from "@kksh/api"
 	import { Button, Card } from "@kksh/svelte5"
 	import { Layouts } from "@kksh/ui"
-	import { goto } from "$app/navigation"
 	import { ArrowLeft } from "lucide-svelte"
 	import { onMount } from "svelte"
 	import { toast } from "svelte-sonner"
@@ -27,8 +26,6 @@
 		if (error) {
 			toast.error("Failed to sign in with OAuth", { description: error.message })
 		} else {
-			console.log(data.url);
-			
 			data.url && open(data.url)
 		}
 	}
