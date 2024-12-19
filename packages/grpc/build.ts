@@ -14,7 +14,7 @@ console.log("process.env.CF_PAGES_URL", Bun.env.CF_PAGES_URL)
 console.log("process.env.CF_PAGES_BRANCH", Bun.env.CF_PAGES_BRANCH)
 console.log("process.env.CF_PAGES_COMMIT_SHA", Bun.env.CF_PAGES_COMMIT_SHA)
 if (Bun.env.CF_PAGES_URL) {
-	console.log("Skipping build in Cloudflare Pages, as cloudflare pages does not have protoc")
+	console.warn("Skipping build in Cloudflare Pages, as cloudflare pages does not have protoc")
 	process.exit(0)
 }
 
@@ -31,7 +31,8 @@ const protosDir = path.join(__dirname, "protos")
 // find path to protoc command
 const protocPath = Bun.which("protoc")
 if (!protocPath) {
-	throw new Error("protoc not found")
+	console.warn("protoc not found")
+	process.exit(0)
 }
 for (const file of fs.readdirSync(protosDir)) {
 	if (file.endsWith(".proto")) {
