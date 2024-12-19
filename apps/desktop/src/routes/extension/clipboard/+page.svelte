@@ -42,7 +42,12 @@
 			fields: ["search_text"],
 			orderByCreatedAt: SQLSortOrderEnum.Desc
 		})
-		clipboardHistoryList = [...result, ...clipboardHistoryList]
+		if (page === 1) {
+			// clear clipboardHistoryList when page is 1, because it's simply loading the first page, using previous search result will result in duplicate key error
+			clipboardHistoryList = result
+		} else {
+			clipboardHistoryList = [...result, ...clipboardHistoryList]
+		}
 	}
 
 	onMount(async () => {
@@ -72,6 +77,8 @@
 		;(async () => {
 			// console.log("searchTerm", searchTerm)
 			if (searchTerm === "") {
+				page = 1
+				initClipboardHistory()
 				return
 			}
 			const ftsResult = await db.searchExtensionData({
@@ -97,13 +104,14 @@
 				(item, index, self) => index === self.findIndex((t) => t.dataId === item.dataId)
 			)
 			clipboardHistoryList = uniqueResult
-			highlightedItemValue = uniqueResult[0].dataId.toString()
+			if (uniqueResult.length > 0) {
+				highlightedItemValue = uniqueResult[0].dataId.toString()
+			}
 		})()
 	})
 
 	$effect(() => {
 		if (!highlightedItemValue) {
-			initClipboardHistory()
 			return
 		}
 		try {
