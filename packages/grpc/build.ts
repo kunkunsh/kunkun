@@ -28,15 +28,15 @@ if (!fs.existsSync(srcPath)) {
 
 fs.rmSync(path.join(__dirname, "src/protos"), { recursive: true, force: true })
 const protosDir = path.join(__dirname, "protos")
+// find path to protoc command
+const protocPath = Bun.which("protoc")
+if (!protocPath) {
+	throw new Error("protoc not found")
+}
 for (const file of fs.readdirSync(protosDir)) {
 	if (file.endsWith(".proto")) {
 		try {
-			await $`
-			protoc \
-			--plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts \
-			--ts_out=./src \
-			-I . \
-			./protos/${file}`
+			await $`${protocPath} --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --ts_out=./src -I . ./protos/${file}`
 		} catch (error) {
 			console.error(error)
 		}
