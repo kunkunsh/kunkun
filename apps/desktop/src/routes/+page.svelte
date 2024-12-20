@@ -21,6 +21,7 @@
 	import { cn, commandScore } from "@kksh/ui/utils"
 	import { convertFileSrc } from "@tauri-apps/api/core"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import { exit } from "@tauri-apps/plugin-process"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
@@ -34,6 +35,10 @@
 		}
 	}
 
+	onMount(async () => {
+		const mainWin = await getCurrentWindow()
+		mainWin.show()
+	})
 	// let imgSrc = convertFileSrc("/?id=15", "cbimg")
 </script>
 
