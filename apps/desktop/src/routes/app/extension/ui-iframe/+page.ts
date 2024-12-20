@@ -24,7 +24,7 @@ export const load: PageLoad = async ({
 	if (!_extPath || !_extUrl) {
 		toast.error("Invalid extension path or url")
 		error("Invalid extension path or url")
-		goto("/app")
+		goto("/app/")
 	}
 	const extPath = z.string().parse(_extPath)
 	const extUrl = z.string().parse(_extUrl)
@@ -36,7 +36,7 @@ export const load: PageLoad = async ({
 		toast.error("Error loading extension manifest", {
 			description: `${err}`
 		})
-		goto("/app")
+		goto("/app/")
 	}
 	const loadedExt = _loadedExt!
 	const extInfoInDB = await db.getUniqueExtensionByPath(loadedExt.extPath)
@@ -44,7 +44,7 @@ export const load: PageLoad = async ({
 		toast.error("Unexpected Error", {
 			description: `Extension ${loadedExt.kunkun.identifier} not found in database. Run Troubleshooter.`
 		})
-		goto("/app")
+		goto("/app/")
 	}
 	return { extPath, url: extUrl, loadedExt, extInfoInDB: extInfoInDB! }
 }

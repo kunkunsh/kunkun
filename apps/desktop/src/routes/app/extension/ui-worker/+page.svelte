@@ -63,7 +63,7 @@
 
 	async function goBack() {
 		if (isInMainWindow()) {
-			goto("/app")
+			goto("/app/")
 		} else {
 			appWin.close()
 		}

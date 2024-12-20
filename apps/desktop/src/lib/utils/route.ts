@@ -7,7 +7,7 @@ export function goBack() {
 }
 
 export function goHome() {
-	goto("/app")
+	goto("/app/")
 }
 
 export function goHomeOrCloseDependingOnWindow() {

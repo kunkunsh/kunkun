@@ -24,7 +24,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Go to Extension Store",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/appextension/store")
+			goto("/app/extension/store")
 		}
 	},
 	{
@@ -35,7 +35,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "",
 		function: async () => {
-			goto("/appauth")
+			goto("/app/auth")
 		}
 	},
 	{
@@ -97,7 +97,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "",
 		function: async () => {
-			goto("/appextension/file-transfer")
+			goto("/app/extension/file-transfer")
 			appState.clearSearchTerm()
 		}
 	},
@@ -111,7 +111,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/appsettings/add-dev-extension")
+			goto("/app/settings/add-dev-extension")
 		}
 	},
 	{
@@ -136,7 +136,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		function: async () => {
 			// const appStateStore = useAppStateStore()
 			appState.clearSearchTerm()
-			goto("/appsettings/set-dev-ext-path")
+			goto("/app/settings/set-dev-ext-path")
 		}
 	},
 	{
@@ -148,11 +148,11 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			// goto("/appwindow-troubleshooter")
+			// goto("/app/window-troubleshooter")
 			const winLabel = `main:extension-window-troubleshooter-${uuidv4()}`
 			console.log(winLabel)
 			new WebviewWindow(winLabel, {
-				url: "/troubleshooters/extension-window",
+				url: "/app/troubleshooters/extension-window",
 				title: "Extension Window Troubleshooter"
 			})
 		},
@@ -167,7 +167,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/appextension/permission-inspector")
+			goto("/app/extension/permission-inspector")
 		},
 		keywords: ["extension"]
 	},
@@ -180,7 +180,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/apptroubleshooters/extension-loading")
+			goto("/app/troubleshooters/extension-loading")
 		},
 		keywords: ["extension", "troubleshooter"]
 	},
@@ -193,7 +193,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Create a Quicklink",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/appextension/create-quick-link")
+			goto("/app/extension/create-quick-link")
 		}
 	},
 	{
@@ -204,7 +204,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "Open Settings",
 		function: async () => {
-			goto("/appsettings")
+			goto("/app/settings")
 			appState.clearSearchTerm()
 		}
 	},
@@ -264,7 +264,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "Dance",
 		function: async () => {
-			goto("/appdance")
+			goto("/app/dance")
 		}
 	},
 	{
@@ -305,7 +305,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Clipboard History",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/appextension/clipboard")
+			goto("/app/extension/clipboard")
 		}
 	},
 	{
@@ -322,7 +322,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 				return
 			}
 			const window = new WebviewWindow(`main:pinned-screenshot-${uuidv4()}`, {
-				url: "/extension/pin-screenshot",
+				url: "/app/extension/pin-screenshot",
 				title: "Pinned Screenshot",
 				hiddenTitle: true,
 				titleBarStyle: "transparent",
@@ -342,7 +342,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "MDNS Debugger",
 		function: async () => {
-			goto("/apptroubleshooters/mdns-debugger")
+			goto("/app/troubleshooters/mdns-debugger")
 		},
 		flags: {
 			developer: true

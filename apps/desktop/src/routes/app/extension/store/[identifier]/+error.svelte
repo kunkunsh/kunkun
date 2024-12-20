@@ -5,7 +5,7 @@
 
 	function handleKeyDown(event: KeyboardEvent) {
 		if (event.key === "Enter") {
-			goto("/app")
+			goto("/app/")
 		}
 	}
 </script>
@@ -17,7 +17,7 @@
 		title="Fail to Load Extension"
 		class="w-fit max-w-screen-sm border-2 border-red-500"
 		message={$page.error?.message ?? "Unknown Error"}
-		onGoBack={() => goto("/app")}
+		onGoBack={() => goto("/app/")}
 		rawJsonError={JSON.stringify($page, null, 2)}
 	/>
 </Layouts.Center>

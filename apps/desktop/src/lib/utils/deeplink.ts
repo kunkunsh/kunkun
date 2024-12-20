@@ -59,7 +59,7 @@ export async function handleKunkunProtocol(parsedUrl: URL) {
 		if (parsed.identifier) {
 			goto(`/extension/store/${parsed.identifier}`)
 		} else {
-			goto("/appextension/store")
+			goto("/app/extension/store")
 		}
 	} else if (href.startsWith(DEEP_LINK_PATH_REFRESH_DEV_EXTENSION)) {
 		emitRefreshDevExt()

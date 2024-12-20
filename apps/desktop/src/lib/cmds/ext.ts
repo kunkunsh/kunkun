@@ -24,7 +24,7 @@ export async function onTemplateUiCmdSelect(
 ) {
 	await createExtSupportDir(ext.extPath)
 	// console.log("onTemplateUiCmdSelect", ext, cmd, isDev, hmr)
-	const url = `/extension/ui-worker?extPath=${encodeURIComponent(ext.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
+	const url = `/app/extension/ui-worker?extPath=${encodeURIComponent(ext.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({ extPath: ext.extPath })
 		const window = launchNewExtWindow(winLabel, url, cmd.window)
@@ -52,7 +52,7 @@ export async function onCustomUiCmdSelect(
 	} else {
 		url = decodeURIComponent(convertFileSrc(`${trimSlash(cmd.main)}`, "ext"))
 	}
-	let url2 = `/extension/ui-iframe?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
+	let url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({
 			extPath: ext.extPath,
@@ -61,7 +61,7 @@ export async function onCustomUiCmdSelect(
 		if (platform() === "windows" && !useDevMain) {
 			const addr = await spawnExtensionFileServer(winLabel)
 			const newUrl = `http://${addr}`
-			url2 = `/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
+			url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
 		}
 		const window = launchNewExtWindow(winLabel, url2, cmd.window)
 		window.onCloseRequested(async (event) => {
@@ -78,7 +78,7 @@ export async function onCustomUiCmdSelect(
 			const addr = await spawnExtensionFileServer(winLabel) // addr has format "127.0.0.1:<port>"
 			console.log("Extension file server address: ", addr)
 			const newUrl = `http://${addr}`
-			url2 = `/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
+			url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
 		}
 		goto(url2)
 	}
