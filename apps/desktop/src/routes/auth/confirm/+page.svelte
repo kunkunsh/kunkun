@@ -44,7 +44,7 @@
 	function onSignOut() {
 		auth
 			.signOut()
-			.then(() => goto("/auth"))
+			.then(() => goto("/appauth"))
 			.catch((err) => toast.error("Failed to sign out", { description: err.message }))
 	}
 </script>
@@ -56,7 +56,7 @@
 	size="icon"
 	onclick={() => {
 		console.log("go Home")
-		goto("/")
+		goto("/app")
 	}}
 >
 	<ArrowLeft class="size-4" />

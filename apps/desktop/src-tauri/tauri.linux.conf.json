@@ -4,9 +4,17 @@
 		"windows": [
 			{
 				"hiddenTitle": true,
+				"url": "/app",
 				"title": "Kunkun",
 				"width": 800,
 				"height": 600,
+				"visible": false,
+				"decorations": false
+			},
+			{
+				"url": "/splashscreen",
+				"label": "splashscreen",
+				"visible": false,
 				"decorations": false
 			}
 		]

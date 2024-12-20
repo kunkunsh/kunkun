@@ -53,7 +53,13 @@ impl<R: Runtime> WindowExt for WebviewWindow<R> {
 }
 
 pub fn setup_window<R: Runtime>(app: &AppHandle<R>) {
-    let window = app.get_webview_window("main").unwrap();
     #[cfg(target_os = "macos")]
-    window.set_transparent_titlebar(true, true);
+    {
+        app.get_webview_window("main")
+            .unwrap()
+            .set_transparent_titlebar(true, true);
+        app.get_webview_window("splashscreen")
+            .unwrap()
+            .set_transparent_titlebar(true, true);
+    }
 }

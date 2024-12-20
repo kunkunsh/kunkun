@@ -51,7 +51,7 @@
 	const iframeUiAPI: IUiIframeServer2 = {
 		goBack: async () => {
 			if (isInMainWindow()) {
-				goto("/")
+				goto("/app")
 			} else {
 				appWin.close()
 			}

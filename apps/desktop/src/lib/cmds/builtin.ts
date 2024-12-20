@@ -13,7 +13,6 @@ import { derived } from "svelte/store"
 import * as clipboard from "tauri-plugin-clipboard-api"
 import { open } from "tauri-plugin-shellx-api"
 import { v4 as uuidv4 } from "uuid"
-import { hexColor } from "valibot"
 
 export const rawBuiltinCmds: BuiltinCmd[] = [
 	{
@@ -25,7 +24,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Go to Extension Store",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/extension/store")
+			goto("/appextension/store")
 		}
 	},
 	{
@@ -36,7 +35,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "",
 		function: async () => {
-			goto("/auth")
+			goto("/appauth")
 		}
 	},
 	{
@@ -81,7 +80,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "",
 		function: async () => {
-			goto("/extension/file-transfer")
+			goto("/appextension/file-transfer")
 			appState.clearSearchTerm()
 		}
 	},
@@ -95,7 +94,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/settings/add-dev-extension")
+			goto("/appsettings/add-dev-extension")
 		}
 	},
 	{
@@ -120,7 +119,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		function: async () => {
 			// const appStateStore = useAppStateStore()
 			appState.clearSearchTerm()
-			goto("/settings/set-dev-ext-path")
+			goto("/appsettings/set-dev-ext-path")
 		}
 	},
 	{
@@ -132,7 +131,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			// goto("/window-troubleshooter")
+			// goto("/appwindow-troubleshooter")
 			const winLabel = `main:extension-window-troubleshooter-${uuidv4()}`
 			console.log(winLabel)
 			new WebviewWindow(winLabel, {
@@ -151,7 +150,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/extension/permission-inspector")
+			goto("/appextension/permission-inspector")
 		},
 		keywords: ["extension"]
 	},
@@ -164,7 +163,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/troubleshooters/extension-loading")
+			goto("/apptroubleshooters/extension-loading")
 		},
 		keywords: ["extension", "troubleshooter"]
 	},
@@ -177,7 +176,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Create a Quicklink",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/extension/create-quick-link")
+			goto("/appextension/create-quick-link")
 		}
 	},
 	{
@@ -188,7 +187,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "Open Settings",
 		function: async () => {
-			goto("/settings")
+			goto("/appsettings")
 			appState.clearSearchTerm()
 		}
 	},
@@ -248,7 +247,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "Dance",
 		function: async () => {
-			goto("/dance")
+			goto("/appdance")
 		}
 	},
 	{
@@ -289,7 +288,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Clipboard History",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/extension/clipboard")
+			goto("/appextension/clipboard")
 		}
 	},
 	{
@@ -326,7 +325,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "MDNS Debugger",
 		function: async () => {
-			goto("/troubleshooters/mdns-debugger")
+			goto("/apptroubleshooters/mdns-debugger")
 		},
 		flags: {
 			developer: true

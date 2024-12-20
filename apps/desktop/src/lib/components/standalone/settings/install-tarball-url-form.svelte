@@ -19,7 +19,7 @@
 			toast.warning(
 				"Please set the dev extension path in the settings to install tarball extension"
 			)
-			return goto("/settings/set-dev-ext-path")
+			return goto("/appsettings/set-dev-ext-path")
 		}
 		await extensions
 			.installFromTarballUrl(data.url, $appConfig.devExtensionPath)

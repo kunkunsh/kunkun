@@ -136,7 +136,7 @@
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === "Escape") {
 			if (!delayedImageDialogOpen) {
-				goto("/extension/store")
+				goto("/appextension/store")
 			}
 		}
 	}
@@ -148,7 +148,7 @@
 	size="icon"
 	class={cn("fixed left-3 top-3", Constants.CLASSNAMES.BACK_BUTTON)}
 	data-flip-id={Constants.CLASSNAMES.BACK_BUTTON}
-	onclick={() => goto("/extension/store")}
+	onclick={() => goto("/appextension/store")}
 >
 	<ArrowLeftIcon />
 </Button>
