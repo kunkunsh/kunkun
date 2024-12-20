@@ -1,8 +1,5 @@
 <script lang="ts">
-	import Dance from "@/components/dance/dance.svelte"
-	import { cn } from "@/utils"
-	import { Command, Skeleton } from "@kksh/svelte5"
-	import { CustomCommandInput } from "@kksh/ui/main"
+	import { Layouts } from "@kksh/ui"
 	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import { onMount } from "svelte"
 
@@ -12,6 +9,24 @@
 	})
 </script>
 
-<main class="h-screen" data-tauri-drag-region>
-	<Dance class="h-full w-full" />
-</main>
+<Layouts.Center class="h-screen w-screen">
+	<div class="animate-zoom-in flex flex-col items-center justify-center gap-2 pb-20">
+		<img src="/favicon.png" alt="Logo" />
+		<h2 class="font-mono text-2xl font-extrabold">Kunkun</h2>
+	</div>
+</Layouts.Center>
+
+<style scoped>
+	.animate-zoom-in {
+		animation: zoom-in 0.2s ease-in-out;
+	}
+
+	@keyframes zoom-in {
+		from {
+			transform: scale(0);
+		}
+		to {
+			transform: scale(1);
+		}
+	}
+</style>
