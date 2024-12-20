@@ -1,5 +1,8 @@
 <script lang="ts">
-	import { Skeleton } from "@kksh/svelte5"
+	import Dance from "@/components/dance/dance.svelte"
+	import { cn } from "@/utils"
+	import { Command, Skeleton } from "@kksh/svelte5"
+	import { CustomCommandInput } from "@kksh/ui/main"
 	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import { onMount } from "svelte"
 
@@ -9,12 +12,6 @@
 	})
 </script>
 
-<main data-tauri-drag-region class="h-screen">
-	<div class="flex items-center space-x-4">
-		<Skeleton class="size-12 rounded-full" />
-		<div class="space-y-2">
-			<Skeleton class="h-4 w-[250px]" />
-			<Skeleton class="h-4 w-[200px]" />
-		</div>
-	</div>
+<main class="h-screen" data-tauri-drag-region>
+	<Dance class="h-full w-full" />
 </main>

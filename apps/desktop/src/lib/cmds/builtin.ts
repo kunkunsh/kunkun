@@ -73,6 +73,23 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "Splashscreen (Dev)",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:skeleton"
+		},
+		description: "",
+		flags: {
+			dev: true
+		},
+		function: async () => {
+			new WebviewWindow(`splashscreen`, {
+				url: "/splashscreen"
+			})
+			appState.clearSearchTerm()
+		}
+	},
+	{
 		name: "File Transfer",
 		icon: {
 			type: IconEnum.Iconify,
