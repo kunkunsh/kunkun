@@ -11,17 +11,17 @@
 	const items = [
 		{
 			title: "Extension Loading",
-			url: "/troubleshooters/extension-loading",
+			url: "/app/troubleshooters/extension-loading",
 			icon: Loader
 		},
 		{
 			title: "Extension Window",
-			url: "/troubleshooters/extension-window",
+			url: "/app/troubleshooters/extension-window",
 			icon: AppWindow
 		},
 		{
 			title: "MDNS Debugger",
-			url: "/troubleshooters/mdns-debugger",
+			url: "/app/troubleshooters/mdns-debugger",
 			icon: Network
 		}
 	]

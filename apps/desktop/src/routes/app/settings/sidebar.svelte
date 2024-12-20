@@ -14,32 +14,32 @@
 	const items = [
 		{
 			title: "General",
-			url: "/settings",
+			url: "/app/settings",
 			icon: Cog
 		},
 		{
 			title: "Developer",
-			url: "/settings/developer",
+			url: "/app/settings/developer",
 			icon: SquareTerminal
 		},
 		{
 			title: "Extensions",
-			url: "/settings/extensions",
+			url: "/app/settings/extensions",
 			icon: Blocks
 		},
 		{
 			title: "Set Dev Extension",
-			url: "/settings/set-dev-ext-path",
+			url: "/app/settings/set-dev-ext-path",
 			icon: Route
 		},
 		{
 			title: "Add Dev Extension",
-			url: "/settings/add-dev-extension",
+			url: "/app/settings/add-dev-extension",
 			icon: FileCode2
 		},
 		{
 			title: "About",
-			url: "/settings/about",
+			url: "/app/settings/about",
 			icon: Info
 		}
 	]
