@@ -13,7 +13,23 @@
 		"macOSPrivateApi": true,
 		"security": {
 			"csp": null
-		}
+		},
+		"windows": [
+			{
+				"hiddenTitle": true,
+				"url": "/app",
+				"title": "Kunkun",
+				"width": 800,
+				"visible": false,
+				"height": 600,
+				"decorations": true
+			},
+			{
+				"url": "/splashscreen",
+				"visible": false,
+				"label": "splashscreen"
+			}
+		]
 	},
 	"bundle": {
 		"createUpdaterArtifacts": true,

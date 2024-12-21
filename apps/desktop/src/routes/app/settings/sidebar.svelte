@@ -3,39 +3,57 @@
 	import { Button, SideBar } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
 	import { ArrowLeftIcon } from "lucide-svelte"
-	import AppWindow from "lucide-svelte/icons/app-window"
-	import Loader from "lucide-svelte/icons/loader"
-	import Network from "lucide-svelte/icons/network"
+	import Blocks from "lucide-svelte/icons/blocks"
+	import Cog from "lucide-svelte/icons/cog"
+	import FileCode2 from "lucide-svelte/icons/file-code-2"
+	import Info from "lucide-svelte/icons/info"
+	import Route from "lucide-svelte/icons/route"
+	import SquareTerminal from "lucide-svelte/icons/square-terminal"
+	import { onMount } from "svelte"
 
-	let { class: className }: { class?: string } = $props()
 	const items = [
 		{
-			title: "Extension Loading",
-			url: "/troubleshooters/extension-loading",
-			icon: Loader
+			title: "General",
+			url: "/app/settings",
+			icon: Cog
 		},
 		{
-			title: "Extension Window",
-			url: "/troubleshooters/extension-window",
-			icon: AppWindow
+			title: "Developer",
+			url: "/app/settings/developer",
+			icon: SquareTerminal
 		},
 		{
-			title: "MDNS Debugger",
-			url: "/troubleshooters/mdns-debugger",
-			icon: Network
+			title: "Extensions",
+			url: "/app/settings/extensions",
+			icon: Blocks
+		},
+		{
+			title: "Set Dev Extension",
+			url: "/app/settings/set-dev-ext-path",
+			icon: Route
+		},
+		{
+			title: "Add Dev Extension",
+			url: "/app/settings/add-dev-extension",
+			icon: FileCode2
+		},
+		{
+			title: "About",
+			url: "/app/settings/about",
+			icon: Info
 		}
 	]
 	let currentItem = $state(items.find((item) => window.location.pathname === item.url))
 </script>
 
-<SideBar.Root class={className}>
+<SideBar.Root>
 	<SideBar.Header class="h-12">
 		<SideBar.Menu>
 			<SideBar.MenuItem data-tauri-drag-region>
 				<Button
 					variant="outline"
 					size="icon"
-					class="z-50 {Constants.CLASSNAMES.BACK_BUTTON}"
+					class={Constants.CLASSNAMES.BACK_BUTTON}
 					onclick={goHome}
 				>
 					<ArrowLeftIcon class="h-4 w-4" />

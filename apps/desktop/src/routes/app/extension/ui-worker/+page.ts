@@ -27,7 +27,7 @@ export const load: PageLoad = async ({ url }) => {
 	if (!extPath || !cmdName) {
 		toast.error("Invalid extension path or url")
 		error("Invalid extension path or url")
-		goto("/")
+		goto("/app/")
 	}
 
 	let _loadedExt: ExtPackageJsonExtra | undefined
@@ -38,7 +38,7 @@ export const load: PageLoad = async ({ url }) => {
 		toast.error("Error loading extension manifest", {
 			description: `${err}`
 		})
-		goto("/")
+		goto("/app/")
 	}
 	const loadedExt = _loadedExt!
 	const extInfoInDB = await db.getUniqueExtensionByPath(loadedExt.extPath)
@@ -46,7 +46,7 @@ export const load: PageLoad = async ({ url }) => {
 		toast.error("Unexpected Error", {
 			description: `Extension ${loadedExt.kunkun.identifier} not found in database. Run Troubleshooter.`
 		})
-		goto("/")
+		goto("/app/")
 	}
 	const pkgJsonPath = await join(extPath!, "package.json")
 	if (!(await exists(extPath!))) {

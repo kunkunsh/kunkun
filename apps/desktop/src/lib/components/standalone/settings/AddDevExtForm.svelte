@@ -87,7 +87,7 @@
 	async function pickExtFiles() {
 		if (!$appConfig.devExtensionPath) {
 			toast.warning("Please set the dev extension path in the settings")
-			return goto("/settings/set-dev-ext-path")
+			return goto("/app/settings/set-dev-ext-path")
 		}
 		const selected = await openFileSelector({
 			directory: false,

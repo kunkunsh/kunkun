@@ -17,7 +17,7 @@
 			toast.warning(
 				"Please set the dev extension path in the settings to install tarball extension"
 			)
-			return goto("/settings/set-dev-ext-path")
+			return goto("/app/settings/set-dev-ext-path")
 		}
 		await extensions
 			.installFromNpmPackageName(data.name, $appConfig.devExtensionPath)

@@ -76,7 +76,7 @@ export async function globalKeyDownHandler(e: KeyboardEvent) {
 	if ((_platform === "macos" && e.metaKey) || (_platform === "windows" && e.ctrlKey)) {
 		if (e.key === ",") {
 			e.preventDefault()
-			goto("/settings")
+			goto("/app/settings")
 		}
 	}
 	// Toggle Devtools with control + shift + I

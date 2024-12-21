@@ -53,7 +53,19 @@ impl<R: Runtime> WindowExt for WebviewWindow<R> {
 }
 
 pub fn setup_window<R: Runtime>(app: &AppHandle<R>) {
-    let window = app.get_webview_window("main").unwrap();
     #[cfg(target_os = "macos")]
-    window.set_transparent_titlebar(true, true);
+    {
+        let main_win = app.get_webview_window("main").unwrap();
+        main_win.set_transparent_titlebar(true, true);
+        let splashscreen_win = app.get_webview_window("splashscreen").unwrap();
+        splashscreen_win.set_transparent_titlebar(true, true);
+    }
+    #[cfg(not(target_os = "macos"))]
+    {
+        // on linux or windows, set decorations to false
+        let main_win = app.get_webview_window("main").unwrap();
+        main_win
+            .set_decorations(false)
+            .expect("Failed to set decorations");
+    }
 }

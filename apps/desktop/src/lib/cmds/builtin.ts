@@ -13,7 +13,6 @@ import { derived } from "svelte/store"
 import * as clipboard from "tauri-plugin-clipboard-api"
 import { open } from "tauri-plugin-shellx-api"
 import { v4 as uuidv4 } from "uuid"
-import { hexColor } from "valibot"
 
 export const rawBuiltinCmds: BuiltinCmd[] = [
 	{
@@ -25,7 +24,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Go to Extension Store",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/extension/store")
+			goto("/app/extension/store")
 		}
 	},
 	{
@@ -36,7 +35,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "",
 		function: async () => {
-			goto("/auth")
+			goto("/app/auth")
 		}
 	},
 	{
@@ -74,6 +73,23 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "Splashscreen (Dev)",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:skeleton"
+		},
+		description: "",
+		flags: {
+			dev: true
+		},
+		function: async () => {
+			new WebviewWindow(`splashscreen`, {
+				url: "/splashscreen"
+			})
+			appState.clearSearchTerm()
+		}
+	},
+	{
 		name: "File Transfer",
 		icon: {
 			type: IconEnum.Iconify,
@@ -81,7 +97,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "",
 		function: async () => {
-			goto("/extension/file-transfer")
+			goto("/app/extension/file-transfer")
 			appState.clearSearchTerm()
 		}
 	},
@@ -95,7 +111,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/settings/add-dev-extension")
+			goto("/app/settings/add-dev-extension")
 		}
 	},
 	{
@@ -120,7 +136,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		function: async () => {
 			// const appStateStore = useAppStateStore()
 			appState.clearSearchTerm()
-			goto("/settings/set-dev-ext-path")
+			goto("/app/settings/set-dev-ext-path")
 		}
 	},
 	{
@@ -132,11 +148,11 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			// goto("/window-troubleshooter")
+			// goto("/app/window-troubleshooter")
 			const winLabel = `main:extension-window-troubleshooter-${uuidv4()}`
 			console.log(winLabel)
 			new WebviewWindow(winLabel, {
-				url: "/troubleshooters/extension-window",
+				url: "/app/troubleshooters/extension-window",
 				title: "Extension Window Troubleshooter"
 			})
 		},
@@ -151,7 +167,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/extension/permission-inspector")
+			goto("/app/extension/permission-inspector")
 		},
 		keywords: ["extension"]
 	},
@@ -164,7 +180,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/troubleshooters/extension-loading")
+			goto("/app/troubleshooters/extension-loading")
 		},
 		keywords: ["extension", "troubleshooter"]
 	},
@@ -177,7 +193,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Create a Quicklink",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/extension/create-quick-link")
+			goto("/app/extension/create-quick-link")
 		}
 	},
 	{
@@ -188,7 +204,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "Open Settings",
 		function: async () => {
-			goto("/settings")
+			goto("/app/settings")
 			appState.clearSearchTerm()
 		}
 	},
@@ -248,7 +264,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "Dance",
 		function: async () => {
-			goto("/dance")
+			goto("/app/dance")
 		}
 	},
 	{
@@ -289,7 +305,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Clipboard History",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/extension/clipboard")
+			goto("/app/extension/clipboard")
 		}
 	},
 	{
@@ -306,7 +322,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 				return
 			}
 			const window = new WebviewWindow(`main:pinned-screenshot-${uuidv4()}`, {
-				url: "/extension/pin-screenshot",
+				url: "/app/extension/pin-screenshot",
 				title: "Pinned Screenshot",
 				hiddenTitle: true,
 				titleBarStyle: "transparent",
@@ -326,7 +342,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "MDNS Debugger",
 		function: async () => {
-			goto("/troubleshooters/mdns-debugger")
+			goto("/app/troubleshooters/mdns-debugger")
 		},
 		flags: {
 			developer: true
