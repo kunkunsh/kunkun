@@ -197,6 +197,7 @@ pub fn run() {
         .setup(move |app| {
             setup::window::setup_window(app.handle());
             setup::tray::create_tray(app.handle())?;
+            setup::stronghold::setup_stronghold(app.handle())?;
             #[cfg(all(not(target_os = "macos"), debug_assertions))]
             {
                 app.deep_link().register("kunkun")?;

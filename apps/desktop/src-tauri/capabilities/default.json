@@ -147,6 +147,8 @@
 		"process:default",
 		"system-info:allow-all",
 		"shell:default",
+		"keyring:default",
+		"stronghold:default",
 		{
 			"identifier": "shell:allow-spawn",
 			"allow": [
