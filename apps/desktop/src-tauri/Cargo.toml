@@ -43,6 +43,7 @@ tauri-plugin-http = "2.2.0"
 tauri-plugin-upload = { workspace = true }
 # tauri-plugin-upload = "2.2.1"
 tauri-plugin-jarvis = { workspace = true }
+tauri-plugin-keyring = { workspace = true }
 tauri-plugin-network = { workspace = true }
 tauri-plugin-system-info = { workspace = true }
 tauri-plugin-clipboard = { workspace = true }
