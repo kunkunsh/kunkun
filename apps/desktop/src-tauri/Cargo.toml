@@ -45,6 +45,7 @@ tauri-plugin-upload = { workspace = true }
 tauri-plugin-jarvis = { workspace = true }
 tauri-plugin-network = { workspace = true }
 tauri-plugin-system-info = { workspace = true }
+tauri-plugin-user-input = { workspace = true }
 tauri-plugin-clipboard = { workspace = true }
 tauri-plugin-store = "2.2.0"
 tauri-plugin-deep-link = "2.2.0"

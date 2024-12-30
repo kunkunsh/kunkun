@@ -56,8 +56,11 @@ grpc = { workspace = true }
 futures-util = "0.3.31"
 rayon = { workspace = true }
 
+
 [target.'cfg(target_os = "macos")'.dependencies]
 tauri-icns = "0.1.0"
+cocoa = "0.24.1"
+objc = "0.2.7"
 
 [target.'cfg(target_os = "windows")'.dependencies]
 tauri-winres = "0.1.1"

@@ -146,6 +146,7 @@
 		"upload:default",
 		"process:default",
 		"system-info:allow-all",
+		"user-input:default",
 		"shell:default",
 		{
 			"identifier": "shell:allow-spawn",

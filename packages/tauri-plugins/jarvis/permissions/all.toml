@@ -96,4 +96,6 @@ commands.allow = [
     "local_net_send_file",
     "download_files",
     "file_transfer_preview_bucket",
+    # Windows
+    "set_transparent_titlebar",
 ]

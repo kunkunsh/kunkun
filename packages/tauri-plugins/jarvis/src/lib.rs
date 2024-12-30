@@ -176,6 +176,10 @@ pub fn init<R: Runtime>(db_key: Option<String>) -> TauriPlugin<R> {
             commands::file_transfer::local_net_send_file,
             commands::file_transfer::download_files,
             commands::file_transfer::file_transfer_preview_bucket,
+            /* -------------------------------------------------------------------------- */
+            /*                                   Window                                   */
+            /* -------------------------------------------------------------------------- */
+            commands::window::set_transparent_titlebar,
         ])
         .setup(move |app, api| {
             utils::setup::setup_app_path(app);

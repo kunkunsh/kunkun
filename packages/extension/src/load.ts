@@ -14,9 +14,7 @@ import { upsertExtension } from "./db"
 export function loadExtensionManifestFromDisk(manifestPath: string): Promise<ExtPackageJsonExtra> {
 	debug(`loadExtensionManifestFromDisk: ${manifestPath}`)
 	return readTextFile(manifestPath).then(async (content) => {
-		console.log("content", content)
 		const json = JSON.parse(content)
-		console.log("manifest json", json)
 		const parse = v.safeParse(ExtPackageJson, json)
 		if (parse.issues) {
 			error(`Fail to load extension from ${manifestPath}. See console for parse error.`)

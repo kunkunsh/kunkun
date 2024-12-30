@@ -122,6 +122,10 @@ const COMMANDS: &[&str] = &[
     "local_net_send_file",
     "download_files",
     "file_transfer_preview_bucket",
+    /* -------------------------------------------------------------------------- */
+    /*                                   Window                                   */
+    /* -------------------------------------------------------------------------- */
+    "set_transparent_titlebar"
 ];
 
 fn main() {
