@@ -15,6 +15,7 @@ use tauri_plugin_jarvis::{
         settings::AppSettings,
     },
 };
+use tauri_plugin_keyring::KeyringExt;
 pub use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 use tauri_plugin_store::{StoreBuilder, StoreExt};
 use utils::server::tauri_file_server;
@@ -245,7 +246,10 @@ pub fn run() {
             // setup::db::setup_db(app)?;
             let db_key = setup::keyring::setup_keyring(app.handle())?;
             let db_path = get_kunkun_db_path(app.app_handle())?;
-            app.manage(tauri_plugin_jarvis::commands::db::DBState::new(db_path.clone(), db_key.clone())?);
+            app.manage(tauri_plugin_jarvis::commands::db::DBState::new(
+                db_path.clone(),
+                db_key.clone(),
+            )?);
             tauri_plugin_jarvis::setup::db::setup_db(app.app_handle())?;
             /* ------------------------- Clipboard History Setup ------------------------ */
 
