@@ -148,6 +148,8 @@
 		"system-info:allow-all",
 		"user-input:default",
 		"shell:default",
+		"keyring:default",
+		"stronghold:default",
 		{
 			"identifier": "shell:allow-spawn",
 			"allow": [

@@ -24,6 +24,7 @@
 		"@tauri-apps/api": "^2.1.1",
 		"tauri-plugin-user-input-api": "workspace:*",
 		"@tauri-apps/plugin-shell": "^2.2.0",
+		"@tauri-apps/plugin-stronghold": "^2.2.0",
 		"dompurify": "^3.2.3",
 		"gsap": "^3.12.5",
 		"kkrpc": "^0.0.13",
