@@ -1,4 +1,5 @@
 use std::{path::PathBuf, sync::Mutex};
+pub mod commands;
 mod setup;
 pub mod utils;
 use base64::prelude::*;
@@ -107,7 +108,8 @@ pub fn run() {
         .plugin(tauri_plugin_clipboard::init())
         .plugin(tauri_plugin_keyring::init())
         .plugin(tauri_plugin_network::init())
-        .plugin(tauri_plugin_system_info::init());
+        .plugin(tauri_plugin_system_info::init())
+        .invoke_handler(tauri::generate_handler![commands::keyring::get_stronghold_key]);
 
     let app = builder
         .register_uri_scheme_protocol("appicon", |_app, request| {
