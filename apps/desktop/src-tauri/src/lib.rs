@@ -1,4 +1,5 @@
 use std::{path::PathBuf, sync::Mutex};
+pub mod commands;
 mod setup;
 pub mod utils;
 use base64::prelude::*;
@@ -15,6 +16,7 @@ use tauri_plugin_jarvis::{
         settings::AppSettings,
     },
 };
+use tauri_plugin_keyring::KeyringExt;
 pub use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 use tauri_plugin_store::{StoreBuilder, StoreExt};
 use utils::server::tauri_file_server;
@@ -24,15 +26,15 @@ pub fn run() {
     let context = tauri::generate_context!();
     let mut builder = tauri::Builder::default();
 
-    let db_key = if cfg!(debug_assertions) {
-        None
-    } else {
-        let db_enc_key_env = obfstr::obfstr!(env!("DB_ENCRYPTION_KEY")).to_string();
-        match db_enc_key_env == "none" {
-            true => None,
-            false => Some(db_enc_key_env),
-        }
-    };
+    // let db_key = if cfg!(debug_assertions) {
+    //     None
+    // } else {
+    //     let db_enc_key_env = obfstr::obfstr!(env!("DB_ENCRYPTION_KEY")).to_string();
+    //     match db_enc_key_env == "none" {
+    //         true => None,
+    //         false => Some(db_enc_key_env),
+    //     }
+    // };
 
     #[cfg(debug_assertions)]
     {
@@ -102,10 +104,12 @@ pub fn run() {
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_shellx::init(shell_unlocked))
-        .plugin(tauri_plugin_jarvis::init(db_key.clone()))
+        .plugin(tauri_plugin_jarvis::init())
         .plugin(tauri_plugin_clipboard::init())
+        .plugin(tauri_plugin_keyring::init())
         .plugin(tauri_plugin_network::init())
-        .plugin(tauri_plugin_system_info::init());
+        .plugin(tauri_plugin_system_info::init())
+        .invoke_handler(tauri::generate_handler![commands::keyring::get_stronghold_key]);
 
     let app = builder
         .register_uri_scheme_protocol("appicon", |_app, request| {
@@ -196,6 +200,7 @@ pub fn run() {
         .setup(move |app| {
             setup::window::setup_window(app.handle());
             setup::tray::create_tray(app.handle())?;
+            setup::stronghold::setup_stronghold(app.handle())?;
             #[cfg(all(not(target_os = "macos"), debug_assertions))]
             {
                 app.deep_link().register("kunkun")?;
@@ -241,8 +246,14 @@ pub fn run() {
 
             /* ----------------------------- Database Setup ----------------------------- */
             // setup::db::setup_db(app)?;
-            /* ------------------------- Clipboard History Setup ------------------------ */
+            let db_key = setup::keyring::setup_keyring(app.handle())?;
             let db_path = get_kunkun_db_path(app.app_handle())?;
+            app.manage(tauri_plugin_jarvis::commands::db::DBState::new(
+                db_path.clone(),
+                db_key.clone(),
+            )?);
+            tauri_plugin_jarvis::setup::db::setup_db(app.app_handle())?;
+            /* ------------------------- Clipboard History Setup ------------------------ */
 
             // println!("DB_ENCRYPTION_KEY: {:?}", db_key);
             // let jarvis_db = JarvisDB::new(db_path.clone(), db_key.clone())?;
