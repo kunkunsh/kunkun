@@ -88,7 +88,9 @@ type API = {
 	app: IApp
 }
 
-// const _api = wrap(globalThis as Endpoint) as unknown as API
+/* -------------------------------------------------------------------------- */
+/*                                   Expose                                   */
+/* -------------------------------------------------------------------------- */
 const io = new WorkerChildIO()
 const rpc = new RPCChannel<{}, API, DestroyableIoInterface>(io, {})
 export const api = rpc.getAPI()
@@ -136,14 +138,3 @@ export { Icon } from "./components/icon"
 export { IconEnum, IconType, IconNode } from "../../models/icon"
 export * as schema from "./schema"
 export { NodeName, NodeNameEnum, FormNodeName, FormNodeNameEnum } from "../../models/constants"
-
-/* -------------------------------------------------------------------------- */
-/*                                   Expose                                   */
-/* -------------------------------------------------------------------------- */
-// export function expose(api: WorkerExtension) {
-// 	const io = new WorkerChildIO()
-// 	const rpc = new RPCChannel(io, {
-// 		expose: api
-// 	})
-// 	return rpc.getAPI()
-// }
