@@ -8,6 +8,7 @@
 	"baseBranch": "develop",
 	"updateInternalDependencies": "patch",
 	"ignore": [
+		"jarvis",
 		"@kksh/desktop",
 		"@kksh/supabase",
 		"@kksh/utils",
