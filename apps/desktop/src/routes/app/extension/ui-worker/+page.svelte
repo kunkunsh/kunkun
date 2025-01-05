@@ -212,6 +212,7 @@
 		serverAPI.iframeUi = undefined
 		serverAPI.workerUi = extUiAPI
 		serverAPI.db = new db.JarvisExtDB(extInfoInDB.extId)
+		serverAPI.kv = new db.KV(extInfoInDB.extId)
 		serverAPI.app = {
 			language: () => Promise.resolve("en")
 		} satisfies IApp

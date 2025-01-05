@@ -499,7 +499,6 @@ impl JarvisDB {
             param_index += 1;
         }
         let mut stmt = self.conn.prepare(&query)?;
-        // println!("search_extension_data query: {}", query);
         let ext_data_iter =
             stmt.query_map(params_from_iter(params.iter().map(|p| p.as_ref())), |row| {
                 Ok(models::ExtData {
