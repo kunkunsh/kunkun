@@ -23,7 +23,6 @@
 		toast,
 		// wrap,
 		type IComponent,
-		type IDb,
 		type WorkerExtension
 	} from "@kksh/api/ui/worker"
 	import { Button } from "@kksh/svelte5"
@@ -212,6 +211,7 @@
 		serverAPI.iframeUi = undefined
 		serverAPI.workerUi = extUiAPI
 		serverAPI.db = new db.JarvisExtDB(extInfoInDB.extId)
+		serverAPI.kv = new db.KV(extInfoInDB.extId)
 		serverAPI.app = {
 			language: () => Promise.resolve("en")
 		} satisfies IApp

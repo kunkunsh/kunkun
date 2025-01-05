@@ -347,3 +347,91 @@ export class JarvisExtDB {
 		return updateExtensionDataById(data)
 	}
 }
+
+export class KV {
+	extId: number
+	db: JarvisExtDB
+	private DataType: string = "kunkun_kv"
+
+	constructor(extId: number) {
+		this.extId = extId
+		this.db = new JarvisExtDB(extId)
+	}
+
+	get<T = string>(key: string): Promise<T | null | undefined> {
+		return this.db
+			.search({
+				dataType: this.DataType,
+				searchText: key,
+				searchMode: SearchModeEnum.ExactMatch,
+				fields: ["search_text", "data"]
+			})
+			.then((items) => {
+				if (items.length === 0) {
+					return null
+				} else if (items.length > 1) {
+					throw new Error("Multiple KVs with the same key")
+				}
+				return items[0].data ? (JSON.parse(items[0].data).value as T) : null
+			})
+			.catch((err) => {
+				console.warn(err)
+				return null
+			})
+	}
+
+	set(key: string, value: string): Promise<void> {
+		return this.db
+			.search({
+				dataType: this.DataType,
+				searchText: key,
+				searchMode: SearchModeEnum.ExactMatch
+			})
+			.then((items) => {
+				if (items.length === 0) {
+					return this.db.add({
+						data: JSON.stringify({ value: value }),
+						dataType: this.DataType,
+						searchText: key
+					})
+				} else if (items.length === 1) {
+					return this.db.update({
+						dataId: items[0].dataId,
+						data: JSON.stringify({ value: value }),
+						searchText: key
+					})
+				} else {
+					return Promise.all(items.map((item) => this.db.delete(item.dataId))).then(() =>
+						Promise.resolve()
+					)
+				}
+			})
+	}
+
+	delete(key: string): Promise<void> {
+		return this.db
+			.search({
+				dataType: this.DataType,
+				searchText: key,
+				searchMode: SearchModeEnum.ExactMatch
+			})
+			.then((items) => {
+				return Promise.all(items.map((item) => this.db.delete(item.dataId))).then(() =>
+					Promise.resolve()
+				)
+			})
+	}
+
+	exists(key: string): Promise<boolean> {
+		return this.db
+			.search({
+				dataType: this.DataType,
+				searchText: key,
+				searchMode: SearchModeEnum.ExactMatch,
+				fields: []
+			})
+			.then((items) => {
+				return items.length > 0
+			})
+	}
+}

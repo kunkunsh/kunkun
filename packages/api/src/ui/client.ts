@@ -28,7 +28,7 @@ import type {
 } from "tauri-plugin-shellx-api"
 import { EventEmitter, open as shellxOpen } from "tauri-plugin-shellx-api"
 import * as v from "valibot"
-import { type JarvisExtDB } from "../commands/db"
+import { KV, type JarvisExtDB } from "../commands/db"
 import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
 import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
@@ -180,6 +180,13 @@ export interface IDb {
 	retrieveAllByType: typeof JarvisExtDB.prototype.retrieveAllByType
 	deleteAll: typeof JarvisExtDB.prototype.deleteAll
 	update: typeof JarvisExtDB.prototype.update
+}
+
+export interface IKV {
+	get: typeof KV.prototype.get
+	set: typeof KV.prototype.set
+	exists: typeof KV.prototype.exists
+	delete: typeof KV.prototype.delete
 }
 
 export interface IFs {

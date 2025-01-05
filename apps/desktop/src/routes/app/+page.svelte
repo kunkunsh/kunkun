@@ -7,7 +7,7 @@
 	import { cmdQueries } from "@/stores/cmdQuery"
 	import { isKeyboardEventFromInputElement } from "@/utils/dom"
 	import Icon from "@iconify/svelte"
-	import { toggleDevTools } from "@kksh/api/commands"
+	import { db, toggleDevTools } from "@kksh/api/commands"
 	import { Button, Command, DropdownMenu } from "@kksh/svelte5"
 	import {
 		BuiltinCmds,
@@ -24,7 +24,8 @@
 	import { exit } from "@tauri-apps/plugin-process"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
-	import { hasCommand, whereIsCommand } from "tauri-plugin-shellx-api"
+
+	const kv = new db.KV(1)
 
 	let inputEle: HTMLInputElement | null = $state(null)
 	function onKeyDown(event: KeyboardEvent) {

@@ -75,3 +75,7 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+html {
+	overscroll-behavior: none;
+}
