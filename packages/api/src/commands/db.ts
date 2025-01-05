@@ -358,7 +358,7 @@ export class KV {
 		this.db = new JarvisExtDB(extId)
 	}
 
-	async get<T = string>(key: string): Promise<T | null | undefined> {
+	get<T = string>(key: string): Promise<T | null | undefined> {
 		return this.db
 			.search({
 				dataType: this.DataType,
@@ -380,7 +380,7 @@ export class KV {
 			})
 	}
 
-	async set(key: string, value: string): Promise<void> {
+	set(key: string, value: string): Promise<void> {
 		return this.db
 			.search({
 				dataType: this.DataType,
@@ -408,7 +408,21 @@ export class KV {
 			})
 	}
 
-	async exists(key: string): Promise<boolean> {
+	delete(key: string): Promise<void> {
+		return this.db
+			.search({
+				dataType: this.DataType,
+				searchText: key,
+				searchMode: SearchModeEnum.ExactMatch
+			})
+			.then((items) => {
+				return Promise.all(items.map((item) => this.db.delete(item.dataId))).then(() =>
+					Promise.resolve()
+				)
+			})
+	}
+
+	exists(key: string): Promise<boolean> {
 		return this.db
 			.search({
 				dataType: this.DataType,

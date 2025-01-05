@@ -186,6 +186,7 @@ export interface IKV {
 	get: typeof KV.prototype.get
 	set: typeof KV.prototype.set
 	exists: typeof KV.prototype.exists
+	delete: typeof KV.prototype.delete
 }
 
 export interface IFs {
