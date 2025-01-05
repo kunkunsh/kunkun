@@ -34,6 +34,7 @@ import type {
 	IDb,
 	IEvent,
 	IFs,
+	IKV,
 	IOpen,
 	IPath,
 	ISecurity,
@@ -47,13 +48,13 @@ import type { WorkerExtension } from "./ext"
 
 // export { expose, wrap } from "@huakunshen/comlink"
 export { WorkerExtension } from "./ext"
-export type { IDb } from "../client"
 /**
  * For the APIs annotated with "inherit from tauri-api-adapter", they inherit the client API completely from tauri-api-adapter
  * There may be server API changes for them, but the client API can be inherited
  */
 type API = {
 	db: IDb // for kunkun
+	kv: IKV // for kunkun
 	system: ISystem // for kunkun
 	open: IOpen // for kunkun
 	clipboard: IClipboard // inherit from tauri-api-adapter
@@ -93,6 +94,7 @@ export const toast = constructToastAPI(api.toast)
 export const updownload = constructUpdownloadAPI(api.updownload)
 export const {
 	db,
+	kv,
 	os,
 	clipboard,
 	dialog,

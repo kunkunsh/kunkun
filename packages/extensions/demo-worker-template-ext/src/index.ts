@@ -3,11 +3,13 @@ import {
 	app,
 	Child,
 	clipboard,
+	db,
 	expose,
 	Form,
 	fs,
 	Icon,
 	IconEnum,
+	kv,
 	List,
 	Markdown,
 	open,
@@ -51,6 +53,15 @@ class ExtensionTemplate extends WorkerExtension {
 		clipboard.readText().then((text) => {
 			console.log("Clipboard text:", text)
 		})
+		kv.exists("test").then((exists) => {
+			console.log("KV exists:", exists)
+		})
+		kv.set("test", Math.random().toString()).then(() => {
+			return kv.get("test").then((value) => {
+				console.log("KV value:", value)
+			})
+		})
+
 		// console.log("Check screen capture permission:", await security.mac.checkScreenCapturePermission())
 		// await security.mac.revealSecurityPane("AllFiles")
 		// console.log(await security.mac.verifyFingerprint())

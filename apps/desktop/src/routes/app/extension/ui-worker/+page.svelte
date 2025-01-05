@@ -23,7 +23,6 @@
 		toast,
 		// wrap,
 		type IComponent,
-		type IDb,
 		type WorkerExtension
 	} from "@kksh/api/ui/worker"
 	import { Button } from "@kksh/svelte5"

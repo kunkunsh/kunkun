@@ -59,21 +59,6 @@
 		}
 	}}
 />
-<Button
-	onclick={async () => {
-		await kv.set("test", Math.random().toString())
-		const value = await kv.get("test")
-		console.log(value)
-	}}
->
-	Set
-</Button>
-<Button
-	onclick={async () => {
-		const value = await kv.get("test")
-		console.log(value)
-	}}>Get</Button
->
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
