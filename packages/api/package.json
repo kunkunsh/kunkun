@@ -22,6 +22,7 @@
 		"test": "bun test --coverage",
 		"gen:deno:types": "deno types > deno.d.ts",
 		"build:docs": "npx typedoc",
+		"check-types": "tsc --noEmit",
 		"dev": "bun --watch build.ts",
 		"build": "bun build.ts",
 		"prepare": "bun setup.ts",
