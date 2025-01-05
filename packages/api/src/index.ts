@@ -6,4 +6,4 @@ export {
 } from "./version"
 export { constructExtensionSupportDir } from "./ui/server/path"
 export * from "./constants"
-export { TauriShellStdio } from "./ui/api/shell"
+export { TauriShellStdio } from "./api/shell"

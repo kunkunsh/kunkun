@@ -8,7 +8,7 @@ import { listen, TauriEvent } from "@tauri-apps/api/event"
 import { type EventPermission } from "../../permissions"
 import { EventPermissionMap } from "../../permissions/permission-map"
 import { checkPermission } from "../../utils/permission-check"
-import type { DragDropPayload, DragEnterPayload, DragOverPayload, IEvent } from "../client"
+import type { DragDropPayload, DragEnterPayload, DragOverPayload, IEvent } from "../../api/client"
 
 export function constructEventApi(permissions: EventPermission[]): IEvent {
 	return {

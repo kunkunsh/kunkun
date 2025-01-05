@@ -20,10 +20,10 @@ import {
 	// constructPathAPI,
 	constructUpdownloadAPI
 } from "tauri-api-adapter/client"
-import { constructEventAPI } from "../api/event"
-import { constructIframeUiAPI } from "../api/iframe-ui"
-import { constructPathAPI } from "../api/path"
-import { constructShellAPI } from "../api/shell"
+import { constructEventAPI } from "../../api/event"
+import { constructIframeUiAPI } from "../../api/iframe-ui"
+import { constructPathAPI } from "../../api/path"
+import { constructShellAPI } from "../../api/shell"
 import type {
 	IApp,
 	IDb,
@@ -36,13 +36,13 @@ import type {
 	IToast,
 	IUiIframe,
 	IUtils
-} from "../client"
-import type { IShellServer } from "../server/server-types"
+} from "../../api/client"
+import type { IShellServer } from "../../api/server-types"
 
-export { type IUiIframe } from "../client"
+export { type IUiIframe } from "../../api/client"
 // export { expose, wrap } from "@huakunshen/comlink"
 // export { type IDbServer } from "../server/db"
-export { type IUiIframeServer2, type IUiIframeServer1 } from "../server/server-types"
+export { type IUiIframeServer2, type IUiIframeServer1 } from "../../api/server-types"
 
 /**
  * For the APIs annotated with "inherit from tauri-api-adapter", they inherit the client API completely from tauri-api-adapter
@@ -98,4 +98,4 @@ export const {
 	open,
 	app
 } = api
-export { Child, RPCChannel, Command, DenoCommand } from "../api/shell"
+export { Child, RPCChannel, Command, DenoCommand } from "../../api/shell"

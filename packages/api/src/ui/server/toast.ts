@@ -1,14 +1,5 @@
 import { toast } from "svelte-sonner"
-import type {
-	GeneralToast,
-	GeneralToastParams,
-	IDb,
-	IFs,
-	ISystem,
-	IToast,
-	IUiIframe,
-	IUiWorker
-} from "../client"
+import type { GeneralToastParams, IToast } from "../../api/client"
 
 async function constructToast(
 	fn:

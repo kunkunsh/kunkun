@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
 import { getCurrentWindow } from "@tauri-apps/api/window"
-import type { IUiIframeServer1 } from "./server-types"
+import type { IUiIframeServer1 } from "../../api/server-types"
 
 /**
  * Other APIs will be constructed in main window as they are used to manipulate UI directly

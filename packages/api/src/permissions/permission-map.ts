@@ -1,6 +1,6 @@
 import type { IShellServer } from "tauri-api-adapter"
 // import type { IEventServer, IFsServer, ISystemServer } from "../ui/server/server-types"
-import type { IEvent, IFs, ISecurity, ISystem } from "../ui/client"
+import type { IEvent, IFs, ISecurity, ISystem } from "../api/client"
 import type {
 	EventPermission,
 	KunkunFsPermission,

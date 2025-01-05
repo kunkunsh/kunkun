@@ -36,7 +36,7 @@ import {
 	type SystemPermission
 } from "../../permissions"
 import { SystemPermissionMap } from "../../permissions/permission-map"
-import type { ISystem } from "../client"
+import type { ISystem } from "../../api/client"
 
 export function constructSystemApi(permissions: SystemPermission[]): ISystem {
 	return {

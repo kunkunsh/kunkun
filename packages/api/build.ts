@@ -18,3 +18,4 @@ if (!schemaFile.exists()) {
 }
 
 await $`bun patch-version.ts`
+await $`bun run check-types`

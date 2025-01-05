@@ -39,7 +39,7 @@ import {
 	matchPathAndScope,
 	verifyGeneralPathScopedPermission
 } from "../../utils/path"
-import type { IFs } from "../client"
+import type { IFs } from "../../api/client"
 
 /**
  * `tauri-api-adapter` provides fs API

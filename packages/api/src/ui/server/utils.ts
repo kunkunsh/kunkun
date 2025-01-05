@@ -1,5 +1,5 @@
 import { plistToJson } from "../../commands/utils"
-import type { IUtils } from "../client"
+import type { IUtils } from "../../api/client"
 
 export function constructUtilsApi(): IUtils {
 	return {

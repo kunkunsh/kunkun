@@ -10,7 +10,7 @@ import {
 	translateScopeToPath,
 	verifyScopedPermission
 } from "../../utils/path"
-import type { IOpen } from "../client"
+import type { IOpen } from "../../api/client"
 
 const UrlSchema = pipe(string("A URL must be string."), url("The URL is badly formatted."))
 

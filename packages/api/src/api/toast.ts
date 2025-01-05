@@ -1,5 +1,5 @@
 // import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
-import type { GeneralToastParams, IToast } from "../client"
+import type { GeneralToastParams, IToast } from "./client"
 
 export function constructToastAPI(api: IToast) {
 	return {

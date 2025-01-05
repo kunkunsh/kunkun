@@ -3,7 +3,7 @@ import * as v from "valibot"
 import { macSecurity } from "../../commands"
 import { SecurityPermissionMap, type SecurityPermission } from "../../permissions"
 import { checkPermission } from "../../utils/permission-check"
-import { MacSecurityOptions, type ISecurity } from "../client"
+import { MacSecurityOptions, type ISecurity } from "../../api/client"
 
 export function constructSecurityAPI(permissions: SecurityPermission[]): ISecurity {
 	return {

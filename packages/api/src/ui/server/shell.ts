@@ -14,9 +14,9 @@ import { RECORD_EXTENSION_PROCESS_EVENT, type IRecordExtensionProcessEvent } fro
 import { ShellPermissionMap } from "../../permissions/permission-map"
 import { type ShellPermission, type ShellPermissionScoped } from "../../permissions/schema"
 import { verifyScopedPermission } from "../../utils/path"
-import type { DenoRunConfig } from "../client"
+import type { DenoRunConfig } from "../../api/client"
 import { translateDenoCommand, verifyDenoCmdPermission } from "./deno"
-import type { IShellServer } from "./server-types"
+import type { IShellServer } from "../../api/server-types"
 
 function matchRegexArgs(args: string[], regexes: string[]): boolean {
 	if (args.length !== regexes.length) {

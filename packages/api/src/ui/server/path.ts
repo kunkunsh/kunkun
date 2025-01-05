@@ -1,7 +1,7 @@
 import * as path from "@tauri-apps/api/path"
 import { exists, mkdir } from "@tauri-apps/plugin-fs"
 import { constructPathApi as constructTauriPathApi } from "tauri-api-adapter"
-import type { IPath } from "../client"
+import type { IPath } from "../../api/client"
 
 export async function constructExtensionSupportDir(extPath: string) {
 	const appDataDir = await path.appDataDir()

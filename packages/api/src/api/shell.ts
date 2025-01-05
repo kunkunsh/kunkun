@@ -15,8 +15,8 @@ import {
 	type OutputEvents,
 	type SpawnOptions
 } from "tauri-plugin-shellx-api"
-import { type DenoRunConfig } from "../client.ts"
-import type { IShellServer } from "../server/server-types.ts"
+import { type DenoRunConfig } from "./client.ts"
+import type { IShellServer } from "./server-types.ts"
 
 export class Child {
 	/** The child process `pid`. */

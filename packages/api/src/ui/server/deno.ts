@@ -15,7 +15,7 @@ import {
 	pathStartsWithAlias,
 	translateScopeToPath
 } from "../../utils/path"
-import { type DenoRunConfig } from "../client"
+import { type DenoRunConfig } from "../../api/client"
 
 /**
  *
