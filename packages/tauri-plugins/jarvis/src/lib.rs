@@ -53,7 +53,7 @@ impl JarvisState {
 }
 
 /// Initializes the plugin.
-pub fn init<R: Runtime>(db_key: Option<String>) -> TauriPlugin<R> {
+pub fn init<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("jarvis")
         .invoke_handler(tauri::generate_handler![
             /* ------------------------------ dev commands ------------------------------ */
@@ -189,9 +189,6 @@ pub fn init<R: Runtime>(db_key: Option<String>) -> TauriPlugin<R> {
             app.manage(JarvisState::new());
             app.manage(FileTransferState::default());
             app.manage(commands::apps::ApplicationsState::default());
-            let db_path = get_kunkun_db_path(app)?;
-            app.manage(commands::db::DBState::new(db_path.clone(), db_key.clone())?);
-            setup::db::setup_db(app)?;
             println!("Jarvis Plugin Initialized");
             app.manage(Peers::default());
 
