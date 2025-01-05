@@ -1,5 +1,6 @@
 import { appConfig, appState, auth, extensions } from "@/stores"
 import { checkUpdateAndInstall } from "@/utils/updater"
+import { setTransparentTitlebar } from "@kksh/api/commands"
 import { IconEnum } from "@kksh/api/models"
 import type { BuiltinCmd } from "@kksh/ui/types"
 import { getVersion } from "@tauri-apps/api/app"
@@ -194,6 +195,30 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		function: async () => {
 			appState.clearSearchTerm()
 			goto("/app/extension/create-quick-link")
+		}
+	},
+	{
+		name: "Key Displayer",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:keyboard"
+		},
+		description: "Display the current key",
+		function: async () => {
+			appState.clearSearchTerm()
+			// goto("/app/extension/key-displayer")
+			const label = `main:extension:key-displayer-${uuidv4()}`
+			new WebviewWindow(label, {
+				url: "/app/extension/key-displayer",
+				title: "Key Displayer",
+				decorations: false,
+				hiddenTitle: true,
+				visible: false,
+				alwaysOnTop: true,
+				width: 200,
+				height: 140
+			})
+			// setTransparentTitlebar(label)
 		}
 	},
 	{

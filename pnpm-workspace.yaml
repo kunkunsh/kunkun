@@ -7,5 +7,6 @@ packages:
   - "vendors/tauri-plugin-network"
   - "vendors/tauri-plugin-keyring"
   - "vendors/tauri-plugin-system-info"
+  - "vendors/tauri-plugin-user-input"
   - "vendors/kkrpc/packages/kkrpc"
 

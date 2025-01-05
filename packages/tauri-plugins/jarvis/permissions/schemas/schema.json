@@ -930,6 +930,16 @@
           "const": "deny-set-extension-folder"
         },
         {
+          "description": "Enables the set_transparent_titlebar command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-set-transparent-titlebar"
+        },
+        {
+          "description": "Denies the set_transparent_titlebar command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-set-transparent-titlebar"
+        },
+        {
           "description": "Enables the set_volume command without any pre-configured scope.",
           "type": "string",
           "const": "allow-set-volume"

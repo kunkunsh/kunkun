@@ -1662,6 +1662,32 @@ Denies the set_extension_folder command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-set-transparent-titlebar`
+
+</td>
+<td>
+
+Enables the set_transparent_titlebar command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-set-transparent-titlebar`
+
+</td>
+<td>
+
+Denies the set_transparent_titlebar command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-set-volume`
 
 </td>
