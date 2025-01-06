@@ -1,0 +1,46 @@
+{
+	"$schema": "./node_modules/@kksh/api/dist/schema.json",
+	"name": "template-ext-headless",
+	"version": "0.0.4",
+	"type": "module",
+	"kunkun": {
+		"name": "TODO: Extension Display Name",
+		"shortDescription": "A headless Extension Template",
+		"longDescription": "A headless Extension Template",
+		"identifier": "template-ext-headless",
+		"permissions": [
+			"clipboard:write-text"
+		],
+		"demoImages": [],
+		"icon": {
+			"type": "iconify",
+			"value": "tabler:code"
+		},
+		"headlessCmds": [
+			{
+				"name": "Template: Headless Command UUID",
+				"main": "dist/index.js",
+				"cmds": []
+			}
+		]
+	},
+	"scripts": {
+		"dev": "bun build.ts dev",
+		"build": "bun build.ts"
+	},
+	"dependencies": {
+		"@kksh/api": "workspace:*",
+		"i18next": "^23.15.1",
+		"uuid": "^11.0.3"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"files": [
+		"./dist",
+		".gitignore"
+	]
+}

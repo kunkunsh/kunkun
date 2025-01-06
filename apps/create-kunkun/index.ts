@@ -33,6 +33,7 @@ program
 	.addOption(
 		new Option("-t, --template <template>", "Extension Template").choices([
 			"template",
+			"headless",
 			"react",
 			"vue",
 			"svelte",
@@ -45,7 +46,7 @@ program
 	.addOption(new Option("-f, --force", "Overwrite existing files").default(false))
 	.addOption(new Option("-o, --outdir <outdir>", "Output directory").default(cwd))
 	.parse(process.argv)
-type Template = "react" | "template" | "vue" | "svelte" | "nuxt" | "sveltekit" | "next"
+type Template = "react" | "template" | "headless" | "vue" | "svelte" | "nuxt" | "sveltekit" | "next"
 const options = program.opts<{
 	template?: Template
 	outdir: string
@@ -99,6 +100,12 @@ async function copyTemplate(templateTgz: string, targetFolderName: string): Prom
 						"Write regular logic in TypeScript in OOP manner to render extension UI based on predefined template."
 				},
 				{
+					name: "Headless Command",
+					value: "headless",
+					description:
+						'Write regular logic in TypeScript to implement "fire and forget" style command.'
+				},
+				{
 					name: "React Custom UI",
 					value: "react",
 					description:
@@ -147,7 +154,9 @@ async function copyTemplate(templateTgz: string, targetFolderName: string): Prom
 	if (template === "template") {
 		destDir = await copyTemplate(path.join(templateRoot, "template-ext-worker.tgz"), name)
 		cleanExtension(destDir)
-	} else if (["react", "vue", "svelte", "nuxt", "sveltekit", "next"].includes(template)) {
+	} else if (
+		["react", "vue", "svelte", "nuxt", "sveltekit", "next", "headless"].includes(template)
+	) {
 		destDir = await copyTemplate(path.join(templateRoot, `template-ext-${template}.tgz`), name)
 		cleanExtension(destDir)
 	} else {

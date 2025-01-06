@@ -12,7 +12,7 @@ export function getRootDir() {
 export function getTemplateRoot() {
 	return isProduction
 		? path.join(getRootDir(), "templates")
-		: path.join(getRootDir(), "../../templates")
+		: path.join(getRootDir(), "../../packages/templates")
 }
 
 export const createKunkunVersion = version

@@ -11,6 +11,6 @@ npx create-kunkun@latest
 ## Develop
 
 ```bash
-bun index.ts --help
-bun index.ts
+pnpm build
+node dist/index.mjs
 ```
