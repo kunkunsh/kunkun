@@ -719,6 +719,25 @@ importers:
         specifier: latest
         version: 1.1.14
 
+  packages/templates/template-ext-headless:
+    dependencies:
+      '@kksh/api':
+        specifier: workspace:*
+        version: link:../../api
+      i18next:
+        specifier: ^23.15.1
+        version: 23.16.5
+      typescript:
+        specifier: ^5.0.0
+        version: 5.6.3
+      uuid:
+        specifier: ^11.0.3
+        version: 11.0.3
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.1.14
+
   packages/templates/template-ext-next:
     dependencies:
       '@kksh/api':
