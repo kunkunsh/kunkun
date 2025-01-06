@@ -1,5 +1,3 @@
-// import type { IEvent, IFs, ISystem } from "../client"
-
 import { type IShellServer as IShellServer1 } from "tauri-api-adapter"
 import type {
 	ChildProcess,
@@ -8,7 +6,7 @@ import type {
 	IOPayload,
 	SpawnOptions
 } from "tauri-plugin-shellx-api"
-import type { DenoRunConfig, IUiIframe } from "../client"
+import type { DenoRunConfig, IUiIframe } from "./client"
 
 export type IShellServer = IShellServer1 & {
 	denoExecute(

@@ -1,8 +1,8 @@
 import { join } from "@tauri-apps/api/path"
 import { exists } from "@tauri-apps/plugin-fs"
-import { difference } from "lodash"
 import type { InternalSpawnOptions, SpawnOptions } from "tauri-plugin-shellx-api"
 import { safeParse } from "valibot"
+import { type DenoRunConfig } from "../../api/client"
 import {
 	PermissionScopeSchema,
 	ShellPermissionScopedSchema,
@@ -15,7 +15,6 @@ import {
 	pathStartsWithAlias,
 	translateScopeToPath
 } from "../../utils/path"
-import { type DenoRunConfig } from "../client"
 
 /**
  *

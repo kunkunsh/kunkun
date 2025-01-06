@@ -21,7 +21,6 @@
 	import { IframeParentIO, RPCChannel } from "kkrpc/browser"
 	import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon, XIcon } from "lucide-svelte"
 	import { onDestroy, onMount } from "svelte"
-	import * as v from "valibot"
 	import type { PageData } from "./$types"
 
 	let { data }: { data: PageData } = $props()

@@ -1,4 +1,5 @@
 import { checkPermission } from "tauri-api-adapter/permissions"
+import type { ISystem } from "../../api/client"
 import {
 	ejectAllDisks,
 	emptyTrash,
@@ -36,7 +37,6 @@ import {
 	type SystemPermission
 } from "../../permissions"
 import { SystemPermissionMap } from "../../permissions/permission-map"
-import type { ISystem } from "../client"
 
 export function constructSystemApi(permissions: SystemPermission[]): ISystem {
 	return {

@@ -7,7 +7,7 @@ async function build() {
 	try {
 		// await $`bun build --minify --target=browser --outdir=./dist ./src/index.ts`
 		const output = await Bun.build({
-			entrypoints: ["./src/index.ts"],
+			entrypoints: ["./src/index.ts", "./src/headless.ts"],
 			outdir: "./dist",
 			minify: true,
 			target: "browser"

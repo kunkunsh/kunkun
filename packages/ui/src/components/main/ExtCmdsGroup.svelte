@@ -1,7 +1,13 @@
 <!-- This file renders a group of extension commands -->
 <!-- Input props to this component is an array of ExtPackageJsonExtra[] -->
 <script lang="ts">
-	import { CmdTypeEnum, CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
+	import {
+		CmdTypeEnum,
+		CustomUiCmd,
+		ExtPackageJsonExtra,
+		HeadlessCmd,
+		TemplateUiCmd
+	} from "@kksh/api/models"
 	import { Badge, Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "../custom"
@@ -22,7 +28,7 @@
 	} = $props()
 </script>
 
-{#snippet cmd(ext: ExtPackageJsonExtra, cmd: CustomUiCmd | TemplateUiCmd)}
+{#snippet cmd(ext: ExtPackageJsonExtra, cmd: CustomUiCmd | TemplateUiCmd | HeadlessCmd)}
 	<Command.Item
 		class="flex justify-between"
 		onSelect={() => {
@@ -50,10 +56,13 @@
 {/snippet}
 
 {#snippet ext(ext: ExtPackageJsonExtra)}
-	{#each ext.kunkun.customUiCmds as _cmd}
+	{#each ext.kunkun.customUiCmds ?? [] as _cmd}
 		{@render cmd(ext, _cmd)}
 	{/each}
-	{#each ext.kunkun.templateUiCmds as _cmd}
+	{#each ext.kunkun.templateUiCmds ?? [] as _cmd}
+		{@render cmd(ext, _cmd)}
+	{/each}
+	{#each ext.kunkun.headlessCmds ?? [] as _cmd}
 		{@render cmd(ext, _cmd)}
 	{/each}
 {/snippet}

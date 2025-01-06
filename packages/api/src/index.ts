@@ -4,6 +4,7 @@ export {
 	isVersionBetween,
 	isCompatible
 } from "./version"
-export { constructExtensionSupportDir } from "./ui/server/path"
+export { constructExtensionSupportDir } from "./api/server/path"
+export { constructJarvisServerAPIWithPermissions } from "./api/server"
 export * from "./constants"
-export { TauriShellStdio } from "./ui/api/shell"
+export { TauriShellStdio } from "./api/shell"

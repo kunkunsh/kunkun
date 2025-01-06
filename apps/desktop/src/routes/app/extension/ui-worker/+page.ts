@@ -56,7 +56,7 @@ export const load: PageLoad = async ({ url }) => {
 		sbError(404, `Extension package.json not found at ${pkgJsonPath}`)
 	}
 
-	const cmd = loadedExt.kunkun.templateUiCmds.find((cmd) => cmd.name === cmdName)
+	const cmd = loadedExt.kunkun.templateUiCmds?.find((cmd) => cmd.name === cmdName)
 	if (!cmd) {
 		sbError(404, `Command ${cmdName} not found in extension ${loadedExt.kunkun.identifier}`)
 	}

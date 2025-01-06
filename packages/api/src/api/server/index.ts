@@ -37,6 +37,8 @@ import {
 	type SystemInfoPermission,
 	type UpdownloadPermission
 } from "tauri-api-adapter/permissions"
+import type { IEvent, IFs, IOpen, ISecurity, ISystem, IToast, IUtils } from "../../api/client"
+import type { IUiIframeServer1 } from "../../api/server-types"
 import {
 	AllKunkunPermission,
 	type EventPermission,
@@ -48,14 +50,12 @@ import {
 	type ShellPermissionScoped,
 	type SystemPermission
 } from "../../permissions"
-import type { IEvent, IFs, IOpen, ISecurity, ISystem, IToast, IUtils } from "../client"
 // import type { IDbServer } from "./db"
 import { constructEventApi } from "./event"
 import { constructFsApi } from "./fs"
 import { constructOpenApi } from "./open"
 import { constructPathApi } from "./path"
 import { constructSecurityAPI } from "./security"
-import type { IUiIframeServer1 } from "./server-types"
 // import type { IFsServer, ISystemServer } from "./server-types"
 import { constructShellApi } from "./shell"
 import { constructSystemApi } from "./system"

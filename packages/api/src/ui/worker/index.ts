@@ -25,10 +25,6 @@ import {
 	// constructShellAPI,
 	constructUpdownloadAPI
 } from "tauri-api-adapter/client"
-import { constructEventAPI } from "../api/event"
-import { constructPathAPI } from "../api/path"
-import { constructShellAPI } from "../api/shell"
-import { constructToastAPI } from "../api/toast"
 import type {
 	IApp,
 	IDb,
@@ -40,11 +36,26 @@ import type {
 	ISecurity,
 	ISystem,
 	IToast,
-	IUiWorker,
 	IUtils
-} from "../client"
-import type { IShellServer } from "../server/server-types"
+} from "../../api/client"
+import { constructEventAPI } from "../../api/event"
+import { constructPathAPI } from "../../api/path"
+import type { IShellServer } from "../../api/server-types"
+import { constructShellAPI } from "../../api/shell"
+import { constructToastAPI } from "../../api/toast"
+import type { FormSchema, ListSchema, MarkdownSchema } from "../../models"
+import type { IComponent } from "./components"
 import type { WorkerExtension } from "./ext"
+
+export interface IUiWorker {
+	render: (view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) => Promise<void>
+	goBack: () => Promise<void>
+	showLoadingBar: (loading: boolean) => Promise<void>
+	setScrollLoading: (loading: boolean) => Promise<void>
+	setSearchTerm: (term: string) => Promise<void>
+	setSearchBarPlaceholder: (placeholder: string) => Promise<void>
+	setProgressBar: (progress: number | null) => Promise<void>
+}
 
 // export { expose, wrap } from "@huakunshen/comlink"
 export { WorkerExtension } from "./ext"
@@ -77,7 +88,9 @@ type API = {
 	app: IApp
 }
 
-// const _api = wrap(globalThis as Endpoint) as unknown as API
+/* -------------------------------------------------------------------------- */
+/*                                   Expose                                   */
+/* -------------------------------------------------------------------------- */
 const io = new WorkerChildIO()
 const rpc = new RPCChannel<{}, API, DestroyableIoInterface>(io, {})
 export const api = rpc.getAPI()
@@ -110,7 +123,7 @@ export const {
 	security,
 	workerUi: ui
 } = api
-export { Child, RPCChannel, Command, DenoCommand } from "../api/shell"
+export { Child, RPCChannel, Command, DenoCommand } from "../../api/shell"
 /* -------------------------------------------------------------------------- */
 /*                             UI Component Schema                            */
 /* -------------------------------------------------------------------------- */
@@ -125,14 +138,3 @@ export { Icon } from "./components/icon"
 export { IconEnum, IconType, IconNode } from "../../models/icon"
 export * as schema from "./schema"
 export { NodeName, NodeNameEnum, FormNodeName, FormNodeNameEnum } from "../../models/constants"
-
-/* -------------------------------------------------------------------------- */
-/*                                   Expose                                   */
-/* -------------------------------------------------------------------------- */
-// export function expose(api: WorkerExtension) {
-// 	const io = new WorkerChildIO()
-// 	const rpc = new RPCChannel(io, {
-// 		expose: api
-// 	})
-// 	return rpc.getAPI()
-// }

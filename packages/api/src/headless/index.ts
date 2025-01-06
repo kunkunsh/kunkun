@@ -1,5 +1,4 @@
-// import { windowEndpoint, wrap, type Remote } from "@huakunshen/comlink"
-import { IframeChildIO, RPCChannel, type DestroyableIoInterface } from "kkrpc/browser"
+import { RPCChannel, WorkerChildIO, type DestroyableIoInterface } from "kkrpc/browser"
 import type {
 	IClipboard,
 	IDialog,
@@ -15,41 +14,56 @@ import type {
 	ISystemInfo,
 	IUpdownload
 } from "tauri-api-adapter"
-import {
-	constructFetchAPI,
-	// constructPathAPI,
-	constructUpdownloadAPI
-} from "tauri-api-adapter/client"
+import { constructFetchAPI, constructUpdownloadAPI } from "tauri-api-adapter/client"
 import type {
 	IApp,
 	IDb,
 	IEvent,
 	IFs,
+	IKV,
 	IOpen,
 	IPath,
 	ISecurity,
 	ISystem,
 	IToast,
-	IUiIframe,
 	IUtils
-} from "../../api/client"
-import { constructEventAPI } from "../../api/event"
-import { constructIframeUiAPI } from "../../api/iframe-ui"
-import { constructPathAPI } from "../../api/path"
-import type { IShellServer } from "../../api/server-types"
-import { constructShellAPI } from "../../api/shell"
+} from "../api/client"
+import { constructEventAPI } from "../api/event"
+import { constructPathAPI } from "../api/path"
+import type { IShellServer } from "../api/server-types"
+import { constructShellAPI } from "../api/shell"
+import { constructToastAPI } from "../api/toast"
+import type { HeadlessWorkerExtension } from "./ext"
 
-export { type IUiIframe } from "../../api/client"
-// export { expose, wrap } from "@huakunshen/comlink"
-// export { type IDbServer } from "../server/db"
-export { type IUiIframeServer2, type IUiIframeServer1 } from "../../api/server-types"
-
+/* -------------------------------------------------------------------------- */
+/*                               API Interfaces                               */
+/* -------------------------------------------------------------------------- */
+export type {
+	IClipboard,
+	IDialog,
+	ILogger,
+	INetwork,
+	INotification,
+	IOs,
+	IPath,
+	// IShell,
+	ISystemInfo,
+	IUpdownload,
+	IFetch
+} from "tauri-api-adapter"
+export type { ISystem, IToast, IUiIframe, IDb, IKV, IFs, IOpen, IEvent } from "../api/client"
+export type { IShell } from "../api/shell"
+export { HeadlessWorkerExtension } from "./ext"
+/* -------------------------------------------------------------------------- */
+/*                                     RPC                                    */
+/* -------------------------------------------------------------------------- */
 /**
  * For the APIs annotated with "inherit from tauri-api-adapter", they inherit the client API completely from tauri-api-adapter
  * There may be server API changes for them, but the client API can be inherited
  */
 type API = {
 	db: IDb // for kunkun
+	kv: IKV // for kunkun
 	system: ISystem // for kunkun
 	open: IOpen // for kunkun
 	clipboard: IClipboard // inherit from tauri-api-adapter
@@ -66,24 +80,26 @@ type API = {
 	updownload: IUpdownload // inherit from tauri-api-adapter
 	sysInfo: ISystemInfo // inherit from tauri-api-adapter
 	network: INetwork // inherit from tauri-api-adapter
-	iframeUi: IUiIframe // for kunkun
-	utils: IUtils // for kunkun
 	security: ISecurity // for kunkun
+	utils: IUtils // for kunkun
 	app: IApp
 }
-// export const api = wrap(windowEndpoint(globalThis.parent)) as unknown as API
-const io = new IframeChildIO()
+const io = new WorkerChildIO()
 const rpc = new RPCChannel<{}, API, DestroyableIoInterface>(io, {})
 export const api = rpc.getAPI()
+export function expose(api: HeadlessWorkerExtension) {
+	rpc.expose(api)
+}
 
 export const event = constructEventAPI(api.event) // this is different from event api from tauri-api-adapter
 export const fetch = constructFetchAPI(api.fetch)
 export const path = constructPathAPI(api.path)
 export const shell = constructShellAPI(api.shell)
+export const toast = constructToastAPI(api.toast)
 export const updownload = constructUpdownloadAPI(api.updownload)
-export const ui = constructIframeUiAPI(api)
 export const {
 	db,
+	kv,
 	os,
 	clipboard,
 	dialog,
@@ -93,9 +109,9 @@ export const {
 	sysInfo,
 	network,
 	system,
-	toast,
-	utils,
 	open,
-	app
+	utils,
+	app,
+	security
 } = api
-export { Child, RPCChannel, Command, DenoCommand } from "../../api/shell"
+export { Child, RPCChannel, Command, DenoCommand } from "../api/shell"
