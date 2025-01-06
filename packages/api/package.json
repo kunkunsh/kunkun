@@ -31,18 +31,18 @@
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
-		"@types/lodash": "^4.17.13",
+		"@types/lodash": "^4.17.14",
 		"@types/madge": "^5.0.3",
-		"@types/node": "^22.10.2",
+		"@types/node": "^22.10.5",
 		"@types/semver": "^7.5.8",
 		"fs-extra": "^11.2.0",
 		"madge": "^8.0.0",
-		"typedoc": "^0.27.5",
+		"typedoc": "^0.27.6",
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
-		"@tauri-apps/api": "^2.1.1",
-		"@tauri-apps/cli": "^2.1.0",
+		"@tauri-apps/api": "^2.2.0",
+		"@tauri-apps/cli": "^2.2.2",
 		"@tauri-apps/plugin-deep-link": "^2.2.0",
 		"@tauri-apps/plugin-dialog": "^2.2.0",
 		"@tauri-apps/plugin-fs": "^2.2.0",
@@ -66,7 +66,7 @@
 		"tauri-plugin-network-api": "2.0.5",
 		"tauri-plugin-shellx-api": "^2.0.14",
 		"tauri-plugin-system-info-api": "2.0.8",
-		"valibot": "^1.0.0-beta.8"
+		"valibot": "^1.0.0-beta.10"
 	},
 	"files": [
 		"src",
