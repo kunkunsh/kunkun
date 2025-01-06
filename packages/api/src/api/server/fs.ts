@@ -26,6 +26,7 @@ import {
 	type TruncateOptions,
 	type WriteFileOptions
 } from "@tauri-apps/plugin-fs"
+import type { IFs } from "../../api/client"
 import { fileSearch, FileSearchParams } from "../../commands/fileSearch"
 import { FsPermissionMap } from "../../permissions/permission-map"
 import {
@@ -39,7 +40,6 @@ import {
 	matchPathAndScope,
 	verifyGeneralPathScopedPermission
 } from "../../utils/path"
-import type { IFs } from "../../api/client"
 
 /**
  * `tauri-api-adapter` provides fs API

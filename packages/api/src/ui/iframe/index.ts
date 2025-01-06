@@ -20,10 +20,6 @@ import {
 	// constructPathAPI,
 	constructUpdownloadAPI
 } from "tauri-api-adapter/client"
-import { constructEventAPI } from "../../api/event"
-import { constructIframeUiAPI } from "../../api/iframe-ui"
-import { constructPathAPI } from "../../api/path"
-import { constructShellAPI } from "../../api/shell"
 import type {
 	IApp,
 	IDb,
@@ -37,7 +33,11 @@ import type {
 	IUiIframe,
 	IUtils
 } from "../../api/client"
+import { constructEventAPI } from "../../api/event"
+import { constructIframeUiAPI } from "../../api/iframe-ui"
+import { constructPathAPI } from "../../api/path"
 import type { IShellServer } from "../../api/server-types"
+import { constructShellAPI } from "../../api/shell"
 
 export { type IUiIframe } from "../../api/client"
 // export { expose, wrap } from "@huakunshen/comlink"
