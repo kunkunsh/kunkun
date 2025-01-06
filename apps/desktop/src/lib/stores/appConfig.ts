@@ -35,6 +35,7 @@ interface AppConfigAPI {
 	setTheme: (theme: ThemeConfig) => void
 	setDevExtensionPath: (devExtensionPath: string | null) => void
 	setTriggerHotkey: (triggerHotkey: string[]) => void
+	setOnBoarded: (onBoarded: boolean) => void
 }
 
 function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
@@ -79,6 +80,9 @@ function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
 		},
 		setTriggerHotkey: (triggerHotkey: string[]) => {
 			store.update((config) => ({ ...config, triggerHotkey }))
+		},
+		setOnBoarded: (onBoarded: boolean) => {
+			store.update((config) => ({ ...config, onBoarded }))
 		},
 		init
 	}

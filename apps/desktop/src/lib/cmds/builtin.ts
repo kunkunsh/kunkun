@@ -173,6 +173,22 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		keywords: ["help", "deno", "install"]
 	},
 	{
+		name: "On Boarding (Dev Only)",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "fluent-mdl2:onboarding"
+		},
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/app/help/onboarding")
+		},
+		flags: {
+			dev: true,
+			developer: true
+		}
+	},
+	{
 		name: "Extension Permission Inspector",
 		icon: {
 			type: IconEnum.Iconify,

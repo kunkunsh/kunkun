@@ -22,6 +22,7 @@
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
 	import { exit } from "@tauri-apps/plugin-process"
+	import { goto } from "$app/navigation"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
 
@@ -36,10 +37,13 @@
 	onMount(() => {
 		Promise.all([Window.getByLabel("splashscreen"), getCurrentWindow()]).then(
 			([splashscreenWin, mainWin]) => {
-				mainWin.show()
 				if (splashscreenWin) {
 					splashscreenWin.close()
 				}
+				if (!appConfig.get().onBoarded) {
+					goto("/app/help/onboarding")
+				}
+				mainWin.show()
 			}
 		)
 	})

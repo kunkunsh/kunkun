@@ -9,19 +9,24 @@
 	import {
 		executeBashScript,
 		executePowershellScript,
+		fixPathEnv,
 		type ChildProcess
 	} from "tauri-plugin-shellx-api"
 
 	let {
 		code,
+		autoInstallable,
 		alreadyInstalled,
 		lang,
-		class: className
+		class: className,
+		onSuccess
 	}: {
 		code: string
+		autoInstallable?: boolean
 		alreadyInstalled?: boolean
 		lang: "bash" | "powershell"
 		class?: string
+		onSuccess?: () => void
 	} = $props()
 
 	function copy() {
@@ -42,15 +47,26 @@
 				cmd = await executePowershellScript(code)
 			} else if (platform() === "linux") {
 				cmd = await executeBashScript(code)
+			} else {
+				return toast.error("Unsupported platform")
 			}
 			if (cmd) {
-				console.log(cmd.code)
-				console.log(cmd.stdout)
-				console.log(cmd.stderr)
+				if (cmd.code === 0) {
+					console.log(cmd.stdout)
+					toast.success("Installed successfully", { description: `Status Code: ${cmd.code}` })
+					onSuccess?.()
+				} else {
+					console.log(cmd.stdout)
+					console.log(cmd.stderr)
+					toast.error("Failed to install", { description: cmd.stderr })
+				}
+			} else {
+				toast.error("Failed to install, Unknown Error")
 			}
-			toast.success("Installed successfully")
 		} catch (error) {
-			toast.error("Failed to install")
+			toast.error("Failed to install", {
+				description: error instanceof Error ? error.message : "Unknown Error"
+			})
 			console.error(error)
 		}
 	}
@@ -59,5 +75,7 @@
 <div class={cn("flex items-center gap-2", className)}>
 	<Shiki class={cn("w-full rounded-md p-1 px-2")} {code} {lang} />
 	<Button class="" size="sm" variant="secondary" onclick={copy}>Copy</Button>
-	<Button class="" size="sm" variant="secondary" onclick={autoInstall}>Auto Install</Button>
+	<Button class="" size="sm" variant="secondary" onclick={autoInstall} disabled={!autoInstallable}>
+		Auto Install
+	</Button>
 </div>

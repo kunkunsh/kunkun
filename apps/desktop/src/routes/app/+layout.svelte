@@ -101,7 +101,7 @@
 
 <svelte:window on:keydown={globalKeyDownHandler} />
 <ViewTransition />
-<Toaster richColors />
+<Toaster richColors closeButton />
 <AppContext {appConfig} {appState}>
 	{@render children()}
 </AppContext>
