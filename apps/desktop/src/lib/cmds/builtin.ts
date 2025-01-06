@@ -173,6 +173,32 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		keywords: ["help", "deno", "install"]
 	},
 	{
+		name: "Help (Install ffmpeg)",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "logos:ffmpeg-icon"
+		},
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/app/help/ffmpeg-install")
+		},
+		keywords: ["help", "ffmpeg", "install"]
+	},
+	{
+		name: "Help (Install homebrew)",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "devicon:homebrew"
+		},
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/app/help/brew-install")
+		},
+		keywords: ["help", "brew", "install", "homebrew"]
+	},
+	{
 		name: "On Boarding (Dev Only)",
 		icon: {
 			type: IconEnum.Iconify,

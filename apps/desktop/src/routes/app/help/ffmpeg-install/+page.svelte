@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DenoInstall from "@/components/standalone/help/deno-install.svelte"
+	import FFmpegInstall from "@/components/standalone/help/ffmpeg-install.svelte"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goBack } from "@/utils/route"
 	import { Button } from "@kksh/svelte5"
@@ -11,5 +11,5 @@
 	<ArrowLeft class="size-4" />
 </Button>
 <main class="container pt-12">
-	<DenoInstall />
+	<FFmpegInstall />
 </main>

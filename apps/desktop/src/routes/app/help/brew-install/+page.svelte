@@ -1,5 +1,5 @@
 <script lang="ts">
-	import DenoInstall from "@/components/standalone/help/deno-install.svelte"
+	import BrewInstall from "@/components/standalone/help/brew-install.svelte"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goBack } from "@/utils/route"
 	import { Button } from "@kksh/svelte5"
@@ -10,6 +10,7 @@
 <Button variant="outline" size="icon" onclick={goBack} class="absolute left-2 top-2">
 	<ArrowLeft class="size-4" />
 </Button>
+
 <main class="container pt-12">
-	<DenoInstall />
+	<BrewInstall />
 </main>

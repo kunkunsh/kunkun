@@ -73,7 +73,7 @@
 </script>
 
 <div class={cn("flex items-center gap-2", className)}>
-	<Shiki class={cn("w-full rounded-md p-1 px-2")} {code} {lang} />
+	<Shiki class={cn("w-full overflow-x-scroll rounded-md p-1 px-2")} {code} {lang} />
 	<Button class="" size="sm" variant="secondary" onclick={copy}>Copy</Button>
 	<Button class="" size="sm" variant="secondary" onclick={autoInstall} disabled={!autoInstallable}>
 		Auto Install
