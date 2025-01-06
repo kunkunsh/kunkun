@@ -80,6 +80,17 @@
 				"main": "dist/index.js",
 				"cmds": []
 			}
+		],
+		"headlessCmds": [
+			{
+				"name": "Demo Headless Command",
+				"main": "dist/headless.js",
+				"cmds": [],
+				"icon": {
+					"type": "iconify",
+					"value": "mdi:head-remove-outline"
+				}
+			}
 		]
 	},
 	"scripts": {

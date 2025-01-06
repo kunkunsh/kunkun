@@ -1,7 +1,13 @@
-import { CmdTypeEnum, CustomUiCmd, ExtPackageJsonExtra, TemplateUiCmd } from "@kksh/api/models"
+import {
+	CmdTypeEnum,
+	CustomUiCmd,
+	ExtPackageJsonExtra,
+	HeadlessCmd,
+	TemplateUiCmd
+} from "@kksh/api/models"
 import type { CommandLaunchers, OnExtCmdSelect } from "@kksh/ui/types"
 import * as v from "valibot"
-import { onCustomUiCmdSelect, onTemplateUiCmdSelect } from "./ext"
+import { onCustomUiCmdSelect, onHeadlessCmdSelect, onTemplateUiCmdSelect } from "./ext"
 import { onQuickLinkSelect } from "./quick-links"
 
 const onExtCmdSelect: OnExtCmdSelect = (
@@ -15,6 +21,9 @@ const onExtCmdSelect: OnExtCmdSelect = (
 			break
 		case CmdTypeEnum.UiWorker:
 			onTemplateUiCmdSelect(ext, v.parse(TemplateUiCmd, cmd), { isDev, hmr })
+			break
+		case CmdTypeEnum.HeadlessWorker:
+			onHeadlessCmdSelect(ext, v.parse(HeadlessCmd, cmd), { isDev, hmr })
 			break
 		default:
 			console.error("Unknown command type", cmd.type)

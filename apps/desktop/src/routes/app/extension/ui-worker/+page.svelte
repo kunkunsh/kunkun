@@ -25,19 +25,15 @@
 		type IComponent,
 		type WorkerExtension
 	} from "@kksh/api/ui/worker"
-	import { Button } from "@kksh/svelte5"
 	import { LoadingBar } from "@kksh/ui"
 	import { Templates } from "@kksh/ui/extension"
 	import { GlobalCommandPaletteFooter } from "@kksh/ui/main"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { readTextFile } from "@tauri-apps/plugin-fs"
-	import { fetch } from "@tauri-apps/plugin-http"
 	import { debug } from "@tauri-apps/plugin-log"
 	import { goto } from "$app/navigation"
 	import { RPCChannel, WorkerParentIO } from "kkrpc/browser"
-	// import { RPCChannel, WorkerParentIO } from "kkrpc/worker"
-	import { ArrowLeftIcon } from "lucide-svelte"
 	import { onDestroy, onMount } from "svelte"
 	import * as v from "valibot"
 
@@ -282,10 +278,10 @@
 		onListItemSelected={(value: string) => {
 			workerAPI?.onListItemSelected(value)
 		}}
-		onSearchTermChange={(searchTerm) => {
+		onSearchTermChange={(searchTerm: string) => {
 			workerAPI?.onSearchTermChange(searchTerm)
 		}}
-		onHighlightedItemChanged={(value) => {
+		onHighlightedItemChanged={(value: string) => {
 			workerAPI?.onHighlightedListItemChanged(value)
 			if (listViewContent?.defaultAction) {
 				appState.setDefaultAction(listViewContent.defaultAction)
@@ -302,7 +298,7 @@
 				onDefaultActionSelected={() => {
 					workerAPI?.onEnterPressedOnSearchBar()
 				}}
-				onActionSelected={(value) => {
+				onActionSelected={(value: string) => {
 					workerAPI?.onActionSelected(value)
 				}}
 			/>

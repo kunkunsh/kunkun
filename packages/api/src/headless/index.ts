@@ -53,7 +53,7 @@ export type {
 } from "tauri-api-adapter"
 export type { ISystem, IToast, IUiIframe, IDb, IKV, IFs, IOpen, IEvent } from "../api/client"
 export type { IShell } from "../api/shell"
-
+export { HeadlessWorkerExtension } from "./ext"
 /* -------------------------------------------------------------------------- */
 /*                                     RPC                                    */
 /* -------------------------------------------------------------------------- */

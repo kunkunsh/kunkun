@@ -103,6 +103,7 @@ export const HeadlessCmd = v.object({
 	...BaseCmd.entries,
 	type: v.optional(CmdType, CmdType.enum.HeadlessWorker)
 })
+export type HeadlessCmd = v.InferOutput<typeof HeadlessCmd>
 export type TemplateUiCmd = v.InferOutput<typeof TemplateUiCmd>
 export const PermissionUnion = v.union([
 	KunkunManifestPermission,
