@@ -5,7 +5,7 @@ import { PersistedAppConfig, type AppConfig } from "@kksh/types"
 import { debug, error } from "@tauri-apps/plugin-log"
 import * as os from "@tauri-apps/plugin-os"
 import { load } from "@tauri-apps/plugin-store"
-import { get } from "svelte/store"
+import { get, writable } from "svelte/store"
 import * as v from "valibot"
 
 export const defaultAppConfig: AppConfig = {
@@ -28,6 +28,8 @@ export const defaultAppConfig: AppConfig = {
 	onBoarded: false,
 	developerMode: false
 }
+
+export const appConfigLoaded = writable(false)
 
 interface AppConfigAPI {
 	init: () => Promise<void>
@@ -62,7 +64,7 @@ function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
 			await persistStore.clear()
 			await persistStore.set("config", v.parse(PersistedAppConfig, defaultAppConfig))
 		}
-
+		appConfigLoaded.set(true)
 		store.subscribe(async (config) => {
 			console.log("Saving app config", config)
 			await persistStore.set("config", config)

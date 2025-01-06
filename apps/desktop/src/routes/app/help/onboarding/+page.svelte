@@ -40,7 +40,8 @@
 	})
 </script>
 
-<main class="container pt-12">
+<main class="container">
+	<div class="left-0 top-0 h-10 w-full" data-tauri-drag-region></div>
 	{#if step === Step.Welcome}
 		<h1 class="text-3xl font-bold">Welcome to Kunkun</h1>
 		<p>

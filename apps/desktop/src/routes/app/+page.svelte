@@ -3,7 +3,14 @@
 	import { commandLaunchers } from "@/cmds"
 	import { builtinCmds } from "@/cmds/builtin"
 	import { systemCommands } from "@/cmds/system"
-	import { appConfig, appState, devStoreExts, installedStoreExts, quickLinks } from "@/stores"
+	import {
+		appConfig,
+		appConfigLoaded,
+		appState,
+		devStoreExts,
+		installedStoreExts,
+		quickLinks
+	} from "@/stores"
 	import { cmdQueries } from "@/stores/cmdQuery"
 	import { isKeyboardEventFromInputElement } from "@/utils/dom"
 	import Icon from "@iconify/svelte"
@@ -40,12 +47,20 @@
 				if (splashscreenWin) {
 					splashscreenWin.close()
 				}
-				if (!appConfig.get().onBoarded) {
-					goto("/app/help/onboarding")
-				}
+
 				mainWin.show()
 			}
 		)
+
+		appConfigLoaded.subscribe((loaded) => {
+			// wait for appConfig store to be loaded, it's async and saved to disk when changed, so we use another store appConfigLoaded
+			// to keep track of the loading status
+			if (loaded) {
+				if (!appConfig.get().onBoarded) {
+					goto("/app/help/onboarding")
+				}
+			}
+		})
 	})
 </script>
 

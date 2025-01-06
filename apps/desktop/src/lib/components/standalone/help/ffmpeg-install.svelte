@@ -34,7 +34,7 @@
 	}
 </script>
 
-<h1 class="text-2xl font-bold font-mono">Install ffmpeg</h1>
+<h1 class="font-mono text-2xl font-bold">Install ffmpeg</h1>
 <p class="font-mono text-sm">
 	Some extensions require ffmpeg to enable advanced features. ffmpeg is optional but recommended.
 </p>
