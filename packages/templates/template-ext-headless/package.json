@@ -14,7 +14,7 @@
 		"demoImages": [],
 		"icon": {
 			"type": "iconify",
-			"value": "material-symbols:extension"
+			"value": "tabler:code"
 		},
 		"headlessCmds": [
 			{
