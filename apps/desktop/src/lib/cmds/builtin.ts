@@ -160,6 +160,19 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		keywords: ["extension", "window", "troubleshooter"]
 	},
 	{
+		name: "Help (Install Deno)",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "simple-icons:deno"
+		},
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/app/help/deno-install")
+		},
+		keywords: ["help", "deno", "install"]
+	},
+	{
 		name: "Extension Permission Inspector",
 		icon: {
 			type: IconEnum.Iconify,

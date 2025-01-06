@@ -60,6 +60,7 @@
 		"@internationalized/date": "^3.6.0",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
 		"gsap": "^3.12.5",
+		"shiki-magic-move": "^0.5.2",
 		"svelte-markdown": "^0.4.1"
 	}
 }
