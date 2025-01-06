@@ -16,7 +16,7 @@
 // 	updownload,
 // 	fetch
 // } from "tauri-api-adapter"
-export { constructJarvisServerAPIWithPermissions } from "./server"
+export { constructJarvisServerAPIWithPermissions } from "../api/server"
 // export { type IUiWorkerServer, type IUiIframeServer } from "./server/ui"
 export * from "../api/client" // all client types
 // export { expose, wrap } from "@huakunshen/comlink"
