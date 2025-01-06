@@ -1,5 +1,11 @@
 # create-kunkun
 
+## 0.1.38
+
+### Patch Changes
+
+- Add headless command template
+
 ## 0.1.37
 
 ### Patch Changes
