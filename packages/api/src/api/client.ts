@@ -167,6 +167,9 @@ export interface IDb {
 	update: typeof JarvisExtDB.prototype.update
 }
 
+/**
+ * A key-value store built on top of the Database API (based on sqlite)
+ */
 export interface IKV {
 	get: typeof KV.prototype.get
 	set: typeof KV.prototype.set

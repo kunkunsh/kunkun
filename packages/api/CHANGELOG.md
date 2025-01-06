@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.0.48
+
+### Patch Changes
+
+- Restructure api package, add headless api
+
 ## 0.0.47
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schema.kunkun.sh",
 	"name": "ext-sveltekit-exp",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"private": true,
 	"kunkun": {
 		"name": "TODO: Change Display Name",
