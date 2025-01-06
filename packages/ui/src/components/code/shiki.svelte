@@ -2,49 +2,39 @@
 <!-- https://shiki.style/guide/bundles#fine-grained-bundle -->
 <script lang="ts">
 	import { cn } from "@kksh/ui/utils"
-	import { mode } from "mode-watcher"
-	import { createHighlighterCore, type HighlighterCore } from "shiki/core"
-	import { createOnigurumaEngine } from "shiki/engine/oniguruma"
-	import { onMount } from "svelte"
+	import { getSingletonHighlighter } from "shiki"
+	import { ShikiMagicMove } from "shiki-magic-move/svelte"
+	import "shiki-magic-move/dist/style.css"
 
 	const {
 		code,
 		lang,
 		theme,
+		lineNumbers,
 		class: className
 	}: {
 		code: string
-		lang: "json" | "typescript"
+		lang: "json" | "typescript" | "bash" | "powershell"
 		theme?: "vitesse-dark" | "vitesse-light"
+		lineNumbers?: boolean
 		class?: string
 	} = $props()
-	let html = $state("")
-	let highlighter: HighlighterCore
 
-	function refresh() {
-		html = highlighter.codeToHtml(code, {
-			lang,
-			theme: theme ?? ($mode === "dark" ? "vitesse-dark" : "vitesse-light")
-		})
-	}
-	onMount(async () => {
-		highlighter = await createHighlighterCore({
-			themes: [import("shiki/themes/vitesse-dark.mjs"), import("shiki/themes/vitesse-light.mjs")],
-			langs: [import("shiki/langs/json.mjs"), import("shiki/langs/typescript.mjs")],
-			engine: createOnigurumaEngine(import("shiki/wasm"))
-		})
-		refresh()
+	const highlighter2 = getSingletonHighlighter({
+		themes: ["vitesse-dark", "vitesse-light"],
+		langs: ["typescript", "bash", "powershell", "json"]
 	})
 
-	$effect(() => {
-		code // keep this here to watch for code changes
-		highlighter
-		if (highlighter) {
-			refresh()
-		}
-	})
+	let code2 = $state(`const hello = 'world'`)
 </script>
 
-<div class={cn("", className)}>
-	{@html html}
-</div>
+{#await highlighter2 then highlighter}
+	<ShikiMagicMove
+		class={cn("", className)}
+		{lang}
+		theme={theme ?? "vitesse-dark"}
+		{highlighter}
+		{code}
+		options={{ duration: 800, stagger: 0.3, lineNumbers: lineNumbers ?? false }}
+	/>
+{/await}

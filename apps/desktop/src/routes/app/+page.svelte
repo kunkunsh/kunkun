@@ -3,7 +3,14 @@
 	import { commandLaunchers } from "@/cmds"
 	import { builtinCmds } from "@/cmds/builtin"
 	import { systemCommands } from "@/cmds/system"
-	import { appConfig, appState, devStoreExts, installedStoreExts, quickLinks } from "@/stores"
+	import {
+		appConfig,
+		appConfigLoaded,
+		appState,
+		devStoreExts,
+		installedStoreExts,
+		quickLinks
+	} from "@/stores"
 	import { cmdQueries } from "@/stores/cmdQuery"
 	import { isKeyboardEventFromInputElement } from "@/utils/dom"
 	import Icon from "@iconify/svelte"
@@ -22,6 +29,7 @@
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
 	import { exit } from "@tauri-apps/plugin-process"
+	import { goto } from "$app/navigation"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
 
@@ -36,12 +44,23 @@
 	onMount(() => {
 		Promise.all([Window.getByLabel("splashscreen"), getCurrentWindow()]).then(
 			([splashscreenWin, mainWin]) => {
-				mainWin.show()
 				if (splashscreenWin) {
 					splashscreenWin.close()
 				}
+
+				mainWin.show()
 			}
 		)
+
+		appConfigLoaded.subscribe((loaded) => {
+			// wait for appConfig store to be loaded, it's async and saved to disk when changed, so we use another store appConfigLoaded
+			// to keep track of the loading status
+			if (loaded) {
+				if (!appConfig.get().onBoarded) {
+					goto("/app/help/onboarding")
+				}
+			}
+		})
 	})
 </script>
 

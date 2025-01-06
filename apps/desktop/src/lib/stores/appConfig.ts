@@ -5,7 +5,7 @@ import { PersistedAppConfig, type AppConfig } from "@kksh/types"
 import { debug, error } from "@tauri-apps/plugin-log"
 import * as os from "@tauri-apps/plugin-os"
 import { load } from "@tauri-apps/plugin-store"
-import { get } from "svelte/store"
+import { get, writable } from "svelte/store"
 import * as v from "valibot"
 
 export const defaultAppConfig: AppConfig = {
@@ -29,12 +29,15 @@ export const defaultAppConfig: AppConfig = {
 	developerMode: false
 }
 
+export const appConfigLoaded = writable(false)
+
 interface AppConfigAPI {
 	init: () => Promise<void>
 	get: () => AppConfig
 	setTheme: (theme: ThemeConfig) => void
 	setDevExtensionPath: (devExtensionPath: string | null) => void
 	setTriggerHotkey: (triggerHotkey: string[]) => void
+	setOnBoarded: (onBoarded: boolean) => void
 }
 
 function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
@@ -61,7 +64,7 @@ function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
 			await persistStore.clear()
 			await persistStore.set("config", v.parse(PersistedAppConfig, defaultAppConfig))
 		}
-
+		appConfigLoaded.set(true)
 		store.subscribe(async (config) => {
 			console.log("Saving app config", config)
 			await persistStore.set("config", config)
@@ -79,6 +82,9 @@ function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
 		},
 		setTriggerHotkey: (triggerHotkey: string[]) => {
 			store.update((config) => ({ ...config, triggerHotkey }))
+		},
+		setOnBoarded: (onBoarded: boolean) => {
+			store.update((config) => ({ ...config, onBoarded }))
 		},
 		init
 	}

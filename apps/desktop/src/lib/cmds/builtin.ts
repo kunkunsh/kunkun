@@ -160,6 +160,61 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		keywords: ["extension", "window", "troubleshooter"]
 	},
 	{
+		name: "Help (Install Deno)",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "simple-icons:deno"
+		},
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/app/help/deno-install")
+		},
+		keywords: ["help", "deno", "install"]
+	},
+	{
+		name: "Help (Install ffmpeg)",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "logos:ffmpeg-icon"
+		},
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/app/help/ffmpeg-install")
+		},
+		keywords: ["help", "ffmpeg", "install"]
+	},
+	{
+		name: "Help (Install homebrew)",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "devicon:homebrew"
+		},
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/app/help/brew-install")
+		},
+		keywords: ["help", "brew", "install", "homebrew"]
+	},
+	{
+		name: "On Boarding (Dev Only)",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "fluent-mdl2:onboarding"
+		},
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/app/help/onboarding")
+		},
+		flags: {
+			dev: true,
+			developer: true
+		}
+	},
+	{
 		name: "Extension Permission Inspector",
 		icon: {
 			type: IconEnum.Iconify,
