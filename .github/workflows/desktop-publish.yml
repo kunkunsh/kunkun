@@ -20,7 +20,7 @@ jobs:
             args: "--target aarch64-apple-darwin --verbose"
           - platform: "macos-14" # for Intel based macs.
             args: "--target x86_64-apple-darwin --verbose"
-          - platform: "macos-14" # for Both Arm and Intel based macs.
+          - platform: "macos-13" # for Both Arm and Intel based macs.
             args: "--target universal-apple-darwin --verbose"
           - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
             args: "--verbose"
@@ -43,10 +43,8 @@ jobs:
         if: matrix.settings.platform == 'macos-14'
         run: |
           brew install protobuf
-      - name: Set up OpenSSL 
-        run: |
           brew install openssl
-          echo "OPENSSL_DIR=$(brew --prefix openssl)" >> $GITHUB_ENV
+          # echo "OPENSSL_DIR=$(brew --prefix openssl)" >> $GITHUB_ENV
       - name: Install Protobuf (Ubuntu)
         if: matrix.settings.platform == 'ubuntu-22.04'
         run: |
