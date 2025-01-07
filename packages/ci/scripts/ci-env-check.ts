@@ -20,6 +20,11 @@ if (process.platform === "win32") {
 	console.log(
 		`Program Files Directory (${programFilesDir}) Exists: ${fs.existsSync(programFilesDir)}`
 	)
+	console.log("Program Files Directory Contents:")
+	for (const dir of fs.readdirSync(programFilesDir)) {
+		console.log(dir)
+	}
+
 	console.log(`OPENSSL_DIR (${OPENSSL_DIR}) Exists: ${fs.existsSync(OPENSSL_DIR)}`)
 	console.log(
 		`OPENSSL_INCLUDE_DIR (${OPENSSL_INCLUDE_DIR}) Exists: ${fs.existsSync(OPENSSL_INCLUDE_DIR)}`

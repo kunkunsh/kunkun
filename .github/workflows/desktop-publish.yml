@@ -34,7 +34,7 @@ jobs:
         with:
           submodules: "true"
 
-      - name: install dependencies (ubuntu only)
+      - name: Install Dependencies (ubuntu only)
         if: matrix.settings.platform == 'ubuntu-22.04' # This must match the platform value defined above.
         run: |
           sudo apt-get update
@@ -51,7 +51,7 @@ jobs:
         run: |
           sudo apt install -y protobuf-compiler
       - uses: pnpm/action-setup@v4
-      - name: setup node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
@@ -76,7 +76,7 @@ jobs:
         run: |
           rustup target add aarch64-apple-darwin
           rustup target add x86_64-apple-darwin
-      - name: Rust cache
+      - name: Rust Cache
         uses: swatinem/rust-cache@v2
         with:
           workspaces: ". -> target"
