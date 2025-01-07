@@ -547,8 +547,8 @@ importers:
   packages/ci:
     dependencies:
       typescript:
-        specifier: ^5.0.0
-        version: 5.5.4
+        specifier: ^5.7.2
+        version: 5.7.2
     devDependencies:
       '@kksh/typescript-config':
         specifier: workspace:*

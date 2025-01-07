@@ -3,13 +3,14 @@
 	"module": "index.ts",
 	"type": "module",
 	"scripts": {
-		"prepare": "bun scripts/setup.ts"
+		"prepare": "bun scripts/setup.ts",
+		"ci-env-check": "bun scripts/ci-env-check.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
 		"@kksh/typescript-config": "workspace:*"
 	},
 	"peerDependencies": {
-		"typescript": "^5.0.0"
+		"typescript": "^5.7.2"
 	}
 }

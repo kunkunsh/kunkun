@@ -16,10 +16,11 @@ jobs:
         settings:
           - platform: "macos-14" # for Arm based macs (M1 and above).
             args: "--target aarch64-apple-darwin --verbose"
-          - platform: "macos-14" # for Intel based macs.
+          - platform: "macos-13" # for Intel based macs.
             args: "--target x86_64-apple-darwin --verbose"
-          - platform: "macos-14" # for Both Arm and Intel based macs.
-            args: "--target universal-apple-darwin --verbose"
+          # Universal Build no longer supported after adding openssl, which is not cross-compilable.
+          # - platform: "macos-14" # for Both Arm and Intel based macs.
+          #   args: "--target universal-apple-darwin --verbose"
           - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
             args: "--verbose"
           - platform: "windows-latest"
@@ -31,35 +32,36 @@ jobs:
         with:
           submodules: "true"
 
-      - name: install dependencies (ubuntu only)
+      - name: Install Dependencies (ubuntu only)
         if: matrix.settings.platform == 'ubuntu-22.04' # This must match the platform value defined above.
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
       - name: Install protobuf (Mac)
-        if: matrix.settings.platform == 'macos-14'
+        if: startsWith(matrix.settings.platform, 'macos')
         run: |
           brew install protobuf
+          brew install openssl
       - name: Install Protobuf (Ubuntu)
         if: matrix.settings.platform == 'ubuntu-22.04'
         run: |
           sudo apt install -y protobuf-compiler
-      - name: Install protoc and openssl for windows
-        if: matrix.settings.platform == 'windows-latest'
-        run: |
-          choco install protoc
-          choco install openssl
-          echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
-          echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
-          echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib\\VC\\x64\\MDd"' >> $env:GITHUB_ENV
       - uses: pnpm/action-setup@v4
-      - name: setup node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
           cache: "pnpm" # Set this to npm, yarn or pnpm.
           cache-dependency-path: ./pnpm-lock.yaml
+      - name: Install protoc and openssl for windows
+        if: matrix.settings.platform == 'windows-latest'
+        run: |
+          choco install protoc
+          choco install openssl
+          echo OPENSSL_DIR='C:\Program Files\OpenSSL' >> $env:GITHUB_ENV
+          echo OPENSSL_INCLUDE_DIR='C:\Program Files\OpenSSL\include' >> $env:GITHUB_ENV
+          echo OPENSSL_LIB_DIR='C:\Program Files\OpenSSL\lib\VC\x64\MDd' >> $env:GITHUB_ENV
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -71,7 +73,7 @@ jobs:
         run: |
           rustup target add aarch64-apple-darwin
           rustup target add x86_64-apple-darwin
-      - name: Rust cache
+      - name: Rust Cache
         uses: swatinem/rust-cache@v2
         with:
           workspaces: ". -> target"
@@ -80,6 +82,10 @@ jobs:
           bun-version: latest
       - name: Install Dependencies
         run: pnpm install
+      - name: Environment Check
+        run: |
+          # pnpm --filter=@kksh/ci run ci-env-check
+          bun packages/ci/scripts/ci-env-check.ts
       - name: Build Packages
         run: pnpm build
       - name: Get App Version

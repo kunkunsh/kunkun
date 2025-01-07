@@ -1,10 +1,13 @@
 use applications::utils::image::{RustImage, RustImageData};
+use std::path::Path;
 use std::{
     ffi::OsStr,
     fs::File,
     io::{BufReader, Cursor},
     path::PathBuf,
 };
+use uuid::Uuid;
+
 #[cfg(target_os = "macos")]
 use tauri_icns::{IconFamily, IconType};
 
