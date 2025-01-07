@@ -39,11 +39,10 @@ jobs:
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
       - name: Install protobuf (Mac)
-        if: matrix.settings.platform == 'macos-14'
+        if: startsWith(matrix.settings.platform, 'macos')
         run: |
           brew install protobuf
           brew install openssl
-          echo "OPENSSL_DIR=$(brew --prefix openssl)" >> $GITHUB_ENV
       - name: Install Protobuf (Ubuntu)
         if: matrix.settings.platform == 'ubuntu-22.04'
         run: |
