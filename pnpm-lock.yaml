@@ -62,7 +62,7 @@ catalogs:
       version: 2.2.1
     '@types/bun':
       specifier: latest
-      version: 1.1.14
+      version: 1.1.15
     bits-ui:
       specifier: 1.0.0-next.77
       version: 1.0.0-next.77
@@ -188,7 +188,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
@@ -228,7 +228,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -388,7 +388,7 @@ importers:
         version: 0.5.15(tailwindcss@3.4.17)
       '@types/bun':
         specifier: 'catalog:'
-        version: 1.1.14
+        version: 1.1.15
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
@@ -518,7 +518,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
       '@types/lodash':
         specifier: ^4.17.14
         version: 4.17.14
@@ -555,7 +555,7 @@ importers:
         version: link:../typescript-config
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
 
   packages/config-eslint:
     dependencies:
@@ -613,7 +613,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
 
   packages/extensions/demo-worker-template-ext:
     dependencies:
@@ -638,7 +638,7 @@ importers:
         version: 11.1.6(rollup@4.28.1)(tslib@2.8.1)(typescript@5.6.3)
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.28.1)
@@ -745,7 +745,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
 
   packages/grpc:
     dependencies:
@@ -764,7 +764,7 @@ importers:
         version: 0.7.13
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
       '@types/google-protobuf':
         specifier: ^3.15.12
         version: 3.15.12
@@ -795,7 +795,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
       '@valibot/to-json-schema':
         specifier: 1.0.0-beta.3
         version: 1.0.0-beta.3(valibot@1.0.0-beta.10(typescript@5.6.3))
@@ -814,7 +814,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
 
   packages/tauri-plugins/jarvis:
     dependencies:
@@ -833,7 +833,7 @@ importers:
         version: link:../../supabase
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
 
   packages/templates/template-ext-headless:
     dependencies:
@@ -852,7 +852,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
 
   packages/templates/template-ext-next:
     dependencies:
@@ -1198,7 +1198,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
 
   packages/types:
     dependencies:
@@ -1211,7 +1211,7 @@ importers:
         version: link:../api
       '@types/bun':
         specifier: 'catalog:'
-        version: 1.1.14
+        version: 1.1.15
 
   packages/typescript-config: {}
 
@@ -1250,7 +1250,7 @@ importers:
         version: 2.2.0
       '@types/bun':
         specifier: 'catalog:'
-        version: 1.1.14
+        version: 1.1.15
       bits-ui:
         specifier: 'catalog:'
         version: 1.0.0-next.77(svelte@5.16.3)
@@ -1311,7 +1311,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.14
+        version: 1.1.15
 
   vendors/tauri-plugin-keyring:
     dependencies:
@@ -4494,8 +4494,8 @@ packages:
   '@types/babel__traverse@7.20.6':
     resolution: {integrity: sha512-r1bzfrm0tomOI8g1SzvCaQHo6Lcv6zu0EA+W2kHrt8dyrHQxGzBBL4kdkzIS+jBMV+EYcMAEAqXqYaLJq5rOZg==}
 
-  '@types/bun@1.1.14':
-    resolution: {integrity: sha512-opVYiFGtO2af0dnWBdZWlioLBoxSdDO5qokaazLhq8XQtGZbY4pY3/JxY8Zdf/hEwGubbp7ErZXoN1+h2yesxA==}
+  '@types/bun@1.1.15':
+    resolution: {integrity: sha512-Fi7ND1jCq8O5iU3s9z3TKHggD0hidgpe7wSxyisviXpbMmY4B1KiokF3f/mmjOoDrEcf873tSpixgen7Wm9X0g==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -5503,8 +5503,8 @@ packages:
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
 
-  bun-types@1.1.37:
-    resolution: {integrity: sha512-C65lv6eBr3LPJWFZ2gswyrGZ82ljnH8flVE03xeXxKhi2ZGtFiO4isRKTKnitbSqtRAcaqYSR6djt1whI66AbA==}
+  bun-types@1.1.42:
+    resolution: {integrity: sha512-beMbnFqWbbBQHll/bn3phSwmoOQmnX2nt8NI9iOQKFbgR5Z6rlH3YuaMdlid8vp5XGct3/W4QVQBmhoOEoe4nw==}
 
   bundle-name@4.1.0:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
@@ -14962,9 +14962,9 @@ snapshots:
     dependencies:
       '@babel/types': 7.26.0
 
-  '@types/bun@1.1.14':
+  '@types/bun@1.1.15':
     dependencies:
-      bun-types: 1.1.37
+      bun-types: 1.1.42
 
   '@types/cookie@0.6.0': {}
 
@@ -16386,7 +16386,7 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
-  bun-types@1.1.37:
+  bun-types@1.1.42:
     dependencies:
       '@types/node': 20.12.14
       '@types/ws': 8.5.13

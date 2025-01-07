@@ -5,6 +5,7 @@ import { ExtPackageJson } from "@kksh/api/models"
 import fs from "fs-extra"
 import * as v from "valibot"
 import { getDockerEntrypoint } from "./constants"
+import logger from "./logger"
 import type { BuildResult } from "./types"
 
 /**
@@ -71,20 +72,22 @@ export function computeHash(buffer: Buffer, algorithm: "sha1" | "sha256" | "sha5
  * @param extPath
  * @returns shasum of the tarball parsed from stderr output
  */
-export function buildWithDocker(extPath: string): Promise<{
+export function buildWithDocker(
+	extPath: string,
+	entrypoint?: string
+): Promise<{
 	stderrShasum: string
 	stderrTarballFilename: string
 	pkg: ExtPackageJson
 }> {
-	console.log(`Building ${extPath}`)
+	logger.info(`Building ${extPath}`)
 	return new Promise((resolve, reject) => {
 		const pkg = v.parse(ExtPackageJson, fs.readJsonSync(path.join(extPath, "package.json")))
-		const dockerEntrypoint = getDockerEntrypoint()
-		console.log("Docker Entrypoint", dockerEntrypoint)
-
+		const dockerEntrypoint = entrypoint ? entrypoint : getDockerEntrypoint()
+		logger.info("Docker Entrypoint", dockerEntrypoint)
 		const dockerCmd = `
     run -v ${dockerEntrypoint}:/entrypoint.sh -v ${extPath}:/workspace -w /workspace --rm huakunshen/kunkun-ext-builder:latest /entrypoint.sh`
-		console.log("dockerCmd", dockerCmd)
+		logger.info("dockerCmd", dockerCmd)
 		const args = dockerCmd
 			.split(" ")
 			.filter((arg) => arg.length > 0)
@@ -146,8 +149,11 @@ export function buildWithDocker(extPath: string): Promise<{
  * @param extPath Extension Path
  * @returns
  */
-export function buildWithDockerAndValidate(extPath: string): Promise<BuildResult> {
-	return buildWithDocker(extPath)
+export function buildWithDockerAndValidate(
+	extPath: string,
+	entrypoint?: string
+): Promise<BuildResult> {
+	return buildWithDocker(extPath, entrypoint)
 		.then((res) => {
 			const parsedTarballPath = path.join(extPath, res.stderrTarballFilename)
 			if (!fs.existsSync(parsedTarballPath)) {

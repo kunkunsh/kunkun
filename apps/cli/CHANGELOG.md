@@ -1,5 +1,11 @@
 # kksh
 
+## 0.0.28
+
+### Patch Changes
+
+- Improve entrypoint, add custom entrypoint for build cmd
+
 ## 0.0.27
 
 ### Patch Changes

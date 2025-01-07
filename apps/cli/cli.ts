@@ -41,10 +41,11 @@ program
 
 program
 	.command("build [project_path]")
+	.option("--entrypoint [path]", "Use custom entrypoint.sh (for debug purpose)")
 	.description("Build extension with docker and validate (You must have docker installed)")
-	.action((projectPath: string | undefined) => {
+	.action((projectPath: string | undefined, opts: { entrypoint?: string }) => {
 		logger.info("cwd:", cwd)
-		buildCmd(computeProjectDir(projectPath))
+		buildCmd(computeProjectDir(projectPath), opts.entrypoint)
 	})
 
 program.parse()
