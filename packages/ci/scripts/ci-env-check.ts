@@ -23,18 +23,20 @@ if (process.platform === "win32") {
 	for (const dir of fs.readdirSync(programFilesDir)) {
 		console.log(dir)
 	}
-	const joinedOpenSSLDir = path.join(programFilesDir, "OpenSSL")
-	console.log(`joinedOpenSSLDir (${joinedOpenSSLDir}) exists: `, fs.existsSync(joinedOpenSSLDir))
-	console.log("joinedOpenSSLDir Directory Contents:")
-	for (const dir of fs.readdirSync(joinedOpenSSLDir)) {
-		console.log(dir)
-	}
 
 	console.log(`OPENSSL_DIR (${OPENSSL_DIR}) Exists: ${fs.existsSync(OPENSSL_DIR)}`)
 	console.log(
 		`OPENSSL_INCLUDE_DIR (${OPENSSL_INCLUDE_DIR}) Exists: ${fs.existsSync(OPENSSL_INCLUDE_DIR)}`
 	)
 	console.log(`OPENSSL_LIB_DIR (${OPENSSL_LIB_DIR}) Exists: ${fs.existsSync(OPENSSL_LIB_DIR)}`)
+	if (
+		!fs.existsSync(OPENSSL_DIR) ||
+		!fs.existsSync(OPENSSL_INCLUDE_DIR) ||
+		!fs.existsSync(OPENSSL_LIB_DIR)
+	) {
+		console.error("OPENSSL_DIR, OPENSSL_INCLUDE_DIR, or OPENSSL_LIB_DIR is not set")
+		process.exit(1)
+	}
 } else if (process.platform === "darwin") {
 	if (OPENSSL_DIR) {
 		if (fs.existsSync(OPENSSL_DIR)) {
