@@ -17,7 +17,13 @@
 		"@kksh/api": "workspace:*",
 		"@kksh/supabase": "workspace:*",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
-		"uuid": "^11.0.3"
+		"@tauri-apps/api": "catalog:",
+		"@tauri-apps/plugin-fs": "catalog:",
+		"@tauri-apps/plugin-log": "catalog:",
+		"@tauri-apps/plugin-dialog": "catalog:",
+		"@tauri-apps/plugin-upload": "catalog:",
+		"uuid": "^11.0.4",
+		"zod": "catalog:"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
