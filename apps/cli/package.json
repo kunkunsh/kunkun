@@ -29,8 +29,8 @@
 		"console-table-printer": "^2.12.1",
 		"debug": "^4.4.0",
 		"fs-extra": "^11.2.0",
-		"inquirer": "^12.3.0",
-		"valibot": "catalog:"
+		"inquirer": "^10.1.2",
+		"valibot": "^1.0.0-beta.10"
 	},
 	"files": [
 		"dist"

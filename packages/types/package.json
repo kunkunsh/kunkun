@@ -6,8 +6,7 @@
 		".": "./src/index.ts"
 	},
 	"devDependencies": {
-		"@kksh/api": "workspace:*",
-		"@types/bun": "catalog:"
+		"@types/bun": "latest"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"

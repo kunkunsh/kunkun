@@ -49,14 +49,14 @@
 	"devDependencies": {
 		"@sveltejs/vite-plugin-svelte": "^4.0.1",
 		"@tsconfig/svelte": "^5.0.4",
-		"svelte": "^5.16.3",
-		"svelte-check": "^4.1.1",
+		"svelte": "^5.2.7",
+		"svelte-check": "^4.0.9",
 		"tslib": "^2.8.1",
 		"typescript": "~5.6.3",
-		"vite": "^6.0.7",
+		"vite": "^5.4.11",
 		"autoprefixer": "^10.4.20",
 		"postcss": "^8.4.49",
-		"tailwindcss": "^3.4.17"
+		"tailwindcss": "^3.4.15"
 	},
 	"files": [
 		"dist",

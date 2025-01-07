@@ -1,5 +1,5 @@
+import { Icon } from "@kksh/api/models"
 import * as v from "valibot"
-import { Icon } from "../models/icon"
 
 /***
  * Correspond to `extensions` table in supabase
