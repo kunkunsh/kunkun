@@ -66,18 +66,12 @@ export function verifySingleProject(projectPath: string): boolean {
 		pkg.kunkun.identifier = folderName
 		// }
 	}
-	if (pkg.kunkun.identifier !== folderName) {
-		logger.error(
-			`Extension package name at [pkg.kunkun.identifier](${pkg.kunkun.identifier}) is not the same as the folder name [${folderName}], please fix it`
-		)
-		return false
-	}
-	for (const cmd of pkg.kunkun.customUiCmds) {
+	for (const cmd of pkg.kunkun.customUiCmds ?? []) {
 		if (!verifyCustomUiCommand(projectPath, cmd)) {
 			return false
 		}
 	}
-	for (const cmd of pkg.kunkun.templateUiCmds) {
+	for (const cmd of pkg.kunkun.templateUiCmds ?? []) {
 		if (!verifyTemplateUiCommand(projectPath, cmd)) {
 			return false
 		}

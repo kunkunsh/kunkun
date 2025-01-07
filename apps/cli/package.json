@@ -1,7 +1,7 @@
 {
 	"name": "kksh",
 	"module": "dist/cli.js",
-	"version": "0.0.28",
+	"version": "0.0.29",
 	"type": "module",
 	"bin": {
 		"kksh": "./dist/cli.js",
@@ -10,7 +10,8 @@
 	"author": "Huakun",
 	"scripts": {
 		"build": "bun build.ts",
-		"test": "cross-env NODE_ENV=test bun test --coverage"
+		"test": "cross-env NODE_ENV=test bun test --coverage",
+		"check-types": "tsc --noEmit"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",

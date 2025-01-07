@@ -1,5 +1,11 @@
 # kksh
 
+## 0.0.29
+
+### Patch Changes
+
+- Disable check for folder name. identifier and folder name no longer need to be the same.
+
 ## 0.0.28
 
 ### Patch Changes
