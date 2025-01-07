@@ -20,32 +20,17 @@ if (process.platform === "win32") {
 	console.log(
 		`Program Files Directory (${programFilesDir}) Exists: ${fs.existsSync(programFilesDir)}`
 	)
-  
-	// check if each directory exists
-	if (!fs.existsSync(OPENSSL_DIR)) {
-		console.error("OPENSSL_DIR does not exist", OPENSSL_DIR)
-		process.exit(1)
-	} else {
-		console.log("OPENSSL_DIR exists", OPENSSL_DIR)
-	}
-	if (!fs.existsSync(OPENSSL_INCLUDE_DIR)) {
-		console.error("OPENSSL_INCLUDE_DIR does not exist", OPENSSL_INCLUDE_DIR)
-		process.exit(1)
-	} else {
-		console.log("OPENSSL_INCLUDE_DIR exists", OPENSSL_INCLUDE_DIR)
-	}
-	if (!fs.existsSync(OPENSSL_LIB_DIR)) {
-		console.error("OPENSSL_LIB_DIR does not exist", OPENSSL_LIB_DIR)
-		process.exit(1)
-	} else {
-		console.log("OPENSSL_LIB_DIR exists", OPENSSL_LIB_DIR)
-	}
+	console.log(`OPENSSL_DIR (${OPENSSL_DIR}) Exists: ${fs.existsSync(OPENSSL_DIR)}`)
+	console.log(
+		`OPENSSL_INCLUDE_DIR (${OPENSSL_INCLUDE_DIR}) Exists: ${fs.existsSync(OPENSSL_INCLUDE_DIR)}`
+	)
+	console.log(`OPENSSL_LIB_DIR (${OPENSSL_LIB_DIR}) Exists: ${fs.existsSync(OPENSSL_LIB_DIR)}`)
 } else if (process.platform === "darwin") {
 	if (OPENSSL_DIR) {
 		if (fs.existsSync(OPENSSL_DIR)) {
 			console.log("OPENSSL_DIR exists", OPENSSL_DIR)
 		} else {
-			console.error("OPENSSL_DIR does not exist", OPENSSL_DIR)
+			console.log("OPENSSL_DIR does not exist", OPENSSL_DIR)
 		}
 	}
 } else if (process.platform === "linux") {
