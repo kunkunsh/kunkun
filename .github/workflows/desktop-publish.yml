@@ -19,8 +19,8 @@ jobs:
           - platform: "macos-13" # for Intel based macs.
             args: "--target x86_64-apple-darwin --verbose"
           # Universal Build no longer supported after adding openssl, which is not cross-compilable.
-          # - platform: "macos-14" # for Both Arm and Intel based macs.
-          #   args: "--target universal-apple-darwin --verbose"
+          - platform: "macos-14" # for Both Arm and Intel based macs.
+            args: "--target universal-apple-darwin --verbose"
           - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
             args: "--verbose"
           - platform: "windows-latest"
