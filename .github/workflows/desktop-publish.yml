@@ -41,6 +41,7 @@ jobs:
         if: matrix.settings.platform == 'macos-14'
         run: |
           brew install protobuf
+          brew install openssl
       - name: Install Protobuf (Ubuntu)
         if: matrix.settings.platform == 'ubuntu-22.04'
         run: |
