@@ -1,6 +1,5 @@
 import fs from "fs"
-
-// run the following only on windows
+import path from "path"
 
 const OPENSSL_DIR = process.env.OPENSSL_DIR
 const OPENSSL_INCLUDE_DIR = process.env.OPENSSL_INCLUDE_DIR
@@ -22,6 +21,12 @@ if (process.platform === "win32") {
 	)
 	console.log("Program Files Directory Contents:")
 	for (const dir of fs.readdirSync(programFilesDir)) {
+		console.log(dir)
+	}
+	const joinedOpenSSLDir = path.join(programFilesDir, "OpenSSL")
+	console.log(`joinedOpenSSLDir (${joinedOpenSSLDir}) exists: `, fs.existsSync(joinedOpenSSLDir))
+	console.log("joinedOpenSSLDir Directory Contents:")
+	for (const dir of fs.readdirSync(joinedOpenSSLDir)) {
 		console.log(dir)
 	}
 
