@@ -16,14 +16,14 @@ jobs:
       fail-fast: false
       matrix:
         settings:
-          - platform: "macos-14" # for Arm based macs (M1 and above).
-            args: "--target aarch64-apple-darwin --verbose"
-          - platform: "macos-13" # for Intel based macs.
-            args: "--target x86_64-apple-darwin --verbose"
-          - platform: "macos-14" # for Both Arm and Intel based macs.
-            args: "--target universal-apple-darwin --verbose"
-          - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
-            args: "--verbose"
+          # - platform: "macos-14" # for Arm based macs (M1 and above).
+          #   args: "--target aarch64-apple-darwin --verbose"
+          # - platform: "macos-13" # for Intel based macs.
+          #   args: "--target x86_64-apple-darwin --verbose"
+          # - platform: "macos-14" # for Both Arm and Intel based macs.
+          #   args: "--target universal-apple-darwin --verbose"
+          # - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
+          #   args: "--verbose"
           - platform: "windows-latest"
             args: "--verbose"
 
@@ -57,6 +57,7 @@ jobs:
           echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
           echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
           echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib\\VC\\x64\\MDd"' >> $env:GITHUB_ENV
+          pnpm --filter=@kksh/ci openssl-check 
       - uses: pnpm/action-setup@v4
       - name: setup node
         uses: actions/setup-node@v4
