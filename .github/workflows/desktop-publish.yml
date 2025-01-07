@@ -2,6 +2,8 @@ name: "Desktop App Publish"
 
 on:
   push:
+    branches:
+      - "ci/release"
     tags:
       - "v*"
   workflow_dispatch:
@@ -41,7 +43,10 @@ jobs:
         if: matrix.settings.platform == 'macos-14'
         run: |
           brew install protobuf
+      - name: Set up OpenSSL 
+        run: |
           brew install openssl
+          echo "OPENSSL_DIR=$(brew --prefix openssl)" >> $GITHUB_ENV
       - name: Install Protobuf (Ubuntu)
         if: matrix.settings.platform == 'ubuntu-22.04'
         run: |
