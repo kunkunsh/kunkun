@@ -4,7 +4,7 @@
 	"type": "module",
 	"scripts": {
 		"prepare": "bun scripts/setup.ts",
-		"openssl-check": "bun scripts/openssl-check.ts"
+		"ci-env-check": "bun scripts/ci-env-check.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",

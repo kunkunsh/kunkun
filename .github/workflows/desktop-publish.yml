@@ -20,8 +20,8 @@ jobs:
           #   args: "--target aarch64-apple-darwin --verbose"
           # - platform: "macos-13" # for Intel based macs.
           #   args: "--target x86_64-apple-darwin --verbose"
-          # - platform: "macos-14" # for Both Arm and Intel based macs.
-          #   args: "--target universal-apple-darwin --verbose"
+          - platform: "macos-14" # for Both Arm and Intel based macs.
+            args: "--target universal-apple-darwin --verbose"
           # - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
           #   args: "--verbose"
           - platform: "windows-latest"
@@ -49,6 +49,13 @@ jobs:
         if: matrix.settings.platform == 'ubuntu-22.04'
         run: |
           sudo apt install -y protobuf-compiler
+      - uses: pnpm/action-setup@v4
+      - name: setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "pnpm" # Set this to npm, yarn or pnpm.
+          cache-dependency-path: ./pnpm-lock.yaml
       - name: Install protoc and openssl for windows
         if: matrix.settings.platform == 'windows-latest'
         run: |
@@ -57,14 +64,6 @@ jobs:
           echo OPENSSL_DIR='"C:\\Program Files\\OpenSSL-Win64"' >> $env:GITHUB_ENV
           echo OPENSSL_INCLUDE_DIR='"C:\\Program Files\\OpenSSL-Win64\\include"' >> $env:GITHUB_ENV
           echo OPENSSL_LIB_DIR='"C:\\Program Files\\OpenSSL-Win64\\lib\\VC\\x64\\MDd"' >> $env:GITHUB_ENV
-          pnpm --filter=@kksh/ci openssl-check 
-      - uses: pnpm/action-setup@v4
-      - name: setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-          cache: "pnpm" # Set this to npm, yarn or pnpm.
-          cache-dependency-path: ./pnpm-lock.yaml
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
@@ -85,6 +84,9 @@ jobs:
           bun-version: latest
       - name: Install Dependencies
         run: pnpm install
+      - name: Environment Check
+        run: |
+          pnpm --filter=@kksh/ci ci-env-check
       - name: Build Packages
         run: pnpm build
       - name: Get App Version
