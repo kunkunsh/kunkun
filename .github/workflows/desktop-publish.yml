@@ -74,15 +74,14 @@ jobs:
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
-          workspaces: "./apps/desktop/src-tauri -> target"
+          workspaces: ". -> target"
       - uses: oven-sh/setup-bun@v1
         with:
-          bun-version: 1.1.27
+          bun-version: latest
       - name: Install Dependencies
-        # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
-        run: |
-          pnpm install
-          pnpm prepare
+        run: pnpm install
+      - name: Build Packages
+        run: pnpm build
       - name: Get App Version
         if: matrix.settings.platform == 'windows-latest'
         id: appversion
