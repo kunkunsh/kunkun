@@ -44,7 +44,7 @@ jobs:
         run: |
           brew install protobuf
           brew install openssl
-          # echo "OPENSSL_DIR=$(brew --prefix openssl)" >> $GITHUB_ENV
+          echo "OPENSSL_DIR=$(brew --prefix openssl)" >> $GITHUB_ENV
       - name: Install Protobuf (Ubuntu)
         if: matrix.settings.platform == 'ubuntu-22.04'
         run: |
@@ -86,7 +86,8 @@ jobs:
         run: pnpm install
       - name: Environment Check
         run: |
-          pnpm --filter=@kksh/ci ci-env-check
+          # pnpm --filter=@kksh/ci run ci-env-check
+          bun packages/ci/scripts/ci-env-check.ts
       - name: Build Packages
         run: pnpm build
       - name: Get App Version
