@@ -33,6 +33,9 @@
 	"scripts": {
 		"lint": "eslint ."
 	},
+	"peerDependencies": {
+		"svelte": "^5.0.0"
+	},
 	"devDependencies": {
 		"@iconify/svelte": "^4.2.0",
 		"@kksh/api": "workspace:*",

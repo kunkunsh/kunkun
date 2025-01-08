@@ -3,7 +3,7 @@
 
 	type Version = {
 		scope: string
-		package: string
+		package?: string
 		version: string
 		yanked: boolean
 		rekorLogId?: string
