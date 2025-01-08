@@ -5,12 +5,11 @@
 		ModeToggle,
 		Button,
 		Command,
-		CommandFooter,
 		ModeWatcher,
 		Separator,
 		ThemeWrapper,
 		updateTheme
-	} from '@kksh/svelte';
+	} from '@kksh/svelte5';
 	import { onMount } from 'svelte';
 
 	onMount(() => {
