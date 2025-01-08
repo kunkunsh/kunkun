@@ -1,14 +1,21 @@
 {
-  "name": "jsr",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "test": "bun test --coverage"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  }
+	"name": "jsr",
+	"type": "module",
+	"scripts": {
+		"test": "bun test --coverage"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./models": "./src/models.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0",
+		"@kksh/api": "workspace:*"
+	},
+	"dependencies": {
+		"valibot": "1.0.0-beta.11"
+	}
 }
