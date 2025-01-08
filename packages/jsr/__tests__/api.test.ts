@@ -21,27 +21,20 @@ test("Get Package Html", async () => {
 })
 
 test("Signed By GitHub Action", async () => {
-	const kkrpcSigned = await isSignedByGitHubAction({ scope: "kunkun", name: "kkrpc" })
+	const kkrpcSigned = await isSignedByGitHubAction("kunkun", "kkrpc", "0.0.14")
 	expect(kkrpcSigned).toBe(true)
-	const kkrpcSignedVersion = await isSignedByGitHubAction({
-		scope: "kunkun",
-		name: "kkrpc",
-		version: "0.0.14"
-	})
+	const kkrpcSignedVersion = await isSignedByGitHubAction("kunkun", "kkrpc", "0.0.14")
 	expect(kkrpcSignedVersion).toBe(true)
-	const kunkunApiSigned = await isSignedByGitHubAction({
-		scope: "kunkun",
-		name: "api",
-		version: "0.0.47"
-	})
+	expect(kkrpcSignedVersion).toBe(true)
+	const kunkunApiSigned = await isSignedByGitHubAction("kunkun", "api", "0.0.47")
 	expect(kunkunApiSigned).toBe(false)
 })
 
 test("Get Linked GitHub Repo", async () => {
-	const repo = await getJsrPackageGitHubRepo({ scope: "kunkun", name: "kkrpc" })
+	const repo = await getJsrPackageGitHubRepo("kunkun", "kkrpc")
 	expect(repo).toBeDefined()
-	expect(repo?.scope).toBe("kunkunsh")
-	expect(repo?.repo).toBe("kkrpc")
+	expect(repo?.owner).toBe("kunkunsh")
+	expect(repo?.name).toBe("kkrpc")
 })
 
 test("Get Package Metadata", async () => {

@@ -16,7 +16,7 @@
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
-		"cheerio": "^1.0.0",
+		"@hk/jsr-client": "npm:@jsr/hk__jsr-client@^0.1.2",
 		"valibot": "1.0.0-beta.11"
 	}
 }

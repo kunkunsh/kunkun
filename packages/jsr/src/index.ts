@@ -1,5 +1,14 @@
-import * as cheerio from "cheerio"
+import {
+	client,
+	getPackage,
+	getPackageVersion,
+	type GitHubRepository
+} from "@hk/jsr-client/hey-api-client"
 import type { JsrPackageMetadata, NpmPkgMetadata } from "./models"
+
+client.setConfig({
+	baseUrl: "https://api.jsr.io"
+})
 
 export function splitRawJsrPkgName(packageName: string): Promise<{ scope: string; name: string }> {
 	return new Promise((resolve, reject) => {
@@ -45,33 +54,32 @@ export function getJsrPackageHtml(scope: string, name: string, version?: string)
  * Check if a Jsr package is signed by GitHub Actions
  * @returns
  */
-export async function isSignedByGitHubAction(options: {
-	scope: string
-	name: string
-	version?: string
-	html?: string
-}): Promise<boolean> {
-	if (!options.html) {
-		options.html = await getJsrPackageHtml(options.scope, options.name, options.version)
-	}
-	return options.html.includes("Built and signed on GitHub Actions")
+export async function isSignedByGitHubAction(
+	scope: string,
+	name: string,
+	version: string
+): Promise<boolean> {
+	const pkgVersion = await getPackageVersion({
+		path: {
+			scope,
+			package: name,
+			version
+		}
+	})
+	return !!pkgVersion.data?.rekorLogId
 }
 
-export async function getJsrPackageGitHubRepo(options: {
-	scope: string
+export async function getJsrPackageGitHubRepo(
+	scope: string,
 	name: string
-	version?: string
-	html?: string
-}): Promise<{ scope: string; repo: string } | null> {
-	if (!options.html) {
-		options.html = await getJsrPackageHtml(options.scope, options.name, options.version)
-	}
-	const $ = cheerio.load(options.html)
-	const githubRepoEle = $('[aria-label="GitHub repository"]')
-	const txt = githubRepoEle.text()
-	if (txt === "") return null
-	const [scope, repo] = txt.split("/")
-	return { scope, repo }
+): Promise<GitHubRepository | null> {
+	const pkg = await getPackage({
+		path: {
+			scope,
+			package: name
+		}
+	})
+	return pkg.data?.githubRepository ?? null
 }
 
 /**
