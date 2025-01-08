@@ -2,11 +2,13 @@
 	import { CmdTypeEnum, IconEnum, SysCommand } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
-	import { confirm } from "@tauri-apps/plugin-dialog"
 	import { DraggableCommandGroup } from "../custom"
 	import { CmdValue } from "./types"
 
-	const { systemCommands }: { systemCommands: SysCommand[] } = $props()
+	const {
+		systemCommands,
+		onConfirm
+	}: { systemCommands: SysCommand[]; onConfirm?: (cmd: SysCommand) => Promise<boolean> } = $props()
 </script>
 
 <DraggableCommandGroup heading="System Commands">
@@ -15,7 +17,7 @@
 			class="flex justify-between"
 			onSelect={async () => {
 				if (cmd.confirmRequired) {
-					const confirmed = await confirm(`Are you sure you want to run ${cmd.name}?`)
+					const confirmed = onConfirm ? await onConfirm?.(cmd) : true
 					if (confirmed) {
 						cmd.function()
 					}
