@@ -1,0 +1,14 @@
+{
+  "name": "jsr",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "test": "bun test --coverage"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
