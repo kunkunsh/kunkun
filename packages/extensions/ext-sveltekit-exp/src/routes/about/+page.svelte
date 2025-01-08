@@ -1,6 +1,6 @@
 <script>
 	import { base } from '$app/paths';
-	import { Alert, Button, ThemeWrapper } from '@kksh/svelte';
+	import { Alert, Button, ThemeWrapper } from '@kksh/svelte5';
 </script>
 
 <ThemeWrapper>
