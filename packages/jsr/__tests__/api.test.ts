@@ -4,12 +4,12 @@ import * as v from "valibot"
 import {
 	getAllVersionsOfJsrPackage,
 	getJsrNpmPkgMetadata,
+	getJsrPackageGitHubRepo,
 	getJsrPackageHtml,
 	getJsrPackageMetadata,
-	getJsrPackagePackageJson,
-	getJsrPackageREADME,
+	getJsrPackageSrcFile,
 	getNpmPackageTarballUrl,
-	signedByGitHubAction,
+	isSignedByGitHubAction,
 	splitRawJsrPkgName,
 	translateJsrToNpmPkgName
 } from "../src"
@@ -21,12 +21,27 @@ test("Get Package Html", async () => {
 })
 
 test("Signed By GitHub Action", async () => {
-	const kkrpcSigned = await signedByGitHubAction("kunkun", "kkrpc")
+	const kkrpcSigned = await isSignedByGitHubAction({ scope: "kunkun", name: "kkrpc" })
 	expect(kkrpcSigned).toBe(true)
-	const kkrpcSignedVersion = await signedByGitHubAction("kunkun", "kkrpc", "0.0.14")
+	const kkrpcSignedVersion = await isSignedByGitHubAction({
+		scope: "kunkun",
+		name: "kkrpc",
+		version: "0.0.14"
+	})
 	expect(kkrpcSignedVersion).toBe(true)
-	const kunkunApiSigned = await signedByGitHubAction("kunkun", "api", "0.0.47")
+	const kunkunApiSigned = await isSignedByGitHubAction({
+		scope: "kunkun",
+		name: "api",
+		version: "0.0.47"
+	})
 	expect(kunkunApiSigned).toBe(false)
+})
+
+test("Get Linked GitHub Repo", async () => {
+	const repo = await getJsrPackageGitHubRepo({ scope: "kunkun", name: "kkrpc" })
+	expect(repo).toBeDefined()
+	expect(repo?.scope).toBe("kunkunsh")
+	expect(repo?.repo).toBe("kkrpc")
 })
 
 test("Get Package Metadata", async () => {
@@ -36,14 +51,19 @@ test("Get Package Metadata", async () => {
 })
 
 test("Get Package's package.json", async () => {
-	const packageJson = await getJsrPackagePackageJson("kunkun", "api", "0.0.47")
-	// TODO: parse, after publish a real extension package. api pkg is placeholder for now
-	// const parsed = v.parse(ExtPackageJson, packageJson)
+	const packageJson = await getJsrPackageSrcFile(
+		"kunkun",
+		"ext-image-processing",
+		"0.0.6",
+		"package.json"
+	)
 	expect(packageJson).toBeDefined()
+	const parsed = v.parse(ExtPackageJson, JSON.parse(packageJson!))
+	expect(parsed).toBeDefined()
 })
 
 test("Get Package's README.md", async () => {
-	const readme = await getJsrPackageREADME("kunkun", "api", "0.0.47")
+	const readme = await getJsrPackageSrcFile("kunkun", "api", "0.0.47", "README.md")
 	expect(readme).toBeDefined()
 })
 

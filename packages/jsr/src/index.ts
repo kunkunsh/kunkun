@@ -1,3 +1,4 @@
+import * as cheerio from "cheerio"
 import type { JsrPackageMetadata, NpmPkgMetadata } from "./models"
 
 export function splitRawJsrPkgName(packageName: string): Promise<{ scope: string; name: string }> {
@@ -42,15 +43,35 @@ export function getJsrPackageHtml(scope: string, name: string, version?: string)
 
 /**
  * Check if a Jsr package is signed by GitHub Actions
- * @param scope
- * @param name
- * @param version
  * @returns
  */
-export function signedByGitHubAction(scope: string, name: string, version?: string) {
-	return getJsrPackageHtml(scope, name, version).then((html) =>
-		html.includes("Built and signed on GitHub Actions")
-	)
+export async function isSignedByGitHubAction(options: {
+	scope: string
+	name: string
+	version?: string
+	html?: string
+}): Promise<boolean> {
+	if (!options.html) {
+		options.html = await getJsrPackageHtml(options.scope, options.name, options.version)
+	}
+	return options.html.includes("Built and signed on GitHub Actions")
+}
+
+export async function getJsrPackageGitHubRepo(options: {
+	scope: string
+	name: string
+	version?: string
+	html?: string
+}): Promise<{ scope: string; repo: string } | null> {
+	if (!options.html) {
+		options.html = await getJsrPackageHtml(options.scope, options.name, options.version)
+	}
+	const $ = cheerio.load(options.html)
+	const githubRepoEle = $('[aria-label="GitHub repository"]')
+	const txt = githubRepoEle.text()
+	if (txt === "") return null
+	const [scope, repo] = txt.split("/")
+	return { scope, repo }
 }
 
 /**
@@ -85,22 +106,6 @@ export function getJsrPackageSrcFile(
 	return fetch(url)
 		.then((res) => res.text())
 		.catch(() => undefined)
-}
-
-export function getJsrPackagePackageJson(
-	scope: string,
-	name: string,
-	version: string
-): Promise<string | undefined> {
-	return getJsrPackageSrcFile(scope, name, version, "package.json")
-}
-
-export function getJsrPackageREADME(
-	scope: string,
-	name: string,
-	version: string
-): Promise<string | undefined> {
-	return getJsrPackageSrcFile(scope, name, version, "README.md")
 }
 
 /**
