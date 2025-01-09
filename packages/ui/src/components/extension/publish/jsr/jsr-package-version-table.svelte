@@ -11,9 +11,15 @@
 	}
 	let {
 		class: className,
+		noPublish,
 		versions,
 		onPublish
-	}: { class?: string; versions: Version[]; onPublish?: (version: Version) => void } = $props()
+	}: {
+		class?: string
+		noPublish: boolean
+		versions: Version[]
+		onPublish?: (version: Version) => void
+	} = $props()
 </script>
 
 <Table.Root class={className}>
@@ -51,7 +57,7 @@
 					<Button
 						size="sm"
 						variant="outline"
-						disabled={version.yanked || !version.rekorLogId}
+						disabled={version.yanked || !version.rekorLogId || noPublish}
 						onclick={() => onPublish?.(version)}
 					>
 						Publish

@@ -1,13 +1,13 @@
 <!-- Element Plus Style Alert (created because the original Shadcn Alert is not very good looking) -->
 <script lang="ts" module>
 	export type AlertProps = {
-		title: string
+		title?: string
 		closable?: boolean
-		description: string
-		type: "success" | "info" | "warning" | "error"
-		theme: "light" | "dark"
+		description?: string
+		variant?: "success" | "info" | "warning" | "error"
 		onClose?: () => void
 		withIcon?: boolean
+		children?: Snippet
 	}
 </script>
 
@@ -19,12 +19,9 @@
 		CircleXIcon,
 		XIcon
 	} from "lucide-svelte"
-	import type { Component, ComponentType } from "svelte"
+	import type { Snippet } from "svelte"
 	import { fade } from "svelte/transition"
 	import { cn } from "../../utils"
-
-	let { title, description, type, theme, closable, withIcon, onClose }: AlertProps = $props()
-	let show = $state(true)
 
 	const config: Record<
 		"success" | "info" | "warning" | "error",
@@ -45,6 +42,17 @@
 			color: "red"
 		}
 	}
+
+	let {
+		title,
+		description,
+		variant: type = "info",
+		closable,
+		withIcon,
+		onClose,
+		children
+	}: AlertProps = $props()
+	let show = $state(true)
 </script>
 
 {#if show}
@@ -59,36 +67,43 @@
 	>
 		{#if withIcon}
 			{#if type === "success"}
-				<CircleCheckBigIcon class="text-green-400" />
+				<CircleCheckBigIcon class="shrink-0 h-6 w-6 text-green-400" />
 			{:else if type === "info"}
-				<CircleHelpIcon class="text-blue-400" />
+				<CircleHelpIcon class="shrink-0 h-6 w-6 text-blue-400" />
 			{:else if type === "warning"}
-				<CircleAlertIcon class="text-yellow-400" />
+				<CircleAlertIcon class="shrink-0 h-6 w-6 text-yellow-400" />
 			{:else if type === "error"}
-				<CircleXIcon class="text-red-400" />
+				<CircleXIcon class="shrink-0 h-6 w-6 text-red-400" />
 			{/if}
 		{/if}
 		<div class="flex grow flex-col">
-			<span
-				class={cn({
-					"text-green-400": type === "success",
-					"text-blue-400": type === "info",
-					"text-yellow-400": type === "warning",
-					"text-red-400": type === "error"
-				})}
-			>
-				{title}
-			</span>
-			<small
-				class={cn({
-					"text-green-400/90": type === "success",
-					"text-blue-400/90": type === "info",
-					"text-yellow-400/90": type === "warning",
-					"text-red-400/90": type === "error"
-				})}
-			>
-				{description}
-			</small>
+			{#if title}
+				<span
+					class={cn("font-semibold", {
+						"text-green-400": type === "success",
+						"text-blue-400": type === "info",
+						"text-yellow-400": type === "warning",
+						"text-red-400": type === "error"
+					})}
+				>
+					{title}
+				</span>
+			{/if}
+			{#if description}
+				<small
+					class={cn("text-sm", {
+						"text-green-400/90": type === "success",
+						"text-blue-400/90": type === "info",
+						"text-yellow-400/90": type === "warning",
+						"text-red-400/90": type === "error"
+					})}
+				>
+					{description}
+				</small>
+			{/if}
+			{#if children}
+				{@render children()}
+			{/if}
 		</div>
 		{#if closable}
 			<XIcon
@@ -99,7 +114,7 @@
 					}
 					show = false
 				}}
-				class="h-4 w-4 cursor-pointer self-start"
+				class="h-4 w-4 cursor-pointer self-start shrink-0"
 			/>
 		{/if}
 	</div>
