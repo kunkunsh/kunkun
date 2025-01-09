@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button, Table } from "@kksh/svelte5"
+	import { cn } from "../../../../utils"
 
 	type Version = {
 		scope: string
@@ -8,24 +9,27 @@
 		yanked: boolean
 		rekorLogId?: string
 	}
-	let { versions, onPublish }: { versions: Version[]; onPublish?: (version: Version) => void } =
-		$props()
+	let {
+		class: className,
+		versions,
+		onPublish
+	}: { class?: string; versions: Version[]; onPublish?: (version: Version) => void } = $props()
 </script>
 
-<Table.Root class="">
+<Table.Root class={className}>
 	<Table.Caption>All versions of the package</Table.Caption>
 	<Table.Header>
 		<Table.Row>
-			<Table.Head class="w-[100px]">Version</Table.Head>
-			<Table.Head>Yanked</Table.Head>
-			<Table.Head>Signed by GitHub Action</Table.Head>
-			<Table.Head>Publish This Version</Table.Head>
+			<Table.Head class="w-[100px] text-center">Version</Table.Head>
+			<Table.Head class="text-center">Yanked</Table.Head>
+			<Table.Head class="text-center">Signed by GitHub Action</Table.Head>
+			<Table.Head class="text-center">Publish This Version</Table.Head>
 		</Table.Row>
 	</Table.Header>
-	<Table.Body>
+	<Table.Body class="max-h-96">
 		{#each versions as version, i (i)}
 			<Table.Row>
-				<Table.Cell class="font-medium">
+				<Table.Cell class="text-center font-medium">
 					<a
 						href={`https://jsr.io/@${version.scope}/${version.package}@${version.version}`}
 						target="_blank"
@@ -34,7 +38,14 @@
 						{version.version}
 					</a>
 				</Table.Cell>
-				<Table.Cell class="text-center">{version.yanked ? "Yes" : "No"}</Table.Cell>
+				<Table.Cell
+					class={cn("text-center font-bold", {
+						"text-red-500": version.yanked,
+						"text-green-500": !version.yanked
+					})}
+				>
+					{version.yanked ? "Yes" : "No"}
+				</Table.Cell>
 				<Table.Cell class="text-center">{version.rekorLogId ? "✅" : "❌"}</Table.Cell>
 				<Table.Cell class="text-center">
 					<Button
