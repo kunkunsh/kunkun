@@ -59,9 +59,6 @@ importers:
       '@tauri-apps/plugin-updater':
         specifier: ^2.3.1
         version: 2.3.1
-      '@tauri-apps/plugin-upload':
-        specifier: https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03
-        version: https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03
       supabase:
         specifier: ^2.2.1
         version: 2.2.1
@@ -388,8 +385,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       '@tauri-apps/plugin-upload':
-        specifier: https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03
-        version: https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03
+        specifier: ^2.2.1
+        version: 2.2.1
       kkrpc:
         specifier: ^0.0.13
         version: 0.0.13(typescript@5.6.3)
@@ -4591,10 +4588,6 @@ packages:
 
   '@tauri-apps/plugin-upload@2.2.1':
     resolution: {integrity: sha512-2EyVhJYLAp2mJH0UzO3QGU0vPk/YWvAfdI2wXbczyzEZY/AZVa9wConyB1TV/NGhyJRim4LwWgkmnEvcKLkECw==}
-
-  '@tauri-apps/plugin-upload@https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03':
-    resolution: {tarball: https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03}
-    version: 2.2.1
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -14950,10 +14943,6 @@ snapshots:
       '@tauri-apps/api': 2.2.0
 
   '@tauri-apps/plugin-upload@2.2.1':
-    dependencies:
-      '@tauri-apps/api': 2.2.0
-
-  '@tauri-apps/plugin-upload@https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03':
     dependencies:
       '@tauri-apps/api': 2.2.0
 
