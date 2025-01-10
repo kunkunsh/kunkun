@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test"
-import { validateJsrPackageAsKunkunExtension } from "../src"
+import { validateJsrPackageAsKunkunExtension } from "../index"
 
 describe("Validate Jsr package as Kunkun extension", () => {
 	test("Package not signed by GitHub Actions", () => {

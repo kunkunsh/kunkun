@@ -13,8 +13,8 @@ import {
 	jsrPackageExists,
 	splitRawJsrPkgName,
 	translateJsrToNpmPkgName
-} from "../src"
-import { JsrPackageMetadata, NpmPkgMetadata } from "../src/models"
+} from "../index"
+import { JsrPackageMetadata, NpmPkgMetadata } from "../models"
 
 describe("Test the helper functions", () => {
 	test("Get Package Html", async () => {
