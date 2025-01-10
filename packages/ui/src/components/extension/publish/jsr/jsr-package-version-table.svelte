@@ -11,13 +11,13 @@
 	}
 	let {
 		class: className,
-		noPublish,
+		githubOwnerMismatch,
 		versions,
 		onPublish,
 		publishedVersions
 	}: {
 		class?: string
-		noPublish: boolean
+		githubOwnerMismatch: boolean
 		versions: Version[]
 		onPublish?: (version: Version) => void
 		publishedVersions: string[]
@@ -58,7 +58,8 @@
 				</Table.Cell>
 				<Table.Cell class="text-center">{version.rekorLogId ? "✅" : "❌"}</Table.Cell>
 				<Table.Cell class="text-center">
-					{@const disabled = version.yanked || !version.rekorLogId || noPublish || isPublished}
+					{@const disabled =
+						version.yanked || !version.rekorLogId || githubOwnerMismatch || isPublished}
 					{#if disabled}
 						<HoverCard.Root>
 							<HoverCard.Trigger>
@@ -69,8 +70,8 @@
 									Version is yanked
 								{:else if !version.rekorLogId}
 									Version is not signed by GitHub Action
-								{:else if noPublish}
-									No publish button
+								{:else if githubOwnerMismatch}
+									Your GitHub account is not the owner of the package
 								{:else if isPublished}
 									Version is already published
 								{/if}
