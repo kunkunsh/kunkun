@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button, Table } from "@kksh/svelte5"
+	import { Button, HoverCard, Table } from "@kksh/svelte5"
 	import { cn } from "../../../../utils"
 
 	type Version = {
@@ -13,12 +13,14 @@
 		class: className,
 		noPublish,
 		versions,
-		onPublish
+		onPublish,
+		publishedVersions
 	}: {
 		class?: string
 		noPublish: boolean
 		versions: Version[]
 		onPublish?: (version: Version) => void
+		publishedVersions: string[]
 	} = $props()
 </script>
 
@@ -30,10 +32,12 @@
 			<Table.Head class="text-center">Yanked</Table.Head>
 			<Table.Head class="text-center">Signed by GitHub Action</Table.Head>
 			<Table.Head class="text-center">Publish This Version</Table.Head>
+			<Table.Head class="text-center">Published</Table.Head>
 		</Table.Row>
 	</Table.Header>
 	<Table.Body class="max-h-96">
 		{#each versions as version, i (i)}
+			{@const isPublished = publishedVersions.includes(version.version)}
 			<Table.Row>
 				<Table.Cell class="text-center font-medium">
 					<a
@@ -54,14 +58,32 @@
 				</Table.Cell>
 				<Table.Cell class="text-center">{version.rekorLogId ? "✅" : "❌"}</Table.Cell>
 				<Table.Cell class="text-center">
-					<Button
-						size="sm"
-						variant="outline"
-						disabled={version.yanked || !version.rekorLogId || noPublish}
-						onclick={() => onPublish?.(version)}
-					>
-						Publish
-					</Button>
+					{@const disabled = version.yanked || !version.rekorLogId || noPublish || isPublished}
+					{#if disabled}
+						<HoverCard.Root>
+							<HoverCard.Trigger>
+								<Button size="sm" variant="outline" disabled={true}>Publish</Button>
+							</HoverCard.Trigger>
+							<HoverCard.Content>
+								{#if version.yanked}
+									Version is yanked
+								{:else if !version.rekorLogId}
+									Version is not signed by GitHub Action
+								{:else if noPublish}
+									No publish button
+								{:else if isPublished}
+									Version is already published
+								{/if}
+							</HoverCard.Content>
+						</HoverCard.Root>
+					{:else}
+						<Button size="sm" variant="outline" onclick={() => onPublish?.(version)}>
+							Publish
+						</Button>
+					{/if}
+				</Table.Cell>
+				<Table.Cell class="text-center">
+					{isPublished ? "✅" : "❌"}
 				</Table.Cell>
 			</Table.Row>
 		{/each}
