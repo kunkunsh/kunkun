@@ -104,6 +104,7 @@ export type Database = {
 			extensions: {
 				Row: {
 					api_version: string
+					author_id: string | null
 					created_at: string
 					downloads: number
 					icon: Json | null
@@ -116,6 +117,7 @@ export type Database = {
 				}
 				Insert: {
 					api_version: string
+					author_id?: string | null
 					created_at?: string
 					downloads: number
 					icon?: Json | null
@@ -128,6 +130,7 @@ export type Database = {
 				}
 				Update: {
 					api_version?: string
+					author_id?: string | null
 					created_at?: string
 					downloads?: number
 					icon?: Json | null
