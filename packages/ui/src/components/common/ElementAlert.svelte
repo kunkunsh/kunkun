@@ -6,6 +6,7 @@
 		description?: string
 		variant?: "success" | "info" | "warning" | "error"
 		onClose?: () => void
+		class?: string
 		withIcon?: boolean
 		children?: Snippet
 	}
@@ -46,6 +47,7 @@
 	let {
 		title,
 		description,
+		class: className,
 		variant: type = "info",
 		closable,
 		withIcon,
@@ -57,7 +59,7 @@
 
 {#if show}
 	<div
-		class={cn("flex items-center gap-3 rounded px-3 py-3", {
+		class={cn("flex items-center gap-3 rounded-xl px-3 py-3", className, {
 			"bg-red-500/10": type === "error",
 			"bg-blue-500/10": type === "info",
 			"bg-yellow-500/10": type === "warning",
@@ -67,13 +69,13 @@
 	>
 		{#if withIcon}
 			{#if type === "success"}
-				<CircleCheckBigIcon class="shrink-0 h-6 w-6 text-green-400" />
+				<CircleCheckBigIcon class="h-6 w-6 shrink-0 text-green-400" />
 			{:else if type === "info"}
-				<CircleHelpIcon class="shrink-0 h-6 w-6 text-blue-400" />
+				<CircleHelpIcon class="h-6 w-6 shrink-0 text-blue-400" />
 			{:else if type === "warning"}
-				<CircleAlertIcon class="shrink-0 h-6 w-6 text-yellow-400" />
+				<CircleAlertIcon class="h-6 w-6 shrink-0 text-yellow-400" />
 			{:else if type === "error"}
-				<CircleXIcon class="shrink-0 h-6 w-6 text-red-400" />
+				<CircleXIcon class="h-6 w-6 shrink-0 text-red-400" />
 			{/if}
 		{/if}
 		<div class="flex grow flex-col">
@@ -114,7 +116,7 @@
 					}
 					show = false
 				}}
-				class="h-4 w-4 cursor-pointer self-start shrink-0"
+				class="h-4 w-4 shrink-0 cursor-pointer self-start"
 			/>
 		{/if}
 	</div>
