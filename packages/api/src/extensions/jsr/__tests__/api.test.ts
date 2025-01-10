@@ -1,6 +1,6 @@
-import { ExtPackageJson } from "@kksh/api/models"
 import { describe, expect, test } from "bun:test"
 import * as v from "valibot"
+import { ExtPackageJson } from "../../../models/manifest"
 import {
 	getAllVersionsOfJsrPackage,
 	getJsrNpmPkgMetadata,

@@ -4,8 +4,8 @@ import {
 	getPackageVersion,
 	type GitHubRepository
 } from "@hk/jsr-client/hey-api-client"
-import { ExtPackageJson } from "@kksh/api/models"
 import * as v from "valibot"
+import { ExtPackageJson } from "../../models/manifest"
 import type { JsrPackageMetadata, NpmPkgMetadata } from "./models"
 
 client.setConfig({
