@@ -33,7 +33,7 @@ export class SupabaseAPI {
 		return this.supabase
 			.from("ext_publish")
 			.select(
-				"created_at, name, version, manifest, shasum, size, tarball_path, cmd_count, identifier, downloads, demo_images, api_version"
+				"created_at, name, version, manifest, shasum, size, tarball_path, cmd_count, identifier, downloads, demo_images, api_version, metadata"
 			)
 			.order("created_at", { ascending: false })
 			.eq("identifier", identifier)
@@ -67,6 +67,28 @@ export class SupabaseAPI {
 					throw new Error("Fail to parse increment downloads response")
 				}
 				return parsed.output
+			})
+	}
+
+	async publishExtFromJSR(payload: {
+		scope: string
+		version: string
+		name: string
+	}): Promise<void> {
+		return this.supabase.functions
+			.invoke("publish-jsr-ext", {
+				body: payload
+			})
+			.then(async ({ data, error }) => {
+				if (data && data.isValid) {
+					return
+				}
+				if (error?.name === "FunctionsHttpError") {
+					const errorMessage = await error.context.json()
+					throw new Error(errorMessage.error)
+				} else {
+					throw new Error(`Unknown error: ${error?.message}`)
+				}
 			})
 	}
 

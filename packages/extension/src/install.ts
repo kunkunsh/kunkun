@@ -19,7 +19,13 @@ import { loadExtensionManifestFromDisk } from "./load"
  *
  * @param tarballPath path to .tar.gz file
  */
-export async function installTarball(tarballPath: string, extsDir: string): Promise<string> {
+export async function installTarball(
+	tarballPath: string,
+	extsDir: string,
+	extras?: {
+		overwritePackageJson?: string
+	}
+): Promise<string> {
 	const tempDirPath = await path.tempDir()
 	if (!extsDir) {
 		return Promise.reject("Extension Folder Not Set")
@@ -32,7 +38,11 @@ export async function installTarball(tarballPath: string, extsDir: string): Prom
 			overwrite: true
 		}
 	)
-	return loadExtensionManifestFromDisk(await path.join(decompressDest, "package.json"))
+	const pkgJsonPath = await path.join(decompressDest, "package.json")
+	if (extras?.overwritePackageJson) {
+		await fs.writeTextFile(pkgJsonPath, extras.overwritePackageJson)
+	}
+	return loadExtensionManifestFromDisk(pkgJsonPath)
 		.then(async (manifest) => {
 			// The extension folder name will be the identifier
 			const extInstallPath = await path.join(extsDir, manifest.kunkun.identifier)
@@ -62,8 +72,7 @@ export async function installTarball(tarballPath: string, extsDir: string): Prom
 				console.error(err)
 				throw new Error("Invalid Manifest or Extension")
 			}
-			console.log()
-
+			console.error("installTarball error", err)
 			throw new Error(err)
 		})
 }
@@ -74,13 +83,18 @@ export async function installTarball(tarballPath: string, extsDir: string): Prom
  * @param extsDir Target directory to install the tarball
  * @returns
  */
-export async function installTarballUrl(tarballUrl: string, extsDir: string): Promise<string> {
+export async function installTarballUrl(
+	tarballUrl: string,
+	extsDir: string,
+	extras?: { overwritePackageJson?: string }
+): Promise<string> {
 	const filename = await path.basename(tarballUrl)
 	if (filename) {
 		const tempDirPath = await path.tempDir()
 		let tarballPath = await path.join(tempDirPath, filename)
+		console.log("tarballPath", tarballPath)
 		await download(tarballUrl, tarballPath)
-		const extInstallPath = await installTarball(tarballPath, extsDir)
+		const extInstallPath = await installTarball(tarballPath, extsDir, extras)
 		await fs.remove(tarballPath)
 		return extInstallPath
 	} else {
