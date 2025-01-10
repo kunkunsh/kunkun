@@ -9,7 +9,8 @@
 	},
 	"dependencies": {
 		"@kksh/api": "workspace:*",
-		"@supabase/supabase-js": "^2.46.1"
+		"@supabase/ssr": "^0.5.2",
+		"@supabase/supabase-js": "^2.47.12"
 	},
 	"devDependencies": {
 		"@types/bun": "latest"
