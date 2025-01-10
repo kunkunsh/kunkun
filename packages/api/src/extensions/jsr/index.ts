@@ -3,7 +3,7 @@ import {
 	getPackage,
 	getPackageVersion,
 	type GitHubRepository
-} from "@hk/jsr-client/hey-api-client"
+} from "@huakunshen/jsr-client/hey-api-client"
 import * as v from "valibot"
 import { ExtPackageJson } from "../../models/manifest"
 import type { JsrPackageMetadata, NpmPkgMetadata } from "./models"
