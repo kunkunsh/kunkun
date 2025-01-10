@@ -1,5 +1,5 @@
 {
-	"name": "jsr",
+	"name": "@kksh/jsr",
 	"type": "module",
 	"scripts": {
 		"test": "bun test --coverage"
