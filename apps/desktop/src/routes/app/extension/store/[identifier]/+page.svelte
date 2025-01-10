@@ -3,6 +3,8 @@
 	import { extensions, installedStoreExts } from "@/stores/extensions.js"
 	import { supabaseAPI } from "@/supabase"
 	import { goBack } from "@/utils/route.js"
+	import type { Tables } from "@kksh/api/supabase/types"
+	import { ExtPublishMetadata } from "@kksh/supabase/models"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/svelte5/utils"
 	import { Constants } from "@kksh/ui"
@@ -13,10 +15,11 @@
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
 	import { toast } from "svelte-sonner"
-	import { get, derived as storeDerived } from "svelte/store"
+	import { derived as storeDerived } from "svelte/store"
+	import { getInstallExtras } from "./helper.js"
 
 	const { data } = $props()
-	const ext = $derived(data.ext)
+	const ext: Tables<"ext_publish"> & { metadata: ExtPublishMetadata } = $derived(data.ext)
 	const manifest = $derived(data.manifest)
 	const installedExt = storeDerived(installedStoreExts, ($e) => {
 		return $e.find((e) => e.kunkun.identifier === ext.identifier)
@@ -69,24 +72,27 @@
 
 	async function onInstallSelected() {
 		loading.install = true
-		const tarballUrl = supabaseAPI.translateExtensionFilePathToUrl(ext.tarball_path)
+		const tarballUrl = ext.tarball_path.startsWith("http")
+			? ext.tarball_path
+			: supabaseAPI.translateExtensionFilePathToUrl(ext.tarball_path)
+		const installExtras = await getInstallExtras(ext)
 		const installDir = await getExtensionsFolder()
 		return extensions
-			.installFromTarballUrl(tarballUrl, installDir)
+			.installFromTarballUrl(tarballUrl, installDir, installExtras)
 			.then(() => toast.success(`Plugin ${ext.name} Installed`))
-			.then(async (loadedExt) =>
+			.then((loadedExt) => {
 				supabaseAPI.incrementDownloads({
 					identifier: ext.identifier,
 					version: ext.version
 				})
-			)
+				showBtn.install = false
+				showBtn.uninstall = true
+			})
 			.catch((err) => {
 				toast.error("Fail to install tarball", { description: err })
 			})
 			.finally(() => {
 				loading.install = false
-				showBtn.install = false
-				showBtn.uninstall = true
 			})
 	}
 
@@ -146,7 +152,7 @@
 <Button
 	variant="outline"
 	size="icon"
-	class={cn("fixed left-3 top-3", Constants.CLASSNAMES.BACK_BUTTON)}
+	class={cn("fixed left-3 top-3 z-50", Constants.CLASSNAMES.BACK_BUTTON)}
 	data-flip-id={Constants.CLASSNAMES.BACK_BUTTON}
 	onclick={() => goto("/app/extension/store")}
 >

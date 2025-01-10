@@ -12,7 +12,11 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	getExtensionsFromStore: () => ExtPackageJsonExtra[]
 	installTarball: (tarballPath: string, extsDir: string) => Promise<ExtPackageJsonExtra>
 	installDevExtensionDir: (dirPath: string) => Promise<ExtPackageJsonExtra>
-	installFromTarballUrl: (tarballUrl: string, installDir: string) => Promise<ExtPackageJsonExtra>
+	installFromTarballUrl: (
+		tarballUrl: string,
+		installDir: string,
+		extras?: { overwritePackageJson?: string }
+	) => Promise<ExtPackageJsonExtra>
 	installFromNpmPackageName: (name: string, installDir: string) => Promise<ExtPackageJsonExtra>
 	findStoreExtensionByIdentifier: (identifier: string) => ExtPackageJsonExtra | undefined
 	registerNewExtensionByPath: (extPath: string) => Promise<ExtPackageJsonExtra>
@@ -86,8 +90,12 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 			})
 	}
 
-	async function installFromTarballUrl(tarballUrl: string, extsDir: string) {
-		return extAPI.installTarballUrl(tarballUrl, extsDir).then((extInstallPath) => {
+	async function installFromTarballUrl(
+		tarballUrl: string,
+		extsDir: string,
+		extras?: { overwritePackageJson?: string }
+	) {
+		return extAPI.installTarballUrl(tarballUrl, extsDir, extras).then((extInstallPath) => {
 			return registerNewExtensionByPath(extInstallPath)
 		})
 	}
