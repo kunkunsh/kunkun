@@ -44,7 +44,6 @@
 		"@tauri-apps/plugin-shell": "^2.2.0",
 		"@tauri-apps/plugin-store": "^2.2.0",
 		"@tauri-apps/plugin-updater": "^2.3.1",
-		"@tauri-apps/plugin-upload": "https://gitpkg.vercel.app/HuakunShen/tauri-plugins-workspace/plugins/upload?69b198b0ccba269fe7622a95ec6a33ae392bff03",
 		"supabase": "^2.2.1",
 		"tauri-plugin-network-api": "workspace:*",
 		"tauri-plugin-keyring-api": "workspace:*",
