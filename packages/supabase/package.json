@@ -5,7 +5,8 @@
 		"prepare": "bun setup.ts"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./models": "./src/models.ts"
 	},
 	"dependencies": {
 		"@kksh/api": "workspace:*",
