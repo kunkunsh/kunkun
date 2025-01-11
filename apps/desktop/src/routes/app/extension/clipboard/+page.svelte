@@ -2,7 +2,7 @@
 	import { goBack, goHome } from "@/utils/route"
 	import { listenToNewClipboardItem } from "@/utils/tauri-events"
 	import Icon from "@iconify/svelte"
-	import { db } from "@kksh/api/commands"
+	import { ClipboardContentType, db } from "@kksh/api/commands"
 	import { SearchModeEnum, SQLSortOrderEnum, type ExtData } from "@kksh/api/models"
 	import { Button, Command, Resizable } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
@@ -10,6 +10,8 @@
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { ArrowLeft, FileQuestionIcon, ImageIcon, LetterTextIcon } from "lucide-svelte"
 	import { onDestroy, onMount, type Snippet } from "svelte"
+	import { toast } from "svelte-sonner"
+	import clipboard from "tauri-plugin-clipboard-api"
 	import ContentPreview from "./content-preview.svelte"
 
 	let searchTerm = $state("")
@@ -152,6 +154,35 @@
 			}, 500)
 		}
 	}
+
+	function onItemSelected(dataId: number) {
+		// fetch data from db
+		db.getExtensionDataById(dataId)
+			.then((data) => {
+				if (!data || !data.data) {
+					return
+				}
+				const dataType = data?.dataType as ClipboardContentType
+				switch (dataType) {
+					case "Text":
+						return clipboard.writeText(data.data)
+					case "Image":
+						return clipboard.writeImageBase64(data.data)
+					case "Html":
+						return clipboard.writeHtml(data.data)
+					case "Rtf":
+						return clipboard.writeRtf(data.data)
+					default:
+						return Promise.reject(new Error("Unsupported data type: " + dataType))
+				}
+			})
+			.then(() => toast.success("Copied to clipboard"))
+			.catch((err) => {
+				toast.error("Failed to fetch data from db", {
+					description: err.message
+				})
+			})
+	}
 </script>
 
 {#snippet leftSlot()}
@@ -195,7 +226,7 @@
 			<Command.List class="h-full max-h-full grow" onscroll={onScroll}>
 				<Command.Empty>No results found.</Command.Empty>
 				{#each clipboardHistoryIds as dataId (dataId)}
-					<Command.Item value={dataId.toString()}>
+					<Command.Item value={dataId.toString()} onSelect={() => onItemSelected(dataId)}>
 						{@render typeIcon(clipboardHistoryMap[dataId].dataType)}
 						<span class="truncate">{clipboardHistoryMap[dataId].searchText}</span>
 					</Command.Item>
