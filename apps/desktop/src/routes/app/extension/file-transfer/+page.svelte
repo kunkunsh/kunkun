@@ -57,16 +57,21 @@
 		unlistenReq = await listen<FileTransferPayload>("file-transfer-request", async (e) => {
 			console.log(e)
 			const confirmed = await confirm(
-				`Download files (${e.payload.totalFiles} files, ${prettyBytes(e.payload.totalBytes)})?`
+				`Download files (${e.payload.totalFiles} files, ${prettyBytes(e.payload.totalBytes)}) from ${e.payload.ip}?`
 			)
 			if (!confirmed) return
 			downloadFiles(e.payload, await path.downloadDir(), (progress) => {
 				progressMap[e.payload.code] = progress
 				console.log(progress)
-			}).finally(() => {
-				console.log("finally clean", e.payload.code)
-				delete progressMap[e.payload.code]
 			})
+				.catch((err) => {
+					console.error("Fail to download files", err)
+					toast.error("Fail to download files", { description: err.message })
+				})
+				.finally(() => {
+					console.log("finally clean", e.payload.code)
+					delete progressMap[e.payload.code]
+				})
 		})
 	})
 
@@ -85,7 +90,7 @@
 	}
 
 	function sendFile(peer: MdnsServiceInfo, files: string[]) {
-		console.log(peer, files)
+		// console.log(peer.addresses[0], peer.port, peer.sslCert, files)
 		localNetSendFile(peer.addresses[0], peer.port, peer.sslCert, files)
 	}
 </script>

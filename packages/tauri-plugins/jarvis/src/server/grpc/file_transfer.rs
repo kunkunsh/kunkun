@@ -32,19 +32,19 @@ impl FileTransfer for MyFileTransfer {
         request: Request<StartTransferRequest>, // Accept request of type StartTransferRequest
     ) -> Result<Response<StartTransferResponse>, Status> {
         let reply = StartTransferResponse {};
-        // let ip = request.remote_addr().unwrap().ip();
-        let ip = "localhost";
-        println!("start_transfer remote addr: {:?}", request.remote_addr());
         let payload = request.into_inner();
         println!("start_transfer payload: {:?}", payload);
+        let src_ip = payload.ip;
+        println!("src_ip: {:?}", src_ip);
         let root = if let Some(root) = payload.root {
             root
         } else {
             return Err(Status::invalid_argument("root is required"));
         };
+
         let total_bytes = compute_total_size(&root);
         let total_files = count_file_nodes(&root);
-        // get ip from request
+
         self.app_handle
             .emit(
                 "file-transfer-request",
@@ -54,12 +54,13 @@ impl FileTransfer for MyFileTransfer {
                     root,
                     total_bytes,
                     total_files,
-                    ip: ip.to_string(),
+                    ip: src_ip,
                     ssl_cert: payload.ssl_cert,
                 },
             )
             .map_err(|e| Status::internal(e.to_string()))?;
-        Ok(Response::new(reply)) // Send back our formatted greeting
+
+        Ok(Response::new(reply))
     }
 }
 
@@ -257,8 +258,9 @@ mod test {
                 .arg("f")
                 .output()
                 .unwrap()
-                .stdout
-        ).unwrap();
+                .stdout,
+        )
+        .unwrap();
         let count2 = stdout.lines().count();
         assert_eq!(count, count2);
     }
