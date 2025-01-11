@@ -3,6 +3,11 @@
 > Kunkun is a cross-platform extensible app launcher like Raycast or Alfred.
 > All extensions run in a sandboxed environment by default to ensure security.
 
+## Demo Video and Instructions
+
+- https://docs.kunkun.sh/guides/demo/
+- Download extension from https://kunkun.sh/download
+
 [![wakatime](https://wakatime.com/badge/user/94be0fbf-cb9d-411d-8526-d0c4a4e82e1a/project/455bfd3f-4faf-4c2a-afe9-556d9ee1a0f7.svg)](https://wakatime.com/badge/user/94be0fbf-cb9d-411d-8526-d0c4a4e82e1a/project/455bfd3f-4faf-4c2a-afe9-556d9ee1a0f7)
 ![GitHub last commit](https://img.shields.io/github/last-commit/kunkunsh/kunkun)
 [![YouTube badge][]][YouTube link]
