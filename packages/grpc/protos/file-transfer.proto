@@ -20,9 +20,10 @@ message FileNode {
 
 message StartTransferRequest {
     string port = 1;
-    string code = 2;
-    string ssl_cert = 3;
-    FileNode root = 4;
+    string ip = 2;
+    string code = 3;
+    string ssl_cert = 4;
+    FileNode root = 5;
 }
 
 message StartTransferResponse {

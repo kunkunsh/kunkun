@@ -11,6 +11,7 @@ use grpc::file_transfer::{
     file_transfer_client::FileTransferClient, FileNode, FileType, StartTransferRequest,
     StartTransferResponse,
 };
+use local_ip_address::local_ip;
 use std::{
     collections::HashSet,
     path::{Path, PathBuf},
@@ -84,6 +85,7 @@ async fn download_file_node_recursively(
     stats: &mut TransferStats,
     progress_tx: mpsc::Sender<FileDownloadProgress>,
 ) -> anyhow::Result<()> {
+    println!("download_file_node_recursively node: {:#?}", node);
     let mut stack = vec![(node.clone(), dir.to_path_buf())];
 
     while let Some((current_node, current_dir)) = stack.pop() {
@@ -96,7 +98,7 @@ async fn download_file_node_recursively(
                 port = config.port,
                 id = current_node.id
             );
-            download_file(
+            match download_file(
                 &url,
                 &config.code,
                 &download_path,
@@ -104,7 +106,16 @@ async fn download_file_node_recursively(
                 stats,
                 progress_tx.clone(),
             )
-            .await?;
+            .await
+            {
+                Ok(_) => (),
+                Err(e) => {
+                    println!("download_file error: {:?}", e);
+                    println!("download_file url: {:?}", url);
+                    println!("download_file code: {:?}", config.code);
+                    return Err(e);
+                }
+            };
         } else if current_node.r#type == FileType::Directory as i32 {
             tokio::fs::create_dir_all(&download_path).await?;
             for child in current_node.children.iter() {
@@ -134,12 +145,12 @@ pub async fn download_files(
             save_dir.display()
         ));
     }
-
+    println!("download_files payload: {:?}", payload);
     let (progress_tx, mut progress_rx) = mpsc::channel::<FileDownloadProgress>(100);
 
     let total_bytes = compute_total_size(&payload.root);
     let total_files = count_file_nodes(&payload.root);
-    let client = build_ssl_reqwest_client(None, Some(payload.ssl_cert.clone()))
+    let client = build_ssl_reqwest_client(Some(true), Some(payload.ssl_cert.clone()))
         .map_err(|e| e.to_string())?;
 
     if payload.root.filename.is_empty() {
@@ -262,12 +273,14 @@ pub async fn local_net_send_file(
         .map_err(|err| err.to_string())?;
     let mut client = FileTransferClient::new(tls_channel);
     // Send the transfer request
+    let my_local_ip = local_ip().unwrap();
     let response: tonic::Response<StartTransferResponse> = client
         .start_transfer(StartTransferRequest {
             port: port.to_string(),
             root: Some(root),
             code: uuid.clone(),
             ssl_cert: cert_pem,
+            ip: my_local_ip.to_string(),
         })
         .await
         .map_err(|e| e.to_string())?;
