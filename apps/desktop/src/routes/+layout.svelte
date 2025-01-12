@@ -3,6 +3,7 @@
 	import "../app.css"
 	import { ModeWatcher, ThemeWrapper } from "@kksh/svelte5"
 	import { dev } from "$app/environment"
+	import { Toaster } from "svelte-sonner"
 
 	onMount(() => {
 		if (!dev) {
@@ -17,6 +18,7 @@
 </script>
 
 <ModeWatcher />
+<Toaster richColors closeButton />
 <ThemeWrapper>
 	{@render children()}
 </ThemeWrapper>

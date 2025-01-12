@@ -15,7 +15,6 @@
 	import { gsap } from "gsap"
 	import { Flip } from "gsap/Flip"
 	import { onDestroy, onMount } from "svelte"
-	import { toast, Toaster } from "svelte-sonner"
 	import * as shellx from "tauri-plugin-shellx-api"
 
 	/* -------------------------------------------------------------------------- */
@@ -101,7 +100,6 @@
 
 <svelte:window on:keydown={globalKeyDownHandler} />
 <ViewTransition />
-<Toaster richColors closeButton />
 <AppContext {appConfig} {appState}>
 	{@render children()}
 </AppContext>

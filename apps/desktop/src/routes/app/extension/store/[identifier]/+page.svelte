@@ -81,6 +81,7 @@
 			.installFromTarballUrl(tarballUrl, installDir, installExtras)
 			.then(() => toast.success(`Plugin ${ext.name} Installed`))
 			.then((loadedExt) => {
+				console.log("loadedExt", loadedExt);
 				supabaseAPI.incrementDownloads({
 					identifier: ext.identifier,
 					version: ext.version
@@ -89,6 +90,7 @@
 				showBtn.uninstall = true
 			})
 			.catch((err) => {
+				console.error("err", err)
 				toast.error("Fail to install tarball", { description: err })
 			})
 			.finally(() => {
@@ -149,6 +151,7 @@
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
+<Button onclick={() => toast.success("Hello")}>Toast</Button>
 <Button
 	variant="outline"
 	size="icon"
