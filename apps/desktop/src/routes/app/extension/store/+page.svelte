@@ -4,8 +4,9 @@
 	import { supabaseAPI } from "@/supabase"
 	import { goBackOnEscapeClearSearchTerm, goHomeOnEscapeClearSearchTerm } from "@/utils/key"
 	import { goBack, goHome } from "@/utils/route"
-	import { SBExt } from "@kksh/api/supabase"
+	import { SBExt, type Tables } from "@kksh/api/supabase"
 	import { isUpgradable } from "@kksh/extension"
+	import type { ExtPublishMetadata } from "@kksh/supabase/models"
 	import { Button, Command } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
 	import { ExtListItem } from "@kksh/ui/extension"
@@ -14,6 +15,7 @@
 	import { ArrowLeft } from "lucide-svelte"
 	import type { Snippet } from "svelte"
 	import { toast } from "svelte-sonner"
+	import { getInstallExtras } from "./[identifier]/helper.js"
 
 	let { data } = $props()
 	const { storeExtList, installedStoreExts, installedExtsMap, upgradableExpsMap } = data
@@ -38,10 +40,17 @@
 			return toast.error("Fail to get latest extension", {
 				description: res.error.message
 			})
-		const tarballUrl = supabaseAPI.translateExtensionFilePathToUrl(res.data.tarball_path)
-		return extensions.upgradeStoreExtension(ext.identifier, tarballUrl).then((newExt) => {
-			toast.success(`${ext.name} Upgraded to ${newExt.version}`)
-		})
+		const tarballUrl = res.data.tarball_path.startsWith("http")
+			? res.data.tarball_path
+			: supabaseAPI.translateExtensionFilePathToUrl(res.data.tarball_path)
+		const installExtras = await getInstallExtras(
+			res.data as Tables<"ext_publish"> & { metadata: ExtPublishMetadata }
+		)
+		return extensions
+			.upgradeStoreExtension(ext.identifier, tarballUrl, installExtras)
+			.then((newExt) => {
+				toast.success(`${ext.name} Upgraded to ${newExt.version}`)
+			})
 	}
 
 	async function onExtItemInstall(ext: SBExt) {
@@ -51,10 +60,15 @@
 				description: res.error.message
 			})
 
-		const tarballUrl = supabaseAPI.translateExtensionFilePathToUrl(res.data.tarball_path)
+		const tarballUrl = res.data.tarball_path.startsWith("http")
+			? res.data.tarball_path
+			: supabaseAPI.translateExtensionFilePathToUrl(res.data.tarball_path)
+		const installExtras = await getInstallExtras(
+			res.data as Tables<"ext_publish"> & { metadata: ExtPublishMetadata }
+		)
 		const installDir = await getExtensionsFolder()
 		return extensions
-			.installFromTarballUrl(tarballUrl, installDir)
+			.installFromTarballUrl(tarballUrl, installDir, installExtras)
 			.then(() => toast.success(`Plugin ${ext.name} Installed`))
 			.then(() =>
 				supabaseAPI.incrementDownloads({
