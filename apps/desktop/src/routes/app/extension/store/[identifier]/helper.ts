@@ -8,7 +8,7 @@ export async function getInstallExtras(
 	if (ext.metadata.sourceType) {
 		if (ext.metadata.sourceType === "jsr") {
 			if (ext.metadata.source) {
-				try {
+				try {	
 					const res = await fetch(`${ext.metadata.source}/package.json`)
 					const pkgJsonContent = await res.text()
 					extras.overwritePackageJson = pkgJsonContent

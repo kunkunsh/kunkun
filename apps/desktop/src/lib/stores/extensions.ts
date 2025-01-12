@@ -22,7 +22,11 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	registerNewExtensionByPath: (extPath: string) => Promise<ExtPackageJsonExtra>
 	uninstallStoreExtensionByIdentifier: (identifier: string) => Promise<ExtPackageJsonExtra>
 	uninstallDevExtensionByIdentifier: (identifier: string) => Promise<ExtPackageJsonExtra>
-	upgradeStoreExtension: (identifier: string, tarballUrl: string) => Promise<ExtPackageJsonExtra>
+	upgradeStoreExtension: (
+		identifier: string,
+		tarballUrl: string,
+		extras?: { overwritePackageJson?: string }
+	) => Promise<ExtPackageJsonExtra>
 } {
 	const store = writable<ExtPackageJsonExtra[]>([])
 
@@ -176,12 +180,13 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 
 	async function upgradeStoreExtension(
 		identifier: string,
-		tarballUrl: string
+		tarballUrl: string,
+		extras?: { overwritePackageJson?: string }
 	): Promise<ExtPackageJsonExtra> {
 		const extsDir = get(appConfig).extensionsInstallDir
 		if (!extsDir) throw new Error("Extension path not set")
 		return uninstallStoreExtensionByIdentifier(identifier).then(() =>
-			installFromTarballUrl(tarballUrl, extsDir)
+			installFromTarballUrl(tarballUrl, extsDir, extras)
 		)
 	}
 
