@@ -32,6 +32,7 @@
 	import { goto } from "$app/navigation"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
+	import { toast } from "svelte-sonner"
 
 	let inputEle: HTMLInputElement | null = $state(null)
 	function onKeyDown(event: KeyboardEvent) {
