@@ -1,6 +1,6 @@
 import { getExtensionsFolder } from "@/constants"
 import { db } from "@kksh/api/commands"
-import type { ExtPackageJsonExtra } from "@kksh/api/models"
+import type { ExtPackageJson, ExtPackageJsonExtra } from "@kksh/api/models"
 import * as extAPI from "@kksh/extension"
 import * as path from "@tauri-apps/api/path"
 import * as fs from "@tauri-apps/plugin-fs"
@@ -21,22 +21,44 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	findStoreExtensionByIdentifier: (identifier: string) => ExtPackageJsonExtra | undefined
 	registerNewExtensionByPath: (extPath: string) => Promise<ExtPackageJsonExtra>
 	uninstallStoreExtensionByIdentifier: (identifier: string) => Promise<ExtPackageJsonExtra>
+	uninstallDevExtensionByIdentifier: (identifier: string) => Promise<ExtPackageJsonExtra>
 	upgradeStoreExtension: (identifier: string, tarballUrl: string) => Promise<ExtPackageJsonExtra>
 } {
 	const store = writable<ExtPackageJsonExtra[]>([])
 
+	/**
+	 * Load all extensions from the database and disk, all extensions manifest will be stored in the store
+	 * @returns loaded extensions
+	 */
 	function init() {
 		return extAPI.loadAllExtensionsFromDb().then((exts) => {
 			store.set(exts)
 		})
 	}
 
+	/**
+	 * Get all extensions installed from the store (non-dev extensions)
+	 */
 	function getExtensionsFromStore(): ExtPackageJsonExtra[] {
 		const extContainerPath = get(appConfig).extensionsInstallDir
 		if (!extContainerPath) return []
 		return get(extensions).filter((ext) => !extAPI.isExtPathInDev(extContainerPath, ext.extPath))
 	}
 
+	/**
+	 * Get all dev extensions
+	 */
+	function getDevExtensions(): ExtPackageJsonExtra[] {
+		const extContainerPath = get(appConfig).extensionsInstallDir
+		if (!extContainerPath) return []
+		return get(extensions).filter((ext) => extAPI.isExtPathInDev(extContainerPath, ext.extPath))
+	}
+
+	/**
+	 * Find an extension by its identifier
+	 * @param identifier extension identifier
+	 * @returns found extension or undefined
+	 */
 	function findStoreExtensionByIdentifier(identifier: string): ExtPackageJsonExtra | undefined {
 		return get(extensions).find((ext) => ext.kunkun.identifier === identifier)
 	}
@@ -106,7 +128,12 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		})
 	}
 
-	async function uninstallExtensionByPath(targetPath: string) {
+	/**
+	 * Uninstall an extension by its path
+	 * @param targetPath absolute path to the extension folder
+	 * @returns uninstalled extension
+	 */
+	async function uninstallExtensionByPath(targetPath: string): Promise<ExtPackageJsonExtra> {
 		const targetExt = get(extensions).find((ext) => ext.extPath === targetPath)
 		if (!targetExt) throw new Error(`Extension ${targetPath} not registered in DB`)
 		return extAPI
@@ -115,7 +142,33 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 			.then(() => targetExt)
 	}
 
-	async function uninstallStoreExtensionByIdentifier(identifier: string) {
+	/**
+	 * Uninstall a dev extension by its path
+	 * Files will not be removed from disk, only unregistered from the DB
+	 * @param targetPath absolute path to the extension folder
+	 * @returns uninstalled extension
+	 */
+	async function uninstallDevExtensionByPath(targetPath: string): Promise<ExtPackageJsonExtra> {
+		const targetExt = get(extensions).find((ext) => ext.extPath === targetPath)
+		if (!targetExt) throw new Error(`Extension ${targetPath} not registered in DB`)
+		// remove from DB
+		return db
+			.deleteExtensionByPath(targetPath)
+			.then(() => store.update((exts) => exts.filter((ext) => ext.extPath !== targetExt.extPath)))
+			.then(() => targetExt)
+	}
+
+	async function uninstallDevExtensionByIdentifier(
+		identifier: string
+	): Promise<ExtPackageJsonExtra> {
+		const targetExt = getDevExtensions().find((ext) => ext.kunkun.identifier === identifier)
+		if (!targetExt) throw new Error(`Extension ${identifier} not found`)
+		return uninstallDevExtensionByPath(targetExt.extPath)
+	}
+
+	async function uninstallStoreExtensionByIdentifier(
+		identifier: string
+	): Promise<ExtPackageJsonExtra> {
 		const targetExt = getExtensionsFromStore().find((ext) => ext.kunkun.identifier === identifier)
 		if (!targetExt) throw new Error(`Extension ${identifier} not found`)
 		return uninstallExtensionByPath(targetExt.extPath)
@@ -143,6 +196,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		installFromTarballUrl,
 		installFromNpmPackageName,
 		uninstallStoreExtensionByIdentifier,
+		uninstallDevExtensionByIdentifier,
 		upgradeStoreExtension
 	}
 }
