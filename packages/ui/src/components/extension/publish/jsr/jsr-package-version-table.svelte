@@ -11,19 +11,18 @@
 	}
 	let {
 		class: className,
-		githubOwnerMismatch,
+		ownershipCheckFailed,
 		versions,
 		onPublish,
 		publishedVersions
 	}: {
 		class?: string
-		githubOwnerMismatch: boolean
+		ownershipCheckFailed: boolean
 		versions: Version[]
 		onPublish?: (version: Version) => void
 		publishedVersions: string[]
 	} = $props()
 </script>
-
 <Table.Root class={className}>
 	<Table.Caption>All versions of the package</Table.Caption>
 	<Table.Header>
@@ -59,7 +58,7 @@
 				<Table.Cell class="text-center">{version.rekorLogId ? "✅" : "❌"}</Table.Cell>
 				<Table.Cell class="text-center">
 					{@const disabled =
-						version.yanked || !version.rekorLogId || githubOwnerMismatch || isPublished}
+						version.yanked || !version.rekorLogId || ownershipCheckFailed || isPublished}
 					{#if disabled}
 						<HoverCard.Root>
 							<HoverCard.Trigger>
@@ -70,7 +69,7 @@
 									Version is yanked
 								{:else if !version.rekorLogId}
 									Version is not signed by GitHub Action
-								{:else if githubOwnerMismatch}
+								{:else if ownershipCheckFailed}
 									Your GitHub account is not the owner of the package
 								{:else if isPublished}
 									Version is already published
