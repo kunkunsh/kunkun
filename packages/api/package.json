@@ -43,6 +43,7 @@
 	},
 	"dependencies": {
 		"@huakunshen/jsr-client": "^0.1.5",
+		"@octokit/rest": "^21.1.0",
 		"@tauri-apps/api": "^2.2.0",
 		"@tauri-apps/cli": "^2.2.2",
 		"@tauri-apps/plugin-deep-link": "^2.2.0",
