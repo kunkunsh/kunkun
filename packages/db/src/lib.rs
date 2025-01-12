@@ -214,6 +214,7 @@ impl JarvisDB {
     // }
 
     pub fn delete_extension_by_path(&self, path: &str) -> Result<()> {
+        println!("DB deleting extension by path: {}", path);
         self.conn
             .execute("DELETE FROM extensions WHERE path = ?1", params![path])?;
         Ok(())

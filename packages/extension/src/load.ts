@@ -54,10 +54,14 @@ export function loadAllExtensionsFromDisk(
 	})
 }
 
+/**
+ * Load all extensions from the database
+ * Then load the manifest from the disk
+ * If a extension is in database but cannot be loaded from disk, it will be skipped
+ * @returns loaded extensions
+ */
 export async function loadAllExtensionsFromDb(): Promise<ExtPackageJsonExtra[]> {
-	console.log("loadAllExtensionsFromDb start")
 	const allDbExts = await (await db.getAllExtensions()).filter((ext) => ext.path)
-	console.log("allDbExts", allDbExts)
 	const results: ExtPackageJsonExtra[] = []
 	for (const ext of allDbExts) {
 		if (!ext.path) continue
