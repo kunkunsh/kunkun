@@ -55,6 +55,25 @@ export async function installTarball(
 				}
 				await fs.remove(extInstallPath, { recursive: true })
 			}
+
+			// find extension in db, if exists, ask user if they want to overwrite it
+			const exts = await db.getAllExtensionsByIdentifier(manifest.kunkun.identifier)
+			if (exts.length > 0) {
+				const overwrite = await dialog.ask(
+					`Extension ${manifest.kunkun.identifier} already exists in database (but not on disk), do you want to overwrite it?`
+				)
+				if (!overwrite) {
+					return Promise.reject("Extension Already Exists")
+				}
+				if (exts[0].path) {
+					console.log(
+						"delete extension in db (overwrite in order to install a new version)",
+						exts[0].path
+					)
+					await db.deleteExtensionByPath(exts[0].path)
+				}
+			}
+
 			await fs.rename(decompressDest, extInstallPath)
 			await db.createExtension({
 				identifier: manifest.kunkun.identifier,
