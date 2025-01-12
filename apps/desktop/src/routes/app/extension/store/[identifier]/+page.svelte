@@ -10,7 +10,7 @@
 	import { Constants } from "@kksh/ui"
 	import { StoreExtDetail } from "@kksh/ui/extension"
 	import { greaterThan, parse as parseSemver } from "@std/semver"
-	import { error } from "@tauri-apps/plugin-log"
+	import { error, info } from "@tauri-apps/plugin-log"
 	import { goto } from "$app/navigation"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
@@ -81,6 +81,7 @@
 			.installFromTarballUrl(tarballUrl, installDir, installExtras)
 			.then(() => toast.success(`Plugin ${ext.name} Installed`))
 			.then((loadedExt) => {
+				info(`Successfully installed ${ext.name}`)
 				supabaseAPI.incrementDownloads({
 					identifier: ext.identifier,
 					version: ext.version
@@ -89,7 +90,7 @@
 				showBtn.uninstall = true
 			})
 			.catch((err) => {
-				console.error("err", err)
+				error(`Fail to install tarball (${ext.identifier}): ${err}`)
 				toast.error("Fail to install tarball", { description: err })
 			})
 			.finally(() => {

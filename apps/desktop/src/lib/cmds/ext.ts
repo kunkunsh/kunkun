@@ -92,7 +92,9 @@ export async function onCustomUiCmdSelect(
 	if (useDevMain) {
 		url = cmd.devMain
 	} else {
-		url = decodeURIComponent(convertFileSrc(`${trimSlash(cmd.main)}`, "ext"))
+		url = cmd.main.startsWith("http")
+			? cmd.main
+			: decodeURIComponent(convertFileSrc(`${trimSlash(cmd.main)}`, "ext"))
 	}
 	let url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
 	if (cmd.window) {

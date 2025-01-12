@@ -132,7 +132,9 @@
 	}
 
 	onMount(() => {
-		appWin.show()
+		setTimeout(() => {
+			appWin.show()
+		}, 200)
 		if (iframeRef?.contentWindow) {
 			const io = new IframeParentIO(iframeRef.contentWindow)
 			const rpc = new RPCChannel(io, { expose: serverAPI })

@@ -8,7 +8,10 @@
 	import { toast } from "svelte-sonner"
 	import { derived, get } from "svelte/store"
 
+	let uninstalling = $state(false)
+
 	function onUninstall(ext: ExtPackageJsonExtra) {
+		uninstalling = true
 		const extContainerPath = get(appConfig).extensionsInstallDir
 		const isDev = extContainerPath && extAPI.isExtPathInDev(extContainerPath, ext.extPath)
 		console.log("uninstall extension (isDev): ", isDev)
@@ -25,7 +28,9 @@
 				toast.error("Fail to uninstall extension", { description: err })
 				error(`Fail to uninstall store extension (${ext.kunkun.identifier}): ${err}`)
 			})
-			.finally(() => {})
+			.finally(() => {
+				uninstalling = false
+			})
 	}
 </script>
 
@@ -36,7 +41,12 @@
 		<Table.Cell>{type}</Table.Cell>
 		<Table.Cell>{ext.version}</Table.Cell>
 		<Table.Cell>
-			<Button variant="destructive" size="icon" onclick={() => onUninstall(ext)}>
+			<Button
+				variant="destructive"
+				size="icon"
+				disabled={uninstalling}
+				onclick={() => onUninstall(ext)}
+			>
 				<TrashIcon />
 			</Button>
 		</Table.Cell>
