@@ -52,7 +52,7 @@ describe("Validate Jsr package as Kunkun extension", () => {
 			jsrPackage: {
 				scope: "kunkun",
 				name: "ext-image-processing",
-				version: "0.0.6"
+				version: "0.0.18"
 			},
 			githubUsername: "Huakun"
 		})
@@ -66,7 +66,7 @@ describe("Validate Jsr package as Kunkun extension", () => {
 			jsrPackage: {
 				scope: "kunkun",
 				name: "ext-image-processing",
-				version: "0.0.6"
+				version: "0.0.18"
 			},
 			githubUsername: "HuakunShen"
 		})
