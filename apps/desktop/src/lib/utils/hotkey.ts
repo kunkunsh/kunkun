@@ -1,6 +1,6 @@
 import { getAllWindows } from "@tauri-apps/api/window"
 import { isRegistered, register, unregister } from "@tauri-apps/plugin-global-shortcut"
-import { debug, info } from "@tauri-apps/plugin-log"
+import { debug, info, warn } from "@tauri-apps/plugin-log"
 import { sendNotificationWithPermission } from "./notification"
 
 /**
@@ -16,7 +16,7 @@ export function mapKeyToTauriKey(key: string): string {
 
 export async function registerAppHotkey(hotkeyStr: string) {
 	if (await isRegistered(hotkeyStr)) {
-		debug(`Hotkey (${hotkeyStr}) already registered`)
+		warn(`Hotkey (${hotkeyStr}) already registered`)
 		await unregister(hotkeyStr)
 	}
 	info(`Registering hotkey: ${hotkeyStr}`)
