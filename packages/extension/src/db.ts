@@ -8,6 +8,7 @@ import {
 	QuickLinkCmd
 } from "@kksh/api/models"
 import * as v from "valibot"
+import { isExtPathInDev } from "./utils"
 
 export async function upsertExtension(extPkgJson: ExtPackageJson, extFullPath: string) {
 	const extInDb = await db.getUniqueExtensionByIdentifier(extPkgJson.kunkun.identifier)

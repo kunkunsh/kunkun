@@ -14,6 +14,7 @@ import { download } from "@tauri-apps/plugin-upload"
 import { v4 as uuidv4 } from "uuid"
 import { z, ZodError } from "zod"
 import { loadExtensionManifestFromDisk } from "./load"
+import { isExtPathInDev } from "./utils"
 
 /**
  *
@@ -58,7 +59,8 @@ export async function installTarball(
 
 			// find extension in db, if exists, ask user if they want to overwrite it
 			const exts = await db.getAllExtensionsByIdentifier(manifest.kunkun.identifier)
-			if (exts.length > 0) {
+			const storeExts = exts.filter((ext) => ext.path && !isExtPathInDev(extsDir, ext.path))
+			if (storeExts.length > 0) {
 				const overwrite = await dialog.ask(
 					`Extension ${manifest.kunkun.identifier} already exists in database (but not on disk), do you want to overwrite it?`
 				)
