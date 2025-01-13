@@ -110,7 +110,9 @@ pub fn run() {
         .plugin(tauri_plugin_keyring::init())
         .plugin(tauri_plugin_network::init())
         .plugin(tauri_plugin_system_info::init())
-        .invoke_handler(tauri::generate_handler![commands::keyring::get_stronghold_key]);
+        .invoke_handler(tauri::generate_handler![
+            commands::keyring::get_stronghold_key
+        ]);
 
     let app = builder
         .register_uri_scheme_protocol("appicon", |_app, request| {
@@ -307,7 +309,29 @@ pub fn run() {
     app.run(|_app_handle, event| match event {
         // tauri::RunEvent::Exit => todo!(),
         // tauri::RunEvent::ExitRequested { code, api, .. } => todo!(),
-        // tauri::RunEvent::WindowEvent { label, event, .. } => todo!(),
+        tauri::RunEvent::WindowEvent { label, event, .. } => {
+            if label == "main" {
+                match event {
+                    // tauri::WindowEvent::Resized(physical_size) => todo!(),
+                    // tauri::WindowEvent::Moved(physical_position) => todo!(),
+                    tauri::WindowEvent::CloseRequested { api, .. } => {
+                        api.prevent_close();
+                        log::info!("main window close requested, hiding");
+                        let window = _app_handle.get_webview_window("main").unwrap();
+                        window.hide().unwrap();
+                    }
+                    // tauri::WindowEvent::Destroyed => todo!(),
+                    // tauri::WindowEvent::Focused(_) => todo!(),
+                    // tauri::WindowEvent::ScaleFactorChanged {
+                    //     scale_factor,
+                    //     new_inner_size,
+                    // } => todo!(),
+                    // tauri::WindowEvent::DragDrop(drag_drop_event) => todo!(),
+                    // tauri::WindowEvent::ThemeChanged(theme) => todo!(),
+                    _ => {}
+                }
+            }
+        }
         // tauri::RunEvent::WebviewEvent { label, event, .. } => todo!(),
         // tauri::RunEvent::Ready => todo!(),
         // tauri::RunEvent::Resumed => todo!(),
