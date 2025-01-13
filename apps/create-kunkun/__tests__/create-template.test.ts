@@ -17,16 +17,14 @@ const templateNames = ["template", "react", "vue", "nuxt", "svelte", "sveltekit"
 
 fs.rmdirSync(testDir, { recursive: true })
 fs.mkdirpSync(testDir)
-await Promise.all(
-	templateNames.map(async (templateName) => {
-		const folderName = `${templateName}-ext`
-		await $`node ${indexjsPath} --outdir ${testDir} --name ${folderName} --template ${templateName}`
-		const templateDir = path.join(testDir, folderName)
-		await $`rm -rf node_modules`.cwd(templateDir) // this doesn't work within bun test
-		await $`pnpm install`.cwd(templateDir) // this doesn't work within bun test
-		await $`pnpm run build`.cwd(templateDir)
-	})
-)
+for (const templateName of templateNames) {
+	const folderName = `${templateName}-ext`
+	await $`node ${indexjsPath} --outdir ${testDir} --name ${folderName} --template ${templateName}`
+	const templateDir = path.join(testDir, folderName)
+	await $`rm -rf node_modules`.cwd(templateDir) // this doesn't work within bun test
+	await $`pnpm install`.cwd(templateDir) // this doesn't work within bun test
+	const out = await $`pnpm run build`.cwd(templateDir)
+}
 
 test("Build Artifact Existence", () => {
 	templateNames.forEach(async (templateName) => {
