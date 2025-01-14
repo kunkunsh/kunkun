@@ -17,7 +17,8 @@
 		"./supabase": "./src/supabase/index.ts",
 		"./supabase/types": "./src/supabase/database.types.ts",
 		"./package.json": "./package.json",
-		"./extensions/jsr": "./src/extensions/jsr/index.ts"
+		"./package-registry/jsr": "./src/package-registry/jsr/index.ts",
+		"./package-registry/npm": "./src/package-registry/npm/index.ts"
 	},
 	"license": "MIT",
 	"scripts": {

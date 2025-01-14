@@ -29,6 +29,7 @@ describe("Verify Bundled Package", () => {
 			if (typeof exportPaths === "string") {
 				// special case for "./package.json"
 				const resolvedPath = path.join(pkgRoot, exportPaths)
+				console.log("resolvedPath", resolvedPath)
 				expect(await Bun.file(resolvedPath).exists()).toBe(true)
 			} else {
 				Object.values(exportPaths).forEach(async (_path: string) => {

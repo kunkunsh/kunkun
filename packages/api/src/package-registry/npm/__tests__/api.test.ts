@@ -8,7 +8,7 @@ import {
 	listPackagesOfMaintainer,
 	listPackagesOfScope
 } from ".."
-import { getTarballSize } from "../../package-registry/utils"
+import { getTarballSize } from "../../utils"
 import { NpmPkgMetadata, NpmPkgVersionMetadata, NpmSearchResultObject, Provenance } from "../models"
 
 describe("NPM API", () => {

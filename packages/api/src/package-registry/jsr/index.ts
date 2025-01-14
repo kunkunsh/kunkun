@@ -6,15 +6,15 @@ import {
 } from "@huakunshen/jsr-client/hey-api-client"
 import * as v from "valibot"
 import { ExtPackageJson } from "../../models/manifest"
-import type { NpmPkgMetadata } from "../npm/models"
+import type { NpmPkgMetadata } from "../../npm/models"
 import {
 	authenticatedUserIsMemberOfGitHubOrg,
 	userIsPublicMemberOfGitHubOrg
-} from "../package-registry/github"
-import { getTarballSize } from "../package-registry/utils"
+} from "../github"
+import { getTarballSize } from "../utils"
 import type { JsrPackageMetadata } from "./models"
 
-export * from "../package-registry/github"
+export * from "../github"
 
 client.setConfig({
 	baseUrl: "https://api.jsr.io"
