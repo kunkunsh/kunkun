@@ -71,5 +71,6 @@ describe("Validate Jsr package as Kunkun extension", () => {
 			githubUsername: "HuakunShen"
 		})
 		expect(res.data).toBeDefined()
+		expect(res.data?.commit).toBe("4db8d65b5e3fa115da6e31bd945f5c610c4a21cb")
 	})
 })

@@ -1,3 +1,4 @@
+import { getPackageVersion } from "@huakunshen/jsr-client/hey-api-client"
 import { describe, expect, test } from "bun:test"
 import * as v from "valibot"
 import { ExtPackageJson } from "../../../../api/src/models/manifest"
@@ -26,12 +27,12 @@ describe("Test the helper functions", () => {
 
 	test("Signed By GitHub Action", async () => {
 		const kkrpcSigned = await isSignedByGitHubAction("kunkun", "kkrpc", "0.0.14")
-		expect(kkrpcSigned).toBe(true)
+		expect(kkrpcSigned).toBeDefined()
 		const kkrpcSignedVersion = await isSignedByGitHubAction("kunkun", "kkrpc", "0.0.14")
-		expect(kkrpcSignedVersion).toBe(true)
-		expect(kkrpcSignedVersion).toBe(true)
+		expect(kkrpcSignedVersion).toBeDefined()
+		expect(kkrpcSignedVersion).toBeDefined()
 		const kunkunApiSigned = await isSignedByGitHubAction("kunkun", "api", "0.0.47")
-		expect(kunkunApiSigned).toBe(false)
+		expect(kunkunApiSigned).toBeUndefined()
 	})
 
 	test("Get Linked GitHub Repo", async () => {
@@ -109,5 +110,17 @@ describe("Test the helper functions", () => {
 		expect(await jsrPackageExists("hk", "non-existent-package")).toBe(false)
 		expect(await jsrPackageExists("hk", "jsr-client", "0.1.2")).toBe(true)
 		expect(await jsrPackageExists("hk", "jsr-client", "0.1.500")).toBe(false)
+	})
+
+	test("get package version info", async () => {
+		const pkgVersion = await getPackageVersion({
+			path: {
+				scope: "kunkun",
+				package: "ext-ossinsight",
+				version: "0.0.1"
+			}
+		})
+		expect(pkgVersion).toBeDefined()
+		console.log(pkgVersion)
 	})
 })

@@ -8,6 +8,7 @@ import { ExtPackageJson } from "@kksh/api/models"
 import * as v from "valibot"
 import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "../github"
 import type { NpmPkgMetadata } from "../npm/models"
+import { getCommitFromRekorLog } from "../sigstore"
 import { getTarballSize } from "../utils"
 import type { JsrPackageMetadata } from "./models"
 
@@ -63,7 +64,7 @@ export async function isSignedByGitHubAction(
 	scope: string,
 	name: string,
 	version: string
-): Promise<boolean> {
+): Promise<string | undefined> {
 	const pkgVersion = await getPackageVersion({
 		path: {
 			scope,
@@ -71,7 +72,7 @@ export async function isSignedByGitHubAction(
 			version
 		}
 	})
-	return !!pkgVersion.data?.rekorLogId
+	return pkgVersion.data?.rekorLogId
 }
 
 export async function getJsrPackageGitHubRepo(
@@ -225,6 +226,7 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 		shasum: string
 		apiVersion: string
 		tarballSize: number
+		commit: string
 	}
 }> {
 	/* -------------------------------------------------------------------------- */
@@ -251,12 +253,12 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 	/* -------------------------------------------------------------------------- */
 	/*                check if jsr pkg is signed with github action               */
 	/* -------------------------------------------------------------------------- */
-	const signed = await isSignedByGitHubAction(
+	const rekorLogId = await isSignedByGitHubAction(
 		payload.jsrPackage.scope,
 		payload.jsrPackage.name,
 		payload.jsrPackage.version
 	)
-	if (!signed) {
+	if (!rekorLogId) {
 		return { error: "JSR package is not signed by GitHub Actions" }
 	}
 	/* -------------------------------------------------------------------------- */
@@ -345,14 +347,15 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 			error: `Extension ${packageJson.kunkun.identifier} doesn't not have @kksh/api as a dependency`
 		}
 	}
-
+	const commit = await getCommitFromRekorLog(rekorLogId)
 	return {
 		data: {
 			pkgJson: parseResult.output,
 			tarballUrl,
 			shasum,
 			apiVersion,
-			tarballSize
+			tarballSize,
+			commit
 		}
 	}
 }

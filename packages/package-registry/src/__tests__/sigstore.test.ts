@@ -1,0 +1,32 @@
+import { describe, expect, test } from "bun:test"
+import * as v from "valibot"
+import { RawRekorLog } from "../models"
+import {
+	getRekorLogId,
+	parseAttestation,
+	getCommitFromRekorLog,
+	parseTheOnlyRecord
+} from "../sigstore"
+
+describe("sigstore", async () => {
+	const log = await getRekorLogId("162240358")
+	const parsed = v.safeParse(RawRekorLog, log)
+
+	test("get rekor log", async () => {
+		expect(parsed.success).toBe(true)
+	})
+
+	test("parse attestation", async () => {
+		if (parsed.success) {
+			const parsed2 = parseTheOnlyRecord(parsed.output)
+			const attestation = parseAttestation(parsed2)
+			expect(attestation).toBeDefined()
+		}
+	})
+
+	test("parse all commits from rekor log", async () => {
+		const commit = await getCommitFromRekorLog("162240358")
+		expect(commit).toBeDefined()
+		expect(commit).toBe("48b7dff528bc6a175ce9ee99e6d8de0c718e70a0")
+	})
+})
