@@ -1,6 +1,9 @@
 {
 	"name": "@kksh/package-registry",
 	"type": "module",
+	"scripts": {
+		"test": "verify-package-export verify"
+	},
 	"exports": {
 		"./jsr": "./src/jsr/index.ts",
 		"./npm": "./src/npm/index.ts"

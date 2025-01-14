@@ -21,6 +21,7 @@
 	"license": "MIT",
 	"scripts": {
 		"test": "bun test --coverage",
+		"postbuild": "verify-package-export verify",
 		"gen:deno:types": "deno types > deno.d.ts",
 		"build:docs": "npx typedoc",
 		"check-types": "tsc --noEmit",
