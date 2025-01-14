@@ -108,7 +108,11 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 		shasum: string
 		apiVersion: string
 		tarballSize: number
-		commit: string
+		github: {
+			commit: string
+			repo: string
+			owner: string
+		}
 	}
 }> {
 	/* -------------------------------------------------------------------------- */
@@ -206,7 +210,11 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 			shasum,
 			apiVersion,
 			tarballSize: 0,
-			commit: provenance.summary.sourceRepositoryDigest
+			github: {
+				commit: provenance.summary.sourceRepositoryDigest,
+				repo: githubRepo.repo,
+				owner: githubRepo.owner
+			}
 		}
 	}
 }

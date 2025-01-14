@@ -226,7 +226,11 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 		shasum: string
 		apiVersion: string
 		tarballSize: number
-		commit: string
+		github: {
+			commit: string
+			repo: string
+			owner: string
+		}
 	}
 }> {
 	/* -------------------------------------------------------------------------- */
@@ -266,6 +270,9 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 	/* -------------------------------------------------------------------------- */
 	if (!githubRepo.owner) {
 		return { error: "Package's Linked GitHub repository owner is not found." }
+	}
+	if (!githubRepo.name) {
+		return { error: "Package's Linked GitHub repository name is not found." }
 	}
 	if (githubRepo.owner.toLowerCase() !== payload.githubUsername.toLowerCase()) {
 		const isPublicMemeber = await userIsPublicMemberOfGitHubOrg(
@@ -355,7 +362,11 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 			shasum,
 			apiVersion,
 			tarballSize,
-			commit
+			github: {
+				commit,
+				repo: githubRepo.name,
+				owner: githubRepo.owner
+			}
 		}
 	}
 }
