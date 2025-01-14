@@ -125,6 +125,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 	githubUsername: string;
 	tarballSizeLimit?: number;
 	githubToken?: string;
+	provenance?: Provenance; // provenance API has cors policy, when we run this validation on client side, a provenance should be passed in
 }): Promise<{
 	error?: string;
 	data?: {
@@ -149,7 +150,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 	/* -------------------------------------------------------------------------- */
 	/*                     check if npm package has provenance                    */
 	/* -------------------------------------------------------------------------- */
-	const provenance = await getNpmPkgProvenance(
+	const provenance = payload.provenance ?? await getNpmPkgProvenance(
 		payload.pkgName,
 		payload.version,
 	);
