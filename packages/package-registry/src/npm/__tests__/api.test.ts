@@ -2,11 +2,13 @@ import { describe, expect, test } from "bun:test"
 import * as v from "valibot"
 import {
 	getFullNpmPackageInfo,
+	getNpmPackageInfoByVersion,
 	getNpmPackageTarballUrl,
-	getNpmPackageVersionInfo,
 	getNpmPkgProvenance,
 	listPackagesOfMaintainer,
-	listPackagesOfScope
+	listPackagesOfScope,
+	npmPackageExists,
+	validateNpmPackageAsKunkunExtension
 } from ".."
 import { getTarballSize } from "../../utils"
 import { NpmPkgMetadata, NpmPkgVersionMetadata, NpmSearchResultObject, Provenance } from "../models"
@@ -30,7 +32,7 @@ describe("NPM API", () => {
 
 	test("get npm package version info", async () => {
 		for (const pkg of testPackages) {
-			v.parse(NpmPkgVersionMetadata, await getNpmPackageVersionInfo(pkg, "latest"))
+			v.parse(NpmPkgVersionMetadata, await getNpmPackageInfoByVersion(pkg, "latest"))
 		}
 	})
 
@@ -50,5 +52,10 @@ describe("NPM API", () => {
 		const packages = await listPackagesOfScope("kksh")
 		v.parse(v.array(NpmSearchResultObject), packages)
 		expect(packages.length).toBeGreaterThan(0)
+	})
+
+	test("npm package exists", async () => {
+		expect(await npmPackageExists("kunkun-ext-ossinsight", "0.0.1")).toBe(true)
+		expect(await npmPackageExists("kunkun-ext-non-existing", "0.0.1")).toBe(false)
 	})
 })

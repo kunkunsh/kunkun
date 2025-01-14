@@ -4,8 +4,8 @@ import {
 	getPackageVersion,
 	type GitHubRepository
 } from "@huakunshen/jsr-client/hey-api-client"
+import { ExtPackageJson } from "@kksh/api/models"
 import * as v from "valibot"
-import { ExtPackageJson } from "../../../api/src/models/manifest"
 import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "../github"
 import type { NpmPkgMetadata } from "../npm/models"
 import { getTarballSize } from "../utils"
@@ -227,7 +227,9 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 		tarballSize: number
 	}
 }> {
-	// check if jsr package exists
+	/* -------------------------------------------------------------------------- */
+	/*                         check if jsr package exists                        */
+	/* -------------------------------------------------------------------------- */
 	const jsrExists = await jsrPackageExists(
 		payload.jsrPackage.scope,
 		payload.jsrPackage.name,

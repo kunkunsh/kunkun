@@ -15,6 +15,7 @@
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
+		"@kksh/api": "workspace:*",
 		"@octokit/rest": "^21.1.0"
 	}
 }
