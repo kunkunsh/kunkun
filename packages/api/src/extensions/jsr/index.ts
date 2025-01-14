@@ -6,10 +6,15 @@ import {
 } from "@huakunshen/jsr-client/hey-api-client"
 import * as v from "valibot"
 import { ExtPackageJson } from "../../models/manifest"
-import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "./github"
-import type { JsrPackageMetadata, NpmPkgMetadata } from "./models"
+import type { NpmPkgMetadata } from "../npm/models"
+import {
+	authenticatedUserIsMemberOfGitHubOrg,
+	userIsPublicMemberOfGitHubOrg
+} from "../package-registry/github"
+import { getTarballSize } from "../package-registry/utils"
+import type { JsrPackageMetadata } from "./models"
 
-export * from "./github"
+export * from "../package-registry/github"
 
 client.setConfig({
 	baseUrl: "https://api.jsr.io"
@@ -159,7 +164,7 @@ export async function getNpmPackageTarballUrl(
 	version: string
 ): Promise<string | undefined> {
 	const metadata = await getJsrNpmPackageVersionMetadata(scope, name, version)
-	const tarballUrl: string | undefined = metadata?.dist.tarball
+	const tarballUrl: string | undefined = metadata?.dist?.tarball
 	return tarballUrl
 }
 
@@ -196,20 +201,6 @@ export function jsrPackageExists(scope: string, name: string, version?: string):
 			package: name
 		}
 	}).then((res) => res.response.ok && res.response.status === 200)
-}
-
-/**
- * Get the tarball size of a Jsr package
- * @param url tarball url, can technically be any url
- * @returns tarball size in bytes
- */
-export function getTarballSize(url: string): Promise<number> {
-	return fetch(url, { method: "HEAD" }).then((res) => {
-		if (!(res.ok && res.status === 200)) {
-			throw new Error("Failed to fetch tarball size")
-		}
-		return Number(res.headers.get("Content-Length"))
-	})
 }
 
 /**
@@ -332,8 +323,11 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 		payload.jsrPackage.name,
 		payload.jsrPackage.version
 	)
-	const tarballUrl = npmPkgVersionMetadata.dist.tarball
-	const shasum = npmPkgVersionMetadata.dist.shasum
+	const tarballUrl = npmPkgVersionMetadata.dist?.tarball
+	const shasum = npmPkgVersionMetadata.dist?.shasum
+	if (!shasum) {
+		return { error: "Could not get shasum for JSR package" }
+	}
 	if (!tarballUrl) {
 		return { error: "Could not get tarball URL for JSR package" }
 	}
