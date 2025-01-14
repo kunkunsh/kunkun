@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
 import * as v from "valibot"
-import { ExtPackageJson } from "../../../models/manifest"
+import { ExtPackageJson } from "../../../../api/src/models/manifest"
 import { NpmPkgMetadata } from "../../npm/models"
 import {
 	getAllVersionsOfJsrPackage,

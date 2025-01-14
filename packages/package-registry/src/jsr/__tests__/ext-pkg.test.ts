@@ -62,7 +62,7 @@ describe("Validate Jsr package as Kunkun extension", () => {
 	})
 
 	test("A valid extension package", async () => {
-		const res = await await validateJsrPackageAsKunkunExtension({
+		const res = await validateJsrPackageAsKunkunExtension({
 			jsrPackage: {
 				scope: "kunkun",
 				name: "ext-image-processing",

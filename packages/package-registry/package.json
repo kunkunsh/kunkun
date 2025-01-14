@@ -1,0 +1,17 @@
+{
+	"name": "@kksh/package-registry",
+	"type": "module",
+	"exports": {
+		"./jsr": "./src/jsr/index.ts",
+		"./npm": "./src/npm/index.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@octokit/rest": "^21.1.0"
+	}
+}

@@ -16,9 +16,7 @@
 		"./events": "./src/events.ts",
 		"./supabase": "./src/supabase/index.ts",
 		"./supabase/types": "./src/supabase/database.types.ts",
-		"./package.json": "./package.json",
-		"./package-registry/jsr": "./src/package-registry/jsr/index.ts",
-		"./package-registry/npm": "./src/package-registry/npm/index.ts"
+		"./package.json": "./package.json"
 	},
 	"license": "MIT",
 	"scripts": {

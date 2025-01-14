@@ -5,16 +5,11 @@ import {
 	type GitHubRepository
 } from "@huakunshen/jsr-client/hey-api-client"
 import * as v from "valibot"
-import { ExtPackageJson } from "../../models/manifest"
-import type { NpmPkgMetadata } from "../../npm/models"
-import {
-	authenticatedUserIsMemberOfGitHubOrg,
-	userIsPublicMemberOfGitHubOrg
-} from "../github"
+import { ExtPackageJson } from "../../../api/src/models/manifest"
+import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "../github"
+import type { NpmPkgMetadata } from "../npm/models"
 import { getTarballSize } from "../utils"
 import type { JsrPackageMetadata } from "./models"
-
-export * from "../github"
 
 client.setConfig({
 	baseUrl: "https://api.jsr.io"
