@@ -1,5 +1,8 @@
+import { appConfig } from "@/stores"
 import { getCurrentWindow } from "@tauri-apps/api/window"
+import { info } from "@tauri-apps/plugin-log"
 import { dev } from "$app/environment"
+import { mapKeyToTauriKey, registerAppHotkey } from "./hotkey"
 
 /**
  * Initialize the app
@@ -19,11 +22,15 @@ export function init() {
 }
 
 export function initMainWindow() {
-	// const window = getCurrentWindow()
-	// if (window.label === "main") {
-	// 	window.onCloseRequested((event) => {
-	// 		event.preventDefault()
-	// 		window.hide()
-	// 	})
-	// }
+	/* -------------------------------------------------------------------------- */
+	/*                             Register App Hotkey                            */
+	/* -------------------------------------------------------------------------- */
+	const triggerHotkey = appConfig.get().triggerHotkey
+	if (triggerHotkey && triggerHotkey.length > 0) {
+		const hotkeyStr = triggerHotkey.map(mapKeyToTauriKey).join("+")
+		info(`Registering hotkey: ${hotkeyStr}`)
+		registerAppHotkey(hotkeyStr)
+	} else {
+		console.log("No hotkey found in confi")
+	}
 }
