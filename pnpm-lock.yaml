@@ -344,7 +344,7 @@ importers:
     dependencies:
       '@huakunshen/jsr-client':
         specifier: ^0.1.5
-        version: 0.1.5(axios@1.7.9)(react@18.3.1)(typescript@5.6.3)
+        version: 0.1.5(axios@1.7.9)(react@18.3.1)(typescript@5.7.2)
       '@octokit/rest':
         specifier: ^21.1.0
         version: 21.1.0
@@ -395,7 +395,7 @@ importers:
         version: 2.2.1
       kkrpc:
         specifier: ^0.0.13
-        version: 0.0.13(typescript@5.6.3)
+        version: 0.0.13(typescript@5.7.2)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -413,19 +413,19 @@ importers:
         version: 0.3.28(svelte@5.16.6)
       tauri-api-adapter:
         specifier: ^0.3.16
-        version: 0.3.16(typescript@5.6.3)
+        version: 0.3.16(typescript@5.7.2)
       tauri-plugin-network-api:
         specifier: 2.0.5
-        version: 2.0.5(typescript@5.6.3)
+        version: 2.0.5(typescript@5.7.2)
       tauri-plugin-shellx-api:
         specifier: ^2.0.14
         version: 2.0.14
       tauri-plugin-system-info-api:
         specifier: 2.0.8
-        version: 2.0.8(typescript@5.6.3)
+        version: 2.0.8(typescript@5.7.2)
       valibot:
         specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.6.3)
+        version: 1.0.0-beta.10(typescript@5.7.2)
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -447,13 +447,16 @@ importers:
         version: 11.2.0
       madge:
         specifier: ^8.0.0
-        version: 8.0.0(typescript@5.6.3)
+        version: 8.0.0(typescript@5.7.2)
       typedoc:
         specifier: ^0.27.6
-        version: 0.27.6(typescript@5.6.3)
+        version: 0.27.6(typescript@5.7.2)
       typescript:
         specifier: ^5.0.0
-        version: 5.6.3
+        version: 5.7.2
+      verify-package-export:
+        specifier: ^0.0.2
+        version: 0.0.2(typescript@5.7.2)
 
   packages/ci:
     dependencies:
@@ -689,6 +692,9 @@ importers:
       '@types/bun':
         specifier: latest
         version: 1.1.16
+      verify-package-export:
+        specifier: ^0.0.2
+        version: 0.0.2(typescript@5.7.2)
 
   packages/schema:
     dependencies:
@@ -12525,22 +12531,6 @@ snapshots:
 
   '@huakunshen/comlink@4.4.1': {}
 
-  '@huakunshen/jsr-client@0.1.5(axios@1.7.9)(react@18.3.1)(typescript@5.6.3)':
-    dependencies:
-      '@hey-api/client-fetch': 0.6.0
-      '@zodios/core': 10.9.6(axios@1.7.9)(zod@3.24.1)
-      openapi-fetch: 0.13.4
-      openapi-typescript-helpers: 0.0.15
-      openapi-zod-client: 1.18.2(react@18.3.1)
-      typescript: 5.6.3
-      zod: 3.24.1
-    transitivePeerDependencies:
-      - axios
-      - debug
-      - react
-      - supports-color
-      - xstate
-
   '@huakunshen/jsr-client@0.1.5(axios@1.7.9)(react@18.3.1)(typescript@5.7.2)':
     dependencies:
       '@hey-api/client-fetch': 0.6.0
@@ -19296,9 +19286,9 @@ snapshots:
 
   kind-of@6.0.3: {}
 
-  kkrpc@0.0.12(typescript@5.6.3):
+  kkrpc@0.0.12(typescript@5.7.2):
     dependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
       ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
@@ -19307,6 +19297,14 @@ snapshots:
   kkrpc@0.0.13(typescript@5.6.3):
     dependencies:
       typescript: 5.6.3
+      ws: 8.18.0
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  kkrpc@0.0.13(typescript@5.7.2):
+    dependencies:
+      typescript: 5.7.2
       ws: 8.18.0
     transitivePeerDependencies:
       - bufferutil
@@ -19508,7 +19506,7 @@ snapshots:
 
   lz-string@1.5.0: {}
 
-  madge@8.0.0(typescript@5.6.3):
+  madge@8.0.0(typescript@5.7.2):
     dependencies:
       chalk: 4.1.2
       commander: 7.2.0
@@ -19523,7 +19521,7 @@ snapshots:
       ts-graphviz: 2.1.4
       walkdir: 0.4.1
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
 
@@ -21859,7 +21857,7 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  tauri-api-adapter@0.3.16(typescript@5.6.3):
+  tauri-api-adapter@0.3.16(typescript@5.7.2):
     dependencies:
       '@tauri-apps/api': 2.2.0
       '@tauri-apps/plugin-dialog': 2.2.0
@@ -21870,16 +21868,16 @@ snapshots:
       '@tauri-apps/plugin-os': 2.2.0
       '@tauri-apps/plugin-shell': 2.2.0
       '@tauri-apps/plugin-upload': 2.2.1
-      kkrpc: 0.0.12(typescript@5.6.3)
+      kkrpc: 0.0.12(typescript@5.7.2)
       rimraf: 6.0.1
       shx: 0.3.4
-      tauri-plugin-clipboard-api: 2.1.11(typescript@5.6.3)
-      tauri-plugin-network-api: 2.0.5(typescript@5.6.3)
+      tauri-plugin-clipboard-api: 2.1.11(typescript@5.7.2)
+      tauri-plugin-network-api: 2.0.5(typescript@5.7.2)
       tauri-plugin-shellx-api: 2.0.14
-      tauri-plugin-system-info-api: 2.0.8(typescript@5.6.3)
+      tauri-plugin-system-info-api: 2.0.8(typescript@5.7.2)
       tsc-alias: 1.8.10
-      typescript: 5.6.3
-      valibot: 1.0.0-beta.11(typescript@5.6.3)
+      typescript: 5.7.2
+      valibot: 1.0.0-beta.11(typescript@5.7.2)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -21918,10 +21916,24 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
+  tauri-plugin-clipboard-api@2.1.11(typescript@5.7.2):
+    dependencies:
+      '@tauri-apps/api': 2.0.1
+      valibot: 0.40.0(typescript@5.7.2)
+    transitivePeerDependencies:
+      - typescript
+
   tauri-plugin-network-api@2.0.5(typescript@5.6.3):
     dependencies:
       '@tauri-apps/api': 2.2.0
       valibot: 1.0.0-beta.11(typescript@5.6.3)
+    transitivePeerDependencies:
+      - typescript
+
+  tauri-plugin-network-api@2.0.5(typescript@5.7.2):
+    dependencies:
+      '@tauri-apps/api': 2.2.0
+      valibot: 1.0.0-beta.11(typescript@5.7.2)
     transitivePeerDependencies:
       - typescript
 
@@ -21937,6 +21949,13 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.2.0
       valibot: 0.40.0(typescript@5.6.3)
+    transitivePeerDependencies:
+      - typescript
+
+  tauri-plugin-system-info-api@2.0.8(typescript@5.7.2):
+    dependencies:
+      '@tauri-apps/api': 2.2.0
+      valibot: 0.40.0(typescript@5.7.2)
     transitivePeerDependencies:
       - typescript
 
@@ -22184,15 +22203,6 @@ snapshots:
       possible-typed-array-names: 1.0.0
 
   typedoc@0.27.5(typescript@5.6.3):
-    dependencies:
-      '@gerrit0/mini-shiki': 1.24.4
-      lunr: 2.3.9
-      markdown-it: 14.1.0
-      minimatch: 9.0.5
-      typescript: 5.6.3
-      yaml: 2.6.1
-
-  typedoc@0.27.6(typescript@5.6.3):
     dependencies:
       '@gerrit0/mini-shiki': 1.24.4
       lunr: 2.3.9
@@ -22452,6 +22462,10 @@ snapshots:
   valibot@0.40.0(typescript@5.6.3):
     optionalDependencies:
       typescript: 5.6.3
+
+  valibot@0.40.0(typescript@5.7.2):
+    optionalDependencies:
+      typescript: 5.7.2
 
   valibot@1.0.0-beta.10(typescript@5.6.3):
     optionalDependencies:

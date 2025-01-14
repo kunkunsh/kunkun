@@ -39,7 +39,8 @@
 		"fs-extra": "^11.2.0",
 		"madge": "^8.0.0",
 		"typedoc": "^0.27.6",
-		"typescript": "^5.0.0"
+		"typescript": "^5.0.0",
+		"verify-package-export": "^0.0.2"
 	},
 	"dependencies": {
 		"@huakunshen/jsr-client": "^0.1.5",

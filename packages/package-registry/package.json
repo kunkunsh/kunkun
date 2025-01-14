@@ -10,7 +10,8 @@
 		"./github": "./src/github.ts"
 	},
 	"devDependencies": {
-		"@types/bun": "latest"
+		"@types/bun": "latest",
+		"verify-package-export": "^0.0.2"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
