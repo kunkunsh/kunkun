@@ -1217,6 +1217,9 @@ importers:
       formsnap:
         specifier: 2.0.0-next.1
         version: 2.0.0-next.1(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.2))
+      globals:
+        specifier: ^15.14.0
+        version: 15.14.0
       lucide-svelte:
         specifier: ^0.469.0
         version: 0.469.0(svelte@5.16.6)
