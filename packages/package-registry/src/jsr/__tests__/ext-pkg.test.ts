@@ -71,8 +71,10 @@ describe("Validate Jsr package as Kunkun extension", () => {
 			githubUsername: "HuakunShen"
 		})
 		expect(res.data).toBeDefined()
+		expect(res.data?.rekorLogIndex).toBe("161854127")
 		expect(res.data?.github.commit).toBe("4db8d65b5e3fa115da6e31bd945f5c610c4a21cb")
 		expect(res.data?.github.owner).toBe("kunkunsh")
 		expect(res.data?.github.repo).toBe("kunkun-ext-image-processing")
+		// expect(res.data?.github.githubActionInvocationId).toBe("48b7dff528bc6a175ce9ee99e6d8de0c718e70a0")
 	})
 })

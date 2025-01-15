@@ -2,7 +2,8 @@
 	"name": "@kksh/package-registry",
 	"type": "module",
 	"scripts": {
-		"test": "verify-package-export verify"
+		"test": "bun test --coverage",
+		"posttest": "verify-package-export verify"
 	},
 	"exports": {
 		"./jsr": "./src/jsr/index.ts",

@@ -32,6 +32,7 @@ export function parseAttestation(rekorLog: RawRekorLogEntry): SigstoreAttestatio
 	const decodedJson = JSON.parse(decoded)
 	const parsed = v.safeParse(SigstoreAttestation, decodedJson)
 	if (!parsed.success) {
+		console.error(v.flatten(parsed.issues))
 		throw new Error("Failed to parse rekor log attestation")
 	}
 	return parsed.output
@@ -42,7 +43,10 @@ export function parseAttestation(rekorLog: RawRekorLogEntry): SigstoreAttestatio
  * @param logIndex
  * @returns
  */
-export async function getCommitFromRekorLog(logIndex: string): Promise<string> {
+export async function getInfoFromRekorLog(logIndex: string): Promise<{
+	commit: string
+	githubActionInvocationId: string
+}> {
 	const rawLog = await getRekorLogId(logIndex)
 	const record = parseTheOnlyRecord(rawLog)
 	const attestation = parseAttestation(record)
@@ -51,5 +55,10 @@ export async function getCommitFromRekorLog(logIndex: string): Promise<string> {
 			`Expected exactly one commit in the attestation, got: ${attestation.predicate.buildDefinition.resolvedDependencies.length}`
 		)
 	}
-	return attestation.predicate.buildDefinition.resolvedDependencies[0].digest.gitCommit
+	console.log(attestation.predicate.runDetails.metadata.invocationId)
+
+	return {
+		commit: attestation.predicate.buildDefinition.resolvedDependencies[0].digest.gitCommit,
+		githubActionInvocationId: attestation.predicate.runDetails.metadata.invocationId
+	}
 }

@@ -32,7 +32,7 @@ describe("Test the helper functions", () => {
 		expect(kkrpcSignedVersion).toBeDefined()
 		expect(kkrpcSignedVersion).toBeDefined()
 		const kunkunApiSigned = await isSignedByGitHubAction("kunkun", "api", "0.0.47")
-		expect(kunkunApiSigned).toBeUndefined()
+		expect(kunkunApiSigned).toBeNull()
 	})
 
 	test("Get Linked GitHub Repo", async () => {
@@ -81,7 +81,6 @@ describe("Test the helper functions", () => {
 		const metadata = await getJsrNpmPkgMetadata("kunkun", "api")
 		const parsed = v.safeParse(NpmPkgMetadata, metadata)
 		if (!parsed.success) {
-			console.log(v.flatten(parsed.issues))
 			throw new Error("Failed to parse NpmPkgMetadata")
 		}
 		expect(parsed.output).toBeDefined()
@@ -121,6 +120,5 @@ describe("Test the helper functions", () => {
 			}
 		})
 		expect(pkgVersion).toBeDefined()
-		console.log(pkgVersion)
 	})
 })

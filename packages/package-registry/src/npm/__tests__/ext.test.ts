@@ -11,6 +11,7 @@ describe("validate kunkun extension", () => {
 		expect(res.error).toBeUndefined()
 		expect(res.data?.github.commit).toBe("8af7eced43a5d240fa3390c7e297178ecb63c344")
 		expect(res.data?.github.owner).toBe("kunkunsh")
+		expect(res.data?.rekorLogIndex).toBe("162214778")
 		expect(res.data?.github.repo).toBe("kunkun-ext-ossinsight")
 	})
 

@@ -5,6 +5,7 @@ import {
 	parseGitHubRepoFromUri,
 	userIsPublicMemberOfGitHubOrg
 } from "../github"
+import { getInfoFromRekorLog } from "../sigstore"
 import {
 	NpmPkgMetadata,
 	NpmPkgVersionMetadata,
@@ -93,6 +94,19 @@ export function npmPackageExists(pkgName: string, version: string): Promise<bool
 	return getNpmPackageInfoByVersion(pkgName, version).then((res) => res !== null)
 }
 
+/**
+ * @param url Sample URL: https://search.sigstore.dev/?logIndex=153252145
+ * @returns
+ */
+function parseLogIdFromSigstoreSearchUrl(url: string): string {
+	const urlObj = new URL(url)
+	const logIndex = urlObj.searchParams.get("logIndex")
+	if (!logIndex) {
+		throw new Error("Could not parse log index from sigstore search url")
+	}
+	return logIndex
+}
+
 export async function validateNpmPackageAsKunkunExtension(payload: {
 	pkgName: string
 	version: string
@@ -107,8 +121,10 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 		tarballUrl: string
 		shasum: string
 		apiVersion: string
+		rekorLogIndex: string
 		tarballSize: number
 		github: {
+			githubActionInvocationId: string
 			commit: string
 			repo: string
 			owner: string
@@ -142,6 +158,19 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 	if (provenance.sourceCommitNotFound) {
 		return { error: "Package's source commit is not found" }
 	}
+
+	/* -------------------------------------------------------------------------- */
+	/*                             get rekor sigstore                             */
+	/* -------------------------------------------------------------------------- */
+	if (!provenance?.summary.transparencyLogUri) {
+		return { error: "Package's rekor log is not found" }
+	}
+	const logIndex = parseLogIdFromSigstoreSearchUrl(provenance.summary.transparencyLogUri)
+	const rekorGit = await getInfoFromRekorLog(logIndex)
+	if (rekorGit.commit !== provenance.summary.sourceRepositoryDigest) {
+		return { error: "Package's rekor log commit is not the same as the source commit" }
+	}
+
 	/* -------------------------------------------------------------------------- */
 	/*                  check if npm pkg is linked to github repo                 */
 	/* -------------------------------------------------------------------------- */
@@ -210,7 +239,9 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 			shasum,
 			apiVersion,
 			tarballSize: 0,
+			rekorLogIndex: logIndex,
 			github: {
+				githubActionInvocationId: rekorGit.githubActionInvocationId,
 				commit: provenance.summary.sourceRepositoryDigest,
 				repo: githubRepo.repo,
 				owner: githubRepo.owner

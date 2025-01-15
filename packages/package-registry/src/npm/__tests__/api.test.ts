@@ -39,6 +39,7 @@ describe("NPM API", () => {
 	test("get npm package provenance", async () => {
 		const provenance = await getNpmPkgProvenance("axios", "1.7.9")
 		expect(provenance).toBeDefined()
+		console.log(provenance?.summary.transparencyLogUri)
 		v.parse(Provenance, provenance)
 	})
 

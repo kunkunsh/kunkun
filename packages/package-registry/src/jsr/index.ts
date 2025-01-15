@@ -8,7 +8,7 @@ import { ExtPackageJson } from "@kksh/api/models"
 import * as v from "valibot"
 import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "../github"
 import type { NpmPkgMetadata } from "../npm/models"
-import { getCommitFromRekorLog } from "../sigstore"
+import { getInfoFromRekorLog } from "../sigstore"
 import { getTarballSize } from "../utils"
 import type { JsrPackageMetadata } from "./models"
 
@@ -58,13 +58,13 @@ export function getJsrPackageHtml(scope: string, name: string, version?: string)
 
 /**
  * Check if a Jsr package is signed by GitHub Actions
- * @returns
+ * @returns rekor log index if signed, undefined if not signed
  */
 export async function isSignedByGitHubAction(
 	scope: string,
 	name: string,
 	version: string
-): Promise<string | undefined> {
+): Promise<string | null> {
 	const pkgVersion = await getPackageVersion({
 		path: {
 			scope,
@@ -72,7 +72,7 @@ export async function isSignedByGitHubAction(
 			version
 		}
 	})
-	return pkgVersion.data?.rekorLogId
+	return pkgVersion.data?.rekorLogId ?? null
 }
 
 export async function getJsrPackageGitHubRepo(
@@ -226,7 +226,9 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 		shasum: string
 		apiVersion: string
 		tarballSize: number
+		rekorLogIndex: string
 		github: {
+			githubActionInvocationId: string
 			commit: string
 			repo: string
 			owner: string
@@ -354,7 +356,7 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 			error: `Extension ${packageJson.kunkun.identifier} doesn't not have @kksh/api as a dependency`
 		}
 	}
-	const commit = await getCommitFromRekorLog(rekorLogId)
+	const rekorInfo = await getInfoFromRekorLog(rekorLogId)
 	return {
 		data: {
 			pkgJson: parseResult.output,
@@ -362,8 +364,10 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 			shasum,
 			apiVersion,
 			tarballSize,
+			rekorLogIndex: rekorLogId,
 			github: {
-				commit,
+				githubActionInvocationId: rekorInfo.githubActionInvocationId,
+				commit: rekorInfo.commit,
 				repo: githubRepo.name,
 				owner: githubRepo.owner
 			}

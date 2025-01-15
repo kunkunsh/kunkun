@@ -22,8 +22,10 @@ export const RawRekorLog = v.record(v.string(), RawRekorLogEntry)
 export type RawRekorLog = v.InferOutput<typeof RawRekorLog>
 
 export const SigstoreAttestation = v.object({
-	type: v.string(),
-	subject: v.array(v.object({ name: v.string(), digest: v.object({ sha256: v.string() }) })),
+	type: v.optional(v.string()),
+	subject: v.array(
+		v.object({ name: v.string(), digest: v.object({ sha256: v.optional(v.string()) }) })
+	),
 	predicateType: v.string(),
 	predicate: v.object({
 		buildDefinition: v.object({
@@ -36,9 +38,9 @@ export const SigstoreAttestation = v.object({
 			),
 			internalParameters: v.object({
 				github: v.object({
-					eventName: v.string(),
-					repositoryId: v.string(),
-					repositoryOwnerId: v.string()
+					eventName: v.optional(v.string()),
+					repositoryId: v.optional(v.string()),
+					repositoryOwnerId: v.optional(v.string())
 				})
 			}),
 			externalParameters: v.object({

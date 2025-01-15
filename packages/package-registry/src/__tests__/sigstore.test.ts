@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test"
 import * as v from "valibot"
 import { RawRekorLog } from "../models"
 import {
-	getCommitFromRekorLog,
+	getInfoFromRekorLog,
 	getRekorLogId,
 	parseAttestation,
 	parseTheOnlyRecord
@@ -25,8 +25,9 @@ describe("sigstore", async () => {
 	})
 
 	test("parse all commits from rekor log", async () => {
-		const commit = await getCommitFromRekorLog("162240358")
-		expect(commit).toBeDefined()
-		expect(commit).toBe("48b7dff528bc6a175ce9ee99e6d8de0c718e70a0")
+		const git = await getInfoFromRekorLog("162240358")
+		expect(git).toBeDefined()
+		expect(git.commit).toBe("48b7dff528bc6a175ce9ee99e6d8de0c718e70a0")
+		expect(git.githubActionInvocationId).toBe("https://github.com/kunkunsh/kunkun-ext-image-processing/actions/runs/12763976478/attempts/1")
 	})
 })
