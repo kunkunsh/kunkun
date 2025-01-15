@@ -1,47 +1,60 @@
 <script lang="ts">
-	import Icon from "@iconify/svelte"
-	import { Badge, Card } from "@kksh/svelte5"
+	import { Card } from "@kksh/svelte5"
 	import { BadgeCheckIcon } from "lucide-svelte"
 
 	let {
-		commitSha,
-		rekorLogId,
-		githubRepoOwner,
-		githubRepoName
-	}: { commitSha: string; rekorLogId: string; githubRepoOwner: string; githubRepoName: string } =
-		$props()
-
-	const sourceCommitUrl = `https://github.com/${githubRepoOwner}/${githubRepoName}/commit/${commitSha}`
+		repoOwner,
+		repoName,
+		githubActionInvocationId,
+		commit,
+		rekorLogIndex,
+		workflowPath
+	}: {
+		repoOwner: string
+		repoName: string
+		githubActionInvocationId: string
+		commit: string
+		rekorLogIndex: string
+		workflowPath: string
+	} = $props()
+	const workflowRunId = githubActionInvocationId.split("/").at(-3)
+	const workflowRunUrl = `https://github.com/${repoOwner}/${repoName}/actions/runs/${workflowRunId}/workflow`
 </script>
 
 <Card.Root>
-	<Card.Content class="flex items-center space-x-4">
+	<Card.Content class="flex items-center justify-between space-x-4">
 		<div class="flex items-center space-x-4">
-			<BadgeCheckIcon class="h-10 w-10 text-green-500" />
+			<BadgeCheckIcon class="h-8 w-8 text-green-500" />
 			<div>
-				<span class="text-gray-200">Built and signed on</span>
-				<h1 class="text-2xl font-bold">GitHub Actions</h1>
-				<a href="asd" class="underline">View build summary</a>
+				<span class="text-sm text-gray-200">Built and signed on</span>
+				<h1 class="text-xl font-bold">GitHub Actions</h1>
+				<a href={githubActionInvocationId} class="text-sm underline" target="_blank">
+					View build summary
+				</a>
 			</div>
 		</div>
-
 		<div>
-			<a href={`https://github.com/${githubRepoOwner}/${githubRepoName}/tree/${commitSha}`} target="_blank">
-				<Badge class="h-8 space-x-2">
-					<Icon class="h-6 w-6" icon="mdi:github" />
-					<span>{githubRepoOwner}/{githubRepoName}</span>
-				</Badge>
-			</a>
-			<p>
+			<p class="text-sm">
 				<strong>Source Commit</strong>
-				<a href={sourceCommitUrl} target="_blank" rel="noreferrer" class="font-mono underline">
-					{commitSha.slice(0, 8)}
+				<a
+					href={`https://github.com/${repoOwner}/${repoName}/tree/${commit}`}
+					target="_blank"
+					rel="noreferrer"
+					class="font-mono underline"
+				>
+					github.com/{repoOwner}/{repoName}/{commit.slice(0, 8)}
 				</a>
 			</p>
-			<p>
+			<p class="text-sm">
+				<strong>Build File</strong>
+				<a href={workflowRunUrl} target="_blank" rel="noreferrer" class="font-mono underline">
+					{workflowPath}
+				</a>
+			</p>
+			<p class="text-sm">
 				<strong>Public Ledger</strong>
 				<a
-					href={`https://search.sigstore.dev/?logIndex=${rekorLogId}`}
+					href={`https://search.sigstore.dev/?logIndex=${rekorLogIndex}`}
 					target="_blank"
 					rel="noreferrer"
 					class="underline">Transparentcy log entry</a

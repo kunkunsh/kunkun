@@ -126,7 +126,6 @@
 		{/if}
 	</Button>
 {/snippet}
-
 <div data-tauri-drag-region class="h-14"></div>
 <ScrollArea class={cn("w-full pb-12", className)}>
 	<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
@@ -150,14 +149,28 @@
 			</div>
 		</div>
 		{#if metadata && metadata?.git?.commit && metadata?.rekorLogIndex && metadata?.git?.owner && metadata?.git?.repo}
-			<GitHubProvenanceCard
-				commitSha={metadata?.git?.commit}
-				rekorLogId={metadata?.rekorLogIndex}
-				githubRepoOwner={metadata?.git?.owner}
-				githubRepoName={metadata?.git?.repo}
-			/>
+			<a
+				href={`https://github.com/${metadata.git.owner}/${metadata.git.repo}/tree/${metadata.git.commit}`}
+				target="_blank"
+			>
+				<Badge class="h-8 space-x-2">
+					<Icon class="h-6 w-6" icon="mdi:github" />
+					<span>{metadata.git.owner}/{metadata.git.repo}</span>
+				</Badge>
+			</a>
 		{/if}
 	</div>
+	{#if metadata && metadata?.git?.commit && metadata?.rekorLogIndex && metadata?.git?.owner && metadata?.git?.repo}
+		<Separator class="my-3" />
+		<GitHubProvenanceCard
+			repoOwner={metadata.git.owner}
+			repoName={metadata.git.repo}
+			githubActionInvocationId={metadata.git.githubActionInvocationId}
+			commit={metadata.git.commit}
+			rekorLogIndex={metadata.rekorLogIndex}
+			workflowPath={metadata.git.workflowPath}
+		/>
+	{/if}
 	{#if demoImages.length > 0}
 		<Separator class="my-3" />
 		<DialogImageCarousel

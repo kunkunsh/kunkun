@@ -9,7 +9,11 @@
 
 	const hexColorValidator = v.pipe(v.string(), v.hexColor("The hex color is badly formatted."))
 
-	const { icon, class: className, ...restProps }: { icon: TIcon; class?: string } = $props()
+	const {
+		icon,
+		class: className,
+		...restProps
+	}: { icon: TIcon; class?: string; "data-flip-id"?: string; [key: string]: any } = $props()
 
 	let remoteIconError = $state(false)
 
