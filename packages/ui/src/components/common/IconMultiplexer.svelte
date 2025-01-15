@@ -89,7 +89,8 @@
 		{style}
 	>
 		<!-- eslint-disable svelte/no-at-html-tags -->
-		{@html DOMPurify.sanitize(icon.value)}
+		{@html icon.value}
+		<!-- {@html DOMPurify.sanitize(icon.value)} -->
 	</span>
 {:else}
 	<Icon

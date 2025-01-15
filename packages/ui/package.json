@@ -65,10 +65,12 @@
 	"dependencies": {
 		"@formkit/auto-animate": "^0.8.2",
 		"@internationalized/date": "^3.6.0",
+		"@kksh/supabase": "workspace:*",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
 		"dompurify": "^3.2.3",
 		"gsap": "^3.12.5",
 		"shiki-magic-move": "^0.5.2",
-		"svelte-markdown": "^0.4.1"
+		"svelte-markdown": "^0.4.1",
+		"valibot": "1.0.0-beta.12"
 	}
 }

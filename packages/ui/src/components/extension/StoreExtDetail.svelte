@@ -3,12 +3,15 @@
 	import Icon from "@iconify/svelte"
 	import { ExtPackageJson, IconEnum, KunkunExtManifest } from "@kksh/api/models"
 	import { type Tables } from "@kksh/api/supabase/types"
-	import { Button, ScrollArea, Separator } from "@kksh/svelte5"
+	import { ExtPublishMetadata } from "@kksh/supabase/models"
+	import { Badge, Button, ScrollArea, Separator } from "@kksh/svelte5"
 	import { Constants, IconMultiplexer } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
 	import { CircleCheckBigIcon, MoveRightIcon, Trash2Icon } from "lucide-svelte"
+	import * as v from "valibot"
 	import DialogImageCarousel from "../common/DialogImageCarousel.svelte"
 	import PlatformsIcons from "../common/PlatformsIcons.svelte"
+	import GitHubProvenanceCard from "./GitHubProvenanceCard.svelte"
 	import PermissionInspector from "./PermissionInspector.svelte"
 
 	let {
@@ -55,6 +58,15 @@
 			onEnterPressed?.()
 		}
 	}
+
+	const metadata = $derived.by(() => {
+		const parseRes = v.safeParse(ExtPublishMetadata, ext.metadata)
+		if (!parseRes.success) {
+			console.error(v.flatten(parseRes.issues))
+			return
+		}
+		return parseRes.output
+	})
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />
@@ -117,24 +129,34 @@
 
 <div data-tauri-drag-region class="h-14"></div>
 <ScrollArea class={cn("w-full pb-12", className)}>
-	<div class="flex items-center gap-4">
-		<span class="h-12 w-12">
-			<IconMultiplexer
-				icon={manifest.icon}
-				class={cn(Constants.CLASSNAMES.EXT_LOGO, "h-full w-full")}
-				data-flip-id={`${Constants.CLASSNAMES.EXT_LOGO}-${ext.identifier}`}
-			/>
-		</span>
-		<div class="w-full">
-			<span class="flex w-full items-center" use:autoAnimate>
-				<strong class="ext-name text-xl">{manifest?.name}</strong>
-				{#if isInstalled}
-					<CircleCheckBigIcon class="ml-2 inline text-green-400" />
-				{/if}
+	<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+		<div class="flex items-center gap-4">
+			<span class="h-12 w-12">
+				<IconMultiplexer
+					icon={manifest.icon}
+					class={cn(Constants.CLASSNAMES.EXT_LOGO, "h-full w-full")}
+					data-flip-id={`${Constants.CLASSNAMES.EXT_LOGO}-${ext.identifier}`}
+				/>
 			</span>
-			<pre class="text-muted-foreground text-xs">{ext.identifier}</pre>
-			<pre class="text-muted-foreground text-xs">Version: {ext.version}</pre>
+			<div class="flex flex-col justify-center">
+				<span class="flex w-full items-center" use:autoAnimate>
+					<strong class="ext-name text-xl">{manifest?.name}</strong>
+					{#if isInstalled}
+						<CircleCheckBigIcon class="ml-2 inline text-green-400" />
+					{/if}
+				</span>
+				<pre class="text-muted-foreground text-xs">{ext.identifier}</pre>
+				<pre class="text-muted-foreground text-xs">Version: {ext.version}</pre>
+			</div>
 		</div>
+		{#if metadata && metadata?.git?.commit && metadata?.rekorLogIndex && metadata?.git?.owner && metadata?.git?.repo}
+			<GitHubProvenanceCard
+				commitSha={metadata?.git?.commit}
+				rekorLogId={metadata?.rekorLogIndex}
+				githubRepoOwner={metadata?.git?.owner}
+				githubRepoName={metadata?.git?.repo}
+			/>
+		{/if}
 	</div>
 	{#if demoImages.length > 0}
 		<Separator class="my-3" />
@@ -176,7 +198,7 @@
 
 	<ul>
 		{#if manifest}
-			{#each [...manifest.customUiCmds, ...manifest.templateUiCmds] as cmd}
+			{#each [...(manifest.customUiCmds ?? []), ...(manifest.templateUiCmds ?? [])] as cmd}
 				<li>
 					<div class="flex items-center space-x-3">
 						{#if manifest}
