@@ -14,5 +14,10 @@ export const ExtPublishMetadata = v.object({
         v.string("Source of the extension (e.g. url to package)"),
     ),
     sourceType: v.optional(v.enum(ExtPublishSourceTypeEnum)),
+    git: v.optional(v.object({
+        repo: v.string("GitHub repo of the extension"),
+        owner: v.string("GitHub owner of the extension"),
+        commit: v.string("Commit hash of the extension"),
+    })),
 });
 export type ExtPublishMetadata = v.InferOutput<typeof ExtPublishMetadata>;
