@@ -1,6 +1,6 @@
 // This file is taken from https://github.com/huntabyte/bits-ui/blob/7f7bf6f6b736cf34e57a0d87aab01074c33efd46/packages/bits-ui/src/lib/bits/command/command.svelte.ts#L1
 
-// eslint-disable-next-line ts/ban-ts-comment
+// eslint-disable-next-line
 // @ts-nocheck
 // The scores are arranged so that a continuous match of characters will
 // result in a total score of 1.

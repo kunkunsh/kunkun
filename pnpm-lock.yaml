@@ -1144,6 +1144,9 @@ importers:
       '@std/semver':
         specifier: npm:@jsr/std__semver@^1.0.3
         version: '@jsr/std__semver@1.0.3'
+      dompurify:
+        specifier: ^3.2.3
+        version: 3.2.3
       gsap:
         specifier: ^3.12.5
         version: 3.12.5
@@ -1157,6 +1160,9 @@ importers:
         specifier: ^0.4.1
         version: 0.4.1(svelte@5.16.6)
     devDependencies:
+      '@eslint/js':
+        specifier: ^9.18.0
+        version: 9.18.0
       '@iconify/svelte':
         specifier: ^4.2.0
         version: 4.2.0(svelte@5.16.6)
@@ -1175,6 +1181,12 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@9.17.0(jiti@2.4.0))
+      eslint-plugin-svelte:
+        specifier: ^2.46.1
+        version: 2.46.1(eslint@9.17.0(jiti@2.4.0))(svelte@5.16.6)
       formsnap:
         specifier: 2.0.0-next.1
         version: 2.0.0-next.1(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.2))
@@ -1214,6 +1226,9 @@ importers:
       tauri-plugin-shellx-api:
         specifier: ^2.0.14
         version: 2.0.14
+      typescript-eslint:
+        specifier: ^8.19.1
+        version: 8.19.1(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -2254,6 +2269,10 @@ packages:
 
   '@eslint/js@9.17.0':
     resolution: {integrity: sha512-Sxc4hqcs1kTu0iID3kcZDW3JHq2a77HO9P8CP6YEA/FpH3Ll8UXE2r/86Rz9YJLKme39S9vU5OWNjC6Xl0Cr3w==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@eslint/js@9.18.0':
+    resolution: {integrity: sha512-fK6L7rxcq6/z+AaQMtiFTkvbHkBLNlwyRxHpKawP0x3u9+NC6MQTnFW+AdpwC6gfHTW0051cokQgtTN2FqlxQA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/object-schema@2.1.4':
@@ -12450,6 +12469,8 @@ snapshots:
   '@eslint/js@8.57.1': {}
 
   '@eslint/js@9.17.0': {}
+
+  '@eslint/js@9.18.0': {}
 
   '@eslint/object-schema@2.1.4': {}
 

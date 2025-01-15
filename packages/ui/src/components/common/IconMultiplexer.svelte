@@ -3,16 +3,13 @@
 	import { IconEnum, IconType, Icon as TIcon } from "@kksh/api/models"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
+	import DOMPurify from "dompurify"
 	import * as v from "valibot"
 	import { styleObjectToString } from "../../utils/style"
 
 	const hexColorValidator = v.pipe(v.string(), v.hexColor("The hex color is badly formatted."))
 
-	const {
-		icon,
-		class: className,
-		...restProps
-	}: { icon: TIcon; class?: string; [key: string]: any } = $props()
+	const { icon, class: className, ...restProps }: { icon: TIcon; class?: string } = $props()
 
 	let remoteIconError = $state(false)
 
@@ -89,8 +86,11 @@
 	<span
 		{...restProps}
 		class={cn(className, { invert: icon.invert, "dark:invert": icon.darkInvert })}
-		{style}>{@html icon.value}</span
+		{style}
 	>
+		<!-- eslint-disable svelte/no-at-html-tags -->
+		{@html DOMPurify.sanitize(icon.value)}
+	</span>
 {:else}
 	<Icon
 		icon="mingcute:appstore-fill"

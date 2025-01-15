@@ -18,7 +18,7 @@
 	}: {
 		formViewContent: FormSchema.Form
 		class?: string
-		onSubmit?: (formData: Record<string, any>) => void
+		onSubmit?: (formData: Record<string, string | number | boolean>) => void
 	} = $props()
 	const formSchema = $derived(buildFormSchema(formViewContent))
 	onMount(() => {
