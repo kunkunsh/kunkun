@@ -50,6 +50,8 @@
 		"@tauri-apps/cli": "^2.1.0",
 		"@types/bun": "latest",
 		"@types/semver": "^7.5.8",
+		"@typescript-eslint/eslint-plugin": "^8.20.0",
+		"@typescript-eslint/parser": "^8.20.0",
 		"autoprefixer": "^10.4.20",
 		"bits-ui": "1.0.0-next.72",
 		"clsx": "^2.1.1",

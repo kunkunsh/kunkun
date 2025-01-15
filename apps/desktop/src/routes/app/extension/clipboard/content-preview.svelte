@@ -67,6 +67,7 @@
 			<div class="text-sm">{txtData}</div>
 		{:else if highlighted.dataType === "Html"}
 			<div class="">
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 				{@html DOMPurify.sanitize(txtData)}
 			</div>
 		{:else}

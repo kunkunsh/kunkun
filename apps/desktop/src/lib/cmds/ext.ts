@@ -61,7 +61,7 @@ export async function onHeadlessCmdSelect(
 	if (!extInfoInDB) {
 		return
 	}
-	const serverAPI: Record<string, any> = constructJarvisServerAPIWithPermissions(
+	const serverAPI: IKunkunFullServerAPI = constructJarvisServerAPIWithPermissions(
 		loadedExt.kunkun.permissions,
 		loadedExt.extPath
 	)
