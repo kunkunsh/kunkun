@@ -13,7 +13,7 @@
 		icon,
 		class: className,
 		...restProps
-	}: { icon: TIcon; class?: string; "data-flip-id"?: string; [key: string]: any } = $props()
+	}: { icon: TIcon; class?: string; "data-flip-id"?: string } = $props()
 
 	let remoteIconError = $state(false)
 
