@@ -3,7 +3,7 @@
 	import Icon from "@iconify/svelte"
 	import { ExtPackageJson, IconEnum, KunkunExtManifest } from "@kksh/api/models"
 	import { type Tables } from "@kksh/api/supabase/types"
-	import { ExtPublishMetadata } from "@kksh/supabase/models"
+	import { ExtPublishMetadata, ExtPublishSourceTypeEnum } from "@kksh/supabase/models"
 	import { Badge, Button, ScrollArea, Separator } from "@kksh/svelte5"
 	import { Constants, IconMultiplexer } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
@@ -126,7 +126,6 @@
 		{/if}
 	</Button>
 {/snippet}
-
 <div data-tauri-drag-region class="h-14"></div>
 <ScrollArea class={cn("w-full pb-12", className)}>
 	<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
@@ -149,15 +148,40 @@
 				<pre class="text-muted-foreground text-xs">Version: {ext.version}</pre>
 			</div>
 		</div>
-		{#if metadata && metadata?.git?.commit && metadata?.rekorLogIndex && metadata?.git?.owner && metadata?.git?.repo}
-			<GitHubProvenanceCard
-				commitSha={metadata?.git?.commit}
-				rekorLogId={metadata?.rekorLogIndex}
-				githubRepoOwner={metadata?.git?.owner}
-				githubRepoName={metadata?.git?.repo}
-			/>
-		{/if}
+		<div class="flex items-center space-x-2">
+			{#if metadata && metadata.sourceType === ExtPublishSourceTypeEnum.jsr}
+				<a href={metadata.source} target="_blank">
+					<Icon class="h-10 w-10" icon="vscode-icons:file-type-jsr" />
+				</a>
+			{:else if metadata && metadata.sourceType === ExtPublishSourceTypeEnum.npm}
+				<a href={metadata.source} target="_blank">
+					<Icon class="h-10 w-10" icon="vscode-icons:file-type-npm" />
+				</a>
+			{/if}
+			{#if metadata && metadata?.git?.commit && metadata?.rekorLogIndex && metadata?.git?.owner && metadata?.git?.repo}
+				<a
+					href={`https://github.com/${metadata.git.owner}/${metadata.git.repo}/tree/${metadata.git.commit}`}
+					target="_blank"
+				>
+					<Badge class="h-8 space-x-2">
+						<Icon class="h-6 w-6" icon="mdi:github" />
+						<span>{metadata.git.owner}/{metadata.git.repo}</span>
+					</Badge>
+				</a>
+			{/if}
+		</div>
 	</div>
+	{#if metadata && metadata?.git?.commit && metadata?.rekorLogIndex && metadata?.git?.owner && metadata?.git?.repo}
+		<Separator class="my-3" />
+		<GitHubProvenanceCard
+			repoOwner={metadata.git.owner}
+			repoName={metadata.git.repo}
+			githubActionInvocationId={metadata.git.githubActionInvocationId}
+			commit={metadata.git.commit}
+			rekorLogIndex={metadata.rekorLogIndex}
+			workflowPath={metadata.git.workflowPath}
+		/>
+	{/if}
 	{#if demoImages.length > 0}
 		<Separator class="my-3" />
 		<DialogImageCarousel
