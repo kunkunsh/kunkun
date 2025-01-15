@@ -28,6 +28,8 @@ describe("sigstore", async () => {
 		const git = await getInfoFromRekorLog("162240358")
 		expect(git).toBeDefined()
 		expect(git.commit).toBe("48b7dff528bc6a175ce9ee99e6d8de0c718e70a0")
-		expect(git.githubActionInvocationId).toBe("https://github.com/kunkunsh/kunkun-ext-image-processing/actions/runs/12763976478/attempts/1")
+		expect(git.githubActionInvocationId).toBe(
+			"https://github.com/kunkunsh/kunkun-ext-image-processing/actions/runs/12763976478/attempts/1"
+		)
 	})
 })
