@@ -128,6 +128,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 			commit: string
 			repo: string
 			owner: string
+			workflowPath: string
 		}
 	}
 }> {
@@ -244,7 +245,8 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 				githubActionInvocationId: rekorGit.githubActionInvocationId,
 				commit: provenance.summary.sourceRepositoryDigest,
 				repo: githubRepo.repo,
-				owner: githubRepo.owner
+				owner: githubRepo.owner,
+				workflowPath: rekorGit.workflowPath
 			}
 		}
 	}

@@ -232,6 +232,7 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 			commit: string
 			repo: string
 			owner: string
+			workflowPath: string
 		}
 	}
 }> {
@@ -369,7 +370,8 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 				githubActionInvocationId: rekorInfo.githubActionInvocationId,
 				commit: rekorInfo.commit,
 				repo: githubRepo.name,
-				owner: githubRepo.owner
+				owner: githubRepo.owner,
+				workflowPath: rekorInfo.workflowPath
 			}
 		}
 	}

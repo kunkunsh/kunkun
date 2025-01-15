@@ -46,6 +46,8 @@ export function parseAttestation(rekorLog: RawRekorLogEntry): SigstoreAttestatio
 export async function getInfoFromRekorLog(logIndex: string): Promise<{
 	commit: string
 	githubActionInvocationId: string
+	workflowPath: string
+	workflowRepository: string
 }> {
 	const rawLog = await getRekorLogId(logIndex)
 	const record = parseTheOnlyRecord(rawLog)
@@ -55,10 +57,11 @@ export async function getInfoFromRekorLog(logIndex: string): Promise<{
 			`Expected exactly one commit in the attestation, got: ${attestation.predicate.buildDefinition.resolvedDependencies.length}`
 		)
 	}
-	console.log(attestation.predicate.runDetails.metadata.invocationId)
 
 	return {
 		commit: attestation.predicate.buildDefinition.resolvedDependencies[0].digest.gitCommit,
-		githubActionInvocationId: attestation.predicate.runDetails.metadata.invocationId
+		githubActionInvocationId: attestation.predicate.runDetails.metadata.invocationId,
+		workflowPath: attestation.predicate.buildDefinition.externalParameters.workflow.path,
+		workflowRepository: attestation.predicate.buildDefinition.externalParameters.workflow.repository
 	}
 }
