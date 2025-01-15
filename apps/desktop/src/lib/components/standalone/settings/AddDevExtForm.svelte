@@ -120,8 +120,8 @@
 <Layouts.Center>
 	<DragNDrop
 		onDrop={(e) => {
-			console.log(e);
-			
+			console.log(e)
+
 			handleDragNDropInstall(e.payload.paths)
 		}}
 		onEnter={(evt) => {

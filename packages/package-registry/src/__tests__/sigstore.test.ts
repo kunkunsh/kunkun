@@ -2,9 +2,9 @@ import { describe, expect, test } from "bun:test"
 import * as v from "valibot"
 import { RawRekorLog } from "../models"
 import {
+	getCommitFromRekorLog,
 	getRekorLogId,
 	parseAttestation,
-	getCommitFromRekorLog,
 	parseTheOnlyRecord
 } from "../sigstore"
 
