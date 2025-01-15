@@ -56,7 +56,9 @@ jobs:
         run: pnpm build
       - name: JS Test
         if: matrix.os == 'ubuntu-24.04'
-        run: pnpm test
+        run: |
+          pnpm test
+          pnpm lint
       - name: Cargo Build and Test
         if: matrix.os == 'ubuntu-24.04'
         run: |
