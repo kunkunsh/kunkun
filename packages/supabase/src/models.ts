@@ -12,8 +12,10 @@ export enum ExtPublishSourceTypeEnum {
 export const ExtPublishMetadata = v.object({
 	source: v.optional(v.string("Source of the extension (e.g. url to package)")),
 	sourceType: v.optional(v.enum(ExtPublishSourceTypeEnum)),
+	rekorLogIndex: v.optional(v.string("Rekor log index of the extension")),
 	git: v.optional(
 		v.object({
+			githubActionInvocationId: v.string("GitHub action invocation ID"),
 			repo: v.string("GitHub repo of the extension"),
 			owner: v.string("GitHub owner of the extension"),
 			commit: v.string("Commit hash of the extension")
