@@ -120,9 +120,17 @@
 <Layouts.Center>
 	<DragNDrop
 		onDrop={(e) => {
+			console.log(e)
+
 			handleDragNDropInstall(e.payload.paths)
 		}}
-		onEnter={() => (dragging = true)}
+		onEnter={(evt) => {
+			console.log(evt)
+			dragging = true
+		}}
+		onOver={(evt) => {
+			console.log(evt)
+		}}
 		onCancelled={() => (dragging = false)}
 	>
 		<Card.Root

@@ -112,7 +112,6 @@
 				onclick={() => {
 					if (onClose) {
 						onClose()
-					} else {
 					}
 					show = false
 				}}

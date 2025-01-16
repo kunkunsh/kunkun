@@ -1,0 +1,25 @@
+{
+	"name": "@kksh/package-registry",
+	"type": "module",
+	"scripts": {
+		"test": "bun test --coverage",
+		"posttest": "verify-package-export verify"
+	},
+	"exports": {
+		"./jsr": "./src/jsr/index.ts",
+		"./npm": "./src/npm/index.ts",
+		"./github": "./src/github.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"verify-package-export": "^0.0.2"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@huakunshen/jsr-client": "^0.1.5",
+		"@kksh/api": "workspace:*",
+		"@octokit/rest": "^21.1.0"
+	}
+}

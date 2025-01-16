@@ -4,6 +4,7 @@
 	import { onDestroy, onMount, type Snippet } from "svelte"
 
 	let unlisteners: UnlistenFn[] = []
+	type Payload = { paths: string[]; position: { x: number; y: number } }
 	const {
 		children,
 		onEnter,
@@ -12,10 +13,10 @@
 		onOver
 	}: {
 		children: Snippet
-		onEnter?: (event: any) => void
+		onEnter?: EventCallback<Payload>
 		onDrop?: EventCallback<{ paths: string[] }>
-		onCancelled?: (event: any) => void
-		onOver?: (event: any) => void
+		onCancelled?: EventCallback<Payload>
+		onOver?: EventCallback<void>
 	} = $props()
 	const appWin = getCurrentWebviewWindow()
 

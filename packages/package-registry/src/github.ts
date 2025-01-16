@@ -32,3 +32,17 @@ export function authenticatedUserIsMemberOfGitHubOrg(
 		return res.data.some((org) => org.login === orgName)
 	})
 }
+
+export function parseGitHubRepoFromUri(uri: string): {
+	owner: string
+	repo: string
+} {
+	// check regex
+	const regex = /https?:\/\/github\.com\/([^\/]+)\/([^\/]+)/
+	const match = uri.match(regex)
+	if (!match) {
+		throw new Error("Invalid GitHub repository URI")
+	}
+	const [, owner, repo] = match
+	return { owner, repo }
+}

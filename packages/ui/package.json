@@ -37,17 +37,23 @@
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
+		"@eslint/js": "^9.18.0",
 		"@iconify/svelte": "^4.2.0",
 		"@kksh/api": "workspace:*",
 		"@kksh/svelte5": "^0.1.14",
 		"@types/bun": "latest",
+		"@typescript-eslint/eslint-plugin": "^8.20.0",
+		"@typescript-eslint/parser": "^8.20.0",
 		"bits-ui": "1.0.0-next.77",
 		"clsx": "^2.1.1",
+		"eslint-config-prettier": "^10.0.1",
+		"eslint-plugin-svelte": "^2.46.1",
 		"formsnap": "2.0.0-next.1",
-		"lucide-svelte": "^0.469.0",
+		"globals": "^15.14.0",
+		"lucide-svelte": "^0.471.0",
 		"mode-watcher": "^0.5.0",
 		"paneforge": "1.0.0-next.2",
-		"shiki": "^1.26.1",
+		"shiki": "^1.27.2",
 		"svelte-radix": "^2.0.1",
 		"svelte-sonner": "^0.3.28",
 		"sveltekit-superforms": "^2.22.1",
@@ -56,14 +62,18 @@
 		"tailwindcss": "^3.4.17",
 		"tailwindcss-animate": "^1.0.7",
 		"tauri-plugin-shellx-api": "^2.0.14",
+		"typescript-eslint": "^8.20.0",
 		"zod": "^3.24.1"
 	},
 	"dependencies": {
 		"@formkit/auto-animate": "^0.8.2",
-		"@internationalized/date": "^3.6.0",
+		"@internationalized/date": "^3.7.0",
+		"@kksh/supabase": "workspace:*",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
-		"gsap": "^3.12.5",
+		"dompurify": "^3.2.3",
+		"gsap": "^3.12.7",
 		"shiki-magic-move": "^0.5.2",
-		"svelte-markdown": "^0.4.1"
+		"svelte-markdown": "^0.4.1",
+		"valibot": "1.0.0-beta.12"
 	}
 }

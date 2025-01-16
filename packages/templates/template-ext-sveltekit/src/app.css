@@ -1,4 +1,4 @@
-@import url("@kksh/svelte5/themes");
+@import url('@kksh/svelte5/themes');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

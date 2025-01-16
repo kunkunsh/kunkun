@@ -75,7 +75,7 @@
 
 	$effect(() => {
 		// search sqlite when searchTerm changes
-		searchTerm
+		void searchTerm
 		;(async () => {
 			// console.log("searchTerm", searchTerm)
 			if (searchTerm === "") {

@@ -13,9 +13,10 @@
 		type IApp,
 		type IUiIframe
 	} from "@kksh/api/ui"
-	import { toast, type IUiIframeServer2 } from "@kksh/api/ui/iframe"
+	import { toast, type IUiIframeServer1, type IUiIframeServer2 } from "@kksh/api/ui/iframe"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
+	import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
 	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import { goto } from "$app/navigation"
 	import { IframeParentIO, RPCChannel } from "kkrpc/browser"
@@ -102,19 +103,22 @@
 		}
 	}
 
-	const serverAPI: Record<string, any> = constructJarvisServerAPIWithPermissions(
+	const serverAPI: IKunkunFullServerAPI = constructJarvisServerAPIWithPermissions(
 		loadedExt.kunkun.permissions,
 		loadedExt.extPath
 	)
-	serverAPI.iframeUi = {
-		...serverAPI.iframeUi,
-		...iframeUiAPI
-	} satisfies IUiIframe
-	serverAPI.db = new db.JarvisExtDB(extInfoInDB.extId)
-	serverAPI.kv = new db.KV(extInfoInDB.extId)
-	serverAPI.app = {
-		language: () => Promise.resolve("en") // TODO: get locale
-	} satisfies IApp
+	const serverAPI2 = {
+		...serverAPI,
+		iframeUi: {
+			...serverAPI.iframeUi,
+			...iframeUiAPI
+		} satisfies IUiIframeServer1 & IUiIframeServer2,
+		db: new db.JarvisExtDB(extInfoInDB.extId),
+		kv: new db.KV(extInfoInDB.extId),
+		app: {
+			language: () => Promise.resolve("en") // TODO: get locale
+		} satisfies IApp
+	}
 
 	function onBackBtnClicked() {
 		if (isInMainWindow()) {
@@ -137,8 +141,7 @@
 		}, 200)
 		if (iframeRef?.contentWindow) {
 			const io = new IframeParentIO(iframeRef.contentWindow)
-			const rpc = new RPCChannel(io, { expose: serverAPI })
-			// exposeApiToWindow(iframeRef.contentWindow, serverAPI)
+			const rpc = new RPCChannel(io, { expose: serverAPI2 })
 		} else {
 			toast.warning("iframeRef.contentWindow not available")
 		}

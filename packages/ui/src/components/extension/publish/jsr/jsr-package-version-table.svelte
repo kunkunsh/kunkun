@@ -23,6 +23,7 @@
 		publishedVersions: string[]
 	} = $props()
 </script>
+
 <Table.Root class={className}>
 	<Table.Caption>All versions of the package</Table.Caption>
 	<Table.Header>

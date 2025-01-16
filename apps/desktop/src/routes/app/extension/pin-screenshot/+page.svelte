@@ -47,9 +47,10 @@
 		scale += (e.deltaY < 0 ? 1 : -1) * 0.05
 	}
 
-	function onGestureChange(e: any) {
+	function onGestureChange(e: Event) {
 		e.preventDefault()
-		scale = e.scale
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		scale = (e as any).scale
 	}
 
 	$effect(() => {

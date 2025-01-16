@@ -92,7 +92,6 @@
 					winExtMap.unregisterProcess(event.payload.pid)
 				})
 			)
-		} else {
 		}
 		getCurrentWebviewWindow().show()
 	})

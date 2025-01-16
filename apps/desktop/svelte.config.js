@@ -14,6 +14,7 @@ const config = {
 		}),
 		alias: {
 			"@/*": "./src/lib/*",
+			"@kunkunapi/*": "../../packages/api/*"
 			// "@kksh/ui/*": "../../packages/ui/*",
 			// "@kksh/svelte5/*": "../../node_modules/@kksh/svelte5/src/lib/*"
 		}

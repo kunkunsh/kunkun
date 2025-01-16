@@ -45,8 +45,8 @@
 			}
 			try {
 				const manifest = await loadExtensionManifestFromDisk(pkgJsonPath)
-			} catch (err: any) {
-				error = `Failed to load manifest from ${pkgJsonPath}: ${err.message}`
+			} catch (err) {
+				error = `Failed to load manifest from ${pkgJsonPath}: ${err}`
 			}
 
 			tmpResults.push({

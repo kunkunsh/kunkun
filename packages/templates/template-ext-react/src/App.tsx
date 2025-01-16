@@ -3,7 +3,6 @@ import {
 	ActionPanel,
 	Button,
 	Command,
-	CommandDemo,
 	CommandEmpty,
 	CommandFooter,
 	CommandGroup,
@@ -12,10 +11,7 @@ import {
 	CommandList,
 	CommandSeparator,
 	CommandShortcut,
-	ThemeCustomizer,
 	ThemeProvider,
-	ThemeWrapper,
-	TooltipProvider,
 	VertifcalSeparator
 } from "@kksh/react"
 import {

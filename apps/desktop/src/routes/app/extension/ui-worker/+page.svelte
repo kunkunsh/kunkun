@@ -3,31 +3,22 @@
 	import { winExtMap } from "@/stores/winExtMap.js"
 	import { listenToFileDrop, listenToRefreshDevExt } from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
-	// import { type Remote } from "@huakunshen/comlink"
 	import { db } from "@kksh/api/commands"
+	import { constructJarvisServerAPIWithPermissions, type IApp, type IUiWorker } from "@kksh/api/ui"
 	import {
-		constructJarvisServerAPIWithPermissions,
-		// exposeApiToWorker,
-		type IApp,
-		type IUiWorker
-	} from "@kksh/api/ui"
-	import {
-		clipboard,
-		// constructJarvisExtDBToServerDbAPI,
 		FormNodeNameEnum,
 		FormSchema,
 		ListSchema,
-		Markdown,
 		MarkdownSchema,
 		NodeNameEnum,
 		toast,
-		// wrap,
 		type IComponent,
 		type WorkerExtension
 	} from "@kksh/api/ui/worker"
 	import { LoadingBar } from "@kksh/ui"
 	import { Templates } from "@kksh/ui/extension"
 	import { GlobalCommandPaletteFooter } from "@kksh/ui/main"
+	import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { readTextFile } from "@tauri-apps/plugin-fs"
@@ -200,24 +191,26 @@
 		const blob = new Blob([workerScript], { type: "application/javascript" })
 		const blobURL = URL.createObjectURL(blob)
 		worker = new Worker(blobURL)
-		const serverAPI: Record<string, any> = constructJarvisServerAPIWithPermissions(
+		const serverAPI: IKunkunFullServerAPI = constructJarvisServerAPIWithPermissions(
 			loadedExt.kunkun.permissions,
 			loadedExt.extPath
 		)
-		serverAPI.iframeUi = undefined
-		serverAPI.workerUi = extUiAPI
-		serverAPI.db = new db.JarvisExtDB(extInfoInDB.extId)
-		serverAPI.kv = new db.KV(extInfoInDB.extId)
-		serverAPI.app = {
-			language: () => Promise.resolve("en")
-		} satisfies IApp
+		const serverAPI2 = {
+			...serverAPI,
+			iframeUi: undefined,
+			workerUi: extUiAPI,
+			db: new db.JarvisExtDB(extInfoInDB.extId),
+			kv: new db.KV(extInfoInDB.extId),
+			app: {
+				language: () => Promise.resolve("en")
+			} satisfies IApp
+		}
+
 		const io = new WorkerParentIO(worker)
-		const rpc = new RPCChannel<typeof serverAPI, WorkerExtension>(io, {
-			expose: serverAPI
+		const rpc = new RPCChannel<typeof serverAPI2, WorkerExtension>(io, {
+			expose: serverAPI2
 		})
 		workerAPI = rpc.getAPI()
-		// exposeApiToWorker(worker, serverAPI)
-		// workerAPI = wrap<WorkerExtension>(worker)
 		await workerAPI.load()
 	}
 

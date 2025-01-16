@@ -3,6 +3,8 @@
 	import { IconEnum, IconType, Icon as TIcon } from "@kksh/api/models"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
+	import DOMPurify from "dompurify"
+	import { onMount } from "svelte"
 	import * as v from "valibot"
 	import { styleObjectToString } from "../../utils/style"
 
@@ -12,8 +14,8 @@
 		icon,
 		class: className,
 		...restProps
-	}: { icon: TIcon; class?: string; [key: string]: any } = $props()
-
+	}: { icon: TIcon; class?: string; "data-flip-id"?: string } = $props()
+	let cleanedSvg: string | undefined = $state()
 	let remoteIconError = $state(false)
 
 	function fillHexColor(style: Record<string, string>, key: string, value?: string) {
@@ -34,6 +36,12 @@
 	})
 
 	let style = $derived(styleObjectToString(customStyle))
+
+	onMount(() => {
+		if (icon.type === IconEnum.Svg) {
+			cleanedSvg = DOMPurify.sanitize(icon.value)
+		}
+	})
 </script>
 
 {#if icon.type === IconEnum.RemoteUrl}
@@ -89,8 +97,11 @@
 	<span
 		{...restProps}
 		class={cn(className, { invert: icon.invert, "dark:invert": icon.darkInvert })}
-		{style}>{@html icon.value}</span
+		{style}
 	>
+		<!-- eslint-disable svelte/no-at-html-tags -->
+		{@html cleanedSvg}
+	</span>
 {:else}
 	<Icon
 		icon="mingcute:appstore-fill"

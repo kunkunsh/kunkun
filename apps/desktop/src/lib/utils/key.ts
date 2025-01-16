@@ -107,7 +107,7 @@ export function isShortcut(letters: string[]): boolean {
 	let hasModifier = false
 	let hasNonModifier = false
 
-	for (let letter of letters) {
+	for (const letter of letters) {
 		if (modifierKeySet.has(letter)) {
 			hasModifier = true
 		} else {

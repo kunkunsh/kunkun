@@ -60,7 +60,7 @@
 	let imageDialogOpen = $state(false)
 	let delayedImageDialogOpen = $state(false)
 	$effect(() => {
-		imageDialogOpen // do not remove this line, $effect only subscribe to synchronous variable inside it
+		void imageDialogOpen // do not remove this line, $effect only subscribe to synchronous variable inside it
 		setTimeout(() => {
 			delayedImageDialogOpen = imageDialogOpen
 		}, 500)

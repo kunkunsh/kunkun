@@ -4,12 +4,13 @@ import {
 	getPackageVersion,
 	type GitHubRepository
 } from "@huakunshen/jsr-client/hey-api-client"
+import { ExtPackageJson } from "@kksh/api/models"
 import * as v from "valibot"
-import { ExtPackageJson } from "../../models/manifest"
-import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "./github"
-import type { JsrPackageMetadata, NpmPkgMetadata } from "./models"
-
-export * from "./github"
+import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "../github"
+import type { NpmPkgMetadata } from "../npm/models"
+import { getInfoFromRekorLog } from "../sigstore"
+import { getTarballSize } from "../utils"
+import type { JsrPackageMetadata } from "./models"
 
 client.setConfig({
 	baseUrl: "https://api.jsr.io"
@@ -57,13 +58,13 @@ export function getJsrPackageHtml(scope: string, name: string, version?: string)
 
 /**
  * Check if a Jsr package is signed by GitHub Actions
- * @returns
+ * @returns rekor log index if signed, undefined if not signed
  */
 export async function isSignedByGitHubAction(
 	scope: string,
 	name: string,
 	version: string
-): Promise<boolean> {
+): Promise<string | null> {
 	const pkgVersion = await getPackageVersion({
 		path: {
 			scope,
@@ -71,7 +72,7 @@ export async function isSignedByGitHubAction(
 			version
 		}
 	})
-	return !!pkgVersion.data?.rekorLogId
+	return pkgVersion.data?.rekorLogId ?? null
 }
 
 export async function getJsrPackageGitHubRepo(
@@ -159,7 +160,7 @@ export async function getNpmPackageTarballUrl(
 	version: string
 ): Promise<string | undefined> {
 	const metadata = await getJsrNpmPackageVersionMetadata(scope, name, version)
-	const tarballUrl: string | undefined = metadata?.dist.tarball
+	const tarballUrl: string | undefined = metadata?.dist?.tarball
 	return tarballUrl
 }
 
@@ -199,20 +200,6 @@ export function jsrPackageExists(scope: string, name: string, version?: string):
 }
 
 /**
- * Get the tarball size of a Jsr package
- * @param url tarball url, can technically be any url
- * @returns tarball size in bytes
- */
-export function getTarballSize(url: string): Promise<number> {
-	return fetch(url, { method: "HEAD" }).then((res) => {
-		if (!(res.ok && res.status === 200)) {
-			throw new Error("Failed to fetch tarball size")
-		}
-		return Number(res.headers.get("Content-Length"))
-	})
-}
-
-/**
  * Validate a Jsr package as a Kunkun extension
  * - check if jsr pkg is linked to a github repo
  * - check if jsr pkg is signed with github action
@@ -239,9 +226,19 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 		shasum: string
 		apiVersion: string
 		tarballSize: number
+		rekorLogIndex: string
+		github: {
+			githubActionInvocationId: string
+			commit: string
+			repo: string
+			owner: string
+			workflowPath: string
+		}
 	}
 }> {
-	// check if jsr package exists
+	/* -------------------------------------------------------------------------- */
+	/*                         check if jsr package exists                        */
+	/* -------------------------------------------------------------------------- */
 	const jsrExists = await jsrPackageExists(
 		payload.jsrPackage.scope,
 		payload.jsrPackage.name,
@@ -263,12 +260,12 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 	/* -------------------------------------------------------------------------- */
 	/*                check if jsr pkg is signed with github action               */
 	/* -------------------------------------------------------------------------- */
-	const signed = await isSignedByGitHubAction(
+	const rekorLogId = await isSignedByGitHubAction(
 		payload.jsrPackage.scope,
 		payload.jsrPackage.name,
 		payload.jsrPackage.version
 	)
-	if (!signed) {
+	if (!rekorLogId) {
 		return { error: "JSR package is not signed by GitHub Actions" }
 	}
 	/* -------------------------------------------------------------------------- */
@@ -276,6 +273,9 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 	/* -------------------------------------------------------------------------- */
 	if (!githubRepo.owner) {
 		return { error: "Package's Linked GitHub repository owner is not found." }
+	}
+	if (!githubRepo.name) {
+		return { error: "Package's Linked GitHub repository name is not found." }
 	}
 	if (githubRepo.owner.toLowerCase() !== payload.githubUsername.toLowerCase()) {
 		const isPublicMemeber = await userIsPublicMemberOfGitHubOrg(
@@ -332,8 +332,11 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 		payload.jsrPackage.name,
 		payload.jsrPackage.version
 	)
-	const tarballUrl = npmPkgVersionMetadata.dist.tarball
-	const shasum = npmPkgVersionMetadata.dist.shasum
+	const tarballUrl = npmPkgVersionMetadata.dist?.tarball
+	const shasum = npmPkgVersionMetadata.dist?.shasum
+	if (!shasum) {
+		return { error: "Could not get shasum for JSR package" }
+	}
 	if (!tarballUrl) {
 		return { error: "Could not get tarball URL for JSR package" }
 	}
@@ -354,14 +357,22 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 			error: `Extension ${packageJson.kunkun.identifier} doesn't not have @kksh/api as a dependency`
 		}
 	}
-
+	const rekorInfo = await getInfoFromRekorLog(rekorLogId)
 	return {
 		data: {
 			pkgJson: parseResult.output,
 			tarballUrl,
 			shasum,
 			apiVersion,
-			tarballSize
+			tarballSize,
+			rekorLogIndex: rekorLogId,
+			github: {
+				githubActionInvocationId: rekorInfo.githubActionInvocationId,
+				commit: rekorInfo.commit,
+				repo: githubRepo.name,
+				owner: githubRepo.owner,
+				workflowPath: rekorInfo.workflowPath
+			}
 		}
 	}
 }
