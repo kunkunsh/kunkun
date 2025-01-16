@@ -8,10 +8,9 @@
 - https://docs.kunkun.sh/guides/demo/
 - Download extension from https://kunkun.sh/download
 
-[![wakatime](https://wakatime.com/badge/user/94be0fbf-cb9d-411d-8526-d0c4a4e82e1a/project/455bfd3f-4faf-4c2a-afe9-556d9ee1a0f7.svg)](https://wakatime.com/badge/user/94be0fbf-cb9d-411d-8526-d0c4a4e82e1a/project/455bfd3f-4faf-4c2a-afe9-556d9ee1a0f7)
 ![GitHub last commit](https://img.shields.io/github/last-commit/kunkunsh/kunkun)
 [![YouTube badge][]][YouTube link]
-[![Discord Invite](https://dcbadge.limes.pink/api/server/7dzw3TYeTU)](https://discord.gg/7dzw3TYeTU)
+[Discord Invite](https://discord.gg/7dzw3TYeTU)
 
 - Website: https://kunkun.sh/
 - Documentation: https://docs.kunkun.sh/

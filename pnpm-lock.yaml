@@ -327,6 +327,9 @@ importers:
       eslint-plugin-svelte:
         specifier: ^2.46.1
         version: 2.46.1(eslint@9.17.0(jiti@2.4.0))(svelte@5.16.6)
+      globals:
+        specifier: ^15.14.0
+        version: 15.14.0
       lucide-svelte:
         specifier: ^0.469.0
         version: 0.469.0(svelte@5.16.6)

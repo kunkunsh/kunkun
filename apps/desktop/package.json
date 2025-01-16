@@ -57,6 +57,7 @@
 		"clsx": "^2.1.1",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.46.1",
+		"globals": "^15.14.0",
 		"lucide-svelte": "^0.469.0",
 		"prettier": "^3.4.2",
 		"svelte-radix": "^2.0.1",
