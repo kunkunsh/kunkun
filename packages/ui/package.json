@@ -42,6 +42,7 @@
 		"@kksh/api": "workspace:*",
 		"@kksh/svelte5": "^0.1.14",
 		"@types/bun": "latest",
+		"@typescript-eslint/eslint-plugin": "^8.20.0",
 		"bits-ui": "1.0.0-next.77",
 		"clsx": "^2.1.1",
 		"eslint-config-prettier": "^9.1.0",
