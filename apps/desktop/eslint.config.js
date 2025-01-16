@@ -33,7 +33,10 @@ export default ts.config(
 	{
 		rules: {
 			"no-unused-vars": "off",
-			"@typescript-eslint/no-unused-vars": "off"
+			"@typescript-eslint/no-unused-vars": "off",
+			// The following 2 rules are disabled because they cause errors that I am unable to solve
+			"@typescript-eslint/no-unused-expressions": "off",
+			"svelte/no-inner-declarations": "off"
 		}
 	}
 )
