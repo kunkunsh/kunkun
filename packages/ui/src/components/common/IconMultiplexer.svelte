@@ -4,6 +4,7 @@
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
 	import DOMPurify from "dompurify"
+	import { onMount } from "svelte"
 	import * as v from "valibot"
 	import { styleObjectToString } from "../../utils/style"
 
@@ -14,7 +15,7 @@
 		class: className,
 		...restProps
 	}: { icon: TIcon; class?: string; "data-flip-id"?: string } = $props()
-
+	let cleanedSvg: string | undefined = $state()
 	let remoteIconError = $state(false)
 
 	function fillHexColor(style: Record<string, string>, key: string, value?: string) {
@@ -35,6 +36,12 @@
 	})
 
 	let style = $derived(styleObjectToString(customStyle))
+
+	onMount(() => {
+		if (icon.type === IconEnum.Svg) {
+			cleanedSvg = DOMPurify.sanitize(icon.value)
+		}
+	})
 </script>
 
 {#if icon.type === IconEnum.RemoteUrl}
@@ -93,8 +100,7 @@
 		{style}
 	>
 		<!-- eslint-disable svelte/no-at-html-tags -->
-		{@html icon.value}
-		<!-- {@html DOMPurify.sanitize(icon.value)} -->
+		{@html cleanedSvg}
 	</span>
 {:else}
 	<Icon
