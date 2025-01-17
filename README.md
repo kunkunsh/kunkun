@@ -11,8 +11,8 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/kunkunsh/kunkun)
 [![YouTube badge][]][YouTube link]
 <a href="https://discord.gg/7dzw3TYeTU" style="display: flex; align-items: center; background-color: #444; width: fit-content; padding: 0.2em 0.5em; border-radius: 10px; ">
-    <img src="https://api.iconify.design/skill-icons/discord.svg" />
-    <span style="margin-left: 0.2em; color: white; font-family: monospace;">Discord</span>
+<img src="https://api.iconify.design/skill-icons/discord.svg" />
+<span style="margin-left: 0.2em; color: white; font-family: monospace;">Discord</span>
 </a>
 
 - Website: https://kunkun.sh/

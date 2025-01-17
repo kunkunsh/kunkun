@@ -22,8 +22,8 @@
 </script>
 
 <Card.Root>
-	<Card.Content class="flex flex-col md:flex-row items-center justify-between space-x-4">
-		<div class="flex items-center space-x-4 w-60">
+	<Card.Content class="flex flex-col items-center justify-between space-x-4 md:flex-row">
+		<div class="flex w-60 items-center space-x-4">
 			<BadgeCheckIcon class="h-8 w-8 text-green-500" />
 			<div>
 				<span class="text-sm text-gray-200">Built and signed on</span>
@@ -34,25 +34,25 @@
 			</div>
 		</div>
 		<div>
-			<p class="text-sm flex flex-col sm:flex-row">
-				<strong class="inline-block w-28 mt-2 md:mt-0">Source Commit</strong>
+			<p class="flex flex-col text-sm sm:flex-row">
+				<strong class="mt-2 inline-block w-28 md:mt-0">Source Commit</strong>
 				<a
 					href={`https://github.com/${repoOwner}/${repoName}/tree/${commit}`}
 					target="_blank"
-					rel="noreferrer" 
+					rel="noreferrer"
 					class="font-mono underline"
 				>
 					github.com/{repoOwner}/{repoName}/{commit.slice(0, 8)}
 				</a>
 			</p>
-			<p class="text-sm flex flex-col sm:flex-row">
-				<strong class="inline-block w-28 mt-2 md:mt-0">Build File</strong>
+			<p class="flex flex-col text-sm sm:flex-row">
+				<strong class="mt-2 inline-block w-28 md:mt-0">Build File</strong>
 				<a href={workflowRunUrl} target="_blank" rel="noreferrer" class="font-mono underline">
 					{workflowPath}
 				</a>
 			</p>
-			<p class="text-sm flex flex-col sm:flex-row">
-				<strong class="inline-block w-28 mt-2 md:mt-0">Public Ledger</strong>
+			<p class="flex flex-col text-sm sm:flex-row">
+				<strong class="mt-2 inline-block w-28 md:mt-0">Public Ledger</strong>
 				<a
 					href={`https://search.sigstore.dev/?logIndex=${rekorLogIndex}`}
 					target="_blank"
