@@ -163,7 +163,7 @@
 					href={`https://github.com/${metadata.git.owner}/${metadata.git.repo}/tree/${metadata.git.commit}`}
 					target="_blank"
 				>
-					<Badge class="h-8 space-x-2">
+					<Badge class="h-8 space-x-2" variant="secondary">
 						<Icon class="h-6 w-6" icon="mdi:github" />
 						<span>{metadata.git.owner}/{metadata.git.repo}</span>
 					</Badge>

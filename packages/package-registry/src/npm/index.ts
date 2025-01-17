@@ -13,6 +13,7 @@ import {
 	NpmSearchResults,
 	Provenance
 } from "./models"
+import type { ExtensionPublishValidationData } from "../models"
 
 export * from "./models"
 
@@ -116,21 +117,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 	provenance?: Provenance // provenance API has cors policy, when we run this validation on client side, a provenance should be passed in
 }): Promise<{
 	error?: string
-	data?: {
-		pkgJson: ExtPackageJson
-		tarballUrl: string
-		shasum: string
-		apiVersion: string
-		rekorLogIndex: string
-		tarballSize: number
-		github: {
-			githubActionInvocationId: string
-			commit: string
-			repo: string
-			owner: string
-			workflowPath: string
-		}
-	}
+	data?: ExtensionPublishValidationData
 }> {
 	/* -------------------------------------------------------------------------- */
 	/*                         check if npm package exist                         */

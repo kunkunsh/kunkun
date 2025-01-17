@@ -8,7 +8,8 @@
 	"exports": {
 		"./jsr": "./src/jsr/index.ts",
 		"./npm": "./src/npm/index.ts",
-		"./github": "./src/github.ts"
+		"./github": "./src/github.ts",
+		"./models": "./src/models.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",

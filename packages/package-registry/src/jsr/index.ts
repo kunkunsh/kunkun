@@ -11,6 +11,7 @@ import type { NpmPkgMetadata } from "../npm/models"
 import { getInfoFromRekorLog } from "../sigstore"
 import { getTarballSize } from "../utils"
 import type { JsrPackageMetadata } from "./models"
+import type { ExtensionPublishValidationData } from "../models"
 
 client.setConfig({
 	baseUrl: "https://api.jsr.io"
@@ -220,21 +221,7 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 	githubToken?: string
 }): Promise<{
 	error?: string
-	data?: {
-		pkgJson: ExtPackageJson
-		tarballUrl: string
-		shasum: string
-		apiVersion: string
-		tarballSize: number
-		rekorLogIndex: string
-		github: {
-			githubActionInvocationId: string
-			commit: string
-			repo: string
-			owner: string
-			workflowPath: string
-		}
-	}
+	data?: ExtensionPublishValidationData
 }> {
 	/* -------------------------------------------------------------------------- */
 	/*                         check if jsr package exists                        */
