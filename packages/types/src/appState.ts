@@ -4,6 +4,6 @@ export interface AppState {
 	searchTerm: string
 	highlightedCmd: string
 	loadingBar: boolean
-	defaultAction: string
+	defaultAction: string | null
 	actionPanel?: ActionSchema.ActionPanel
 }

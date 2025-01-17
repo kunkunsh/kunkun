@@ -16,7 +16,7 @@ interface AppStateAPI {
 	clearSearchTerm: () => void
 	get: () => AppState
 	setLoadingBar: (loadingBar: boolean) => void
-	setDefaultAction: (defaultAction: string) => void
+	setDefaultAction: (defaultAction: string | null) => void
 	setActionPanel: (actionPanel?: ActionSchema.ActionPanel) => void
 }
 
@@ -32,7 +32,7 @@ function createAppState(): Writable<AppState> & AppStateAPI {
 		setLoadingBar: (loadingBar: boolean) => {
 			store.update((state) => ({ ...state, loadingBar }))
 		},
-		setDefaultAction: (defaultAction: string) => {
+		setDefaultAction: (defaultAction: string | null) => {
 			store.update((state) => ({ ...state, defaultAction }))
 		},
 		setActionPanel: (actionPanel?: ActionSchema.ActionPanel) => {

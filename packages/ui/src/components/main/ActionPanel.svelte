@@ -10,11 +10,13 @@
 	let {
 		actionPanel,
 		open = $bindable(false),
-		onActionSelected
+		onActionSelected,
+		onBlur
 	}: {
 		actionPanel?: ActionSchema.ActionPanel
 		open?: boolean
 		onActionSelected?: (value: string) => void
+		onBlur?: () => void
 	} = $props()
 
 	let value = $state("")
@@ -24,16 +26,19 @@
 	// an item from the list so users can continue navigating the
 	// rest of the form with the keyboard.
 	function closeAndFocusTrigger() {
+		console.log("closeAndFocusTrigger")
 		open = false
-		tick().then(() => {
-			triggerRef.focus()
-		})
+		onBlur?.()
+		// tick().then(() => {
+		// 	triggerRef.focus()
+		// })
 	}
 </script>
 
 <Popover.Root bind:open>
 	<Popover.Trigger bind:ref={triggerRef}>
-		{#snippet child({ props })}
+		<!-- eslint-disable-next-line @typescript-eslint/no-explicit-any -->
+		{#snippet child({ props }: { props: any })}
 			<Button variant="ghost" class="" {...props} role="combobox" aria-expanded={open}>
 				Actions
 				<span class="flex items-center gap-0.5" data-tauri-drag-region>
@@ -46,7 +51,14 @@
 	</Popover.Trigger>
 	<Popover.Content class="w-64 p-0">
 		<Command.Root>
-			<Command.Input placeholder="Select an Action" />
+			<Command.Input
+				placeholder="Select an Action"
+				onkeydown={(e) => {
+					if (e.key === "Escape") {
+						closeAndFocusTrigger()
+					}
+				}}
+			/>
 			<Command.List>
 				<Command.Empty>No action found.</Command.Empty>
 				<Command.Group>

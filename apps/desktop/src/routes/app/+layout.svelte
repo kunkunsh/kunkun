@@ -3,7 +3,7 @@
 	import { appConfig, appState, extensions, quickLinks, winExtMap } from "@/stores"
 	import { initDeeplink } from "@/utils/deeplink"
 	import { updateAppHotkey } from "@/utils/hotkey"
-	import { globalKeyDownHandler, goBackOrCloseOnEscape } from "@/utils/key"
+	import { globalKeyDownHandler, globalKeyUpHandler, goBackOrCloseOnEscape } from "@/utils/key"
 	import { listenToWindowBlur } from "@/utils/tauri-events"
 	import { isInMainWindow } from "@/utils/window"
 	import { listenToKillProcessEvent, listenToRecordExtensionProcessEvent } from "@kksh/api/events"
@@ -97,7 +97,7 @@
 	})
 </script>
 
-<svelte:window on:keydown={globalKeyDownHandler} />
+<svelte:window on:keydown={globalKeyDownHandler} on:keyup={globalKeyUpHandler} />
 <ViewTransition />
 <AppContext {appConfig} {appState}>
 	{@render children()}
