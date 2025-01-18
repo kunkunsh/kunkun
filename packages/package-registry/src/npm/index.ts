@@ -5,6 +5,7 @@ import {
 	parseGitHubRepoFromUri,
 	userIsPublicMemberOfGitHubOrg
 } from "../github"
+import type { ExtensionPublishValidationData } from "../models"
 import { getInfoFromRekorLog } from "../sigstore"
 import {
 	NpmPkgMetadata,
@@ -13,7 +14,6 @@ import {
 	NpmSearchResults,
 	Provenance
 } from "./models"
-import type { ExtensionPublishValidationData } from "../models"
 
 export * from "./models"
 

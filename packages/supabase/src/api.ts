@@ -1,7 +1,7 @@
-import { SBExt } from "@kksh/api/supabase"
-import type { Database, Tables } from "@kksh/api/supabase/types"
 import type { PostgrestSingleResponse, SupabaseClient } from "@supabase/supabase-js"
 import * as v from "valibot"
+import type { Database, Tables } from "./database.types"
+import { SBExt } from "./models"
 
 export class SupabaseAPI {
 	constructor(private supabase: SupabaseClient<Database>) {}

@@ -7,11 +7,11 @@ import {
 import { ExtPackageJson } from "@kksh/api/models"
 import * as v from "valibot"
 import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "../github"
+import type { ExtensionPublishValidationData } from "../models"
 import type { NpmPkgMetadata } from "../npm/models"
 import { getInfoFromRekorLog } from "../sigstore"
 import { getTarballSize } from "../utils"
 import type { JsrPackageMetadata } from "./models"
-import type { ExtensionPublishValidationData } from "../models"
 
 client.setConfig({
 	baseUrl: "https://api.jsr.io"

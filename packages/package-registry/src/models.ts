@@ -75,4 +75,3 @@ export const ExtensionPublishValidationData = v.object({
 	})
 })
 export type ExtensionPublishValidationData = v.InferOutput<typeof ExtensionPublishValidationData>
-
