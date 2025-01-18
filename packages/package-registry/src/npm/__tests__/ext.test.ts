@@ -32,7 +32,7 @@ describe("validate kunkun extension", () => {
 			(
 				await validateNpmPackageAsKunkunExtension({
 					pkgName: "kunkun-ext-ossinsight",
-					version: "0.0.1",
+					version: "0.0.4",
 					githubUsername: "huakun"
 				})
 			).error
