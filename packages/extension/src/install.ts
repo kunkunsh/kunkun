@@ -5,7 +5,7 @@
 import { isCompatible } from "@kksh/api"
 import { db, decompressTarball } from "@kksh/api/commands"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
-import { SBExt } from "@kksh/supabase"
+import { SBExt } from "@kksh/supabase/models"
 import { greaterThan, parse as parseSemver } from "@std/semver"
 import * as path from "@tauri-apps/api/path"
 import * as dialog from "@tauri-apps/plugin-dialog"

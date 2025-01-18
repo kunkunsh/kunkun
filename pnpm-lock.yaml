@@ -499,10 +499,10 @@ importers:
     dependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.20.0
-        version: 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
+        version: 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3))(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
       '@typescript-eslint/parser':
         specifier: ^8.20.0
-        version: 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
+        version: 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
       eslint-config-prettier:
         specifier: ^10.0.1
         version: 10.0.1(eslint@9.17.0(jiti@2.4.0))
@@ -728,9 +728,6 @@ importers:
       '@kksh/api':
         specifier: workspace:*
         version: link:../api
-      '@kksh/supabase':
-        specifier: workspace:*
-        version: link:../supabase
       typescript:
         specifier: ^5.0.0
         version: 5.6.3
@@ -738,12 +735,18 @@ importers:
         specifier: ^1.0.0-beta.10
         version: 1.0.0-beta.10(typescript@5.6.3)
     devDependencies:
+      '@kksh/supabase':
+        specifier: workspace:*
+        version: link:../supabase
+      '@supabase/supabase-js':
+        specifier: ^2.47.16
+        version: 2.47.16
       '@types/bun':
         specifier: latest
         version: 1.1.16
       '@valibot/to-json-schema':
-        specifier: 1.0.0-beta.3
-        version: 1.0.0-beta.3(valibot@1.0.0-beta.10(typescript@5.6.3))
+        specifier: 1.0.0-beta.4
+        version: 1.0.0-beta.4(valibot@1.0.0-beta.10(typescript@5.6.3))
 
   packages/supabase:
     dependencies:
@@ -767,8 +770,8 @@ importers:
   packages/tauri-plugins/jarvis:
     dependencies:
       typescript:
-        specifier: ^5.0.0
-        version: 5.6.3
+        specifier: ^5.7.3
+        version: 5.7.3
     devDependencies:
       '@kksh/ci':
         specifier: workspace:*
@@ -776,6 +779,9 @@ importers:
       '@kksh/supabase':
         specifier: workspace:*
         version: link:../../supabase
+      '@supabase/supabase-js':
+        specifier: ^2.47.16
+        version: 2.47.16
       '@types/bun':
         specifier: latest
         version: 1.1.16
@@ -1179,7 +1185,7 @@ importers:
         version: 3.12.7
       shiki-magic-move:
         specifier: ^0.5.2
-        version: 0.5.2(react@18.3.1)(shiki@1.27.2)(svelte@5.16.6)(vue@3.5.13(typescript@5.7.2))
+        version: 0.5.2(react@18.3.1)(shiki@1.27.2)(svelte@5.16.6)(vue@3.5.13(typescript@5.7.3))
       svelte:
         specifier: ^5.0.0
         version: 5.16.6
@@ -1188,7 +1194,7 @@ importers:
         version: 0.4.1(svelte@5.16.6)
       valibot:
         specifier: 1.0.0-beta.12
-        version: 1.0.0-beta.12(typescript@5.7.2)
+        version: 1.0.0-beta.12(typescript@5.7.3)
     devDependencies:
       '@eslint/js':
         specifier: ^9.18.0
@@ -1201,16 +1207,16 @@ importers:
         version: link:../api
       '@kksh/svelte5':
         specifier: ^0.1.14
-        version: 0.1.14(lucide-svelte@0.471.0(svelte@5.16.6))(svelte-sonner@0.3.28(svelte@5.16.6))(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.2))(typescript@5.7.2)
+        version: 0.1.14(lucide-svelte@0.471.0(svelte@5.16.6))(svelte-sonner@0.3.28(svelte@5.16.6))(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.3))(typescript@5.7.3)
       '@types/bun':
         specifier: latest
         version: 1.1.16
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.20.0
-        version: 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
+        version: 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3))(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
       '@typescript-eslint/parser':
         specifier: ^8.20.0
-        version: 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
+        version: 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
       bits-ui:
         specifier: 1.0.0-next.77
         version: 1.0.0-next.77(svelte@5.16.6)
@@ -1225,7 +1231,7 @@ importers:
         version: 2.46.1(eslint@9.17.0(jiti@2.4.0))(svelte@5.16.6)
       formsnap:
         specifier: 2.0.0-next.1
-        version: 2.0.0-next.1(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.2))
+        version: 2.0.0-next.1(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.3))
       globals:
         specifier: ^15.14.0
         version: 15.14.0
@@ -1249,7 +1255,7 @@ importers:
         version: 0.3.28(svelte@5.16.6)
       sveltekit-superforms:
         specifier: ^2.22.1
-        version: 2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.2)
+        version: 2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.3)
       tailwind-merge:
         specifier: ^2.6.0
         version: 2.6.0
@@ -1267,7 +1273,7 @@ importers:
         version: 2.0.14
       typescript-eslint:
         specifier: ^8.20.0
-        version: 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
+        version: 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -4432,6 +4438,9 @@ packages:
   '@supabase/postgrest-js@1.17.10':
     resolution: {integrity: sha512-GlcwOjEmPcXfaEU0wHg1MgHU+peR+zZFyaEWjr7a7EOCB1gCtw3nW7ABfnPPH411coXHV90eb/isDgT9HRshLg==}
 
+  '@supabase/postgrest-js@1.17.11':
+    resolution: {integrity: sha512-AOqqgQEhLVqzOMmA8Q0bxQFMfbozbjjQ1Tt4kprkstIKdRl4yZRaMdoVxFkCpU8ivmAe2xNfAVkNK+l16a9P0A==}
+
   '@supabase/postgrest-js@1.17.9':
     resolution: {integrity: sha512-HyMOyy3t6K0/oFNDlHryOhnK4sfMNip8J0LrqJ/65NrBlHD3xOcDf4OV/5YCHI4g195ByuQ0wfmyFqIgMl3dxg==}
 
@@ -4451,6 +4460,9 @@ packages:
 
   '@supabase/supabase-js@2.47.12':
     resolution: {integrity: sha512-My8X5K1KwOBFjQhAqIf7QJaQhP5EILjJwAgjzRNjstlMLJmdVBctwRYD6IGDWKzw+i6/aNGuRd5c9/pI/Y6UFw==}
+
+  '@supabase/supabase-js@2.47.16':
+    resolution: {integrity: sha512-FnoV0miLnYUL8ZTS94tSIyn+ogCwh5DB5f1fj1n4wHGNAqJSKFb8OQzLVlRFAH7cB9TKQ5eon3/n2lXUWY7GfA==}
 
   '@sveltejs/adapter-auto@3.3.1':
     resolution: {integrity: sha512-5Sc7WAxYdL6q9j/+D0jJKjGREGlfIevDyHSQ2eNETHcB1TKlQWHcAo8AS8H1QdjNvSXpvOwNjykDUHPEAyGgdQ==}
@@ -5262,8 +5274,8 @@ packages:
       '@unovis/ts': 1.4.4
       vue: ^3
 
-  '@valibot/to-json-schema@1.0.0-beta.3':
-    resolution: {integrity: sha512-20XQh1u5sOLwS3NOB7oHCo3clQ9h4GlavXgLKMux2PYpHowb7P97cND0dg8T3+fE1WoKVACcLppvzAPpSx0F+Q==}
+  '@valibot/to-json-schema@1.0.0-beta.4':
+    resolution: {integrity: sha512-wXBdCyoqec+NLCl5ihitXzZXD4JAjPK3+HfskSXzfhiNFvKje0A/v1LygqKidUgIbaJtREmq/poJGbaS/0MKuQ==}
     peerDependencies:
       valibot: ^1.0.0 || ^1.0.0-beta.5 || ^1.0.0-rc
 
@@ -10517,6 +10529,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   uc.micro@2.1.0:
     resolution: {integrity: sha512-ARDJmphmdvUk6Glw7y9DQ2bFkKBHwQHLi2lsaH6PPmz/Ka9sFOBsBluozhDltWmnv9u/cF6Rt87znRTPV+yp/A==}
 
@@ -13036,6 +13053,24 @@ snapshots:
     transitivePeerDependencies:
       - sveltekit-superforms
 
+  '@kksh/svelte5@0.1.14(lucide-svelte@0.471.0(svelte@5.16.6))(svelte-sonner@0.3.28(svelte@5.16.6))(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.3))(typescript@5.7.3)':
+    dependencies:
+      '@tanstack/table-core': 8.20.5
+      bits-ui: 1.0.0-next.77(svelte@5.16.6)
+      embla-carousel-svelte: 8.5.2(svelte@5.16.6)
+      formsnap: 2.0.0-next.1(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.3))
+      lucide-svelte: 0.471.0(svelte@5.16.6)
+      mode-watcher: 0.5.0(svelte@5.16.6)
+      paneforge: 1.0.0-next.2(svelte@5.16.6)
+      svelte: 5.16.6
+      svelte-persisted-store: 0.12.0(svelte@5.16.6)
+      svelte-radix: 2.0.1(svelte@5.16.6)
+      svelte-sonner: 0.3.28(svelte@5.16.6)
+      typescript: 5.7.3
+      vaul-svelte: 1.0.0-next.3(svelte@5.16.6)
+    transitivePeerDependencies:
+      - sveltekit-superforms
+
   '@kksh/vue@0.1.3(@popperjs/core@2.11.8)(@vue/devtools-api@7.6.4)(tailwindcss@3.4.15)(vue@3.5.13(typescript@5.6.3))':
     dependencies:
       '@internationalized/date': 3.5.6
@@ -15101,6 +15136,10 @@ snapshots:
     dependencies:
       '@supabase/node-fetch': 2.6.15
 
+  '@supabase/postgrest-js@1.17.11':
+    dependencies:
+      '@supabase/node-fetch': 2.6.15
+
   '@supabase/postgrest-js@1.17.9':
     dependencies:
       '@supabase/node-fetch': 2.6.15
@@ -15143,6 +15182,18 @@ snapshots:
       '@supabase/functions-js': 2.4.4
       '@supabase/node-fetch': 2.6.15
       '@supabase/postgrest-js': 1.17.10
+      '@supabase/realtime-js': 2.11.2
+      '@supabase/storage-js': 2.7.1
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  '@supabase/supabase-js@2.47.16':
+    dependencies:
+      '@supabase/auth-js': 2.67.3
+      '@supabase/functions-js': 2.4.4
+      '@supabase/node-fetch': 2.6.15
+      '@supabase/postgrest-js': 1.17.11
       '@supabase/realtime-js': 2.11.2
       '@supabase/storage-js': 2.7.1
     transitivePeerDependencies:
@@ -15907,20 +15958,20 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/eslint-plugin@8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)':
+  '@typescript-eslint/eslint-plugin@8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3))(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
+      '@typescript-eslint/parser': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
       '@typescript-eslint/scope-manager': 8.20.0
-      '@typescript-eslint/type-utils': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
-      '@typescript-eslint/utils': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
+      '@typescript-eslint/type-utils': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
+      '@typescript-eslint/utils': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
       '@typescript-eslint/visitor-keys': 8.20.0
       eslint: 9.17.0(jiti@2.4.0)
       graphemer: 1.4.0
       ignore: 5.3.2
       natural-compare: 1.4.0
-      ts-api-utils: 2.0.0(typescript@5.7.2)
-      typescript: 5.7.2
+      ts-api-utils: 2.0.0(typescript@5.7.3)
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -15973,15 +16024,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)':
+  '@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.20.0
       '@typescript-eslint/types': 8.20.0
-      '@typescript-eslint/typescript-estree': 8.20.0(typescript@5.7.2)
+      '@typescript-eslint/typescript-estree': 8.20.0(typescript@5.7.3)
       '@typescript-eslint/visitor-keys': 8.20.0
       debug: 4.4.0(supports-color@9.4.0)
       eslint: 9.17.0(jiti@2.4.0)
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -16045,14 +16096,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/type-utils@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)':
+  '@typescript-eslint/type-utils@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)':
     dependencies:
-      '@typescript-eslint/typescript-estree': 8.20.0(typescript@5.7.2)
-      '@typescript-eslint/utils': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
+      '@typescript-eslint/typescript-estree': 8.20.0(typescript@5.7.3)
+      '@typescript-eslint/utils': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
       debug: 4.4.0(supports-color@9.4.0)
       eslint: 9.17.0(jiti@2.4.0)
-      ts-api-utils: 2.0.0(typescript@5.7.2)
-      typescript: 5.7.2
+      ts-api-utils: 2.0.0(typescript@5.7.3)
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -16120,7 +16171,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/typescript-estree@8.20.0(typescript@5.7.2)':
+  '@typescript-eslint/typescript-estree@8.20.0(typescript@5.7.3)':
     dependencies:
       '@typescript-eslint/types': 8.20.0
       '@typescript-eslint/visitor-keys': 8.20.0
@@ -16129,8 +16180,8 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.6.3
-      ts-api-utils: 2.0.0(typescript@5.7.2)
-      typescript: 5.7.2
+      ts-api-utils: 2.0.0(typescript@5.7.3)
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -16178,14 +16229,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)':
+  '@typescript-eslint/utils@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)':
     dependencies:
       '@eslint-community/eslint-utils': 4.4.1(eslint@9.17.0(jiti@2.4.0))
       '@typescript-eslint/scope-manager': 8.20.0
       '@typescript-eslint/types': 8.20.0
-      '@typescript-eslint/typescript-estree': 8.20.0(typescript@5.7.2)
+      '@typescript-eslint/typescript-estree': 8.20.0(typescript@5.7.3)
       eslint: 9.17.0(jiti@2.4.0)
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -16285,7 +16336,7 @@ snapshots:
       '@unovis/ts': 1.4.4
       vue: 3.5.13(typescript@5.6.3)
 
-  '@valibot/to-json-schema@1.0.0-beta.3(valibot@1.0.0-beta.10(typescript@5.6.3))':
+  '@valibot/to-json-schema@1.0.0-beta.4(valibot@1.0.0-beta.10(typescript@5.6.3))':
     dependencies:
       valibot: 1.0.0-beta.10(typescript@5.6.3)
 
@@ -16563,11 +16614,11 @@ snapshots:
       '@vue/shared': 3.5.13
       vue: 3.5.13(typescript@5.6.3)
 
-  '@vue/server-renderer@3.5.13(vue@3.5.13(typescript@5.7.2))':
+  '@vue/server-renderer@3.5.13(vue@3.5.13(typescript@5.7.3))':
     dependencies:
       '@vue/compiler-ssr': 3.5.13
       '@vue/shared': 3.5.13
-      vue: 3.5.13(typescript@5.7.2)
+      vue: 3.5.13(typescript@5.7.3)
     optional: true
 
   '@vue/shared@3.5.13': {}
@@ -18606,6 +18657,12 @@ snapshots:
       svelte: 5.16.6
       svelte-toolbelt: 0.4.6(svelte@5.16.6)
       sveltekit-superforms: 2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.2)
+
+  formsnap@2.0.0-next.1(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.3)):
+    dependencies:
+      svelte: 5.16.6
+      svelte-toolbelt: 0.4.6(svelte@5.16.6)
+      sveltekit-superforms: 2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.3)
 
   fraction.js@4.3.7: {}
 
@@ -21423,7 +21480,7 @@ snapshots:
       interpret: 1.4.0
       rechoir: 0.6.2
 
-  shiki-magic-move@0.5.2(react@18.3.1)(shiki@1.27.2)(svelte@5.16.6)(vue@3.5.13(typescript@5.7.2)):
+  shiki-magic-move@0.5.2(react@18.3.1)(shiki@1.27.2)(svelte@5.16.6)(vue@3.5.13(typescript@5.7.3)):
     dependencies:
       diff-match-patch-es: 0.1.1
       ohash: 1.1.4
@@ -21431,7 +21488,7 @@ snapshots:
       react: 18.3.1
       shiki: 1.27.2
       svelte: 5.16.6
-      vue: 3.5.13(typescript@5.7.2)
+      vue: 3.5.13(typescript@5.7.3)
 
   shiki@1.27.2:
     dependencies:
@@ -21846,6 +21903,33 @@ snapshots:
       - '@types/json-schema'
       - typescript
 
+  sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.3):
+    dependencies:
+      '@sveltejs/kit': 2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1))
+      devalue: 5.1.1
+      memoize-weak: 1.0.2
+      svelte: 5.16.6
+      ts-deepmerge: 7.0.2
+    optionalDependencies:
+      '@exodus/schemasafe': 1.3.0
+      '@gcornut/valibot-json-schema': 0.31.0
+      '@sinclair/typebox': 0.34.12
+      '@typeschema/class-validator': 0.3.0(@types/json-schema@7.0.15)(class-validator@0.14.1)
+      '@vinejs/vine': 2.1.0
+      arktype: 2.0.0-rc.26
+      class-validator: 0.14.1
+      effect: 3.11.8
+      joi: 17.13.3
+      json-schema-to-ts: 3.1.1
+      superstruct: 2.0.2
+      valibot: 1.0.0-beta.12(typescript@5.7.3)
+      yup: 1.6.1
+      zod: 3.24.1
+      zod-to-json-schema: 3.24.1(zod@3.24.1)
+    transitivePeerDependencies:
+      - '@types/json-schema'
+      - typescript
+
   svg-tags@1.0.0: {}
 
   svgo@3.3.2:
@@ -22183,6 +22267,10 @@ snapshots:
     dependencies:
       typescript: 5.7.2
 
+  ts-api-utils@2.0.0(typescript@5.7.3):
+    dependencies:
+      typescript: 5.7.3
+
   ts-deepmerge@7.0.2: {}
 
   ts-graphviz@2.1.4:
@@ -22365,13 +22453,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  typescript-eslint@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2):
+  typescript-eslint@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3):
     dependencies:
-      '@typescript-eslint/eslint-plugin': 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2))(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
-      '@typescript-eslint/parser': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
-      '@typescript-eslint/utils': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.2)
+      '@typescript-eslint/eslint-plugin': 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3))(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
+      '@typescript-eslint/parser': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
+      '@typescript-eslint/utils': 8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
       eslint: 9.17.0(jiti@2.4.0)
-      typescript: 5.7.2
+      typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
 
@@ -22382,6 +22470,8 @@ snapshots:
   typescript@5.6.3: {}
 
   typescript@5.7.2: {}
+
+  typescript@5.7.3: {}
 
   uc.micro@2.1.0: {}
 
@@ -22636,6 +22726,11 @@ snapshots:
   valibot@1.0.0-beta.12(typescript@5.7.2):
     optionalDependencies:
       typescript: 5.7.2
+    optional: true
+
+  valibot@1.0.0-beta.12(typescript@5.7.3):
+    optionalDependencies:
+      typescript: 5.7.3
 
   valibot@1.0.0-beta.9(typescript@5.6.3):
     optionalDependencies:
@@ -22952,15 +23047,15 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.3
 
-  vue@3.5.13(typescript@5.7.2):
+  vue@3.5.13(typescript@5.7.3):
     dependencies:
       '@vue/compiler-dom': 3.5.13
       '@vue/compiler-sfc': 3.5.13
       '@vue/runtime-dom': 3.5.13
-      '@vue/server-renderer': 3.5.13(vue@3.5.13(typescript@5.7.2))
+      '@vue/server-renderer': 3.5.13(vue@3.5.13(typescript@5.7.3))
       '@vue/shared': 3.5.13
     optionalDependencies:
-      typescript: 5.7.2
+      typescript: 5.7.3
     optional: true
 
   walkdir@0.4.1: {}

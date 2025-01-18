@@ -5,27 +5,34 @@
 import { writeFileSync } from "fs"
 import { join } from "path"
 import { REPO_ROOT } from "@/path"
+import * as v from "valibot"
 
 console.log("Init Env")
 
 const defaultEnvUrl = `https://storage.kunkun.sh/env.json`
 const res = await fetch(defaultEnvUrl)
-const env = await res.json()
+const env = v.parse(
+	v.object({
+		SUPABASE_URL: v.string(),
+		SUPABASE_ANON_KEY: v.string()
+	}),
+	await res.json()
+)
 
 let envContent = ""
 
 if (!process.env.SUPABASE_ANON_KEY) {
 	process.env.SUPABASE_ANON_KEY = env.SUPABASE_ANON_KEY
 }
-if (!process.env.SUPABASE_PROJECT_ID) {
-	process.env.SUPABASE_PROJECT_ID = env.SUPABASE_PROJECT_ID
+if (!process.env.SUPABASE_URL) {
+	process.env.SUPABASE_URL = env.SUPABASE_URL
 }
 
 if (process.env.SUPABASE_ANON_KEY) {
 	envContent += `SUPABASE_ANON_KEY=${process.env.SUPABASE_ANON_KEY}\n`
 }
-if (process.env.SUPABASE_PROJECT_ID) {
-	const supabaseUrl = `https://${process.env.SUPABASE_PROJECT_ID}.supabase.co`
+if (process.env.SUPABASE_URL) {
+	const supabaseUrl = process.env.SUPABASE_URL
 	const supabaseGraphqlEndpoint = `${supabaseUrl}/graphql/v1`
 	envContent += `
 SUPABASE_GRAPHQL_ENDPOINT=${supabaseGraphqlEndpoint}
@@ -47,7 +54,7 @@ writeFileSync(
 	join(REPO_ROOT, "apps/desktop/.env"),
 	`
 PUBLIC_SUPABASE_ANON_KEY=${process.env.SUPABASE_ANON_KEY}
-PUBLIC_SUPABASE_PROJECT_ID=${process.env.SUPABASE_PROJECT_ID}
+PUBLIC_SUPABASE_URL=${process.env.SUPABASE_URL}
 `
 )
 // writeFileSync(join(__dirname, "../packages/gql/.env"), envContent)
