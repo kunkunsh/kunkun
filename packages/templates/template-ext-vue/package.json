@@ -1,6 +1,6 @@
 {
 	"name": "template-ext-vue",
-	"private": true,
+	"license": "MIT",
 	"version": "0.0.2",
 	"type": "module",
 	"scripts": {

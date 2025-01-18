@@ -2,7 +2,7 @@
 	"$schema": "./node_modules/@kksh/api/dist/schema.json",
 	"name": "template-ext-sveltekit",
 	"version": "0.0.5",
-	"private": true,
+	"license": "MIT",
 	"kunkun": {
 		"name": "TODO: Change Display Name",
 		"shortDescription": "A Custom UI template for sveltekit",

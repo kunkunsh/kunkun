@@ -3,6 +3,7 @@
 	"name": "demo-template-extension",
 	"version": "0.0.5",
 	"type": "module",
+	"license": "MIT",
 	"kunkun": {
 		"name": "Demo Template Extension",
 		"shortDescription": "Demo Template Extension",

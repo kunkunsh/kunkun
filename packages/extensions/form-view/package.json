@@ -3,6 +3,7 @@
 	"name": "form-view",
 	"version": "0.0.4",
 	"type": "module",
+	"license": "MIT",
 	"kunkun": {
 		"name": "Form View",
 		"shortDescription": "A Worker Extension Template",
