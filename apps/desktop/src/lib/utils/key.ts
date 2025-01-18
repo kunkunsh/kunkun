@@ -1,4 +1,5 @@
 import { appState } from "@/stores"
+import { keys } from "@/stores/keys"
 import { toggleDevTools } from "@kksh/api/commands"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
@@ -72,6 +73,7 @@ export function goHomeOrCloseOnEscapeWithInput(e: KeyboardEvent) {
 }
 
 export async function globalKeyDownHandler(e: KeyboardEvent) {
+	keys.keydown(e.key)
 	const _platform = platform()
 	if ((_platform === "macos" && e.metaKey) || (_platform === "windows" && e.ctrlKey)) {
 		if (e.key === ",") {
@@ -94,6 +96,10 @@ export async function globalKeyDownHandler(e: KeyboardEvent) {
 			appWin.show()
 		}, 1_000)
 	}
+}
+
+export function globalKeyUpHandler(e: KeyboardEvent) {
+	keys.keyup(e.key)
 }
 
 export function isLetter(letter: string): boolean {

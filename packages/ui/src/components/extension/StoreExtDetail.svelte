@@ -2,8 +2,8 @@
 	import autoAnimate from "@formkit/auto-animate"
 	import Icon from "@iconify/svelte"
 	import { ExtPackageJson, IconEnum, KunkunExtManifest } from "@kksh/api/models"
-	import { type Tables } from "@kksh/api/supabase/types"
 	import { ExtPublishMetadata, ExtPublishSourceTypeEnum } from "@kksh/supabase/models"
+	import { type Tables } from "@kksh/supabase/types"
 	import { Badge, Button, ScrollArea, Separator } from "@kksh/svelte5"
 	import { Constants, IconMultiplexer } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
@@ -163,7 +163,7 @@
 					href={`https://github.com/${metadata.git.owner}/${metadata.git.repo}/tree/${metadata.git.commit}`}
 					target="_blank"
 				>
-					<Badge class="h-8 space-x-2">
+					<Badge class="h-8 space-x-2" variant="secondary">
 						<Icon class="h-6 w-6" icon="mdi:github" />
 						<span>{metadata.git.owner}/{metadata.git.repo}</span>
 					</Badge>

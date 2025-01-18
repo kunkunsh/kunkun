@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { appState } from "@/stores/appState.js"
+	import { keys } from "@/stores/keys"
 	import { winExtMap } from "@/stores/winExtMap.js"
 	import { listenToFileDrop, listenToRefreshDevExt } from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
@@ -23,13 +24,16 @@
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { readTextFile } from "@tauri-apps/plugin-fs"
 	import { debug } from "@tauri-apps/plugin-log"
+	import { platform } from "@tauri-apps/plugin-os"
 	import { goto } from "$app/navigation"
 	import { RPCChannel, WorkerParentIO } from "kkrpc/browser"
-	import { onDestroy, onMount } from "svelte"
+	import { onDestroy, onMount, tick } from "svelte"
 	import * as v from "valibot"
 
 	const { data } = $props()
+	let listviewInputRef = $state<HTMLInputElement | null>(null)
 	let { loadedExt, scriptPath, extInfoInDB } = $derived(data)
+	let actionPanelOpen = $state(false)
 	let workerAPI: WorkerExtension | undefined = undefined
 	let unlistenRefreshWorkerExt: UnlistenFn | undefined
 	let unlistenFileDrop: UnlistenFn | undefined
@@ -46,6 +50,7 @@
 	const loadingBar = $derived($appState.loadingBar || extensionLoadingBar)
 	let loaded = $state(false)
 	let listview: Templates.ListView | undefined = $state(undefined)
+	const _platform = platform()
 
 	async function goBack() {
 		if (isInMainWindow()) {
@@ -134,6 +139,14 @@
 					listViewContent = parsedListView
 				}
 
+				// on each render, also update the default action and action panel
+				if (listViewContent?.defaultAction) {
+					appState.setDefaultAction(listViewContent.defaultAction)
+				}
+				if (listViewContent?.actions) {
+					appState.setActionPanel(listViewContent.actions)
+				}
+
 				// if (parsedListView.updateDetailOnly) {
 				// 	if (listViewContent) {
 				// 		listViewContent.detail = parsedListView.detail
@@ -187,6 +200,8 @@
 			worker.terminate()
 			worker = undefined
 		}
+		appState.setDefaultAction(null)
+		appState.setActionPanel(undefined)
 		const workerScript = await readTextFile(scriptPath)
 		const blob = new Blob([workerScript], { type: "application/javascript" })
 		const blobURL = URL.createObjectURL(blob)
@@ -248,13 +263,44 @@
 		extensionLoadingBar = false
 		appState.setActionPanel(undefined)
 	})
+
+	$effect(() => {
+		void $keys
+		const keySet = keys.getSet()
+		if (
+			keySet.size === 2 &&
+			keySet.has(_platform === "macos" ? "Meta" : "Control") &&
+			keySet.has("k")
+		) {
+			console.log("open action panel")
+			actionPanelOpen = true
+		}
+	})
+
+	function onActionPanelBlur() {
+		setTimeout(() => {
+			listviewInputRef?.focus()
+		}, 300)
+	}
+
+	function onkeydown(e: KeyboardEvent) {
+		if (e.key === "Escape") {
+			console.log(document.activeElement)
+			console.log(document.activeElement?.nodeName)
+			if (document.activeElement?.nodeName === "INPUT") {
+				console.log("input")
+			}
+		}
+	}
 </script>
 
+<svelte:window on:keydown={onkeydown} />
 {#if loadingBar}
 	<LoadingBar class="fixed left-0 top-0 w-full" color="white" />
 {/if}
 {#if loaded && listViewContent !== undefined}
 	<Templates.ListView
+		bind:inputRef={listviewInputRef}
 		bind:searchTerm
 		bind:searchBarPlaceholder
 		bind:this={listview}
@@ -275,19 +321,33 @@
 			workerAPI?.onSearchTermChange(searchTerm)
 		}}
 		onHighlightedItemChanged={(value: string) => {
-			workerAPI?.onHighlightedListItemChanged(value)
-			if (listViewContent?.defaultAction) {
-				appState.setDefaultAction(listViewContent.defaultAction)
-			}
-			if (listViewContent?.actions) {
-				appState.setActionPanel(listViewContent.actions)
+			// workerAPI?.onHighlightedListItemChanged(value)
+			// if (listViewContent?.defaultAction) {
+			// 	appState.setDefaultAction(listViewContent.defaultAction)
+			// }
+			// if (listViewContent?.actions) {
+			// 	appState.setActionPanel(listViewContent.actions)
+			// }
+			try {
+				const parsedItem = v.parse(ListSchema.Item, JSON.parse(value))
+				if (parsedItem.defaultAction) {
+					appState.setDefaultAction(parsedItem.defaultAction)
+				}
+				if (parsedItem.actions) {
+					appState.setActionPanel(parsedItem.actions)
+				}
+				workerAPI?.onHighlightedListItemChanged(parsedItem.value)
+			} catch (error) {
+				console.error(error)
 			}
 		}}
 	>
 		{#snippet footer()}
 			<GlobalCommandPaletteFooter
-				defaultAction={$appState.defaultAction}
+				bind:actionPanelOpen
 				actionPanel={$appState.actionPanel}
+				defaultAction={$appState.defaultAction ?? undefined}
+				{onActionPanelBlur}
 				onDefaultActionSelected={() => {
 					workerAPI?.onEnterPressedOnSearchBar()
 				}}

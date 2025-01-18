@@ -4,7 +4,7 @@
 	import { Button, Checkbox, Form, Input, Label, Select } from "@kksh/svelte5"
 	import { DatePickerWithPreset, Shiki } from "@kksh/ui"
 	import { buildFormSchema, cn } from "@kksh/ui/utils"
-	import { onMount } from "svelte"
+	import { onMount, tick } from "svelte"
 	import SuperDebug, { defaults, superForm } from "sveltekit-superforms"
 	import { valibot, valibotClient } from "sveltekit-superforms/adapters"
 	import * as v from "valibot"
@@ -20,9 +20,17 @@
 		class?: string
 		onSubmit?: (formData: Record<string, string | number | boolean>) => void
 	} = $props()
+	let formRef = $state<HTMLFormElement | null>(null)
 	const formSchema = $derived(buildFormSchema(formViewContent))
+
 	onMount(() => {
-		console.log(formSchema)
+		// auto focus the first input element
+		const input = formRef?.querySelector("input")
+		setTimeout(() => {
+			if (input) {
+				input.focus()
+			}
+		}, 300)
 	})
 	const form = $derived(
 		superForm(defaults(valibot(formSchema)), {
@@ -51,7 +59,7 @@
 	{/if}
 {/snippet}
 {#key formViewContent}
-	<form class={cn("flex flex-col gap-2", className)} use:enhance>
+	<form class={cn("flex flex-col gap-2", className)} use:enhance bind:this={formRef}>
 		{#each formViewContent.fields as field}
 			{@const _field = field as FormSchema.BaseField}
 			{#if _field.label && !_field.hideLabel}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Icon from "@iconify/svelte"
 	import { Icon as TIcon } from "@kksh/api/models"
-	import { SBExt } from "@kksh/api/supabase"
+	import { SBExt } from "@kksh/supabase"
 	import { Button, Command } from "@kksh/svelte5"
 	import { Constants, IconMultiplexer } from "@kksh/ui"
 	import { cn, humanReadableNumber } from "@kksh/ui/utils"

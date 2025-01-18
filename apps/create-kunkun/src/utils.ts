@@ -11,9 +11,11 @@ export function getLatestNpmPkgInfo(pkgName: string): Promise<Record<string, any
 }
 
 export function getLatestNpmPkgVersion(pkgName: string): Promise<string> {
-	return getLatestNpmPkgInfo(pkgName).then(
-		(data) => v.parse(v.object({ version: v.string() }), data).version
-	)
+	return getLatestNpmPkgInfo(pkgName)
+		.then((data) => v.parse(v.object({ version: v.string() }), data).version)
+		.catch((err) => {
+			throw new Error(`Failed to get latest version of ${pkgName}: ${err.message}`)
+		})
 }
 
 /**

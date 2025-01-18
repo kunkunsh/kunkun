@@ -7,6 +7,7 @@ import {
 import { ExtPackageJson } from "@kksh/api/models"
 import * as v from "valibot"
 import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "../github"
+import type { ExtensionPublishValidationData } from "../models"
 import type { NpmPkgMetadata } from "../npm/models"
 import { getInfoFromRekorLog } from "../sigstore"
 import { getTarballSize } from "../utils"
@@ -220,21 +221,7 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 	githubToken?: string
 }): Promise<{
 	error?: string
-	data?: {
-		pkgJson: ExtPackageJson
-		tarballUrl: string
-		shasum: string
-		apiVersion: string
-		tarballSize: number
-		rekorLogIndex: string
-		github: {
-			githubActionInvocationId: string
-			commit: string
-			repo: string
-			owner: string
-			workflowPath: string
-		}
-	}
+	data?: ExtensionPublishValidationData
 }> {
 	/* -------------------------------------------------------------------------- */
 	/*                         check if jsr package exists                        */

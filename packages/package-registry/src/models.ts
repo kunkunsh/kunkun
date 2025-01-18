@@ -1,3 +1,4 @@
+import { ExtPackageJson } from "@kksh/api/models"
 import * as v from "valibot"
 
 export const RawRekorLogEntry = v.object({
@@ -58,3 +59,19 @@ export const SigstoreAttestation = v.object({
 	})
 })
 export type SigstoreAttestation = v.InferOutput<typeof SigstoreAttestation>
+export const ExtensionPublishValidationData = v.object({
+	pkgJson: ExtPackageJson,
+	tarballUrl: v.string(),
+	shasum: v.string(),
+	apiVersion: v.string(),
+	rekorLogIndex: v.string(),
+	tarballSize: v.number(),
+	github: v.object({
+		githubActionInvocationId: v.string(),
+		commit: v.string(),
+		repo: v.string(),
+		owner: v.string(),
+		workflowPath: v.string()
+	})
+})
+export type ExtensionPublishValidationData = v.InferOutput<typeof ExtensionPublishValidationData>

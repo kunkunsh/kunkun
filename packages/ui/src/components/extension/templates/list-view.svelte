@@ -61,7 +61,7 @@
 
 	$effect(() => {
 		if (highlightedValue.startsWith("{")) {
-			onHighlightedItemChanged?.(JSON.parse(highlightedValue).value)
+			onHighlightedItemChanged?.(highlightedValue)
 		}
 	})
 

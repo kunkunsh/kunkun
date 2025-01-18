@@ -6,15 +6,19 @@
 	import Kbd from "../common/Kbd.svelte"
 	import ActionPanel from "./ActionPanel.svelte"
 
-	const {
+	let {
 		class: className,
 		defaultAction,
 		actionPanel,
+		actionPanelOpen = $bindable(false),
+		onActionPanelBlur,
 		onDefaultActionSelected,
 		onActionSelected
 	}: {
 		class?: string
-		defaultAction?: string
+		defaultAction?: string | null
+		actionPanelOpen?: boolean
+		onActionPanelBlur?: () => void
 		actionPanel?: ActionSchema.ActionPanel
 		onDefaultActionSelected?: () => void
 		onActionSelected?: (value: string) => void
@@ -40,7 +44,12 @@
 			</Button>
 		{/if}
 		{#if actionPanel}
-			<ActionPanel {actionPanel} {onActionSelected} />
+			<ActionPanel
+				{actionPanel}
+				{onActionSelected}
+				bind:open={actionPanelOpen}
+				onBlur={onActionPanelBlur}
+			/>
 		{/if}
 	</div>
 </div>

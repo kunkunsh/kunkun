@@ -1,5 +1,5 @@
-import type { Database } from "@kksh/api/supabase/types"
 import { createClient } from "@supabase/supabase-js"
+import type { Database } from "./database.types"
 
 export function createSB(supabaseUrl: string, supabaseAnonKey: string) {
 	return createClient<Database>(supabaseUrl, supabaseAnonKey, {
@@ -10,5 +10,5 @@ export function createSB(supabaseUrl: string, supabaseAnonKey: string) {
 }
 export { SupabaseAPI } from "./api"
 
-export type { Database, Tables } from "@kksh/api/supabase/types"
-export { SBExt } from "@kksh/api/supabase"
+export type { Database, Tables } from "./database.types"
+export { SBExt } from "./models"

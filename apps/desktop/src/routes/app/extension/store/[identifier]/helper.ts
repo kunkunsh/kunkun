@@ -1,5 +1,5 @@
-import type { Tables } from "@kksh/api/supabase/types"
 import type { ExtPublishMetadata } from "@kksh/supabase/models"
+import type { Tables } from "@kksh/supabase/types"
 
 export async function getInstallExtras(
 	ext: Tables<"ext_publish"> & { metadata?: ExtPublishMetadata }
