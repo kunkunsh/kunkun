@@ -1,4 +1,4 @@
-import { ExtPackageJson } from "@kksh/api/models"
+import { ExtPackageJson, License } from "@kksh/api/models"
 import * as v from "valibot"
 
 export const RawRekorLogEntry = v.object({
@@ -66,6 +66,7 @@ export const ExtensionPublishValidationData = v.object({
 	apiVersion: v.string(),
 	rekorLogIndex: v.string(),
 	tarballSize: v.number(),
+	license: License,
 	github: v.object({
 		githubActionInvocationId: v.string(),
 		commit: v.string(),

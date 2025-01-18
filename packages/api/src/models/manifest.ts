@@ -163,6 +163,7 @@ export const License = v.union([
 	v.literal("MS-PL"),
 	v.literal("UNLICENSED")
 ])
+export type License = v.InferOutput<typeof License>
 export const ExtPackageJson = v.object({
 	name: v.string("Package name for the extension (just a regular npm package name)"),
 	version: v.string("Version of the extension"),

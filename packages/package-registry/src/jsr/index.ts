@@ -4,7 +4,7 @@ import {
 	getPackageVersion,
 	type GitHubRepository
 } from "@huakunshen/jsr-client/hey-api-client"
-import { ExtPackageJson } from "@kksh/api/models"
+import { ExtPackageJson, License } from "@kksh/api/models"
 import * as v from "valibot"
 import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "../github"
 import type { ExtensionPublishValidationData } from "../models"
@@ -300,6 +300,15 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 	} catch (error) {
 		return { error: "Failed to parse package.json" }
 	}
+	if (!packageJson.license) {
+		return { error: "Package license field is not found" }
+	}
+
+	const licenseParsed = v.safeParse(License, packageJson.license)
+	if (!licenseParsed.success) {
+		return { error: `Package license field ${packageJson.license} is not valid` }
+	}
+
 	if (packageJson.version !== payload.jsrPackage.version) {
 		// no need to fetch jsr.json or deno.json content, as we already know the version is valid with JSR API
 		return {
@@ -349,6 +358,7 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 		data: {
 			pkgJson: parseResult.output,
 			tarballUrl,
+			license: parseResult.output.license,
 			shasum,
 			apiVersion,
 			tarballSize,
