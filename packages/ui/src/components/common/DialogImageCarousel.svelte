@@ -43,10 +43,10 @@
 <Dialog.Root bind:open>
 	<Dialog.Content class="flex max-h-[80vh] w-10/12 max-w-full items-center justify-center">
 		<Carousel.Root setApi={(emblaApi) => (api = emblaApi)} class="max-h-[80vh] w-full">
-			<Carousel.Content class="flex max-h-[75vh] items-center justify-center">
+			<Carousel.Content class="max-h-[75vh]">
 				{#each imageSrcs as src}
-					<Carousel.Item class="">
-						<img {src} class="max-h-full max-w-full object-contain" alt="" />
+					<Carousel.Item class="flex justify-center">
+            <img {src} class="object-contain" alt="" />
 					</Carousel.Item>
 				{/each}
 			</Carousel.Content>
