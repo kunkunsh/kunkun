@@ -11,29 +11,40 @@ import type { PageLoad } from "./$types"
 export const load: PageLoad = async ({
 	params
 }): Promise<{
-	ext: Tables<"ext_publish"> & { metadata: ExtPublishMetadata }
+	extPublish: Tables<"ext_publish"> & { metadata: ExtPublishMetadata }
+	ext: Tables<"extensions">
 	manifest: KunkunExtManifest
 	params: {
 		identifier: string
 	}
 }> => {
-	const { error: dbError, data: ext } = await supabaseAPI.getLatestExtPublish(params.identifier)
-	const metadataParse = v.safeParse(ExtPublishMetadata, ext?.metadata ?? {})
+	const { error: dbError, data: extPublish } = await supabaseAPI.getLatestExtPublish(
+		params.identifier
+	)
+	const metadataParse = v.safeParse(ExtPublishMetadata, extPublish?.metadata ?? {})
 	if (dbError) {
 		return error(400, {
 			message: dbError.message
 		})
 	}
 	const metadata = metadataParse.success ? metadataParse.output : {}
-	const parseManifest = v.safeParse(KunkunExtManifest, ext.manifest)
+	const parseManifest = v.safeParse(KunkunExtManifest, extPublish.manifest)
 	if (!parseManifest.success) {
 		const errMsg = "Invalid extension manifest, you may need to upgrade your app."
 		toast.error(errMsg)
 		throw error(400, errMsg)
 	}
 
+	const { data: ext, error: extError } = await supabaseAPI.getExtension(params.identifier)
+	if (extError) {
+		return error(400, {
+			message: extError.message
+		})
+	}
+
 	return {
-		ext: { ...ext, metadata },
+		extPublish: { ...extPublish, metadata },
+		ext,
 		params,
 		manifest: parseManifest.output
 	}

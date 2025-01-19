@@ -19,15 +19,18 @@
 	import { getInstallExtras } from "./helper.js"
 
 	const { data } = $props()
-	const ext: Tables<"ext_publish"> & { metadata: ExtPublishMetadata } = $derived(data.ext)
+	const extPublish: Tables<"ext_publish"> & { metadata: ExtPublishMetadata } = $derived(
+		data.extPublish
+	)
+	const ext: Tables<"extensions"> = $derived(data.ext)
 	const manifest = $derived(data.manifest)
 	const installedExt = storeDerived(installedStoreExts, ($e) => {
-		return $e.find((e) => e.kunkun.identifier === ext.identifier)
+		return $e.find((e) => e.kunkun.identifier === extPublish.identifier)
 	})
 
 	const isUpgradable = $derived(
 		$installedExt
-			? greaterThan(parseSemver(ext.version), parseSemver($installedExt.version))
+			? greaterThan(parseSemver(extPublish.version), parseSemver($installedExt.version))
 			: false
 	)
 	$effect(() => {
@@ -67,30 +70,30 @@
 	})
 
 	const demoImages = $derived(
-		ext.demo_images.map((src) => supabaseAPI.translateExtensionFilePathToUrl(src))
+		extPublish.demo_images.map((src) => supabaseAPI.translateExtensionFilePathToUrl(src))
 	)
 
 	async function onInstallSelected() {
 		loading.install = true
-		const tarballUrl = ext.tarball_path.startsWith("http")
-			? ext.tarball_path
-			: supabaseAPI.translateExtensionFilePathToUrl(ext.tarball_path)
-		const installExtras = await getInstallExtras(ext)
+		const tarballUrl = extPublish.tarball_path.startsWith("http")
+			? extPublish.tarball_path
+			: supabaseAPI.translateExtensionFilePathToUrl(extPublish.tarball_path)
+		const installExtras = await getInstallExtras(extPublish)
 		const installDir = await getExtensionsFolder()
 		return extensions
 			.installFromTarballUrl(tarballUrl, installDir, installExtras)
-			.then(() => toast.success(`Plugin ${ext.name} Installed`))
+			.then(() => toast.success(`Plugin ${extPublish.name} Installed`))
 			.then((loadedExt) => {
-				info(`Successfully installed ${ext.name}`)
+				info(`Successfully installed ${extPublish.name}`)
 				supabaseAPI.incrementDownloads({
-					identifier: ext.identifier,
-					version: ext.version
+					identifier: extPublish.identifier,
+					version: extPublish.version
 				})
 				showBtn.install = false
 				showBtn.uninstall = true
 			})
 			.catch((err) => {
-				error(`Fail to install tarball (${ext.identifier}): ${err}`)
+				error(`Fail to install tarball (${extPublish.identifier}): ${err}`)
 				toast.error("Fail to install tarball", { description: err })
 			})
 			.finally(() => {
@@ -100,11 +103,13 @@
 
 	function onUpgradeSelected() {
 		loading.upgrade = true
-		const tarballUrl = supabaseAPI.translateExtensionFilePathToUrl(ext.tarball_path)
+		const tarballUrl = supabaseAPI.translateExtensionFilePathToUrl(extPublish.tarball_path)
 		return extensions
-			.upgradeStoreExtension(ext.identifier, tarballUrl)
+			.upgradeStoreExtension(extPublish.identifier, tarballUrl)
 			.then((newExt) => {
-				toast.success(`${ext.name} Upgraded from ${$installedExt?.version} to ${newExt.version}`)
+				toast.success(
+					`${extPublish.name} Upgraded from ${$installedExt?.version} to ${newExt.version}`
+				)
 			})
 			.catch((err) => {
 				toast.error("Fail to upgrade extension", { description: err })
@@ -121,7 +126,7 @@
 	function onUninstallSelected() {
 		loading.uninstall = true
 		return extensions
-			.uninstallStoreExtensionByIdentifier(ext.identifier)
+			.uninstallStoreExtensionByIdentifier(extPublish.identifier)
 			.then((uninstalledExt) => {
 				toast.success(`${uninstalledExt.name} Uninstalled`)
 				loading.uninstall = false
@@ -130,7 +135,7 @@
 			})
 			.catch((err) => {
 				toast.error("Fail to uninstall extension", { description: err })
-				error(`Fail to uninstall store extension (${ext.identifier}): ${err}`)
+				error(`Fail to uninstall store extension (${extPublish.identifier}): ${err}`)
 			})
 			.finally(() => {})
 	}
@@ -162,6 +167,7 @@
 </Button>
 <StoreExtDetail
 	class="px-5"
+	{extPublish}
 	{ext}
 	{manifest}
 	installedExt={$installedExt}
