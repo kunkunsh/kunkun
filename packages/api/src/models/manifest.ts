@@ -139,10 +139,35 @@ const Person = v.union([
 	}),
 	v.string("GitHub Username")
 ])
-
+export const License = v.union([
+	v.literal("AGPL-3.0-only"),
+	v.literal("Apache-2.0"),
+	v.literal("BSD-2-Clause"),
+	v.literal("BSD-3-Clause"),
+	v.literal("BSL-1.0"),
+	v.literal("CC0-1.0"),
+	v.literal("CDDL-1.0"),
+	v.literal("CDDL-1.1"),
+	v.literal("EPL-1.0"),
+	v.literal("EPL-2.0"),
+	v.literal("GPL-2.0-only"),
+	v.literal("GPL-3.0-only"),
+	v.literal("ISC"),
+	v.literal("LGPL-2.0-only"),
+	v.literal("LGPL-2.1-only"),
+	v.literal("LGPL-2.1-or-later"),
+	v.literal("LGPL-3.0-only"),
+	v.literal("LGPL-3.0-or-later"),
+	v.literal("MIT"),
+	v.literal("MPL-2.0"),
+	v.literal("MS-PL"),
+	v.literal("UNLICENSED")
+])
+export type License = v.InferOutput<typeof License>
 export const ExtPackageJson = v.object({
 	name: v.string("Package name for the extension (just a regular npm package name)"),
 	version: v.string("Version of the extension"),
+	license: License,
 	author: v.optional(Person),
 	draft: v.optional(v.boolean("Whether the extension is a draft, draft will not be published")),
 	contributors: v.optional(v.array(Person, "Contributors of the extension")),

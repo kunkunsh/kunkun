@@ -2,7 +2,7 @@
 	"$schema": "https://schema.kunkun.sh",
 	"name": "ext-sveltekit-exp",
 	"version": "0.0.5",
-	"private": true,
+	"license": "MIT",
 	"kunkun": {
 		"name": "TODO: Change Display Name",
 		"shortDescription": "A Custom UI template for sveltekit",

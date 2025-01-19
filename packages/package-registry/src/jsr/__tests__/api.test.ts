@@ -52,7 +52,7 @@ describe("Test the helper functions", () => {
 		const packageJson = await getJsrPackageSrcFile(
 			"kunkun",
 			"ext-image-processing",
-			"0.0.6",
+			"0.0.20",
 			"package.json"
 		)
 		expect(packageJson).toBeDefined()

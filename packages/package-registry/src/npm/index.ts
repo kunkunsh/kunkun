@@ -1,4 +1,4 @@
-import { ExtPackageJson } from "@kksh/api/models"
+import { ExtPackageJson, License } from "@kksh/api/models"
 import * as v from "valibot"
 import {
 	authenticatedUserIsMemberOfGitHubOrg,
@@ -196,6 +196,15 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 		return { error: "Could not find package.json in NPM package" }
 	}
 
+	if (!packageJson.license) {
+		return { error: "Package license field is not found" }
+	}
+
+	const licenseParsed = v.safeParse(License, packageJson.license)
+	if (!licenseParsed.success) {
+		return { error: `Package license field ${packageJson.license} is not valid` }
+	}
+
 	const parseResult = v.safeParse(ExtPackageJson, packageJson)
 	if (!parseResult.success) {
 		console.log(v.flatten(parseResult.issues))
@@ -223,6 +232,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 	return {
 		data: {
 			pkgJson: parseResult.output,
+			license: licenseParsed.output,
 			tarballUrl,
 			shasum,
 			apiVersion,

@@ -37,8 +37,12 @@
 	let inputEle: HTMLInputElement | null = $state(null)
 	function onKeyDown(event: KeyboardEvent) {
 		if (event.key === "Escape") {
-			;(event.target as HTMLInputElement).value = ""
-			$appState.searchTerm = ""
+			if ((event.target as HTMLInputElement).value === "") {
+				getCurrentWindow().hide()
+			} else {
+				;(event.target as HTMLInputElement).value = ""
+				$appState.searchTerm = ""
+			}
 		}
 	}
 

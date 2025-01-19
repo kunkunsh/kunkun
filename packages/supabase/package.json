@@ -6,6 +6,7 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./api": "./src/api.ts",
 		"./models": "./src/models.ts",
 		"./types": "./src/database.types.ts"
 	},

@@ -44,7 +44,7 @@
 			type="single"
 			value={valueString}
 			controlledValue
-			onValueChange={(v) => {
+			onValueChange={(v: string) => {
 				if (!v) return
 				date = today(getLocalTimeZone()).add({ days: Number.parseInt(v) })
 			}}

@@ -1,10 +1,15 @@
 import { db } from "@kksh/api/commands"
-import { ExtPackageJson, ExtPackageJsonExtra } from "@kksh/api/models"
+import { ExtPackageJson, ExtPackageJsonExtra, License } from "@kksh/api/models"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
 import * as v from "valibot"
 import { upsertExtension } from "./db"
+
+const OptionalExtPackageJson = v.object({
+	...ExtPackageJson.entries,
+	license: v.optional(License, "MIT") // TODO: remove this optional package json later
+})
 
 /**
  *
@@ -15,10 +20,10 @@ export function loadExtensionManifestFromDisk(manifestPath: string): Promise<Ext
 	debug(`loadExtensionManifestFromDisk: ${manifestPath}`)
 	return readTextFile(manifestPath).then(async (content) => {
 		const json = JSON.parse(content)
-		const parse = v.safeParse(ExtPackageJson, json)
+		const parse = v.safeParse(OptionalExtPackageJson, json)
 		if (parse.issues) {
 			error(`Fail to load extension from ${manifestPath}. See console for parse error.`)
-			console.error("Parse Error:", v.flatten<typeof ExtPackageJson>(parse.issues))
+			console.error("Parse Error:", v.flatten<typeof OptionalExtPackageJson>(parse.issues))
 			throw new Error(`Invalid manifest: ${manifestPath}`)
 		} else {
 			// debug(`Loaded extension ${parse.output.kunkun.identifier} from ${manifestPath}`)

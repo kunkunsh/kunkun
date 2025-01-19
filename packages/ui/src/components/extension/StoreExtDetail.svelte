@@ -15,6 +15,7 @@
 	import PermissionInspector from "./PermissionInspector.svelte"
 
 	let {
+		extPublish,
 		ext,
 		installedExt,
 		manifest,
@@ -28,7 +29,8 @@
 		loading,
 		imageDialogOpen = $bindable(false)
 	}: {
-		ext: Tables<"ext_publish">
+		extPublish: Tables<"ext_publish">
+		ext: Tables<"extensions">
 		installedExt?: ExtPackageJson
 		manifest: KunkunExtManifest
 		demoImages: string[]
@@ -60,7 +62,7 @@
 	}
 
 	const metadata = $derived.by(() => {
-		const parseRes = v.safeParse(ExtPublishMetadata, ext.metadata)
+		const parseRes = v.safeParse(ExtPublishMetadata, extPublish.metadata)
 		if (!parseRes.success) {
 			console.error(v.flatten(parseRes.issues))
 			return
@@ -91,7 +93,7 @@
 			<Icon icon="carbon:upgrade" class="inline h-5 w-5" />
 			<small>{installedExt?.version}</small>
 			<MoveRightIcon class="w-4" />
-			<small>{ext.version}</small>
+			<small>{extPublish.version}</small>
 		{/if}
 	</Button>
 {/snippet}
@@ -134,7 +136,7 @@
 				<IconMultiplexer
 					icon={manifest.icon}
 					class={cn(Constants.CLASSNAMES.EXT_LOGO, "h-full w-full")}
-					data-flip-id={`${Constants.CLASSNAMES.EXT_LOGO}-${ext.identifier}`}
+					data-flip-id={`${Constants.CLASSNAMES.EXT_LOGO}-${extPublish.identifier}`}
 				/>
 			</span>
 			<div class="flex flex-col justify-center">
@@ -144,8 +146,9 @@
 						<CircleCheckBigIcon class="ml-2 inline text-green-400" />
 					{/if}
 				</span>
-				<pre class="text-muted-foreground text-xs">{ext.identifier}</pre>
-				<pre class="text-muted-foreground text-xs">Version: {ext.version}</pre>
+				<pre class="text-muted-foreground text-xs">{extPublish.identifier}</pre>
+				<pre class="text-muted-foreground text-xs">Version: {extPublish.version}</pre>
+				<pre class="text-muted-foreground text-xs">Downloads: {ext.downloads}</pre>
 			</div>
 		</div>
 		<div class="flex items-center space-x-2">

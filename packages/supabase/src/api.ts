@@ -42,6 +42,15 @@ export class SupabaseAPI {
 			.single()
 	}
 
+	getExtension(identifier: string) {
+		return this.supabase
+			.from("extensions")
+			.select("*")
+			.eq("identifier", identifier)
+			.limit(1)
+			.single()
+	}
+
 	async incrementDownloads({
 		identifier,
 		version
