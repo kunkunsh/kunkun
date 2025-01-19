@@ -209,6 +209,9 @@ importers:
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
+      '@inlang/paraglide-sveltekit':
+        specifier: 0.15.5
+        version: 0.15.5(@sveltejs/kit@2.12.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.3(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.3(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(babel-plugin-macros@3.1.0)
       '@kksh/extension':
         specifier: workspace:*
         version: link:../../packages/extension
@@ -273,6 +276,9 @@ importers:
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.18.0
+      '@inlang/paraglide-js':
+        specifier: 1.11.8
+        version: 1.11.8(babel-plugin-macros@3.1.0)
       '@kksh/types':
         specifier: workspace:*
         version: link:../../packages/types
@@ -1213,7 +1219,7 @@ importers:
         version: 0.1.14(lucide-svelte@0.471.0(svelte@5.16.6))(svelte-sonner@0.3.28(svelte@5.16.6))(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.3))(typescript@5.7.3)
       '@types/bun':
         specifier: latest
-        version: 1.1.16
+        version: 1.1.17
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.20.0
         version: 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3))(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
@@ -5014,9 +5020,6 @@ packages:
   '@types/btoa-lite@1.0.2':
     resolution: {integrity: sha512-ZYbcE2x7yrvNFJiU7xJGrpF/ihpkM7zKgw8bha3LNJSesvTtUNxbpzaT7WXBIryf6jovisrxTBvymxMeLLj1Mg==}
 
-  '@types/bun@1.1.16':
-    resolution: {integrity: sha512-E+ue6NMcn4FXC5bDRE1W/BXUVs01h5Mt02qH8/8HGCox9akuh8KNOFdwvaQS9TDgT2RmUyJYFRRqA60WtTnm2g==}
-
   '@types/bun@1.1.17':
     resolution: {integrity: sha512-zZt0Kao/8hAwNOXh4bmt8nKbMEd4QD8n7PeTGF+NZTVY5ouXhU/TX7jUj4He1p7mgY+WdplnU1B6MB1j17vdzg==}
 
@@ -6016,9 +6019,6 @@ packages:
 
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
-
-  bun-types@1.1.43:
-    resolution: {integrity: sha512-W0wCtVH+bwFp7p3Zgs03CqxEDmXxEvmmUM/FBKgWIv9T8gyeotvIjIbHzuDScc2DphhRNtr7hJLCR5PspYL5qw==}
 
   bun-types@1.1.44:
     resolution: {integrity: sha512-jtcekoZeSINgEcHSISzhR13w/cyE+Fankw2Cpl4c0fN3lRmKVAX0i9ay4FyK4lOxUK1HG4HkuIlrPvXKz4Y7sw==}
@@ -13082,6 +13082,22 @@ snapshots:
       - debug
       - supports-color
 
+  '@inlang/paraglide-sveltekit@0.15.5(@sveltejs/kit@2.12.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.3(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.3(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(babel-plugin-macros@3.1.0)':
+    dependencies:
+      '@inlang/paraglide-js': 1.11.8(babel-plugin-macros@3.1.0)
+      '@inlang/paraglide-vite': 1.3.5(babel-plugin-macros@3.1.0)
+      '@lix-js/client': 2.2.1
+      '@sveltejs/kit': 2.12.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.3(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.3(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1))
+      commander: 12.1.0
+      dedent: 1.5.1(babel-plugin-macros@3.1.0)
+      devalue: 4.3.3
+      magic-string: 0.30.17
+      svelte: 5.16.6
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - debug
+      - supports-color
+
   '@inlang/paraglide-sveltekit@0.15.5(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(babel-plugin-macros@3.1.0)':
     dependencies:
       '@inlang/paraglide-js': 1.11.8(babel-plugin-macros@3.1.0)
@@ -16313,10 +16329,6 @@ snapshots:
 
   '@types/btoa-lite@1.0.2': {}
 
-  '@types/bun@1.1.16':
-    dependencies:
-      bun-types: 1.1.43
-
   '@types/bun@1.1.17':
     dependencies:
       bun-types: 1.1.44
@@ -17779,11 +17791,6 @@ snapshots:
     dependencies:
       base64-js: 1.5.1
       ieee754: 1.2.1
-
-  bun-types@1.1.43:
-    dependencies:
-      '@types/node': 20.12.14
-      '@types/ws': 8.5.13
 
   bun-types@1.1.44:
     dependencies:
