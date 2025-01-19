@@ -1,3 +1,12 @@
 {
-    "$schema": "https://inlang.com/schema/inlang-message-format"
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"settings_launch_at_login": "Launch at Login",
+	"settings_hotkey": "Hotkey",
+	"settings_menu_bar_icon": "Menu Bar Icon",
+	"settings_hide_on_blur": "Hide On Blur",
+	"settings_extension_auto_upgrade": "Extension Auto Upgrade",
+	"settings_dev_extension_hmr": "Dev Extension HMR",
+	"settings_join_beta_updates": "Join Beta Updates",
+	"settings_developer_mode": "Developer Mode",
+	"settings_language": "Language"
 }

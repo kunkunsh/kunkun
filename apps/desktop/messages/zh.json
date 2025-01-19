@@ -1,3 +1,12 @@
 {
-    "$schema": "https://inlang.com/schema/inlang-message-format"
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"settings_launch_at_login": "开机启动",
+	"settings_hotkey": "快捷键",
+	"settings_menu_bar_icon": "菜单栏图标",
+	"settings_hide_on_blur": "隐藏在后台",
+	"settings_extension_auto_upgrade": "自动更新扩展",
+	"settings_dev_extension_hmr": "开发模式",
+	"settings_join_beta_updates": "加入 Beta 更新",
+	"settings_developer_mode": "开发者模式",
+	"settings_language": "语言"
 }

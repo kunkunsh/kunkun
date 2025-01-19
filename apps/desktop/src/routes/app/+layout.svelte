@@ -1,5 +1,6 @@
 <script lang="ts">
 	import AppContext from "@/components/context/AppContext.svelte"
+	import * as i18n from "@/paraglide/runtime"
 	import { appConfig, appState, extensions, quickLinks, winExtMap } from "@/stores"
 	import { initDeeplink } from "@/utils/deeplink"
 	import { updateAppHotkey } from "@/utils/hotkey"
@@ -60,7 +61,9 @@
 			.catch(error)
 
 		quickLinks.init()
-		appConfig.init()
+		appConfig.init().then(() => {
+			i18n.setLanguageTag($appConfig.language)
+		})
 		if (isInMainWindow()) {
 			if ($appConfig.triggerHotkey) {
 				updateAppHotkey($appConfig.triggerHotkey)
