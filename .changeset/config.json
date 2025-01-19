@@ -14,7 +14,6 @@
 		"@kksh/utils",
 		"@kksh/extension",
 		"@kksh/schema",
-		"@kksh/supabase",
-		"@kksh/ui"
+		"@kksh/supabase"
 	]
 }

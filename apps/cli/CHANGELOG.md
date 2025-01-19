@@ -1,11 +1,5 @@
 # kksh
 
-## 0.0.30
-
-### Patch Changes
-
-- Add version check to cli, check if package.json and jsr.json have different versions
-
 ## 0.0.29
 
 ### Patch Changes
