@@ -32,6 +32,45 @@ export function verifyTemplateUiCommand(projectRoot: string, cmd: TemplateUiCmd)
 	return true
 }
 
+export function verifyVersion(projectPath: string): boolean {
+	const pkgJsonPath = path.join(projectPath, "package.json")
+	const jsrJsonPath = path.join(projectPath, "jsr.json")
+	const denoJsonPath = path.join(projectPath, "deno.json")
+	const versions = { npm: undefined, jsr: undefined, deno: undefined }
+
+	const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
+	versions.npm = pkgJson.version
+	if (fs.existsSync(jsrJsonPath)) {
+		const jsrJson = JSON.parse(fs.readFileSync(jsrJsonPath, "utf-8"))
+		versions.jsr = jsrJson.version
+	}
+	if (fs.existsSync(denoJsonPath)) {
+		const denoJson = JSON.parse(fs.readFileSync(denoJsonPath, "utf-8"))
+		versions.deno = denoJson.version
+	}
+	if (!versions.npm) {
+		logger.error(`version is not set in package.json`)
+		return false
+	}
+	if (fs.existsSync(jsrJsonPath) && fs.existsSync(denoJsonPath)) {
+		logger.error(`Both jsr.json and deno.json are present, only one is allowed`)
+		return false
+	}
+	if (versions.jsr && versions.jsr !== versions.npm) {
+		logger.error(
+			`jsr.json version ${versions.jsr} does not match package.json version ${versions.npm}`
+		)
+		return false
+	}
+	if (versions.deno && versions.deno !== versions.npm) {
+		logger.error(
+			`deno.json version ${versions.deno} does not match package.json version ${versions.npm}`
+		)
+		return false
+	}
+	return true
+}
+
 export function verifySingleProject(projectPath: string): boolean {
 	logger.info(`Verifying project at ${projectPath}`)
 	const pkgJsonPath = path.join(projectPath, "package.json")
@@ -52,7 +91,7 @@ export function verifySingleProject(projectPath: string): boolean {
 	logger.info(`name`, pkg.name)
 	logger.info(`version`, pkg.version)
 	logger.info(`identifier`, pkg.kunkun.identifier)
-	if (pkg.files.length === 0) {
+	if (!pkg.files?.length) {
 		logger.warn(
 			`"files" field is empty, it is recommended to include only the necessary files, e.g. dist`
 		)
@@ -65,6 +104,9 @@ export function verifySingleProject(projectPath: string): boolean {
 		console.log("Patching project name from {{projectName}} to", folderName)
 		pkg.kunkun.identifier = folderName
 		// }
+	}
+	if (!verifyVersion(projectPath)) {
+		return false
 	}
 	for (const cmd of pkg.kunkun.customUiCmds ?? []) {
 		if (!verifyCustomUiCommand(projectPath, cmd)) {
