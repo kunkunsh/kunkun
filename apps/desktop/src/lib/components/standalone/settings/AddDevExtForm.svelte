@@ -2,6 +2,7 @@
 	import DragNDrop from "@/components/common/DragNDrop.svelte"
 	import DevExtPathForm from "@/components/standalone/settings/DevExtPathForm.svelte"
 	import { i18n } from "@/i18n"
+	import * as m from "@/paraglide/messages"
 	import { appConfig, extensions } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goBack } from "@/utils/route"
@@ -110,12 +111,15 @@
 </script>
 
 <div class="my-3 flex justify-center gap-3">
-	<Button size="sm" onclick={pickExtFolders}>Install from Extension Folders</Button>
-	<Button size="sm" onclick={pickExtFiles}>Install from Extension Tarball File</Button>
+	<Button size="sm" onclick={pickExtFolders}
+		>{m.settings_add_dev_ext_install_from_ext_folders()}</Button
+	>
+	<Button size="sm" onclick={pickExtFiles}>{m.settings_add_dev_ext_install_from_ext_files()}</Button
+	>
 </div>
 
 <StrikeSeparator class="my-1">
-	<h3 class="text-muted-foreground font-mono text-sm">Drag and Drop</h3>
+	<h3 class="text-muted-foreground font-mono text-sm">{m.settings_add_dev_ext_drag_and_drop()}</h3>
 </StrikeSeparator>
 
 <Layouts.Center>
@@ -146,15 +150,21 @@
 						icon={{ value: "mdi:folder-cog-outline", type: IconEnum.Iconify }}
 						class="h-10 w-10"
 					/>
-					<small class="select-none font-mono text-xs">Drag and Drop</small>
-					<small class="select-none font-mono text-xs">Extension Folder or Tarball</small>
+					<small class="select-none font-mono text-xs"
+						>{m.settings_add_dev_ext_drag_and_drop()}</small
+					>
+					<small class="select-none font-mono text-xs"
+						>{m.settings_add_dev_ext_drag_and_drop2()}</small
+					>
 				</div>
 			</button>
 		</Card.Root>
 	</DragNDrop>
 </Layouts.Center>
 <StrikeSeparator class="my-1">
-	<h3 class="text-muted-foreground font-mono text-sm">Install Tarball From URL</h3>
+	<h3 class="text-muted-foreground font-mono text-sm">
+		{m.settings_add_dev_ext_install_tarball_from_url()}
+	</h3>
 </StrikeSeparator>
 <InstallTarballUrlForm />
 <InstallNpmPackageNameForm />

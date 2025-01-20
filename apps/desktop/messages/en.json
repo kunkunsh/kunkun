@@ -4,6 +4,10 @@
 	"app_name": "KunKun",
 	"secondary_app_name": "KunKun",
 
+	"common_edit": "Edit",
+	"common_clear": "Clear",
+	"common_install": "Install",
+
 	"settings_menu_settings": "Settings",
 	"settings_menu_general": "General",
 	"settings_menu_developer": "Developer",
@@ -26,5 +30,24 @@
 	"settings_about_author": "Author",
 	"settings_about_source_code": "Source Code",
 	"settings_about_extensions_source_code": "Extensions Source Code",
-	"settings_about_check_for_updates": "Check for Updates"
+	"settings_about_check_for_updates": "Check for Updates",
+
+	"settings_set_dev_ext_title": "Set Dev Extension Path",
+	"settings_set_dev_ext_description": "This is where your extensions will be installed.",
+	"settings_set_dev_ext_enter_path": "Enter Path",
+
+	"settings_extensions_title": "Your Extensions",
+	"settings_extensions_table_col_name": "Name",
+	"settings_extensions_table_col_identifier": "Identifier",
+	"settings_extensions_table_col_type": "Type",
+	"settings_extensions_table_col_version": "Version",
+	"settings_extensions_table_col_uninstall": "Uninstall",
+
+	"settings_add_dev_ext_title": "Add Dev Extension",
+	"settings_add_dev_ext_description": "There are 4 options to install an extension in developer mode. Either load it from your local tarball file, a tarball remote URL, npm package name or load from a remote URL.",
+	"settings_add_dev_ext_install_from_ext_folders": "Install from Extension Folders",
+	"settings_add_dev_ext_install_from_ext_files": "Install from Extension Tarball File",
+	"settings_add_dev_ext_drag_and_drop": "Drag and Drop",
+	"settings_add_dev_ext_drag_and_drop2": "Extension Folder or Tarball",
+	"settings_add_dev_ext_install_tarball_from_url": "Install Tarball From URL"
 }

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { i18n } from "@/i18n"
+	import * as m from "@/paraglide/messages"
 	import { appConfig, extensions } from "@/stores"
 	import { Input } from "@kksh/svelte5"
 	import { Form } from "@kksh/ui"
@@ -54,7 +55,7 @@
 			{#snippet children({ props })}
 				<div class="flex items-center gap-2">
 					<Input {...props} bind:value={$formData.url} placeholder="Tarball URL" />
-					<Form.Button class="my-1">Install</Form.Button>
+					<Form.Button class="my-1">{m.common_install()}</Form.Button>
 				</div>
 			{/snippet}
 		</Form.Control>

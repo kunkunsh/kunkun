@@ -4,6 +4,10 @@
 	"app_name": "KunKun",
 	"secondary_app_name": "鲲鲲",
 
+	"common_edit": "编辑",
+	"common_clear": "清除",
+	"common_install": "安装",
+
 	"settings_menu_settings": "设置",
 	"settings_menu_general": "通用",
 	"settings_menu_developer": "开发者",
@@ -26,5 +30,24 @@
 	"settings_about_author": "作者",
 	"settings_about_source_code": "源代码",
 	"settings_about_extensions_source_code": "扩展源代码",
-	"settings_about_check_for_updates": "检查更新"
+	"settings_about_check_for_updates": "检查更新",
+
+	"settings_set_dev_ext_title": "设置开发插件安装路径",
+	"settings_set_dev_ext_description": "这是你的开发插件将被安装的地方。",
+	"settings_set_dev_ext_enter_path": "输入路径",
+
+	"settings_extensions_title": "你的插件",
+	"settings_extensions_table_col_name": "名称",
+	"settings_extensions_table_col_identifier": "标识符",
+	"settings_extensions_table_col_type": "类型",
+	"settings_extensions_table_col_version": "版本",
+	"settings_extensions_table_col_uninstall": "卸载",
+
+	"settings_add_dev_ext_title": "添加开发插件",
+	"settings_add_dev_ext_description": "有四种方法可以在开发模式下安装扩展。 从本地 tarball 文件、tarball 远程 URL、npm 包名称或远程 URL 加载。",
+	"settings_add_dev_ext_install_from_ext_folders": "从扩展文件夹安装",
+	"settings_add_dev_ext_install_from_ext_files": "从扩展 tarball 文件安装",
+	"settings_add_dev_ext_drag_and_drop": "拖放",
+	"settings_add_dev_ext_drag_and_drop2": "扩展文件夹或 tarball",
+	"settings_add_dev_ext_install_tarball_from_url": "从 tarball URL 安装"
 }

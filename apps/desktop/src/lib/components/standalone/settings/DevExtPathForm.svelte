@@ -1,13 +1,11 @@
 <script lang="ts">
+	import * as m from "@/paraglide/messages"
 	import { appConfig } from "@/stores"
 	import Icon from "@iconify/svelte"
 	import { Button, Input } from "@kksh/svelte5"
 	import { open } from "@tauri-apps/plugin-dialog"
 	import { exists } from "@tauri-apps/plugin-fs"
 	import { toast } from "svelte-sonner"
-	import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms"
-	import { zodClient } from "sveltekit-superforms/adapters"
-	import { z } from "zod"
 
 	let devExtPath = $state<string | undefined>(undefined)
 
@@ -31,13 +29,13 @@
 </script>
 
 <form class="flex w-full items-center space-x-2">
-	<Input disabled type="text" placeholder="Enter Path" bind:value={$appConfig.devExtensionPath} />
+	<Input disabled type="text" placeholder={m.settings_set_dev_ext_enter_path()} bind:value={$appConfig.devExtensionPath} />
 	<Button size="sm" type="button" onclick={clear}>
-		Clear
+		{m.common_clear()}
 		<Icon icon="material-symbols:delete-outline" class="ml-1 h-5 w-5" />
 	</Button>
 	<Button size="sm" type="button" onclick={pickDirectory}>
-		Edit
+		{m.common_edit()}
 		<Icon icon="flowbite:edit-outline" class="ml-1 h-5 w-5" />
 	</Button>
 </form>
