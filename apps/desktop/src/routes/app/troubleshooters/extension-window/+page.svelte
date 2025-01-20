@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as m from "@/paraglide/messages"
 	import { winExtMap } from "@/stores"
 	import { goBackOnEscape, goBackOnEscapeClearSearchTerm } from "@/utils/key"
 	import { goBack, goHome } from "@/utils/route"
@@ -8,7 +9,6 @@
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { ArrowLeftIcon, TrashIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
-	import * as m from "@/paraglide/messages"
 	import { toast } from "svelte-sonner"
 
 	const appWin = getCurrentWebviewWindow()

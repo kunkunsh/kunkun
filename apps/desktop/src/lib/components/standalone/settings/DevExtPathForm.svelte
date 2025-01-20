@@ -29,7 +29,12 @@
 </script>
 
 <form class="flex w-full items-center space-x-2">
-	<Input disabled type="text" placeholder={m.settings_set_dev_ext_enter_path()} bind:value={$appConfig.devExtensionPath} />
+	<Input
+		disabled
+		type="text"
+		placeholder={m.settings_set_dev_ext_enter_path()}
+		bind:value={$appConfig.devExtensionPath}
+	/>
 	<Button size="sm" type="button" onclick={clear}>
 		{m.common_clear()}
 		<Icon icon="material-symbols:delete-outline" class="ml-1 h-5 w-5" />
