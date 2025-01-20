@@ -22,5 +22,6 @@ export const IS_IN_TAURI =
 
 export const LanguageMap = {
 	en: "English",
-	zh: "中文"
+	zh: "中文",
+	ru: "Русский"
 }

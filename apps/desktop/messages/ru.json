@@ -1,0 +1,81 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"app_name": "KunKun",
+	"secondary_app_name": "KunKun",
+
+	"common_edit": "Редактировать",
+	"common_clear": "Очистить",
+	"common_check": "Проверить",
+	"common_install": "Установить",
+
+	"home_command_input_placeholder": "Введите команду или поиск...",
+	"home_command_input_dropdown_quit": "Выйти",
+	"home_command_input_dropdown_developer_title": "Разработчик",
+	"home_command_input_dropdown_close_window": "Закрыть окно",
+	"home_command_input_dropdown_toggle_devtools": "Переключить Devtools",
+	"home_command_input_dropdown_reload_window": "Перезагрузить окно",
+	"home_command_input_dropdown_toggle_dev_extension_hmr": "Переключить HMR",
+
+	"command_group_heading_dev_ext": "Разработчики",
+	"command_group_heading_ext": "Расширения",
+	"command_group_heading_quick_links": "Быстрые ссылки",
+
+	"settings_menu_settings": "Настройки",
+	"settings_menu_general": "Общие",
+	"settings_menu_developer": "Разработчик",
+	"settings_menu_extensions": "Расширения",
+	"settings_menu_set_dev_ext": "Установить расширение",
+	"settings_menu_add_dev_ext": "Добавить расширение",
+	"settings_menu_about": "О программе",
+
+	"settings_general_launch_at_login": "Запуск при входе",
+	"settings_general_hotkey": "Горячая клавиша",
+	"settings_general_menu_bar_icon": "Иконка в меню",
+	"settings_general_hide_on_blur": "Скрыть при потере фокуса",
+	"settings_general_extension_auto_upgrade": "Автообновление расширений",
+	"settings_general_dev_extension_hmr": "HMR",
+	"settings_general_join_beta_updates": "Присоединиться к бета-версиям",
+	"settings_general_developer_mode": "Режим разработчика",
+	"settings_general_language": "Язык",
+
+	"settings_about_version": "Версия",
+	"settings_about_author": "Автор",
+	"settings_about_source_code": "Исходный код",
+	"settings_about_extensions_source_code": "Исходный код расширений",
+	"settings_about_check_for_updates": "Проверить на наличие обновлений",
+
+	"settings_set_dev_ext_title": "Установить путь к расширению",
+	"settings_set_dev_ext_description": "Это место, где будут установлены ваши расширения.",
+	"settings_set_dev_ext_enter_path": "Введите путь",
+
+	"settings_extensions_title": "Ваши расширения",
+	"settings_extensions_table_col_name": "Название",
+	"settings_extensions_table_col_identifier": "Идентификатор",
+	"settings_extensions_table_col_type": "Тип",
+	"settings_extensions_table_col_version": "Версия",
+	"settings_extensions_table_col_uninstall": "Удалить",
+
+	"settings_add_dev_ext_title": "Добавить расширение",
+	"settings_add_dev_ext_description": "Есть 4 способа установить расширение в режиме разработчика. Либо загрузите его из вашего локального файла tarball, URL-адреса tarball, npm-пакета или URL-адреса.",
+	"settings_add_dev_ext_install_from_ext_folders": "Установить из папки расширений",
+	"settings_add_dev_ext_install_from_ext_files": "Установить из файла tarball",
+	"settings_add_dev_ext_drag_and_drop": "Перетащите и отпустите",
+	"settings_add_dev_ext_drag_and_drop2": "Папка расширений или файл tarball",
+	"settings_add_dev_ext_install_tarball_from_url": "Установить tarball из URL",
+
+	"troubleshooters_sidebar_title": "Troubleshooters",
+	"troubleshooters_sidebar_extension_loading_title": "Загрузка расширения",
+	"troubleshooters_sidebar_extension_window_title": "Окно расширения",
+	"troubleshooters_sidebar_mdns_debugger_title": "MDNS Debugger",
+
+	"troubleshooters_extension_window_title": "Troubleshooter расширения",
+	"troubleshooters_extension_window_refresh_every_second": "Обновлять каждую секунду",
+	"troubleshooters_extension_window_refresh": "Обновить",
+	"troubleshooters_extension_window_refreshed": "Обновлено {count} раз",
+
+	"troubleshooters_extension_loading_title": "Troubleshooter загрузки расширения",
+	"troubleshooters_extension_loading_table_col_identifier": "Идентификатор",
+	"troubleshooters_extension_loading_table_col_path": "Путь",
+	"troubleshooters_extension_loading_table_col_error": "Ошибка"
+}
