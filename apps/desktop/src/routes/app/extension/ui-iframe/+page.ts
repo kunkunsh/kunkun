@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n"
 import { db, unregisterExtensionWindow } from "@kksh/api/commands"
 import type { Ext as ExtInfoInDB, ExtPackageJsonExtra } from "@kksh/api/models"
 import { loadExtensionManifestFromDisk } from "@kksh/extension"
@@ -24,7 +25,7 @@ export const load: PageLoad = async ({
 	if (!_extPath || !_extUrl) {
 		toast.error("Invalid extension path or url")
 		error("Invalid extension path or url")
-		goto("/app/")
+		goto(i18n.resolveRoute("/app/"))
 	}
 	const extPath = z.string().parse(_extPath)
 	const extUrl = z.string().parse(_extUrl)
@@ -36,7 +37,7 @@ export const load: PageLoad = async ({
 		toast.error("Error loading extension manifest", {
 			description: `${err}`
 		})
-		goto("/app/")
+		goto(i18n.resolveRoute("/app/"))
 	}
 	const loadedExt = _loadedExt!
 	const extInfoInDB = await db.getUniqueExtensionByPath(loadedExt.extPath)
@@ -44,7 +45,7 @@ export const load: PageLoad = async ({
 		toast.error("Unexpected Error", {
 			description: `Extension ${loadedExt.kunkun.identifier} not found in database. Run Troubleshooter.`
 		})
-		goto("/app/")
+		goto(i18n.resolveRoute("/app/"))
 	}
 	return { extPath, url: extUrl, loadedExt, extInfoInDB: extInfoInDB! }
 }

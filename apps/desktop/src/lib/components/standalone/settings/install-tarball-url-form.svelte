@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { i18n } from "@/i18n"
 	import { appConfig, extensions } from "@/stores"
 	import { Input } from "@kksh/svelte5"
 	import { Form } from "@kksh/ui"
@@ -19,7 +20,7 @@
 			toast.warning(
 				"Please set the dev extension path in the settings to install tarball extension"
 			)
-			return goto("/app/settings/set-dev-ext-path")
+			return goto(i18n.resolveRoute("/app/settings/set-dev-ext-path"))
 		}
 		await extensions
 			.installFromTarballUrl(data.url, $appConfig.devExtensionPath)

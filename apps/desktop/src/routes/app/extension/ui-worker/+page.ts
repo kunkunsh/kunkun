@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n"
 import { db, unregisterExtensionWindow } from "@kksh/api/commands"
 import type { Ext as ExtInfoInDB, ExtPackageJsonExtra } from "@kksh/api/models"
 import { loadExtensionManifestFromDisk } from "@kksh/extension"
@@ -9,16 +10,6 @@ import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
 import type { PageLoad } from "./$types"
 
-// : Promise<{
-// 	extPath: string
-// 	scriptPath: string
-// 	// workerScript: string
-// 	pkgJsonPath: string
-// 	cmdName: string
-// 	loadedExt: ExtPackageJsonExtra
-// 	extInfoInDB: ExtInfoInDB
-// }>
-
 export const load: PageLoad = async ({ url }) => {
 	// both query parameter must exist
 
@@ -27,7 +18,7 @@ export const load: PageLoad = async ({ url }) => {
 	if (!extPath || !cmdName) {
 		toast.error("Invalid extension path or url")
 		error("Invalid extension path or url")
-		goto("/app/")
+		goto(i18n.resolveRoute("/app/"))
 	}
 
 	let _loadedExt: ExtPackageJsonExtra | undefined
@@ -38,7 +29,7 @@ export const load: PageLoad = async ({ url }) => {
 		toast.error("Error loading extension manifest", {
 			description: `${err}`
 		})
-		goto("/app/")
+		goto(i18n.resolveRoute("/app/"))
 	}
 	const loadedExt = _loadedExt!
 	const extInfoInDB = await db.getUniqueExtensionByPath(loadedExt.extPath)
@@ -46,7 +37,7 @@ export const load: PageLoad = async ({ url }) => {
 		toast.error("Unexpected Error", {
 			description: `Extension ${loadedExt.kunkun.identifier} not found in database. Run Troubleshooter.`
 		})
-		goto("/app/")
+		goto(i18n.resolveRoute("/app/"))
 	}
 	const pkgJsonPath = await join(extPath!, "package.json")
 	if (!(await exists(extPath!))) {

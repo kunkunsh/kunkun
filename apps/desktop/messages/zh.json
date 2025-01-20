@@ -4,6 +4,7 @@
 	"app_name": "KunKun",
 	"secondary_app_name": "鲲鲲",
 
+	"settings_menu_settings": "设置",
 	"settings_menu_general": "通用",
 	"settings_menu_developer": "开发者",
 	"settings_menu_extensions": "插件",

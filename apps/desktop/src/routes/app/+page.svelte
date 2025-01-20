@@ -3,6 +3,7 @@
 	import { commandLaunchers } from "@/cmds"
 	import { builtinCmds } from "@/cmds/builtin"
 	import { systemCommands } from "@/cmds/system"
+	import { i18n } from "@/i18n"
 	import {
 		appConfig,
 		appConfigLoaded,
@@ -62,7 +63,7 @@
 			// to keep track of the loading status
 			if (loaded) {
 				if (!appConfig.get().onBoarded) {
-					goto("/app/help/onboarding")
+					goto(i18n.resolveRoute("/app/help/onboarding"))
 				}
 			}
 		})

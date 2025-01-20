@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { i18n } from "@/i18n"
 	import { Error, Layouts } from "@kksh/ui"
 	import { goto } from "$app/navigation"
 	import { page } from "$app/stores"
 
 	function handleKeyDown(event: KeyboardEvent) {
 		if (event.key === "Enter") {
-			goto("/app/")
+			goto(i18n.resolveRoute("/app/"))
 		}
 	}
 </script>
@@ -17,7 +18,7 @@
 		title="Fail to Load Extension"
 		class="w-fit max-w-screen-sm border-2 border-red-500"
 		message={$page.error?.message ?? "Unknown Error"}
-		onGoBack={() => goto("/app/")}
+		onGoBack={() => goto(i18n.resolveRoute("/app/"))}
 		rawJsonError={JSON.stringify($page, null, 2)}
 	/>
 </Layouts.Center>

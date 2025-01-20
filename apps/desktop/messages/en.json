@@ -4,6 +4,7 @@
 	"app_name": "KunKun",
 	"secondary_app_name": "KunKun",
 
+	"settings_menu_settings": "Settings",
 	"settings_menu_general": "General",
 	"settings_menu_developer": "Developer",
 	"settings_menu_extensions": "Extensions",

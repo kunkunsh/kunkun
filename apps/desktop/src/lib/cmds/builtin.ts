@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n"
 import { appConfig, appState, auth, extensions } from "@/stores"
 import { checkUpdateAndInstall } from "@/utils/updater"
 import { setTransparentTitlebar } from "@kksh/api/commands"
@@ -25,7 +26,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Go to Extension Store",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/app/extension/store")
+			goto(i18n.resolveRoute("/app/extension/store"))
 		}
 	},
 	{
@@ -36,7 +37,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "",
 		function: async () => {
-			goto("/app/auth")
+			goto(i18n.resolveRoute("/app/auth"))
 		}
 	},
 	{
@@ -98,7 +99,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "",
 		function: async () => {
-			goto("/app/extension/file-transfer")
+			goto(i18n.resolveRoute("/app/extension/file-transfer"))
 			appState.clearSearchTerm()
 		}
 	},
@@ -112,7 +113,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/app/settings/add-dev-extension")
+			goto(i18n.resolveRoute("/app/settings/add-dev-extension"))
 		}
 	},
 	{
@@ -137,7 +138,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		function: async () => {
 			// const appStateStore = useAppStateStore()
 			appState.clearSearchTerm()
-			goto("/app/settings/set-dev-ext-path")
+			goto(i18n.resolveRoute("/app/settings/set-dev-ext-path"))
 		}
 	},
 	{
@@ -149,7 +150,6 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			// goto("/app/window-troubleshooter")
 			const winLabel = `main:extension-window-troubleshooter-${uuidv4()}`
 			console.log(winLabel)
 			new WebviewWindow(winLabel, {
@@ -168,7 +168,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/app/help/deno-install")
+			goto(i18n.resolveRoute("/app/help/deno-install"))
 		},
 		keywords: ["help", "deno", "install"]
 	},
@@ -181,7 +181,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/app/help/ffmpeg-install")
+			goto(i18n.resolveRoute("/app/help/ffmpeg-install"))
 		},
 		keywords: ["help", "ffmpeg", "install"]
 	},
@@ -194,7 +194,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/app/help/brew-install")
+			goto(i18n.resolveRoute("/app/help/brew-install"))
 		},
 		keywords: ["help", "brew", "install", "homebrew"]
 	},
@@ -207,7 +207,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/app/help/onboarding")
+			goto(i18n.resolveRoute("/app/help/onboarding"))
 		},
 		flags: {
 			dev: true,
@@ -223,7 +223,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/app/extension/permission-inspector")
+			goto(i18n.resolveRoute("/app/extension/permission-inspector"))
 		},
 		keywords: ["extension"]
 	},
@@ -236,7 +236,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/app/troubleshooters/extension-loading")
+			goto(i18n.resolveRoute("/app/troubleshooters/extension-loading"))
 		},
 		keywords: ["extension", "troubleshooter"]
 	},
@@ -249,7 +249,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Create a Quicklink",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/app/extension/create-quick-link")
+			goto(i18n.resolveRoute("/app/extension/create-quick-link"))
 		}
 	},
 	{
@@ -261,7 +261,6 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Display the current key",
 		function: async () => {
 			appState.clearSearchTerm()
-			// goto("/app/extension/key-displayer")
 			const label = `main:extension:key-displayer-${uuidv4()}`
 			new WebviewWindow(label, {
 				url: "/app/extension/key-displayer",
@@ -284,7 +283,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "Open Settings",
 		function: async () => {
-			goto("/app/settings")
+			goto(i18n.resolveRoute("/app/settings"))
 			appState.clearSearchTerm()
 		}
 	},
@@ -344,7 +343,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "Dance",
 		function: async () => {
-			goto("/app/dance")
+			goto(i18n.resolveRoute("/app/dance"))
 		}
 	},
 	{
@@ -385,7 +384,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Clipboard History",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto("/app/extension/clipboard")
+			goto(i18n.resolveRoute("/app/extension/clipboard"))
 		}
 	},
 	{
@@ -422,7 +421,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "MDNS Debugger",
 		function: async () => {
-			goto("/app/troubleshooters/mdns-debugger")
+			goto(i18n.resolveRoute("/app/troubleshooters/mdns-debugger"))
 		},
 		flags: {
 			developer: true

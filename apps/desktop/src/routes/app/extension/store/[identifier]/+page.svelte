@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getExtensionsFolder } from "@/constants.js"
+	import { i18n } from "@/i18n.js"
 	import { extensions, installedStoreExts } from "@/stores/extensions.js"
 	import { supabaseAPI } from "@/supabase"
 	import { goBack } from "@/utils/route.js"
@@ -149,7 +150,7 @@
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === "Escape") {
 			if (!delayedImageDialogOpen) {
-				goto("/app/extension/store")
+				goto(i18n.resolveRoute("/app/extension/store"))
 			}
 		}
 	}
@@ -161,7 +162,7 @@
 	size="icon"
 	class={cn("fixed left-3 top-3 z-50", Constants.CLASSNAMES.BACK_BUTTON)}
 	data-flip-id={Constants.CLASSNAMES.BACK_BUTTON}
-	onclick={() => goto("/app/extension/store")}
+	onclick={() => goto(i18n.resolveRoute("/app/extension/store"))}
 >
 	<ArrowLeftIcon />
 </Button>

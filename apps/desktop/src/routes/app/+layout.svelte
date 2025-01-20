@@ -1,6 +1,6 @@
 <script lang="ts">
 	import AppContext from "@/components/context/AppContext.svelte"
-	import { i18n } from "@/i18n"
+	import { i18n, switchToLanguage } from "@/i18n"
 	import { setLanguageTag, type AvailableLanguageTag } from "@/paraglide/runtime"
 	import { appConfig, appState, extensions, quickLinks, winExtMap } from "@/stores"
 	import { initDeeplink } from "@/utils/deeplink"
@@ -65,6 +65,7 @@
 		appConfig.init().then(() => {
 			console.log("appConfig.language", $appConfig.language)
 			setLanguageTag($appConfig.language as AvailableLanguageTag)
+			switchToLanguage($appConfig.language as AvailableLanguageTag)
 		})
 		if (isInMainWindow()) {
 			if ($appConfig.triggerHotkey) {
