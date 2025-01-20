@@ -46,7 +46,7 @@
 			<Carousel.Content class="max-h-[75vh]">
 				{#each imageSrcs as src}
 					<Carousel.Item class="flex justify-center">
-            <img {src} class="object-contain" alt="" />
+						<img {src} class="object-contain" alt="" />
 					</Carousel.Item>
 				{/each}
 			</Carousel.Content>
