@@ -57,7 +57,7 @@
 	"settings_extensions_table_col_uninstall": "Uninstall",
 
 	"settings_add_dev_ext_title": "Add Dev Extension",
-	"settings_add_dev_ext_description": "There are 4 options to install an extension in developer mode. Either load it from your local tarball file, a tarball remote URL, npm package name or load from a remote URL.",
+	"settings_add_dev_ext_description": "There are 4 options to install an extension in developer mode. Either load it from your local tarball file, local folder, a tarball remote URL, or npm package name.",
 	"settings_add_dev_ext_install_from_ext_folders": "Install from Extension Folders",
 	"settings_add_dev_ext_install_from_ext_files": "Install from Extension Tarball File",
 	"settings_add_dev_ext_drag_and_drop": "Drag and Drop",

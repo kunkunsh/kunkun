@@ -1,7 +1,6 @@
 import assert from "assert"
-import { compressString, decompressString } from "@kksh/utils"
-import { $ } from "bun"
 import fs from "fs"
+import { compressString, decompressString } from "@kksh/utils"
 
 /* -------------------------------------------------------------------------- */
 /*                             Download Dance JSON                            */
