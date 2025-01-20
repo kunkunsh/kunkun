@@ -4,6 +4,6 @@
 </script>
 
 <main class="container flex flex-col space-y-2">
-	<pre>{m.settings_language()}</pre>
+	<pre>{m.settings_general_language()}</pre>
 	<GeneralSettings />
 </main>

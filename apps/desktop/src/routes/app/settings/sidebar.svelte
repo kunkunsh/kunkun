@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as m from "@/paraglide/messages"
 	import { goHome } from "@/utils/route"
 	import { Button, SideBar } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
@@ -9,36 +10,35 @@
 	import Info from "lucide-svelte/icons/info"
 	import Route from "lucide-svelte/icons/route"
 	import SquareTerminal from "lucide-svelte/icons/square-terminal"
-	import { onMount } from "svelte"
 
 	const items = [
 		{
-			title: "General",
+			title: m.settings_menu_general(),
 			url: "/app/settings",
 			icon: Cog
 		},
 		{
-			title: "Developer",
+			title: m.settings_menu_developer(),
 			url: "/app/settings/developer",
 			icon: SquareTerminal
 		},
 		{
-			title: "Extensions",
+			title: m.settings_menu_extensions(),
 			url: "/app/settings/extensions",
 			icon: Blocks
 		},
 		{
-			title: "Set Dev Extension",
+			title: m.settings_menu_set_dev_ext(),
 			url: "/app/settings/set-dev-ext-path",
 			icon: Route
 		},
 		{
-			title: "Add Dev Extension",
+			title: m.settings_menu_add_dev_ext(),
 			url: "/app/settings/add-dev-extension",
 			icon: FileCode2
 		},
 		{
-			title: "About",
+			title: m.settings_menu_about(),
 			url: "/app/settings/about",
 			icon: Info
 		}

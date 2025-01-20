@@ -1,12 +1,29 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"settings_launch_at_login": "开机启动",
-	"settings_hotkey": "快捷键",
-	"settings_menu_bar_icon": "菜单栏图标",
-	"settings_hide_on_blur": "隐藏在后台",
-	"settings_extension_auto_upgrade": "自动更新扩展",
-	"settings_dev_extension_hmr": "开发模式",
-	"settings_join_beta_updates": "加入 Beta 更新",
-	"settings_developer_mode": "开发者模式",
-	"settings_language": "语言"
+
+	"app_name": "KunKun",
+	"secondary_app_name": "鲲鲲",
+
+	"settings_menu_general": "通用",
+	"settings_menu_developer": "开发者",
+	"settings_menu_extensions": "插件",
+	"settings_menu_set_dev_ext": "设置开发插件",
+	"settings_menu_add_dev_ext": "添加开发插件",
+	"settings_menu_about": "关于",
+
+	"settings_general_launch_at_login": "开机启动",
+	"settings_general_hotkey": "快捷键",
+	"settings_general_menu_bar_icon": "菜单栏图标",
+	"settings_general_hide_on_blur": "隐藏在后台",
+	"settings_general_extension_auto_upgrade": "自动更新扩展",
+	"settings_general_dev_extension_hmr": "开发模式",
+	"settings_general_join_beta_updates": "加入 Beta 更新",
+	"settings_general_developer_mode": "开发者模式",
+	"settings_general_language": "语言",
+
+	"settings_about_version": "版本",
+	"settings_about_author": "作者",
+	"settings_about_source_code": "源代码",
+	"settings_about_extensions_source_code": "扩展源代码",
+	"settings_about_check_for_updates": "检查更新"
 }

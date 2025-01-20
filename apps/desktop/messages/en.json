@@ -1,12 +1,29 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"settings_launch_at_login": "Launch at Login",
-	"settings_hotkey": "Hotkey",
-	"settings_menu_bar_icon": "Menu Bar Icon",
-	"settings_hide_on_blur": "Hide On Blur",
-	"settings_extension_auto_upgrade": "Extension Auto Upgrade",
-	"settings_dev_extension_hmr": "Dev Extension HMR",
-	"settings_join_beta_updates": "Join Beta Updates",
-	"settings_developer_mode": "Developer Mode",
-	"settings_language": "Language"
+
+	"app_name": "KunKun",
+	"secondary_app_name": "KunKun",
+
+	"settings_menu_general": "General",
+	"settings_menu_developer": "Developer",
+	"settings_menu_extensions": "Extensions",
+	"settings_menu_set_dev_ext": "Set Dev Extension",
+	"settings_menu_add_dev_ext": "Add Dev Extension",
+	"settings_menu_about": "About",
+
+	"settings_general_launch_at_login": "Launch at Login",
+	"settings_general_hotkey": "Hotkey",
+	"settings_general_menu_bar_icon": "Menu Bar Icon",
+	"settings_general_hide_on_blur": "Hide On Blur",
+	"settings_general_extension_auto_upgrade": "Extension Auto Upgrade",
+	"settings_general_dev_extension_hmr": "Dev Extension HMR",
+	"settings_general_join_beta_updates": "Join Beta Updates",
+	"settings_general_developer_mode": "Developer Mode",
+	"settings_general_language": "Language",
+
+	"settings_about_version": "Version",
+	"settings_about_author": "Author",
+	"settings_about_source_code": "Source Code",
+	"settings_about_extensions_source_code": "Extensions Source Code",
+	"settings_about_check_for_updates": "Check for Updates"
 }

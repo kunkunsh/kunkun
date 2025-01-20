@@ -24,40 +24,40 @@
 
 <ul class="rounded-lg border">
 	<li>
-		<span>{m.settings_launch_at_login()}</span>
+		<span>{m.settings_general_launch_at_login()}</span>
 		<Switch bind:checked={$appConfig.launchAtLogin} />
 	</li>
 	<li class="">
-		<span>{m.settings_hotkey()}</span>
+		<span>{m.settings_general_hotkey()}</span>
 		<HotkeyPick />
 	</li>
 	<li>
-		<span>{m.settings_menu_bar_icon()}</span>
+		<span>{m.settings_general_menu_bar_icon()}</span>
 		<Switch bind:checked={$appConfig.showInTray} />
 	</li>
 	<li>
-		<span>{m.settings_hide_on_blur()}</span>
+		<span>{m.settings_general_hide_on_blur()}</span>
 		<Switch bind:checked={$appConfig.hideOnBlur} />
 	</li>
 	<li>
-		<span>{m.settings_extension_auto_upgrade()}</span>
+		<span>{m.settings_general_extension_auto_upgrade()}</span>
 		<Switch bind:checked={$appConfig.extensionAutoUpgrade} />
 	</li>
 	<li>
-		<span>{m.settings_dev_extension_hmr()}</span>
+		<span>{m.settings_general_dev_extension_hmr()}</span>
 		<Switch bind:checked={$appConfig.hmr} />
 	</li>
 	<li>
-		<span>{m.settings_join_beta_updates()}</span>
+		<span>{m.settings_general_join_beta_updates()}</span>
 		<Switch bind:checked={$appConfig.joinBetaProgram} />
 	</li>
 
 	<li>
-		<span>{m.settings_developer_mode()}</span>
+		<span>{m.settings_general_developer_mode()}</span>
 		<Switch bind:checked={$appConfig.developerMode} />
 	</li>
 	<li>
-		<span>{m.settings_language()}</span>
+		<span>{m.settings_general_language()}</span>
 
 		<Select.Root type="single" name="language" bind:value>
 			<Select.Trigger class="w-fit">
@@ -65,7 +65,7 @@
 			</Select.Trigger>
 			<Select.Content>
 				<Select.Group>
-					<Select.GroupHeading>{m.settings_language()}</Select.GroupHeading>
+					<Select.GroupHeading>{m.settings_general_language()}</Select.GroupHeading>
 					{#each languages as lang}
 						<Select.Item
 							onclick={() => {
