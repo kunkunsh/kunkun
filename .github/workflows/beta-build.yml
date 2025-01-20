@@ -172,10 +172,6 @@ jobs:
         if: startsWith(matrix.os, 'macos')
         run: |
           brew install protobuf
-      - name: Install and Protobuf (Ubuntu)
-        if: matrix.os == 'ubuntu-22.04'
-        run: |
-          sudo apt install -y protobuf-compiler
       - name: Install protoc and openssl for windows
         if: matrix.os == 'windows-latest'
         run: |
@@ -188,7 +184,7 @@ jobs:
         if: matrix.os == 'ubuntu-22.04'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev protobuf-compiler
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
