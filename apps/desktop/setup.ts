@@ -1,13 +1,14 @@
 import assert from "assert"
 import { compressString, decompressString } from "@kksh/utils"
 import { $ } from "bun"
+import fs from "fs"
 
 /* -------------------------------------------------------------------------- */
 /*                             Download Dance JSON                            */
 /* -------------------------------------------------------------------------- */
 console.log("Downloading Dance Data...")
 const rawData = await fetch("https://dance.kunkun.sh/api/data").then((res) => res.text())
-
+fs.mkdirSync("./src/data", { recursive: true })
 function formatFileSize(size: number) {
 	return `${(size / 1024).toFixed(2)} KB`
 }
