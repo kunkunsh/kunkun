@@ -1,21 +1,23 @@
 <script lang="ts">
 	import HotkeyPick from "@/components/standalone/settings/hotkey-pick.svelte"
 	import { LanguageMap } from "@/constants"
+	import { i18n, switchToLanguage } from "@/i18n"
 	import * as m from "@/paraglide/messages"
-	import * as i18n from "@/paraglide/runtime"
+	import {
+		availableLanguageTags,
+		languageTag,
+		setLanguageTag,
+		type AvailableLanguageTag
+	} from "@/paraglide/runtime"
 	import { appConfig } from "@/stores"
 	import { Select, Switch } from "@kksh/svelte5"
 
-	const languages = i18n.availableLanguageTags.map((lang) => ({
+	const languages = availableLanguageTags.map((lang) => ({
 		value: lang,
 		label: LanguageMap[lang] ?? lang
 	}))
 
-	let value = $state(i18n.languageTag())
-	$effect(() => {
-		appConfig.setLanguage(value)
-		i18n.setLanguageTag(value)
-	})
+	let value = $state(languageTag())
 
 	const triggerContent = $derived(languages.find((f) => f.value === value)?.label ?? "Language")
 </script>
@@ -65,7 +67,14 @@
 				<Select.Group>
 					<Select.GroupHeading>{m.settings_language()}</Select.GroupHeading>
 					{#each languages as lang}
-						<Select.Item value={lang.value} label={lang.label}>{lang.label}</Select.Item>
+						<Select.Item
+							onclick={() => {
+								appConfig.setLanguage(lang.value)
+								switchToLanguage(lang.value as AvailableLanguageTag)
+							}}
+							value={lang.value}
+							label={lang.label}>{lang.label}</Select.Item
+						>
 					{/each}
 				</Select.Group>
 			</Select.Content>

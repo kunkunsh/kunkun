@@ -62,6 +62,7 @@
 
 		quickLinks.init()
 		appConfig.init().then(() => {
+			console.log("appConfig.language", $appConfig.language)
 			i18n.setLanguageTag($appConfig.language)
 		})
 		if (isInMainWindow()) {

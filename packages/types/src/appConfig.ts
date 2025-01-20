@@ -11,6 +11,7 @@ export const PersistedAppConfig = v.object({
 	triggerHotkey: v.nullable(v.array(v.string())),
 	launchAtLogin: v.boolean(),
 	showInTray: v.boolean(),
+	language: v.string(),
 	devExtensionPath: v.nullable(v.string()),
 	hmr: v.boolean(),
 	hideOnBlur: v.boolean(),
