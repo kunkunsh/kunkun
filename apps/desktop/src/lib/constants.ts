@@ -19,3 +19,9 @@ export function getExtensionsFolder() {
 export const IS_IN_TAURI =
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	typeof window !== "undefined" && (window as any).__TAURI_INTERNALS__ !== undefined
+
+export const LanguageMap = {
+	en: "English",
+	zh: "中文",
+	ru: "Русский"
+}

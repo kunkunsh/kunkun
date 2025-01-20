@@ -11,6 +11,7 @@ export const PersistedAppConfig = v.object({
 	triggerHotkey: v.nullable(v.array(v.string())),
 	launchAtLogin: v.boolean(),
 	showInTray: v.boolean(),
+	language: v.string(),
 	devExtensionPath: v.nullable(v.string()),
 	hmr: v.boolean(),
 	hideOnBlur: v.boolean(),
@@ -24,6 +25,7 @@ export type PersistedAppConfig = v.InferOutput<typeof PersistedAppConfig>
 
 export type AppConfig = PersistedAppConfig & {
 	isInitialized: boolean
+	language: string
 	extensionsInstallDir?: string
 	platform: Platform
 }

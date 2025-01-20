@@ -7,10 +7,12 @@ import * as os from "@tauri-apps/plugin-os"
 import { load } from "@tauri-apps/plugin-store"
 import { get, writable } from "svelte/store"
 import * as v from "valibot"
+import { setLanguageTag } from "../paraglide/runtime"
 
 export const defaultAppConfig: AppConfig = {
 	isInitialized: false,
 	platform: "macos",
+	language: "en",
 	theme: {
 		theme: "zinc",
 		radius: 0.5,
@@ -38,9 +40,10 @@ interface AppConfigAPI {
 	setDevExtensionPath: (devExtensionPath: string | null) => void
 	setTriggerHotkey: (triggerHotkey: string[]) => void
 	setOnBoarded: (onBoarded: boolean) => void
+	setLanguage: (language: string) => void
 }
 
-function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
+function createAppConfig(): WithSyncStore<AppConfig & { language: string }> & AppConfigAPI {
 	const store = createTauriSyncStore("app-config", defaultAppConfig)
 
 	async function init() {
@@ -85,6 +88,9 @@ function createAppConfig(): WithSyncStore<AppConfig> & AppConfigAPI {
 		},
 		setOnBoarded: (onBoarded: boolean) => {
 			store.update((config) => ({ ...config, onBoarded }))
+		},
+		setLanguage: (language: string) => {
+			store.update((config) => ({ ...config, language }))
 		},
 		init
 	}

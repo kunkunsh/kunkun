@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { i18n } from "@/i18n.js"
 	import { auth } from "@/stores"
 	import { supabase } from "@/supabase"
 	import { goHomeOnEscape } from "@/utils/key"
@@ -44,7 +45,7 @@
 	function onSignOut() {
 		auth
 			.signOut()
-			.then(() => goto("/app/auth"))
+			.then(() => goto(i18n.resolveRoute("/app/auth")))
 			.catch((err) => toast.error("Failed to sign out", { description: err.message }))
 	}
 </script>
@@ -56,7 +57,7 @@
 	size="icon"
 	onclick={() => {
 		console.log("go Home")
-		goto("/app/")
+		goto(i18n.resolveRoute("/app/"))
 	}}
 >
 	<ArrowLeft class="size-4" />

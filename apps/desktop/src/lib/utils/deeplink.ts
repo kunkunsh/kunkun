@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n"
 import { emitRefreshDevExt } from "@/utils/tauri-events"
 import {
 	DEEP_LINK_PATH_AUTH_CONFIRM,
@@ -59,7 +60,7 @@ export async function handleKunkunProtocol(parsedUrl: URL) {
 		if (parsed.identifier) {
 			goto(`/extension/store/${parsed.identifier}`)
 		} else {
-			goto("/app/extension/store")
+			goto(i18n.resolveRoute("/app/extension/store"))
 		}
 	} else if (href.startsWith(DEEP_LINK_PATH_REFRESH_DEV_EXTENSION)) {
 		emitRefreshDevExt()

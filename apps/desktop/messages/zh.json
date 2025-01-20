@@ -1,0 +1,81 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"app_name": "KunKun",
+	"secondary_app_name": "鲲鲲",
+
+	"common_edit": "编辑",
+	"common_clear": "清除",
+	"common_check": "检查",
+	"common_install": "安装",
+
+	"home_command_input_placeholder": "输入命令或搜索...",
+	"home_command_input_dropdown_quit": "退出",
+	"home_command_input_dropdown_developer_title": "开发者",
+	"home_command_input_dropdown_close_window": "关闭窗口",
+	"home_command_input_dropdown_toggle_devtools": "切换开发者工具",
+	"home_command_input_dropdown_reload_window": "重新加载窗口",
+	"home_command_input_dropdown_toggle_dev_extension_hmr": "切换开发插件 HMR",
+
+	"command_group_heading_dev_ext": "开发插件",
+	"command_group_heading_ext": "插件",
+	"command_group_heading_quick_links": "快捷链接",
+
+	"settings_menu_settings": "设置",
+	"settings_menu_general": "通用",
+	"settings_menu_developer": "开发者",
+	"settings_menu_extensions": "插件",
+	"settings_menu_set_dev_ext": "设置开发插件",
+	"settings_menu_add_dev_ext": "添加开发插件",
+	"settings_menu_about": "关于",
+
+	"settings_general_launch_at_login": "开机启动",
+	"settings_general_hotkey": "快捷键",
+	"settings_general_menu_bar_icon": "菜单栏图标",
+	"settings_general_hide_on_blur": "隐藏在后台",
+	"settings_general_extension_auto_upgrade": "自动更新插件",
+	"settings_general_dev_extension_hmr": "开发模式",
+	"settings_general_join_beta_updates": "加入 Beta 更新",
+	"settings_general_developer_mode": "开发者模式",
+	"settings_general_language": "语言",
+
+	"settings_about_version": "版本",
+	"settings_about_author": "作者",
+	"settings_about_source_code": "源代码",
+	"settings_about_extensions_source_code": "插件源代码",
+	"settings_about_check_for_updates": "检查更新",
+
+	"settings_set_dev_ext_title": "设置开发插件安装路径",
+	"settings_set_dev_ext_description": "这是你的开发插件将被安装的地方。",
+	"settings_set_dev_ext_enter_path": "输入路径",
+
+	"settings_extensions_title": "你的插件",
+	"settings_extensions_table_col_name": "名称",
+	"settings_extensions_table_col_identifier": "标识符",
+	"settings_extensions_table_col_type": "类型",
+	"settings_extensions_table_col_version": "版本",
+	"settings_extensions_table_col_uninstall": "卸载",
+
+	"settings_add_dev_ext_title": "添加开发插件",
+	"settings_add_dev_ext_description": "有四种方法可以在开发模式下安装插件。 从本地 tarball 文件、tarball 远程 URL、npm 包名称或远程 URL 加载。",
+	"settings_add_dev_ext_install_from_ext_folders": "从插件文件夹安装",
+	"settings_add_dev_ext_install_from_ext_files": "从插件 tarball 文件安装",
+	"settings_add_dev_ext_drag_and_drop": "拖放",
+	"settings_add_dev_ext_drag_and_drop2": "插件文件夹或 tarball",
+	"settings_add_dev_ext_install_tarball_from_url": "从 tarball URL 安装",
+
+	"troubleshooters_sidebar_title": "故障排除器",
+	"troubleshooters_sidebar_extension_loading_title": "插件加载",
+	"troubleshooters_sidebar_extension_window_title": "插件窗口",
+	"troubleshooters_sidebar_mdns_debugger_title": "MDNS 调试器",
+
+	"troubleshooters_extension_window_title": "插件窗口故障排除器",
+	"troubleshooters_extension_window_refresh_every_second": "每秒刷新",
+	"troubleshooters_extension_window_refresh": "刷新",
+	"troubleshooters_extension_window_refreshed": "已刷新 {count} 次",
+
+	"troubleshooters_extension_loading_title": "插件加载故障排除器",
+	"troubleshooters_extension_loading_table_col_identifier": "标识符",
+	"troubleshooters_extension_loading_table_col_path": "路径",
+	"troubleshooters_extension_loading_table_col_error": "错误"
+}

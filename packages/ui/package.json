@@ -67,6 +67,7 @@
 	},
 	"dependencies": {
 		"@formkit/auto-animate": "^0.8.2",
+		"@inlang/paraglide-sveltekit": "^0.15.5",
 		"@internationalized/date": "^3.7.0",
 		"@kksh/supabase": "workspace:*",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",

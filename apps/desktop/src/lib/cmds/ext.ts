@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n"
 import { appState } from "@/stores"
 import { winExtMap } from "@/stores/winExtMap"
 import { trimSlash } from "@/utils/url"
@@ -7,6 +8,7 @@ import { HeadlessWorkerExtension } from "@kksh/api/headless"
 import { CustomUiCmd, ExtPackageJsonExtra, HeadlessCmd, TemplateUiCmd } from "@kksh/api/models"
 import { constructJarvisServerAPIWithPermissions, type IApp } from "@kksh/api/ui"
 import { launchNewExtWindow, loadExtensionManifestFromDisk } from "@kksh/extension"
+import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import * as path from "@tauri-apps/api/path"
 import * as fs from "@tauri-apps/plugin-fs"
@@ -38,7 +40,7 @@ export async function onTemplateUiCmdSelect(
 	} else {
 		return winExtMap
 			.registerExtensionWithWindow({ windowLabel: "main", extPath: ext.extPath })
-			.then(() => goto(url))
+			.then(() => goto(i18n.resolveRoute(url)))
 	}
 }
 
@@ -65,16 +67,19 @@ export async function onHeadlessCmdSelect(
 		loadedExt.kunkun.permissions,
 		loadedExt.extPath
 	)
-	serverAPI.iframeUi = undefined
-	serverAPI.workerUi = undefined
-	serverAPI.db = new db.JarvisExtDB(extInfoInDB.extId)
-	serverAPI.kv = new db.KV(extInfoInDB.extId)
-	serverAPI.app = {
-		language: () => Promise.resolve("en")
-	} satisfies IApp
+	const serverAPI2 = {
+		...serverAPI,
+		iframeUi: undefined,
+		workerUi: undefined,
+		db: new db.JarvisExtDB(extInfoInDB.extId),
+		kv: new db.KV(extInfoInDB.extId),
+		app: {
+			language: () => Promise.resolve("en")
+		} satisfies IApp
+	}
 	const io = new WorkerParentIO(worker)
-	const rpc = new RPCChannel<typeof serverAPI, HeadlessWorkerExtension>(io, {
-		expose: serverAPI
+	const rpc = new RPCChannel<typeof serverAPI2, HeadlessWorkerExtension>(io, {
+		expose: serverAPI2
 	})
 	const workerAPI = rpc.getAPI()
 	await workerAPI.load()
@@ -124,7 +129,7 @@ export async function onCustomUiCmdSelect(
 			const newUrl = `http://${addr}`
 			url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
 		}
-		goto(url2)
+		goto(i18n.resolveRoute(url2))
 	}
 	appState.clearSearchTerm()
 }

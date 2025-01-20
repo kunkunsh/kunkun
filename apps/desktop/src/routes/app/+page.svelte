@@ -3,6 +3,8 @@
 	import { commandLaunchers } from "@/cmds"
 	import { builtinCmds } from "@/cmds/builtin"
 	import { systemCommands } from "@/cmds/system"
+	import { i18n } from "@/i18n"
+	import * as m from "@/paraglide/messages"
 	import {
 		appConfig,
 		appConfigLoaded,
@@ -62,7 +64,7 @@
 			// to keep track of the loading status
 			if (loaded) {
 				if (!appConfig.get().onBoarded) {
-					goto("/app/help/onboarding")
+					goto(i18n.resolveRoute("/app/help/onboarding"))
 				}
 			}
 		})
@@ -97,7 +99,7 @@
 		autofocus
 		bind:ref={inputEle}
 		id="main-command-input"
-		placeholder={$cmdQueries.length === 0 ? "Type a command or search..." : undefined}
+		placeholder={$cmdQueries.length === 0 ? m.home_command_input_placeholder() : undefined}
 		bind:value={$appState.searchTerm}
 		onkeydown={onKeyDown}
 	>
@@ -136,19 +138,21 @@
 					<DropdownMenu.Group>
 						<DropdownMenu.Item onclick={() => exit()}>
 							<CircleXIcon class="h-4 w-4 text-red-500" />
-							Quit
+							{m.home_command_input_dropdown_quit()}
 						</DropdownMenu.Item>
 						<DropdownMenu.Item onclick={() => getCurrentWebviewWindow().hide()}>
 							<CircleXIcon class="h-4 w-4 text-red-500" />
-							Close Window
+							{m.home_command_input_dropdown_close_window()}
 						</DropdownMenu.Item>
 					</DropdownMenu.Group>
 					<DropdownMenu.Separator />
 					<DropdownMenu.Group>
-						<DropdownMenu.GroupHeading data-tauri-drag-region>Developer</DropdownMenu.GroupHeading>
+						<DropdownMenu.GroupHeading data-tauri-drag-region>
+							{m.home_command_input_dropdown_developer_title()}
+						</DropdownMenu.GroupHeading>
 						<DropdownMenu.Item onclick={toggleDevTools}>
 							<Icon icon="mingcute:code-fill" class="mr-2 h-5 w-5 text-green-500" />
-							Toggle Devtools
+							{m.home_command_input_dropdown_toggle_devtools()}
 							<DropdownMenu.Shortcut
 								><span class="flex items-center">⌃+<ArrowBigUpIcon class="h-4 w-4" />+I</span
 								></DropdownMenu.Shortcut
@@ -156,7 +160,7 @@
 						</DropdownMenu.Item>
 						<DropdownMenu.Item onclick={() => location.reload()}>
 							<RefreshCcwIcon class="mr-2 h-4 w-4 text-green-500" />
-							Reload Window
+							{m.home_command_input_dropdown_reload_window()}
 							<DropdownMenu.Shortcut
 								><span class="flex items-center">⌃+<ArrowBigUpIcon class="h-4 w-4" />+R</span
 								></DropdownMenu.Shortcut
@@ -171,7 +175,7 @@
 								icon={$appConfig.hmr ? "fontisto:toggle-on" : "fontisto:toggle-off"}
 								class={cn("mr-1 h-5 w-5", { "text-green-500": $appConfig.hmr })}
 							/>
-							Toggle Dev Extension HMR
+							{m.home_command_input_dropdown_toggle_dev_extension_hmr()}
 						</DropdownMenu.Item>
 					</DropdownMenu.Group>
 				</DropdownMenu.Content>
@@ -183,7 +187,7 @@
 		{#if $appConfig.extensionsInstallDir && $devStoreExts.length > 0}
 			<ExtCmdsGroup
 				extensions={$devStoreExts}
-				heading="Dev Extensions"
+				heading={m.command_group_heading_dev_ext()}
 				isDev={true}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 				hmr={$appConfig.hmr}
@@ -192,7 +196,7 @@
 		{#if $appConfig.extensionsInstallDir && $installedStoreExts.length > 0}
 			<ExtCmdsGroup
 				extensions={$installedStoreExts}
-				heading="Extensions"
+				heading={m.command_group_heading_ext()}
 				isDev={false}
 				hmr={false}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}

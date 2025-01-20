@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { i18n } from "@/i18n"
+	import * as m from "@/paraglide/messages"
 	import { goHome } from "@/utils/route"
 	import { Button, SideBar } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
@@ -9,37 +11,36 @@
 	import Info from "lucide-svelte/icons/info"
 	import Route from "lucide-svelte/icons/route"
 	import SquareTerminal from "lucide-svelte/icons/square-terminal"
-	import { onMount } from "svelte"
 
 	const items = [
 		{
-			title: "General",
-			url: "/app/settings",
+			title: m.settings_menu_general(),
+			url: i18n.resolveRoute("/app/settings"),
 			icon: Cog
 		},
 		{
-			title: "Developer",
-			url: "/app/settings/developer",
+			title: m.settings_menu_developer(),
+			url: i18n.resolveRoute("/app/settings/developer"),
 			icon: SquareTerminal
 		},
 		{
-			title: "Extensions",
-			url: "/app/settings/extensions",
+			title: m.settings_menu_extensions(),
+			url: i18n.resolveRoute("/app/settings/extensions"),
 			icon: Blocks
 		},
 		{
-			title: "Set Dev Extension",
-			url: "/app/settings/set-dev-ext-path",
+			title: m.settings_menu_set_dev_ext(),
+			url: i18n.resolveRoute("/app/settings/set-dev-ext-path"),
 			icon: Route
 		},
 		{
-			title: "Add Dev Extension",
-			url: "/app/settings/add-dev-extension",
+			title: m.settings_menu_add_dev_ext(),
+			url: i18n.resolveRoute("/app/settings/add-dev-extension"),
 			icon: FileCode2
 		},
 		{
-			title: "About",
-			url: "/app/settings/about",
+			title: m.settings_menu_about(),
+			url: i18n.resolveRoute("/app/settings/about"),
 			icon: Info
 		}
 	]
@@ -63,7 +64,7 @@
 	</SideBar.Header>
 	<SideBar.Content>
 		<SideBar.Group>
-			<SideBar.GroupLabel data-tauri-drag-region>Settings</SideBar.GroupLabel>
+			<SideBar.GroupLabel data-tauri-drag-region>{m.settings_menu_settings()}</SideBar.GroupLabel>
 			<SideBar.GroupContent>
 				<SideBar.Menu>
 					{#each items as item (item.title)}

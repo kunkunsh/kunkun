@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as m from "@/paraglide/messages"
 	import { winExtMap } from "@/stores"
 	import { goBackOnEscape, goBackOnEscapeClearSearchTerm } from "@/utils/key"
 	import { goBack, goHome } from "@/utils/route"
@@ -73,12 +74,12 @@
 				for="refreshEverySecond"
 				class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 			>
-				Refresh Every Second
+				{m.troubleshooters_extension_window_refresh_every_second()}
 			</label>
 		</div>
 		<span class="flex items-center space-x-2">
-			<Button size="sm" onclick={refresh}>Refresh</Button>
-			<span>Refreshed {refreshCount} times</span>
+			<Button size="sm" onclick={refresh}>{m.troubleshooters_extension_window_refresh()}</Button>
+			<span>{m.troubleshooters_extension_window_refreshed({ count: refreshCount })}</span>
 		</span>
 	</div>
 	<ScrollArea class="py-5" orientation="both">

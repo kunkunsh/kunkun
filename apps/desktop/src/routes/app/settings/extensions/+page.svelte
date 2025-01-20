@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as m from "@/paraglide/messages"
 	import { appConfig, devStoreExts, extensions, installedStoreExts } from "@/stores"
 	import { ExtPackageJsonExtra } from "@kksh/api/models"
 	import * as extAPI from "@kksh/extension"
@@ -53,16 +54,16 @@
 	</Table.Row>
 {/snippet}
 <main class="container">
-	<h1 class="text-2xl font-bold">Your Extensions</h1>
+	<h1 class="text-2xl font-bold">{m.settings_extensions_title()}</h1>
 	<Table.Root>
-		<Table.Caption>Your Extensions</Table.Caption>
+		<Table.Caption>{m.settings_extensions_title()}</Table.Caption>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head>Name</Table.Head>
-				<Table.Head>Identifier</Table.Head>
-				<Table.Head>Type</Table.Head>
-				<Table.Head>Version</Table.Head>
-				<Table.Head>Uninstall</Table.Head>
+				<Table.Head>{m.settings_extensions_table_col_name()}</Table.Head>
+				<Table.Head>{m.settings_extensions_table_col_identifier()}</Table.Head>
+				<Table.Head>{m.settings_extensions_table_col_type()}</Table.Head>
+				<Table.Head>{m.settings_extensions_table_col_version()}</Table.Head>
+				<Table.Head>{m.settings_extensions_table_col_uninstall()}</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>

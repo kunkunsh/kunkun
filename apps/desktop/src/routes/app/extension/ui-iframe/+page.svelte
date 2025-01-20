@@ -1,5 +1,6 @@
 <script lang="ts">
 	import DanceTransition from "@/components/dance/dance-transition.svelte"
+	import { i18n } from "@/i18n"
 	import { appConfig, winExtMap } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goHome } from "@/utils/route"
@@ -51,7 +52,7 @@
 	const iframeUiAPI: IUiIframeServer2 = {
 		goBack: async () => {
 			if (isInMainWindow()) {
-				goto("/app/")
+				goto(i18n.resolveRoute("/app/"))
 			} else {
 				appWin.close()
 			}
