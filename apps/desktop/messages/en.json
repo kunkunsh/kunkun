@@ -6,7 +6,20 @@
 
 	"common_edit": "Edit",
 	"common_clear": "Clear",
+	"common_check": "Check",
 	"common_install": "Install",
+
+	"home_command_input_placeholder": "Type a command or search...",
+	"home_command_input_dropdown_quit": "Quit",
+	"home_command_input_dropdown_developer_title": "Developer",
+	"home_command_input_dropdown_close_window": "Close Window",
+	"home_command_input_dropdown_toggle_devtools": "Toggle Devtools",
+	"home_command_input_dropdown_reload_window": "Reload Window",
+	"home_command_input_dropdown_toggle_dev_extension_hmr": "Toggle Dev Extension HMR",
+
+	"command_group_heading_dev_ext": "Dev Extensions",
+	"command_group_heading_ext": "Extensions",
+	"command_group_heading_quick_links": "Quick Links",
 
 	"settings_menu_settings": "Settings",
 	"settings_menu_general": "General",
@@ -49,5 +62,20 @@
 	"settings_add_dev_ext_install_from_ext_files": "Install from Extension Tarball File",
 	"settings_add_dev_ext_drag_and_drop": "Drag and Drop",
 	"settings_add_dev_ext_drag_and_drop2": "Extension Folder or Tarball",
-	"settings_add_dev_ext_install_tarball_from_url": "Install Tarball From URL"
+	"settings_add_dev_ext_install_tarball_from_url": "Install Tarball From URL",
+
+	"troubleshooters_sidebar_title": "Troubleshooters",
+	"troubleshooters_sidebar_extension_loading_title": "Extension Loading",
+	"troubleshooters_sidebar_extension_window_title": "Extension Window",
+	"troubleshooters_sidebar_mdns_debugger_title": "MDNS Debugger",
+
+	"troubleshooters_extension_window_title": "Extension Window Troubleshooter",
+	"troubleshooters_extension_window_refresh_every_second": "Refresh Every Second",
+	"troubleshooters_extension_window_refresh": "Refresh",
+	"troubleshooters_extension_window_refreshed": "Refreshed {count} times",
+
+	"troubleshooters_extension_loading_title": "Extension Loading Troubleshooter",
+	"troubleshooters_extension_loading_table_col_identifier": "Identifier",
+	"troubleshooters_extension_loading_table_col_path": "Path",
+	"troubleshooters_extension_loading_table_col_error": "Error"
 }

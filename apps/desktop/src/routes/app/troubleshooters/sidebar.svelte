@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { i18n } from "@/i18n"
+	import * as m from "@/paraglide/messages"
 	import { goHome } from "@/utils/route"
 	import { Button, SideBar } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
@@ -10,18 +12,18 @@
 	let { class: className }: { class?: string } = $props()
 	const items = [
 		{
-			title: "Extension Loading",
-			url: "/app/troubleshooters/extension-loading",
+			title: m.troubleshooters_sidebar_extension_loading_title(),
+			url: i18n.resolveRoute("/app/troubleshooters/extension-loading"),
 			icon: Loader
 		},
 		{
-			title: "Extension Window",
-			url: "/app/troubleshooters/extension-window",
+			title: m.troubleshooters_sidebar_extension_window_title(),
+			url: i18n.resolveRoute("/app/troubleshooters/extension-window"),
 			icon: AppWindow
 		},
 		{
-			title: "MDNS Debugger",
-			url: "/app/troubleshooters/mdns-debugger",
+			title: m.troubleshooters_sidebar_mdns_debugger_title(),
+			url: i18n.resolveRoute("/app/troubleshooters/mdns-debugger"),
 			icon: Network
 		}
 	]
@@ -45,7 +47,9 @@
 	</SideBar.Header>
 	<SideBar.Content>
 		<SideBar.Group>
-			<SideBar.GroupLabel data-tauri-drag-region>Settings</SideBar.GroupLabel>
+			<SideBar.GroupLabel data-tauri-drag-region>
+				{m.troubleshooters_sidebar_title()}
+			</SideBar.GroupLabel>
 			<SideBar.GroupContent>
 				<SideBar.Menu>
 					{#each items as item (item.title)}

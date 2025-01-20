@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { goBackOnEscape } from "@/utils/key"
-	import { goBack } from "@/utils/route"
+	import * as m from "@/paraglide/messages"
 	import { db } from "@kksh/api/commands"
 	import { loadExtensionManifestFromDisk } from "@kksh/extension"
-	import { Button, Dialog, ScrollArea, Table } from "@kksh/svelte5"
+	import { Button, Dialog, Table } from "@kksh/svelte5"
 	import { join } from "@tauri-apps/api/path"
 	import { exists } from "@tauri-apps/plugin-fs"
-	import { ArrowLeftIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
 	import { toast } from "svelte-sonner"
 	import { open } from "tauri-plugin-shellx-api"
@@ -78,8 +76,8 @@
 </script>
 
 <div class="container">
-	<h1 class="text-2xl font-bold">Extension Loading Troubleshooter</h1>
-	<Button class="my-2" onclick={check}>Check</Button>
+	<h1 class="text-2xl font-bold">{m.troubleshooters_extension_loading_title()}</h1>
+	<Button class="my-2" onclick={check}>{m.common_check()}</Button>
 	<Dialog.Root bind:open={isDialogOpen}>
 		<Dialog.Content class="sm:max-w-[425px]">
 			<Dialog.Header>
@@ -92,9 +90,11 @@
 		<Table.Caption>A list of your extensions.</Table.Caption>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head class="">Identifier</Table.Head>
-				<Table.Head>Path</Table.Head>
-				<Table.Head>Error</Table.Head>
+				<Table.Head class=""
+					>{m.troubleshooters_extension_loading_table_col_identifier()}</Table.Head
+				>
+				<Table.Head>{m.troubleshooters_extension_loading_table_col_path()}</Table.Head>
+				<Table.Head>{m.troubleshooters_extension_loading_table_col_error()}</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
