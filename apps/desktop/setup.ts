@@ -8,7 +8,9 @@ import fs from "fs"
 /* -------------------------------------------------------------------------- */
 console.log("Downloading Dance Data...")
 const rawData = await fetch("https://dance.kunkun.sh/api/data").then((res) => res.text())
-fs.mkdirSync("./src/data", { recursive: true })
+if (!fs.existsSync("./src/data")) {
+	fs.mkdirSync("./src/data", { recursive: true })
+}
 function formatFileSize(size: number) {
 	return `${(size / 1024).toFixed(2)} KB`
 }
