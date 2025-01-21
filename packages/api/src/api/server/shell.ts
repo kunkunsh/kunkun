@@ -84,8 +84,10 @@ export function constructShellApi(
 		program: string,
 		args: string[],
 		options: InternalSpawnOptions
-	): Promise<ChildProcess<IOPayload>> {
-		await verifyShellCmdPermission(ShellPermissionMap.execute, objectPermissions, program, args)
+	): Promise<ChildProcess<IOPayload>> {		
+		await verifyShellCmdPermission(ShellPermissionMap.execute, objectPermissions, program, args).catch(err => {
+			throw new Error(err)
+		})
 		return invoke<ChildProcess<IOPayload>>("plugin:shellx|execute", {
 			program: program,
 			args: args,
