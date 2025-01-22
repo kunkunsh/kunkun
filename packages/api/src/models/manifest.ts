@@ -134,7 +134,7 @@ export type KunkunExtManifest = v.InferOutput<typeof KunkunExtManifest>
 const Person = v.union([
 	v.object({
 		name: v.string("GitHub Username"),
-		email: v.string("Email of the person"),
+		email: v.optional(v.nullable(v.string("Email of the person"))),
 		url: v.optional(v.nullable(v.string("URL of the person")))
 	}),
 	v.string("GitHub Username")
