@@ -167,6 +167,7 @@ export type License = v.InferOutput<typeof License>
 export const ExtPackageJson = v.object({
 	name: v.string("Package name for the extension (just a regular npm package name)"),
 	version: v.string("Version of the extension"),
+	readme: v.optional(v.string("Custom README.md path of the extension")),
 	license: License,
 	author: v.optional(Person),
 	draft: v.optional(v.boolean("Whether the extension is a draft, draft will not be published")),
