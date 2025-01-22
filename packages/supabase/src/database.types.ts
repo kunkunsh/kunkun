@@ -65,6 +65,7 @@ export type Database = {
           metadata: Json | null
           name: string
           package_json: Json | null
+          readme: string | null
           shasum: string
           size: number
           tarball_path: string
@@ -83,6 +84,7 @@ export type Database = {
           metadata?: Json | null
           name: string
           package_json?: Json | null
+          readme?: string | null
           shasum: string
           size: number
           tarball_path: string
@@ -101,6 +103,7 @@ export type Database = {
           metadata?: Json | null
           name?: string
           package_json?: Json | null
+          readme?: string | null
           shasum?: string
           size?: number
           tarball_path?: string
