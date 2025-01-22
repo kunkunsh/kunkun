@@ -11,8 +11,10 @@
 	import * as v from "valibot"
 	import DialogImageCarousel from "../common/DialogImageCarousel.svelte"
 	import PlatformsIcons from "../common/PlatformsIcons.svelte"
+	import TauriLink from "../common/TauriLink.svelte"
 	import GitHubProvenanceCard from "./GitHubProvenanceCard.svelte"
 	import PermissionInspector from "./PermissionInspector.svelte"
+	import Markdown from "./templates/Markdown.svelte"
 
 	let {
 		extPublish,
@@ -25,6 +27,7 @@
 		onInstallSelected,
 		onUpgradeSelected,
 		onUninstallSelected,
+		packageJson,
 		showBtn,
 		loading,
 		imageDialogOpen = $bindable(false)
@@ -32,6 +35,7 @@
 		extPublish: Tables<"ext_publish">
 		ext: Tables<"extensions">
 		installedExt?: ExtPackageJson
+		packageJson: ExtPackageJson | null
 		manifest: KunkunExtManifest
 		demoImages: string[]
 		class?: string
@@ -128,6 +132,19 @@
 		{/if}
 	</Button>
 {/snippet}
+
+{#snippet person(author: ExtPackageJson["author"])}
+	{#if author}
+		{#if typeof author === "string"}
+			<span>{author}</span>
+		{:else if author.url}
+			<TauriLink href={author.url}>{author.name}</TauriLink>
+		{:else}
+			<span>{author.name}</span>
+		{/if}
+	{/if}
+{/snippet}
+
 <div data-tauri-drag-region class="h-14"></div>
 <ScrollArea class={cn("w-full pb-12", className)}>
 	<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
@@ -242,6 +259,23 @@
 			{/each}
 		{/if}
 	</ul>
+	<Separator class="my-3" />
+	<h2 class="text-lg font-bold">Author</h2>
+	{#if packageJson?.author}
+		{@render person(packageJson?.author)}
+	{:else}
+		<span>N/A</span>
+	{/if}
+	<h2 class="text-lg font-bold">Contributors</h2>
+	{#each packageJson?.contributors ?? [] as contributor}
+		{@render person(contributor)}
+	{/each}
+
+	<Separator class="my-3" />
+	<h2 class="text-lg font-bold">README</h2>
+	{#if extPublish?.readme}
+		<Markdown markdown={extPublish.readme} />
+	{/if}
 </ScrollArea>
 
 <footer class="fixed bottom-0 mb-1 flex h-10 w-full space-x-2 px-2" use:autoAnimate>
