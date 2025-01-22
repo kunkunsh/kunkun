@@ -345,6 +345,17 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 	}
 
 	/* -------------------------------------------------------------------------- */
+	/*                             get README content                             */
+	/* -------------------------------------------------------------------------- */
+
+	const readmeContent = await getJsrPackageSrcFile(
+		payload.jsrPackage.scope,
+		payload.jsrPackage.name,
+		payload.jsrPackage.version,
+		parseResult.output.readme ?? "README.md"
+	)
+
+	/* -------------------------------------------------------------------------- */
 	/*                      get @kksh/api dependency version                      */
 	/* -------------------------------------------------------------------------- */
 	const apiVersion = parseResult.output.dependencies?.["@kksh/api"]
@@ -357,6 +368,7 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 	return {
 		data: {
 			pkgJson: parseResult.output,
+			readmeContent,
 			tarballUrl,
 			license: parseResult.output.license,
 			shasum,
