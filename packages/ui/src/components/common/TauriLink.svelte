@@ -15,7 +15,7 @@
 		children: Snippet
 	} = $props()
 
-	// @ts-ignore
+	// @ts-expect-error window.__TAURI_INTERNALS__ is not defined in the browser
 	const isInTauri = browser ? !!window.__TAURI_INTERNALS__ : false
 	function handleClick() {
 		open(href)
