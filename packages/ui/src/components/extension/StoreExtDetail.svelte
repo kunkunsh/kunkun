@@ -286,7 +286,7 @@
 	<Separator class="my-3" />
 	<h2 class="text-lg font-bold">README</h2>
 	{#if extPublish?.readme}
-		<Markdown markdown={extPublish.readme} class="bg-slate-200 p-4 dark:bg-slate-800" />
+		<Markdown markdown={extPublish.readme} class="bg-secondary p-4 max-w-full rounded-md" />
 	{/if}
 </ScrollArea>
 
