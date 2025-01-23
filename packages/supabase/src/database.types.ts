@@ -134,6 +134,7 @@ export type Database = {
           name: string
           readme: string | null
           short_description: string
+          tarball_size: number | null
           version: string
         }
         Insert: {
@@ -147,6 +148,7 @@ export type Database = {
           name: string
           readme?: string | null
           short_description: string
+          tarball_size?: number | null
           version: string
         }
         Update: {
@@ -160,6 +162,7 @@ export type Database = {
           name?: string
           readme?: string | null
           short_description?: string
+          tarball_size?: number | null
           version?: string
         }
         Relationships: []
