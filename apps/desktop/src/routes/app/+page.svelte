@@ -34,13 +34,13 @@
 	import { goto } from "$app/navigation"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
-	import { toast } from "svelte-sonner"
 
+	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)
 	function onKeyDown(event: KeyboardEvent) {
 		if (event.key === "Escape") {
 			if ((event.target as HTMLInputElement).value === "") {
-				getCurrentWindow().hide()
+				win.hide()
 			} else {
 				;(event.target as HTMLInputElement).value = ""
 				$appState.searchTerm = ""
@@ -49,16 +49,19 @@
 	}
 
 	onMount(() => {
-		Promise.all([Window.getByLabel("splashscreen"), getCurrentWindow()]).then(
-			([splashscreenWin, mainWin]) => {
-				if (splashscreenWin) {
-					splashscreenWin.close()
-				}
-
-				mainWin.show()
+		Window.getByLabel("splashscreen").then((splashscreenWin) => {
+			if (splashscreenWin) {
+				splashscreenWin.close()
 			}
-		)
-
+			win.show()
+		})
+		win.onFocusChanged(({ payload: focused }) => {
+			if (focused) {
+				win.show()
+				inputEle?.focus()
+			}
+		})
+		inputEle?.focus()
 		appConfigLoaded.subscribe((loaded) => {
 			// wait for appConfig store to be loaded, it's async and saved to disk when changed, so we use another store appConfigLoaded
 			// to keep track of the loading status

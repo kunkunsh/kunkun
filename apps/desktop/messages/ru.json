@@ -9,7 +9,7 @@
 	"common_check": "Проверить",
 	"common_install": "Установить",
 
-	"home_command_input_placeholder": "Введите команду или поисковый запрос…",
+	"home_command_input_placeholder": "Нажмите \"/\" для поиска...",
 	"home_command_input_dropdown_quit": "Выйти",
 	"home_command_input_dropdown_developer_title": "Разработчик",
 	"home_command_input_dropdown_close_window": "Закрыть окно",

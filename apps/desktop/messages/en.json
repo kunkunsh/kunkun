@@ -9,7 +9,7 @@
 	"common_check": "Check",
 	"common_install": "Install",
 
-	"home_command_input_placeholder": "Type a command or search...",
+	"home_command_input_placeholder": "Type \"\/\" to search...",
 	"home_command_input_dropdown_quit": "Quit",
 	"home_command_input_dropdown_developer_title": "Developer",
 	"home_command_input_dropdown_close_window": "Close Window",
