@@ -67,6 +67,5 @@ describe("NPM API", () => {
 			githubUsername: "huakunshen"
 		})
 		expect(result.error).toBeUndefined()
-		console.log(result.data)
 	})
 })
