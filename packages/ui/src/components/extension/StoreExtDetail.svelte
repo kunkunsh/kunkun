@@ -8,6 +8,7 @@
 	import { Constants, IconMultiplexer } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
 	import { CircleCheckBigIcon, MoveRightIcon, Trash2Icon } from "lucide-svelte"
+	import prettyBytes from "pretty-bytes"
 	import * as v from "valibot"
 	import DialogImageCarousel from "../common/DialogImageCarousel.svelte"
 	import PlatformsIcons from "../common/PlatformsIcons.svelte"
@@ -166,6 +167,7 @@
 				<pre class="text-muted-foreground text-xs">{extPublish.identifier}</pre>
 				<pre class="text-muted-foreground text-xs">Version: {extPublish.version}</pre>
 				<pre class="text-muted-foreground text-xs">Downloads: {ext.downloads}</pre>
+				<pre class="text-muted-foreground text-xs">Size: {prettyBytes(extPublish.tarball_size)}</pre>
 			</div>
 		</div>
 		<div class="flex items-center space-x-2">

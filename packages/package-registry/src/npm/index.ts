@@ -7,6 +7,7 @@ import {
 } from "../github"
 import type { ExtensionPublishValidationData } from "../models"
 import { getInfoFromRekorLog } from "../sigstore"
+import { getTarballSize } from "../utils"
 import {
 	NpmPkgMetadata,
 	NpmPkgVersionMetadata,
@@ -195,7 +196,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 	if (!packageJson) {
 		return { error: "Could not find package.json in NPM package" }
 	}
-	
+
 	if (!packageJson.license) {
 		return { error: "Package license field is not found" }
 	}
@@ -207,7 +208,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 
 	const parseResult = v.safeParse(ExtPackageJson, packageJson)
 	if (!parseResult.success) {
-		console.log(v.flatten(parseResult.issues))
+		console.error(v.flatten(parseResult.issues))
 		return { error: `package.json format not valid` }
 	}
 	/* -------------------------------------------------------------------------- */
@@ -221,10 +222,6 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 	if (!shasum) {
 		return { error: "Could not get shasum for NPM package" }
 	}
-	const tarballSize = packageJson.dist?.unpackedSize
-	if (!tarballSize) {
-		return { error: "Could not get tarball size for NPM package" }
-	}
 
 	const apiVersion = parseResult.output.dependencies?.["@kksh/api"]
 	if (!apiVersion) {
@@ -232,7 +229,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 			error: `Extension ${parseResult.output.kunkun.identifier} doesn't not have @kksh/api as a dependency`
 		}
 	}
-
+	const tarballSize = await getTarballSize(tarballUrl, "GET") // NPM HEAD request doesn't support content-length
 	return {
 		data: {
 			pkgJson: parseResult.output,
@@ -241,6 +238,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 			shasum,
 			apiVersion,
 			tarballSize,
+			unpackedSize: packageJson.dist?.unpackedSize,
 			rekorLogIndex: logIndex,
 			github: {
 				githubActionInvocationId: rekorGit.githubActionInvocationId,

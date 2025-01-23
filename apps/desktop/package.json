@@ -16,11 +16,13 @@
 	"license": "MIT",
 	"dependencies": {
 		"@formkit/auto-animate": "^0.8.2",
+		"@inlang/paraglide-sveltekit": "0.15.5",
 		"@kksh/extension": "workspace:*",
 		"@kksh/supabase": "workspace:*",
 		"@kksh/ui": "workspace:*",
 		"@kksh/utils": "workspace:*",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
+		"@supabase/supabase-js": "^2.48.0",
 		"@tanstack/table-core": "^8.20.5",
 		"@tauri-apps/api": "^2.1.1",
 		"@tauri-apps/plugin-shell": "^2.2.0",
@@ -35,11 +37,11 @@
 		"sveltekit-superforms": "^2.22.1",
 		"tauri-plugin-clipboard-api": "^2.1.11",
 		"tauri-plugin-user-input-api": "workspace:*",
-		"uuid": "^11.0.3",
-		"@inlang/paraglide-sveltekit": "0.15.5"
+		"uuid": "^11.0.3"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.18.0",
+		"@inlang/paraglide-js": "1.11.8",
 		"@kksh/types": "workspace:*",
 		"@sveltejs/adapter-static": "^3.0.6",
 		"@sveltejs/kit": "^2.12.1",
@@ -69,7 +71,6 @@
 		"tslib": "^2.8.1",
 		"typescript": "^5.6.3",
 		"typescript-eslint": "^8.20.0",
-		"vite": "^6.0.3",
-		"@inlang/paraglide-js": "1.11.8"
+		"vite": "^6.0.3"
 	}
 }

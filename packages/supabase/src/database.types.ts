@@ -67,8 +67,9 @@ export type Database = {
           package_json: Json | null
           readme: string | null
           shasum: string
-          size: number
           tarball_path: string
+          tarball_size: number
+          unpacked_size: number | null
           version: string
         }
         Insert: {
@@ -86,8 +87,9 @@ export type Database = {
           package_json?: Json | null
           readme?: string | null
           shasum: string
-          size: number
           tarball_path: string
+          tarball_size: number
+          unpacked_size?: number | null
           version: string
         }
         Update: {
@@ -105,8 +107,9 @@ export type Database = {
           package_json?: Json | null
           readme?: string | null
           shasum?: string
-          size?: number
           tarball_path?: string
+          tarball_size?: number
+          unpacked_size?: number | null
           version?: string
         }
         Relationships: [

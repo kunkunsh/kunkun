@@ -7,7 +7,7 @@
 	},
 	"devDependencies": {
 		"@kksh/supabase": "workspace:*",
-		"@supabase/supabase-js": "^2.47.16",
+		"@supabase/supabase-js": "^2.48.0",
 		"@kksh/ci": "workspace:*",
 		"@types/bun": "latest"
 	},

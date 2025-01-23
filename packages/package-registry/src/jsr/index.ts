@@ -1,3 +1,4 @@
+import https from "https"
 import {
 	client,
 	getPackage,

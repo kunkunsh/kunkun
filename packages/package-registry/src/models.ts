@@ -67,6 +67,7 @@ export const ExtensionPublishValidationData = v.object({
 	apiVersion: v.string(),
 	rekorLogIndex: v.string(),
 	tarballSize: v.number(),
+	unpackedSize: v.optional(v.number()),
 	license: License,
 	github: v.object({
 		githubActionInvocationId: v.string(),
