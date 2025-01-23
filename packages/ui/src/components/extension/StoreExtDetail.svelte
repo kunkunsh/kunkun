@@ -8,11 +8,14 @@
 	import { Constants, IconMultiplexer } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
 	import { CircleCheckBigIcon, MoveRightIcon, Trash2Icon } from "lucide-svelte"
+	import prettyBytes from "pretty-bytes"
 	import * as v from "valibot"
 	import DialogImageCarousel from "../common/DialogImageCarousel.svelte"
 	import PlatformsIcons from "../common/PlatformsIcons.svelte"
+	import TauriLink from "../common/TauriLink.svelte"
 	import GitHubProvenanceCard from "./GitHubProvenanceCard.svelte"
 	import PermissionInspector from "./PermissionInspector.svelte"
+	import Markdown from "./templates/Markdown.svelte"
 
 	let {
 		extPublish,
@@ -25,6 +28,7 @@
 		onInstallSelected,
 		onUpgradeSelected,
 		onUninstallSelected,
+		packageJson,
 		showBtn,
 		loading,
 		imageDialogOpen = $bindable(false)
@@ -32,6 +36,7 @@
 		extPublish: Tables<"ext_publish">
 		ext: Tables<"extensions">
 		installedExt?: ExtPackageJson
+		packageJson: ExtPackageJson | null
 		manifest: KunkunExtManifest
 		demoImages: string[]
 		class?: string
@@ -128,6 +133,19 @@
 		{/if}
 	</Button>
 {/snippet}
+
+{#snippet person(author: ExtPackageJson["author"])}
+	{#if author}
+		{#if typeof author === "string"}
+			<span>{author}</span>
+		{:else if author.url}
+			<TauriLink href={author.url}>{author.name}</TauriLink>
+		{:else}
+			<span>{author.name}</span>
+		{/if}
+	{/if}
+{/snippet}
+
 <div data-tauri-drag-region class="h-14"></div>
 <ScrollArea class={cn("w-full pb-12", className)}>
 	<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
@@ -149,6 +167,9 @@
 				<pre class="text-muted-foreground text-xs">{extPublish.identifier}</pre>
 				<pre class="text-muted-foreground text-xs">Version: {extPublish.version}</pre>
 				<pre class="text-muted-foreground text-xs">Downloads: {ext.downloads}</pre>
+				<pre class="text-muted-foreground text-xs">
+					Size: {prettyBytes(extPublish.tarball_size)}
+				</pre>
 			</div>
 		</div>
 		<div class="flex items-center space-x-2">
@@ -221,27 +242,52 @@
 	<div class="text-sm">{manifest?.shortDescription}</div>
 	<div class="text-sm">{manifest?.longDescription}</div>
 	<Separator class="my-3" />
-	<h2 class="text-lg font-bold">Commands</h2>
-
-	<ul>
-		{#if manifest}
-			{#each [...(manifest.customUiCmds ?? []), ...(manifest.templateUiCmds ?? [])] as cmd}
-				<li>
-					<div class="flex items-center space-x-3">
-						{#if manifest}
-							<IconMultiplexer icon={manifest.icon} class="inline h-6 w-6" />
-						{/if}
-						<div>
-							<span class="text-dm">{cmd.name}</span>
-							<h2 class="text-xs">{cmd.description}</h2>
-						</div>
-						<PlatformsIcons platforms={cmd.platforms} />
-					</div>
-					<Separator class="my-3" />
-				</li>
-			{/each}
-		{/if}
-	</ul>
+	<div class="grid grid-cols-3 gap-4">
+		<div class="col-span-2">
+			<h2 class="text-lg font-bold">Commands</h2>
+			<ul>
+				{#if manifest}
+					{#each [...(manifest.customUiCmds ?? []), ...(manifest.templateUiCmds ?? [])] as cmd}
+						<li>
+							<div class="flex items-center space-x-3">
+								{#if manifest}
+									<IconMultiplexer icon={manifest.icon} class="inline h-6 w-6" />
+								{/if}
+								<div>
+									<span class="text-dm">{cmd.name}</span>
+									<h2 class="text-xs">{cmd.description}</h2>
+								</div>
+								<PlatformsIcons platforms={cmd.platforms} />
+							</div>
+							<Separator class="my-3" />
+						</li>
+					{/each}
+				{/if}
+			</ul>
+		</div>
+		<div>
+			<h2 class="text-lg font-bold">Author</h2>
+			{#if packageJson?.author}
+				<ul class="list-disc pl-5">
+					<li>{@render person(packageJson?.author)}</li>
+				</ul>
+			{:else}
+				<span>N/A</span>
+			{/if}
+			<br />
+			<h2 class="text-lg font-bold">Contributors</h2>
+			<ul class="list-disc pl-5">
+				{#each packageJson?.contributors ?? [] as contributor}
+					<li>{@render person(contributor)}</li>
+				{/each}
+			</ul>
+		</div>
+	</div>
+	<Separator class="my-3" />
+	<h2 class="text-lg font-bold">README</h2>
+	{#if extPublish?.readme}
+		<Markdown markdown={extPublish.readme} class="bg-secondary p-4 max-w-full rounded-md" />
+	{/if}
 </ScrollArea>
 
 <footer class="fixed bottom-0 mb-1 flex h-10 w-full space-x-2 px-2" use:autoAnimate>

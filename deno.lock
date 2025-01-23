@@ -5715,7 +5715,7 @@
     "@supabase/ssr@0.5.2_@supabase+supabase-js@2.47.12": {
       "integrity": "sha512-n3plRhr2Bs8Xun1o4S3k1CDv17iH5QY9YcoEvXX3bxV1/5XSasA0mNXYycFmADIdtdE6BG9MRjP5CGIs8qxC8A==",
       "dependencies": [
-        "@supabase/supabase-js",
+        "@supabase/supabase-js": "^2.48.0"
         "@types/cookie",
         "cookie@0.7.2"
       ]

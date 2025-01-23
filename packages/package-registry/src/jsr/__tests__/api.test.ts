@@ -60,6 +60,16 @@ describe("Test the helper functions", () => {
 		expect(parsed).toBeDefined()
 	})
 
+	test("Get Package's README", async () => {
+		const readme = await getJsrPackageSrcFile(
+			"kunkun",
+			"ext-image-processing",
+			"0.0.20",
+			"README.md"
+		)
+		expect(readme).toBeDefined()
+	})
+
 	test("Get Package's README.md", async () => {
 		const readme = await getJsrPackageSrcFile("kunkun", "api", "0.0.47", "README.md")
 		expect(readme).toBeDefined()

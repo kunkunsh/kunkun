@@ -62,10 +62,12 @@ export type SigstoreAttestation = v.InferOutput<typeof SigstoreAttestation>
 export const ExtensionPublishValidationData = v.object({
 	pkgJson: ExtPackageJson,
 	tarballUrl: v.string(),
+	readmeContent: v.optional(v.string()),
 	shasum: v.string(),
 	apiVersion: v.string(),
 	rekorLogIndex: v.string(),
 	tarballSize: v.number(),
+	unpackedSize: v.optional(v.number()),
 	license: License,
 	github: v.object({
 		githubActionInvocationId: v.string(),

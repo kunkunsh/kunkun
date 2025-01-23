@@ -26,7 +26,7 @@
 		<div class="flex w-60 items-center space-x-4">
 			<BadgeCheckIcon class="h-8 w-8 text-green-500" />
 			<div>
-				<span class="text-sm text-gray-200">Built and signed on</span>
+				<span class="text-sm text-gray-800 dark:text-gray-200">Built and signed on</span>
 				<h1 class="text-xl font-bold">GitHub Actions</h1>
 				<a href={githubActionInvocationId} class="text-sm underline" target="_blank">
 					View build summary

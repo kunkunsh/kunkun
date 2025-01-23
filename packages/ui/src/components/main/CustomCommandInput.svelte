@@ -23,6 +23,7 @@
 			"placeholder:text-muted-foreground flex h-10 w-full select-none rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50",
 			className
 		)}
+		autofocus
 		bind:ref
 		bind:value
 		{...restProps}

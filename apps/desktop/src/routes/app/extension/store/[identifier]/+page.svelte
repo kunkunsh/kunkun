@@ -4,6 +4,7 @@
 	import { extensions, installedStoreExts } from "@/stores/extensions.js"
 	import { supabaseAPI } from "@/supabase"
 	import { goBack } from "@/utils/route.js"
+	import { ExtPackageJson } from "@kksh/api/models"
 	import { ExtPublishMetadata } from "@kksh/supabase/models"
 	import type { Tables } from "@kksh/supabase/types"
 	import { Button } from "@kksh/svelte5"
@@ -17,7 +18,8 @@
 	import { onMount } from "svelte"
 	import { toast } from "svelte-sonner"
 	import { derived as storeDerived } from "svelte/store"
-	import { getInstallExtras } from "./helper.js"
+	import * as v from "valibot"
+	import { getInstallExtras } from "./helper"
 
 	const { data } = $props()
 	const extPublish: Tables<"ext_publish"> & { metadata: ExtPublishMetadata } = $derived(
@@ -27,6 +29,11 @@
 	const manifest = $derived(data.manifest)
 	const installedExt = storeDerived(installedStoreExts, ($e) => {
 		return $e.find((e) => e.kunkun.identifier === extPublish.identifier)
+	})
+
+	const packageJson = $derived.by(() => {
+		const parsed = v.safeParse(ExtPackageJson, data.extPublish.package_json)
+		return parsed.success ? parsed.output : null
 	})
 
 	const isUpgradable = $derived(
@@ -168,6 +175,7 @@
 </Button>
 <StoreExtDetail
 	class="px-5"
+	{packageJson}
 	{extPublish}
 	{ext}
 	{manifest}

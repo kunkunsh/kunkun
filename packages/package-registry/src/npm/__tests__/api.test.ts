@@ -59,4 +59,13 @@ describe("NPM API", () => {
 		expect(await npmPackageExists("kunkun-ext-ossinsight", "0.0.1")).toBe(true)
 		expect(await npmPackageExists("kunkun-ext-non-existing", "0.0.1")).toBe(false)
 	})
+
+	test("validate npm package as kunkun extension", async () => {
+		const result = await validateNpmPackageAsKunkunExtension({
+			pkgName: "kunkun-ext-hacker-news",
+			version: "0.0.10",
+			githubUsername: "huakunshen"
+		})
+		expect(result.error).toBeUndefined()
+	})
 })

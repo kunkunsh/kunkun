@@ -15,8 +15,8 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0(svelte@5.16.6)
       '@supabase/supabase-js':
-        specifier: ^2.47.11
-        version: 2.47.11
+        specifier: ^2.48.0
+        version: 2.48.0
       '@tauri-apps/api':
         specifier: ^2.2.0
         version: 2.2.0
@@ -150,7 +150,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
@@ -190,7 +190,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -227,6 +227,9 @@ importers:
       '@std/semver':
         specifier: npm:@jsr/std__semver@^1.0.3
         version: '@jsr/std__semver@1.0.3'
+      '@supabase/supabase-js':
+        specifier: ^2.48.0
+        version: 2.48.0
       '@tanstack/table-core':
         specifier: ^8.20.5
         version: 8.20.5
@@ -308,7 +311,7 @@ importers:
         version: 2.1.0
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
@@ -459,7 +462,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
       '@types/lodash':
         specifier: ^4.17.14
         version: 4.17.14
@@ -499,7 +502,7 @@ importers:
         version: link:../typescript-config
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
 
   packages/config-eslint:
     dependencies:
@@ -542,7 +545,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
 
   packages/extensions/demo-worker-template-ext:
     dependencies:
@@ -567,7 +570,7 @@ importers:
         version: 11.1.6(rollup@4.30.1)(tslib@2.8.1)(typescript@5.6.3)
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.30.1)
@@ -674,7 +677,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
 
   packages/grpc:
     dependencies:
@@ -693,7 +696,7 @@ importers:
         version: 0.7.13
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
       '@types/google-protobuf':
         specifier: ^3.15.12
         version: 3.15.12
@@ -708,7 +711,7 @@ importers:
     dependencies:
       '@huakunshen/jsr-client':
         specifier: ^0.1.5
-        version: 0.1.5(axios@1.7.9)(react@18.3.1)(typescript@5.7.2)
+        version: 0.1.5(axios@1.7.9)(react@18.3.1)(typescript@5.7.3)
       '@kksh/api':
         specifier: workspace:*
         version: link:../api
@@ -717,14 +720,14 @@ importers:
         version: 21.1.0
       typescript:
         specifier: ^5.0.0
-        version: 5.7.2
+        version: 5.7.3
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
       verify-package-export:
         specifier: ^0.0.2
-        version: 0.0.2(typescript@5.7.2)
+        version: 0.0.2(typescript@5.7.3)
 
   packages/schema:
     dependencies:
@@ -745,11 +748,11 @@ importers:
         specifier: workspace:*
         version: link:../supabase
       '@supabase/supabase-js':
-        specifier: ^2.47.16
-        version: 2.47.16
+        specifier: ^2.48.0
+        version: 2.48.0
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
       '@valibot/to-json-schema':
         specifier: 1.0.0-beta.4
         version: 1.0.0-beta.4(valibot@1.0.0-beta.10(typescript@5.6.3))
@@ -761,17 +764,17 @@ importers:
         version: link:../api
       '@supabase/ssr':
         specifier: ^0.5.2
-        version: 0.5.2(@supabase/supabase-js@2.47.12)
+        version: 0.5.2(@supabase/supabase-js@2.48.0)
       '@supabase/supabase-js':
-        specifier: ^2.47.12
-        version: 2.47.12
+        specifier: ^2.48.0
+        version: 2.48.0
       typescript:
         specifier: ^5.0.0
         version: 5.5.4
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
 
   packages/tauri-plugins/jarvis:
     dependencies:
@@ -786,11 +789,11 @@ importers:
         specifier: workspace:*
         version: link:../../supabase
       '@supabase/supabase-js':
-        specifier: ^2.47.16
-        version: 2.47.16
+        specifier: ^2.48.0
+        version: 2.48.0
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
 
   packages/templates/template-ext-headless:
     dependencies:
@@ -809,7 +812,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
 
   packages/templates/template-ext-next:
     dependencies:
@@ -1155,7 +1158,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
 
   packages/types:
     dependencies:
@@ -1165,7 +1168,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
 
   packages/typescript-config: {}
 
@@ -1192,6 +1195,9 @@ importers:
       gsap:
         specifier: ^3.12.7
         version: 3.12.7
+      pretty-bytes:
+        specifier: ^6.1.1
+        version: 6.1.1
       shiki-magic-move:
         specifier: ^0.5.2
         version: 0.5.2(react@18.3.1)(shiki@1.27.2)(svelte@5.16.6)(vue@3.5.13(typescript@5.7.3))
@@ -1219,7 +1225,7 @@ importers:
         version: 0.1.14(lucide-svelte@0.471.0(svelte@5.16.6))(svelte-sonner@0.3.28(svelte@5.16.6))(svelte@5.16.6)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.10.5)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.3))(typescript@5.7.3)
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.20.0
         version: 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3))(eslint@9.17.0(jiti@2.4.0))(typescript@5.7.3)
@@ -1298,7 +1304,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.1.17
+        version: 1.2.0
 
   vendors/tauri-plugin-keyring:
     dependencies:
@@ -4639,14 +4645,8 @@ packages:
     resolution: {integrity: sha512-1ibVeYUacxWYi9i0cf5efil6adJ9WRyZBLivgjs+AUpewx1F3xPi7gLgaASI2SmIQxPoCEjAsLAzKPgMJVgOUQ==}
     engines: {node: 4.x || >=6.0.0}
 
-  '@supabase/postgrest-js@1.17.10':
-    resolution: {integrity: sha512-GlcwOjEmPcXfaEU0wHg1MgHU+peR+zZFyaEWjr7a7EOCB1gCtw3nW7ABfnPPH411coXHV90eb/isDgT9HRshLg==}
-
-  '@supabase/postgrest-js@1.17.11':
-    resolution: {integrity: sha512-AOqqgQEhLVqzOMmA8Q0bxQFMfbozbjjQ1Tt4kprkstIKdRl4yZRaMdoVxFkCpU8ivmAe2xNfAVkNK+l16a9P0A==}
-
-  '@supabase/postgrest-js@1.17.9':
-    resolution: {integrity: sha512-HyMOyy3t6K0/oFNDlHryOhnK4sfMNip8J0LrqJ/65NrBlHD3xOcDf4OV/5YCHI4g195ByuQ0wfmyFqIgMl3dxg==}
+  '@supabase/postgrest-js@1.18.0':
+    resolution: {integrity: sha512-DqUEVF5ZFytrYLAuywnUR0srhZbzSoLZePMfGFamYMNdMttBLwAWXJNJ5kBDHn2gK2n87NwLsIshUbdyxPtpsw==}
 
   '@supabase/realtime-js@2.11.2':
     resolution: {integrity: sha512-u/XeuL2Y0QEhXSoIPZZwR6wMXgB+RQbJzG9VErA3VghVt7uRfSVsjeqd7m5GhX3JR6dM/WRmLbVR8URpDWG4+w==}
@@ -4659,14 +4659,8 @@ packages:
   '@supabase/storage-js@2.7.1':
     resolution: {integrity: sha512-asYHcyDR1fKqrMpytAS1zjyEfvxuOIp1CIXX7ji4lHHcJKqyk+sLl/Vxgm4sN6u8zvuUtae9e4kDxQP2qrwWBA==}
 
-  '@supabase/supabase-js@2.47.11':
-    resolution: {integrity: sha512-1gD7rxZFY0wl3abzJ75H62bi4wtkeOxHM0niu1/fIfWsVEDDLOfzfhgD0uTOwFx51Y+/s7+b9EHr3dhWwTYNDQ==}
-
-  '@supabase/supabase-js@2.47.12':
-    resolution: {integrity: sha512-My8X5K1KwOBFjQhAqIf7QJaQhP5EILjJwAgjzRNjstlMLJmdVBctwRYD6IGDWKzw+i6/aNGuRd5c9/pI/Y6UFw==}
-
-  '@supabase/supabase-js@2.47.16':
-    resolution: {integrity: sha512-FnoV0miLnYUL8ZTS94tSIyn+ogCwh5DB5f1fj1n4wHGNAqJSKFb8OQzLVlRFAH7cB9TKQ5eon3/n2lXUWY7GfA==}
+  '@supabase/supabase-js@2.48.0':
+    resolution: {integrity: sha512-8ql5ra3NOIHLBYoFZpxYHRx05J/FmJAQW9EYax0lU4DsU1/5PC4yb2hxMcCIf0oimLcBgsogIaAqba+/9jaUVg==}
 
   '@sveltejs/adapter-auto@3.3.1':
     resolution: {integrity: sha512-5Sc7WAxYdL6q9j/+D0jJKjGREGlfIevDyHSQ2eNETHcB1TKlQWHcAo8AS8H1QdjNvSXpvOwNjykDUHPEAyGgdQ==}
@@ -5020,8 +5014,8 @@ packages:
   '@types/btoa-lite@1.0.2':
     resolution: {integrity: sha512-ZYbcE2x7yrvNFJiU7xJGrpF/ihpkM7zKgw8bha3LNJSesvTtUNxbpzaT7WXBIryf6jovisrxTBvymxMeLLj1Mg==}
 
-  '@types/bun@1.1.17':
-    resolution: {integrity: sha512-zZt0Kao/8hAwNOXh4bmt8nKbMEd4QD8n7PeTGF+NZTVY5ouXhU/TX7jUj4He1p7mgY+WdplnU1B6MB1j17vdzg==}
+  '@types/bun@1.2.0':
+    resolution: {integrity: sha512-5N1JqdahfpBlAv4wy6svEYcd/YfO2GNrbL95JOmFx8nkE6dbK4R0oSE5SpBA4vBRqgrOUAXF8Dpiz+gi7r80SA==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -5202,9 +5196,6 @@ packages:
 
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
-
-  '@types/node@20.12.14':
-    resolution: {integrity: sha512-scnD59RpYD91xngrQQLGkE+6UrHUPzeKZWhhjBSa3HSkwjbQc38+q3RoIVEwxQGRw3M+j5hpNAM+lgV3cVormg==}
 
   '@types/node@20.17.6':
     resolution: {integrity: sha512-VEI7OdvK2wP7XHnsuXbAJnEpEkF6NjSN45QJlL4VGqZSXsnicpesdTWsg9RISeSdYd3yeRj/y3k5KGjUXYnFwQ==}
@@ -6020,8 +6011,8 @@ packages:
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
 
-  bun-types@1.1.44:
-    resolution: {integrity: sha512-jtcekoZeSINgEcHSISzhR13w/cyE+Fankw2Cpl4c0fN3lRmKVAX0i9ay4FyK4lOxUK1HG4HkuIlrPvXKz4Y7sw==}
+  bun-types@1.2.0:
+    resolution: {integrity: sha512-KEaJxyZfbV/c4eyG0vyehDpYmBGreNiQbZIqvVHJwZ4BmeuWlNZ7EAzMN2Zcd7ailmS/tGVW0BgYbGf+lGEpWw==}
 
   bundle-name@4.1.0:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
@@ -10907,9 +10898,6 @@ packages:
   unctx@2.3.1:
     resolution: {integrity: sha512-PhKke8ZYauiqh3FEMVNm7ljvzQiph0Mt3GBRve03IJm7ukfaON2OBK795tLwhbyfzknuRRkW0+Ze+CQUmzOZ+A==}
 
-  undici-types@5.26.5:
-    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
-
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
@@ -12979,6 +12967,22 @@ snapshots:
       openapi-typescript-helpers: 0.0.15
       openapi-zod-client: 1.18.2(react@18.3.1)
       typescript: 5.7.2
+      zod: 3.24.1
+    transitivePeerDependencies:
+      - axios
+      - debug
+      - react
+      - supports-color
+      - xstate
+
+  '@huakunshen/jsr-client@0.1.5(axios@1.7.9)(react@18.3.1)(typescript@5.7.3)':
+    dependencies:
+      '@hey-api/client-fetch': 0.6.0
+      '@zodios/core': 10.9.6(axios@1.7.9)(zod@3.24.1)
+      openapi-fetch: 0.13.4
+      openapi-typescript-helpers: 0.0.15
+      openapi-zod-client: 1.18.2(react@18.3.1)
+      typescript: 5.7.3
       zod: 3.24.1
     transitivePeerDependencies:
       - axios
@@ -15881,15 +15885,7 @@ snapshots:
     dependencies:
       whatwg-url: 5.0.0
 
-  '@supabase/postgrest-js@1.17.10':
-    dependencies:
-      '@supabase/node-fetch': 2.6.15
-
-  '@supabase/postgrest-js@1.17.11':
-    dependencies:
-      '@supabase/node-fetch': 2.6.15
-
-  '@supabase/postgrest-js@1.17.9':
+  '@supabase/postgrest-js@1.18.0':
     dependencies:
       '@supabase/node-fetch': 2.6.15
 
@@ -15903,9 +15899,9 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@supabase/ssr@0.5.2(@supabase/supabase-js@2.47.12)':
+  '@supabase/ssr@0.5.2(@supabase/supabase-js@2.48.0)':
     dependencies:
-      '@supabase/supabase-js': 2.47.12
+      '@supabase/supabase-js': 2.48.0
       '@types/cookie': 0.6.0
       cookie: 0.7.2
 
@@ -15913,36 +15909,12 @@ snapshots:
     dependencies:
       '@supabase/node-fetch': 2.6.15
 
-  '@supabase/supabase-js@2.47.11':
+  '@supabase/supabase-js@2.48.0':
     dependencies:
       '@supabase/auth-js': 2.67.3
       '@supabase/functions-js': 2.4.4
       '@supabase/node-fetch': 2.6.15
-      '@supabase/postgrest-js': 1.17.9
-      '@supabase/realtime-js': 2.11.2
-      '@supabase/storage-js': 2.7.1
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
-  '@supabase/supabase-js@2.47.12':
-    dependencies:
-      '@supabase/auth-js': 2.67.3
-      '@supabase/functions-js': 2.4.4
-      '@supabase/node-fetch': 2.6.15
-      '@supabase/postgrest-js': 1.17.10
-      '@supabase/realtime-js': 2.11.2
-      '@supabase/storage-js': 2.7.1
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
-  '@supabase/supabase-js@2.47.16':
-    dependencies:
-      '@supabase/auth-js': 2.67.3
-      '@supabase/functions-js': 2.4.4
-      '@supabase/node-fetch': 2.6.15
-      '@supabase/postgrest-js': 1.17.11
+      '@supabase/postgrest-js': 1.18.0
       '@supabase/realtime-js': 2.11.2
       '@supabase/storage-js': 2.7.1
     transitivePeerDependencies:
@@ -16329,9 +16301,9 @@ snapshots:
 
   '@types/btoa-lite@1.0.2': {}
 
-  '@types/bun@1.1.17':
+  '@types/bun@1.2.0':
     dependencies:
-      bun-types: 1.1.44
+      bun-types: 1.2.0
 
   '@types/cookie@0.6.0': {}
 
@@ -16541,10 +16513,6 @@ snapshots:
       '@types/node': 22.10.5
 
   '@types/node@12.20.55': {}
-
-  '@types/node@20.12.14':
-    dependencies:
-      undici-types: 5.26.5
 
   '@types/node@20.17.6':
     dependencies:
@@ -17792,9 +17760,9 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
-  bun-types@1.1.44:
+  bun-types@1.2.0:
     dependencies:
-      '@types/node': 20.12.14
+      '@types/node': 22.10.5
       '@types/ws': 8.5.13
 
   bundle-name@4.1.0:
@@ -23382,8 +23350,6 @@ snapshots:
       magic-string: 0.30.17
       unplugin: 1.16.0
 
-  undici-types@5.26.5: {}
-
   undici-types@6.19.8: {}
 
   undici-types@6.20.0: {}
@@ -23609,6 +23575,10 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.2
 
+  valibot@1.0.0-beta.11(typescript@5.7.3):
+    optionalDependencies:
+      typescript: 5.7.3
+
   valibot@1.0.0-beta.12(typescript@5.6.3):
     optionalDependencies:
       typescript: 5.6.3
@@ -23669,6 +23639,16 @@ snapshots:
       '@oclif/plugin-help': 6.2.21
       '@oclif/plugin-plugins': 5.4.25
       valibot: 1.0.0-beta.11(typescript@5.7.2)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
+  verify-package-export@0.0.2(typescript@5.7.3):
+    dependencies:
+      '@oclif/core': 4.2.2
+      '@oclif/plugin-help': 6.2.21
+      '@oclif/plugin-plugins': 5.4.25
+      valibot: 1.0.0-beta.11(typescript@5.7.3)
     transitivePeerDependencies:
       - supports-color
       - typescript

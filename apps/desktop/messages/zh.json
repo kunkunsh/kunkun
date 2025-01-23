@@ -9,7 +9,7 @@
 	"common_check": "检查",
 	"common_install": "安装",
 
-	"home_command_input_placeholder": "输入命令或搜索...",
+	"home_command_input_placeholder": "按 \"/\" 开始搜索...",
 	"home_command_input_dropdown_quit": "退出",
 	"home_command_input_dropdown_developer_title": "开发者",
 	"home_command_input_dropdown_close_window": "关闭窗口",

@@ -7,6 +7,7 @@ import {
 } from "../github"
 import type { ExtensionPublishValidationData } from "../models"
 import { getInfoFromRekorLog } from "../sigstore"
+import { getRawFileFromGitHub, getTarballSize } from "../utils"
 import {
 	NpmPkgMetadata,
 	NpmPkgVersionMetadata,
@@ -207,7 +208,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 
 	const parseResult = v.safeParse(ExtPackageJson, packageJson)
 	if (!parseResult.success) {
-		console.log(v.flatten(parseResult.issues))
+		console.error(v.flatten(parseResult.issues))
 		return { error: `package.json format not valid` }
 	}
 	/* -------------------------------------------------------------------------- */
@@ -228,15 +229,24 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 			error: `Extension ${parseResult.output.kunkun.identifier} doesn't not have @kksh/api as a dependency`
 		}
 	}
+	const tarballSize = await getTarballSize(tarballUrl, "GET") // NPM HEAD request doesn't support content-length
 
+	const readmeContent = await getRawFileFromGitHub(
+		githubRepo.owner,
+		githubRepo.repo,
+		provenance.summary.sourceRepositoryDigest,
+		parseResult.output.readme ?? "README.md"
+	)
 	return {
 		data: {
 			pkgJson: parseResult.output,
 			license: licenseParsed.output,
+			readmeContent,
 			tarballUrl,
 			shasum,
 			apiVersion,
-			tarballSize: 0,
+			tarballSize,
+			unpackedSize: packageJson.dist?.unpackedSize,
 			rekorLogIndex: logIndex,
 			github: {
 				githubActionInvocationId: rekorGit.githubActionInvocationId,
