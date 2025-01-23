@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { cn } from "@kksh/ui/utils"
+	import { browser } from "$app/environment"
 	import type { Snippet } from "svelte"
 	import type { HTMLAttributes } from "svelte/elements"
 	import { open } from "tauri-plugin-shellx-api"
-	import { browser } from '$app/environment';
 
 	const {
 		href,
@@ -28,15 +28,19 @@
 			"text-left font-medium text-blue-600 hover:cursor-pointer hover:underline dark:text-blue-500",
 			className
 		)}
-	onclick={handleClick}
->
-	{@render children?.()}
+		onclick={handleClick}
+	>
+		{@render children?.()}
 	</button>
 {:else}
-	<a href={href} target="_blank" class={cn(
-		"text-left font-medium text-blue-600 hover:cursor-pointer hover:underline dark:text-blue-500",
-		className
-	)}>
+	<a
+		{href}
+		target="_blank"
+		class={cn(
+			"text-left font-medium text-blue-600 hover:cursor-pointer hover:underline dark:text-blue-500",
+			className
+		)}
+	>
 		{@render children?.()}
 	</a>
 {/if}

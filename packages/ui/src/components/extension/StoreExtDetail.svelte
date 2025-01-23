@@ -167,7 +167,9 @@
 				<pre class="text-muted-foreground text-xs">{extPublish.identifier}</pre>
 				<pre class="text-muted-foreground text-xs">Version: {extPublish.version}</pre>
 				<pre class="text-muted-foreground text-xs">Downloads: {ext.downloads}</pre>
-				<pre class="text-muted-foreground text-xs">Size: {prettyBytes(extPublish.tarball_size)}</pre>
+				<pre class="text-muted-foreground text-xs">
+					Size: {prettyBytes(extPublish.tarball_size)}
+				</pre>
 			</div>
 		</div>
 		<div class="flex items-center space-x-2">
@@ -240,43 +242,51 @@
 	<div class="text-sm">{manifest?.shortDescription}</div>
 	<div class="text-sm">{manifest?.longDescription}</div>
 	<Separator class="my-3" />
-	<h2 class="text-lg font-bold">Commands</h2>
-
-	<ul>
-		{#if manifest}
-			{#each [...(manifest.customUiCmds ?? []), ...(manifest.templateUiCmds ?? [])] as cmd}
-				<li>
-					<div class="flex items-center space-x-3">
-						{#if manifest}
-							<IconMultiplexer icon={manifest.icon} class="inline h-6 w-6" />
-						{/if}
-						<div>
-							<span class="text-dm">{cmd.name}</span>
-							<h2 class="text-xs">{cmd.description}</h2>
-						</div>
-						<PlatformsIcons platforms={cmd.platforms} />
-					</div>
-					<Separator class="my-3" />
-				</li>
-			{/each}
-		{/if}
-	</ul>
-	<Separator class="my-3" />
-	<h2 class="text-lg font-bold">Author</h2>
-	{#if packageJson?.author}
-		{@render person(packageJson?.author)}
-	{:else}
-		<span>N/A</span>
-	{/if}
-	<h2 class="text-lg font-bold">Contributors</h2>
-	{#each packageJson?.contributors ?? [] as contributor}
-		{@render person(contributor)}
-	{/each}
-
+	<div class="grid grid-cols-3 gap-4">
+		<div class="col-span-2">
+			<h2 class="text-lg font-bold">Commands</h2>
+			<ul>
+				{#if manifest}
+					{#each [...(manifest.customUiCmds ?? []), ...(manifest.templateUiCmds ?? [])] as cmd}
+						<li>
+							<div class="flex items-center space-x-3">
+								{#if manifest}
+									<IconMultiplexer icon={manifest.icon} class="inline h-6 w-6" />
+								{/if}
+								<div>
+									<span class="text-dm">{cmd.name}</span>
+									<h2 class="text-xs">{cmd.description}</h2>
+								</div>
+								<PlatformsIcons platforms={cmd.platforms} />
+							</div>
+							<Separator class="my-3" />
+						</li>
+					{/each}
+				{/if}
+			</ul>
+		</div>
+		<div>
+			<h2 class="text-lg font-bold">Author</h2>
+			{#if packageJson?.author}
+				<ul class="list-disc pl-5">
+					<li>{@render person(packageJson?.author)}</li>
+				</ul>
+			{:else}
+				<span>N/A</span>
+			{/if}
+			<br />
+			<h2 class="text-lg font-bold">Contributors</h2>
+			<ul class="list-disc pl-5">
+				{#each packageJson?.contributors ?? [] as contributor}
+					<li>{@render person(contributor)}</li>
+				{/each}
+			</ul>
+		</div>
+	</div>
 	<Separator class="my-3" />
 	<h2 class="text-lg font-bold">README</h2>
 	{#if extPublish?.readme}
-		<Markdown markdown={extPublish.readme} />
+		<Markdown markdown={extPublish.readme} class="bg-slate-200 p-4 dark:bg-slate-800" />
 	{/if}
 </ScrollArea>
 
