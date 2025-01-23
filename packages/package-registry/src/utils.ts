@@ -11,3 +11,14 @@ export function getTarballSize(url: string, method: "HEAD" | "GET" = "HEAD"): Pr
 		return Number(res.headers.get("Content-Length"))
 	})
 }
+
+export function getRawFileFromGitHub(
+	owner: string,
+	repo: string,
+	commit: string,
+	filePath: string
+): Promise<string | undefined> {
+	return fetch(`https://raw.githubusercontent.com/${owner}/${repo}/${commit}/${filePath}`)
+		.then((res) => (res.ok ? res.text() : undefined))
+		.catch((e) => undefined)
+}

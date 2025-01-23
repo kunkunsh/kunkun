@@ -7,7 +7,7 @@ import {
 } from "../github"
 import type { ExtensionPublishValidationData } from "../models"
 import { getInfoFromRekorLog } from "../sigstore"
-import { getTarballSize } from "../utils"
+import { getRawFileFromGitHub, getTarballSize } from "../utils"
 import {
 	NpmPkgMetadata,
 	NpmPkgVersionMetadata,
@@ -230,10 +230,18 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 		}
 	}
 	const tarballSize = await getTarballSize(tarballUrl, "GET") // NPM HEAD request doesn't support content-length
+
+	const readmeContent = await getRawFileFromGitHub(
+		githubRepo.owner,
+		githubRepo.repo,
+		provenance.summary.sourceRepositoryDigest,
+		parseResult.output.readme ?? "README.md"
+	)
 	return {
 		data: {
 			pkgJson: parseResult.output,
 			license: licenseParsed.output,
+			readmeContent,
 			tarballUrl,
 			shasum,
 			apiVersion,
