@@ -1195,6 +1195,9 @@ importers:
       gsap:
         specifier: ^3.12.7
         version: 3.12.7
+      pretty-bytes:
+        specifier: ^6.1.1
+        version: 6.1.1
       shiki-magic-move:
         specifier: ^0.5.2
         version: 0.5.2(react@18.3.1)(shiki@1.27.2)(svelte@5.16.6)(vue@3.5.13(typescript@5.7.3))
@@ -12205,7 +12208,7 @@ snapshots:
       '@babel/traverse': 7.25.9
       '@babel/types': 7.26.0
       convert-source-map: 2.0.0
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@9.4.0)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -12379,7 +12382,7 @@ snapshots:
       '@babel/parser': 7.26.2
       '@babel/template': 7.25.9
       '@babel/types': 7.26.0
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@9.4.0)
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -14094,7 +14097,7 @@ snapshots:
     dependencies:
       '@oclif/core': 4.2.2
       ansis: 3.9.0
-      debug: 4.4.0(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@9.4.0)
       npm: 10.9.2
       npm-package-arg: 11.0.3
       npm-run-path: 5.3.0

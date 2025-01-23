@@ -73,6 +73,7 @@
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
 		"dompurify": "^3.2.3",
 		"gsap": "^3.12.7",
+		"pretty-bytes": "^6.1.1",
 		"shiki-magic-move": "^0.5.2",
 		"svelte-markdown": "^0.4.1",
 		"valibot": "1.0.0-beta.12"
