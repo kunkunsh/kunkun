@@ -55,7 +55,10 @@ for (const p of fs.readdirSync(tmpDistTemplatesPath)) {
 		// Replace local template with remote schema
 		patchManifestJsonSchema(pkgJsonPath)
 		// remove node_modules
-		fs.rmdirSync(path.join(distPath, "templates", p, "node_modules"), { recursive: true })
+		const nodeModulesPath = path.join(distPath, "templates", p, "node_modules")
+		if (fs.existsSync(nodeModulesPath)) {
+			fs.rmdirSync(nodeModulesPath, { recursive: true })
+		}
 	}
 }
 
