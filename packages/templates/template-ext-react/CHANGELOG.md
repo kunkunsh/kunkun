@@ -1,5 +1,12 @@
 # template-ext-react
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @kksh/api@0.0.53
+
 ## 0.0.4
 
 ### Patch Changes

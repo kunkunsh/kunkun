@@ -1,7 +1,7 @@
 {
 	"$schema": "../../schema/manifest-json-schema.json",
 	"name": "demo-template-extension",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"type": "module",
 	"license": "MIT",
 	"kunkun": {

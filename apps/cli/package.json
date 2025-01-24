@@ -1,7 +1,7 @@
 {
 	"name": "kksh",
 	"module": "dist/cli.js",
-	"version": "0.0.29",
+	"version": "0.0.30",
 	"type": "module",
 	"bin": {
 		"kksh": "./dist/cli.js",
