@@ -359,7 +359,14 @@
 		{/snippet}
 	</Templates.ListView>
 {:else if loaded && formViewContent !== undefined}
-	<Templates.FormView {formViewContent} onGoBack={goBack} />
+	<Templates.FormView
+		{formViewContent}
+		onGoBack={goBack}
+		onSubmit={(formData: Record<string, string | number | boolean>) => {
+			console.log("formData", formData)
+			workerAPI?.onFormSubmit(formData)
+		}}
+	/>
 {:else if loaded && markdownViewContent !== undefined}
 	<Templates.MarkdownView {markdownViewContent} onGoBack={goBack} />
 {/if}

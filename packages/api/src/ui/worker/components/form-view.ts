@@ -137,6 +137,7 @@ export class ArrayField
 export class Form implements IComponent<FormSchema.Form> {
 	nodeName: FormNodeName = FormNodeNameEnum.Form
 	fields: (AllFormFields | Form)[]
+	showFormDataDebug?: boolean
 	key: string
 	title?: string
 	description?: string
@@ -148,6 +149,7 @@ export class Form implements IComponent<FormSchema.Form> {
 		this.title = model.title
 		this.description = model.description
 		this.submitBtnText = model.submitBtnText
+		this.showFormDataDebug = model.showFormDataDebug
 	}
 
 	toModel(): FormSchema.Form {

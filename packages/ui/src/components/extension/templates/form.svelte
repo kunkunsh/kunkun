@@ -1,14 +1,12 @@
 <script lang="ts">
-	import type { DateValue } from "@internationalized/date"
 	import { FormNodeNameEnum, FormSchema } from "@kksh/api/models"
-	import { Button, Checkbox, Form, Input, Label, Select } from "@kksh/svelte5"
-	import { DatePickerWithPreset, Shiki } from "@kksh/ui"
+	import { Button, Checkbox, Input, Label, Select } from "@kksh/svelte5"
+	import { DatePickerWithPreset } from "@kksh/ui"
 	import { buildFormSchema, cn } from "@kksh/ui/utils"
-	import { onMount, tick } from "svelte"
+	import { onMount } from "svelte"
 	import SuperDebug, { defaults, superForm } from "sveltekit-superforms"
 	import { valibot, valibotClient } from "sveltekit-superforms/adapters"
 	import * as v from "valibot"
-	import DatePicker from "../../common/date/DatePicker.svelte"
 	import TauriLink from "../../common/TauriLink.svelte"
 
 	let {
@@ -37,16 +35,15 @@
 			validators: valibotClient(formSchema),
 			SPA: true,
 			onUpdate({ form, cancel }) {
-				cancel()
-				console.log($formData)
 				if (!form.valid) return
+				cancel()
 				const parsedData = v.parse(formSchema, $formData)
-				console.log(parsedData)
 				onSubmit?.(parsedData)
 			}
 		})
 	)
 	const { form: formData, enhance, errors } = $derived(form)
+	$inspect(formData)
 </script>
 
 {#snippet error(messages?: string[])}
@@ -83,7 +80,7 @@
 				/>
 			{:else if field.nodeName === FormNodeNameEnum.Date}
 				{@const field2 = field as FormSchema.DateField}
-				<DatePickerWithPreset class="w-full" bind:value={$formData[field2.key]} />
+				<DatePickerWithPreset class="w-full" bind:date={$formData[field2.key]} />
 			{:else if field.nodeName === FormNodeNameEnum.Select}
 				{@const field2 = field as FormSchema.SelectField}
 				<Select.Root type="single" name="favoriteFruit" bind:value={$formData[field2.key]}>
@@ -141,4 +138,6 @@
 		<Button type="submit">{formViewContent.submitBtnText ?? "Submit"}</Button>
 	</form>
 {/key}
-<!-- <SuperDebug data={$formData} /> -->
+{#if formViewContent.showFormDataDebug}
+	<SuperDebug data={$formData} />
+{/if}

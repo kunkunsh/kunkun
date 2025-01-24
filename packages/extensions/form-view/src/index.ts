@@ -25,10 +25,11 @@ class ExtensionTemplate extends WorkerExtension {
 		const markdown = new Markdown(`# Hello World
 <img src="https://github.com/huakunshen.png" />`)
 		// markdown.toModel
-		return ui.render(markdown)
+		// return ui.render(markdown)
 		const form = new Form.Form({
 			title: "Form 1",
 			key: "form1",
+			showFormDataDebug: true,
 			submitBtnText: "Download",
 			fields: [
 				new Form.DateField({
