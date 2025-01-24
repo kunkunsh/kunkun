@@ -1,7 +1,7 @@
 {
 	"$schema": "./node_modules/@kksh/api/dist/schema.json",
 	"name": "template-ext-next",
-	"version": "0.1.3",
+	"version": "0.1.4",
 	"license": "MIT",
 	"kunkun": {
 		"name": "TODO: Change Display Name",

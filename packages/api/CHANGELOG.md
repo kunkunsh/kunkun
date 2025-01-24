@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.0.53
+
+### Patch Changes
+
+- Add Show Debug option for worker template form view
+
 ## 0.0.48
 
 ### Patch Changes

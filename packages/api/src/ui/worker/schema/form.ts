@@ -136,6 +136,7 @@ export type FormField = InferOutput<typeof FormField>
 export const Form: GenericSchema<Form> = object({
 	nodeName: FormNodeName,
 	key: string(),
+	showFormDataDebug: optional(boolean()),
 	fields: array(union([lazy(() => Form), FormField])),
 	title: optional(string()),
 	description: optional(string()),
@@ -144,6 +145,7 @@ export const Form: GenericSchema<Form> = object({
 export type Form = {
 	nodeName: FormNodeName
 	title?: string
+	showFormDataDebug?: boolean
 	description?: string
 	submitBtnText?: string
 	key: string

@@ -4,8 +4,15 @@
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import Form from "./form.svelte"
 
-	let { formViewContent, onGoBack }: { formViewContent: FormSchema.Form; onGoBack: () => void } =
-		$props()
+	let {
+		formViewContent,
+		onGoBack,
+		onSubmit
+	}: {
+		formViewContent: FormSchema.Form
+		onGoBack: () => void
+		onSubmit?: (formData: Record<string, string | number | boolean>) => void
+	} = $props()
 </script>
 
 <div data-tauri-drag-region class="h-12 w-full"></div>
@@ -14,5 +21,5 @@
 </Button>
 <main class="container flex flex-col gap-2 pb-4">
 	<h1 class="text-2xl font-bold">{formViewContent.title}</h1>
-	<Form {formViewContent} />
+	<Form {formViewContent} {onSubmit} />
 </main>

@@ -10,12 +10,16 @@
 
 	let {
 		date = $bindable(),
+		dateValue = $bindable(),
 		class: className,
 		value = $bindable()
-	}: { date?: DateValue; class?: string; value?: string } = $props()
-	const valueString = $derived(date ? df.format(date.toDate(getLocalTimeZone())) : "")
+	}: { date?: Date; dateValue?: DateValue; class?: string; value?: string } = $props()
+	const valueString = $derived(dateValue ? df.format(dateValue.toDate(getLocalTimeZone())) : "")
 	$effect(() => {
-		value = date ? date.toString() : ""
+		value = dateValue ? dateValue.toString() : ""
+		if (dateValue) {
+			date = dateValue?.toDate(getLocalTimeZone())
+		}
 	})
 	const items = [
 		{ value: 0, label: "Today" },
@@ -32,12 +36,12 @@
 				variant: "outline",
 				class: "w-[280px] justify-start text-left font-normal"
 			}),
-			!date && "text-muted-foreground",
+			!dateValue && "text-muted-foreground",
 			className
 		)}
 	>
 		<CalendarIcon class="mr-2 size-4" />
-		{date ? df.format(date.toDate(getLocalTimeZone())) : "Pick a date"}
+		{dateValue ? df.format(dateValue.toDate(getLocalTimeZone())) : "Pick a date"}
 	</Popover.Trigger>
 	<Popover.Content class="flex w-auto flex-col space-y-2 p-2">
 		<Select.Root
@@ -46,7 +50,7 @@
 			controlledValue
 			onValueChange={(v: string) => {
 				if (!v) return
-				date = today(getLocalTimeZone()).add({ days: Number.parseInt(v) })
+				dateValue = today(getLocalTimeZone()).add({ days: Number.parseInt(v) })
 			}}
 		>
 			<Select.Trigger>
@@ -59,7 +63,7 @@
 			</Select.Content>
 		</Select.Root>
 		<div class="rounded-md border">
-			<Calendar.Calendar type="single" bind:value={date} />
+			<Calendar.Calendar type="single" bind:value={dateValue} />
 		</div>
 	</Popover.Content>
 </Popover.Root>
