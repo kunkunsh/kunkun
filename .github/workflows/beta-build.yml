@@ -91,7 +91,7 @@ jobs:
         run: |
           matrix=""
           if [ "${{ github.event_name }}" == "schedule" ]; then
-            matrix="\"windows-latest\",\"ubuntu-22.04\",\"macos-14\",\"macos-12\""
+            matrix="\"windows-latest\",\"ubuntu-22.04\",\"macos-14\",\"macos-13\""
             build_mode=""
             build_path="release"
             retention_days='1'
@@ -106,7 +106,7 @@ jobs:
               matrix="${matrix}\"macos-14\","
             fi
             if [ "${{ inputs.platform_macos_x86_64 }}" == "true" ]; then
-              matrix="${matrix}\"macos-12\","
+              matrix="${matrix}\"macos-13\","
             fi
             if [ -z "${matrix}" ]; then
               matrix="\"windows-latest\","
@@ -217,7 +217,7 @@ jobs:
         run: mv target/${{ env.BUILD_PATH }}/bundle/dmg/*.dmg target/${{ env.BUILD_PATH }}/bundle/dmg/${{ env.FILE_PREFIX }}-aarch64.dmg
 
       - name: Rename macos-x86_64
-        if: matrix.os == 'macos-12'
+        if: matrix.os == 'macos-13'
         run: mv target/${{ env.BUILD_PATH }}/bundle/dmg/*.dmg target/${{ env.BUILD_PATH }}/bundle/dmg/${{ env.FILE_PREFIX }}-amd64.dmg
 
       - name: Rename windows
