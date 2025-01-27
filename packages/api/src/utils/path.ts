@@ -51,9 +51,6 @@ export function pathStartsWithAlias(path: string) {
  * @param scope expected to be like $DESKTOP/*, $DOWNLOAD/**, $DOCUMENT/abc/*.txt
  */
 export async function translateScopeToPath(scope: string, extensionDir: string): Promise<string> {
-	if (scope.startsWith("$EXTENSION")) {
-		return pathAPI.join(extensionDir, scope.slice("$EXTENSION".length))
-	}
 	if (scope.startsWith("$EXTENSION_SUPPORT")) {
 		const appDataDir = await pathAPI.appDataDir()
 		if (extensionDir.startsWith(appDataDir)) {
@@ -65,6 +62,9 @@ export async function translateScopeToPath(scope: string, extensionDir: string):
 			}
 			return extSupportDir
 		}
+	}
+	if (scope.startsWith("$EXTENSION")) {
+		return pathAPI.join(extensionDir, scope.slice("$EXTENSION".length))
 	}
 	for (const key of Object.keys(mapDirAliasToDirFn)) {
 		if (scope.startsWith(key)) {
