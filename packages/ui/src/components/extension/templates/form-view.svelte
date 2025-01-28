@@ -1,20 +1,25 @@
 <script lang="ts">
 	import { FormNodeNameEnum, FormSchema } from "@kksh/api/models"
-	import { Button } from "@kksh/svelte5"
+	import { Button, Progress } from "@kksh/svelte5"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import Form from "./form.svelte"
 
 	let {
 		formViewContent,
+		pbar,
 		onGoBack,
 		onSubmit
 	}: {
 		formViewContent: FormSchema.Form
+		pbar: number | null
 		onGoBack: () => void
 		onSubmit?: (formData: Record<string, string | number | boolean>) => void
 	} = $props()
 </script>
 
+{#if pbar && pbar > 0}
+	<Progress value={Math.min(pbar, 100)} class="absolute top-0 h-0.5 rounded-none" />
+{/if}
 <div data-tauri-drag-region class="h-12 w-full"></div>
 <Button class="fixed left-2 top-2" size="icon" variant="outline" onclick={onGoBack}>
 	<ArrowLeftIcon />
