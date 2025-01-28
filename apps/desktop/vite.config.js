@@ -31,7 +31,7 @@ export default defineConfig(async () => ({
 	},
 	build: {
 		minify: true
-	},
+	}
 	// optimizeDeps: {
 	// 	include: ["@supabase/supabase-js"] // trying to fix supabase import error
 	// }
