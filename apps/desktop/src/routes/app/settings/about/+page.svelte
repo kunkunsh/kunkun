@@ -3,7 +3,7 @@
 	import { goHome } from "@/utils/route"
 	import { checkUpdateAndInstall } from "@/utils/updater"
 	import Icon from "@iconify/svelte"
-	import { Button, Card, SideBar } from "@kksh/svelte5"
+	import { Button, Card, Sidebar } from "@kksh/svelte5"
 	import { Layouts, TauriLink } from "@kksh/ui"
 	import { getVersion } from "@tauri-apps/api/app"
 	import { onMount } from "svelte"

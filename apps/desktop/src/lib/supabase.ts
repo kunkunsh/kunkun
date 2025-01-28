@@ -1,10 +1,10 @@
 import { SupabaseAPI } from "@kksh/supabase/api"
 import type { Database } from "@kksh/supabase/types"
-import { createClient, SupabaseClient } from "@supabase/supabase-js"
+import * as sb from "@supabase/supabase-js"
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "./constants"
 
 // export const supabase = createSB(SUPABASE_URL, SUPABASE_ANON_KEY)
-export const supabase: SupabaseClient<Database> = createClient<Database>(
+export const supabase: sb.SupabaseClient<Database> = sb.createClient<Database>(
 	SUPABASE_URL,
 	SUPABASE_ANON_KEY,
 	{

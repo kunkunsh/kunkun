@@ -2,7 +2,7 @@
 	import { i18n } from "@/i18n"
 	import * as m from "@/paraglide/messages"
 	import { goHome } from "@/utils/route"
-	import { Button, SideBar } from "@kksh/svelte5"
+	import { Button, Sidebar } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import Blocks from "lucide-svelte/icons/blocks"
@@ -47,10 +47,10 @@
 	let currentItem = $state(items.find((item) => window.location.pathname === item.url))
 </script>
 
-<SideBar.Root>
-	<SideBar.Header class="h-12">
-		<SideBar.Menu>
-			<SideBar.MenuItem data-tauri-drag-region>
+<Sidebar.Root>
+	<Sidebar.Header class="h-12">
+		<Sidebar.Menu>
+			<Sidebar.MenuItem data-tauri-drag-region>
 				<Button
 					variant="outline"
 					size="icon"
@@ -59,17 +59,17 @@
 				>
 					<ArrowLeftIcon class="h-4 w-4" />
 				</Button>
-			</SideBar.MenuItem>
-		</SideBar.Menu>
-	</SideBar.Header>
-	<SideBar.Content>
-		<SideBar.Group>
-			<SideBar.GroupLabel data-tauri-drag-region>{m.settings_menu_settings()}</SideBar.GroupLabel>
-			<SideBar.GroupContent>
-				<SideBar.Menu>
+			</Sidebar.MenuItem>
+		</Sidebar.Menu>
+	</Sidebar.Header>
+	<Sidebar.Content>
+		<Sidebar.Group>
+			<Sidebar.GroupLabel data-tauri-drag-region>{m.settings_menu_settings()}</Sidebar.GroupLabel>
+			<Sidebar.GroupContent>
+				<Sidebar.Menu>
 					{#each items as item (item.title)}
-						<SideBar.MenuItem>
-							<SideBar.MenuButton
+						<Sidebar.MenuItem>
+							<Sidebar.MenuButton
 								isActive={currentItem?.url === item.url}
 								onclick={() => {
 									currentItem = item
@@ -81,11 +81,11 @@
 										<span>{item.title}</span>
 									</a>
 								{/snippet}
-							</SideBar.MenuButton>
-						</SideBar.MenuItem>
+							</Sidebar.MenuButton>
+						</Sidebar.MenuItem>
 					{/each}
-				</SideBar.Menu>
-			</SideBar.GroupContent>
-		</SideBar.Group>
-	</SideBar.Content>
-</SideBar.Root>
+				</Sidebar.Menu>
+			</Sidebar.GroupContent>
+		</Sidebar.Group>
+	</Sidebar.Content>
+</Sidebar.Root>

@@ -4,7 +4,7 @@ import { winExtMap } from "@/stores/winExtMap"
 import { trimSlash } from "@/utils/url"
 import { constructExtensionSupportDir } from "@kksh/api"
 import { db, spawnExtensionFileServer } from "@kksh/api/commands"
-import { HeadlessWorkerExtension } from "@kksh/api/headless"
+import type { HeadlessWorkerExtension } from "@kksh/api/headless"
 import { CustomUiCmd, ExtPackageJsonExtra, HeadlessCmd, TemplateUiCmd } from "@kksh/api/models"
 import { constructJarvisServerAPIWithPermissions, type IApp } from "@kksh/api/ui"
 import { launchNewExtWindow, loadExtensionManifestFromDisk } from "@kksh/extension"
@@ -15,6 +15,18 @@ import * as fs from "@tauri-apps/plugin-fs"
 import { platform } from "@tauri-apps/plugin-os"
 import { goto } from "$app/navigation"
 import { RPCChannel, WorkerParentIO } from "kkrpc/browser"
+import * as v from "valibot"
+
+export const KunkunIframeExtParams = v.object({
+	url: v.string(),
+	extPath: v.string()
+})
+export type KunkunIframeExtParams = v.InferOutput<typeof KunkunIframeExtParams>
+export const KunkunTemplateExtParams = v.object({
+	extPath: v.string(),
+	cmdName: v.string()
+})
+export type KunkunTemplateExtParams = v.InferOutput<typeof KunkunTemplateExtParams>
 
 export async function createExtSupportDir(extPath: string) {
 	const extSupportDir = await constructExtensionSupportDir(extPath)
@@ -33,6 +45,10 @@ export async function onTemplateUiCmdSelect(
 	const url = `/app/extension/ui-worker?extPath=${encodeURIComponent(ext.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({ extPath: ext.extPath })
+		localStorage.setItem(
+			"kunkun-template-ext-params",
+			JSON.stringify({ url, extPath: ext.extPath } satisfies KunkunIframeExtParams)
+		)
 		const window = launchNewExtWindow(winLabel, url, cmd.window)
 		window.onCloseRequested(async (event) => {
 			await winExtMap.unregisterExtensionFromWindow(winLabel)
@@ -102,6 +118,7 @@ export async function onCustomUiCmdSelect(
 			: decodeURIComponent(convertFileSrc(`${trimSlash(cmd.main)}`, "ext"))
 	}
 	let url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
+	// url2 = `/dev?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({
 			extPath: ext.extPath,
@@ -112,6 +129,10 @@ export async function onCustomUiCmdSelect(
 			const newUrl = `http://${addr}`
 			url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
 		}
+		localStorage.setItem(
+			"kunkun-iframe-ext-params",
+			JSON.stringify({ url, extPath: ext.extPath } satisfies KunkunIframeExtParams)
+		)
 		const window = launchNewExtWindow(winLabel, url2, cmd.window)
 		window.onCloseRequested(async (event) => {
 			await winExtMap.unregisterExtensionFromWindow(winLabel)

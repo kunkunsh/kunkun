@@ -15,6 +15,7 @@
 	"home_command_input_dropdown_close_window": "关闭窗口",
 	"home_command_input_dropdown_toggle_devtools": "切换开发者工具",
 	"home_command_input_dropdown_reload_window": "重新加载窗口",
+	"home_command_input_dropdown_open_preference": "打开设置",
 	"home_command_input_dropdown_toggle_dev_extension_hmr": "切换开发插件 HMR",
 
 	"command_group_heading_dev_ext": "开发插件",
