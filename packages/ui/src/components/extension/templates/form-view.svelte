@@ -26,5 +26,8 @@
 </Button>
 <main class="container flex flex-col gap-2 pb-4">
 	<h1 class="text-2xl font-bold">{formViewContent.title}</h1>
+	{#if formViewContent.description}
+		<p>{formViewContent.description}</p>
+	{/if}
 	<Form {formViewContent} {onSubmit} />
 </main>
