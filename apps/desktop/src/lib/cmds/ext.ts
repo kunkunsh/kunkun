@@ -35,20 +35,23 @@ export async function createExtSupportDir(extPath: string) {
 	}
 }
 
+function setTemplateExtParams(extPath: string, cmdName: string) {
+	localStorage.setItem(
+		"kunkun-template-ext-params",
+		JSON.stringify({ extPath, cmdName } satisfies KunkunTemplateExtParams)
+	)
+}
+
 export async function onTemplateUiCmdSelect(
 	ext: ExtPackageJsonExtra,
 	cmd: TemplateUiCmd,
 	{ isDev, hmr }: { isDev: boolean; hmr: boolean }
 ) {
 	await createExtSupportDir(ext.extPath)
-	// console.log("onTemplateUiCmdSelect", ext, cmd, isDev, hmr)
 	const url = `/app/extension/ui-worker?extPath=${encodeURIComponent(ext.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
+	setTemplateExtParams(ext.extPath, cmd.name)
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({ extPath: ext.extPath })
-		localStorage.setItem(
-			"kunkun-template-ext-params",
-			JSON.stringify({ url, extPath: ext.extPath } satisfies KunkunIframeExtParams)
-		)
 		const window = launchNewExtWindow(winLabel, url, cmd.window)
 		window.onCloseRequested(async (event) => {
 			await winExtMap.unregisterExtensionFromWindow(winLabel)
