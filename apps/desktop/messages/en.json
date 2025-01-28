@@ -15,6 +15,7 @@
 	"home_command_input_dropdown_close_window": "Close Window",
 	"home_command_input_dropdown_toggle_devtools": "Toggle Devtools",
 	"home_command_input_dropdown_reload_window": "Reload Window",
+	"home_command_input_dropdown_open_preference": "Open Preference",
 	"home_command_input_dropdown_toggle_dev_extension_hmr": "Toggle Dev Extension HMR",
 
 	"command_group_heading_dev_ext": "Dev Extensions",

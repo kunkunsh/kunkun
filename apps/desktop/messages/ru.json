@@ -15,6 +15,7 @@
 	"home_command_input_dropdown_close_window": "Закрыть окно",
 	"home_command_input_dropdown_toggle_devtools": "Вкл/выкл инструменты разработчика",
 	"home_command_input_dropdown_reload_window": "Перезагрузить окно",
+	"home_command_input_dropdown_open_preference": "Открыть настройки",
 	"home_command_input_dropdown_toggle_dev_extension_hmr": "Вкл/выкл горячую замену (HMR) у dev-расширений",
 
 	"command_group_heading_dev_ext": "Dev-расширения",
