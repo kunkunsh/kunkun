@@ -35,14 +35,21 @@ export async function createExtSupportDir(extPath: string) {
 	}
 }
 
+function setTemplateExtParams(extPath: string, cmdName: string) {
+	localStorage.setItem(
+		"kunkun-template-ext-params",
+		JSON.stringify({ extPath, cmdName } satisfies KunkunTemplateExtParams)
+	)
+}
+
 export async function onTemplateUiCmdSelect(
 	ext: ExtPackageJsonExtra,
 	cmd: TemplateUiCmd,
 	{ isDev, hmr }: { isDev: boolean; hmr: boolean }
 ) {
 	await createExtSupportDir(ext.extPath)
-	// console.log("onTemplateUiCmdSelect", ext, cmd, isDev, hmr)
 	const url = `/app/extension/ui-worker?extPath=${encodeURIComponent(ext.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
+	setTemplateExtParams(ext.extPath, cmd.name)
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({ extPath: ext.extPath })
 		localStorage.setItem(
@@ -101,6 +108,13 @@ export async function onHeadlessCmdSelect(
 	await workerAPI.load()
 }
 
+function setIframeExtParams(extPath: string, url: string) {
+	localStorage.setItem(
+		"kunkun-iframe-ext-params",
+		JSON.stringify({ url, extPath } satisfies KunkunIframeExtParams)
+	)
+}
+
 export async function onCustomUiCmdSelect(
 	ext: ExtPackageJsonExtra,
 	cmd: CustomUiCmd,
@@ -119,6 +133,8 @@ export async function onCustomUiCmdSelect(
 	}
 	let url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
 	// url2 = `/dev?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
+
+	setIframeExtParams(ext.extPath, url)
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({
 			extPath: ext.extPath,
@@ -128,6 +144,7 @@ export async function onCustomUiCmdSelect(
 			const addr = await spawnExtensionFileServer(winLabel)
 			const newUrl = `http://${addr}`
 			url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
+			setIframeExtParams(ext.extPath, newUrl)
 		}
 		localStorage.setItem(
 			"kunkun-iframe-ext-params",
@@ -149,6 +166,7 @@ export async function onCustomUiCmdSelect(
 			console.log("Extension file server address: ", addr)
 			const newUrl = `http://${addr}`
 			url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
+			setIframeExtParams(ext.extPath, newUrl)
 		}
 		goto(i18n.resolveRoute(url2))
 	}

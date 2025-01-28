@@ -20,7 +20,7 @@ export const load: PageLoad = async ({ url }) => {
 		toast.error("Invalid extension path or url")
 		return svError(404, "Invalid extension path or url")
 	}
-	localStorage.removeItem("kunkun-template-ext-params")
+
 	const parsed = v.safeParse(KunkunTemplateExtParams, JSON.parse(rawKunkunTemplateExtParams))
 	if (!parsed.success) {
 		toast.error("Fail to parse extension params from local storage", {

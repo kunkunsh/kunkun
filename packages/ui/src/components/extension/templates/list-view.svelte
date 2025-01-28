@@ -131,7 +131,7 @@
 		{/snippet}
 	</CustomCommandInput>
 	{#if pbar}
-		<Progress value={50} class="h-0.4 rounded-none" />
+		<Progress value={pbar} class="h-0.5 rounded-none" />
 	{/if}
 
 	<Resizable.PaneGroup direction="horizontal">

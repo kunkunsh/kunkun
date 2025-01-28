@@ -361,6 +361,7 @@
 {:else if loaded && formViewContent !== undefined}
 	<Templates.FormView
 		{formViewContent}
+		{pbar}
 		onGoBack={goBack}
 		onSubmit={(formData: Record<string, string | number | boolean>) => {
 			console.log("formData", formData)
