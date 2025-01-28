@@ -101,6 +101,13 @@ export async function onHeadlessCmdSelect(
 	await workerAPI.load()
 }
 
+function setIframeExtParams(extPath: string, url: string) {
+	localStorage.setItem(
+		"kunkun-iframe-ext-params",
+		JSON.stringify({ url, extPath } satisfies KunkunIframeExtParams)
+	)
+}
+
 export async function onCustomUiCmdSelect(
 	ext: ExtPackageJsonExtra,
 	cmd: CustomUiCmd,
@@ -119,6 +126,7 @@ export async function onCustomUiCmdSelect(
 	}
 	let url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
 	// url2 = `/dev?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
+	setIframeExtParams(ext.extPath, url)
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({
 			extPath: ext.extPath,
@@ -128,11 +136,8 @@ export async function onCustomUiCmdSelect(
 			const addr = await spawnExtensionFileServer(winLabel)
 			const newUrl = `http://${addr}`
 			url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
+			setIframeExtParams(ext.extPath, newUrl)
 		}
-		localStorage.setItem(
-			"kunkun-iframe-ext-params",
-			JSON.stringify({ url, extPath: ext.extPath } satisfies KunkunIframeExtParams)
-		)
 		const window = launchNewExtWindow(winLabel, url2, cmd.window)
 		window.onCloseRequested(async (event) => {
 			await winExtMap.unregisterExtensionFromWindow(winLabel)
@@ -149,6 +154,7 @@ export async function onCustomUiCmdSelect(
 			console.log("Extension file server address: ", addr)
 			const newUrl = `http://${addr}`
 			url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
+			setIframeExtParams(ext.extPath, newUrl)
 		}
 		goto(i18n.resolveRoute(url2))
 	}
