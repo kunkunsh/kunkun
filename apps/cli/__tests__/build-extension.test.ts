@@ -16,8 +16,9 @@ const createKKIndexjsPath = path.join(createKKDistDir, "index.mjs")
 const testDir = path.join(os.tmpdir(), "kunkun-cli-test")
 console.log("Test Dir: ", testDir)
 const templateNames = ["react", "vue", "nuxt", "svelte", "sveltekit", "next", "template"]
-
-fs.rmdirSync(testDir, { recursive: true })
+if (fs.existsSync(testDir)) {
+	fs.rmdirSync(testDir, { recursive: true })
+}
 fs.mkdirpSync(testDir)
 const testTemplateDirs: string[] = []
 for (const templateName of templateNames) {
@@ -37,7 +38,9 @@ test("Build And Verify", async () => {
 })
 
 const testDirDocker = path.join(os.tmpdir(), "kunkun-cli-test-docker")
-fs.rmdirSync(testDirDocker, { recursive: true })
+if (fs.existsSync(testDirDocker)) {
+	fs.rmdirSync(testDirDocker, { recursive: true })
+}
 fs.mkdirpSync(testDirDocker)
 
 const templateData: Record<string, { dir: string; buildResult: BuildResult }> = {}

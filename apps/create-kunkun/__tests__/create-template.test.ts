@@ -15,7 +15,9 @@ const distDir = path.join(getRootDir(), "dist")
 const indexjsPath = path.join(distDir, "index.mjs")
 const templateNames = ["template", "react", "vue", "nuxt", "svelte", "sveltekit"]
 
-fs.rmdirSync(testDir, { recursive: true })
+if (fs.existsSync(testDir)) {
+	fs.rmdirSync(testDir, { recursive: true })
+}
 fs.mkdirpSync(testDir)
 for (const templateName of templateNames) {
 	const folderName = `${templateName}-ext`
