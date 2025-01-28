@@ -28,13 +28,13 @@ export const load: PageLoad = async ({
 		toast.error("Invalid extension path or url")
 		return svError(404, "Invalid extension path or url")
 	}
-	localStorage.removeItem("kunkun-iframe-ext-params")
+	// localStorage.removeItem("kunkun-iframe-ext-params")
 	const parsed = v.safeParse(KunkunIframeExtParams, JSON.parse(rawKunkunIframeExtParams))
 	if (!parsed.success) {
-		toast.error("Invalid extension path or url", {
+		toast.error("Fail to parse extension params from local storage", {
 			description: `${v.flatten<typeof KunkunIframeExtParams>(parsed.issues)}`
 		})
-		return svError(404, "Invalid extension path or url")
+		return svError(400, "Fail to parse extension params from local storage")
 	}
 	const { url: extUrl, extPath } = parsed.output
 	console.log("extUrl extPath", extUrl, extPath)

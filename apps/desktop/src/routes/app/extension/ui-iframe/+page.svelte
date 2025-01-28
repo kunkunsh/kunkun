@@ -200,7 +200,6 @@
 
 <main class="h-screen">
 	<DanceTransition delay={300} autoHide={false} show={!uiControl.iframeLoaded} />
-	<pre>{data.url}</pre>
 	<iframe
 		bind:this={iframeRef}
 		class={cn("h-full", {

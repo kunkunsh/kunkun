@@ -23,18 +23,12 @@ export const load: PageLoad = async ({ url }) => {
 	localStorage.removeItem("kunkun-template-ext-params")
 	const parsed = v.safeParse(KunkunTemplateExtParams, JSON.parse(rawKunkunTemplateExtParams))
 	if (!parsed.success) {
-		toast.error("Invalid extension path or url", {
+		toast.error("Fail to parse extension params from local storage", {
 			description: `${v.flatten<typeof KunkunTemplateExtParams>(parsed.issues)}`
 		})
-		return svError(404, "Invalid extension path or url")
+		return svError(404, "Fail to parse extension params from local storage")
 	}
 	const { cmdName, extPath } = parsed.output
-
-	if (!extPath || !cmdName) {
-		toast.error("Invalid extension path or url")
-		error("Invalid extension path or url")
-		goto(i18n.resolveRoute("/app/"))
-	}
 
 	let _loadedExt: ExtPackageJsonExtra | undefined
 	try {
