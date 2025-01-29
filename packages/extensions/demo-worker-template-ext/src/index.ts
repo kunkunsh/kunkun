@@ -50,68 +50,11 @@ class ExtensionTemplate extends WorkerExtension {
 	}
 
 	async load() {
-		clipboard.readText().then((text) => {
-			console.log("Clipboard text:", text)
-		})
-		kv.exists("test").then((exists) => {
-			console.log("KV exists:", exists)
-		})
-		kv.set("test", Math.random().toString()).then(() => {
-			return kv.get("test").then((value) => {
-				console.log("KV value:", value)
-			})
-		})
-
-		// console.log("Check screen capture permission:", await security.mac.checkScreenCapturePermission())
-		// await security.mac.revealSecurityPane("AllFiles")
-		// console.log(await security.mac.verifyFingerprint())
 		ui.setSearchBarPlaceholder("Search for items")
 		ui.showLoadingBar(true)
 		setTimeout(() => {
 			ui.showLoadingBar(false)
 		}, 2000)
-		const { rpcChannel, process, command } = await shell.createDenoRpcChannel<
-			{},
-			{
-				add(a: number, b: number): Promise<number>
-				subtract(a: number, b: number): Promise<number>
-				readImageMetadata(path: string): Promise<any>
-				batchReadImageMetadata: (paths: string[]) => Promise<any[]>
-			}
-		>(
-			"$EXTENSION/deno-src/rpc.ts",
-			[],
-			{
-				// allowEnv: ["npm_package_config_libvips"],
-				allowAllEnv: true,
-				// allowFfi: ["*sharp-darwin-arm64.node"],
-				allowAllFfi: true,
-				allowAllRead: true,
-				allowAllSys: true,
-				// allowRun: ["*exiftool"]
-				allowAllRun: true
-			},
-			{}
-		)
-		// const child = new Child(process.pid)
-		command.stdout.on("data", (data) => {
-			console.log("stdout", data.toString())
-		})
-		command.stderr.on("data", (data) => {
-			console.log("stderr", data.toString())
-		})
-		// await api
-		// 	.readImageMetadata("/Users/hacker/Pictures/3D-Image/pics/IMG_0767.jpeg")
-		// 	.then((data) => {
-		// 		console.log("metadata", data)
-		// 	})
-		// 	.catch((err) => {
-		// 		console.error("error", err)
-		// 	})
-		// await api.add(1, 2).then(console.log)
-		// await api.subtract(1, 2).then(console.log)
-
-		await process.kill()
 		const extPath = await path.extensionDir()
 		// console.log("Extension path:", extPath)
 		const tagList = new List.ItemDetailMetadataTagList({

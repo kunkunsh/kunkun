@@ -90,6 +90,7 @@
 </script>
 
 <Command.Root
+	vimBindings={false}
 	class="h-screen w-full rounded-lg border shadow-md"
 	shouldFilter={listViewContent.filter !== "none"}
 	bind:value={highlightedValue}

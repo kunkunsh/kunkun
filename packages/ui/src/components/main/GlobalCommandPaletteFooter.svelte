@@ -40,7 +40,7 @@
 		{#if defaultAction}
 			<Button size="default" class="h-full" variant="ghost" onclick={onDefaultActionSelected}>
 				{defaultAction}
-				<Kbd><Icon icon="tdesign:enter" /></Kbd>
+				<Kbd><Icon icon="uil:enter" /></Kbd>
 			</Button>
 		{/if}
 		{#if actionPanel}

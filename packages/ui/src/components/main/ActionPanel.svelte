@@ -7,6 +7,8 @@
 	import { tick } from "svelte"
 	import Kbd from "../common/Kbd.svelte"
 
+	const isMac = navigator.platform.toLowerCase().includes("mac")
+
 	let {
 		actionPanel,
 		open = $bindable(false),
@@ -42,15 +44,22 @@
 			<Button variant="ghost" class="" {...props} role="combobox" aria-expanded={open}>
 				Actions
 				<span class="flex items-center gap-0.5" data-tauri-drag-region>
-					<Kbd><Icon icon="ph-command" class="h-4 w-4 shrink-0" /></Kbd>
-					<Kbd>K</Kbd>
+					<Kbd class="w-fit">
+						{#if isMac}
+							<Icon icon="ph-command" class="h-4 w-4 shrink-0" />
+						{:else}
+							Ctl
+						{/if}
+					</Kbd>
+					+
+					<Kbd><Icon icon="mynaui:letter-k-solid" class="h-4 w-4 shrink-0" /></Kbd>
 				</span>
 				<ChevronsUpDown class="ml-2 size-4 shrink-0 opacity-50" />
 			</Button>
 		{/snippet}
 	</Popover.Trigger>
 	<Popover.Content class="w-64 p-0">
-		<Command.Root>
+		<Command.Root vimBindings={false}>
 			<Command.Input
 				placeholder="Select an Action"
 				onkeydown={(e) => {
