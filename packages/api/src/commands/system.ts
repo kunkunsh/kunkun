@@ -371,8 +371,9 @@ export const rawSystemCommands = [
 ]
 
 export function getSystemCommands(): SysCommand[] {
+	const _platform = platform()
 	return rawSystemCommands
-		.filter(async (cmd) => cmd.platforms.includes(platform())) // Filter out system commands that are not supported on the current platform
+		.filter((cmd) => cmd.platforms.includes(_platform)) // Filter out system commands that are not supported on the current platform
 		.map((cmd) => ({
 			name: cmd.name,
 			value: "system-cmd" + cmd.name.split(" ").join("-").toLowerCase(),

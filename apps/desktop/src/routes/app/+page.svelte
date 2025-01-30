@@ -30,6 +30,7 @@
 	import { cn, commandScore } from "@kksh/ui/utils"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
+	import { platform } from "@tauri-apps/plugin-os"
 	import { exit } from "@tauri-apps/plugin-process"
 	import { goto } from "$app/navigation"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
@@ -156,18 +157,27 @@
 						<DropdownMenu.Item onclick={toggleDevTools}>
 							<Icon icon="mingcute:code-fill" class="mr-2 h-5 w-5 text-green-500" />
 							{m.home_command_input_dropdown_toggle_devtools()}
-							<DropdownMenu.Shortcut
-								><span class="flex items-center">⌃+<ArrowBigUpIcon class="h-4 w-4" />+I</span
-								></DropdownMenu.Shortcut
-							>
+							<DropdownMenu.Shortcut>
+								<span class="flex items-center">⌃+<ArrowBigUpIcon class="h-4 w-4" />+I </span>
+							</DropdownMenu.Shortcut>
 						</DropdownMenu.Item>
 						<DropdownMenu.Item onclick={() => location.reload()}>
 							<RefreshCcwIcon class="mr-2 h-4 w-4 text-green-500" />
 							{m.home_command_input_dropdown_reload_window()}
-							<DropdownMenu.Shortcut
-								><span class="flex items-center">⌃+<ArrowBigUpIcon class="h-4 w-4" />+R</span
-								></DropdownMenu.Shortcut
-							>
+							<DropdownMenu.Shortcut>
+								<span class="flex items-center">⌃+<ArrowBigUpIcon class="h-4 w-4" />+R </span>
+							</DropdownMenu.Shortcut>
+						</DropdownMenu.Item>
+						<DropdownMenu.Item onclick={() => location.reload()}>
+							<RefreshCcwIcon class="mr-2 h-4 w-4 text-green-500" />
+							{m.home_command_input_dropdown_open_preference()}
+							<DropdownMenu.Shortcut>
+								{#if platform() === "macos"}
+									<span class="flex items-center">⌘+Comma</span>
+								{:else}
+									<span class="flex items-center">Ctrl+Comma</span>
+								{/if}
+							</DropdownMenu.Shortcut>
 						</DropdownMenu.Item>
 						<DropdownMenu.Item
 							onclick={() => {

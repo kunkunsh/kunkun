@@ -1,25 +1,34 @@
+import { KunkunTemplateExtParams } from "@/cmds/ext"
 import { i18n } from "@/i18n"
 import { db, unregisterExtensionWindow } from "@kksh/api/commands"
 import type { Ext as ExtInfoInDB, ExtPackageJsonExtra } from "@kksh/api/models"
 import { loadExtensionManifestFromDisk } from "@kksh/extension"
-import { error as sbError } from "@sveltejs/kit"
+import { error as sbError, error as svError } from "@sveltejs/kit"
 import { join } from "@tauri-apps/api/path"
 import { exists, readTextFile } from "@tauri-apps/plugin-fs"
 import { error } from "@tauri-apps/plugin-log"
 import { goto } from "$app/navigation"
 import { toast } from "svelte-sonner"
+import * as v from "valibot"
 import type { PageLoad } from "./$types"
 
 export const load: PageLoad = async ({ url }) => {
 	// both query parameter must exist
 
-	const extPath = url.searchParams.get("extPath")
-	const cmdName = url.searchParams.get("cmdName")
-	if (!extPath || !cmdName) {
+	const rawKunkunTemplateExtParams = localStorage.getItem("kunkun-template-ext-params")
+	if (!rawKunkunTemplateExtParams) {
 		toast.error("Invalid extension path or url")
-		error("Invalid extension path or url")
-		goto(i18n.resolveRoute("/app/"))
+		return svError(404, "Invalid extension path or url")
 	}
+
+	const parsed = v.safeParse(KunkunTemplateExtParams, JSON.parse(rawKunkunTemplateExtParams))
+	if (!parsed.success) {
+		toast.error("Fail to parse extension params from local storage", {
+			description: `${v.flatten<typeof KunkunTemplateExtParams>(parsed.issues)}`
+		})
+		return svError(404, "Fail to parse extension params from local storage")
+	}
+	const { cmdName, extPath } = parsed.output
 
 	let _loadedExt: ExtPackageJsonExtra | undefined
 	try {

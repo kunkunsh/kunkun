@@ -1,5 +1,11 @@
 # create-kunkun
 
+## 0.1.42
+
+### Patch Changes
+
+- Update sveltekit template
+
 ## 0.1.40
 
 ### Patch Changes

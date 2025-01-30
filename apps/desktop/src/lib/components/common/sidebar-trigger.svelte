@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { goHome } from "@/utils/route"
-	import { Button, SideBar } from "@kksh/svelte5"
+	import { Button, Sidebar } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
 	import { ArrowLeftIcon } from "lucide-svelte"
 
-	const { useSidebar } = SideBar
+	const { useSidebar } = Sidebar
 	const sidebar = useSidebar()
 </script>
 
 <div class="fixed flex h-10 w-full items-center gap-2 pl-1 pt-1" data-tauri-drag-region>
-	<SideBar.Trigger class="z-50" />
+	<Sidebar.Trigger class="z-50" />
 	{#if sidebar.state === "collapsed"}
 		<Button
 			variant="outline"

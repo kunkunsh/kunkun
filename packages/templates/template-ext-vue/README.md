@@ -35,33 +35,7 @@ Kunkun provides meta-framework templates for Nuxt, Next, SvelteKit.
 ## Verify Build and Publish
 
 ```bash
-pnpm build # make sure the build npm script works
-npx kksh@latest verify # Verify some basic settings before publishing
+npx kksh@latest verify --publish # run basic verification
 ```
 
-It is recommended to build the extension with the same environment our CI uses.
-
-The docker image used by our CI is `huakunshen/kunkun-ext-builder:latest`.
-
-You can use the following command to build the extension with the same environment our CI uses.
-This requires you to have docker installed, and the shell you are using has access to it via `docker` command.
-
-```bash
-npx kksh@latest build # Build the extension with
-```
-
-`pnpm` is used to install dependencies and build the extension.
-
-The docker image environment also has `node`, `pnpm`, `npm`, `bun`, `deno` installed.
-If your build failed, try debug with `huakunshen/kunkun-ext-builder:latest` image in interative mode and bind your extension volume to `/workspace`.
-
-After build successfully, you should find a tarball file ends with `.tgz` in the root of your extension.
-The tarball is packaged with `npm pack` command. You can uncompress it to see if it contains all the necessary files.
-
-This tarball is the final product that will be published and installed in Kunkun. You can further verify your extension by installing this tarball directly in Kunkun.
-
-After verifying the tarball, it's ready to be published.
-
-Fork [KunkunExtensions](https://github.com/kunkunsh/KunkunExtensions) repo, add your extension to the `extensions` directory, and create a PR.
-
-Once CI passed and PR merged, you can use your extension in Kunkun.
+See [Documentation](https://docs.kunkun.sh/guides/extensions/publish/design/) for more details on how to publish your extension. You will need to publish your extension package to npm or jsr first with GitHub actioin, then register it on Kunkun's website.

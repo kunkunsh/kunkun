@@ -25,6 +25,7 @@ import type {
 	IDb,
 	IEvent,
 	IFs,
+	IKV,
 	IOpen,
 	IPath,
 	ISecurity,
@@ -50,6 +51,7 @@ export { type IUiIframeServer2, type IUiIframeServer1 } from "../../api/server-t
  */
 type API = {
 	db: IDb // for kunkun
+	kv: IKV // for kunkun
 	system: ISystem // for kunkun
 	open: IOpen // for kunkun
 	clipboard: IClipboard // inherit from tauri-api-adapter
@@ -86,6 +88,7 @@ export const {
 	db,
 	os,
 	clipboard,
+	kv,
 	dialog,
 	fs,
 	log,

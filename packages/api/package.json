@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/api",
-	"version": "0.0.53",
+	"version": "0.0.55",
 	"type": "module",
 	"exports": {
 		".": "./src/index.ts",
