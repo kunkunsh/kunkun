@@ -1,19 +1,63 @@
 {
 	"name": "@kksh/api",
-	"version": "0.0.55",
+	"version": "0.0.56-next.0",
 	"type": "module",
 	"exports": {
-		".": "./src/index.ts",
-		"./ui": "./src/ui/index.ts",
-		"./ui/iframe": "./src/ui/iframe/index.ts",
-		"./ui/worker": "./src/ui/worker/index.ts",
-		"./headless": "./src/headless/index.ts",
-		"./models": "./src/models/index.ts",
-		"./commands": "./src/commands/index.ts",
-		"./runtime/deno": "./src/runtime/deno.ts",
-		"./permissions": "./src/permissions/index.ts",
-		"./dev": "./src/dev/index.ts",
-		"./events": "./src/events.ts",
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js",
+			"require": "./dist/index.cjs"
+		},
+		"./ui": {
+			"types": "./dist/ui/index.d.ts",
+			"import": "./dist/ui/index.js",
+			"require": "./dist/ui/index.cjs"
+		},
+		"./ui/iframe": {
+			"types": "./dist/ui/iframe/index.d.ts",
+			"import": "./dist/ui/iframe/index.js",
+			"require": "./dist/ui/iframe/index.cjs"
+		},
+		"./ui/worker": {
+			"types": "./dist/ui/worker/index.d.ts",
+			"import": "./dist/ui/worker/index.js",
+			"require": "./dist/ui/worker/index.cjs"
+		},
+		"./headless": {
+			"types": "./dist/headless/index.d.ts",
+			"import": "./dist/headless/index.js",
+			"require": "./dist/headless/index.cjs"
+		},
+		"./models": {
+			"types": "./dist/models/index.d.ts",
+			"import": "./dist/models/index.js",
+			"require": "./dist/models/index.cjs"
+		},
+		"./commands": {
+			"types": "./dist/commands/index.d.ts",
+			"import": "./dist/commands/index.js",
+			"require": "./dist/commands/index.cjs"
+		},
+		"./runtime/deno": {
+			"types": "./dist/runtime/deno.d.ts",
+			"import": "./dist/runtime/deno.js",
+			"require": "./dist/runtime/deno.cjs"
+		},
+		"./permissions": {
+			"types": "./dist/permissions/index.d.ts",
+			"import": "./dist/permissions/index.js",
+			"require": "./dist/permissions/index.cjs"
+		},
+		"./dev": {
+			"types": "./dist/dev/index.d.ts",
+			"import": "./dist/dev/index.js",
+			"require": "./dist/dev/index.cjs"
+		},
+		"./events": {
+			"types": "./dist/events.d.ts",
+			"import": "./dist/events.js",
+			"require": "./dist/events.cjs"
+		},
 		"./package.json": "./package.json"
 	},
 	"license": "MIT",
@@ -34,8 +78,10 @@
 		"@types/madge": "^5.0.3",
 		"@types/node": "^22.10.5",
 		"@types/semver": "^7.5.8",
+		"@valibot/to-json-schema": "1.0.0-beta.4",
 		"fs-extra": "^11.2.0",
 		"madge": "^8.0.0",
+		"tsup": "^8.3.6",
 		"typedoc": "^0.27.6",
 		"typescript": "^5.0.0",
 		"verify-package-export": "^0.0.2"
@@ -68,7 +114,7 @@
 		"tauri-plugin-network-api": "2.0.5",
 		"tauri-plugin-shellx-api": "^2.0.14",
 		"tauri-plugin-system-info-api": "2.0.8",
-		"valibot": "^1.0.0-beta.10"
+		"valibot": "^1.0.0-beta.11"
 	},
 	"files": [
 		"src",

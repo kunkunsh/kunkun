@@ -1,4 +1,3 @@
-import { emitKillProcessEvent } from "@kksh/api/events"
 import { Channel, invoke } from "@tauri-apps/api/core"
 import { emitTo } from "@tauri-apps/api/event"
 import { getCurrentWindow } from "@tauri-apps/api/window"
@@ -12,7 +11,7 @@ import {
 } from "tauri-plugin-shellx-api"
 import type { DenoRunConfig } from "../../api/client"
 import type { IShellServer } from "../../api/server-types"
-import { RECORD_EXTENSION_PROCESS_EVENT, type IRecordExtensionProcessEvent } from "../../events"
+import { emitKillProcessEvent, RECORD_EXTENSION_PROCESS_EVENT, type IRecordExtensionProcessEvent } from "../../events"
 import { ShellPermissionMap } from "../../permissions/permission-map"
 import { type ShellPermission, type ShellPermissionScoped } from "../../permissions/schema"
 import { verifyScopedPermission } from "../../utils/path"

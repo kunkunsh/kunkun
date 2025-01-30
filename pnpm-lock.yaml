@@ -142,8 +142,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       valibot:
-        specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.7.2)
+        specifier: ^1.0.0-beta.11
+        version: 1.0.0-beta.12(typescript@5.7.2)
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -182,8 +182,8 @@ importers:
         specifier: ^5.0.0
         version: 5.6.3
       valibot:
-        specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.6.3)
+        specifier: ^1.0.0-beta.11
+        version: 1.0.0-beta.12(typescript@5.6.3)
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -457,8 +457,8 @@ importers:
         specifier: 2.0.8
         version: 2.0.8(typescript@5.7.2)
       valibot:
-        specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.7.2)
+        specifier: ^1.0.0-beta.11
+        version: 1.0.0-beta.12(typescript@5.7.2)
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -475,12 +475,18 @@ importers:
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
+      '@valibot/to-json-schema':
+        specifier: 1.0.0-beta.4
+        version: 1.0.0-beta.4(valibot@1.0.0-beta.12(typescript@5.7.2))
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
       madge:
         specifier: ^8.0.0
         version: 8.0.0(typescript@5.7.2)
+      tsup:
+        specifier: ^8.3.6
+        version: 8.3.6(jiti@2.4.0)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1)
       typedoc:
         specifier: ^0.27.6
         version: 0.27.6(typescript@5.7.2)
@@ -741,8 +747,8 @@ importers:
         specifier: ^5.0.0
         version: 5.6.3
       valibot:
-        specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.6.3)
+        specifier: ^1.0.0-beta.11
+        version: 1.0.0-beta.12(typescript@5.6.3)
     devDependencies:
       '@kksh/supabase':
         specifier: workspace:*
@@ -755,7 +761,7 @@ importers:
         version: 1.2.1
       '@valibot/to-json-schema':
         specifier: 1.0.0-beta.4
-        version: 1.0.0-beta.4(valibot@1.0.0-beta.10(typescript@5.6.3))
+        version: 1.0.0-beta.4(valibot@1.0.0-beta.12(typescript@5.6.3))
 
   packages/supabase:
     dependencies:
@@ -6021,6 +6027,12 @@ packages:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
     engines: {node: '>=18'}
 
+  bundle-require@5.1.0:
+    resolution: {integrity: sha512-3WrrOuZiyaaZPWiEt4G3+IffISVC9HYlWueJEBWED4ZH4aIAC2PnkdnuRrR94M+w6yGWn4AglWtJtBI8YqvgoA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    peerDependencies:
+      esbuild: '>=0.18'
+
   busboy@1.6.0:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
     engines: {node: '>=10.16.0'}
@@ -8176,6 +8188,10 @@ packages:
       react:
         optional: true
 
+  joycon@3.1.1:
+    resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
+    engines: {node: '>=10'}
+
   js-levenshtein@1.1.6:
     resolution: {integrity: sha512-X2BB11YZtrRqY4EnQcLX5Rh373zbK4alC1FW7D7MBhL2gtcC17cTnr6DmfHZeS0s2rTHjUTMMHfG7gO8SSdw+g==}
     engines: {node: '>=0.10.0'}
@@ -8370,6 +8386,10 @@ packages:
     resolution: {integrity: sha512-I8oW2+QL5KJo8zXNWX046M134WchxsXC7SawLPvRQpogCbkyQIaFxPE89A2HiwR7vAK2Dm2ERBAmyjTYGYEpBg==}
     hasBin: true
 
+  load-tsconfig@0.2.5:
+    resolution: {integrity: sha512-IXO6OCs9yg8tMKzfPZ1YmheJbZCiEsnBdcB03l0OcfK9prKnJb96siuHCr5Fl37/yo9DnKU+TLpxzTUspw9shg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
   local-pkg@0.5.1:
     resolution: {integrity: sha512-9rrA30MRRP3gBD3HTGnC6cDFpaE1kVDWxWgqWJUN0RvDNAo+Nz/9GxB+nHOH0ifbVFy0hSA1V6vFDvnx54lTEQ==}
     engines: {node: '>=14'}
@@ -8429,6 +8449,9 @@ packages:
 
   lodash.once@4.1.1:
     resolution: {integrity: sha512-Sb487aTOCr9drQVL8pIxOzVhafOjZN9UU54hiN8PU3uAiSV7lx1yYNpbNmex2PK6dSJoNTSJUUswT651yww3Mg==}
+
+  lodash.sortby@4.7.0:
+    resolution: {integrity: sha512-HDWXG8isMntAyRF5vZ7xKuEvOhT4AhlRt/3czTSjvGUxjYCBVRQY48ViDHyfYz9VIoBkW4TMGQNapx+l3RUwdA==}
 
   lodash.startcase@4.4.0:
     resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
@@ -9353,6 +9376,24 @@ packages:
       ts-node:
         optional: true
 
+  postcss-load-config@6.0.1:
+    resolution: {integrity: sha512-oPtTM4oerL+UXmx+93ytZVN82RrlY/wPUV8IeDxFrzIjXOLF1pN+EmKPLbubvKHT2HC20xXsCAH2Z+CKV6Oz/g==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      jiti: '>=1.21.0'
+      postcss: '>=8.0.9'
+      tsx: ^4.8.1
+      yaml: ^2.4.2
+    peerDependenciesMeta:
+      jiti:
+        optional: true
+      postcss:
+        optional: true
+      tsx:
+        optional: true
+      yaml:
+        optional: true
+
   postcss-merge-longhand@7.0.4:
     resolution: {integrity: sha512-zer1KoZA54Q8RVHKOY5vMke0cCdNxMP3KBfDerjH/BYHh4nCIh+1Yy0t1pAEQF18ac/4z3OFclO+ZVH8azjR4A==}
     engines: {node: ^18.12.0 || ^20.9.0 || >=22.0}
@@ -10229,6 +10270,10 @@ packages:
     resolution: {integrity: sha512-l3BikUxvPOcn5E74dZiq5BGsTb5yEwhaTSzccU6t4sDOH8NWJCstKO5QT2CvtFoK6F0saL7p9xHAqHOlCPJygA==}
     engines: {node: '>= 8'}
 
+  source-map@0.8.0-beta.0:
+    resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
+    engines: {node: '>= 8'}
+
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
 
@@ -10670,6 +10715,13 @@ packages:
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
 
+  tr46@1.0.1:
+    resolution: {integrity: sha512-dTpowEjclQ7Kgx5SdBkqRzVhERQXov8/l9Ft9dVM9fmg0W0KQSVaXX9T4i6twCPNtYiZM53lpSSUAwJbFPOHxA==}
+
+  tree-kill@1.2.2:
+    resolution: {integrity: sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==}
+    hasBin: true
+
   trim-lines@3.0.1:
     resolution: {integrity: sha512-kRj8B+YHZCc9kQYdWfJB2/oUl9rA99qbowYYBtr4ui4mZyAQ2JpvVBd/6U2YloATfqBhBTSMhTpgBHtU0Mf3Rg==}
 
@@ -10735,6 +10787,25 @@ packages:
   tsscmp@1.0.6:
     resolution: {integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==}
     engines: {node: '>=0.6.x'}
+
+  tsup@8.3.6:
+    resolution: {integrity: sha512-XkVtlDV/58S9Ye0JxUUTcrQk4S+EqlOHKzg6Roa62rdjL1nGWNUstG0xgI4vanHdfIpjP448J8vlN0oK6XOJ5g==}
+    engines: {node: '>=18'}
+    hasBin: true
+    peerDependencies:
+      '@microsoft/api-extractor': ^7.36.0
+      '@swc/core': ^1
+      postcss: ^8.4.12
+      typescript: '>=4.5.0'
+    peerDependenciesMeta:
+      '@microsoft/api-extractor':
+        optional: true
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
+      typescript:
+        optional: true
 
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
@@ -11468,11 +11539,17 @@ packages:
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
 
+  webidl-conversions@4.0.2:
+    resolution: {integrity: sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==}
+
   webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
 
   whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
+
+  whatwg-url@7.1.0:
+    resolution: {integrity: sha512-WUu7Rg1DroM7oQvGWfOiAK21n74Gg+T4elXEQYkOhtyLeWiJFoOGLXPKI/9gzIie9CtwVLm8wtw6YJdKyxSjeg==}
 
   whence@2.0.1:
     resolution: {integrity: sha512-VtcCE1Pe3BKofF/k+P5xcpuoqQ0f1NJY6TmdUw5kInl9/pEr1ZEFD9+ZOUicf52tvpTbhMS93aWXriu2IQYTTw==}
@@ -12924,8 +13001,8 @@ snapshots:
       valibot: 0.31.1
     optionalDependencies:
       '@types/json-schema': 7.0.15
-      esbuild: 0.24.0
-      esbuild-runner: 2.2.2(esbuild@0.24.0)
+      esbuild: 0.24.2
+      esbuild-runner: 2.2.2(esbuild@0.24.2)
     optional: true
 
   '@gerrit0/mini-shiki@1.24.4':
@@ -17064,9 +17141,13 @@ snapshots:
       '@unovis/ts': 1.4.4
       vue: 3.5.13(typescript@5.6.3)
 
-  '@valibot/to-json-schema@1.0.0-beta.4(valibot@1.0.0-beta.10(typescript@5.6.3))':
+  '@valibot/to-json-schema@1.0.0-beta.4(valibot@1.0.0-beta.12(typescript@5.6.3))':
     dependencies:
-      valibot: 1.0.0-beta.10(typescript@5.6.3)
+      valibot: 1.0.0-beta.12(typescript@5.6.3)
+
+  '@valibot/to-json-schema@1.0.0-beta.4(valibot@1.0.0-beta.12(typescript@5.7.2))':
+    dependencies:
+      valibot: 1.0.0-beta.12(typescript@5.7.2)
 
   '@vee-validate/zod@4.14.7(vue@3.5.13(typescript@5.6.3))':
     dependencies:
@@ -17771,6 +17852,11 @@ snapshots:
   bundle-name@4.1.0:
     dependencies:
       run-applescript: 7.0.0
+
+  bundle-require@5.1.0(esbuild@0.24.2):
+    dependencies:
+      esbuild: 0.24.2
+      load-tsconfig: 0.2.5
 
   busboy@1.6.0:
     dependencies:
@@ -18810,9 +18896,9 @@ snapshots:
       is-date-object: 1.0.5
       is-symbol: 1.0.4
 
-  esbuild-runner@2.2.2(esbuild@0.24.0):
+  esbuild-runner@2.2.2(esbuild@0.24.2):
     dependencies:
-      esbuild: 0.24.0
+      esbuild: 0.24.2
       source-map-support: 0.5.21
       tslib: 2.4.0
     optional: true
@@ -20166,6 +20252,8 @@ snapshots:
       '@types/react': 18.3.12
       react: 18.3.1
 
+  joycon@3.1.1: {}
+
   js-levenshtein@1.1.6: {}
 
   js-tokens@4.0.0: {}
@@ -20415,6 +20503,8 @@ snapshots:
       untun: 0.1.3
       uqr: 0.1.2
 
+  load-tsconfig@0.2.5: {}
+
   local-pkg@0.5.1:
     dependencies:
       mlly: 1.7.3
@@ -20459,6 +20549,8 @@ snapshots:
   lodash.merge@4.6.2: {}
 
   lodash.once@4.1.1: {}
+
+  lodash.sortby@4.7.0: {}
 
   lodash.startcase@4.4.0: {}
 
@@ -21475,6 +21567,14 @@ snapshots:
     optionalDependencies:
       postcss: 8.4.49
 
+  postcss-load-config@6.0.1(jiti@2.4.0)(postcss@8.4.49)(yaml@2.6.1):
+    dependencies:
+      lilconfig: 3.1.3
+    optionalDependencies:
+      jiti: 2.4.0
+      postcss: 8.4.49
+      yaml: 2.6.1
+
   postcss-merge-longhand@7.0.4(postcss@8.4.49):
     dependencies:
       postcss: 8.4.49
@@ -22426,6 +22526,10 @@ snapshots:
 
   source-map@0.7.4: {}
 
+  source-map@0.8.0-beta.0:
+    dependencies:
+      whatwg-url: 7.1.0
+
   space-separated-tokens@2.0.2: {}
 
   spawndamnit@3.0.1:
@@ -22941,7 +23045,7 @@ snapshots:
       tauri-plugin-system-info-api: 2.0.8(typescript@5.7.2)
       tsc-alias: 1.8.10
       typescript: 5.7.2
-      valibot: 1.0.0-beta.11(typescript@5.7.2)
+      valibot: 1.0.0-beta.12(typescript@5.7.2)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -22990,14 +23094,14 @@ snapshots:
   tauri-plugin-network-api@2.0.5(typescript@5.6.3):
     dependencies:
       '@tauri-apps/api': 2.2.0
-      valibot: 1.0.0-beta.11(typescript@5.6.3)
+      valibot: 1.0.0-beta.12(typescript@5.6.3)
     transitivePeerDependencies:
       - typescript
 
   tauri-plugin-network-api@2.0.5(typescript@5.7.2):
     dependencies:
       '@tauri-apps/api': 2.2.0
-      valibot: 1.0.0-beta.11(typescript@5.7.2)
+      valibot: 1.0.0-beta.12(typescript@5.7.2)
     transitivePeerDependencies:
       - typescript
 
@@ -23105,6 +23209,12 @@ snapshots:
 
   tr46@0.0.3: {}
 
+  tr46@1.0.1:
+    dependencies:
+      punycode: 2.3.1
+
+  tree-kill@1.2.2: {}
+
   trim-lines@3.0.1: {}
 
   ts-algebra@2.0.0:
@@ -23188,6 +23298,33 @@ snapshots:
   tslib@2.8.1: {}
 
   tsscmp@1.0.6: {}
+
+  tsup@8.3.6(jiti@2.4.0)(postcss@8.4.49)(typescript@5.7.2)(yaml@2.6.1):
+    dependencies:
+      bundle-require: 5.1.0(esbuild@0.24.2)
+      cac: 6.7.14
+      chokidar: 4.0.1
+      consola: 3.2.3
+      debug: 4.4.0(supports-color@9.4.0)
+      esbuild: 0.24.2
+      joycon: 3.1.1
+      picocolors: 1.1.1
+      postcss-load-config: 6.0.1(jiti@2.4.0)(postcss@8.4.49)(yaml@2.6.1)
+      resolve-from: 5.0.0
+      rollup: 4.30.1
+      source-map: 0.8.0-beta.0
+      sucrase: 3.35.0
+      tinyexec: 0.3.1
+      tinyglobby: 0.2.10
+      tree-kill: 1.2.2
+    optionalDependencies:
+      postcss: 8.4.49
+      typescript: 5.7.2
+    transitivePeerDependencies:
+      - jiti
+      - supports-color
+      - tsx
+      - yaml
 
   tunnel-agent@0.6.0:
     dependencies:
@@ -23576,10 +23713,6 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.2
 
-  valibot@1.0.0-beta.11(typescript@5.6.3):
-    optionalDependencies:
-      typescript: 5.6.3
-
   valibot@1.0.0-beta.11(typescript@5.7.2):
     optionalDependencies:
       typescript: 5.7.2
@@ -23591,12 +23724,10 @@ snapshots:
   valibot@1.0.0-beta.12(typescript@5.6.3):
     optionalDependencies:
       typescript: 5.6.3
-    optional: true
 
   valibot@1.0.0-beta.12(typescript@5.7.2):
     optionalDependencies:
       typescript: 5.7.2
-    optional: true
 
   valibot@1.0.0-beta.12(typescript@5.7.3):
     optionalDependencies:
@@ -23948,12 +24079,20 @@ snapshots:
 
   webidl-conversions@3.0.1: {}
 
+  webidl-conversions@4.0.2: {}
+
   webpack-virtual-modules@0.6.2: {}
 
   whatwg-url@5.0.0:
     dependencies:
       tr46: 0.0.3
       webidl-conversions: 3.0.1
+
+  whatwg-url@7.1.0:
+    dependencies:
+      lodash.sortby: 4.7.0
+      tr46: 1.0.1
+      webidl-conversions: 4.0.2
 
   whence@2.0.1:
     dependencies:

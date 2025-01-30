@@ -1,8 +1,10 @@
-import { generateJarvisPluginCommand } from "@kksh/api/commands"
-import { AppInfo, IconEnum, SysCommand } from "@kksh/api/models"
 import { invoke } from "@tauri-apps/api/core"
 import { platform } from "@tauri-apps/plugin-os"
 import { parse } from "valibot"
+import { AppInfo } from "../models/apps"
+import { IconEnum } from "../models/icon"
+import { generateJarvisPluginCommand } from "./common"
+import type { SysCommand } from "../models/extension"
 
 export function openTrash(): Promise<void> {
 	return invoke(generateJarvisPluginCommand("open_trash"))

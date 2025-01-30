@@ -27,7 +27,7 @@
 		"commander": "^12.1.0",
 		"fs-extra": "^11.2.0",
 		"handlebars": "^4.7.8",
-		"valibot": "^1.0.0-beta.10"
+		"valibot": "^1.0.0-beta.11"
 	},
 	"files": [
 		"dist"
