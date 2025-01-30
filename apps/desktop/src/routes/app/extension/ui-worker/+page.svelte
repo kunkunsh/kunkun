@@ -270,11 +270,17 @@
 		const keySet = keys.getSet()
 		if (
 			keySet.size === 2 &&
-			keySet.has(_platform === "macos" ? "Meta" : "Alt") &&
+			keySet.has(_platform === "macos" ? "Meta" : "Control") &&
 			keySet.has("k")
 		) {
-			console.log("open action panel")
-			actionPanelOpen = true
+			// actionPanelOpen = true
+			setTimeout(() => {
+				console.log("toggle action panel")
+				actionPanelOpen = !actionPanelOpen
+				if (!actionPanelOpen) {
+					onActionPanelBlur()
+				}
+			}, 100)
 		}
 	})
 
