@@ -40,6 +40,7 @@
 	onMount(() => {
 		if (icon.type === IconEnum.Svg) {
 			cleanedSvg = DOMPurify.sanitize(icon.value)
+			cleanedSvg = cleanedSvg.replace('<svg', `<svg class="${className}"`);
 		}
 	})
 </script>
@@ -96,7 +97,7 @@
 {:else if icon.type === IconEnum.Svg}
 	<span
 		{...restProps}
-		class={cn(className, { invert: icon.invert, "dark:invert": icon.darkInvert })}
+		class={cn({ invert: icon.invert, "dark:invert": icon.darkInvert }, className)}
 		{style}
 	>
 		<!-- eslint-disable svelte/no-at-html-tags -->

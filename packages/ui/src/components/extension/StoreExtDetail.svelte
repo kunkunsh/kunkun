@@ -21,6 +21,7 @@
 	let {
 		extPublish,
 		ext,
+		author,
 		installedExt,
 		manifest,
 		demoImages,
@@ -36,6 +37,10 @@
 	}: {
 		extPublish: Tables<"ext_publish">
 		ext: Tables<"extensions">
+		author?: {
+			id: string,
+			name: string
+		} | null,
 		installedExt?: ExtPackageJson
 		packageJson: ExtPackageJson | null
 		manifest: KunkunExtManifest
@@ -268,8 +273,10 @@
 		</div>
 		<div>
 			<h2 class="text-lg font-bold">Publisher Profile</h2>
-			{#if !isInTauri}
-				<a class='text-blue-500 hover:text-blue-600' href={`/user/${ext.author_id}`}>{ext.author_id}</a>
+			{#if !isInTauri && author}
+				<ul class="list-disc pl-5">
+					<li><a class='text-blue-500 hover:text-blue-600' href={`/user/${author.id}`}>{author.name}</a></li>
+				</ul>
 			{:else}
 				<TauriLink href={`https://kunkun.sh/user/${ext.author_id}`}>{ext.author_id}</TauriLink>
 			{/if}
