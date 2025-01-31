@@ -40,7 +40,7 @@
 	onMount(() => {
 		if (icon.type === IconEnum.Svg) {
 			cleanedSvg = DOMPurify.sanitize(icon.value)
-			cleanedSvg = cleanedSvg.replace('<svg', `<svg class="${className}"`);
+			cleanedSvg = cleanedSvg.replace("<svg", `<svg class="${className}"`)
 		}
 	})
 </script>
