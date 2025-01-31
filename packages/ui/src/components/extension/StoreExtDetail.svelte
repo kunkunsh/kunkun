@@ -16,6 +16,7 @@
 	import GitHubProvenanceCard from "./GitHubProvenanceCard.svelte"
 	import PermissionInspector from "./PermissionInspector.svelte"
 	import Markdown from "./templates/Markdown.svelte"
+	import { isInTauri } from "../../utils/tauri"
 
 	let {
 		extPublish,
@@ -266,6 +267,12 @@
 			</ul>
 		</div>
 		<div>
+			<h2 class="text-lg font-bold">Publisher Profile</h2>
+			{#if !isInTauri}
+				<a class='text-blue-500 hover:text-blue-600' href={`/user/${ext.author_id}`}>{ext.author_id}</a>
+			{:else}
+				<TauriLink href={`https://kunkun.sh/user/${ext.author_id}`}>{ext.author_id}</TauriLink>
+			{/if}
 			<h2 class="text-lg font-bold">Author</h2>
 			{#if packageJson?.author}
 				<ul class="list-disc pl-5">
