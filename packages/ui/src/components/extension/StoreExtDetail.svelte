@@ -1,5 +1,6 @@
 <script lang="ts">
 	import autoAnimate from "@formkit/auto-animate"
+	import moment from 'moment'
 	import Icon from "@iconify/svelte"
 	import { ExtPackageJson, IconEnum, KunkunExtManifest } from "@kksh/api/models"
 	import { ExtPublishMetadata, ExtPublishSourceTypeEnum } from "@kksh/supabase/models"
@@ -156,7 +157,7 @@
 <ScrollArea class={cn("w-full pb-12", className)}>
 	<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
 		<div class="flex items-center gap-4">
-			<span class="h-12 w-12">
+			<span class="h-20 w-20">
 				<IconMultiplexer
 					icon={manifest.icon}
 					class={cn(Constants.CLASSNAMES.EXT_LOGO, "h-full w-full")}
@@ -173,9 +174,8 @@
 				<pre class="text-muted-foreground text-xs">{extPublish.identifier}</pre>
 				<pre class="text-muted-foreground text-xs">Version: {extPublish.version}</pre>
 				<pre class="text-muted-foreground text-xs">Downloads: {ext.downloads}</pre>
-				<pre class="text-muted-foreground text-xs">
-					Size: {prettyBytes(extPublish.tarball_size)}
-				</pre>
+				<pre class="text-muted-foreground text-xs">Size: {prettyBytes(extPublish.tarball_size)}</pre>
+				<pre class="text-muted-foreground text-xs">Published At: {moment(new Date(extPublish.created_at)).format('YYYY-MM-DD HH:mm')}</pre>
 			</div>
 		</div>
 		<div class="flex items-center space-x-2">
