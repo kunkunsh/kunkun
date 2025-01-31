@@ -38,7 +38,7 @@
 		"madge": "^8.0.0",
 		"typedoc": "^0.27.6",
 		"typescript": "^5.0.0",
-		"verify-package-export": "^0.0.2"
+		"verify-package-export": "^0.0.3"
 	},
 	"dependencies": {
 		"@huakunshen/jsr-client": "^0.1.5",
@@ -58,13 +58,13 @@
 		"@tauri-apps/plugin-store": "^2.2.0",
 		"@tauri-apps/plugin-updater": "^2.3.0",
 		"@tauri-apps/plugin-upload": "^2.2.1",
-		"kkrpc": "^0.0.13",
+		"kkrpc": "^0.1.1",
 		"lodash": "^4.17.21",
 		"minimatch": "^10.0.1",
 		"node-fetch": "^3.3.2",
 		"semver": "^7.6.3",
 		"svelte-sonner": "^0.3.28",
-		"tauri-api-adapter": "^0.3.16",
+		"tauri-api-adapter": "^0.3.20",
 		"tauri-plugin-network-api": "2.0.5",
 		"tauri-plugin-shellx-api": "^2.0.14",
 		"tauri-plugin-system-info-api": "2.0.8",

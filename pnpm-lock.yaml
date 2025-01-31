@@ -109,8 +109,8 @@ importers:
         specifier: 5.7.2
         version: 5.7.2
       verify-package-export:
-        specifier: ^0.0.2
-        version: 0.0.2(typescript@5.7.2)
+        specifier: ^0.0.3
+        version: 0.0.3(typescript@5.7.2)
 
   apps/cli:
     dependencies:
@@ -249,8 +249,8 @@ importers:
         specifier: ^3.12.5
         version: 3.12.5
       kkrpc:
-        specifier: ^0.0.13
-        version: 0.0.13(typescript@5.6.3)
+        specifier: ^0.1.1
+        version: 0.1.1(typescript@5.6.3)
       lz-string:
         specifier: ^1.5.0
         version: 1.5.0
@@ -427,8 +427,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
       kkrpc:
-        specifier: ^0.0.13
-        version: 0.0.13(typescript@5.7.2)
+        specifier: ^0.1.1
+        version: 0.1.1(typescript@5.7.2)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -445,8 +445,8 @@ importers:
         specifier: ^0.3.28
         version: 0.3.28(svelte@5.16.6)
       tauri-api-adapter:
-        specifier: ^0.3.16
-        version: 0.3.16(typescript@5.7.2)
+        specifier: ^0.3.20
+        version: 0.3.20(typescript@5.7.2)
       tauri-plugin-network-api:
         specifier: 2.0.5
         version: 2.0.5(typescript@5.7.2)
@@ -488,8 +488,8 @@ importers:
         specifier: ^5.0.0
         version: 5.7.2
       verify-package-export:
-        specifier: ^0.0.2
-        version: 0.0.2(typescript@5.7.2)
+        specifier: ^0.0.3
+        version: 0.0.3(typescript@5.7.2)
 
   packages/ci:
     dependencies:
@@ -726,8 +726,8 @@ importers:
         specifier: latest
         version: 1.2.1
       verify-package-export:
-        specifier: ^0.0.2
-        version: 0.0.2(typescript@5.7.3)
+        specifier: ^0.0.3
+        version: 0.0.3(typescript@5.7.3)
 
   packages/schema:
     dependencies:
@@ -8274,15 +8274,10 @@ packages:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
 
-  kkrpc@0.0.12:
-    resolution: {integrity: sha512-PBk4AhGfkesIdAwmIoj7dHHIp7qN97XT4yr5Rl7h2WL79gxWQVgZRJYLt7Gb17GoLDh991rnL85mhCoPG5VC/Q==}
+  kkrpc@0.1.1:
+    resolution: {integrity: sha512-zS75NGmDbMEQNJ7Y1XVNVrLmfuCY94jMCrIcNFHoT+5qLaTzpK1lokXUD9VYrRVMQMwAx8U9BgKjdiS0eDKZHA==}
     peerDependencies:
-      typescript: ^5.6.3
-
-  kkrpc@0.0.13:
-    resolution: {integrity: sha512-66ohRjbw2fLO45L1PMkGTP6KHk/Wa7nKJL6r4U/VCBsY+HoIncEdscSQcUgIdv2Da66/UyIC6UMWMvwIqXCZCg==}
-    peerDependencies:
-      typescript: ^5.6.3
+      typescript: ^5.0.0
 
   kleur@3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
@@ -10549,8 +10544,8 @@ packages:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
 
-  tauri-api-adapter@0.3.16:
-    resolution: {integrity: sha512-AoKWtRyhTPFaclM/XOtCSQg4OPmr/ssJqY209W+ELd4C11IpWyTVZ/Yfd7cCL03kB4OfvVTDWldA7Bzc7E72dg==}
+  tauri-api-adapter@0.3.20:
+    resolution: {integrity: sha512-tRK25c1d34ZRd5CJAXfrBeTr4eGh0UPshLac1DBm4TBF+EZ1TFCwLpvUj9DQ3VS2gHKA9fNc4J5pNpHh3OD4Og==}
     peerDependencies:
       typescript: ^5.0.0
 
@@ -11162,8 +11157,8 @@ packages:
     peerDependencies:
       vue: ^3.4.26
 
-  verify-package-export@0.0.2:
-    resolution: {integrity: sha512-eTxBMzf5O5G+KZYyGg33Zp36rnlbuMAKSR3nNzh299SDLOgxoFDlNVbiy1mANVWJ/uG15qVZv0K4KdwV5u1FZQ==}
+  verify-package-export@0.0.3:
+    resolution: {integrity: sha512-EEkH32KXpVdaUBRWA84CSwdQZExpyMgN8cR3OI9y7evJwhZfvNj+sAZHeMqglrnZ7dTK3FrdXqeK54QniUCnxg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -20271,15 +20266,7 @@ snapshots:
 
   kind-of@6.0.3: {}
 
-  kkrpc@0.0.12(typescript@5.7.2):
-    dependencies:
-      typescript: 5.7.2
-      ws: 8.18.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
-  kkrpc@0.0.13(typescript@5.6.3):
+  kkrpc@0.1.1(typescript@5.6.3):
     dependencies:
       typescript: 5.6.3
       ws: 8.18.0
@@ -20287,7 +20274,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  kkrpc@0.0.13(typescript@5.7.2):
+  kkrpc@0.1.1(typescript@5.7.2):
     dependencies:
       typescript: 5.7.2
       ws: 8.18.0
@@ -22921,7 +22908,7 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  tauri-api-adapter@0.3.16(typescript@5.7.2):
+  tauri-api-adapter@0.3.20(typescript@5.7.2):
     dependencies:
       '@tauri-apps/api': 2.2.0
       '@tauri-apps/plugin-dialog': 2.2.0
@@ -22932,7 +22919,7 @@ snapshots:
       '@tauri-apps/plugin-os': 2.2.0
       '@tauri-apps/plugin-shell': 2.2.0
       '@tauri-apps/plugin-upload': 2.2.1
-      kkrpc: 0.0.12(typescript@5.7.2)
+      kkrpc: 0.1.1(typescript@5.7.2)
       rimraf: 6.0.1
       shx: 0.3.4
       tauri-plugin-clipboard-api: 2.1.11(typescript@5.7.2)
@@ -22941,7 +22928,7 @@ snapshots:
       tauri-plugin-system-info-api: 2.0.8(typescript@5.7.2)
       tsc-alias: 1.8.10
       typescript: 5.7.2
-      valibot: 1.0.0-beta.11(typescript@5.7.2)
+      valibot: 1.0.0-beta.12(typescript@5.7.2)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -23596,7 +23583,6 @@ snapshots:
   valibot@1.0.0-beta.12(typescript@5.7.2):
     optionalDependencies:
       typescript: 5.7.2
-    optional: true
 
   valibot@1.0.0-beta.12(typescript@5.7.3):
     optionalDependencies:
@@ -23642,7 +23628,7 @@ snapshots:
       type-fest: 4.27.0
       vue: 3.5.13(typescript@5.6.3)
 
-  verify-package-export@0.0.2(typescript@5.7.2):
+  verify-package-export@0.0.3(typescript@5.7.2):
     dependencies:
       '@oclif/core': 4.2.2
       '@oclif/plugin-help': 6.2.21
@@ -23652,7 +23638,7 @@ snapshots:
       - supports-color
       - typescript
 
-  verify-package-export@0.0.2(typescript@5.7.3):
+  verify-package-export@0.0.3(typescript@5.7.3):
     dependencies:
       '@oclif/core': 4.2.2
       '@oclif/plugin-help': 6.2.21

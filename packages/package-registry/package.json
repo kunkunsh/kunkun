@@ -13,7 +13,7 @@
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
-		"verify-package-export": "^0.0.2"
+		"verify-package-export": "^0.0.3"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
