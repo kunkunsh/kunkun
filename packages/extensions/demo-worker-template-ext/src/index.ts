@@ -50,6 +50,8 @@ class ExtensionTemplate extends WorkerExtension {
 	}
 
 	async load() {
+		// await fs.writeTextFile("/Users/hk/Desktop/test.txt", "Hello World")
+		await fs.writeFile("/Users/hk/Desktop/abc.txt", new Uint8Array([1, 2, 3]))
 		ui.setSearchBarPlaceholder("Search for items")
 		ui.showLoadingBar(true)
 		setTimeout(() => {

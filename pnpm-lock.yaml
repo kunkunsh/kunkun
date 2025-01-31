@@ -109,8 +109,8 @@ importers:
         specifier: 5.7.2
         version: 5.7.2
       verify-package-export:
-        specifier: ^0.0.2
-        version: 0.0.2(typescript@5.7.2)
+        specifier: ^0.0.3
+        version: 0.0.3(typescript@5.7.2)
 
   apps/cli:
     dependencies:
@@ -494,8 +494,8 @@ importers:
         specifier: ^5.0.0
         version: 5.7.2
       verify-package-export:
-        specifier: ^0.0.2
-        version: 0.0.2(typescript@5.7.2)
+        specifier: ^0.0.3
+        version: 0.0.3(typescript@5.7.2)
 
   packages/ci:
     dependencies:
@@ -732,8 +732,8 @@ importers:
         specifier: latest
         version: 1.2.1
       verify-package-export:
-        specifier: ^0.0.2
-        version: 0.0.2(typescript@5.7.3)
+        specifier: ^0.0.3
+        version: 0.0.3(typescript@5.7.3)
 
   packages/schema:
     dependencies:
@@ -11233,8 +11233,8 @@ packages:
     peerDependencies:
       vue: ^3.4.26
 
-  verify-package-export@0.0.2:
-    resolution: {integrity: sha512-eTxBMzf5O5G+KZYyGg33Zp36rnlbuMAKSR3nNzh299SDLOgxoFDlNVbiy1mANVWJ/uG15qVZv0K4KdwV5u1FZQ==}
+  verify-package-export@0.0.3:
+    resolution: {integrity: sha512-EEkH32KXpVdaUBRWA84CSwdQZExpyMgN8cR3OI9y7evJwhZfvNj+sAZHeMqglrnZ7dTK3FrdXqeK54QniUCnxg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -23773,7 +23773,7 @@ snapshots:
       type-fest: 4.27.0
       vue: 3.5.13(typescript@5.6.3)
 
-  verify-package-export@0.0.2(typescript@5.7.2):
+  verify-package-export@0.0.3(typescript@5.7.2):
     dependencies:
       '@oclif/core': 4.2.2
       '@oclif/plugin-help': 6.2.21
@@ -23783,7 +23783,7 @@ snapshots:
       - supports-color
       - typescript
 
-  verify-package-export@0.0.2(typescript@5.7.3):
+  verify-package-export@0.0.3(typescript@5.7.3):
     dependencies:
       '@oclif/core': 4.2.2
       '@oclif/plugin-help': 6.2.21

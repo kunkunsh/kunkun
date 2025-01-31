@@ -15,6 +15,14 @@
 			"security:mac:all",
 			"clipboard:read-all",
 			{
+				"permission": "fs:write",
+				"allow": [
+					{
+						"path": "**"
+					}
+				]
+			},
+			{
 				"permission": "shell:deno:spawn",
 				"allow": [
 					{

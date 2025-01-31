@@ -1,60 +1,104 @@
 {
 	"name": "@kksh/api",
-	"version": "0.0.56-next.0",
+	"version": "0.0.56-next.1",
 	"type": "module",
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
+			"types": {
+				"import": "./dist/index.d.ts",
+				"require": "./dist/index.d.cts",
+				"default": "./dist/index.d.ts"
+			},
 			"import": "./dist/index.js",
 			"require": "./dist/index.cjs"
 		},
 		"./ui": {
-			"types": "./dist/ui/index.d.ts",
+			"types": {
+				"import": "./dist/ui/index.d.ts",
+				"require": "./dist/ui/index.d.cts",
+				"default": "./dist/ui/index.d.ts"
+			},
 			"import": "./dist/ui/index.js",
 			"require": "./dist/ui/index.cjs"
 		},
 		"./ui/iframe": {
-			"types": "./dist/ui/iframe/index.d.ts",
+			"types": {
+				"import": "./dist/ui/iframe/index.d.ts",
+				"require": "./dist/ui/iframe/index.d.cts",
+				"default": "./dist/ui/iframe/index.d.ts"
+			},
 			"import": "./dist/ui/iframe/index.js",
 			"require": "./dist/ui/iframe/index.cjs"
 		},
 		"./ui/worker": {
-			"types": "./dist/ui/worker/index.d.ts",
+			"types": {
+				"import": "./dist/ui/worker/index.d.ts",
+				"require": "./dist/ui/worker/index.d.cts",
+				"default": "./dist/ui/worker/index.d.ts"
+			},
 			"import": "./dist/ui/worker/index.js",
 			"require": "./dist/ui/worker/index.cjs"
 		},
 		"./headless": {
-			"types": "./dist/headless/index.d.ts",
+			"types": {
+				"import": "./dist/headless/index.d.ts",
+				"require": "./dist/headless/index.d.cts",
+				"default": "./dist/headless/index.d.ts"
+			},
 			"import": "./dist/headless/index.js",
 			"require": "./dist/headless/index.cjs"
 		},
 		"./models": {
-			"types": "./dist/models/index.d.ts",
+			"types": {
+				"import": "./dist/models/index.d.ts",
+				"require": "./dist/models/index.d.cts",
+				"default": "./dist/models/index.d.ts"
+			},
 			"import": "./dist/models/index.js",
 			"require": "./dist/models/index.cjs"
 		},
 		"./commands": {
-			"types": "./dist/commands/index.d.ts",
+			"types": {
+				"import": "./dist/commands/index.d.ts",
+				"require": "./dist/commands/index.d.cts",
+				"default": "./dist/commands/index.d.ts"
+			},
 			"import": "./dist/commands/index.js",
 			"require": "./dist/commands/index.cjs"
 		},
 		"./runtime/deno": {
-			"types": "./dist/runtime/deno.d.ts",
+			"types": {
+				"import": "./dist/runtime/deno.d.ts",
+				"require": "./dist/runtime/deno.d.cts",
+				"default": "./dist/runtime/deno.d.ts"
+			},
 			"import": "./dist/runtime/deno.js",
 			"require": "./dist/runtime/deno.cjs"
 		},
 		"./permissions": {
-			"types": "./dist/permissions/index.d.ts",
+			"types": {
+				"import": "./dist/permissions/index.d.ts",
+				"require": "./dist/permissions/index.d.cts",
+				"default": "./dist/permissions/index.d.ts"
+			},
 			"import": "./dist/permissions/index.js",
 			"require": "./dist/permissions/index.cjs"
 		},
 		"./dev": {
-			"types": "./dist/dev/index.d.ts",
+			"types": {
+				"import": "./dist/dev/index.d.ts",
+				"require": "./dist/dev/index.d.cts",
+				"default": "./dist/dev/index.d.ts"
+			},
 			"import": "./dist/dev/index.js",
 			"require": "./dist/dev/index.cjs"
 		},
 		"./events": {
-			"types": "./dist/events.d.ts",
+			"types": {
+				"import": "./dist/events.d.ts",
+				"require": "./dist/events.d.cts",
+				"default": "./dist/events.d.ts"
+			},
 			"import": "./dist/events.js",
 			"require": "./dist/events.cjs"
 		},
@@ -84,7 +128,7 @@
 		"tsup": "^8.3.6",
 		"typedoc": "^0.27.6",
 		"typescript": "^5.0.0",
-		"verify-package-export": "^0.0.2"
+		"verify-package-export": "^0.0.3"
 	},
 	"dependencies": {
 		"@huakunshen/jsr-client": "^0.1.5",
