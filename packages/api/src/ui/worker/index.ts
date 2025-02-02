@@ -58,7 +58,7 @@ export interface IUiWorker {
 }
 
 // export { expose, wrap } from "@huakunshen/comlink"
-export { WorkerExtension } from "./ext"
+export { WorkerExtension, WorkerExtension as TemplateUiExtension } from "./ext"
 /**
  * For the APIs annotated with "inherit from tauri-api-adapter", they inherit the client API completely from tauri-api-adapter
  * There may be server API changes for them, but the client API can be inherited
