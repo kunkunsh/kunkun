@@ -15,7 +15,7 @@
 		"@types/fs-extra": "^11.0.4",
 		"get-folder-size": "^5.0.0",
 		"tar": "^7.4.3",
-		"vitest": "^2.0.0"
+		"vitest": "^2.1.9"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
