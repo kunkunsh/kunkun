@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import fs from "fs"
 import path from "path"
-import { buildCmd, verifyCmd } from "@/commands"
-import { getDockerFolder, NODE_ENV } from "@/constants"
+import { verifyCmd } from "@/commands"
+import { NODE_ENV } from "@/constants"
 import logger from "@/logger"
 import { program } from "commander"
 import { version } from "./package.json"
@@ -37,15 +37,6 @@ program
 		if (opts.publish && !valid) {
 			process.exit(1)
 		}
-	})
-
-program
-	.command("build [project_path]")
-	.option("--entrypoint [path]", "Use custom entrypoint.sh (for debug purpose)")
-	.description("Build extension with docker and validate (You must have docker installed)")
-	.action((projectPath: string | undefined, opts: { entrypoint?: string }) => {
-		logger.info("cwd:", cwd)
-		buildCmd(computeProjectDir(projectPath), opts.entrypoint)
 	})
 
 program.parse()
