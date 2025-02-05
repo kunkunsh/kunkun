@@ -1,4 +1,4 @@
-export abstract class WorkerExtension {
+export abstract class TemplateUiCommand {
 	/* -------------------------------------------------------------------------- */
 	/*                                   Common                                   */
 	/* -------------------------------------------------------------------------- */

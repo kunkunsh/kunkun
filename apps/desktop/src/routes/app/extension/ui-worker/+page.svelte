@@ -15,7 +15,7 @@
 		NodeNameEnum,
 		toast,
 		type IComponent,
-		type WorkerExtension
+		type TemplateUiCommand
 	} from "@kksh/api/ui/worker"
 	import { LoadingBar } from "@kksh/ui"
 	import { Templates } from "@kksh/ui/extension"
@@ -35,7 +35,7 @@
 	let listviewInputRef = $state<HTMLInputElement | null>(null)
 	let { loadedExt, scriptPath, extInfoInDB } = $derived(data)
 	let actionPanelOpen = $state(false)
-	let workerAPI: WorkerExtension | undefined = undefined
+	let workerAPI: TemplateUiCommand | undefined = undefined
 	let unlistenRefreshWorkerExt: UnlistenFn | undefined
 	let unlistenFileDrop: UnlistenFn | undefined
 	let worker: Worker | undefined
@@ -223,7 +223,7 @@
 		}
 
 		const io = new WorkerParentIO(worker)
-		const rpc = new RPCChannel<typeof serverAPI2, WorkerExtension>(io, {
+		const rpc = new RPCChannel<typeof serverAPI2, TemplateUiCommand>(io, {
 			expose: serverAPI2
 		})
 		workerAPI = rpc.getAPI()

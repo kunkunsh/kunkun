@@ -9,13 +9,12 @@ import {
 	List,
 	path,
 	shell,
+	TemplateUiCommand,
 	toast,
-	ui,
-	WorkerExtension
+	ui
 } from "@kksh/api/ui/worker"
-import { setupI18n, t } from "./i18n"
 
-class ExtensionTemplate extends WorkerExtension {
+class ExtensionTemplate extends TemplateUiCommand {
 	async onFormSubmit(value: Record<string, any>): Promise<void> {
 		console.log("Form submitted", value)
 		toast.success(`Form submitted: ${JSON.stringify(value)}`)

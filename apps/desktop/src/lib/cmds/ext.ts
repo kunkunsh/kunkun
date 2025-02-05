@@ -4,7 +4,7 @@ import { winExtMap } from "@/stores/winExtMap"
 import { trimSlash } from "@/utils/url"
 import { constructExtensionSupportDir } from "@kksh/api"
 import { db, spawnExtensionFileServer } from "@kksh/api/commands"
-import type { HeadlessWorkerExtension } from "@kksh/api/headless"
+import type { HeadlessCommand } from "@kksh/api/headless"
 import { CustomUiCmd, ExtPackageJsonExtra, HeadlessCmd, TemplateUiCmd } from "@kksh/api/models"
 import { constructJarvisServerAPIWithPermissions, type IApp } from "@kksh/api/ui"
 import { launchNewExtWindow, loadExtensionManifestFromDisk } from "@kksh/extension"
@@ -101,7 +101,7 @@ export async function onHeadlessCmdSelect(
 		} satisfies IApp
 	}
 	const io = new WorkerParentIO(worker)
-	const rpc = new RPCChannel<typeof serverAPI2, HeadlessWorkerExtension>(io, {
+	const rpc = new RPCChannel<typeof serverAPI2, HeadlessCommand>(io, {
 		expose: serverAPI2
 	})
 	const workerAPI = rpc.getAPI()

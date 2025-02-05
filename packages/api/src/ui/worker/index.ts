@@ -45,7 +45,7 @@ import { constructShellAPI } from "../../api/shell"
 import { constructToastAPI } from "../../api/toast"
 import type { FormSchema, ListSchema, MarkdownSchema } from "../../models"
 import type { IComponent } from "./components"
-import type { WorkerExtension } from "./ext"
+import type { TemplateUiCommand } from "./ext"
 
 export interface IUiWorker {
 	render: (view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) => Promise<void>
@@ -58,7 +58,7 @@ export interface IUiWorker {
 }
 
 // export { expose, wrap } from "@huakunshen/comlink"
-export { WorkerExtension, WorkerExtension as TemplateUiExtension } from "./ext"
+export { TemplateUiCommand } from "./ext"
 /**
  * For the APIs annotated with "inherit from tauri-api-adapter", they inherit the client API completely from tauri-api-adapter
  * There may be server API changes for them, but the client API can be inherited
@@ -95,7 +95,7 @@ const io = new WorkerChildIO()
 const rpc = new RPCChannel<{}, API, DestroyableIoInterface>(io, {})
 export const api = rpc.getAPI()
 
-export function expose(api: WorkerExtension) {
+export function expose(api: TemplateUiCommand) {
 	rpc.expose(api)
 }
 
