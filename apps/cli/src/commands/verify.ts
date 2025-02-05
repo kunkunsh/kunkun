@@ -52,7 +52,7 @@ export function verifySingleProject(projectPath: string): boolean {
 	logger.info(`name`, pkg.name)
 	logger.info(`version`, pkg.version)
 	logger.info(`identifier`, pkg.kunkun.identifier)
-	if (pkg.files.length === 0) {
+	if (pkg.files?.length ?? 0 === 0) {
 		logger.warn(
 			`"files" field is empty, it is recommended to include only the necessary files, e.g. dist`
 		)
