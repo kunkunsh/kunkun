@@ -33,7 +33,7 @@ import { constructPathAPI } from "../api/path"
 import type { IShellServer } from "../api/server-types"
 import { constructShellAPI } from "../api/shell"
 import { constructToastAPI } from "../api/toast"
-import type { HeadlessWorkerExtension } from "./ext"
+import type { HeadlessCommand } from "./ext"
 
 /* -------------------------------------------------------------------------- */
 /*                               API Interfaces                               */
@@ -53,7 +53,7 @@ export type {
 } from "tauri-api-adapter"
 export type { ISystem, IToast, IUiIframe, IDb, IKV, IFs, IOpen, IEvent } from "../api/client"
 export type { IShell } from "../api/shell"
-export { HeadlessWorkerExtension } from "./ext"
+export { HeadlessCommand } from "./ext"
 /* -------------------------------------------------------------------------- */
 /*                                     RPC                                    */
 /* -------------------------------------------------------------------------- */
@@ -87,7 +87,7 @@ type API = {
 const io = new WorkerChildIO()
 const rpc = new RPCChannel<{}, API, DestroyableIoInterface>(io, {})
 export const api = rpc.getAPI()
-export function expose(api: HeadlessWorkerExtension) {
+export function expose(api: HeadlessCommand) {
 	rpc.expose(api)
 }
 

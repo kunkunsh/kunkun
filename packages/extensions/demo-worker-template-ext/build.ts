@@ -1,6 +1,6 @@
 import { watch } from "fs"
 import { join } from "path"
-import { refreshTemplateWorkerExtension } from "@kksh/api/dev"
+import { refreshTemplateWorkerCommand } from "@kksh/api/dev"
 import { $ } from "bun"
 
 async function build() {
@@ -12,7 +12,7 @@ async function build() {
 			minify: true,
 			target: "browser"
 		})
-		await refreshTemplateWorkerExtension()
+		await refreshTemplateWorkerCommand()
 	} catch (error) {
 		console.error(error)
 	}

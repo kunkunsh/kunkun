@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.1.0
+
+### Minor Changes
+
+- Rename WorkerExtension to TemplateUiCommand, and HeadlessWorkerExtension to HeadlessCommand
+
 ## 0.0.53
 
 ### Patch Changes
