@@ -8,6 +8,7 @@
 	import {
 		appConfig,
 		appConfigLoaded,
+		appsLoader,
 		appState,
 		devStoreExts,
 		installedStoreExts,
@@ -19,6 +20,7 @@
 	import { db, toggleDevTools } from "@kksh/api/commands"
 	import { Button, Command, DropdownMenu } from "@kksh/svelte5"
 	import {
+		AppsCmds,
 		BuiltinCmds,
 		CustomCommandInput,
 		ExtCmdsGroup,
@@ -218,6 +220,7 @@
 		<QuickLinks quickLinks={$quickLinks} />
 		<BuiltinCmds builtinCmds={$builtinCmds} />
 		<SystemCmds {systemCommands} />
+		<AppsCmds apps={$appsLoader} />
 	</Command.List>
 	<GlobalCommandPaletteFooter />
 </Command.Root>
