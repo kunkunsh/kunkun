@@ -2,6 +2,10 @@
 	"name": "@kksh/api",
 	"version": "0.1.0",
 	"type": "module",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kunkunsh/kunkun.git"
+	},
 	"main": "./src/index.ts",
 	"types": "./src/index.ts",
 	"module": "./src/index.ts",
