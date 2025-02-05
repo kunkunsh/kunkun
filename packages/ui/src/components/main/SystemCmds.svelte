@@ -12,7 +12,7 @@
 </script>
 
 <DraggableCommandGroup heading="System Commands">
-	{#each systemCommands as cmd}
+	{#each systemCommands as cmd (`system-cmds-${cmd.name}`)}
 		<Command.Item
 			class="flex justify-between"
 			onSelect={async () => {
@@ -23,11 +23,12 @@
 					}
 				}
 			}}
-			value={JSON.stringify({
+			value={cmd.name}
+		>
+			<!-- value={JSON.stringify({
 				cmdName: cmd.name,
 				cmdType: CmdTypeEnum.System
-			} satisfies CmdValue)}
-		>
+			} satisfies CmdValue)} -->
 			<span class="flex gap-2">
 				{#if cmd.icon}
 					<IconMultiplexer icon={cmd.icon} class="!h-5 !w-5 shrink-0" />

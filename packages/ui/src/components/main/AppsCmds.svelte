@@ -10,10 +10,11 @@
 
 	const platform = os.platform()
 	let { apps }: { apps: AppInfo[] } = $props()
+	// let appsDisplay = $derived(apps.length > 20 ? apps.slice(0, 20) : apps)
 </script>
 
 <DraggableCommandGroup heading="Apps">
-	{#each apps as app (app.app_desktop_path)}
+	{#each apps as app}
 		<Command.Item
 			class="flex justify-between"
 			onSelect={() => {
@@ -27,7 +28,7 @@
 					open(app.app_desktop_path)
 				}
 			}}
-			value={app.app_desktop_path}
+			value={app.name}
 		>
 			<span class="flex gap-2">
 				<IconMultiplexer

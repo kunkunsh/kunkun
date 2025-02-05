@@ -4,6 +4,7 @@ import { checkUpdateAndInstall } from "@/utils/updater"
 import { setTransparentTitlebar } from "@kksh/api/commands"
 import { IconEnum } from "@kksh/api/models"
 import type { BuiltinCmd } from "@kksh/ui/types"
+import { commandScore } from "@kksh/ui/utils"
 import { getVersion } from "@tauri-apps/api/app"
 import { appDataDir } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
@@ -474,10 +475,12 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	}
 ].map((cmd) => ({ ...cmd, id: uuidv4() }))
 
-export const builtinCmds = derived(appConfig, ($appConfig) => {
-	return rawBuiltinCmds.filter((cmd) => {
-		const passDeveloper = cmd.flags?.developer ? $appConfig.developerMode : true
-		const passDev = cmd.flags?.dev ? dev : true
-		return passDeveloper && passDev
-	})
+export const builtinCmds = derived([appConfig, appState], ([$appConfig, $appState]) => {
+	return rawBuiltinCmds
+		.filter((cmd) => {
+			const passDeveloper = cmd.flags?.developer ? $appConfig.developerMode : true
+			const passDev = cmd.flags?.dev ? dev : true
+			return passDeveloper && passDev
+		})
+		.filter((cmd) => commandScore(cmd.name, $appState.searchTerm, cmd.keywords) > 0.5)
 })
