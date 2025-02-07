@@ -2,9 +2,10 @@
 <!-- https://shiki.style/guide/bundles#fine-grained-bundle -->
 <script lang="ts">
 	import { cn } from "@kksh/ui/utils"
-	import { getSingletonHighlighter } from "shiki"
 	import { ShikiMagicMove } from "shiki-magic-move/svelte"
 	import "shiki-magic-move/dist/style.css"
+	import { createHighlighterCore } from "shiki/core"
+	import { createOnigurumaEngine } from "shiki/engine/oniguruma"
 
 	const {
 		code,
@@ -20,12 +21,17 @@
 		class?: string
 	} = $props()
 
-	const highlighter2 = getSingletonHighlighter({
-		themes: ["vitesse-dark", "vitesse-light"],
-		langs: ["typescript", "bash", "powershell", "json"]
+	const highlighter2 = createHighlighterCore({
+		themes: [import("@shikijs/themes/vitesse-dark"), import("@shikijs/themes/vitesse-light")],
+		langs: [
+			import("@shikijs/langs/json"),
+			import("@shikijs/langs/typescript"),
+			import("@shikijs/langs/bash"),
+			import("@shikijs/langs/powershell")
+		],
+		// `shiki/wasm` contains the wasm binary inlined as base64 string.
+		engine: createOnigurumaEngine(import("shiki/wasm"))
 	})
-
-	let code2 = $state(`const hello = 'world'`)
 </script>
 
 {#await highlighter2 then highlighter}
