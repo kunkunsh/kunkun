@@ -119,9 +119,7 @@ export function getJsrPackageSrcFile(
 	file: string
 ): Promise<string | undefined> {
 	const url = `https://jsr.io/@${scope}/${name}/${version}/${file}`
-	return fetch(url)
-		.then((res) => res.text())
-		.catch(() => undefined)
+	return fetch(url).then((res) => res.text())
 }
 
 /**

@@ -8,8 +8,10 @@
 	import { Constants, IconMultiplexer } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
 	import { CircleCheckBigIcon, MoveRightIcon, Trash2Icon } from "lucide-svelte"
+	import moment from "moment"
 	import prettyBytes from "pretty-bytes"
 	import * as v from "valibot"
+	import { isInTauri } from "../../utils/tauri"
 	import DialogImageCarousel from "../common/DialogImageCarousel.svelte"
 	import PlatformsIcons from "../common/PlatformsIcons.svelte"
 	import TauriLink from "../common/TauriLink.svelte"
@@ -20,6 +22,7 @@
 	let {
 		extPublish,
 		ext,
+		author,
 		installedExt,
 		manifest,
 		demoImages,
@@ -35,6 +38,10 @@
 	}: {
 		extPublish: Tables<"ext_publish">
 		ext: Tables<"extensions">
+		author?: {
+			id: string
+			name: string
+		} | null
 		installedExt?: ExtPackageJson
 		packageJson: ExtPackageJson | null
 		manifest: KunkunExtManifest
@@ -150,7 +157,7 @@
 <ScrollArea class={cn("w-full pb-12", className)}>
 	<div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
 		<div class="flex items-center gap-4">
-			<span class="h-12 w-12">
+			<span class="h-20 w-20">
 				<IconMultiplexer
 					icon={manifest.icon}
 					class={cn(Constants.CLASSNAMES.EXT_LOGO, "h-full w-full")}
@@ -167,9 +174,12 @@
 				<pre class="text-muted-foreground text-xs">{extPublish.identifier}</pre>
 				<pre class="text-muted-foreground text-xs">Version: {extPublish.version}</pre>
 				<pre class="text-muted-foreground text-xs">Downloads: {ext.downloads}</pre>
-				<pre class="text-muted-foreground text-xs">
-					Size: {prettyBytes(extPublish.tarball_size)}
-				</pre>
+				<pre class="text-muted-foreground text-xs">Size: {prettyBytes(
+						extPublish.tarball_size
+					)}</pre>
+				<pre class="text-muted-foreground text-xs">Published At: {moment(
+						new Date(extPublish.created_at)
+					).format("YYYY-MM-DD HH:mm")}</pre>
 			</div>
 		</div>
 		<div class="flex items-center space-x-2">
@@ -266,6 +276,18 @@
 			</ul>
 		</div>
 		<div>
+			<h2 class="text-lg font-bold">Publisher Profile</h2>
+			{#if !isInTauri && author}
+				<ul class="list-disc pl-5">
+					<li>
+						<a class="text-blue-500 hover:text-blue-600" href={`/user/${author.id}`}
+							>{author.name}</a
+						>
+					</li>
+				</ul>
+			{:else}
+				<TauriLink href={`https://kunkun.sh/user/${ext.author_id}`}>{ext.author_id}</TauriLink>
+			{/if}
 			<h2 class="text-lg font-bold">Author</h2>
 			{#if packageJson?.author}
 				<ul class="list-disc pl-5">

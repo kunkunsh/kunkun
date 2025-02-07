@@ -3,6 +3,7 @@
 	import { commandLaunchers } from "@/cmds"
 	import { builtinCmds } from "@/cmds/builtin"
 	import { systemCommands } from "@/cmds/system"
+	import AppsCmds from "@/components/main/AppsCmds.svelte"
 	import { i18n } from "@/i18n"
 	import * as m from "@/paraglide/messages"
 	import {
@@ -21,10 +22,9 @@
 	import { cmdQueries } from "@/stores/cmdQuery"
 	import { isKeyboardEventFromInputElement } from "@/utils/dom"
 	import Icon from "@iconify/svelte"
-	import { db, toggleDevTools } from "@kksh/api/commands"
+	import { toggleDevTools } from "@kksh/api/commands"
 	import { Button, Command, DropdownMenu } from "@kksh/svelte5"
 	import {
-		AppsCmds,
 		BuiltinCmds,
 		CustomCommandInput,
 		ExtCmdsGroup,
