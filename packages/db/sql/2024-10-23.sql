@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS commands (
 		)
 	),
 	data JSON,
-	FOREIGN KEY (ext_id) REFERENCES extensions (ext_id)
+	FOREIGN KEY (ext_id) REFERENCES extensions (ext_id) ON DELETE CASCADE
 );
 
 -- Extension Data table
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS extension_data (
 	search_text TEXT,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (ext_id) REFERENCES extensions (ext_id)
+	FOREIGN KEY (ext_id) REFERENCES extensions (ext_id) ON DELETE CASCADE
 );
 
 -- Full-text search index for ext_data
