@@ -67,6 +67,8 @@
 	},
 	"dependencies": {
 		"@formkit/auto-animate": "^0.8.2",
+		"@shikijs/langs": "^2.3.2",
+		"@shikijs/themes": "^2.3.2",
 		"@inlang/paraglide-sveltekit": "^0.15.5",
 		"@internationalized/date": "^3.7.0",
 		"@kksh/supabase": "workspace:*",
