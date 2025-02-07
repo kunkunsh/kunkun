@@ -32,8 +32,7 @@
 		QuickLinks,
 		SystemCmds
 	} from "@kksh/ui/main"
-	import type { CmdValue } from "@kksh/ui/types"
-	import { cn, commandScore } from "@kksh/ui/utils"
+	import { cn } from "@kksh/ui/utils"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
 	import { platform } from "@tauri-apps/plugin-os"
@@ -74,7 +73,9 @@
 			// to keep track of the loading status
 			if (loaded) {
 				if (!appConfig.get().onBoarded) {
-					goto(i18n.resolveRoute("/app/help/onboarding"))
+					setTimeout(() => {
+						goto(i18n.resolveRoute("/app/help/onboarding"))
+					}, 300)
 				}
 			}
 		})
@@ -93,15 +94,6 @@
 		}
 	}}
 />
-<!-- <div>appsFiltered: {$appsFiltered.length}</div> -->
-<!-- <div>appsLoader: {$appsLoader.length}</div> -->
-<!-- filter={(value, search, keywords) => {
-	return commandScore(
-		value.startsWith("{") ? (JSON.parse(value) as CmdValue).cmdName : value,
-		search,
-		keywords
-	)
-}} -->
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
