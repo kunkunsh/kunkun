@@ -2,6 +2,7 @@
 	import DanceTransition from "@/components/dance/dance-transition.svelte"
 	import { i18n } from "@/i18n"
 	import { appConfig, winExtMap } from "@/stores"
+	import { helperAPI } from "@/utils/helper"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goHome } from "@/utils/route"
 	import { positionToCssStyleString, positionToTailwindClasses } from "@/utils/style"
@@ -114,6 +115,7 @@
 			...serverAPI.iframeUi,
 			...iframeUiAPI
 		} satisfies IUiCustomServer1 & IUiCustomServer2,
+		helper: helperAPI,
 		db: new db.JarvisExtDB(extInfoInDB.extId),
 		kv: new db.KV(extInfoInDB.extId),
 		app: {

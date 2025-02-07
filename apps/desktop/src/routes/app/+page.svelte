@@ -225,10 +225,10 @@
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 			/>
 		{/if}
-		<AppsCmds apps={$appsLoader} />
 		<QuickLinks quickLinks={$quickLinks} />
 		<BuiltinCmds builtinCmds={$builtinCmds} />
 		<SystemCmds systemCommands={$systemCommands} />
+		<AppsCmds apps={$appsLoader} />
 
 		<!-- <AppsCmds apps={$appsFiltered} /> -->
 		<!-- {#if $quickLinksFiltered.length > 0}

@@ -1,12 +1,9 @@
 <script lang="ts">
 	import InstallCodeBlock from "@/components/common/install-code-block.svelte"
 	import Icon from "@iconify/svelte"
-	import { IconEnum } from "@kksh/api/models"
-	import { Button, Tabs } from "@kksh/svelte5"
 	import { TauriLink } from "@kksh/ui"
 	import { platform } from "@tauri-apps/plugin-os"
 	import { onMount } from "svelte"
-	import { toast } from "svelte-sonner"
 	import { whereIsCommand } from "tauri-plugin-shellx-api"
 
 	let brewPath = $state("")
@@ -21,12 +18,7 @@
 </script>
 
 <h1 class="font-mono text-2xl font-bold">Install Homebrew</h1>
-<TauriLink
-	href="/app/help/brew-install"
-	icon={IconEnum.Iconify}
-	iconValue="devicon:homebrew"
-	class="flex items-center"
->
+<TauriLink href="/app/help/brew-install" class="flex items-center">
 	<span class="text-lg">Homebrew Website</span>
 	<Icon icon="devicon:homebrew" class="h-6 w-6" />
 </TauriLink>

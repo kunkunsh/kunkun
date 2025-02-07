@@ -1,6 +1,7 @@
 import { i18n } from "@/i18n"
 import { appState } from "@/stores"
 import { winExtMap } from "@/stores/winExtMap"
+import { helperAPI } from "@/utils/helper"
 import { trimSlash } from "@/utils/url"
 import { constructExtensionSupportDir } from "@kksh/api"
 import { db, spawnExtensionFileServer } from "@kksh/api/commands"
@@ -93,6 +94,7 @@ export async function onHeadlessCmdSelect(
 	const serverAPI2 = {
 		...serverAPI,
 		iframeUi: undefined,
+		helper: helperAPI,
 		workerUi: undefined,
 		db: new db.JarvisExtDB(extInfoInDB.extId),
 		kv: new db.KV(extInfoInDB.extId),

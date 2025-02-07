@@ -476,11 +476,10 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 ].map((cmd) => ({ ...cmd, id: uuidv4() }))
 
 export const builtinCmds = derived([appConfig, appState], ([$appConfig, $appState]) => {
-	return rawBuiltinCmds
-		.filter((cmd) => {
-			const passDeveloper = cmd.flags?.developer ? $appConfig.developerMode : true
-			const passDev = cmd.flags?.dev ? dev : true
-			return passDeveloper && passDev
-		})
-		.filter((cmd) => commandScore(cmd.name, $appState.searchTerm, cmd.keywords) > 0.5)
+	return rawBuiltinCmds.filter((cmd) => {
+		const passDeveloper = cmd.flags?.developer ? $appConfig.developerMode : true
+		const passDev = cmd.flags?.dev ? dev : true
+		return passDeveloper && passDev
+	})
+	// .filter((cmd) => commandScore(cmd.name, $appState.searchTerm, cmd.keywords) > 0.5)
 })
