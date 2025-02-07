@@ -8,10 +8,15 @@
 	import {
 		appConfig,
 		appConfigLoaded,
+		// appsFiltered,
+		appsLoader,
 		appState,
 		devStoreExts,
+		// devStoreExtsFiltered,
+		// installedStoreExtsFiltered,
 		installedStoreExts,
 		quickLinks
+		// quickLinksFiltered
 	} from "@/stores"
 	import { cmdQueries } from "@/stores/cmdQuery"
 	import { isKeyboardEventFromInputElement } from "@/utils/dom"
@@ -19,6 +24,7 @@
 	import { db, toggleDevTools } from "@kksh/api/commands"
 	import { Button, Command, DropdownMenu } from "@kksh/svelte5"
 	import {
+		AppsCmds,
 		BuiltinCmds,
 		CustomCommandInput,
 		ExtCmdsGroup,
@@ -87,16 +93,19 @@
 		}
 	}}
 />
+<!-- <div>appsFiltered: {$appsFiltered.length}</div> -->
+<!-- <div>appsLoader: {$appsLoader.length}</div> -->
+<!-- filter={(value, search, keywords) => {
+	return commandScore(
+		value.startsWith("{") ? (JSON.parse(value) as CmdValue).cmdName : value,
+		search,
+		keywords
+	)
+}} -->
 <Command.Root
 	class={cn("h-screen rounded-lg border shadow-md")}
 	bind:value={$appState.highlightedCmd}
-	filter={(value, search, keywords) => {
-		return commandScore(
-			value.startsWith("{") ? (JSON.parse(value) as CmdValue).cmdName : value,
-			search,
-			keywords
-		)
-	}}
+	shouldFilter={true}
 	loop
 >
 	<CustomCommandInput
@@ -206,6 +215,7 @@
 				hmr={$appConfig.hmr}
 			/>
 		{/if}
+
 		{#if $appConfig.extensionsInstallDir && $installedStoreExts.length > 0}
 			<ExtCmdsGroup
 				extensions={$installedStoreExts}
@@ -215,9 +225,26 @@
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 			/>
 		{/if}
+		<AppsCmds apps={$appsLoader} />
 		<QuickLinks quickLinks={$quickLinks} />
 		<BuiltinCmds builtinCmds={$builtinCmds} />
-		<SystemCmds {systemCommands} />
+		<SystemCmds systemCommands={$systemCommands} />
+
+		<!-- <AppsCmds apps={$appsFiltered} /> -->
+		<!-- {#if $quickLinksFiltered.length > 0}
+			<QuickLinks quickLinks={$quickLinksFiltered} />
+		{/if}
+		{#if $appsFiltered.length > 0}
+			<AppsCmds apps={$appsFiltered} />
+		{/if}
+		{#if $builtinCmds.length > 0}
+			<BuiltinCmds builtinCmds={$builtinCmds} />
+		{/if}
+		{#if $systemCommandsFiltered.length > 0}
+			<SystemCmds systemCommands={$systemCommandsFiltered} />
+		{/if} -->
+		<!-- <AppsCmds apps={$appsLoader} /> -->
+		<!-- <AppsCmds apps={$appsFiltered} /> -->
 	</Command.List>
 	<GlobalCommandPaletteFooter />
 </Command.Root>

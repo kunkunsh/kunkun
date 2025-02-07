@@ -1,7 +1,9 @@
 import type { Icon } from "@kksh/api/models"
 import { createQuickLinkCommand, getAllQuickLinkCommands } from "@kksh/extension/db"
-import type { CmdQuery, QuickLink } from "@kksh/ui/types"
-import { get, writable, type Writable } from "svelte/store"
+import type { QuickLink } from "@kksh/ui/types"
+import { commandScore } from "@kksh/ui/utils"
+import { derived, get, writable, type Writable } from "svelte/store"
+import { appState } from "./appState"
 
 export interface QuickLinkAPI {
 	get: () => QuickLink[]
@@ -37,3 +39,18 @@ function createQuickLinksStore(): Writable<QuickLink[]> & QuickLinkAPI {
 }
 
 export const quickLinks = createQuickLinksStore()
+
+// export const quickLinksFiltered = derived([quickLinks, appState], ([$quicklinks, $appState]) => {
+// 	return $quicklinks.filter((lnk) => {
+// 		if ($appState.searchTerm.length === 0) {
+// 			return false
+// 		}
+// 		return (
+// 			commandScore(
+// 				lnk.name,
+// 				$appState.searchTerm
+// 				// []
+// 			) > 0.5
+// 		)
+// 	})
+// })

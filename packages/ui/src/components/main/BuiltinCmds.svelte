@@ -9,18 +9,19 @@
 </script>
 
 <DraggableCommandGroup heading="Builtin Commands">
-	{#each builtinCmds as cmd (cmd.id)}
+	{#each builtinCmds as cmd (`builtin-${cmd.name}`)}
 		<Command.Item
 			class="flex justify-between"
 			onSelect={() => {
 				cmd.function()
 			}}
-			value={JSON.stringify({
+			keywords={cmd.keywords}
+			value={cmd.name}
+		>
+			<!-- value={JSON.stringify({
 				cmdName: cmd.name,
 				cmdType: CmdTypeEnum.Builtin
-			} satisfies CmdValue)}
-			keywords={cmd.keywords}
-		>
+			} satisfies CmdValue)} -->
 			<span class="flex gap-2">
 				<IconMultiplexer icon={cmd.icon} class="!h-5 !w-5 shrink-0" />
 				<span>{cmd.name}</span>

@@ -1,7 +1,7 @@
-import { clipboard, expose, HeadlessWorkerExtension, toast } from "@kksh/api/headless"
+import { clipboard, expose, HeadlessCommand, toast } from "@kksh/api/headless"
 import { v4 as uuidv4 } from "uuid"
 
-class UuidExt extends HeadlessWorkerExtension {
+class UuidExt extends HeadlessCommand {
 	async load() {
 		const uuid = uuidv4()
 		return clipboard

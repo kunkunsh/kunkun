@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { notification, toast, ui } from "@kksh/api/ui/iframe"
+import { notification, toast, ui } from "@kksh/api/ui/custom"
 import {
 	Command,
 	CommandEmpty,

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { notification, ui } from "@kksh/api/ui/iframe"
+	import { notification, ui } from "@kksh/api/ui/custom"
 	import {
 		Button,
 		Command,

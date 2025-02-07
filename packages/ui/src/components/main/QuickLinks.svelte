@@ -9,19 +9,20 @@
 </script>
 
 <DraggableCommandGroup heading="Quick Links">
-	{#each quickLinks as cmd}
+	{#each quickLinks as cmd (`quick-link-${cmd.name}`)}
 		<Command.Item
 			class="flex justify-between"
 			onSelect={() => {
 				console.log(cmd)
 			}}
 			keywords={["quick", "link"]}
-			value={JSON.stringify({
+			value={cmd.name}
+		>
+			<!-- value={JSON.stringify({
 				cmdName: cmd.name,
 				cmdType: CmdTypeEnum.QuickLink,
 				data: cmd.link
-			} satisfies CmdValue)}
-		>
+			} satisfies CmdValue)} -->
 			<span class="flex gap-2">
 				<IconMultiplexer icon={cmd.icon} class="!h-5 !w-5 shrink-0" />
 				<span>{cmd.name}</span>

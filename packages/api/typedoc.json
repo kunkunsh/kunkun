@@ -3,8 +3,8 @@
 	"entryPoints": [
 		"src/index.ts",
 		"src/ui/index.ts",
-		"src/ui/iframe/index.ts",
-		"src/ui/worker/index.ts",
+		"src/ui/custom/index.ts",
+		"src/ui/template/index.ts",
 		"src/models/index.ts",
 		"src/commands/index.ts",
 		"src/ui/api/permissions.ts",

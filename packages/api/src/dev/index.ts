@@ -41,7 +41,7 @@ export async function findLocalhostKunkunPorts(): Promise<number[]> {
 	return onlinePorts
 }
 
-export async function refreshTemplateWorkerExtensionViaServer() {
+export async function refreshTemplateWorkerCommandViaServer() {
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 	const ports = await findLocalhostKunkunPorts()
 	console.log("Kunkun ports", ports)
@@ -62,7 +62,7 @@ export async function refreshTemplateWorkerExtensionViaServer() {
 	}
 }
 
-export async function refreshTemplateWorkerExtensionViaDeepLink() {
+export async function refreshTemplateWorkerCommandViaDeepLink() {
 	console.log("Send Refresh Worker Extension Request")
 
 	const platform = await os.platform()
@@ -83,12 +83,12 @@ export async function refreshTemplateWorkerExtensionViaDeepLink() {
 	}
 }
 
-export const refreshTemplateWorkerExtension = refreshTemplateWorkerExtensionViaServer
+export const refreshTemplateWorkerCommand = refreshTemplateWorkerCommandViaServer
 
-export function kununWorkerTemplateExtensionRollupPlugin() {
+export function kununWorkerTemplateCommandRollupPlugin() {
 	return {
 		async writeBundle() {
-			await refreshTemplateWorkerExtensionViaDeepLink()
+			await refreshTemplateWorkerCommandViaDeepLink()
 		}
 	}
 }

@@ -2,10 +2,12 @@ import { getExtensionsFolder } from "@/constants"
 import { db } from "@kksh/api/commands"
 import type { ExtPackageJson, ExtPackageJsonExtra } from "@kksh/api/models"
 import * as extAPI from "@kksh/extension"
+import { commandScore } from "@kksh/ui/utils"
 import * as path from "@tauri-apps/api/path"
 import * as fs from "@tauri-apps/plugin-fs"
 import { derived, get, writable, type Readable, type Writable } from "svelte/store"
 import { appConfig } from "./appConfig"
+import { appState } from "./appState"
 
 function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	init: () => Promise<void>
@@ -224,3 +226,27 @@ export const devStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
 		return $extensionsStore.filter((ext) => extAPI.isExtPathInDev(extContainerPath, ext.extPath))
 	}
 )
+
+// export const installedStoreExtsFiltered = derived(
+// 	[installedStoreExts, appState],
+// 	([$installedStoreExts, $appState]) => {
+// 		return $installedStoreExts.filter(
+// 			(ext) => commandScore(ext.kunkun.name, $appState.searchTerm) > 0.5
+// 		)
+// 	}
+// )
+
+// export const devStoreExtsFiltered = derived(
+// 	[devStoreExts, appState],
+// 	([$devStoreExts, $appState]) => {
+// 		return $devStoreExts.filter((ext) => {
+// 			console.log(
+// 				"commandScore",
+// 				ext.kunkun.name,
+// 				$appState.searchTerm,
+// 				commandScore(ext.kunkun.name, $appState.searchTerm)
+// 			)
+// 			return commandScore(ext.kunkun.name, $appState.searchTerm) > 0.1
+// 		})
+// 	}
+// )

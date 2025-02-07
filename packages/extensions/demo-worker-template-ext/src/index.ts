@@ -16,10 +16,10 @@ import {
 	path,
 	security,
 	shell,
+	TemplateUiCommand,
 	toast,
-	ui,
-	WorkerExtension
-} from "@kksh/api/ui/worker"
+	ui
+} from "@kksh/api/ui/template"
 import { IconType } from "@kunkun/api/models"
 
 const nums = Array.from({ length: 20 }, (_, i) => i + 1)
@@ -34,7 +34,7 @@ const allItems: List.Item[] = itemsTitle.map(
 		})
 )
 
-class ExtensionTemplate extends WorkerExtension {
+class ExtensionTemplate extends TemplateUiCommand {
 	async onBeforeGoBack() {
 		console.log("onBeforeGoBack")
 		// console.log(`Try killing pid: ${this.apiProcess?.pid}`)

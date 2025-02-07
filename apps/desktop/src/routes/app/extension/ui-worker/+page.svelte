@@ -6,7 +6,11 @@
 	import { listenToFileDrop, listenToRefreshDevExt } from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
 	import { db } from "@kksh/api/commands"
-	import { constructJarvisServerAPIWithPermissions, type IApp, type IUiWorker } from "@kksh/api/ui"
+	import {
+		constructJarvisServerAPIWithPermissions,
+		type IApp,
+		type IUiTemplate
+	} from "@kksh/api/ui"
 	import {
 		FormNodeNameEnum,
 		FormSchema,
@@ -15,8 +19,8 @@
 		NodeNameEnum,
 		toast,
 		type IComponent,
-		type WorkerExtension
-	} from "@kksh/api/ui/worker"
+		type TemplateUiCommand
+	} from "@kksh/api/ui/template"
 	import { LoadingBar } from "@kksh/ui"
 	import { Templates } from "@kksh/ui/extension"
 	import { GlobalCommandPaletteFooter } from "@kksh/ui/main"
@@ -35,7 +39,7 @@
 	let listviewInputRef = $state<HTMLInputElement | null>(null)
 	let { loadedExt, scriptPath, extInfoInDB } = $derived(data)
 	let actionPanelOpen = $state(false)
-	let workerAPI: WorkerExtension | undefined = undefined
+	let workerAPI: TemplateUiCommand | undefined = undefined
 	let unlistenRefreshWorkerExt: UnlistenFn | undefined
 	let unlistenFileDrop: UnlistenFn | undefined
 	let worker: Worker | undefined
@@ -73,7 +77,7 @@
 		}
 	}
 
-	const extUiAPI: IUiWorker = {
+	const extUiAPI: IUiTemplate = {
 		async render(view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) {
 			if (view.nodeName === NodeNameEnum.List) {
 				clearViewContent("list")
@@ -223,7 +227,7 @@
 		}
 
 		const io = new WorkerParentIO(worker)
-		const rpc = new RPCChannel<typeof serverAPI2, WorkerExtension>(io, {
+		const rpc = new RPCChannel<typeof serverAPI2, TemplateUiCommand>(io, {
 			expose: serverAPI2
 		})
 		workerAPI = rpc.getAPI()
