@@ -12,9 +12,9 @@
 		constructJarvisServerAPIWithPermissions,
 		// exposeApiToWindow,
 		type IApp,
-		type IUiIframe
+		type IUiCustom
 	} from "@kksh/api/ui"
-	import { toast, type IUiIframeServer1, type IUiIframeServer2 } from "@kksh/api/ui/custom"
+	import { toast, type IUiCustomServer1, type IUiCustomServer2 } from "@kksh/api/ui/custom"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
 	import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
@@ -49,7 +49,7 @@
 		transparentBg: false
 	})
 
-	const iframeUiAPI: IUiIframeServer2 = {
+	const iframeUiAPI: IUiCustomServer2 = {
 		goBack: async () => {
 			if (isInMainWindow()) {
 				goto(i18n.resolveRoute("/app/"))
@@ -113,7 +113,7 @@
 		iframeUi: {
 			...serverAPI.iframeUi,
 			...iframeUiAPI
-		} satisfies IUiIframeServer1 & IUiIframeServer2,
+		} satisfies IUiCustomServer1 & IUiCustomServer2,
 		db: new db.JarvisExtDB(extInfoInDB.extId),
 		kv: new db.KV(extInfoInDB.extId),
 		app: {

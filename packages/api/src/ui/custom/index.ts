@@ -31,7 +31,7 @@ import type {
 	ISecurity,
 	ISystem,
 	IToast,
-	IUiIframe,
+	IUiCustom,
 	IUtils
 } from "../../api/client"
 import { constructEventAPI } from "../../api/event"
@@ -40,10 +40,10 @@ import { constructPathAPI } from "../../api/path"
 import type { IShellServer } from "../../api/server-types"
 import { constructShellAPI } from "../../api/shell"
 
-export { type IUiIframe } from "../../api/client"
+export { type IUiCustom } from "../../api/client"
 // export { expose, wrap } from "@huakunshen/comlink"
 // export { type IDbServer } from "../server/db"
-export { type IUiIframeServer2, type IUiIframeServer1 } from "../../api/server-types"
+export { type IUiCustomServer2, type IUiCustomServer1 } from "../../api/server-types"
 
 /**
  * For the APIs annotated with "inherit from tauri-api-adapter", they inherit the client API completely from tauri-api-adapter
@@ -68,7 +68,7 @@ type API = {
 	updownload: IUpdownload // inherit from tauri-api-adapter
 	sysInfo: ISystemInfo // inherit from tauri-api-adapter
 	network: INetwork // inherit from tauri-api-adapter
-	iframeUi: IUiIframe // for kunkun
+	iframeUi: IUiCustom // for kunkun
 	utils: IUtils // for kunkun
 	security: ISecurity // for kunkun
 	app: IApp

@@ -6,7 +6,7 @@
 	import { listenToFileDrop, listenToRefreshDevExt } from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
 	import { db } from "@kksh/api/commands"
-	import { constructJarvisServerAPIWithPermissions, type IApp, type IUiWorker } from "@kksh/api/ui"
+	import { constructJarvisServerAPIWithPermissions, type IApp, type IUiTemplate } from "@kksh/api/ui"
 	import {
 		FormNodeNameEnum,
 		FormSchema,
@@ -73,7 +73,7 @@
 		}
 	}
 
-	const extUiAPI: IUiWorker = {
+	const extUiAPI: IUiTemplate = {
 		async render(view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) {
 			if (view.nodeName === NodeNameEnum.List) {
 				clearViewContent("list")

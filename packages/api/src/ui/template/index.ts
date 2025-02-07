@@ -47,7 +47,7 @@ import type { FormSchema, ListSchema, MarkdownSchema } from "../../models"
 import type { IComponent } from "./components"
 import type { TemplateUiCommand } from "./ext"
 
-export interface IUiWorker {
+export interface IUiTemplate {
 	render: (view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) => Promise<void>
 	goBack: () => Promise<void>
 	showLoadingBar: (loading: boolean) => Promise<void>
@@ -82,7 +82,7 @@ type API = {
 	updownload: IUpdownload // inherit from tauri-api-adapter
 	sysInfo: ISystemInfo // inherit from tauri-api-adapter
 	network: INetwork // inherit from tauri-api-adapter
-	workerUi: IUiWorker // for kunkun
+	workerUi: IUiTemplate // for kunkun
 	security: ISecurity // for kunkun
 	utils: IUtils // for kunkun
 	app: IApp
