@@ -14,7 +14,7 @@
 		type IApp,
 		type IUiIframe
 	} from "@kksh/api/ui"
-	import { toast, type IUiIframeServer1, type IUiIframeServer2 } from "@kksh/api/ui/iframe"
+	import { toast, type IUiIframeServer1, type IUiIframeServer2 } from "@kksh/api/ui/custom"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
 	import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"

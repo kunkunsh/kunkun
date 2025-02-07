@@ -16,7 +16,7 @@
 		toast,
 		type IComponent,
 		type TemplateUiCommand
-	} from "@kksh/api/ui/worker"
+	} from "@kksh/api/ui/template"
 	import { LoadingBar } from "@kksh/ui"
 	import { Templates } from "@kksh/ui/extension"
 	import { GlobalCommandPaletteFooter } from "@kksh/ui/main"

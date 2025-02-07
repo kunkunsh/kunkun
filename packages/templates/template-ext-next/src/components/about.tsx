@@ -1,6 +1,6 @@
 "use client"
 
-import { ui } from "@kksh/api/ui/iframe"
+import { ui } from "@kksh/api/ui/custom"
 import { useEffect } from "react"
 
 export default function About() {

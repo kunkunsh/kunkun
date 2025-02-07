@@ -58,7 +58,7 @@ If you want to support i18n, you can use the `t` function to translate the strin
 User's language setting is available via `app.language()`.
 
 ```ts
-import { app } from "@kksh/api/ui/worker"
+import { app } from "@kksh/api/ui/template"
 import { setupI18n, t } from "./src/i18n"
 
 setupI18n("zh")

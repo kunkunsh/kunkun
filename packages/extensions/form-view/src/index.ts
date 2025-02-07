@@ -13,7 +13,7 @@ import {
 	TemplateUiCommand,
 	toast,
 	ui
-} from "@kksh/api/ui/worker"
+} from "@kksh/api/ui/template"
 
 class ExtensionTemplate extends TemplateUiCommand {
 	async onFormSubmit(value: Record<string, any>): Promise<void> {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { clipboard, notification, ui, toast } from '@kksh/api/ui/iframe';
+	import { clipboard, notification, ui, toast } from '@kksh/api/ui/custom';
 	import { ModeToggle, Button, Command, Separator, updateTheme } from '@kksh/svelte5';
 	import ThemeCustomizer from '$lib/components/ThemeCustomizer.svelte';
 	import {
