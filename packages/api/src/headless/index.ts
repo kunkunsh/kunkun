@@ -110,6 +110,7 @@ export const {
 	notification,
 	sysInfo,
 	network,
+	helper,
 	system,
 	open,
 	utils,

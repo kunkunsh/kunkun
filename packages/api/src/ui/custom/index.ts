@@ -101,6 +101,7 @@ export const {
 	toast,
 	utils,
 	open,
-	app
+	app,
+	helper
 } = api
 export { Child, RPCChannel, Command, DenoCommand } from "../../api/shell"
