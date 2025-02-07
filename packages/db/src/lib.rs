@@ -14,6 +14,7 @@ pub fn get_connection<P: AsRef<Path>>(
     let conn = Connection::open(file_path)?;
     if let Some(encryption_key) = encryption_key {
         conn.pragma_update(None, "key", &encryption_key)?;
+        conn.pragma_update(None, "foreign_keys", "ON")?;
     }
     Ok(conn)
 }

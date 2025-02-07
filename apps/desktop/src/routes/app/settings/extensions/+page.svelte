@@ -15,7 +15,6 @@
 		uninstalling = true
 		const extContainerPath = get(appConfig).extensionsInstallDir
 		const isDev = extContainerPath && extAPI.isExtPathInDev(extContainerPath, ext.extPath)
-		console.log("uninstall extension (isDev): ", isDev)
 
 		const uninstallFunc = isDev
 			? extensions.uninstallDevExtensionByIdentifier

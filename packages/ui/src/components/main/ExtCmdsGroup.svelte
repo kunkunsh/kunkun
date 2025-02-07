@@ -34,7 +34,7 @@
 		onSelect={() => {
 			onExtCmdSelect(ext, cmd, { isDev, hmr })
 		}}
-		value={cmd.name}
+		value={`${isDev ? "dev-ext" : "ext"}-${cmd.name}`}
 	>
 		<!-- value={JSON.stringify({
 			cmdName: cmd.name,
