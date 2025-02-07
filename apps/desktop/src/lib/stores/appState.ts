@@ -1,8 +1,6 @@
-import { findAllArgsInLink } from "@/cmds/quick-links"
-import { Action as ActionSchema, CmdTypeEnum } from "@kksh/api/models"
+import { Action as ActionSchema } from "@kksh/api/models"
 import type { AppState } from "@kksh/types"
-import type { CmdValue } from "@kksh/ui/types"
-import { derived, get, writable, type Writable } from "svelte/store"
+import { get, writable, type Writable } from "svelte/store"
 
 export const defaultAppState: AppState = {
 	searchTerm: "",

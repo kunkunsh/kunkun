@@ -3,6 +3,7 @@
 	import { i18n, switchToLanguage } from "@/i18n"
 	import { setLanguageTag, type AvailableLanguageTag } from "@/paraglide/runtime"
 	import { appConfig, appState, extensions, quickLinks, winExtMap } from "@/stores"
+	import { appsLoader } from "@/stores/apps"
 	import { initDeeplink } from "@/utils/deeplink"
 	import { updateAppHotkey } from "@/utils/hotkey"
 	import { globalKeyDownHandler, globalKeyUpHandler, goBackOrCloseOnEscape } from "@/utils/key"
@@ -60,13 +61,13 @@
 				info("fixed path env")
 			})
 			.catch(error)
-
 		quickLinks.init()
 		appConfig.init().then(() => {
 			console.log("appConfig.language", $appConfig.language)
 			setLanguageTag($appConfig.language as AvailableLanguageTag)
 			switchToLanguage($appConfig.language as AvailableLanguageTag)
 		})
+		appsLoader.init()
 		if (isInMainWindow()) {
 			if ($appConfig.triggerHotkey) {
 				updateAppHotkey($appConfig.triggerHotkey)

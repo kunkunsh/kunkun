@@ -34,12 +34,13 @@
 		onSelect={() => {
 			onExtCmdSelect(ext, cmd, { isDev, hmr })
 		}}
-		value={JSON.stringify({
+		value={cmd.name}
+	>
+		<!-- value={JSON.stringify({
 			cmdName: cmd.name,
 			cmdType: cmd.type,
 			data: { isDev: heading === "Dev Extensions" }
-		} satisfies CmdValue)}
-	>
+		} satisfies CmdValue)} -->
 		<span class="flex gap-2">
 			<IconMultiplexer icon={cmd.icon ?? ext.kunkun.icon} class="!h-5 !w-5 shrink-0" />
 			<span>{cmd.name}</span>

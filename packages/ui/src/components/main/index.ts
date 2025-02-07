@@ -4,4 +4,5 @@ export { default as GlobalCommandPaletteFooter } from "./GlobalCommandPaletteFoo
 export { default as ExtCmdsGroup } from "./ExtCmdsGroup.svelte"
 export { default as SystemCmds } from "./SystemCmds.svelte"
 export { default as QuickLinks } from "./QuickLinks.svelte"
+export { default as AppsCmds } from "./AppsCmds.svelte"
 export * from "./types"
