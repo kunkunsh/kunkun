@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.1.2
+
+### Patch Changes
+
+- Add helper API
+
 ## 0.1.1
 
 ### Patch Changes

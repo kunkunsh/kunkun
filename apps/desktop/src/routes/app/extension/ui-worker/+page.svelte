@@ -3,6 +3,7 @@
 	import { appState } from "@/stores/appState.js"
 	import { keys } from "@/stores/keys"
 	import { winExtMap } from "@/stores/winExtMap.js"
+	import { helperAPI } from "@/utils/helper.js"
 	import { listenToFileDrop, listenToRefreshDevExt } from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
 	import { db } from "@kksh/api/commands"
@@ -219,6 +220,7 @@
 			...serverAPI,
 			iframeUi: undefined,
 			workerUi: extUiAPI,
+			helper: helperAPI,
 			db: new db.JarvisExtDB(extInfoInDB.extId),
 			kv: new db.KV(extInfoInDB.extId),
 			app: {

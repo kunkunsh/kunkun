@@ -300,3 +300,9 @@ export interface ISecurity {
 		checkScreenCapturePermission: () => Promise<boolean>
 	}
 }
+
+export interface IHelper {
+	guideInstallDeno: () => Promise<void>
+	guideInstallFfmpeg: () => Promise<void>
+	guideInstallHomebrew: () => Promise<void>
+}
