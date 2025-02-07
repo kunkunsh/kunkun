@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ui } from "@kksh/api/ui/iframe"
+import { ui } from "@kksh/api/ui/custom"
 import {
 	Button,
 	Command,

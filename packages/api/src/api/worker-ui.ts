@@ -1,7 +1,7 @@
 // import { proxy, type Remote } from "@huakunshen/comlink"
-// import type { IUiWorker } from "../client"
+// import type { IUiTemplate } from "../client"
 
-// export function constructWorkerUiAPI(api: Remote<IUiWorker>): IUiWorker {
+// export function constructWorkerUiAPI(api: Remote<IUiTemplate>): IUiTemplate {
 // 	return {
 // 		goBack: api.goBack,
 // 		render: api.render,

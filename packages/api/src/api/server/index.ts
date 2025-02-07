@@ -38,7 +38,7 @@ import {
 	type UpdownloadPermission
 } from "tauri-api-adapter/permissions"
 import type { IEvent, IFs, IOpen, ISecurity, ISystem, IToast, IUtils } from "../../api/client"
-import type { IUiIframeServer1 } from "../../api/server-types"
+import type { IUiCustomServer1 } from "../../api/server-types"
 import {
 	AllKunkunPermission,
 	type EventPermission,
@@ -65,8 +65,8 @@ import {
 } from "./toast"
 import {
 	constructIframeUiApi
-	// type IUiIframeServer,
-	// type IUiWorkerServer
+	// type IUiCustomServer,
+	// type IUiTemplateServer
 } from "./ui"
 import { constructUtilsApi } from "./utils"
 
@@ -79,13 +79,13 @@ export {
 } from "./toast"
 export {
 	constructIframeUiApi
-	// type IUiIframeServer,
-	// type IUiWorkerServer
+	// type IUiCustomServer,
+	// type IUiTemplateServer
 } from "./ui"
 
 // export type IJarvisFullAPI =
 // 	// IFullAPI &
-// 	ISystemServer & IToastServer & IDbServer & IUiWorkerServer & IUiIframeServer & IFsServer // IFsServer will override some methods in IFullAPI, it's fine because it's a superset
+// 	ISystemServer & IToastServer & IDbServer & IUiTemplateServer & IUiCustomServer & IFsServer // IFsServer will override some methods in IFullAPI, it's fine because it's a superset
 type AllScopedPermissions = FsPermissionScoped | OpenPermissionScoped | ShellPermissionScoped
 type AllPermissions = AllKunkunPermission | AllScopedPermissions
 function getStringPermissions(permissions: AllPermissions[]): AllKunkunPermission[] {
@@ -113,7 +113,7 @@ export type IKunkunFullServerAPI = {
 	system: ISystem
 	toast: IToast
 	shell: IShellServer
-	iframeUi: IUiIframeServer1
+	iframeUi: IUiCustomServer1
 	utils: IUtils
 	security: ISecurity
 }

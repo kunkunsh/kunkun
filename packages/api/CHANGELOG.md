@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.1.1
+
+### Patch Changes
+
+- Rename api's 2 ui subpackage to less technical terms; iframe to custom and worker to template
+
 ## 0.1.0
 
 ### Minor Changes

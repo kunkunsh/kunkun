@@ -19,5 +19,5 @@ export type {
 	IFetch
 } from "tauri-api-adapter"
 export * from "../api/client" // all client types
-export type { IUiWorker } from "./worker"
+export type { IUiTemplate } from "./template"
 export type { IShell } from "../api/shell"

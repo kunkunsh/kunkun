@@ -1,10 +1,10 @@
 // import type { Remote } from "@huakunshen/comlink"
 import type { IOs } from "tauri-api-adapter/client"
-import { type IUiIframe } from "./client"
+import { type IUiCustom } from "./client"
 
 export const KK_DRAG_REGION_ATTR = "data-kunkun-drag-region"
 
-export function constructIframeUiAPI(api: { iframeUi: IUiIframe; os: IOs }): IUiIframe {
+export function constructIframeUiAPI(api: { iframeUi: IUiCustom; os: IOs }): IUiCustom {
 	return {
 		goBack: api.iframeUi.goBack,
 		hideBackButton: api.iframeUi.hideBackButton,

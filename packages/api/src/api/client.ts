@@ -111,7 +111,7 @@ export interface IToast {
 	error: GeneralToast
 }
 
-export interface IUiIframe {
+export interface IUiCustom {
 	// goHome: () => Promise<void>
 	goBack: () => Promise<void>
 	hideBackButton: () => Promise<void>

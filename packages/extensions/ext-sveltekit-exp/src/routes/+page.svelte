@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { clipboard, notification, ui, toast, dialog, shell } from '@kksh/api/ui/iframe';
+	import { clipboard, notification, ui, toast, dialog, shell } from '@kksh/api/ui/custom';
 	import {
 		ModeToggle,
 		Button,

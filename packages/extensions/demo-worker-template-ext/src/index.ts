@@ -19,7 +19,7 @@ import {
 	TemplateUiCommand,
 	toast,
 	ui
-} from "@kksh/api/ui/worker"
+} from "@kksh/api/ui/template"
 import { IconType } from "@kunkun/api/models"
 
 const nums = Array.from({ length: 20 }, (_, i) => i + 1)
