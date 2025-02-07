@@ -1,16 +1,15 @@
 <script lang="ts">
 	import { IconEnum, type AppInfo } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
+	import { IconMultiplexer } from "@kksh/ui"
+	import { DraggableCommandGroup } from "@kksh/ui/custom"
 	import { convertFileSrc } from "@tauri-apps/api/core"
 	import * as os from "@tauri-apps/plugin-os"
 	import { toast } from "svelte-sonner"
-	import { executeBashScript, open } from "tauri-plugin-shellx-api"
-	import IconMultiplexer from "../common/IconMultiplexer.svelte"
-	import { DraggableCommandGroup } from "../custom"
+	import { open } from "tauri-plugin-shellx-api"
 
 	const platform = os.platform()
 	let { apps }: { apps: AppInfo[] } = $props()
-	// let appsDisplay = $derived(apps.length > 20 ? apps.slice(0, 20) : apps)
 </script>
 
 <DraggableCommandGroup heading="Apps">
