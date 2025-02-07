@@ -6,7 +6,11 @@
 	import { listenToFileDrop, listenToRefreshDevExt } from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
 	import { db } from "@kksh/api/commands"
-	import { constructJarvisServerAPIWithPermissions, type IApp, type IUiTemplate } from "@kksh/api/ui"
+	import {
+		constructJarvisServerAPIWithPermissions,
+		type IApp,
+		type IUiTemplate
+	} from "@kksh/api/ui"
 	import {
 		FormNodeNameEnum,
 		FormSchema,
