@@ -58,7 +58,7 @@ export async function handleKunkunProtocol(parsedUrl: URL) {
 		const parsed = v.parse(StorePathSearchParams, params)
 		openMainWindow()
 		if (parsed.identifier) {
-			goto(`/extension/store/${parsed.identifier}`)
+			goto(i18n.resolveRoute(`/app/extension/store/${parsed.identifier}`))
 		} else {
 			goto(i18n.resolveRoute("/app/extension/store"))
 		}
@@ -66,7 +66,7 @@ export async function handleKunkunProtocol(parsedUrl: URL) {
 		emitRefreshDevExt()
 	} else if (href.startsWith(DEEP_LINK_PATH_AUTH_CONFIRM)) {
 		openMainWindow()
-		goto(`/auth/confirm?${parsedUrl.searchParams.toString()}`)
+		goto(i18n.resolveRoute(`/app/auth/confirm?${parsedUrl.searchParams.toString()}`))
 	} else {
 		console.error("Invalid path:", pathname)
 		toast.error("Invalid path", {
