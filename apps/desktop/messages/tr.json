@@ -1,0 +1,82 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"app_name": "KunKun",
+	"secondary_app_name": "KunKun",
+
+	"common_edit": "Düzenle",
+	"common_clear": "Temizle",
+	"common_check": "Kontrol Et",
+	"common_install": "Yükle",
+    
+	"home_command_input_placeholder": "Aramak için \"/\" yazın...",
+	"home_command_input_dropdown_quit": "Çıkış",
+	"home_command_input_dropdown_developer_title": "Geliştirici",
+	"home_command_input_dropdown_close_window": "Pencereyi Kapat",
+	"home_command_input_dropdown_toggle_devtools": "Geliştirici Araçlarını Aç/Kapat",
+	"home_command_input_dropdown_reload_window": "Pencereyi Yenile",
+	"home_command_input_dropdown_open_preference": "Tercihleri Aç",
+	"home_command_input_dropdown_toggle_dev_extension_hmr": "Geliştirici Uzantısı HMR'yi Aç/Kapat",
+
+	"command_group_heading_dev_ext": "Geliştirici Uzantıları",
+	"command_group_heading_ext": "Uzantılar",
+	"command_group_heading_quick_links": "Hızlı Bağlantılar",
+
+	"settings_menu_settings": "Ayarlar",
+	"settings_menu_general": "Genel",
+	"settings_menu_developer": "Geliştirici",
+	"settings_menu_extensions": "Uzantılar",
+	"settings_menu_set_dev_ext": "Geliştirici Uzantısını Ayarla",
+	"settings_menu_add_dev_ext": "Geliştirici Uzantısı Ekle",
+	"settings_menu_about": "Hakkında",
+
+	"settings_general_launch_at_login": "Başlangıçta Başlat",
+	"settings_general_hotkey": "Kısayol Tuşu",
+	"settings_general_menu_bar_icon": "Menü Çubuğu Simgesi",
+	"settings_general_hide_on_blur": "Odak Dışındayken Gizle",
+	"settings_general_extension_auto_upgrade": "Uzantı Otomatik Güncelleme",
+	"settings_general_dev_extension_hmr": "Geliştirici Uzantısı HMR",
+	"settings_general_join_beta_updates": "Beta Güncellemelerine Katıl",
+	"settings_general_developer_mode": "Geliştirici Modu",
+	"settings_general_language": "Dil",
+
+	"settings_about_version": "Sürüm",
+	"settings_about_author": "Yazar",
+	"settings_about_source_code": "Kaynak Kodu",
+	"settings_about_extensions_source_code": "Uzantılar Kaynak Kodu",
+	"settings_about_check_for_updates": "Güncellemeleri Kontrol Et",
+
+	"settings_set_dev_ext_title": "Geliştirici Uzantı Yolunu Ayarla",
+	"settings_set_dev_ext_description": "This is where your extensions will be installed.",
+	"settings_set_dev_ext_enter_path": "Yolu Girin",
+
+	"settings_extensions_title": "Uzantılarınız",
+	"settings_extensions_table_col_name": "İsim",
+	"settings_extensions_table_col_identifier": "Tanımlayıcı",
+	"settings_extensions_table_col_type": "Tür",
+	"settings_extensions_table_col_version": "Sürüm",
+	"settings_extensions_table_col_uninstall": "Kaldır",
+
+	"settings_add_dev_ext_title": "Geliştirici Uzantısı Ekle",
+	"settings_add_dev_ext_description": "There are 4 options to install an extension in developer mode. Either load it from your local tarball file, local folder, a tarball remote URL, or npm package name.",
+	"settings_add_dev_ext_install_from_ext_folders": "Uzantı Klasörlerinden Yükle",
+	"settings_add_dev_ext_install_from_ext_files": "Uzantı Tarball Dosyasından Yükle",
+	"settings_add_dev_ext_drag_and_drop": "Sürükle ve Bırak",
+	"settings_add_dev_ext_drag_and_drop2": "Uzantı Klasörü veya Tarball",
+	"settings_add_dev_ext_install_tarball_from_url": "URL'den Tarball Yükle",
+
+	"troubleshooters_sidebar_title": "Sorun Gidericiler",
+	"troubleshooters_sidebar_extension_loading_title": "Uzantı Yükleme",
+	"troubleshooters_sidebar_extension_window_title": "Uzantı Penceresi",
+	"troubleshooters_sidebar_mdns_debugger_title": "MDNS Hata Ayıklayıcı",
+
+	"troubleshooters_extension_window_title": "Uzantı Penceresi Sorun Giderici",
+	"troubleshooters_extension_window_refresh_every_second": "Her Saniye Yenile",
+	"troubleshooters_extension_window_refresh": "Yenile",
+	"troubleshooters_extension_window_refreshed": "{count} kez yenilendi",
+
+	"troubleshooters_extension_loading_title": "Uzantı Yükleme Sorun Giderici",
+	"troubleshooters_extension_loading_table_col_identifier": "Tanımlayıcı",
+	"troubleshooters_extension_loading_table_col_path": "Yol",
+	"troubleshooters_extension_loading_table_col_error": "Hata"
+}
