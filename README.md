@@ -5,7 +5,7 @@
 
 ## Demo Video and Instructions
 
-- https://docs.kunkun.sh/guides/demo/
+- YouTube: https://youtu.be/HfQb38s8VjY
 - Download extension from https://kunkun.sh/download
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/kunkunsh/kunkun)
