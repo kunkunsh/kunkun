@@ -19,7 +19,7 @@
 		"@inlang/paraglide-sveltekit": "0.15.5",
 		"@kksh/extension": "workspace:*",
 		"@kksh/supabase": "workspace:*",
-		"@kksh/svelte5": "^0.1.15",
+		"@kksh/svelte5": "^0.1.16",
 		"@kksh/ui": "workspace:*",
 		"@kksh/utils": "workspace:*",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
