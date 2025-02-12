@@ -1,14 +1,6 @@
 <script lang="ts">
 	import { notification, ui } from "@kksh/api/ui/custom"
-	import {
-		Button,
-		Command,
-		// CommandFooter,
-		ModeWatcher,
-		Separator,
-		ThemeWrapper,
-		updateTheme
-	} from "@kksh/svelte5"
+	import { Button, Command, Separator, ThemeWrapper, updateTheme } from "@kksh/svelte5"
 	import ThemeCustomizer from "$lib/components/ThemeCustomizer.svelte"
 	import {
 		Calculator,
@@ -19,6 +11,7 @@
 		Smile,
 		User
 	} from "lucide-svelte"
+	import { ModeWatcher } from "mode-watcher"
 	import { onMount } from "svelte"
 
 	onMount(() => {
