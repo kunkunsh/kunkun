@@ -40,7 +40,7 @@
 		"@eslint/js": "^9.18.0",
 		"@iconify/svelte": "^4.2.0",
 		"@kksh/api": "workspace:*",
-		"@kksh/svelte5": "^0.1.16",
+		"@kksh/svelte5": "^0.1.15",
 		"@types/bun": "latest",
 		"@typescript-eslint/eslint-plugin": "^8.20.0",
 		"@typescript-eslint/parser": "^8.20.0",

@@ -46,8 +46,7 @@
 	},
 	"dependencies": {
 		"@kksh/api": "workspace:*",
-		"@kksh/svelte5": "0.1.16",
-		"formsnap": "^1.0.1",
+		"@kksh/svelte5": "0.1.15",
 		"clsx": "^2.1.1",
 		"lucide-svelte": "^0.469.0",
 		"mode-watcher": "^0.5.0",
