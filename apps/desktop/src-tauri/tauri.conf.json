@@ -22,7 +22,8 @@
 				"width": 800,
 				"visible": false,
 				"height": 600,
-				"decorations": true
+				"decorations": false,
+				"transparent": true
 			},
 			{
 				"url": "/splashscreen",
