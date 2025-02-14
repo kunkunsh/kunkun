@@ -34,6 +34,16 @@
 - [x] Linux
 - [x] Windows
 
+## Star History
+
+<a href="https://star-history.com/#kunkunsh/kunkun&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date" />
+ </picture>
+</a>
+
 ## Sample Extensions
 
 ##### Kunkun Dance
