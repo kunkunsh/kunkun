@@ -17,7 +17,7 @@
 <ParaglideJS {i18n}>
 	<ModeWatcher />
 	<Toaster richColors closeButton />
-	<ThemeWrapper>
+	<ThemeWrapper class="bg-background">
 		{@render children()}
 	</ThemeWrapper>
 </ParaglideJS>
