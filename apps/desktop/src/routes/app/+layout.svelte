@@ -6,6 +6,7 @@
 	import { appsLoader } from "@/stores/apps"
 	import { initDeeplink } from "@/utils/deeplink"
 	import { updateAppHotkey } from "@/utils/hotkey"
+	import { init as initApp } from "@/utils/init"
 	import { globalKeyDownHandler, globalKeyUpHandler, goBackOrCloseOnEscape } from "@/utils/key"
 	import { listenToWindowBlur } from "@/utils/tauri-events"
 	import { isInMainWindow } from "@/utils/window"
@@ -63,6 +64,7 @@
 			.catch(error)
 		quickLinks.init()
 		appConfig.init().then(() => {
+			initApp()
 			console.log("appConfig.language", $appConfig.language)
 			setLanguageTag($appConfig.language as AvailableLanguageTag)
 			switchToLanguage($appConfig.language as AvailableLanguageTag)

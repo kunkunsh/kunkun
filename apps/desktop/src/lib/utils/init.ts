@@ -14,10 +14,10 @@ export function init() {
 	}
 
 	if (!dev) {
-		document.addEventListener("contextmenu", function (event) {
-			event.preventDefault()
-			console.warn("contextmenu disabled in release mode", event)
-		})
+		// document.addEventListener("contextmenu", function (event) {
+		// 	event.preventDefault()
+		// 	console.warn("contextmenu disabled in release mode", event)
+		// })
 	}
 }
 
@@ -31,6 +31,6 @@ export function initMainWindow() {
 		info(`Registering hotkey: ${hotkeyStr}`)
 		registerAppHotkey(hotkeyStr)
 	} else {
-		console.log("No hotkey found in confi")
+		console.log("No hotkey found in config")
 	}
 }
