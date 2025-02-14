@@ -1,7 +1,4 @@
-# Kunkun
-
-> Kunkun is a cross-platform extensible app launcher like Raycast or Alfred.
-> All extensions run in a sandboxed environment by default to ensure security.
+![kunkun](https://socialify.git.ci/kunkunsh/kunkun/image?description=1&forks=1&issues=1&logo=https%3A%2F%2Fstorage.huakun.tech%2F2024%2F9%2F12%2F4MjHiKK.png&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
 
 > [!WARNING]
 > This project is still in the early stages of development.
@@ -122,3 +119,40 @@
 ##### Clipboard History
 
 ![](https://i.imgur.com/uw1hJmG.png)
+
+## Stats
+
+![Alt](https://repobeats.axiom.co/api/embed/7105c01eb031bd6a88897d79c8713aa4251842e9.svg "Repobeats analytics image")
+
+<!-- Copy-paste in your Readme.md file -->
+
+<a href="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats?repo_id=882158748" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats/thumbnail.png?repo_id=882158748&image_size=auto&color_scheme=dark" width="655" height="auto">
+    <img alt="Performance Stats of kunkunsh/kunkun - Last 28 days" src="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats/thumbnail.png?repo_id=882158748&image_size=auto&color_scheme=light" width="655" height="auto">
+  </picture>
+</a>
+
+<!-- Made with [OSS Insight](https://ossinsight.io/) -->
+
+<!-- Copy-paste in your Readme.md file -->
+
+<a href="https://next.ossinsight.io/widgets/official/compose-org-activity-growth-total?activity=stars&period=past_28_days&owner_id=176965503" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-org-activity-growth-total/thumbnail.png?activity=stars&period=past_28_days&owner_id=176965503&image_size=4x7&color_scheme=dark" width="657" height="auto">
+    <img alt="Stars trends of kunkunsh" src="https://next.ossinsight.io/widgets/official/compose-org-activity-growth-total/thumbnail.png?activity=stars&period=past_28_days&owner_id=176965503&image_size=4x7&color_scheme=light" width="657" height="auto">
+  </picture>
+</a>
+
+<!-- Made with [OSS Insight](https://ossinsight.io/) -->
+
+<!-- Copy-paste in your Readme.md file -->
+
+<a href="https://next.ossinsight.io/widgets/official/compose-org-overview-stars?period=past_28_days&owner_id=176965503" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-org-overview-stars/thumbnail.png?period=past_28_days&owner_id=176965503&image_size=2x6&color_scheme=dark" width="561" height="auto">
+    <img alt="Overview of Stars earned of kunkunsh" src="https://next.ossinsight.io/widgets/official/compose-org-overview-stars/thumbnail.png?period=past_28_days&owner_id=176965503&image_size=2x6&color_scheme=light" width="561" height="auto">
+  </picture>
+</a>
+
+<!-- Made with [OSS Insight](https://ossinsight.io/) -->
