@@ -1,29 +1,67 @@
 ![kunkun](https://socialify.git.ci/kunkunsh/kunkun/image?description=1&forks=1&issues=1&logo=https%3A%2F%2Fstorage.huakun.tech%2F2024%2F9%2F12%2F4MjHiKK.png&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
 
 > [!WARNING]
-> This project is still in the early stages of development.
-> There are known compatibility issues with Linux.
-> Author is working on fixing them.
-
-## Demo Video and Instructions
-
-- YouTube: https://youtu.be/HfQb38s8VjY
-- Download extension from https://kunkun.sh/download
+> 🚧 Work in Progress 🚧
+> This project is still in its early stages.
+>
+> We know it’s not perfect yet. The author is pouring heart, soul, and a few sleepless nights into fixing the issues. Your patience means everything.
+>
+> Got feedback or found a bug? Open an issue—it helps more than you know.
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/kunkunsh/kunkun)
 [![YouTube badge][]][YouTube link]
 [![](https://dcbadge.limes.pink/api/server/7dzw3TYeTU)](https://discord.gg/7dzw3TYeTU)
-
-- Website: https://kunkun.sh/
-- Documentation: https://docs.kunkun.sh/
-
 [YouTube badge]: https://img.shields.io/youtube/channel/subscribers/UC1gJeFbvRcQXDC_C8nKetdA?style=social
 [YouTube link]: https://www.youtube.com/@huakun
 
-## Download
-
-- From the Website: https://kunkun.sh/download/
-- From GitHub Releases: https://github.com/kunkunsh/kunkun/releases
+<table border="0">
+ <tr>
+    <td><b style="font-size:30px">Demo Video and Instructions</b></td>
+    <td><b style="font-size:30px">Download</b></td>
+ </tr>
+ <tr>
+    <td>
+      <table>
+        <tr>
+          <td>Resource</td>
+          <td>Link</td>
+        </tr>
+        <tr>
+          <td>YouTube</td>
+          <td>https://youtu.be/HfQb38s8VjY</td>
+        </tr>
+        <tr>
+          <td>Extension Download</td>
+          <td>https://kunkun.sh/download</td>
+        </tr>
+        <tr>
+          <td>Website</td>
+          <td>https://kunkun.sh/</td>
+        </tr>
+        <tr>
+          <td>Documentation</td>
+          <td>https://docs.kunkun.sh/</td>
+        </tr>
+      </table>
+    </td>
+    <td>
+      <table>
+        <tr>
+          <td>Source</td>
+          <td>Link</td>
+        </tr>
+        <tr>
+          <td>Website</td>
+          <td>https://kunkun.sh/download/</td>
+        </tr>
+        <tr>
+          <td>GitHub Releases</td>
+          <td>https://github.com/kunkunsh/kunkun/releases</td>
+        </tr>
+      </table>
+    </td>
+ </tr>
+</table>
 
 ## Platforms
 
