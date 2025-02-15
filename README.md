@@ -11,57 +11,54 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/kunkunsh/kunkun)
 [![YouTube badge][]][YouTube link]
 [![](https://dcbadge.limes.pink/api/server/7dzw3TYeTU)](https://discord.gg/7dzw3TYeTU)
+
 [YouTube badge]: https://img.shields.io/youtube/channel/subscribers/UC1gJeFbvRcQXDC_C8nKetdA?style=social
 [YouTube link]: https://www.youtube.com/@huakun
 
-<table border="0">
- <tr>
-    <td><b style="font-size:30px">Demo Video and Instructions</b></td>
-    <td><b style="font-size:30px">Download</b></td>
- </tr>
- <tr>
-    <td>
-      <table>
-        <tr>
-          <td>Resource</td>
-          <td>Link</td>
-        </tr>
-        <tr>
-          <td>YouTube</td>
-          <td>https://youtu.be/HfQb38s8VjY</td>
-        </tr>
-        <tr>
-          <td>Extension Download</td>
-          <td>https://kunkun.sh/download</td>
-        </tr>
-        <tr>
-          <td>Website</td>
-          <td>https://kunkun.sh/</td>
-        </tr>
-        <tr>
-          <td>Documentation</td>
-          <td>https://docs.kunkun.sh/</td>
-        </tr>
-      </table>
-    </td>
-    <td>
-      <table>
-        <tr>
-          <td>Source</td>
-          <td>Link</td>
-        </tr>
-        <tr>
-          <td>Website</td>
-          <td>https://kunkun.sh/download/</td>
-        </tr>
-        <tr>
-          <td>GitHub Releases</td>
-          <td>https://github.com/kunkunsh/kunkun/releases</td>
-        </tr>
-      </table>
-    </td>
- </tr>
-</table>
+<div style="display: flex;">
+  <div style="flex: 1; padding-right: 10px;">
+    <h3>Demo Video and Instructions</h3>
+    <table>
+      <tr>
+        <td>Resource</td>
+        <td>Link</td>
+      </tr>
+      <tr>
+        <td>YouTube</td>
+        <td>https://youtu.be/HfQb38s8VjY</td>
+      </tr>
+      <tr>
+        <td>Extension Download</td>
+        <td>https://kunkun.sh/download</td>
+      </tr>
+      <tr>
+        <td>Website</td>
+        <td>https://kunkun.sh/</td>
+      </tr>
+      <tr>
+        <td>Documentation</td>
+        <td>https://docs.kunkun.sh/</td>
+      </tr>
+    </table>
+  </div>
+  <div style="flex: 1; padding-left: 10px;">
+    <h3>Download</h3>
+    <table>
+      <tr>
+        <td>Source</td>
+        <td>Link</td>
+      </tr>
+      <tr>
+        <td>Website</td>
+        <td>https://kunkun.sh/download/</td>
+      </tr>
+      <tr>
+        <td>GitHub Releases</td>
+        <td>https://github.com/kunkunsh/kunkun/releases</td>
+      </tr>
+    </table>
+  </div>
+</div>
 
 ## Platforms
 
