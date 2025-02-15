@@ -18,53 +18,28 @@
 <div style="display: flex;">
   <div style="flex: 1; padding-right: 10px;">
     <h3>Demo Video and Instructions</h3>
-    <table>
-      <tr>
-        <td>Resource</td>
-        <td>Link</td>
-      </tr>
-      <tr>
-        <td>YouTube</td>
-        <td>https://youtu.be/HfQb38s8VjY</td>
-      </tr>
-      <tr>
-        <td>Extension Download</td>
-        <td>https://kunkun.sh/download</td>
-      </tr>
-      <tr>
-        <td>Website</td>
-        <td>https://kunkun.sh/</td>
-      </tr>
-      <tr>
-        <td>Documentation</td>
-        <td>https://docs.kunkun.sh/</td>
-      </tr>
-    </table>
+    <ul>
+      <li><a href="https://youtu.be/HfQb38s8VjY">Introduction Video</a></li>
+      <li><a href="https://kunkun.sh/">Visit Website</a></li>
+      <li><a href="https://docs.kunkun.sh/">Documentation</a></li>
+    </ul>
   </div>
   <div style="flex: 1; padding-left: 10px;">
     <h3>Download</h3>
-    <table>
-      <tr>
-        <td>Source</td>
-        <td>Link</td>
-      </tr>
-      <tr>
-        <td>Website</td>
-        <td>https://kunkun.sh/download/</td>
-      </tr>
-      <tr>
-        <td>GitHub Releases</td>
-        <td>https://github.com/kunkunsh/kunkun/releases</td>
-      </tr>
-    </table>
+    <ul>
+      <li><a href="https://kunkun.sh/download/">From Website</a></li>
+      <li><a href="https://github.com/kunkunsh/kunkun/releases">From GitHub Releases</a></li>
+    </ul>
+  </div>
+  <div style="flex: 1; padding-left: 10px;">
+    <h3>Platforms</h3>
+    <ul>
+      <li>MacOS</li>
+      <li>Linux</li>
+      <li>Windows</li>
+    </ul>
   </div>
 </div>
-
-## Platforms
-
-- [x] MacOS
-- [x] Linux
-- [x] Windows
 
 ## Star History
 
