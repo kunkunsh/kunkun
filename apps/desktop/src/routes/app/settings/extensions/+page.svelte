@@ -35,14 +35,6 @@
 	}
 
 	function onReload(ext: ExtPackageJsonExtra) {
-		// only support reloading dev extensions at the moment
-		const extContainerPath = get(appConfig).extensionsInstallDir
-		const isDev = extContainerPath && extAPI.isExtPathInDev(extContainerPath, ext.extPath)
-		if (!isDev) {
-			toast.warning("Only dev extensions can be reloaded")
-			return
-		}
-
 		reloading = true
 
 		return extensions.reloadDevExtensionByIdentifier(ext.kunkun.identifier)

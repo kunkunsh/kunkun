@@ -179,6 +179,11 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		const targetExt = getDevExtensions().find((ext) => ext.kunkun.identifier === identifier)
 		if (!targetExt) throw new Error(`Extension ${identifier} not found`)
 
+		// only support reloading dev extensions at the moment
+		const extContainerPath = get(appConfig).extensionsInstallDir
+		const isDev = extContainerPath && extAPI.isExtPathInDev(extContainerPath, targetExt.extPath)
+		if (!isDev) throw new Error("Only dev extensions can be reloaded")
+
 		// somehow impl a transaction here?
 		await uninstallDevExtensionByPath(targetExt.extPath)
 		return installDevExtensionDir(targetExt.extPath)
