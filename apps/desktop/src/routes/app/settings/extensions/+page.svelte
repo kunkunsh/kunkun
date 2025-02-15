@@ -5,11 +5,12 @@
 	import * as extAPI from "@kksh/extension"
 	import { Button, Table } from "@kksh/svelte5"
 	import { error } from "@tauri-apps/plugin-log"
-	import { TrashIcon } from "lucide-svelte"
+	import { TrashIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { toast } from "svelte-sonner"
 	import { derived, get } from "svelte/store"
 
 	let uninstalling = $state(false)
+	let reloading = $state(false)
 
 	function onUninstall(ext: ExtPackageJsonExtra) {
 		uninstalling = true
@@ -32,13 +33,49 @@
 				uninstalling = false
 			})
 	}
+
+	function onReload(ext: ExtPackageJsonExtra) {
+		// only support reloading dev extensions at the moment
+		const extContainerPath = get(appConfig).extensionsInstallDir
+		const isDev = extContainerPath && extAPI.isExtPathInDev(extContainerPath, ext.extPath)
+		if (!isDev) {
+			toast.warning("Only dev extensions can be reloaded")
+			return
+		}
+
+		reloading = true
+
+		return extensions.reloadDevExtensionByIdentifier(ext.kunkun.identifier)
+			.then((ext) => {
+				toast.success(`${ext.name} Reloaded`)
+			})
+			.catch((err) => {
+				toast.error("Fail to reload dev extension", { description: err })
+				error(`Fail to reload dev extension (${ext.kunkun.identifier}): ${err}`)
+			})
+			.finally(() => {
+				reloading = false
+			})
+	}
 </script>
 
 {#snippet extRow(ext: ExtPackageJsonExtra, type: "Dev Extension" | "Extension")}
 	<Table.Row>
 		<Table.Cell class="font-medium">{ext.kunkun.name}</Table.Cell>
 		<Table.Cell class="">{ext.kunkun.identifier}</Table.Cell>
-		<Table.Cell>{type}</Table.Cell>
+		<Table.Cell>
+			{#if type === "Dev Extension"}
+				<Button
+				variant="secondary"
+				size="icon"
+				disabled={reloading}
+				onclick={() => onReload(ext)}
+				>
+					<RefreshCcwIcon />
+				</Button>
+			{/if}
+			{type}
+		</Table.Cell>
 		<Table.Cell>{ext.version}</Table.Cell>
 		<Table.Cell>
 			<Button

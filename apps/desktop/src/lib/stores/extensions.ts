@@ -24,6 +24,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	registerNewExtensionByPath: (extPath: string) => Promise<ExtPackageJsonExtra>
 	uninstallStoreExtensionByIdentifier: (identifier: string) => Promise<ExtPackageJsonExtra>
 	uninstallDevExtensionByIdentifier: (identifier: string) => Promise<ExtPackageJsonExtra>
+	reloadDevExtensionByIdentifier: (identifier: string) => Promise<ExtPackageJsonExtra>
 	upgradeStoreExtension: (
 		identifier: string,
 		tarballUrl: string,
@@ -172,6 +173,17 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		return uninstallDevExtensionByPath(targetExt.extPath)
 	}
 
+	async function reloadDevExtensionByIdentifier(
+		identifier: string
+	): Promise<ExtPackageJsonExtra> {
+		const targetExt = getDevExtensions().find((ext) => ext.kunkun.identifier === identifier)
+		if (!targetExt) throw new Error(`Extension ${identifier} not found`)
+
+		// somehow impl a transaction here?
+		await uninstallDevExtensionByPath(targetExt.extPath)
+		return installDevExtensionDir(targetExt.extPath)
+	}
+
 	async function uninstallStoreExtensionByIdentifier(
 		identifier: string
 	): Promise<ExtPackageJsonExtra> {
@@ -204,6 +216,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		installFromNpmPackageName,
 		uninstallStoreExtensionByIdentifier,
 		uninstallDevExtensionByIdentifier,
+		reloadDevExtensionByIdentifier,
 		upgradeStoreExtension
 	}
 }
