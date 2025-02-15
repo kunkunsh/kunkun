@@ -31,15 +31,13 @@
       <li><a href="https://github.com/kunkunsh/kunkun/releases">From GitHub Releases</a></li>
     </ul>
   </div>
-  <div style="flex: 1; padding-left: 10px;">
-    <h3>Platforms</h3>
-    <ul>
-      <li>MacOS</li>
-      <li>Linux</li>
-      <li>Windows</li>
-    </ul>
-  </div>
 </div>
+
+## Platforms
+
+- MacOS
+- Linux
+- Windows
 
 ## Star History
 
