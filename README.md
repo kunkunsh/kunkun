@@ -15,29 +15,35 @@
 [YouTube badge]: https://img.shields.io/youtube/channel/subscribers/UC1gJeFbvRcQXDC_C8nKetdA?style=social
 [YouTube link]: https://www.youtube.com/@huakun
 
-<div style="display: flex;">
-  <div style="flex: 1; padding-right: 10px;">
-    <h3>Demo Video and Instructions</h3>
-    <ul>
-      <li><a href="https://youtu.be/HfQb38s8VjY">Introduction Video</a></li>
-      <li><a href="https://kunkun.sh/">Visit Website</a></li>
-      <li><a href="https://docs.kunkun.sh/">Documentation</a></li>
-    </ul>
-  </div>
-  <div style="flex: 1; padding-left: 10px;">
-    <h3>Download</h3>
-    <ul>
-      <li><a href="https://kunkun.sh/download/">From Website</a></li>
-      <li><a href="https://github.com/kunkunsh/kunkun/releases">From GitHub Releases</a></li>
-    </ul>
-  </div>
-</div>
-
-## Platforms
-
-- MacOS
-- Linux
-- Windows
+<table>
+  <tr>
+    <th>Demo Video and Instructions</th>
+    <th>Download</th>
+    <th>Platforms</th>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li><a href="https://youtu.be/HfQb38s8VjY">Introduction Video</a></li>
+        <li><a href="https://kunkun.sh/">Visit Website</a></li>
+        <li><a href="https://docs.kunkun.sh/">Documentation</a></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li><a href="https://kunkun.sh/download/">From Website</a></li>
+        <li><a href="https://github.com/kunkunsh/kunkun/releases">From GitHub Releases</a></li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>MacOS</li>
+        <li>Linux</li>
+        <li>Windows</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 ## Star History
 
