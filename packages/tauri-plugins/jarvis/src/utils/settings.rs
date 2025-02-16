@@ -23,6 +23,7 @@ pub struct AppSettings {
     pub dev_ext_load_url: bool,
     pub hide_on_blur: bool,
     pub trigger_hotkey: Option<Vec<String>>,
+    pub show_on_cursor_position: bool,
 }
 
 impl Default for AppSettings {
@@ -37,6 +38,7 @@ impl Default for AppSettings {
             dev_ext_load_url: false,
             hide_on_blur: true,
             trigger_hotkey: None,
+            show_on_cursor_position: false,
         }
     }
 }

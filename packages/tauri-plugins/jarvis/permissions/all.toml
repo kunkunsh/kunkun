@@ -98,4 +98,5 @@ commands.allow = [
     "file_transfer_preview_bucket",
     # Windows
     "set_transparent_titlebar",
+    "show_window",
 ]

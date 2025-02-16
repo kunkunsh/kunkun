@@ -34,6 +34,7 @@
 	"settings_general_hotkey": "Phím tắt",
 	"settings_general_menu_bar_icon": "Biểu tượng thanh menu",
 	"settings_general_hide_on_blur": "Ẩn khi chuyển sang ứng dụng khác",
+	"settings_general_show_on_cursor_position": "Hiển thị ở vị trí con trỏ",
 	"settings_general_extension_auto_upgrade": "Tự động nâng cấp tiện ích mở rộng",
 	"settings_general_dev_extension_hmr": "HMR cho tiện ích mở rộng đang phát triển",
 	"settings_general_join_beta_updates": "Cài đặt cập nhật thử nghiệm (beta)",

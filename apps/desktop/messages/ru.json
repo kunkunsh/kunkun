@@ -34,6 +34,7 @@
 	"settings_general_hotkey": "Сочетание клавиш",
 	"settings_general_menu_bar_icon": "Иконка в строке меню",
 	"settings_general_hide_on_blur": "Скрыть окно при потере фокуса",
+	"settings_general_show_on_cursor_position": "Показывать окно в позиции курсора",
 	"settings_general_extension_auto_upgrade": "Автообновление расширений",
 	"settings_general_dev_extension_hmr": "Горячая замена модуля (HMR) у dev-расширений",
 	"settings_general_join_beta_updates": "Получать бета-обновления",

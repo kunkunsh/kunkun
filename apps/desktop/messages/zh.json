@@ -34,6 +34,7 @@
 	"settings_general_hotkey": "快捷键",
 	"settings_general_menu_bar_icon": "菜单栏图标",
 	"settings_general_hide_on_blur": "隐藏在后台",
+	"settings_general_show_on_cursor_position": "显示在鼠标位置",
 	"settings_general_extension_auto_upgrade": "自动更新插件",
 	"settings_general_dev_extension_hmr": "开发模式",
 	"settings_general_join_beta_updates": "加入 Beta 更新",

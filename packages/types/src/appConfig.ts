@@ -18,7 +18,8 @@ export const PersistedAppConfig = v.object({
 	extensionAutoUpgrade: v.boolean(),
 	joinBetaProgram: v.boolean(),
 	onBoarded: v.boolean(),
-	developerMode: v.boolean()
+	developerMode: v.boolean(),
+	showOnCursorPosition: v.boolean()
 })
 
 export type PersistedAppConfig = v.InferOutput<typeof PersistedAppConfig>

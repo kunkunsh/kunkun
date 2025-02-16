@@ -1740,6 +1740,32 @@ Denies the show_desktop command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-show-window`
+
+</td>
+<td>
+
+Enables the show_window command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-show-window`
+
+</td>
+<td>
+
+Denies the show_window command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-shutdown`
 
 </td>

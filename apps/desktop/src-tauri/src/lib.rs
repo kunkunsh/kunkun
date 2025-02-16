@@ -201,6 +201,7 @@ pub fn run() {
                 .unwrap();
         })
         .setup(move |app| {
+            app.set_activation_policy(ActivationPolicy::Accessory);
             setup::window::setup_window(app.handle());
             setup::tray::create_tray(app.handle())?;
             setup::stronghold::setup_stronghold(app.handle())?;
