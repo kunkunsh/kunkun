@@ -32,6 +32,9 @@
 		]
 	},
 	"bundle": {
+		"macOS": {
+			"minimumSystemVersion": "10.15"
+		},
 		"createUpdaterArtifacts": true,
 		"fileAssociations": [
 			{
