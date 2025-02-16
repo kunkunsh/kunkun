@@ -24,5 +24,6 @@ export const LanguageMap = {
 	en: "English",
 	zh: "中文",
 	ru: "Русский",
-	pt: "Português"
+	pt: "Português",
+	vi: "Tiếng Việt"
 }
