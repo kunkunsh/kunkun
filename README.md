@@ -33,6 +33,7 @@
       <ul>
         <li><a href="https://kunkun.sh/download/">From Website</a></li>
         <li><a href="https://github.com/kunkunsh/kunkun/releases">From GitHub Releases</a></li>
+        <li><a href="https://formulae.brew.sh/cask/kunkun">Via Homebrew</a></li>
       </ul>
     </td>
     <td>
