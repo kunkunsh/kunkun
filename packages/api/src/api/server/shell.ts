@@ -47,7 +47,10 @@ async function verifyShellCmdPermission(
 		if (requiredPermissions.includes(permission.permission)) {
 			for (const deny of permission.deny || []) {
 				if (deny.cmd && deny.cmd.program === program && matchRegexArgs(args, deny.cmd.args || [])) {
-					return Promise.reject("Shell Command Permission Denied by deny rule")
+					console.warn("deny matched", deny)
+					return Promise.reject(
+						`Shell Command Permission Denied by deny rule: ${JSON.stringify(deny)}`
+					)
 				}
 			}
 			for (const allow of permission.allow || []) {
@@ -61,7 +64,11 @@ async function verifyShellCmdPermission(
 			}
 		}
 	}
-	return Promise.reject("Shell Command Permission Denied, no allow rule found")
+	console.warn("program", program)
+	console.warn("args", args)
+	console.warn("requiredPermissions", requiredPermissions)
+	console.warn("userPermissionScopes", userPermissionScopes)
+	return Promise.reject(`Shell Command Permission Denied, no allow rule found.`)
 }
 
 /**
