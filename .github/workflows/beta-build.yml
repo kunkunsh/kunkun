@@ -22,17 +22,17 @@ on:
         description: "linux"
         required: true
         type: boolean
-        default: false
+        default: true
       platform_macos_aarch64:
         description: "macos-aarch64"
         required: true
         type: boolean
-        default: false
+        default: true
       platform_macos_x86_64:
         description: "macos-x86_64"
         required: true
         type: boolean
-        default: false
+        default: true
       isDebug:
         description: "is debug?"
         required: true
