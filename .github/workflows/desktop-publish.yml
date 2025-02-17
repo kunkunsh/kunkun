@@ -15,16 +15,16 @@ jobs:
       matrix:
         settings:
           - platform: "macos-14" # for Arm based macs (M1 and above).
-            args: "--target aarch64-apple-darwin --verbose"
+            args: "--target aarch64-apple-darwin --verbose --config src-tauri/tauri.conf.publish.json"
           - platform: "macos-13" # for Intel based macs.
-            args: "--target x86_64-apple-darwin --verbose"
+            args: "--target x86_64-apple-darwin --verbose --config src-tauri/tauri.conf.publish.json"
           # Universal Build no longer supported after adding openssl, which is not cross-compilable.
           - platform: "macos-14" # for Both Arm and Intel based macs.
-            args: "--target universal-apple-darwin --verbose"
+            args: "--target universal-apple-darwin --verbose --config src-tauri/tauri.conf.publish.json"
           - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
-            args: "--verbose"
+            args: "--verbose --config src-tauri/tauri.conf.publish.json"
           - platform: "windows-latest"
-            args: "--verbose"
+            args: "--verbose --config src-tauri/tauri.conf.publish.json"
 
     runs-on: ${{ matrix.settings.platform }}
     steps:
@@ -96,6 +96,7 @@ jobs:
       - uses: tauri-apps/tauri-action@v0
         env:
           CI: false
+          KUNKUN_PUBLISH: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
           APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
