@@ -12,27 +12,27 @@ on:
         description: "Enable updater?"
         required: true
         type: boolean
-        default: true
+        default: false
       platform_windows:
         description: "windows"
         required: true
         type: boolean
-        default: true
+        default: false
       platform_linux:
         description: "linux"
         required: true
         type: boolean
-        default: true
+        default: false
       platform_macos_aarch64:
         description: "macos-aarch64"
         required: true
         type: boolean
-        default: true
+        default: false
       platform_macos_x86_64:
         description: "macos-x86_64"
         required: true
         type: boolean
-        default: true
+        default: false
       isDebug:
         description: "is debug?"
         required: true
@@ -93,7 +93,7 @@ jobs:
         id: setting
         run: |
           matrix=""
-          if [ "${{ github.event_name }}" == "schedule" ]; then
+          if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event_name }}" == "pull_request" ]; then
             matrix="\"windows-latest\",\"ubuntu-22.04\",\"macos-14\",\"macos-13\""
             build_mode=""
             build_path="release"
