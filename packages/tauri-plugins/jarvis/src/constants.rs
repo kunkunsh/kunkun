@@ -20,3 +20,4 @@ pub static SERVER_PUBLIC_KEY: std::sync::LazyLock<Vec<u8>> = std::sync::LazyLock
         .decode(BASE64_SERVER_PUBLIC_KEY)
         .expect("Failed to decode base64 encoded server public key")
 });
+pub static KUNKUN_PUBLISH: &str = env!("KUNKUN_PUBLISH");

@@ -125,7 +125,7 @@ const COMMANDS: &[&str] = &[
     /* -------------------------------------------------------------------------- */
     /*                                   Window                                   */
     /* -------------------------------------------------------------------------- */
-    "set_transparent_titlebar"
+    "set_transparent_titlebar",
 ];
 
 fn main() {
@@ -166,6 +166,10 @@ fn main() {
     println!(
         "cargo:rustc-env=BASE64_SERVER_PUBLIC_KEY={}",
         BASE64_STANDARD.encode(raw_server_public_key)
+    );
+    println!(
+        "cargo:rustc-env=KUNKUN_PUBLISH={}",
+        std::env::var("KUNKUN_PUBLISH").unwrap_or("false".to_string())
     );
 
     tauri_plugin::Builder::new(COMMANDS)

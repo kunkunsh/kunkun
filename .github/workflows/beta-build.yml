@@ -1,8 +1,11 @@
-name: Build Beta Package
+name: Build Beta
 
 on:
   schedule:
     - cron: "22 22 * * *"
+  pull_request:
+    branches:
+      - develop
   workflow_dispatch:
     inputs:
       updater:
@@ -19,17 +22,17 @@ on:
         description: "linux"
         required: true
         type: boolean
-        default: false
+        default: true
       platform_macos_aarch64:
         description: "macos-aarch64"
         required: true
         type: boolean
-        default: false
+        default: true
       platform_macos_x86_64:
         description: "macos-x86_64"
         required: true
         type: boolean
-        default: false
+        default: true
       isDebug:
         description: "is debug?"
         required: true
@@ -137,8 +140,6 @@ jobs:
       RETENTION_DAYS: ${{ needs.preprocess.outputs.retention_days }}
       FILE_PREFIX: ${{ needs.preprocess.outputs.file_prefix }}
       # BUILD_TIME: ${{ needs.preprocess.outputs.build_time }}
-      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-      TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
       NO_STRIP: true
     steps:
       - name: Checkout repository
