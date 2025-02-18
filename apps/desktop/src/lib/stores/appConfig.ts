@@ -28,7 +28,7 @@ export const defaultAppConfig: AppConfig = {
 	joinBetaProgram: false,
 	onBoarded: false,
 	developerMode: false,
-	showOnCursorPosition: false,
+	showOnCursorPosition: false
 }
 
 export const appConfigLoaded = writable(false)

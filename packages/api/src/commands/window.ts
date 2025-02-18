@@ -19,9 +19,12 @@ export async function setTransparentTitlebar(windowLabel?: string): Promise<void
  * @param showOnCursorPosition
  * @param windowLabel
  */
-export async function showWindow(showOnCursorPosition: boolean, windowLabel?: string): Promise<void> {
+export async function showWindow(
+	showOnCursorPosition: boolean,
+	windowLabel?: string
+): Promise<void> {
 	await invoke<void>(generateJarvisPluginCommand("show_window"), {
 		showOnCursorPosition,
-		windowLabel,
+		windowLabel
 	})
 }

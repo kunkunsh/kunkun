@@ -1,9 +1,9 @@
+import { appConfig } from "@/stores"
+import { showWindow } from "@kunkunapi/src/commands"
 import { getAllWindows } from "@tauri-apps/api/window"
 import { isRegistered, register, unregister } from "@tauri-apps/plugin-global-shortcut"
 import { info, warn } from "@tauri-apps/plugin-log"
 import { sendNotificationWithPermission } from "./notification"
-import { showWindow } from "@kunkunapi/src/commands"
-import { appConfig } from "@/stores"
 
 /**
  * Tauri global shortcut doesn't accept 'Meta' Key. This function maps browser detected keys to Tauri-accepted keys.

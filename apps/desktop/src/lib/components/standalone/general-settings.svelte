@@ -61,7 +61,7 @@
 		<Switch bind:checked={$appConfig.hideOnBlur} />
 	</li>
 	<li>
-		<span>{m.settings_general_show_on_cursor_position() }</span>
+		<span>{m.settings_general_show_on_cursor_position()}</span>
 		<Switch bind:checked={$appConfig.showOnCursorPosition} />
 	</li>
 	<li>
