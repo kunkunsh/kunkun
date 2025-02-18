@@ -9,7 +9,6 @@ export const PersistedAppConfig = v.object({
 		lightMode: LightMode
 	}),
 	triggerHotkey: v.nullable(v.array(v.string())),
-	launchAtLogin: v.boolean(),
 	showInTray: v.boolean(),
 	language: v.string(),
 	devExtensionPath: v.nullable(v.string()),

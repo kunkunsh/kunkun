@@ -1,20 +1,23 @@
-name: Build Beta Package
+name: Build Beta
 
 on:
   schedule:
     - cron: "22 22 * * *"
+  pull_request:
+    branches:
+      - develop
   workflow_dispatch:
     inputs:
       updater:
         description: "Enable updater?"
         required: true
         type: boolean
-        default: true
+        default: false
       platform_windows:
         description: "windows"
         required: true
         type: boolean
-        default: true
+        default: false
       platform_linux:
         description: "linux"
         required: true
@@ -90,7 +93,7 @@ jobs:
         id: setting
         run: |
           matrix=""
-          if [ "${{ github.event_name }}" == "schedule" ]; then
+          if [ "${{ github.event_name }}" == "schedule" ] || [ "${{ github.event_name }}" == "pull_request" ]; then
             matrix="\"windows-latest\",\"ubuntu-22.04\",\"macos-14\",\"macos-13\""
             build_mode=""
             build_path="release"
@@ -137,8 +140,6 @@ jobs:
       RETENTION_DAYS: ${{ needs.preprocess.outputs.retention_days }}
       FILE_PREFIX: ${{ needs.preprocess.outputs.file_prefix }}
       # BUILD_TIME: ${{ needs.preprocess.outputs.build_time }}
-      TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-      TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
       NO_STRIP: true
     steps:
       - name: Checkout repository

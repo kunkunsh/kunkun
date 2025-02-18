@@ -7,8 +7,10 @@ use log;
 #[cfg(target_os = "macos")]
 use tauri::ActivationPolicy;
 use tauri::Manager;
+use tauri_plugin_autostart::MacosLauncher;
 use tauri_plugin_deep_link::DeepLinkExt;
 use tauri_plugin_jarvis::{
+    constants::KUNKUN_PUBLISH,
     db::JarvisDB,
     server::Protocol,
     utils::{
@@ -63,7 +65,10 @@ pub fn run() {
     //             .build(),
     //     );
     // }
-
+    if KUNKUN_PUBLISH == "true" {
+        println!("KUNKUN_PUBLISH: {}", KUNKUN_PUBLISH);
+        builder = builder.plugin(tauri_plugin_updater::Builder::new().build());
+    }
     let shell_unlocked = true;
     builder = builder
         .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
@@ -96,8 +101,11 @@ pub fn run() {
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_autostart::init(
+            MacosLauncher::LaunchAgent,
+            Some(vec![]),
+        ))
         .plugin(tauri_plugin_upload::init())
-        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_dialog::init())
@@ -123,7 +131,7 @@ pub fn run() {
         })
         .register_uri_scheme_protocol("ext", |app, request| {
             let app_handle = app.app_handle();
-            // app_handle.
+
             let win_label = app.webview_label();
             let jarvis_state = app_handle.state::<tauri_plugin_jarvis::JarvisState>();
             let window_ext_map = jarvis_state.window_label_ext_map.lock().unwrap();
