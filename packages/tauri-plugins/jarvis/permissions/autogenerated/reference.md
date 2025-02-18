@@ -1,4 +1,3 @@
-
 ## Permission Table
 
 <table>
@@ -6,7 +5,6 @@
 <th>Identifier</th>
 <th>Description</th>
 </tr>
-
 
 <tr>
 <td>

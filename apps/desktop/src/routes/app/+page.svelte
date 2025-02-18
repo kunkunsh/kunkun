@@ -95,7 +95,7 @@
 	}}
 />
 <Command.Root
-	class={cn("h-screen rounded-lg border shadow-md bg-transparent")}
+	class={cn("h-screen rounded-lg border bg-transparent shadow-md")}
 	bind:value={$appState.highlightedCmd}
 	shouldFilter={true}
 	loop
