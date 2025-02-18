@@ -28,7 +28,7 @@ export const defaultAppConfig: AppConfig = {
 	joinBetaProgram: false,
 	onBoarded: false,
 	developerMode: false,
-	showOnCursorPosition: false
+	showOnCursorPosition: true
 }
 
 export const appConfigLoaded = writable(false)
@@ -49,7 +49,10 @@ function createAppConfig(): WithSyncStore<AppConfig & { language: string }> & Ap
 	async function init() {
 		debug("Initializing app config")
 		const persistStore = await load("kk-config.json", { autoSave: true })
-		const loadedConfig = await persistStore.get("config")
+		let loadedConfig = await persistStore.get("config")
+		if (typeof loadedConfig === "object") {
+			loadedConfig = { ...defaultAppConfig, ...loadedConfig }
+		}
 		const parseRes = v.safeParse(PersistedAppConfig, loadedConfig)
 		if (parseRes.success) {
 			console.log("Parse Persisted App Config Success", parseRes.output)

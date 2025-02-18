@@ -18,7 +18,7 @@ export const PersistedAppConfig = v.object({
 	joinBetaProgram: v.boolean(),
 	onBoarded: v.boolean(),
 	developerMode: v.boolean(),
-	showOnCursorPosition: v.boolean()
+	showOnCursorPosition: v.optional(v.boolean(), true)
 })
 
 export type PersistedAppConfig = v.InferOutput<typeof PersistedAppConfig>
