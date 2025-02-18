@@ -22,6 +22,10 @@
 				"width": 800,
 				"visible": false,
 				"height": 600,
+				"transparent": true,
+				"windowEffects": {
+					"effects": ["sidebar"]
+				},
 				"decorations": true
 			},
 			{
