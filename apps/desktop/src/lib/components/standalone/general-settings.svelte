@@ -11,21 +11,42 @@
 	} from "@/paraglide/runtime"
 	import { appConfig } from "@/stores"
 	import { Select, Switch } from "@kksh/svelte5"
+	import * as autoStart from "@tauri-apps/plugin-autostart"
+	import { onMount } from "svelte"
+	import { toast } from "svelte-sonner"
 
 	const languages = availableLanguageTags.map((lang) => ({
 		value: lang,
 		label: LanguageMap[lang] ?? lang
 	}))
-
-	let value = $state(languageTag())
-
-	const triggerContent = $derived(languages.find((f) => f.value === value)?.label ?? "Language")
+	let launchAtLogin = $state(false)
+	let language = $state(languageTag())
+	onMount(() => {
+		autoStart.isEnabled().then((enabled) => {
+			launchAtLogin = enabled
+		})
+	})
+	const triggerContent = $derived(languages.find((f) => f.value === language)?.label ?? "Language")
 </script>
 
 <ul class="rounded-lg border">
 	<li>
 		<span>{m.settings_general_launch_at_login()}</span>
-		<Switch bind:checked={$appConfig.launchAtLogin} />
+		<Switch
+			bind:checked={launchAtLogin}
+			onCheckedChange={(checked) => {
+				const action = checked ? autoStart.enable : autoStart.disable
+				action()
+					.then(() => {
+						toast.success(checked ? "Enabled" : "Disabled")
+					})
+					.catch((err) => {
+						toast.error(checked ? "Failed to enable" : "Failed to disable", {
+							description: err.message
+						})
+					})
+			}}
+		/>
 	</li>
 	<li class="">
 		<span>{m.settings_general_hotkey()}</span>
@@ -59,7 +80,7 @@
 	<li>
 		<span>{m.settings_general_language()}</span>
 
-		<Select.Root type="single" name="language" bind:value>
+		<Select.Root type="single" name="language" bind:value={language}>
 			<Select.Trigger class="w-fit">
 				{triggerContent}
 			</Select.Trigger>

@@ -7,12 +7,16 @@ use log;
 #[cfg(target_os = "macos")]
 use tauri::ActivationPolicy;
 use tauri::Manager;
+use tauri_plugin_autostart::MacosLauncher;
 use tauri_plugin_deep_link::DeepLinkExt;
 use tauri_plugin_jarvis::{
-    constants::KUNKUN_PUBLISH, db::JarvisDB, server::Protocol, utils::{
+    constants::KUNKUN_PUBLISH,
+    db::JarvisDB,
+    server::Protocol,
+    utils::{
         path::{get_default_extensions_dir, get_kunkun_db_path},
         settings::AppSettings,
-    }
+    },
 };
 use tauri_plugin_keyring::KeyringExt;
 pub use tauri_plugin_log::fern::colors::ColoredLevelConfig;
@@ -97,6 +101,10 @@ pub fn run() {
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_process::init())
+        .plugin(tauri_plugin_autostart::init(
+            MacosLauncher::LaunchAgent,
+            Some(vec![]),
+        ))
         .plugin(tauri_plugin_upload::init())
         .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())

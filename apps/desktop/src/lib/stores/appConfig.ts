@@ -19,7 +19,6 @@ export const defaultAppConfig: AppConfig = {
 		lightMode: "auto"
 	},
 	triggerHotkey: null,
-	launchAtLogin: true,
 	showInTray: true,
 	devExtensionPath: null,
 	extensionsInstallDir: undefined,

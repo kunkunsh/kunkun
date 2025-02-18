@@ -52,8 +52,6 @@
 		unlisteners.forEach((unlistener) => unlistener())
 	})
 	onMount(async () => {
-		console.log("root layout onMount")
-
 		attachConsole().then((unlistener) => unlisteners.push(unlistener))
 		initDeeplink().then((unlistener) => unlisteners.push(unlistener))
 		shellx
