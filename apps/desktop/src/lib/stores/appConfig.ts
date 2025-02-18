@@ -70,7 +70,12 @@ function createAppConfig(): WithSyncStore<AppConfig & { language: string }> & Ap
 		store.subscribe(async (config) => {
 			console.log("Saving app config", config)
 			await persistStore.set("config", config)
-			updateTheme(config.theme)
+			updateTheme({
+				theme: "neutral",
+				radius: 0.5,
+				lightMode: "dark"
+			})
+			// updateTheme(config.theme)
 		})
 	}
 
