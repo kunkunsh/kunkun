@@ -137,7 +137,7 @@
 
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
-					<Button variant="outline" size="icon" class=" bg-background/50"><EllipsisVerticalIcon /></Button>
+					<Button variant="outline" size="icon" class=""><EllipsisVerticalIcon /></Button>
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content class="w-80">
 					<DropdownMenu.Group>

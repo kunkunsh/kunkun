@@ -29,7 +29,7 @@
 	const triggerContent = $derived(languages.find((f) => f.value === language)?.label ?? "Language")
 </script>
 
-<ul class="rounded-lg border">
+<ul class="border-accent rounded-lg border">
 	<li>
 		<span>{m.settings_general_launch_at_login()}</span>
 		<Switch
@@ -105,7 +105,7 @@
 
 <style scoped>
 	li {
-		@apply flex items-center justify-between border-b px-3 py-3;
+		@apply border-accent flex items-center justify-between border-b px-3 py-3;
 	}
 	ul li:last-child {
 		@apply border-b-0;
