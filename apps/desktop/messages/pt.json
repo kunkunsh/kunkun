@@ -62,6 +62,7 @@
 	"settings_add_dev_ext_install_from_ext_folders": "Instalar de Pastas de Extensão",
 	"settings_add_dev_ext_install_from_ext_files": "Instalar de Arquivo Tarball de Extensão",
 	"settings_add_dev_ext_drag_and_drop": "Arraste e Solte",
+	"settings_add_dev_ext_drag_and_drop_strike": "Arraste e Solte",
 	"settings_add_dev_ext_drag_and_drop2": "Pasta ou Tarball da Extensão",
 	"settings_add_dev_ext_install_tarball_from_url": "Instalar Tarball da URL",
 
