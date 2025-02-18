@@ -119,7 +119,7 @@
 </div>
 
 <StrikeSeparator class="my-1">
-	<h3 class="text-muted-foreground font-mono text-sm">{m.settings_add_dev_ext_drag_and_drop()}</h3>
+	<h3 class="text-muted-foreground font-mono text-sm">{m.settings_add_dev_ext_drag_and_drop_strike()}</h3>
 </StrikeSeparator>
 
 <Layouts.Center>
