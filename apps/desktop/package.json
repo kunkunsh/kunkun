@@ -26,6 +26,7 @@
 		"@supabase/supabase-js": "^2.48.0",
 		"@tanstack/table-core": "^8.20.5",
 		"@tauri-apps/api": "^2.1.1",
+		"@tauri-apps/plugin-autostart": "^2.2.0",
 		"@tauri-apps/plugin-shell": "^2.2.0",
 		"@tauri-apps/plugin-stronghold": "^2.2.0",
 		"dompurify": "^3.2.3",
