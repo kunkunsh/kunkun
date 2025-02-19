@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from "@iconify/svelte"
-	import { Icon as TIcon } from "@kksh/api/models"
+	import { ExtData, Icon as TIcon } from "@kksh/api/models"
 	import { SBExt } from "@kksh/supabase/models"
 	import { Button, Command } from "@kksh/svelte5"
 	import { Constants, IconMultiplexer } from "@kksh/ui"
@@ -28,7 +28,12 @@
 	} = $props()
 </script>
 
-<Command.Item class={cn("flex items-center justify-between", className)} {onSelect}>
+<Command.Item
+	class={cn("flex items-center justify-between", className)}
+	{onSelect}
+	value={ext.identifier}
+	keywords={[ext.name]}
+>
 	<span class="flex items-center space-x-2">
 		<span class="!h-6 !w-6">
 			<IconMultiplexer
