@@ -24,7 +24,7 @@
 				"height": 600,
 				"transparent": true,
 				"windowEffects": {
-					"effects": ["sidebar"]
+					"effects": ["sidebar", "micaDark"]
 				},
 				"decorations": true
 			},

@@ -41,6 +41,7 @@
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
 
+	const _platform = platform()
 	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)
 	function onKeyDown(event: KeyboardEvent) {
@@ -95,7 +96,10 @@
 	}}
 />
 <Command.Root
-	class={cn("h-screen rounded-lg border bg-transparent shadow-md")}
+	class={cn("h-screen rounded-lg border border-none shadow-md", {
+		"bg-transparent": _platform === "macos",
+		"bg-background/50": _platform === "windows"
+	})}
 	bind:value={$appState.highlightedCmd}
 	shouldFilter={true}
 	loop
@@ -173,7 +177,7 @@
 							<RefreshCcwIcon class="mr-2 h-4 w-4 text-green-500" />
 							{m.home_command_input_dropdown_open_preference()}
 							<DropdownMenu.Shortcut>
-								{#if platform() === "macos"}
+								{#if _platform === "macos"}
 									<span class="flex items-center">⌘+Comma</span>
 								{:else}
 									<span class="flex items-center">Ctrl+Comma</span>
