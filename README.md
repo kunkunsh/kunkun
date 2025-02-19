@@ -52,12 +52,10 @@
   </tr>
   <tr>
     <td>
-      <!-- <ul>
-        <li><a href="https://youtu.be/HfQb38s8VjY">Introduction Video</a></li>
-        <li><a href="https://kunkun.sh/">Visit Website</a></li>
-        <li><a href="https://docs.kunkun.sh/">Documentation</a></li>
-      </ul> -->
-      You can initiate a poll in the <a href="https://github.com/kunkunsh/kunkun/discussions/categories/extension-requests">Extension Requests discussion</a> section to gauge interest in your request. If there is significant demand, the extension may be considered for implementation.
+      You can initiate an extension request in the <a href="https://github.com/kunkunsh/kunkun/discussions?discussions_q=is%3Aopen+sort%3Atop">Extension Requests discussion</a> 
+      section to gauge interest in your request. 
+      <br/>
+      If there is significant demand, the extension may be considered for implementation.
     </td>
   </tr>
 
