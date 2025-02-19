@@ -54,7 +54,7 @@
     <td>
       You can <a href="https://github.com/kunkunsh/kunkun/discussions/new?category=extension-requests&body=%3E%20%5B!IMPORTANT%5D%0A%3E%20Upvote%20if%20you%20want%20this">Submit Extension Request</a> 
       request in the 
-      <a href="https://github.com/kunkunsh/kunkun/discussions?discussions_q=is%3Aopen+sort%3Atop">Extension Requests discussion</a> 
+      <a href="https://github.com/kunkunsh/kunkun/discussions/categories/extension-requests?discussions_q=is%3Aopen+sort%3Atop+category%3A%22Extension+Requests%22">Extension Requests discussion</a> 
       section to gauge interest in your request. 
       <br/>
       If there is significant demand, the extension may be considered for implementation.
