@@ -66,6 +66,7 @@ pub fn run() {
     //     );
     // }
     if KUNKUN_PUBLISH == "true" {
+        // only include updater with KUNKUN_PUBLISH = true, this is used to avoid using updater in beta build CI, which requires secrets for the updater endpoint if updater is included
         println!("KUNKUN_PUBLISH: {}", KUNKUN_PUBLISH);
         builder = builder.plugin(tauri_plugin_updater::Builder::new().build());
     }
