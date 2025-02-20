@@ -960,6 +960,32 @@ Denies the get_selected_files_in_file_explorer command without any pre-configure
 <tr>
 <td>
 
+`jarvis:allow-get-selected-text`
+
+</td>
+<td>
+
+Enables the get_selected_text command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-selected-text`
+
+</td>
+<td>
+
+Denies the get_selected_text command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-get-server-port`
 
 </td>

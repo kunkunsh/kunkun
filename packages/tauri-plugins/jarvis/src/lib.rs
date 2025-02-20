@@ -89,6 +89,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::system::hide_all_apps_except_frontmost,
             commands::system::get_frontmost_app,
             commands::system::get_selected_files_in_file_explorer,
+            commands::system::get_selected_text,
             /* ------------------------------ applications ------------------------------ */
             commands::apps::get_applications,
             commands::apps::refresh_applications_list,

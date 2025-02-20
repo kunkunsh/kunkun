@@ -116,6 +116,10 @@ export function getSelectedFilesInFileExplorer(): Promise<string[]> {
 	return invoke(generateJarvisPluginCommand("get_selected_files_in_file_explorer"))
 }
 
+export function getSelectedText(): Promise<string[]> {
+	return invoke(generateJarvisPluginCommand("get_selected_text"))
+}
+
 export const rawSystemCommands = [
 	{
 		name: "Open Trash",

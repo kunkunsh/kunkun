@@ -28,6 +28,7 @@ const COMMANDS: &[&str] = &[
     "unmute",
     "hide_all_apps_except_frontmost",
     "get_selected_files_in_file_explorer",
+    "get_selected_text",
     "run_apple_script",
     "run_powershell",
     "get_applications",

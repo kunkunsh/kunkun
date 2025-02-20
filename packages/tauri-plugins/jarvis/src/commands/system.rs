@@ -1,6 +1,7 @@
 use crate::syscmds::{CommonSystemCmds, SystemCmds};
 use crate::utils::script::run_apple_script;
 use applications::AppInfo;
+use get_selected_text::get_selected_text as get_selected_text_impl;
 
 #[tauri::command]
 pub async fn open_trash() -> Result<(), String> {
@@ -155,4 +156,9 @@ pub async fn hide_all_apps_except_frontmost() -> Result<(), String> {
 #[tauri::command]
 pub async fn get_selected_files_in_file_explorer() -> Result<Vec<std::path::PathBuf>, String> {
     SystemCmds::get_selected_files().map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub async fn get_selected_text() -> Result<String, String> {
+    get_selected_text_impl().map_err(|err| err.to_string())
 }

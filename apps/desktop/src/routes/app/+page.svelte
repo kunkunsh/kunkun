@@ -22,7 +22,7 @@
 	import { cmdQueries } from "@/stores/cmdQuery"
 	import { isKeyboardEventFromInputElement } from "@/utils/dom"
 	import Icon from "@iconify/svelte"
-	import { toggleDevTools } from "@kksh/api/commands"
+	import { getSelectedText, toggleDevTools } from "@kksh/api/commands"
 	import { Button, Command, DropdownMenu } from "@kksh/svelte5"
 	import {
 		BuiltinCmds,
@@ -196,6 +196,17 @@
 			</DropdownMenu.Root>
 		{/snippet}
 	</CustomCommandInput>
+	<Button
+		onclick={() => {
+			setTimeout(() => {
+				getSelectedText().then((text) => {
+					console.log("selected text", text)
+				})
+			}, 2000)
+		}}
+	>
+		Get Selected Text
+	</Button>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
 		{#if $appConfig.extensionsInstallDir && $devStoreExts.length > 0}
