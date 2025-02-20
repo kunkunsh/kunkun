@@ -63,6 +63,7 @@
 	"settings_add_dev_ext_install_from_ext_folders": "Cài Đặt Từ Thư Mục Tiện Ích",
 	"settings_add_dev_ext_install_from_ext_files": "Cài Đặt Từ File Tarball",
 	"settings_add_dev_ext_drag_and_drop": "Kéo và Thả",
+	"settings_add_dev_ext_drag_and_drop_strike": "Kéo và Thả",
 	"settings_add_dev_ext_drag_and_drop2": "Thư Mục Tiện Ích hoặc File Tarball",
 	"settings_add_dev_ext_install_tarball_from_url": "Cài Đặt File Tarball Từ Liên kết",
 

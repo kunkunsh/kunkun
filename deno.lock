@@ -51,6 +51,7 @@
     "npm:@tauri-apps/api@^2.2.0": "2.2.0",
     "npm:@tauri-apps/cli@^2.2.2": "2.2.7",
     "npm:@tauri-apps/cli@^2.2.7": "2.2.7",
+    "npm:@tauri-apps/plugin-autostart@^2.2.0": "2.2.0",
     "npm:@tauri-apps/plugin-deep-link@^2.2.0": "2.2.0",
     "npm:@tauri-apps/plugin-dialog@^2.2.0": "2.2.0",
     "npm:@tauri-apps/plugin-fs@^2.2.0": "2.2.0",
@@ -5023,6 +5024,12 @@
         "@tauri-apps/cli-win32-arm64-msvc",
         "@tauri-apps/cli-win32-ia32-msvc",
         "@tauri-apps/cli-win32-x64-msvc"
+      ]
+    },
+    "@tauri-apps/plugin-autostart@2.2.0": {
+      "integrity": "sha512-TzVcDZdOvdot0avkpstUWJKKEl4cyxLpFB9DZZRW5zH8k+Bv8IVJmO0zyYuw+7oKlGdHOINbD/7Je7GHMViw5w==",
+      "dependencies": [
+        "@tauri-apps/api@2.2.0"
       ]
     },
     "@tauri-apps/plugin-deep-link@2.2.0": {
@@ -15068,6 +15075,7 @@
             "npm:@tanstack/table-core@^8.20.5",
             "npm:@tauri-apps/api@^2.1.1",
             "npm:@tauri-apps/cli@^2.2.7",
+            "npm:@tauri-apps/plugin-autostart@^2.2.0",
             "npm:@tauri-apps/plugin-shell@^2.2.0",
             "npm:@tauri-apps/plugin-stronghold@^2.2.0",
             "npm:@types/bun@latest",

@@ -62,8 +62,10 @@
 	"settings_add_dev_ext_description": "В режиме разработчика у вас есть четыре способа установки dev-расширений: из локального tar-архива, из локальной директории, по URL-адресу на tar-архив либо по названию пакета npm.",
 	"settings_add_dev_ext_install_from_ext_folders": "Установить из директори",
 	"settings_add_dev_ext_install_from_ext_files": "Установить из tar-архива",
-	"settings_add_dev_ext_drag_and_drop": "Локальные расширения",
-	"settings_add_dev_ext_drag_and_drop2": "в виде директории или tar-архива могут быть перемещены сюда",
+	"settings_add_dev_ext_drag_and_drop_strike": "Локальные расширения",
+	"settings_add_dev_ext_drag_and_drop": "Можете перетащить сюда расширения",
+	"settings_add_dev_ext_drag_and_drop2": "в виде директории или tar-архива",
+
 	"settings_add_dev_ext_install_tarball_from_url": "Установить tar-архив по URL-адресу",
 
 	"troubleshooters_sidebar_title": "Диагностика",

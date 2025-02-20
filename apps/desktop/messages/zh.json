@@ -63,6 +63,7 @@
 	"settings_add_dev_ext_install_from_ext_folders": "从插件文件夹安装",
 	"settings_add_dev_ext_install_from_ext_files": "从插件 tarball 文件安装",
 	"settings_add_dev_ext_drag_and_drop": "拖放",
+	"settings_add_dev_ext_drag_and_drop_strike": "拖放",
 	"settings_add_dev_ext_drag_and_drop2": "插件文件夹或 tarball",
 	"settings_add_dev_ext_install_tarball_from_url": "从 tarball URL 安装",
 

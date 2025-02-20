@@ -111,28 +111,7 @@
 			"identifier": "fs:scope",
 			"allow": [
 				{
-					"path": "$DESKTOP"
-				},
-				{
-					"path": "$DESKTOP/**"
-				},
-				{
-					"path": "$DOWNLOAD"
-				},
-				{
-					"path": "$DOWNLOAD/**"
-				},
-				{
-					"path": "$DOCUMENT"
-				},
-				{
-					"path": "$DOCUMENT/**"
-				},
-				{
-					"path": "$TEMP/**"
-				},
-				{
-					"path": "$TEMP"
+					"path": "**/*"
 				}
 			]
 		},
