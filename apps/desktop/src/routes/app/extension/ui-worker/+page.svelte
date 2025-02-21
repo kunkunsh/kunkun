@@ -28,6 +28,7 @@
 	import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+	import * as fs from "@tauri-apps/plugin-fs"
 	import { readTextFile } from "@tauri-apps/plugin-fs"
 	import { debug } from "@tauri-apps/plugin-log"
 	import { platform } from "@tauri-apps/plugin-os"
@@ -261,6 +262,19 @@
 			appState.setLoadingBar(false)
 			loaded = true
 		}, 500)
+		console.log("watching", data.pkgJsonPath)
+		fs.watch(data.pkgJsonPath, (evt) => {
+			console.log("pkgJsonPath", evt)
+		})
+		fs.watch(
+			"abc.md",
+			(evt) => {
+				console.log("abc.md", evt)
+			},
+			{
+				baseDir: fs.BaseDirectory.Desktop
+			}
+		)
 	})
 
 	onDestroy(() => {
