@@ -186,7 +186,7 @@
 			<Button onclick={onInstallSelected}>Install</Button>
 		{/if}
 	</div>
-	<div class="flex gap-2 mt-2">
+	<div class="mt-2 flex gap-2">
 		{#if metadata && metadata.sourceType === ExtPublishSourceTypeEnum.jsr}
 			<a href={metadata.source} target="_blank">
 				<Icon class="h-10 w-10" icon="vscode-icons:file-type-jsr" />
