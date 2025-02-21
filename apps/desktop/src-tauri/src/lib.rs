@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::{path::PathBuf, sync::Mutex};
 pub mod commands;
 mod setup;
 pub mod utils;
@@ -10,11 +10,18 @@ use tauri::Manager;
 use tauri_plugin_autostart::MacosLauncher;
 use tauri_plugin_deep_link::DeepLinkExt;
 use tauri_plugin_jarvis::{
-    constants::KUNKUN_PUBLISH, server::Protocol, utils::path::get_kunkun_db_path,
+    constants::KUNKUN_PUBLISH,
+    db::JarvisDB,
+    server::Protocol,
+    utils::{
+        path::{get_default_extensions_dir, get_kunkun_db_path},
+        settings::AppSettings,
+    },
 };
-use utils::server::tauri_file_server;
-
+use tauri_plugin_keyring::KeyringExt;
 pub use tauri_plugin_log::fern::colors::ColoredLevelConfig;
+use tauri_plugin_store::{StoreBuilder, StoreExt};
+use utils::server::tauri_file_server;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
