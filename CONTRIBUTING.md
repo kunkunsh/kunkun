@@ -26,6 +26,8 @@ If you are interested in contributing to the project, please read the following 
 - [cmake](https://cmake.org/)
   - MacOS: `brew install cmake`
   - Linux: `sudo apt install -y cmake`
+- Other Linux Dependencies
+  - `sudo apt-get install -y protobuf-compiler libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev`
 
 ### Setup
 
@@ -42,6 +44,15 @@ pnpm --filter @kksh/desktop tauri dev
 # or run it within the desktop app directory
 cd apps/desktop
 pnpm tauri dev
+```
+
+### Build from Source
+
+If you have problem running the app, consider building from source to see if it works.
+
+```bash
+cd apps/desktop
+pnpm tauri build
 ```
 
 ## i188n

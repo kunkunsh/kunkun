@@ -3,8 +3,13 @@
 	import { appState } from "@/stores/appState.js"
 	import { keys } from "@/stores/keys"
 	import { winExtMap } from "@/stores/winExtMap.js"
+	import { WatchEvent } from "@/types/fs.js"
 	import { helperAPI } from "@/utils/helper.js"
-	import { listenToFileDrop, listenToRefreshDevExt } from "@/utils/tauri-events.js"
+	import {
+		emitReloadOneExtension,
+		listenToFileDrop,
+		listenToRefreshDevExt
+	} from "@/utils/tauri-events.js"
 	import { isInMainWindow } from "@/utils/window.js"
 	import { db } from "@kksh/api/commands"
 	import {
@@ -28,6 +33,7 @@
 	import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+	import * as fs from "@tauri-apps/plugin-fs"
 	import { readTextFile } from "@tauri-apps/plugin-fs"
 	import { debug } from "@tauri-apps/plugin-log"
 	import { platform } from "@tauri-apps/plugin-os"
@@ -57,6 +63,7 @@
 	let loaded = $state(false)
 	let listview: Templates.ListView | undefined = $state(undefined)
 	const _platform = platform()
+	let unlistenPkgJsonWatch: UnlistenFn | undefined
 
 	async function goBack() {
 		if (isInMainWindow()) {
@@ -242,6 +249,22 @@
 			worker?.terminate()
 		}
 	})
+
+	function onPkgJsonChange(evt: fs.WatchEvent) {
+		const parsed = v.safeParse(WatchEvent, evt)
+		if (parsed.success) {
+			if (
+				parsed.output.type.modify.kind === "data" &&
+				parsed.output.type.modify.mode === "content" &&
+				parsed.output.paths.includes(data.pkgJsonPath)
+			) {
+				console.log("pkgJson changed", parsed.output.paths)
+				// emit event to reload extension commands
+				emitReloadOneExtension(loadedExt.extPath)
+			}
+		}
+	}
+
 	onMount(async () => {
 		setTimeout(() => {
 			appState.setLoadingBar(true)
@@ -261,11 +284,16 @@
 			appState.setLoadingBar(false)
 			loaded = true
 		}, 500)
+		console.log("watching", data.pkgJsonPath)
+		fs.watch(data.pkgJsonPath, onPkgJsonChange).then((unlisten) => {
+			unlistenPkgJsonWatch = unlisten
+		})
 	})
 
 	onDestroy(() => {
 		unlistenRefreshWorkerExt?.()
 		unlistenFileDrop?.()
+		unlistenPkgJsonWatch?.()
 		winExtMap.unregisterExtensionFromWindow(appWin.label)
 		extensionLoadingBar = false
 		appState.setActionPanel(undefined)
