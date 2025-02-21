@@ -281,7 +281,6 @@
 		) {
 			// actionPanelOpen = true
 			setTimeout(() => {
-				console.log("toggle action panel")
 				actionPanelOpen = !actionPanelOpen
 				if (!actionPanelOpen) {
 					onActionPanelBlur()
@@ -298,8 +297,6 @@
 
 	function onkeydown(e: KeyboardEvent) {
 		if (e.key === "Escape") {
-			console.log(document.activeElement)
-			console.log(document.activeElement?.nodeName)
 			if (document.activeElement?.nodeName === "INPUT") {
 				console.log("input")
 			}
@@ -376,7 +373,7 @@
 		{pbar}
 		onGoBack={goBack}
 		onSubmit={(formData: Record<string, string | number | boolean>) => {
-			console.log("formData", formData)
+			console.log("Submit formData", formData)
 			workerAPI?.onFormSubmit(formData)
 		}}
 	/>

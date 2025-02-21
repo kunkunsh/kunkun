@@ -10,6 +10,7 @@
 	import { app } from "@tauri-apps/api"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+	import { platform } from "@tauri-apps/plugin-os"
 	import { ArrowLeft, FileQuestionIcon, ImageIcon, LetterTextIcon } from "lucide-svelte"
 	import { onDestroy, onMount, type Snippet } from "svelte"
 	import { toast } from "svelte-sonner"
@@ -17,6 +18,7 @@
 	import * as userInput from "tauri-plugin-user-input-api"
 	import ContentPreview from "./content-preview.svelte"
 
+	const _platform = platform()
 	const curWin = getCurrentWebviewWindow()
 	let searchTerm = $state("")
 	let clipboardHistoryList = $state<ExtData[]>([])
@@ -199,13 +201,16 @@
 					toast.warning("No data found")
 					return Promise.reject(new Error("No data found"))
 				}
-				return writeToClipboard(data).then(async () =>
-					app
-						.hide()
-						.then(() => sleep(100))
-						.then(() => curWin.hide())
-						.then(() => paste())
-				)
+				return writeToClipboard(data).then(async () => {
+					if (_platform === "macos") {
+						// TODO: add support for Windows and Linux
+						return app
+							.hide()
+							.then(() => sleep(100))
+							.then(() => curWin.hide())
+							.then(() => paste())
+					}
+				})
 			})
 			.then(() => toast.success("Copied to clipboard"))
 			.catch((err) => {
