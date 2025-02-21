@@ -10,3 +10,4 @@ pub mod settings;
 pub mod setup;
 pub mod time;
 pub mod transfer_stats;
+pub mod window;

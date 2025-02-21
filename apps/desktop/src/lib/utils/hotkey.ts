@@ -1,6 +1,8 @@
+import { appConfig } from "@/stores"
+import { showWindow } from "@kunkunapi/src/commands"
 import { getAllWindows } from "@tauri-apps/api/window"
 import { isRegistered, register, unregister } from "@tauri-apps/plugin-global-shortcut"
-import { debug, info, warn } from "@tauri-apps/plugin-log"
+import { info, warn } from "@tauri-apps/plugin-log"
 import { sendNotificationWithPermission } from "./notification"
 
 /**
@@ -39,7 +41,7 @@ export async function registerAppHotkey(hotkeyStr: string) {
 					mainWin.setFocus()
 				}
 			} else {
-				mainWin.show()
+				await showWindow(appConfig.get().showOnCursorPosition, "main")
 				mainWin.setFocus()
 			}
 		}

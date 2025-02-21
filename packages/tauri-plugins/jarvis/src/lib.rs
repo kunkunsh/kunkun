@@ -180,6 +180,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             /*                                   Window                                   */
             /* -------------------------------------------------------------------------- */
             commands::window::set_transparent_titlebar,
+            commands::window::show_window,
         ])
         .setup(move |app, api| {
             utils::setup::setup_app_path(app);

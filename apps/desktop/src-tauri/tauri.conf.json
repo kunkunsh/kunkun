@@ -22,7 +22,10 @@
 				"width": 800,
 				"visible": false,
 				"height": 600,
-				"decorations": true
+				"decorations": true,
+				"maximizable": false,
+				"resizable": false,
+				"visibleOnAllWorkspaces": true
 			},
 			{
 				"url": "/splashscreen",

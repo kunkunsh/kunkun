@@ -61,6 +61,10 @@
 		<Switch bind:checked={$appConfig.hideOnBlur} />
 	</li>
 	<li>
+		<span>{m.settings_general_show_on_cursor_position()}</span>
+		<Switch bind:checked={$appConfig.showOnCursorPosition} />
+	</li>
+	<li>
 		<span>{m.settings_general_extension_auto_upgrade()}</span>
 		<Switch bind:checked={$appConfig.extensionAutoUpgrade} />
 	</li>

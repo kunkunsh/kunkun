@@ -27,7 +27,8 @@ export const defaultAppConfig: AppConfig = {
 	extensionAutoUpgrade: true,
 	joinBetaProgram: false,
 	onBoarded: false,
-	developerMode: false
+	developerMode: false,
+	showOnCursorPosition: true
 }
 
 export const appConfigLoaded = writable(false)

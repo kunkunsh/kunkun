@@ -126,6 +126,7 @@ const COMMANDS: &[&str] = &[
     /*                                   Window                                   */
     /* -------------------------------------------------------------------------- */
     "set_transparent_titlebar",
+    "show_window"
 ];
 
 fn main() {

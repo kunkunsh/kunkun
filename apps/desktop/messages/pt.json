@@ -34,6 +34,7 @@
 	"settings_general_hotkey": "Tecla de Atalho",
 	"settings_general_menu_bar_icon": "Ícone na Barra de Menu",
 	"settings_general_hide_on_blur": "Ocultar ao Perder Foco",
+	"settings_general_show_on_cursor_position": "Mostrar na Posição do Cursor",
 	"settings_general_extension_auto_upgrade": "Atualização Automática de Extensões",
 	"settings_general_dev_extension_hmr": "HMR de Extensão de Desenvolvedor",
 	"settings_general_join_beta_updates": "Participar das Atualizações Beta",

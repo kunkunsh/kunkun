@@ -960,6 +960,16 @@
           "const": "deny-show-desktop"
         },
         {
+          "description": "Enables the show_window command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-show-window"
+        },
+        {
+          "description": "Denies the show_window command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-show-window"
+        },
+        {
           "description": "Enables the shutdown command without any pre-configured scope.",
           "type": "string",
           "const": "allow-shutdown"
