@@ -21,3 +21,4 @@ export type {
 export * from "../api/client" // all client types
 export type { IUiTemplate } from "./template"
 export type { IShell } from "../api/shell"
+export * from "./template/components"

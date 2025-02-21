@@ -30,6 +30,7 @@ import type {
 	IDb,
 	IEvent,
 	IFs,
+	IHelper,
 	IKV,
 	IOpen,
 	IPath,
@@ -83,6 +84,7 @@ type API = {
 	sysInfo: ISystemInfo // inherit from tauri-api-adapter
 	network: INetwork // inherit from tauri-api-adapter
 	workerUi: IUiTemplate // for kunkun
+	helper: IHelper
 	security: ISecurity // for kunkun
 	utils: IUtils // for kunkun
 	app: IApp
@@ -121,6 +123,7 @@ export const {
 	utils,
 	app,
 	security,
+	helper,
 	workerUi: ui
 } = api
 export { Child, RPCChannel, Command, DenoCommand } from "../../api/shell"

@@ -25,6 +25,7 @@ import type {
 	IDb,
 	IEvent,
 	IFs,
+	IHelper,
 	IKV,
 	IOpen,
 	IPath,
@@ -71,6 +72,7 @@ type API = {
 	iframeUi: IUiCustom // for kunkun
 	utils: IUtils // for kunkun
 	security: ISecurity // for kunkun
+	helper: IHelper // for kunkun
 	app: IApp
 }
 // export const api = wrap(windowEndpoint(globalThis.parent)) as unknown as API
@@ -99,6 +101,7 @@ export const {
 	toast,
 	utils,
 	open,
-	app
+	app,
+	helper
 } = api
 export { Child, RPCChannel, Command, DenoCommand } from "../../api/shell"

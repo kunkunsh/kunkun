@@ -1,5 +1,12 @@
 # template-ext-svelte
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies
+  - @kksh/api@0.1.2
+
 ## 0.0.7
 
 ### Patch Changes

@@ -20,6 +20,7 @@ import type {
 	IDb,
 	IEvent,
 	IFs,
+	IHelper,
 	IKV,
 	IOpen,
 	IPath,
@@ -79,6 +80,7 @@ type API = {
 	shell: IShellServer // inherit from tauri-api-adapter
 	updownload: IUpdownload // inherit from tauri-api-adapter
 	sysInfo: ISystemInfo // inherit from tauri-api-adapter
+	helper: IHelper // for kunkun
 	network: INetwork // inherit from tauri-api-adapter
 	security: ISecurity // for kunkun
 	utils: IUtils // for kunkun
@@ -108,6 +110,7 @@ export const {
 	notification,
 	sysInfo,
 	network,
+	helper,
 	system,
 	open,
 	utils,

@@ -6,6 +6,7 @@
 	import { appsLoader } from "@/stores/apps"
 	import { initDeeplink } from "@/utils/deeplink"
 	import { updateAppHotkey } from "@/utils/hotkey"
+	import { init as initApp } from "@/utils/init"
 	import { globalKeyDownHandler, globalKeyUpHandler, goBackOrCloseOnEscape } from "@/utils/key"
 	import { listenToWindowBlur } from "@/utils/tauri-events"
 	import { isInMainWindow } from "@/utils/window"
@@ -51,8 +52,6 @@
 		unlisteners.forEach((unlistener) => unlistener())
 	})
 	onMount(async () => {
-		console.log("root layout onMount")
-
 		attachConsole().then((unlistener) => unlisteners.push(unlistener))
 		initDeeplink().then((unlistener) => unlisteners.push(unlistener))
 		shellx
@@ -63,6 +62,7 @@
 			.catch(error)
 		quickLinks.init()
 		appConfig.init().then(() => {
+			initApp()
 			console.log("appConfig.language", $appConfig.language)
 			setLanguageTag($appConfig.language as AvailableLanguageTag)
 			switchToLanguage($appConfig.language as AvailableLanguageTag)

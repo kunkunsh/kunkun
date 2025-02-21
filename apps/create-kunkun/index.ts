@@ -94,7 +94,7 @@ async function copyTemplate(templateTgz: string, targetFolderName: string): Prom
 			message: "Select an Extension Template",
 			choices: [
 				{
-					name: "Preset Template (Web Worker)",
+					name: "Template UI (Web Worker)",
 					value: "template",
 					description:
 						"Write regular logic in TypeScript in OOP manner to render extension UI based on predefined template."

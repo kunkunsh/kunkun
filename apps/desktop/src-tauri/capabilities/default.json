@@ -39,6 +39,7 @@
 		"core:webview:allow-create-webview",
 		"core:webview:allow-create-webview-window",
 		"core:app:default",
+		"core:app:allow-app-hide",
 		"core:resources:default",
 		"core:menu:default",
 		"core:tray:default",
@@ -111,28 +112,7 @@
 			"identifier": "fs:scope",
 			"allow": [
 				{
-					"path": "$DESKTOP"
-				},
-				{
-					"path": "$DESKTOP/**"
-				},
-				{
-					"path": "$DOWNLOAD"
-				},
-				{
-					"path": "$DOWNLOAD/**"
-				},
-				{
-					"path": "$DOCUMENT"
-				},
-				{
-					"path": "$DOCUMENT/**"
-				},
-				{
-					"path": "$TEMP/**"
-				},
-				{
-					"path": "$TEMP"
+					"path": "**/*"
 				}
 			]
 		},
@@ -164,6 +144,9 @@
 				}
 			]
 		},
-		"deep-link:default"
+		"deep-link:default",
+		"autostart:allow-enable",
+		"autostart:allow-disable",
+		"autostart:allow-is-enabled"
 	]
 }

@@ -1,0 +1,83 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"app_name": "KunKun",
+	"secondary_app_name": "KunKun",
+
+	"common_edit": "Sửa",
+	"common_clear": "Xoá",
+	"common_check": "Kiểm tra",
+	"common_install": "Cài đặt",
+
+	"home_command_input_placeholder": "Gõ \"\/\" để tìm kiếm...",
+	"home_command_input_dropdown_quit": "Thoát",
+	"home_command_input_dropdown_developer_title": "Nhà phát triển",
+	"home_command_input_dropdown_close_window": "Đóng cửa sổ",
+	"home_command_input_dropdown_toggle_devtools": "Bật\/Tắt DevTools",
+	"home_command_input_dropdown_reload_window": "Khởi động lại",
+	"home_command_input_dropdown_open_preference": "Mở cài đặt",
+	"home_command_input_dropdown_toggle_dev_extension_hmr": "Bật\/tắt HMR cho tiện ích đang phát triển",
+
+	"command_group_heading_dev_ext": "Tiện Ích Mở Rộng Đang Phát Triển",
+	"command_group_heading_ext": "Tiện Ích Mở Rộng",
+	"command_group_heading_quick_links": "Liên kết nhanh",
+
+	"settings_menu_settings": "Cài đặt",
+	"settings_menu_general": "Chung",
+	"settings_menu_developer": "Nhà phát triển",
+	"settings_menu_extensions": "Tiện ích mở rộng",
+	"settings_menu_set_dev_ext": "Đường dẫn tiện ích",
+	"settings_menu_add_dev_ext": "Thêm tiện ích",
+	"settings_menu_about": "Thông tin",
+
+	"settings_general_launch_at_login": "Khởi động khi đăng nhập",
+	"settings_general_hotkey": "Phím tắt",
+	"settings_general_menu_bar_icon": "Biểu tượng thanh menu",
+	"settings_general_hide_on_blur": "Ẩn khi chuyển sang ứng dụng khác",
+	"settings_general_extension_auto_upgrade": "Tự động nâng cấp tiện ích mở rộng",
+	"settings_general_dev_extension_hmr": "HMR cho tiện ích mở rộng đang phát triển",
+	"settings_general_join_beta_updates": "Cài đặt cập nhật thử nghiệm (beta)",
+	"settings_general_developer_mode": "Chế độ nhà phát triển",
+	"settings_general_language": "Ngôn ngữ",
+
+	"settings_about_version": "Phiên bản",
+	"settings_about_author": "Tác giả",
+	"settings_about_source_code": "Mã nguồn",
+	"settings_about_extensions_source_code": "Mã nguồn tiện ích mở rộng",
+	"settings_about_check_for_updates": "Kiểm tra cập nhật",
+
+	"settings_set_dev_ext_title": "Đặt đường dẫn tiện ích mở rộng đang phát triển",
+	"settings_set_dev_ext_description": "Đây là đường dẫn cài đặt các tiện ích mở rộng của bạn.",
+	"settings_set_dev_ext_enter_path": "Nhập đường dẫn",
+
+	"settings_extensions_title": "Tiện ích mở rộng của bạn",
+	"settings_extensions_table_col_name": "Tên",
+	"settings_extensions_table_col_identifier": "Định danh",
+	"settings_extensions_table_col_type": "Loại",
+	"settings_extensions_table_col_version": "Phiên bản",
+	"settings_extensions_table_col_uninstall": "Gỡ cài đặt",
+
+	"settings_add_dev_ext_title": "Thêm tiện ích đang phát triển",
+	"settings_add_dev_ext_description": "Có 4 cách để cài đặt một tiện ích mở rộng trong chế độ nhà phát triển. Nạp nó từ file tarball, thư mục từ máy tính, file tarball từ liên kết ngoài, hoặc tên gói npm.",
+	"settings_add_dev_ext_install_from_ext_folders": "Cài Đặt Từ Thư Mục Tiện Ích",
+	"settings_add_dev_ext_install_from_ext_files": "Cài Đặt Từ File Tarball",
+	"settings_add_dev_ext_drag_and_drop": "Kéo và Thả",
+	"settings_add_dev_ext_drag_and_drop_strike": "Kéo và Thả",
+	"settings_add_dev_ext_drag_and_drop2": "Thư Mục Tiện Ích hoặc File Tarball",
+	"settings_add_dev_ext_install_tarball_from_url": "Cài Đặt File Tarball Từ Liên kết",
+
+	"troubleshooters_sidebar_title": "Khắc Phục Sự Cố",
+	"troubleshooters_sidebar_extension_loading_title": "Tải Tiện ích Mở Rộng",
+	"troubleshooters_sidebar_extension_window_title": "Cửa sổ Tiện ích Mở Rộng",
+	"troubleshooters_sidebar_mdns_debugger_title": "Trình Gỡ Lỗi MDNS",
+
+	"troubleshooters_extension_window_title": "Khắc Phục Sự Cố Cửa sổ Tiện ích Mở Rộng",
+	"troubleshooters_extension_window_refresh_every_second": "Làm mới mỗi giây",
+	"troubleshooters_extension_window_refresh": "Làm mới",
+	"troubleshooters_extension_window_refreshed": "Đã làm mới {count} lần",
+
+	"troubleshooters_extension_loading_title": "Khắc Phục Sự Cố Tải Tiện ích Mở Rộng",
+	"troubleshooters_extension_loading_table_col_identifier": "Định danh",
+	"troubleshooters_extension_loading_table_col_path": "Đường dẫn",
+	"troubleshooters_extension_loading_table_col_error": "Lỗi"
+}

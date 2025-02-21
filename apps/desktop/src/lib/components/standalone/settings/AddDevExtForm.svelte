@@ -111,15 +111,18 @@
 </script>
 
 <div class="my-3 flex justify-center gap-3">
-	<Button size="sm" onclick={pickExtFolders}
-		>{m.settings_add_dev_ext_install_from_ext_folders()}</Button
-	>
-	<Button size="sm" onclick={pickExtFiles}>{m.settings_add_dev_ext_install_from_ext_files()}</Button
-	>
+	<Button size="sm" onclick={pickExtFolders}>
+		{m.settings_add_dev_ext_install_from_ext_folders()}
+	</Button>
+	<Button size="sm" onclick={pickExtFiles}>
+		{m.settings_add_dev_ext_install_from_ext_files()}
+	</Button>
 </div>
 
 <StrikeSeparator class="my-1">
-	<h3 class="text-muted-foreground font-mono text-sm">{m.settings_add_dev_ext_drag_and_drop()}</h3>
+	<h3 class="text-muted-foreground font-mono text-sm">
+		{m.settings_add_dev_ext_drag_and_drop_strike()}
+	</h3>
 </StrikeSeparator>
 
 <Layouts.Center>
@@ -150,12 +153,12 @@
 						icon={{ value: "mdi:folder-cog-outline", type: IconEnum.Iconify }}
 						class="h-10 w-10"
 					/>
-					<small class="select-none font-mono text-xs"
-						>{m.settings_add_dev_ext_drag_and_drop()}</small
-					>
-					<small class="select-none font-mono text-xs"
-						>{m.settings_add_dev_ext_drag_and_drop2()}</small
-					>
+					<small class="select-none font-mono text-xs">
+						{m.settings_add_dev_ext_drag_and_drop()}
+					</small>
+					<small class="select-none font-mono text-xs">
+						{m.settings_add_dev_ext_drag_and_drop2()}
+					</small>
 				</div>
 			</button>
 		</Card.Root>
