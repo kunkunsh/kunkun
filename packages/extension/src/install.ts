@@ -31,6 +31,7 @@ export async function installTarball(
 	if (!extsDir) {
 		return Promise.reject("Extension Folder Not Set")
 	}
+	console.log("installTarball", tarballPath, extsDir)
 	// decompress tarball to tempDir
 	const decompressDest = await decompressTarball(
 		tarballPath,
@@ -76,7 +77,17 @@ export async function installTarball(
 				}
 			}
 
-			await fs.rename(decompressDest, extInstallPath)
+
+			// copy all files from decompressDest to extInstallPath
+			await fs.mkdir(extInstallPath)
+			await copy_dir_all(decompressDest, extInstallPath)
+
+			// Clean up temp directory
+			// we need the actual temp dir, as decompressDest is the /tmp/uuidv4/package dir
+			const tempDir = await path.dirname(decompressDest);
+			// tempDir is "/tmp/uuidv4"
+			await fs.remove(tempDir, { recursive: true })
+
 			await db.createExtension({
 				identifier: manifest.kunkun.identifier,
 				version: manifest.version,
@@ -192,4 +203,20 @@ export function isUpgradable(dbExt: SBExt, installedExtVersion: string) {
 			: false
 
 	return upgradable
+}
+
+
+async function copy_dir_all(from: string, to: string) {
+
+	const entries = await fs.readDir(from)
+	for (const entry of entries) { 
+		const fromPath = await path.join(from, entry.name)
+		const toPath = await path.join(to, entry.name)
+		if (entry.isFile) {
+			await fs.copyFile(fromPath, toPath)
+		} else {
+			await fs.mkdir(toPath)
+			await copy_dir_all(fromPath, toPath)
+		}
+	}
 }
