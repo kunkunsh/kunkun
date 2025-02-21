@@ -1,8 +1,9 @@
-import { appConfig } from "@/stores"
+import { appConfig, extensions } from "@/stores"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { info } from "@tauri-apps/plugin-log"
 import { dev } from "$app/environment"
 import { mapKeyToTauriKey, registerAppHotkey } from "./hotkey"
+import { listenToReloadOneExtension } from "./tauri-events"
 
 /**
  * Initialize the app
@@ -11,6 +12,10 @@ export function init() {
 	const window = getCurrentWindow()
 	if (window.label === "main") {
 		initMainWindow()
+		listenToReloadOneExtension(({ payload: { extPath } }) => {
+			info(`listenToReloadOneExtension in main window: ${extPath}`)
+			extensions.reloadExtension(extPath)
+		})
 	}
 
 	if (!dev) {

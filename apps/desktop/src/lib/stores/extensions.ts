@@ -29,6 +29,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		tarballUrl: string,
 		extras?: { overwritePackageJson?: string }
 	) => Promise<ExtPackageJsonExtra>
+	reloadExtension: (extPath: string) => Promise<void>
 } {
 	const store = writable<ExtPackageJsonExtra[]>([])
 
@@ -40,6 +41,22 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 		return extAPI.loadAllExtensionsFromDb().then((exts) => {
 			store.set(exts)
 		})
+	}
+
+	// if dev extension's package.json is changed, use this function to reload commands
+	async function reloadExtension(extPath: string) {
+		const ext = get(extensions).find((ext) => ext.extPath === extPath)
+		if (ext) {
+			const pkgJsonPath = await path.join(extPath, "package.json")
+			const ext = await extAPI.loadExtensionManifestFromDisk(pkgJsonPath)
+			// replace the old extension with the new one
+			store.update((exts) => {
+				// filter out the old extension
+				return [...exts.filter((e) => e.extPath !== extPath), ext]
+			})
+		} else {
+			console.warn(`reloadExtension: Extension ${extPath} not found`)
+		}
 	}
 
 	/**
@@ -195,6 +212,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	return {
 		...store,
 		init,
+		reloadExtension,
 		getExtensionsFromStore,
 		findStoreExtensionByIdentifier,
 		registerNewExtensionByPath,
