@@ -66,24 +66,21 @@ pub fn run() {
     let shell_unlocked = true;
     builder = builder
         .plugin(tauri_plugin_single_instance::init(|app, args, _cwd| {
-            if let Some(second_arg) = args.get(1) {
-                // toggle (show/hide) main window
-                if second_arg == "toggle" {
-                    let window = app.get_webview_window("main").expect("no main window");
-                    if window.is_visible().is_ok_and(|visible| visible == false) {
-                        log::info!("showing main window");
-                        window.show().unwrap();
-                    } else {
-                        log::info!("hiding main window");
-                        window.hide().unwrap();
-                    };
-                }
-            }
+            let window = app.get_webview_window("main").expect("no main window");
 
-            let _ = app
-                .get_webview_window("main")
-                .expect("no main window")
-                .set_focus();
+            // if toggle is passed, we want to show/hide the main window
+            if args.get(1).map_or(false, |arg| arg == "toggle") {
+                if window.is_visible().unwrap_or(false) {
+                    log::info!("hiding main window");
+                    window.hide().unwrap();
+                } else {
+                    log::info!("showing main window");
+                    window.show().unwrap();
+                    window.set_focus().unwrap();
+                };
+            } else {
+                let _ = window.set_focus();
+            }
         }))
         .plugin(
             tauri_plugin_log::Builder::new()
