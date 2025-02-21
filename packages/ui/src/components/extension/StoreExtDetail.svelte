@@ -182,28 +182,31 @@
 					).format("YYYY-MM-DD HH:mm")}</pre>
 			</div>
 		</div>
-		<div class="flex items-center space-x-2">
-			{#if metadata && metadata.sourceType === ExtPublishSourceTypeEnum.jsr}
-				<a href={metadata.source} target="_blank">
-					<Icon class="h-10 w-10" icon="vscode-icons:file-type-jsr" />
-				</a>
-			{:else if metadata && metadata.sourceType === ExtPublishSourceTypeEnum.npm}
-				<a href={metadata.source} target="_blank">
-					<Icon class="h-10 w-10" icon="vscode-icons:file-type-npm" />
-				</a>
-			{/if}
-			{#if metadata && metadata?.git?.commit && metadata?.rekorLogIndex && metadata?.git?.owner && metadata?.git?.repo}
-				<a
-					href={`https://github.com/${metadata.git.owner}/${metadata.git.repo}/tree/${metadata.git.commit}`}
-					target="_blank"
-				>
-					<Badge class="h-8 space-x-2" variant="secondary">
-						<Icon class="h-6 w-6" icon="mdi:github" />
-						<span>{metadata.git.owner}/{metadata.git.repo}</span>
-					</Badge>
-				</a>
-			{/if}
-		</div>
+		{#if !isInTauri}
+			<Button onclick={onInstallSelected}>Install</Button>
+		{/if}
+	</div>
+	<div class="flex gap-2 mt-2">
+		{#if metadata && metadata.sourceType === ExtPublishSourceTypeEnum.jsr}
+			<a href={metadata.source} target="_blank">
+				<Icon class="h-10 w-10" icon="vscode-icons:file-type-jsr" />
+			</a>
+		{:else if metadata && metadata.sourceType === ExtPublishSourceTypeEnum.npm}
+			<a href={metadata.source} target="_blank">
+				<Icon class="h-10 w-10" icon="vscode-icons:file-type-npm" />
+			</a>
+		{/if}
+		{#if metadata && metadata?.git?.commit && metadata?.rekorLogIndex && metadata?.git?.owner && metadata?.git?.repo}
+			<a
+				href={`https://github.com/${metadata.git.owner}/${metadata.git.repo}/tree/${metadata.git.commit}`}
+				target="_blank"
+			>
+				<Badge class="h-8 space-x-2" variant="secondary">
+					<Icon class="h-6 w-6" icon="mdi:github" />
+					<span>{metadata.git.owner}/{metadata.git.repo}</span>
+				</Badge>
+			</a>
+		{/if}
 	</div>
 	{#if metadata && metadata?.git?.commit && metadata?.rekorLogIndex && metadata?.git?.owner && metadata?.git?.repo}
 		<Separator class="my-3" />
