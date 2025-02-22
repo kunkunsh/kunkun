@@ -814,7 +814,7 @@ importers:
         version: 11.0.3
     devDependencies:
       '@types/bun':
-        specifier: 1.2.3
+        specifier: latest
         version: 1.2.3
 
   packages/templates/template-ext-next:
