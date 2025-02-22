@@ -52,10 +52,13 @@ pub fn load_icns(icns_path: &PathBuf) -> anyhow::Result<RustImageData> {
 #[cfg(target_os = "linux")]
 pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
     match path.exists() {
-        true => {
-            let bytes = std::fs::read(&path).expect("Error reading file");
-            tauri::http::Response::builder().body(bytes).unwrap()
-        }
+        true => match std::fs::read(&path) {
+            Ok(bytes) => tauri::http::Response::builder().body(bytes).unwrap(),
+            Err(err) => tauri::http::Response::builder()
+                .status(tauri::http::StatusCode::NOT_FOUND)
+                .body(format!("error loading icon: {:?}", err).as_bytes().to_vec())
+                .unwrap(),
+        },
         false => {
             let res = tauri::http::Response::builder()
                 .status(tauri::http::StatusCode::NOT_FOUND)
