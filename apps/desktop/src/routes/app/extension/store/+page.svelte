@@ -111,7 +111,7 @@
 	function onkeydown(e: KeyboardEvent) {
 		if (e.key === "Escape") {
 			if (document.activeElement === listviewInputRef) {
-				goBack()
+				goHome()
 			}
 		}
 	}
