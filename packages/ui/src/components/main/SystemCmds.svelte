@@ -21,6 +21,8 @@
 					if (confirmed) {
 						cmd.function()
 					}
+				} else {
+					cmd.function()
 				}
 			}}
 			value={cmd.name}

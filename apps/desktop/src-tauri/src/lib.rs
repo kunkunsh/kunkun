@@ -66,16 +66,28 @@ pub fn run() {
     //     );
     // }
     if KUNKUN_PUBLISH == "true" {
+        // only include updater with KUNKUN_PUBLISH = true, this is used to avoid using updater in beta build CI, which requires secrets for the updater endpoint if updater is included
         println!("KUNKUN_PUBLISH: {}", KUNKUN_PUBLISH);
         builder = builder.plugin(tauri_plugin_updater::Builder::new().build());
     }
     let shell_unlocked = true;
     builder = builder
-        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
-            let _ = app
-                .get_webview_window("main")
-                .expect("no main window")
-                .set_focus();
+        .plugin(tauri_plugin_single_instance::init(|app, args, _cwd| {
+            let window = app.get_webview_window("main").expect("no main window");
+
+            // if toggle is passed, we want to show/hide the main window
+            if args.get(1).map_or(false, |arg| arg == "toggle") {
+                if window.is_visible().unwrap_or(false) {
+                    log::info!("hiding main window");
+                    window.hide().unwrap();
+                } else {
+                    log::info!("showing main window");
+                    window.show().unwrap();
+                    window.set_focus().unwrap();
+                };
+            } else {
+                let _ = window.set_focus();
+            }
         }))
         .plugin(
             tauri_plugin_log::Builder::new()
@@ -119,7 +131,7 @@ pub fn run() {
         .plugin(tauri_plugin_network::init())
         .plugin(tauri_plugin_system_info::init())
         .invoke_handler(tauri::generate_handler![
-            commands::keyring::get_stronghold_key
+            commands::keyring::get_stronghold_key,
         ]);
 
     let app = builder
@@ -218,7 +230,8 @@ pub fn run() {
             }
             // setup::deeplink::setup_deeplink(app);
             // #[cfg(all(target_os = "macos", debug_assertions))]
-            // app.set_activation_policy(ActivationPolicy::Accessory);
+            #[cfg(target_os = "macos")]
+            app.set_activation_policy(ActivationPolicy::Accessory);
             // let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
             // let store = app.handle().store_builder("appConfig.json").build()?;
 

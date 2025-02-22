@@ -1,19 +1,26 @@
 <script lang="ts">
+	import { paste } from "@/utils/hotkey"
 	import { goBack, goHome } from "@/utils/route"
 	import { listenToNewClipboardItem } from "@/utils/tauri-events"
+	import { sleep } from "@/utils/time"
 	import Icon from "@iconify/svelte"
 	import { ClipboardContentType, db } from "@kksh/api/commands"
 	import { SearchModeEnum, SQLSortOrderEnum, type ExtData } from "@kksh/api/models"
 	import { Button, Command, Resizable } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
+	import { app } from "@tauri-apps/api"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
+	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+	import { platform } from "@tauri-apps/plugin-os"
 	import { ArrowLeft, FileQuestionIcon, ImageIcon, LetterTextIcon } from "lucide-svelte"
 	import { onDestroy, onMount, type Snippet } from "svelte"
 	import { toast } from "svelte-sonner"
 	import clipboard from "tauri-plugin-clipboard-api"
 	import ContentPreview from "./content-preview.svelte"
 
+	const _platform = platform()
+	const curWin = getCurrentWebviewWindow()
 	let searchTerm = $state("")
 	let clipboardHistoryList = $state<ExtData[]>([])
 	let highlightedItemValue = $state<string>("")
@@ -155,29 +162,45 @@
 		}
 	}
 
+	function writeToClipboard(data: ExtData) {
+		if (!data.data) {
+			toast.warning("No data found")
+			return Promise.reject(new Error("No data found"))
+		}
+		const dataType = data?.dataType as ClipboardContentType
+		switch (dataType) {
+			case "Text":
+				return clipboard.writeText(data.data)
+			case "Image":
+				return clipboard.writeImageBase64(data.data)
+			case "Html":
+				return clipboard.writeHtmlAndText(data.data, data.searchText ?? data.data)
+			case "Rtf":
+				return clipboard.writeRtf(data.data)
+			default:
+				return Promise.reject(new Error("Unsupported data type: " + dataType))
+		}
+	}
+
 	function onItemSelected(dataId: number) {
-		// fetch data from db
 		db.getExtensionDataById(dataId)
 			.then((data) => {
-				if (!data || !data.data) {
-					return
+				console.log("data", data)
+				if (!data) {
+					toast.warning("No data found")
+					return Promise.reject(new Error("No data found"))
 				}
-				const dataType = data?.dataType as ClipboardContentType
-				switch (dataType) {
-					case "Text":
-						return clipboard.writeText(data.data)
-					case "Image":
-						return clipboard.writeImageBase64(data.data)
-					case "Html":
-						return clipboard.writeHtml(data.data)
-					case "Rtf":
-						return clipboard.writeRtf(data.data)
-					default:
-						return Promise.reject(new Error("Unsupported data type: " + dataType))
-				}
+				return writeToClipboard(data).then(async () => {
+					return app
+						.hide()
+						.then(() => sleep(100))
+						.then(() => curWin.hide())
+						.then(() => paste())
+				})
 			})
 			.then(() => toast.success("Copied to clipboard"))
 			.catch((err) => {
+				console.error(err)
 				toast.error("Failed to fetch data from db", {
 					description: err.message
 				})

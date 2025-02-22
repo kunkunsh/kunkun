@@ -39,6 +39,7 @@
 		"core:webview:allow-create-webview",
 		"core:webview:allow-create-webview-window",
 		"core:app:default",
+		"core:app:allow-app-hide",
 		"core:resources:default",
 		"core:menu:default",
 		"core:tray:default",

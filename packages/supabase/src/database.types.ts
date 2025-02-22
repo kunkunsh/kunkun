@@ -3,6 +3,30 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
 	public: {
 		Tables: {
+			cache: {
+				Row: {
+					created_at: string
+					data: Json | null
+					expiry_date: string | null
+					id: number
+					key: string
+				}
+				Insert: {
+					created_at?: string
+					data?: Json | null
+					expiry_date?: string | null
+					id?: number
+					key: string
+				}
+				Update: {
+					created_at?: string
+					data?: Json | null
+					expiry_date?: string | null
+					id?: number
+					key?: string
+				}
+				Relationships: []
+			}
 			events: {
 				Row: {
 					created_at: string

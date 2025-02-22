@@ -96,7 +96,7 @@
 	}}
 />
 <Command.Root
-	class={cn("h-screen rounded-lg border border-none shadow-md", {
+	class={cn("h-screen rounded-lg border-none shadow-md", {
 		"bg-transparent": _platform === "macos",
 		"bg-background/50": _platform === "windows"
 	})}
@@ -143,7 +143,7 @@
 				<DropdownMenu.Trigger>
 					<Button variant="outline" size="icon" class=""><EllipsisVerticalIcon /></Button>
 				</DropdownMenu.Trigger>
-				<DropdownMenu.Content class="w-80">
+				<DropdownMenu.Content class="w-fit min-w-80">
 					<DropdownMenu.Group>
 						<DropdownMenu.Item onclick={() => exit()}>
 							<CircleXIcon class="h-4 w-4 text-red-500" />

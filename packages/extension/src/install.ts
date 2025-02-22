@@ -3,7 +3,7 @@
  * including install, uninstall, upgrade, check app-extension compatibility, etc.
  */
 import { isCompatible } from "@kksh/api"
-import { db, decompressTarball } from "@kksh/api/commands"
+import { copy_dir_all, db, decompressTarball } from "@kksh/api/commands"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
 import { SBExt } from "@kksh/supabase/models"
 import { greaterThan, parse as parseSemver } from "@std/semver"
@@ -76,7 +76,15 @@ export async function installTarball(
 				}
 			}
 
-			await fs.rename(decompressDest, extInstallPath)
+			// copy all files from decompressDest to extInstallPat
+			await copy_dir_all(decompressDest, extInstallPath)
+
+			// Clean up temp directory
+			// we need the actual temp dir, as decompressDest is the /tmp/uuidv4/package dir
+			const tempDir = await path.dirname(decompressDest)
+			// tempDir is "/tmp/uuidv4"
+			await fs.remove(tempDir, { recursive: true })
+
 			await db.createExtension({
 				identifier: manifest.kunkun.identifier,
 				version: manifest.version,

@@ -6,14 +6,14 @@
 	import { convertFileSrc } from "@tauri-apps/api/core"
 	import * as os from "@tauri-apps/plugin-os"
 	import { toast } from "svelte-sonner"
-	import { open } from "tauri-plugin-shellx-api"
+	import { executeBashScript, open } from "tauri-plugin-shellx-api"
 
 	const platform = os.platform()
 	let { apps }: { apps: AppInfo[] } = $props()
 </script>
 
 <DraggableCommandGroup heading="Apps">
-	{#each apps as app}
+	{#each apps.filter((app) => app.name) as app}
 		<Command.Item
 			class="flex justify-between"
 			onSelect={() => {
@@ -23,8 +23,16 @@
 					} else {
 						toast.error("No executable path found for this app")
 					}
-				} else {
+				} else if (platform === "macos") {
 					open(app.app_desktop_path)
+				} else if (platform === "linux") {
+					if (app.app_path_exe) {
+						executeBashScript(app.app_path_exe)
+					} else {
+						toast.error("No executable path found for this app")
+					}
+				} else {
+					toast.error("Unsupported platform")
 				}
 			}}
 			value={app.name}

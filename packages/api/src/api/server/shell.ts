@@ -168,7 +168,7 @@ export function constructShellApi(
 			ShellPermissionMap.executePowershellScript,
 			objectPermissions,
 			"powershell",
-			["-Command", script]
+			["-WindowStyle", "Hidden", "-Command", script]
 		)
 		return executePowershellScript(script)
 	}

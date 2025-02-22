@@ -163,7 +163,8 @@ export async function onCustomUiCmdSelect(
 			extPath: ext.extPath,
 			dist: cmd.dist
 		})
-		if (platform() === "windows" && !useDevMain) {
+		const _platform = platform()
+		if ((_platform === "windows" || _platform === "linux") && !useDevMain) {
 			const addr = await spawnExtensionFileServer(winLabel) // addr has format "127.0.0.1:<port>"
 			console.log("Extension file server address: ", addr)
 			const newUrl = `http://${addr}`

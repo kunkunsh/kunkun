@@ -17,6 +17,8 @@ pub fn run_apple_script(script: &str) -> anyhow::Result<String> {
 
 pub fn run_powershell(script: &str) -> anyhow::Result<String> {
     let output = Command::new("powershell")
+        .arg("-WindowStyle")
+        .arg("Hidden")
         .arg("-Command")
         .arg(script)
         .output()
