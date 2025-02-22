@@ -814,8 +814,8 @@ importers:
         version: 11.0.3
     devDependencies:
       '@types/bun':
-        specifier: latest
-        version: 1.2.2
+        specifier: 1.2.3
+        version: 1.2.3
 
   packages/templates/template-ext-next:
     dependencies:
@@ -5130,6 +5130,9 @@ packages:
   '@types/bun@1.2.2':
     resolution: {integrity: sha512-tr74gdku+AEDN5ergNiBnplr7hpDp3V1h7fqI2GcR/rsUaM39jpSeKH0TFibRvU0KwniRx5POgaYnaXbk0hU+w==}
 
+  '@types/bun@1.2.3':
+    resolution: {integrity: sha512-054h79ipETRfjtsCW9qJK8Ipof67Pw9bodFWmkfkaUaRiIQ1dIV2VTlheshlBx3mpKr0KeK8VqnMMCtgN9rQtw==}
+
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
 
@@ -6179,6 +6182,9 @@ packages:
 
   bun-types@1.2.2:
     resolution: {integrity: sha512-RCbMH5elr9gjgDGDhkTTugA21XtJAy/9jkKe/G3WR2q17VPGhcquf9Sir6uay9iW+7P/BV0CAHA1XlHXMAVKHg==}
+
+  bun-types@1.2.3:
+    resolution: {integrity: sha512-P7AeyTseLKAvgaZqQrvp3RqFM3yN9PlcLuSTe7SoJOfZkER73mLdT2vEQi8U64S1YvM/ldcNiQjn0Sn7H9lGgg==}
 
   bundle-name@4.1.0:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
@@ -16633,6 +16639,10 @@ snapshots:
     dependencies:
       bun-types: 1.2.2
 
+  '@types/bun@1.2.3':
+    dependencies:
+      bun-types: 1.2.3
+
   '@types/cookie@0.6.0': {}
 
   '@types/d3-array@3.2.1': {}
@@ -18179,6 +18189,11 @@ snapshots:
       ieee754: 1.2.1
 
   bun-types@1.2.2:
+    dependencies:
+      '@types/node': 22.13.1
+      '@types/ws': 8.5.14
+
+  bun-types@1.2.3:
     dependencies:
       '@types/node': 22.13.1
       '@types/ws': 8.5.14
