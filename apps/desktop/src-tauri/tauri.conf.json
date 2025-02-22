@@ -22,12 +22,14 @@
 				"width": 800,
 				"visible": false,
 				"height": 600,
-				"decorations": true
+				"decorations": true,
+				"center": true
 			},
 			{
 				"url": "/splashscreen",
 				"visible": true,
-				"label": "splashscreen"
+				"label": "splashscreen",
+				"center": true
 			}
 		]
 	},
