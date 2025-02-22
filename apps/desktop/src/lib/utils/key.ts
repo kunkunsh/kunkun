@@ -76,7 +76,10 @@ export function goHomeOrCloseOnEscapeWithInput(e: KeyboardEvent) {
 export async function globalKeyDownHandler(e: KeyboardEvent) {
 	keys.keydown(e.key)
 	const _platform = platform()
-	if ((_platform === "macos" && e.metaKey) || (_platform === "windows" && e.ctrlKey)) {
+	if (
+		(_platform === "macos" && e.metaKey) ||
+		((_platform === "windows" || _platform === "linux") && e.ctrlKey)
+	) {
 		if (e.key === ",") {
 			e.preventDefault()
 			goto(i18n.resolveRoute("/app/settings"))

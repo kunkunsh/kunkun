@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { paste } from "@/utils/hotkey"
 	import { goBack, goHome } from "@/utils/route"
 	import { listenToNewClipboardItem } from "@/utils/tauri-events"
+	import { sleep } from "@/utils/time"
 	import Icon from "@iconify/svelte"
 	import { ClipboardContentType, db } from "@kksh/api/commands"
 	import { SearchModeEnum, SQLSortOrderEnum, type ExtData } from "@kksh/api/models"
@@ -15,7 +17,6 @@
 	import { onDestroy, onMount, type Snippet } from "svelte"
 	import { toast } from "svelte-sonner"
 	import clipboard from "tauri-plugin-clipboard-api"
-	import * as userInput from "tauri-plugin-user-input-api"
 	import ContentPreview from "./content-preview.svelte"
 
 	const _platform = platform()
@@ -159,18 +160,6 @@
 				isScrolling = false
 			}, 500)
 		}
-	}
-
-	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
-	async function paste() {
-		await userInput.key("KeyPress", "MetaLeft")
-		await sleep(20)
-		await userInput.key("KeyPress", "KeyV")
-		await sleep(100)
-		await userInput.key("KeyRelease", "MetaLeft")
-		await sleep(20)
-		await userInput.key("KeyRelease", "KeyV")
 	}
 
 	function writeToClipboard(data: ExtData) {
