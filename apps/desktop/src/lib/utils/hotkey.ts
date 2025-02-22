@@ -1,7 +1,10 @@
 import { getAllWindows } from "@tauri-apps/api/window"
 import { isRegistered, register, unregister } from "@tauri-apps/plugin-global-shortcut"
 import { debug, info, warn } from "@tauri-apps/plugin-log"
+import * as os from "@tauri-apps/plugin-os"
+import * as userInput from "tauri-plugin-user-input-api"
 import { sendNotificationWithPermission } from "./notification"
+import { sleep } from "./time"
 
 /**
  * Tauri global shortcut doesn't accept 'Meta' Key. This function maps browser detected keys to Tauri-accepted keys.
@@ -55,4 +58,27 @@ export async function updateAppHotkey(newHotkey: string[], oldHotkey?: string[] 
 	}
 	const hotkeyStr = newHotkey.map(mapKeyToTauriKey).join("+")
 	return registerAppHotkey(hotkeyStr)
+}
+
+export async function paste() {
+	const _platform = os.platform()
+	if (_platform === "macos") {
+		await userInput.key("KeyPress", "MetaLeft")
+		await sleep(20)
+		await userInput.key("KeyPress", "KeyV")
+		await sleep(100)
+		await userInput.key("KeyRelease", "MetaLeft")
+		await sleep(20)
+		await userInput.key("KeyRelease", "KeyV")
+	} else if (_platform === "windows" || _platform === "linux") {
+		await userInput.key("KeyPress", "ShiftLeft")
+		await sleep(20)
+		await userInput.key("KeyPress", "Insert")
+		await sleep(100)
+		await userInput.key("KeyRelease", "ShiftLeft")
+		await sleep(20)
+		await userInput.key("KeyRelease", "Insert")
+	} else {
+		console.error("Unsupported platform: " + _platform)
+	}
 }

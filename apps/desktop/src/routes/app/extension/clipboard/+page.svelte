@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { paste } from "@/utils/hotkey"
 	import { goBack, goHome } from "@/utils/route"
 	import { listenToNewClipboardItem } from "@/utils/tauri-events"
+	import { sleep } from "@/utils/time"
 	import Icon from "@iconify/svelte"
 	import { ClipboardContentType, db } from "@kksh/api/commands"
 	import { SearchModeEnum, SQLSortOrderEnum, type ExtData } from "@kksh/api/models"
@@ -10,15 +12,12 @@
 	import { app } from "@tauri-apps/api"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
-	import * as os from "@tauri-apps/plugin-os"
 	import { ArrowLeft, FileQuestionIcon, ImageIcon, LetterTextIcon } from "lucide-svelte"
 	import { onDestroy, onMount, type Snippet } from "svelte"
 	import { toast } from "svelte-sonner"
 	import clipboard from "tauri-plugin-clipboard-api"
-	import * as userInput from "tauri-plugin-user-input-api"
 	import ContentPreview from "./content-preview.svelte"
 
-	export const _platform = os.platform()
 	const curWin = getCurrentWebviewWindow()
 	let searchTerm = $state("")
 	let clipboardHistoryList = $state<ExtData[]>([])
@@ -158,30 +157,6 @@
 			setTimeout(() => {
 				isScrolling = false
 			}, 500)
-		}
-	}
-
-	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
-	async function paste() {
-		if (_platform === "macos") {
-			await userInput.key("KeyPress", "MetaLeft")
-			await sleep(20)
-			await userInput.key("KeyPress", "KeyV")
-			await sleep(100)
-			await userInput.key("KeyRelease", "MetaLeft")
-			await sleep(20)
-			await userInput.key("KeyRelease", "KeyV")
-		} else if (_platform === "windows" || _platform === "linux") {
-			await userInput.key("KeyPress", "ShiftLeft")
-			await sleep(20)
-			await userInput.key("KeyPress", "Insert")
-			await sleep(100)
-			await userInput.key("KeyRelease", "ShiftLeft")
-			await sleep(20)
-			await userInput.key("KeyRelease", "Insert")
-		} else {
-			console.error("Unsupported platform: " + _platform)
 		}
 	}
 
