@@ -191,7 +191,6 @@
 					return Promise.reject(new Error("No data found"))
 				}
 				return writeToClipboard(data).then(async () => {
-					// TODO: add support for Windows and Linux
 					return app
 						.hide()
 						.then(() => sleep(100))
