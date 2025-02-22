@@ -14,7 +14,7 @@ import { download } from "@tauri-apps/plugin-upload"
 import { v4 as uuidv4 } from "uuid"
 import { z, ZodError } from "zod"
 import { loadExtensionManifestFromDisk } from "./load"
-import { isExtPathInDev } from "./utils"
+import { copy_dir_all, isExtPathInDev } from "./utils"
 
 /**
  *
@@ -31,7 +31,6 @@ export async function installTarball(
 	if (!extsDir) {
 		return Promise.reject("Extension Folder Not Set")
 	}
-	console.log("installTarball", tarballPath, extsDir)
 	// decompress tarball to tempDir
 	const decompressDest = await decompressTarball(
 		tarballPath,
@@ -78,8 +77,7 @@ export async function installTarball(
 			}
 
 
-			// copy all files from decompressDest to extInstallPath
-			await fs.mkdir(extInstallPath)
+			// copy all files from decompressDest to extInstallPat
 			await copy_dir_all(decompressDest, extInstallPath)
 
 			// Clean up temp directory
@@ -203,20 +201,4 @@ export function isUpgradable(dbExt: SBExt, installedExtVersion: string) {
 			: false
 
 	return upgradable
-}
-
-
-async function copy_dir_all(from: string, to: string) {
-
-	const entries = await fs.readDir(from)
-	for (const entry of entries) { 
-		const fromPath = await path.join(from, entry.name)
-		const toPath = await path.join(to, entry.name)
-		if (entry.isFile) {
-			await fs.copyFile(fromPath, toPath)
-		} else {
-			await fs.mkdir(toPath)
-			await copy_dir_all(fromPath, toPath)
-		}
-	}
 }
