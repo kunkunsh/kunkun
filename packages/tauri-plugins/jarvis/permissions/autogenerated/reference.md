@@ -154,6 +154,32 @@ Denies the compress_tarball command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-copy-dir-all`
+
+</td>
+<td>
+
+Enables the copy_dir_all command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-copy-dir-all`
+
+</td>
+<td>
+
+Denies the copy_dir_all command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-create-command`
 
 </td>
