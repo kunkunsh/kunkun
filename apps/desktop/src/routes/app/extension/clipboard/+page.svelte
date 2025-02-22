@@ -191,14 +191,12 @@
 					return Promise.reject(new Error("No data found"))
 				}
 				return writeToClipboard(data).then(async () => {
-					if (_platform === "macos") {
-						// TODO: add support for Windows and Linux
-						return app
-							.hide()
-							.then(() => sleep(100))
-							.then(() => curWin.hide())
-							.then(() => paste())
-					}
+					// TODO: add support for Windows and Linux
+					return app
+						.hide()
+						.then(() => sleep(100))
+						.then(() => curWin.hide())
+						.then(() => paste())
 				})
 			})
 			.then(() => toast.success("Copied to clipboard"))
