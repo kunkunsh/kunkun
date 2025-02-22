@@ -230,7 +230,8 @@ pub fn run() {
             }
             // setup::deeplink::setup_deeplink(app);
             // #[cfg(all(target_os = "macos", debug_assertions))]
-            // app.set_activation_policy(ActivationPolicy::Accessory);
+            #[cfg(target_os = "macos")]
+            app.set_activation_policy(ActivationPolicy::Accessory);
             // let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
             // let store = app.handle().store_builder("appConfig.json").build()?;
 
