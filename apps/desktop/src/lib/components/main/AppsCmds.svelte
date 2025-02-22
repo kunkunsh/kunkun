@@ -13,7 +13,7 @@
 </script>
 
 <DraggableCommandGroup heading="Apps">
-	{#each apps as app}
+	{#each apps.filter((app) => app.name) as app}
 		<Command.Item
 			class="flex justify-between"
 			onSelect={() => {
