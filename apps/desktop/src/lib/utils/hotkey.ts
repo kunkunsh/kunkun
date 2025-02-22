@@ -17,6 +17,11 @@ export function mapKeyToTauriKey(key: string): string {
 	return key
 }
 
+/**
+ * Registers a global hotkey for the application. If the hotkey is already registered, it will be unregistered first.
+ * When the hotkey is pressed, it toggles the visibility and focus of the main window.
+ * @param hotkeyStr - The hotkey string to register.
+ */
 export async function registerAppHotkey(hotkeyStr: string) {
 	if (await isRegistered(hotkeyStr)) {
 		warn(`Hotkey (${hotkeyStr}) already registered`)
@@ -49,6 +54,11 @@ export async function registerAppHotkey(hotkeyStr: string) {
 	})
 }
 
+/**
+ * Updates the application's global hotkey. If an old hotkey is provided, it will be unregistered first.
+ * @param newHotkey - The new hotkey combination to register.
+ * @param oldHotkey - The old hotkey combination to unregister, if any.
+ */
 export async function updateAppHotkey(newHotkey: string[], oldHotkey?: string[] | null) {
 	if (oldHotkey) {
 		const hotkeyStr = oldHotkey.map(mapKeyToTauriKey).join("+")
@@ -60,24 +70,26 @@ export async function updateAppHotkey(newHotkey: string[], oldHotkey?: string[] 
 	return registerAppHotkey(hotkeyStr)
 }
 
-export async function paste() {
+/**
+ * Simulates a key combination press and release.
+ * @param keys - The array of keys to press and release.
+ */
+export async function applyKeyComb(keys: userInput.Key[]) {
+	await Promise.all(keys.map((key) => userInput.key("KeyPress", key)))
+	await sleep(50)
+	await Promise.all(keys.map((key) => userInput.key("KeyRelease", key)))
+}
+
+/**
+ * Simulates a paste operation based on the operating system.
+ * On macOS, it uses Command+V. On Windows and Linux, it uses Shift+Insert.
+ */
+export function paste() {
 	const _platform = os.platform()
 	if (_platform === "macos") {
-		await userInput.key("KeyPress", "MetaLeft")
-		await sleep(20)
-		await userInput.key("KeyPress", "KeyV")
-		await sleep(100)
-		await userInput.key("KeyRelease", "MetaLeft")
-		await sleep(20)
-		await userInput.key("KeyRelease", "KeyV")
+		return applyKeyComb(["MetaLeft", "KeyV"])
 	} else if (_platform === "windows" || _platform === "linux") {
-		await userInput.key("KeyPress", "ShiftLeft")
-		await sleep(20)
-		await userInput.key("KeyPress", "Insert")
-		await sleep(100)
-		await userInput.key("KeyRelease", "ShiftLeft")
-		await sleep(20)
-		await userInput.key("KeyRelease", "Insert")
+		return applyKeyComb(["ShiftLeft", "Insert"])
 	} else {
 		console.error("Unsupported platform: " + _platform)
 	}
