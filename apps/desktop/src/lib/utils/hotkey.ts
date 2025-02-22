@@ -75,16 +75,23 @@ export async function updateAppHotkey(newHotkey: string[], oldHotkey?: string[] 
  * @param keys - The array of keys to press and release.
  */
 export async function applyKeyComb(keys: userInput.Key[]) {
-	await Promise.all(keys.map((key) => userInput.key("KeyPress", key)))
-	await sleep(50)
-	await Promise.all(keys.map((key) => userInput.key("KeyRelease", key)))
+	// await Promise.all(keys.map((key) => userInput.key("KeyPress", key)))
+	for (const key of keys) {
+		await userInput.key("KeyPress", key)
+		await sleep(20)
+	}
+	await sleep(100)
+	for (const key of keys) {
+		await userInput.key("KeyRelease", key)
+		await sleep(20)
+	}
 }
 
 /**
  * Simulates a paste operation based on the operating system.
  * On macOS, it uses Command+V. On Windows and Linux, it uses Shift+Insert.
  */
-export function paste() {
+export async function paste() {
 	const _platform = os.platform()
 	if (_platform === "macos") {
 		return applyKeyComb(["MetaLeft", "KeyV"])
