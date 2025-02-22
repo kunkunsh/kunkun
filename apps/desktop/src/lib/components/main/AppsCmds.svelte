@@ -51,7 +51,6 @@
 					class="!h-5 !w-5 shrink-0"
 				/>
 				<span>{app.name}</span>
-				<span>{app.app_path_exe}</span>
 			</span>
 		</Command.Item>
 	{/each}
