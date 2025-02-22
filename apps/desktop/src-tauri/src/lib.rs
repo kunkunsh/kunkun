@@ -121,7 +121,6 @@ pub fn run() {
         .plugin(tauri_plugin_system_info::init())
         .invoke_handler(tauri::generate_handler![
             commands::keyring::get_stronghold_key,
-            commands::copy::copy_dir_all
         ]);
 
     let app = builder

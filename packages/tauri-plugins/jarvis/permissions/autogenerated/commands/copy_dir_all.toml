@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-copy-dir-all"
+description = "Enables the copy_dir_all command without any pre-configured scope."
+commands.allow = ["copy_dir_all"]
+
+[[permission]]
+identifier = "deny-copy-dir-all"
+description = "Denies the copy_dir_all command without any pre-configured scope."
+commands.deny = ["copy_dir_all"]

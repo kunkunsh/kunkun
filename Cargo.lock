@@ -3834,7 +3834,6 @@ dependencies = [
  "chrono",
  "cocoa 0.24.1",
  "crypto",
- "dircpy",
  "log",
  "mac-security-rs",
  "mdns-sd",
@@ -7579,6 +7578,7 @@ dependencies = [
  "cocoa 0.24.1",
  "crypto",
  "db",
+ "dircpy",
  "flate2",
  "futures-util",
  "grpc",
@@ -7820,7 +7820,7 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-system-info"
-version = "2.0.8"
+version = "2.0.9"
 dependencies = [
  "serde",
  "starship-battery",
