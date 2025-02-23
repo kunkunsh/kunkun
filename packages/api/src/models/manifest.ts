@@ -9,7 +9,7 @@ import {
 	ShellPermissionScopedSchema
 } from "../permissions"
 import { CmdType } from "./extension"
-import { Icon } from "./icon"
+import { BaseIcon as Icon } from "./icon"
 
 export enum OSPlatformEnum {
 	linux = "linux",
