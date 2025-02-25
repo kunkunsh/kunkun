@@ -1,4 +1,5 @@
 .svelte-kit/
 target/
+vendors/**
 vendors
 .nuxt/

@@ -3,7 +3,7 @@
 	import DevExtPathForm from "@/components/standalone/settings/DevExtPathForm.svelte"
 	import { i18n } from "@/i18n"
 	import * as m from "@/paraglide/messages"
-	import { appConfig, extensions } from "@/stores"
+	import { appConfig, appState, extensions } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goBack } from "@/utils/route"
 	import { IconEnum } from "@kksh/api/models"
@@ -21,7 +21,6 @@
 	import * as v from "valibot"
 	import InstallNpmPackageNameForm from "./install-npm-package-name-form.svelte"
 	import InstallTarballUrlForm from "./install-tarball-url-form.svelte"
-	import { appState } from "@/stores"
 
 	let dragging = $state(false)
 
@@ -93,7 +92,7 @@
 		if (!$appConfig.devExtensionPath) {
 			toast.warning("Please set the dev extension path in the settings")
 			return goto(i18n.resolveRoute("/app/settings/set-dev-ext-path"))
-		}		
+		}
 		appState.setLockHideOnBlur(true)
 		const selected = await openFileSelector({
 			directory: false,
@@ -104,7 +103,7 @@
 					extensions: ["tgz", "gz", "kunkun"]
 				}
 			]
-		})		
+		})
 		appState.setLockHideOnBlur(false)
 		if (!selected) {
 			return toast.warning("No File Selected")
