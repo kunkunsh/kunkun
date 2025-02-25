@@ -1,5 +1,12 @@
 # template-ext-vue
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies
+  - @kksh/api@0.1.4
+
 ## 0.0.6
 
 ### Patch Changes
