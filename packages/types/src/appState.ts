@@ -6,4 +6,5 @@ export interface AppState {
 	loadingBar: boolean
 	defaultAction: string | null
 	actionPanel?: ActionSchema.ActionPanel
+	lockHideOnBlur: boolean
 }

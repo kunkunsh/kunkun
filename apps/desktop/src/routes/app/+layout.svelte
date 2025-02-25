@@ -79,7 +79,7 @@
 						// this extra is focused check may be needed because blur event got triggered somehow when window show()
 						// for edge case: when settings page is opened and focused, switch to main window, the blur event is triggered for main window
 						if (!isFocused) {
-							if ($appConfig.hideOnBlur) {
+							if ($appConfig.hideOnBlur && !$appState.lockHideOnBlur) {
 								win.hide()
 							}
 						}

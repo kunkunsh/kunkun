@@ -21,6 +21,7 @@
 	import * as v from "valibot"
 	import InstallNpmPackageNameForm from "./install-npm-package-name-form.svelte"
 	import InstallTarballUrlForm from "./install-tarball-url-form.svelte"
+	import { appState } from "@/stores"
 
 	let dragging = $state(false)
 
@@ -65,10 +66,12 @@
 	}
 
 	async function pickExtFolders() {
+		appState.setLockHideOnBlur(true)
 		const selected = await openFileSelector({
 			directory: true,
 			multiple: true // allow install multiple extensions at once
 		})
+		appState.setLockHideOnBlur(false)
 		if (!selected) {
 			return toast.warning("No File Selected")
 		}
@@ -90,7 +93,8 @@
 		if (!$appConfig.devExtensionPath) {
 			toast.warning("Please set the dev extension path in the settings")
 			return goto(i18n.resolveRoute("/app/settings/set-dev-ext-path"))
-		}
+		}		
+		appState.setLockHideOnBlur(true)
 		const selected = await openFileSelector({
 			directory: false,
 			multiple: true, // allow install multiple extensions at once
@@ -100,7 +104,8 @@
 					extensions: ["tgz", "gz", "kunkun"]
 				}
 			]
-		})
+		})		
+		appState.setLockHideOnBlur(false)
 		if (!selected) {
 			return toast.warning("No File Selected")
 		}

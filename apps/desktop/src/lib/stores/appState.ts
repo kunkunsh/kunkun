@@ -7,7 +7,8 @@ export const defaultAppState: AppState = {
 	highlightedCmd: "",
 	loadingBar: false,
 	defaultAction: "",
-	actionPanel: undefined
+	actionPanel: undefined,
+	lockHideOnBlur: false // when dialog is open, we don't hide the app, we lock the hide on blur and unlock when dialog is closed
 }
 
 interface AppStateAPI {
@@ -16,6 +17,7 @@ interface AppStateAPI {
 	setLoadingBar: (loadingBar: boolean) => void
 	setDefaultAction: (defaultAction: string | null) => void
 	setActionPanel: (actionPanel?: ActionSchema.ActionPanel) => void
+	setLockHideOnBlur: (lockHideOnBlur: boolean) => void
 }
 
 function createAppState(): Writable<AppState> & AppStateAPI {
@@ -35,6 +37,9 @@ function createAppState(): Writable<AppState> & AppStateAPI {
 		},
 		setActionPanel: (actionPanel?: ActionSchema.ActionPanel) => {
 			store.update((state) => ({ ...state, actionPanel }))
+		},
+		setLockHideOnBlur: (lockHideOnBlur: boolean) => {
+			store.update((state) => ({ ...state, lockHideOnBlur }))
 		}
 	}
 }
