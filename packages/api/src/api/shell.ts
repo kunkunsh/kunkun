@@ -184,6 +184,7 @@ export class DenoCommand<O extends IOPayload> extends BaseShellCommand<O> {
 				}
 			})
 			.then(async (pid) => {
+				console.log("spawned deno process", pid)
 				await this.api.recordSpawnedProcess(pid)
 				return new Child(pid, this.api)
 			})

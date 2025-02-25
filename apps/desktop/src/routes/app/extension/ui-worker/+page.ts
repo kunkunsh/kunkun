@@ -5,6 +5,7 @@ import type { Ext as ExtInfoInDB, ExtPackageJsonExtra } from "@kksh/api/models"
 import { loadExtensionManifestFromDisk } from "@kksh/extension"
 import { error as sbError, error as svError } from "@sveltejs/kit"
 import { join } from "@tauri-apps/api/path"
+import { getCurrentWindow } from "@tauri-apps/api/window"
 import { exists, readTextFile } from "@tauri-apps/plugin-fs"
 import { error } from "@tauri-apps/plugin-log"
 import { goto } from "$app/navigation"
@@ -14,7 +15,6 @@ import type { PageLoad } from "./$types"
 
 export const load: PageLoad = async ({ url }) => {
 	// both query parameter must exist
-
 	const rawKunkunTemplateExtParams = localStorage.getItem("kunkun-template-ext-params")
 	if (!rawKunkunTemplateExtParams) {
 		toast.error("Invalid extension path or url")
@@ -23,6 +23,7 @@ export const load: PageLoad = async ({ url }) => {
 	const json = JSON.parse(rawKunkunTemplateExtParams)
 	const parsed = v.safeParse(KunkunTemplateExtParams, json)
 	if (!parsed.success) {
+		getCurrentWindow().show()
 		console.error(v.flatten<typeof KunkunTemplateExtParams>(parsed.issues))
 		toast.error("Fail to parse extension params from local storage", {
 			description: `${v.flatten<typeof KunkunTemplateExtParams>(parsed.issues)}`

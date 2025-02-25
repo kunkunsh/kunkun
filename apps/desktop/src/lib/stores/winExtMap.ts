@@ -104,6 +104,7 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 			}
 		},
 		registerProcess: async (windowLabel: string, pid: number) => {
+			console.log("registerProcess", windowLabel, pid)
 			const winExtMap = get(store)
 			await registerExtensionSpawnedProcess(windowLabel, pid)
 			if (!winExtMap[windowLabel]) {

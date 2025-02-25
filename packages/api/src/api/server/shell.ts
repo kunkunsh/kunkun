@@ -2,6 +2,7 @@ import { emitKillProcessEvent } from "@kksh/api/events"
 import { Channel, invoke } from "@tauri-apps/api/core"
 import { emitTo } from "@tauri-apps/api/event"
 import { getCurrentWindow } from "@tauri-apps/api/window"
+import { toast } from "svelte-sonner"
 import {
 	hasCommand,
 	whereIsCommand,
@@ -74,13 +75,14 @@ async function verifyShellCmdPermission(
  */
 export function constructShellApi(
 	permissions: (ShellPermissionScoped | ShellPermission)[],
-	extPath: string
+	extPath: string,
+	recordSpawnedProcess: (pid: number) => Promise<void>,
+	getSpawnedProcesses: () => Promise<number[]>
 ): IShellServer {
 	const stringPermissiongs = permissions.filter((p) => typeof p === "string") as ShellPermission[]
 	const objectPermissions = permissions.filter(
 		(p) => typeof p !== "string"
 	) as ShellPermissionScoped[]
-
 	async function execute(
 		program: string,
 		args: string[],
@@ -100,15 +102,19 @@ export function constructShellApi(
 			options: options
 		})
 	}
-	function kill(pid: number) {
-		if (!stringPermissiongs.some((p) => ShellPermissionMap.kill.includes(p)))
+	async function kill(pid: number) {
+		if (!stringPermissiongs.some((p) => ShellPermissionMap.kill.includes(p))) {
 			return Promise.reject(
 				new Error(`Permission denied. Requires one of ${ShellPermissionMap.kill}`)
 			)
-		console.log("shell API server kill", pid)
+		}
+		const pids = await getSpawnedProcesses()
+		if (!pids.includes(pid)) {
+			return Promise.reject(new Error(`Process ${pid} not spawned by this extension`))
+		}
 		return invoke<void>("plugin:shellx|kill", {
 			cmd: "killChild",
-			pid: pid
+			pid
 		}).then(() => {
 			emitKillProcessEvent(pid)
 		})
@@ -148,13 +154,24 @@ export function constructShellApi(
 		options: InternalSpawnOptions,
 		cb: (evt: CommandEvent<O>) => void
 	) {
-		await verifyShellCmdPermission(ShellPermissionMap.rawSpawn, objectPermissions, program, args)
+		await verifyShellCmdPermission(
+			ShellPermissionMap.rawSpawn,
+			objectPermissions,
+			program,
+			args
+		).catch((err) => {
+			toast.error("Permission denied", {
+				description: err.message
+			})
+			console.error("rawSpawn permission denied", err)
+			throw err
+		})
 		const onEvent = new Channel<CommandEvent<O>>()
 		onEvent.onmessage = cb
 		return invoke<number>("plugin:shellx|spawn", {
-			program: program,
-			args: args,
-			options: options,
+			program: "deno",
+			args: ["run", "/Users/hk/Dev/kunkun/deno.ts"],
+			options,
 			onEvent
 		})
 	}
@@ -228,17 +245,7 @@ export function constructShellApi(
 			}
 			return whereIsCommand(cleanedCommand).then((res) => (res === "" ? null : res))
 		},
-		async recordSpawnedProcess(pid: number): Promise<void> {
-			// get window label
-			const curWin = await getCurrentWindow()
-			console.log("recordSpawnedProcess", pid, curWin.label)
-			await emitTo("main", RECORD_EXTENSION_PROCESS_EVENT, {
-				windowLabel: curWin.label,
-				pid
-			} satisfies IRecordExtensionProcessEvent)
-			// TODO: record process in a store
-			return Promise.resolve()
-		},
+		recordSpawnedProcess,
 		async denoExecute(
 			scriptPath: string,
 			config: DenoRunConfig,
@@ -257,7 +264,6 @@ export function constructShellApi(
 				args1,
 				extPath
 			)
-			console.log("denoExecute", program, args, options)
 			return invoke<ChildProcess<IOPayload>>("plugin:shellx|execute", {
 				program,
 				args,

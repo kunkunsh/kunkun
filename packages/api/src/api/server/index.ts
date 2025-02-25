@@ -126,7 +126,11 @@ export type IKunkunFullServerAPI = {
  */
 export function constructJarvisServerAPIWithPermissions(
 	permissions: AllPermissions[],
-	extPath: string
+	extPath: string,
+	customFunctions: {
+		recordSpawnedProcess: (pid: number) => Promise<void>
+		getSpawnedProcesses: () => Promise<number[]>
+	}
 ): IKunkunFullServerAPI {
 	return {
 		clipboard: constructClipboardApi(
@@ -193,7 +197,9 @@ export function constructJarvisServerAPIWithPermissions(
 					p.permission.startsWith("shell:")
 				)
 			],
-			extPath
+			extPath,
+			customFunctions.recordSpawnedProcess,
+			customFunctions.getSpawnedProcesses
 		),
 		iframeUi: constructIframeUiApi(),
 		utils: constructUtilsApi(),
