@@ -73,7 +73,7 @@
 		"svelte-sonner": "^0.3.28",
 		"tauri-api-adapter": "^0.3.23",
 		"tauri-plugin-network-api": "2.0.5",
-		"tauri-plugin-shellx-api": "workspace:*",
+		"tauri-plugin-shellx-api": "2.0.15",
 		"tauri-plugin-system-info-api": "2.0.8",
 		"valibot": "^1.0.0-beta.10"
 	},
