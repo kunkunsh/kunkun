@@ -15012,7 +15012,6 @@
         "npm:supabase@^2.2.1",
         "npm:svelte-check@^4.1.1",
         "npm:svelte@^5.16.6",
-        "npm:tauri-plugin-shellx-api@^2.0.14",
         "npm:turbo@^2.3.4",
         "npm:typescript@5.7.2",
         "npm:valibot@^1.0.0-beta.11",
@@ -15148,7 +15147,6 @@
             "npm:svelte-sonner@~0.3.28",
             "npm:tauri-api-adapter@~0.3.20",
             "npm:tauri-plugin-network-api@2.0.5",
-            "npm:tauri-plugin-shellx-api@^2.0.14",
             "npm:tauri-plugin-system-info-api@2.0.8",
             "npm:typedoc@~0.27.6",
             "npm:typescript@5",
@@ -15484,7 +15482,6 @@
             "npm:tailwind-variants@0.3",
             "npm:tailwindcss-animate@^1.0.7",
             "npm:tailwindcss@^3.4.17",
-            "npm:tauri-plugin-shellx-api@^2.0.14",
             "npm:typescript-eslint@^8.20.0",
             "npm:valibot@1.0.0-beta.12",
             "npm:zod@^3.24.1"

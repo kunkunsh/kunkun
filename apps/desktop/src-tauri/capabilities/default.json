@@ -60,6 +60,7 @@
 		"shellx:allow-execute",
 		"shellx:allow-open",
 		"shellx:allow-kill",
+		"shellx:allow-kill-pid",
 		"shellx:allow-spawn",
 		"shellx:allow-stdin-write",
 		"shellx:allow-fix-path-env",

@@ -34,7 +34,7 @@ chrono = { workspace = true }
 log = { workspace = true }
 urlencoding = "2.1.3"
 tauri-plugin-process = "2.2.0"
-tauri-plugin-shellx = "2.0.12"
+tauri-plugin-shellx = { workspace = true }
 tauri-plugin-fs = { version = "2.2.0", features = ["watch"] }
 tauri-plugin-dialog = "2.2.0"
 tauri-plugin-notification = "2.2.1"

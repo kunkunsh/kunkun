@@ -20,7 +20,8 @@ tokio-util = "0.7.12"
 mdns-sd = "0.11.1"
 tauri-plugin-network = { path = "./vendors/tauri-plugin-network" }
 tauri-plugin-keyring = { path = "./vendors/tauri-plugin-keyring" }
-tauri-plugin-clipboard = "2.1.8"
+tauri-plugin-shellx = { path = "./vendors/tauri-plugin-shellx" }
+tauri-plugin-clipboard = "2.1.11"
 mac-security-rs = { path = "./packages/mac-security-rs" }
 log = "0.4.22"
 strum = "0.26"

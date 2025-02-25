@@ -59,8 +59,8 @@ export class Child {
 	 *
 	 * @since 2.0.0
 	 */
-	async kill(): Promise<void> {
-		this.api.kill(this.pid)
+	kill(): Promise<void> {
+		return this.api.kill(this.pid)
 		// await invoke("plugin:shellx|kill", {
 		// 	cmd: "killChild",
 		// 	pid: this.pid

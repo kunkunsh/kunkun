@@ -104,6 +104,7 @@ export function constructShellApi(
 			return Promise.reject(
 				new Error(`Permission denied. Requires one of ${ShellPermissionMap.kill}`)
 			)
+		console.log("shell API server kill", pid)
 		return invoke<void>("plugin:shellx|kill", {
 			cmd: "killChild",
 			pid: pid
