@@ -232,6 +232,7 @@ export type IShell = {
 	}>
 	RPCChannel: typeof RPCChannel
 	whereIsCommand: (command: string) => Promise<string | null>
+	killPid: (pid: number) => Promise<void>
 }
 
 export class TauriShellStdio implements IoInterface {
@@ -347,6 +348,7 @@ export function constructShellAPI(api: IShellServer): IShell {
 
 	return {
 		open: api.open,
+		killPid: api.killPid,
 		makeBashScript,
 		makePowershellScript,
 		makeAppleScript,

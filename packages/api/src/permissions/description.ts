@@ -24,6 +24,7 @@ export const permissionDescriptions: PermissionDescriptions = {
 	"shell:execute": "Allows executing shell commands",
 	"shell:spawn": "Allow spawning a new process and listen to the streaming of its output",
 	"shell:kill": "Allows killing processes by pid. Need this to kill the process you started.",
+	"shell:kill-any": "Allows killing any process by pid",
 	"shell:all":
 		"Grant all shell related permissions. Path scope and args regex validation is still required.",
 	"shell:stdin-write": "Allows writing to a command created.",

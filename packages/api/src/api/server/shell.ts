@@ -10,6 +10,7 @@ import {
 	type InternalSpawnOptions,
 	type IOPayload
 } from "tauri-plugin-shellx-api"
+import * as shell from "tauri-plugin-shellx-api"
 import type { DenoRunConfig } from "../../api/client"
 import type { IShellServer } from "../../api/server-types"
 import { RECORD_EXTENSION_PROCESS_EVENT, type IRecordExtensionProcessEvent } from "../../events"
@@ -211,6 +212,14 @@ export function constructShellApi(
 		return likelyOnWindows()
 	}
 
+	function killPid(pid: number) {
+		if (!stringPermissiongs.some((p) => ShellPermissionMap.killPid.includes(p)))
+			return Promise.reject(
+				new Error(`Permission denied. Requires one of ${ShellPermissionMap.killPid}`)
+			)
+		return shell.killPid(pid)
+	}
+
 	return {
 		whereIsCommand(command: string): Promise<string | null> {
 			const cleanedCommand = command.trim().split(" ")[0]
@@ -287,6 +296,7 @@ export function constructShellApi(
 		},
 		execute,
 		kill,
+		killPid,
 		stdinWrite,
 		open,
 		rawSpawn,

@@ -58,10 +58,6 @@ class ExtensionTemplate extends TemplateUiCommand {
 		}, 2000)
 		const extPath = await path.extensionDir()
 		console.log("Extension path:", extPath)
-		const cmd = shell.createCommand("node", ["--version"])
-
-		const child = new shell.Child(39044, cmd.api)
-		child.kill()
 		const tagList = new List.ItemDetailMetadataTagList({
 			title: "Tag List Title",
 			tags: [

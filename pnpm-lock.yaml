@@ -448,8 +448,8 @@ importers:
         specifier: ^0.3.28
         version: 0.3.28(svelte@5.16.6)
       tauri-api-adapter:
-        specifier: ^0.3.21
-        version: 0.3.21(typescript@5.7.2)
+        specifier: ^0.3.23
+        version: 0.3.23(typescript@5.7.2)
       tauri-plugin-network-api:
         specifier: 2.0.5
         version: 2.0.5(typescript@5.7.2)
@@ -10784,8 +10784,8 @@ packages:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
 
-  tauri-api-adapter@0.3.21:
-    resolution: {integrity: sha512-S8PRzDG2n/FgpMfYCJZhcdULm+pUXJMBT1U8SQk+l9GR5Bw4jy2O47SoMXO/SZuSlKH3/IffQ5qhiDiQMEozpQ==}
+  tauri-api-adapter@0.3.23:
+    resolution: {integrity: sha512-WT/NVCdZZSn63Yu/lhZqeUxMGy/VoBZik7yuY2ot+kCynsI1zJQ9ZB6ORmPL8+VBBRbSpEn1yOUbSTSucRFLOQ==}
     peerDependencies:
       typescript: ^5.0.0
 
@@ -23509,7 +23509,7 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  tauri-api-adapter@0.3.21(typescript@5.7.2):
+  tauri-api-adapter@0.3.23(typescript@5.7.2):
     dependencies:
       '@tauri-apps/api': 2.2.0
       '@tauri-apps/plugin-dialog': 2.2.0

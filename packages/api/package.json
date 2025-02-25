@@ -71,7 +71,7 @@
 		"node-fetch": "^3.3.2",
 		"semver": "^7.6.3",
 		"svelte-sonner": "^0.3.28",
-		"tauri-api-adapter": "^0.3.21",
+		"tauri-api-adapter": "^0.3.23",
 		"tauri-plugin-network-api": "2.0.5",
 		"tauri-plugin-shellx-api": "workspace:*",
 		"tauri-plugin-system-info-api": "2.0.8",

@@ -40,6 +40,7 @@
 	import { goto } from "$app/navigation"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
+	import { killPid } from "tauri-plugin-shellx-api"
 
 	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)

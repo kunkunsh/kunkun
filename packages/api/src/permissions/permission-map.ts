@@ -98,6 +98,7 @@ export const EventPermissionMap: Record<keyof IEvent, EventPermission[]> = {
 export const ShellPermissionMap: Record<keyof IShellServer, ShellPermission[]> = {
 	execute: ["shell:all", "shell:execute"],
 	kill: ["shell:all", "shell:kill"],
+	killPid: ["shell:all", "shell:kill-any"],
 	stdinWrite: ["shell:all", "shell:stdin-write", "shell:execute"],
 	open: ["shell:all", "shell:open"],
 	rawSpawn: ["shell:all", "shell:spawn"],
