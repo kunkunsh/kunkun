@@ -5,9 +5,16 @@ import * as extAPI from "@kksh/extension"
 import { commandScore } from "@kksh/ui/utils"
 import * as path from "@tauri-apps/api/path"
 import * as fs from "@tauri-apps/plugin-fs"
+import Fuse from "fuse.js"
 import { derived, get, writable, type Readable, type Writable } from "svelte/store"
 import { appConfig } from "./appConfig"
 import { appState } from "./appState"
+
+export const fuse = new Fuse<ExtPackageJsonExtra>([], {
+	includeScore: true,
+	threshold: 0.2,
+	keys: ["name"]
+})
 
 function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	init: () => Promise<void>
@@ -40,6 +47,7 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	function init() {
 		return extAPI.loadAllExtensionsFromDb().then((exts) => {
 			store.set(exts)
+			fuse.setCollection(exts)
 		})
 	}
 
@@ -242,6 +250,24 @@ export const devStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
 		const extContainerPath = get(appConfig).extensionsInstallDir
 		if (!extContainerPath) return []
 		return $extensionsStore.filter((ext) => extAPI.isExtPathInDev(extContainerPath, ext.extPath))
+	}
+)
+
+export const installedStoreExtsFiltered = derived(
+	[installedStoreExts, appState],
+	([$installedStoreExts, $appState]) => {
+		return $appState.searchTerm
+			? fuse.search($appState.searchTerm).map((result) => result.item)
+			: $installedStoreExts
+	}
+)
+
+export const devStoreExtsFiltered = derived(
+	[devStoreExts, appState],
+	([$devStoreExts, $appState]) => {
+		return $appState.searchTerm
+			? fuse.search($appState.searchTerm).map((result) => result.item)
+			: $devStoreExts
 	}
 )
 
