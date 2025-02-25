@@ -20,9 +20,10 @@ export const load: PageLoad = async ({ url }) => {
 		toast.error("Invalid extension path or url")
 		return svError(404, "Invalid extension path or url")
 	}
-
-	const parsed = v.safeParse(KunkunTemplateExtParams, JSON.parse(rawKunkunTemplateExtParams))
+	const json = JSON.parse(rawKunkunTemplateExtParams)
+	const parsed = v.safeParse(KunkunTemplateExtParams, json)
 	if (!parsed.success) {
+		console.error(v.flatten<typeof KunkunTemplateExtParams>(parsed.issues))
 		toast.error("Fail to parse extension params from local storage", {
 			description: `${v.flatten<typeof KunkunTemplateExtParams>(parsed.issues)}`
 		})
