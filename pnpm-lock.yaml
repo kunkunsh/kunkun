@@ -454,8 +454,8 @@ importers:
         specifier: 2.0.5
         version: 2.0.5(typescript@5.7.2)
       tauri-plugin-shellx-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-shellx
+        specifier: 2.0.15
+        version: 2.0.15
       tauri-plugin-system-info-api:
         specifier: 2.0.8
         version: 2.0.8(typescript@5.7.2)
@@ -10802,9 +10802,6 @@ packages:
 
   tauri-plugin-shellx-api@2.0.11:
     resolution: {integrity: sha512-+FKIP1FBHdIQ6tASohww3MOf/8CDvYMYpPg9glO59h8TGVxTNP2ofiOEKLYk8M/o2H4tP7mxxca11QpDAT2LXw==}
-
-  tauri-plugin-shellx-api@2.0.14:
-    resolution: {integrity: sha512-MdSYD2KDw63b7yEIa9Q2GXnbidL5Tk+s92BJX0XvYfHrv2l1fYE2vdRWGnyhvCWmUavyCeiOle5uMxM6QLOb2Q==}
 
   tauri-plugin-shellx-api@2.0.15:
     resolution: {integrity: sha512-MrgArTe90o/zLHbIv/x0kTtLm1tiQiEIPnvUcIwuz1pBCGn45+E0ghOgjjGMlGaA2ln6KRV213e52/Az4MqMPQ==}
@@ -23553,7 +23550,7 @@ snapshots:
       shx: 0.3.4
       tauri-plugin-clipboard-api: 2.1.11(typescript@5.7.3)
       tauri-plugin-network-api: 2.0.5(typescript@5.7.3)
-      tauri-plugin-shellx-api: 2.0.14
+      tauri-plugin-shellx-api: 2.0.15
       tauri-plugin-system-info-api: 2.0.8(typescript@5.7.3)
       tsc-alias: 1.8.10
       typescript: 5.7.3
@@ -23597,10 +23594,6 @@ snapshots:
       - typescript
 
   tauri-plugin-shellx-api@2.0.11:
-    dependencies:
-      '@tauri-apps/api': 2.2.0
-
-  tauri-plugin-shellx-api@2.0.14:
     dependencies:
       '@tauri-apps/api': 2.2.0
 
