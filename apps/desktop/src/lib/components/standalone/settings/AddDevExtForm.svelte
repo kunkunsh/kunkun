@@ -3,7 +3,7 @@
 	import DevExtPathForm from "@/components/standalone/settings/DevExtPathForm.svelte"
 	import { i18n } from "@/i18n"
 	import * as m from "@/paraglide/messages"
-	import { appConfig, extensions } from "@/stores"
+	import { appConfig, appState, extensions } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goBack } from "@/utils/route"
 	import { IconEnum } from "@kksh/api/models"
@@ -65,10 +65,12 @@
 	}
 
 	async function pickExtFolders() {
+		appState.setLockHideOnBlur(true)
 		const selected = await openFileSelector({
 			directory: true,
 			multiple: true // allow install multiple extensions at once
 		})
+		appState.setLockHideOnBlur(false)
 		if (!selected) {
 			return toast.warning("No File Selected")
 		}
@@ -91,6 +93,7 @@
 			toast.warning("Please set the dev extension path in the settings")
 			return goto(i18n.resolveRoute("/app/settings/set-dev-ext-path"))
 		}
+		appState.setLockHideOnBlur(true)
 		const selected = await openFileSelector({
 			directory: false,
 			multiple: true, // allow install multiple extensions at once
@@ -101,6 +104,7 @@
 				}
 			]
 		})
+		appState.setLockHideOnBlur(false)
 		if (!selected) {
 			return toast.warning("No File Selected")
 		}
