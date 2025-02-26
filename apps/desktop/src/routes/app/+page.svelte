@@ -10,16 +10,15 @@
 		appConfig,
 		appConfigLoaded,
 		appsFiltered,
-		// appsFiltered,
-		appsLoader,
 		appState,
+		devSearchExtCmds,
+		devStoreExtCmds,
 		devStoreExts,
-		devStoreExtsFiltered,
+		extensions,
 		installedStoreExts,
-		installedStoreExtsFiltered,
-		quickLinks,
-		quickLinksFiltered
-		// quickLinksFiltered
+		quickLinksFiltered,
+		storeExtCmds,
+		storeSearchExtCmds
 	} from "@/stores"
 	import { cmdQueries } from "@/stores/cmdQuery"
 	import { isKeyboardEventFromInputElement } from "@/utils/dom"
@@ -29,6 +28,7 @@
 	import {
 		BuiltinCmds,
 		CustomCommandInput,
+		ExtCmds,
 		ExtCmdsGroup,
 		GlobalCommandPaletteFooter,
 		QuickLinks,
@@ -43,6 +43,7 @@
 	import { goto } from "$app/navigation"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
+	import { Inspect } from "svelte-inspect-value"
 
 	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)
@@ -97,6 +98,13 @@
 		}
 	}}
 />
+<!-- <Inspect name="devStoreExts" value={$devStoreExts} />
+<Inspect name="extensions" value={$extensions} />
+<Inspect name="installedStoreExts" value={$installedStoreExts} />
+<Inspect name="storeSearchExtCmds" value={$storeSearchExtCmds} />
+<Inspect name="devSearchExtCmds" value={$devSearchExtCmds} />
+<Inspect name="storeExtCmds" value={$storeExtCmds} />
+<Inspect name="devStoreExtCmds" value={$devStoreExtCmds} /> -->
 <Command.Root
 	class={cn("h-screen rounded-lg shadow-md")}
 	bind:value={$appState.highlightedCmd}
@@ -201,22 +209,21 @@
 	</CustomCommandInput>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
-		{#if $appConfig.extensionsInstallDir && $devStoreExtsFiltered.length > 0}
-			<ExtCmdsGroup
-				extensions={$devStoreExtsFiltered}
+		{#if $devStoreExtCmds.length > 0}
+			<ExtCmds
 				heading={m.command_group_heading_dev_ext()}
+				extCmds={$devStoreExtCmds}
+				hmr={$appConfig.hmr}
 				isDev={true}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
-				hmr={$appConfig.hmr}
 			/>
 		{/if}
-
-		{#if $appConfig.extensionsInstallDir && $installedStoreExtsFiltered.length > 0}
-			<ExtCmdsGroup
-				extensions={$installedStoreExtsFiltered}
+		{#if $storeExtCmds.length > 0}
+			<ExtCmds
 				heading={m.command_group_heading_ext()}
-				isDev={false}
+				extCmds={$storeExtCmds}
 				hmr={false}
+				isDev={false}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 			/>
 		{/if}
