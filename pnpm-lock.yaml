@@ -273,8 +273,8 @@ importers:
         specifier: ^2.1.11
         version: 2.1.11(typescript@5.6.3)
       tauri-plugin-shellx-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-shellx
+        specifier: ^2.0.15
+        version: 2.0.15
       tauri-plugin-user-input-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-user-input
@@ -457,7 +457,7 @@ importers:
         specifier: 2.0.5
         version: 2.0.5(typescript@5.7.2)
       tauri-plugin-shellx-api:
-        specifier: 2.0.15
+        specifier: ^2.0.15
         version: 2.0.15
       tauri-plugin-system-info-api:
         specifier: 2.0.8
@@ -1308,8 +1308,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
       tauri-plugin-shellx-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-shellx
+        specifier: ^2.0.15
+        version: 2.0.15
       typescript-eslint:
         specifier: ^8.20.0
         version: 8.20.0(eslint@9.21.0(jiti@2.4.0))(typescript@5.7.3)
@@ -1376,31 +1376,6 @@ importers:
       typescript:
         specifier: ^5.0.0
         version: 5.6.3
-
-  vendors/tauri-plugin-shellx:
-    dependencies:
-      '@tauri-apps/api':
-        specifier: ^2.0.1
-        version: 2.2.0
-    devDependencies:
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.34.2)(tslib@2.8.1)(typescript@5.7.2)
-      prettier:
-        specifier: ^3.3.2
-        version: 3.4.2
-      rollup:
-        specifier: ^4.9.6
-        version: 4.34.2
-      tslib:
-        specifier: ^2.6.2
-        version: 2.8.1
-      typedoc:
-        specifier: ^0.25.13
-        version: 0.25.13(typescript@5.7.2)
-      typescript:
-        specifier: ^5.3.3
-        version: 5.7.2
 
   vendors/tauri-plugin-system-info:
     dependencies:
@@ -5965,9 +5940,6 @@ packages:
     resolution: {integrity: sha512-7HSX4QQb4CspciLpVFwyRe79O3xsIZDDLER21kERQ71oaPodF8jL725AgJMFAYbooIqolJoRLuM81SpeUkpkvA==}
     engines: {node: '>=12'}
 
-  ansi-sequence-parser@1.1.3:
-    resolution: {integrity: sha512-+fksAx9eG3Ab6LDnLs3ZqZa8KVJ/jYnX+D4Qe1azX+LFGFAXqynCQLOdLpNYN/l9e7l6hMWwZbrnctqr6eSQSw==}
-
   ansi-styles@4.3.0:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
     engines: {node: '>=8'}
@@ -8477,9 +8449,6 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  jsonc-parser@3.3.1:
-    resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
-
   jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
 
@@ -8767,11 +8736,6 @@ packages:
 
   markdown-it@14.1.0:
     resolution: {integrity: sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==}
-    hasBin: true
-
-  marked@4.3.0:
-    resolution: {integrity: sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==}
-    engines: {node: '>= 12'}
     hasBin: true
 
   marked@5.1.2:
@@ -10418,9 +10382,6 @@ packages:
       vue:
         optional: true
 
-  shiki@0.14.7:
-    resolution: {integrity: sha512-dNPAPrxSc87ua2sKJ3H5dQ/6ZaY8RNnaAqK+t0eG7p0Soi2ydiqbGOTaZCqaYvA/uZYfS1LJnemt3Q+mSfcPCg==}
-
   shiki@1.27.2:
     resolution: {integrity: sha512-QtA1C41oEVixKog+V8I3ia7jjGls7oCZ8Yul8vdHrVBga5uPoyTtMvFF4lMMXIyAZo5A5QbXq91bot2vA6Q+eQ==}
 
@@ -10841,9 +10802,6 @@ packages:
   tauri-plugin-network-api@2.0.5:
     resolution: {integrity: sha512-u7CTvmgP4Lt3fK0/mVMD/pcWlXsWenC0YYlJUE2VQCThx8VQzxSAXgyPhcg0+CT5iIoPt5mkfixMfamM8e6v/w==}
 
-  tauri-plugin-shellx-api@2.0.11:
-    resolution: {integrity: sha512-+FKIP1FBHdIQ6tASohww3MOf/8CDvYMYpPg9glO59h8TGVxTNP2ofiOEKLYk8M/o2H4tP7mxxca11QpDAT2LXw==}
-
   tauri-plugin-shellx-api@2.0.15:
     resolution: {integrity: sha512-MrgArTe90o/zLHbIv/x0kTtLm1tiQiEIPnvUcIwuz1pBCGn45+E0ghOgjjGMlGaA2ln6KRV213e52/Az4MqMPQ==}
 
@@ -11101,13 +11059,6 @@ packages:
   typed-array-length@1.0.6:
     resolution: {integrity: sha512-/OxDN6OtAk5KBpGb28T+HZc2M+ADtvRxXrKKbUwtsLgdoxgX13hyy7ek6bFRl5+aBs2yZzB0c4CnQfAtVypW/g==}
     engines: {node: '>= 0.4'}
-
-  typedoc@0.25.13:
-    resolution: {integrity: sha512-pQqiwiJ+Z4pigfOnnysObszLiU3mVLWAExSPf+Mu06G/qsc3wzbuM56SZQvONhHLncLUhYzOVkjFFpFfL5AzhQ==}
-    engines: {node: '>= 16'}
-    hasBin: true
-    peerDependencies:
-      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x
 
   typedoc@0.27.5:
     resolution: {integrity: sha512-x+fhKJtTg4ozXwKayh/ek4wxZQI/+2hmZUdO2i2NGDBRUflDble70z+ewHod3d4gRpXSO6fnlnjbDTnJk7HlkQ==}
@@ -11723,12 +11674,6 @@ packages:
   vscode-languageserver@7.0.0:
     resolution: {integrity: sha512-60HTx5ID+fLRcgdHfmz0LDZAXYEV68fzwG0JWwEPBode9NuMYTIxuYXPg4ngO8i8+Ou0lM7y6GzaYWbiDL0drw==}
     hasBin: true
-
-  vscode-oniguruma@1.7.0:
-    resolution: {integrity: sha512-L9WMGRfrjOhgHSdOYgCt/yRMsXzLDJSL7BPrOZt73gU0iWO4mpqzqQzOz5srxqTvMBaR0XZTSrVWo4j55Rc6cA==}
-
-  vscode-textmate@8.0.0:
-    resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
 
   vscode-uri@3.0.8:
     resolution: {integrity: sha512-AyFQ0EVmsOZOlAnxoFOGOq1SQDWAB7C6aqMGS23svWAllfOaxbuFvcT8D1i8z3Gyn8fraVeZNNmN6e9bxxXkKw==}
@@ -13900,7 +13845,7 @@ snapshots:
       minimatch: 10.0.1
       semver: 7.6.3
       tauri-api-adapter: 0.3.8(tslib@2.8.1)(typescript@5.7.3)
-      tauri-plugin-shellx-api: 2.0.11
+      tauri-plugin-shellx-api: 2.0.15
       valibot: 0.40.0(typescript@5.7.3)
       vue-sonner: 1.2.5
     transitivePeerDependencies:
@@ -15580,15 +15525,6 @@ snapshots:
       typescript: 5.6.3
     optionalDependencies:
       rollup: 4.28.1
-      tslib: 2.8.1
-
-  '@rollup/plugin-typescript@11.1.6(rollup@4.34.2)(tslib@2.8.1)(typescript@5.7.2)':
-    dependencies:
-      '@rollup/pluginutils': 5.1.3(rollup@4.34.2)
-      resolve: 1.22.8
-      typescript: 5.7.2
-    optionalDependencies:
-      rollup: 4.34.2
       tslib: 2.8.1
 
   '@rollup/plugin-typescript@11.1.6(rollup@4.34.2)(tslib@2.8.1)(typescript@5.7.3)':
@@ -18021,8 +17957,6 @@ snapshots:
   ansi-regex@5.0.1: {}
 
   ansi-regex@6.1.0: {}
-
-  ansi-sequence-parser@1.1.3: {}
 
   ansi-styles@4.3.0:
     dependencies:
@@ -20863,8 +20797,6 @@ snapshots:
 
   json5@2.2.3: {}
 
-  jsonc-parser@3.3.1: {}
-
   jsonfile@4.0.0:
     optionalDependencies:
       graceful-fs: 4.2.11
@@ -21233,8 +21165,6 @@ snapshots:
       mdurl: 2.0.0
       punycode.js: 2.3.1
       uc.micro: 2.1.0
-
-  marked@4.3.0: {}
 
   marked@5.1.2: {}
 
@@ -23032,13 +22962,6 @@ snapshots:
       svelte: 5.16.6
       vue: 3.5.13(typescript@5.7.3)
 
-  shiki@0.14.7:
-    dependencies:
-      ansi-sequence-parser: 1.1.3
-      jsonc-parser: 3.3.1
-      vscode-oniguruma: 1.7.0
-      vscode-textmate: 8.0.0
-
   shiki@1.27.2:
     dependencies:
       '@shikijs/core': 1.27.2
@@ -23736,10 +23659,6 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  tauri-plugin-shellx-api@2.0.11:
-    dependencies:
-      '@tauri-apps/api': 2.2.0
-
   tauri-plugin-shellx-api@2.0.15:
     dependencies:
       '@tauri-apps/api': 2.2.0
@@ -24012,14 +23931,6 @@ snapshots:
       has-proto: 1.0.3
       is-typed-array: 1.1.13
       possible-typed-array-names: 1.0.0
-
-  typedoc@0.25.13(typescript@5.7.2):
-    dependencies:
-      lunr: 2.3.9
-      marked: 4.3.0
-      minimatch: 9.0.5
-      shiki: 0.14.7
-      typescript: 5.7.2
 
   typedoc@0.27.5(typescript@5.6.3):
     dependencies:
@@ -24640,10 +24551,6 @@ snapshots:
   vscode-languageserver@7.0.0:
     dependencies:
       vscode-languageserver-protocol: 3.16.0
-
-  vscode-oniguruma@1.7.0: {}
-
-  vscode-textmate@8.0.0: {}
 
   vscode-uri@3.0.8: {}
 

@@ -39,7 +39,7 @@
 		"svelte-sonner": "^0.3.28",
 		"sveltekit-superforms": "^2.22.1",
 		"tauri-plugin-clipboard-api": "^2.1.11",
-		"tauri-plugin-shellx-api": "workspace:*",
+		"tauri-plugin-shellx-api": "^2.0.15",
 		"tauri-plugin-user-input-api": "workspace:*",
 		"uuid": "^11.0.3"
 	},

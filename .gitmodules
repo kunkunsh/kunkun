@@ -13,6 +13,3 @@
 [submodule "vendors/tauri-plugin-keyring"]
 	path = vendors/tauri-plugin-keyring
 	url = https://github.com/HuakunShen/tauri-plugin-keyring.git
-[submodule "vendors/tauri-plugin-shellx"]
-	path = vendors/tauri-plugin-shellx
-	url = https://github.com/HuakunShen/tauri-plugin-shellx.git
