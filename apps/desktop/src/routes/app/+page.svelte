@@ -2,21 +2,23 @@
 <script lang="ts">
 	import { commandLaunchers } from "@/cmds"
 	import { builtinCmds } from "@/cmds/builtin"
-	import { systemCommands } from "@/cmds/system"
+	import { systemCommands, systemCommandsFiltered } from "@/cmds/system"
 	import AppsCmds from "@/components/main/AppsCmds.svelte"
 	import { i18n } from "@/i18n"
 	import * as m from "@/paraglide/messages"
 	import {
 		appConfig,
 		appConfigLoaded,
+		appsFiltered,
 		// appsFiltered,
 		appsLoader,
 		appState,
 		devStoreExts,
-		// devStoreExtsFiltered,
-		// installedStoreExtsFiltered,
+		devStoreExtsFiltered,
 		installedStoreExts,
-		quickLinks
+		installedStoreExtsFiltered,
+		quickLinks,
+		quickLinksFiltered
 		// quickLinksFiltered
 	} from "@/stores"
 	import { cmdQueries } from "@/stores/cmdQuery"
@@ -136,7 +138,7 @@
 <Command.Root
 	class={cn("h-screen rounded-lg shadow-md")}
 	bind:value={$appState.highlightedCmd}
-	shouldFilter={true}
+	shouldFilter={false}
 	loop
 >
 	<CustomCommandInput
@@ -238,9 +240,9 @@
 	<Button onclick={spawn}>Spawn</Button>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
-		{#if $appConfig.extensionsInstallDir && $devStoreExts.length > 0}
+		{#if $appConfig.extensionsInstallDir && $devStoreExtsFiltered.length > 0}
 			<ExtCmdsGroup
-				extensions={$devStoreExts}
+				extensions={$devStoreExtsFiltered}
 				heading={m.command_group_heading_dev_ext()}
 				isDev={true}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
@@ -248,35 +250,28 @@
 			/>
 		{/if}
 
-		{#if $appConfig.extensionsInstallDir && $installedStoreExts.length > 0}
+		{#if $appConfig.extensionsInstallDir && $installedStoreExtsFiltered.length > 0}
 			<ExtCmdsGroup
-				extensions={$installedStoreExts}
+				extensions={$installedStoreExtsFiltered}
 				heading={m.command_group_heading_ext()}
 				isDev={false}
 				hmr={false}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 			/>
 		{/if}
-		<QuickLinks quickLinks={$quickLinks} />
-		<BuiltinCmds builtinCmds={$builtinCmds} />
-		<SystemCmds systemCommands={$systemCommands} />
-		<AppsCmds apps={$appsLoader} />
-
-		<!-- <AppsCmds apps={$appsFiltered} /> -->
-		<!-- {#if $quickLinksFiltered.length > 0}
-			<QuickLinks quickLinks={$quickLinksFiltered} />
-		{/if}
-		{#if $appsFiltered.length > 0}
-			<AppsCmds apps={$appsFiltered} />
-		{/if}
 		{#if $builtinCmds.length > 0}
 			<BuiltinCmds builtinCmds={$builtinCmds} />
 		{/if}
 		{#if $systemCommandsFiltered.length > 0}
 			<SystemCmds systemCommands={$systemCommandsFiltered} />
-		{/if} -->
-		<!-- <AppsCmds apps={$appsLoader} /> -->
-		<!-- <AppsCmds apps={$appsFiltered} /> -->
+		{/if}
+		{#if $appsFiltered.length > 0}
+			<AppsCmds apps={$appsFiltered} />
+		{/if}
+
+		{#if $quickLinksFiltered.length > 0}
+			<QuickLinks quickLinks={$quickLinksFiltered} />
+		{/if}
 	</Command.List>
 	<GlobalCommandPaletteFooter />
 </Command.Root>

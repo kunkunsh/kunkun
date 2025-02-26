@@ -35,7 +35,7 @@
 					toast.error("Unsupported platform")
 				}
 			}}
-			value={app.name}
+			value={app.app_desktop_path}
 		>
 			<span class="flex gap-2">
 				<IconMultiplexer

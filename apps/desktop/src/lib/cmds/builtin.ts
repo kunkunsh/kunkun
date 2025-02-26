@@ -11,6 +11,7 @@ import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { exit } from "@tauri-apps/plugin-process"
 import { dev } from "$app/environment"
 import { goto } from "$app/navigation"
+import Fuse from "fuse.js"
 import { toast } from "svelte-sonner"
 import { derived } from "svelte/store"
 import * as clipboard from "tauri-plugin-clipboard-api"
@@ -475,11 +476,19 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 	}
 ].map((cmd) => ({ ...cmd, id: uuidv4() }))
 
+export const fuse = new Fuse<BuiltinCmd>(rawBuiltinCmds, {
+	includeScore: true,
+	threshold: 0.2,
+	keys: ["name"]
+})
+
 export const builtinCmds = derived([appConfig, appState], ([$appConfig, $appState]) => {
-	return rawBuiltinCmds.filter((cmd) => {
-		const passDeveloper = cmd.flags?.developer ? $appConfig.developerMode : true
-		const passDev = cmd.flags?.dev ? dev : true
-		return passDeveloper && passDev
-	})
-	// .filter((cmd) => commandScore(cmd.name, $appState.searchTerm, cmd.keywords) > 0.5)
+	return $appState.searchTerm
+		? fuse
+				.search($appState.searchTerm)
+				.map((result) => result.item)
+				.filter(
+					(cmd) => (!cmd.flags?.developer || $appConfig.developerMode) && (!cmd.flags?.dev || dev)
+				)
+		: rawBuiltinCmds
 })
