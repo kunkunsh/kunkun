@@ -34,7 +34,7 @@ If you are interested in contributing to the project, please read the following 
 ```bash
 git clone https://github.com/kunkunsh/kunkun.git --recursive
 pnpm install
-pnpm prepare
+pnpm build # build submodules
 ```
 
 ### Run Desktop App

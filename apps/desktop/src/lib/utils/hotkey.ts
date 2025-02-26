@@ -1,4 +1,5 @@
-import { getAllWindows } from "@tauri-apps/api/window"
+import { app } from "@tauri-apps/api"
+import { getAllWindows, getCurrentWindow, type Window } from "@tauri-apps/api/window"
 import { isRegistered, register, unregister } from "@tauri-apps/plugin-global-shortcut"
 import { debug, info, warn } from "@tauri-apps/plugin-log"
 import * as os from "@tauri-apps/plugin-os"
@@ -78,12 +79,12 @@ export async function applyKeyComb(keys: userInput.Key[]) {
 	// await Promise.all(keys.map((key) => userInput.key("KeyPress", key)))
 	for (const key of keys) {
 		await userInput.key("KeyPress", key)
-		await sleep(20)
+		await sleep(100)
 	}
-	await sleep(100)
+	await sleep(150)
 	for (const key of keys) {
 		await userInput.key("KeyRelease", key)
-		await sleep(20)
+		await sleep(100)
 	}
 }
 
@@ -100,4 +101,13 @@ export async function paste() {
 	} else {
 		console.error("Unsupported platform: " + _platform)
 	}
+}
+
+export async function hideAndPaste(win?: Window) {
+	return app
+		.hide()
+		.then(() => sleep(60))
+		.then(() => (win ?? getCurrentWindow()).hide())
+		.then(() => sleep(60))
+		.then(() => paste())
 }

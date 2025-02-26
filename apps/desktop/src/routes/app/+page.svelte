@@ -2,22 +2,20 @@
 <script lang="ts">
 	import { commandLaunchers } from "@/cmds"
 	import { builtinCmds } from "@/cmds/builtin"
-	import { systemCommands } from "@/cmds/system"
+	import { systemCommands, systemCommandsFiltered } from "@/cmds/system"
 	import AppsCmds from "@/components/main/AppsCmds.svelte"
 	import { i18n } from "@/i18n"
 	import * as m from "@/paraglide/messages"
 	import {
 		appConfig,
 		appConfigLoaded,
-		// appsFiltered,
-		appsLoader,
+		appsFiltered,
 		appState,
-		devStoreExts,
-		// devStoreExtsFiltered,
-		// installedStoreExtsFiltered,
-		installedStoreExts,
-		quickLinks
-		// quickLinksFiltered
+		devSearchExtCmds,
+		devStoreExtCmds,
+		quickLinksFiltered,
+		storeExtCmds,
+		storeSearchExtCmds
 	} from "@/stores"
 	import { cmdQueries } from "@/stores/cmdQuery"
 	import { isKeyboardEventFromInputElement } from "@/utils/dom"
@@ -27,7 +25,7 @@
 	import {
 		BuiltinCmds,
 		CustomCommandInput,
-		ExtCmdsGroup,
+		ExtCmds,
 		GlobalCommandPaletteFooter,
 		QuickLinks,
 		SystemCmds
@@ -40,6 +38,7 @@
 	import { goto } from "$app/navigation"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
+	import { Inspect } from "svelte-inspect-value"
 
 	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)
@@ -94,10 +93,20 @@
 		}
 	}}
 />
+<!-- 
+<Inspect name="devStoreExts" value={$devStoreExts} />
+<Inspect name="extensions" value={$extensions} />
+<Inspect name="installedStoreExts" value={$installedStoreExts} />
+<Inspect name="storeSearchExtCmds" value={$storeSearchExtCmds} />
+<Inspect name="devSearchExtCmds" value={$devSearchExtCmds} />
+<Inspect name="storeExtCmds" value={$storeExtCmds} />
+<Inspect name="devStoreExtCmds" value={$devStoreExtCmds} />
+<Inspect name="$appState.searchTerm" value={$appState.searchTerm} />
+-->
 <Command.Root
 	class={cn("h-screen rounded-lg shadow-md")}
 	bind:value={$appState.highlightedCmd}
-	shouldFilter={true}
+	shouldFilter={false}
 	loop
 >
 	<CustomCommandInput
@@ -198,45 +207,37 @@
 	</CustomCommandInput>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
-		{#if $appConfig.extensionsInstallDir && $devStoreExts.length > 0}
-			<ExtCmdsGroup
-				extensions={$devStoreExts}
+		{#if $devStoreExtCmds.length > 0}
+			<ExtCmds
 				heading={m.command_group_heading_dev_ext()}
+				extCmds={$devSearchExtCmds}
+				hmr={$appConfig.hmr}
 				isDev={true}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
-				hmr={$appConfig.hmr}
 			/>
 		{/if}
-
-		{#if $appConfig.extensionsInstallDir && $installedStoreExts.length > 0}
-			<ExtCmdsGroup
-				extensions={$installedStoreExts}
+		{#if $storeExtCmds.length > 0}
+			<ExtCmds
 				heading={m.command_group_heading_ext()}
-				isDev={false}
+				extCmds={$storeSearchExtCmds}
 				hmr={false}
+				isDev={false}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 			/>
-		{/if}
-		<QuickLinks quickLinks={$quickLinks} />
-		<BuiltinCmds builtinCmds={$builtinCmds} />
-		<SystemCmds systemCommands={$systemCommands} />
-		<AppsCmds apps={$appsLoader} />
-
-		<!-- <AppsCmds apps={$appsFiltered} /> -->
-		<!-- {#if $quickLinksFiltered.length > 0}
-			<QuickLinks quickLinks={$quickLinksFiltered} />
-		{/if}
-		{#if $appsFiltered.length > 0}
-			<AppsCmds apps={$appsFiltered} />
 		{/if}
 		{#if $builtinCmds.length > 0}
 			<BuiltinCmds builtinCmds={$builtinCmds} />
 		{/if}
 		{#if $systemCommandsFiltered.length > 0}
 			<SystemCmds systemCommands={$systemCommandsFiltered} />
-		{/if} -->
-		<!-- <AppsCmds apps={$appsLoader} /> -->
-		<!-- <AppsCmds apps={$appsFiltered} /> -->
+		{/if}
+		{#if $appsFiltered.length > 0}
+			<AppsCmds apps={$appsFiltered} />
+		{/if}
+
+		{#if $quickLinksFiltered.length > 0}
+			<QuickLinks quickLinks={$quickLinksFiltered} />
+		{/if}
 	</Command.List>
 	<GlobalCommandPaletteFooter />
 </Command.Root>

@@ -59,8 +59,8 @@ export class Child {
 	 *
 	 * @since 2.0.0
 	 */
-	async kill(): Promise<void> {
-		this.api.kill(this.pid)
+	kill(): Promise<void> {
+		return this.api.kill(this.pid)
 		// await invoke("plugin:shellx|kill", {
 		// 	cmd: "killChild",
 		// 	pid: this.pid
@@ -184,6 +184,7 @@ export class DenoCommand<O extends IOPayload> extends BaseShellCommand<O> {
 				}
 			})
 			.then(async (pid) => {
+				console.log("spawned deno process", pid)
 				await this.api.recordSpawnedProcess(pid)
 				return new Child(pid, this.api)
 			})
@@ -232,6 +233,7 @@ export type IShell = {
 	}>
 	RPCChannel: typeof RPCChannel
 	whereIsCommand: (command: string) => Promise<string | null>
+	killPid: (pid: number) => Promise<void>
 }
 
 export class TauriShellStdio implements IoInterface {
@@ -347,6 +349,7 @@ export function constructShellAPI(api: IShellServer): IShell {
 
 	return {
 		open: api.open,
+		killPid: api.killPid,
 		makeBashScript,
 		makePowershellScript,
 		makeAppleScript,

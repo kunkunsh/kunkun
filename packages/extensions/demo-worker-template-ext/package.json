@@ -1,7 +1,7 @@
 {
 	"$schema": "../../schema/manifest-json-schema.json",
 	"name": "demo-template-extension",
-	"version": "0.0.9",
+	"version": "0.0.11",
 	"type": "module",
 	"license": "MIT",
 	"kunkun": {
@@ -11,14 +11,27 @@
 		"identifier": "demo-worker-template-ext",
 		"permissions": [
 			"fetch:all",
-			"shell:kill",
 			"security:mac:all",
 			"clipboard:read-all",
+			{
+				"permission": "shell:spawn",
+				"allow": [
+					{
+						"cmd": {
+							"program": "deno",
+							"args": [
+								"run",
+								"/Users/hk/Dev/kunkun/deno.ts"
+							]
+						}
+					}
+				]
+			},
 			{
 				"permission": "shell:deno:spawn",
 				"allow": [
 					{
-						"path": "$EXTENSION/deno-src/rpc.ts",
+						"path": "/Users/hk/Dev/kunkun/deno.ts",
 						"env": "*",
 						"ffi": "*",
 						"read": "*",
@@ -27,6 +40,8 @@
 					}
 				]
 			},
+			"shell:stdin-write",
+			"shell:kill",
 			{
 				"permission": "open:file",
 				"allow": [
@@ -35,7 +50,6 @@
 					}
 				]
 			},
-			"shell:stdin-write",
 			{
 				"permission": "shell:execute",
 				"allow": [

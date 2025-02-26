@@ -14,7 +14,7 @@
 	import { Constants, ViewTransition } from "@kksh/ui"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
-	import { attachConsole, error, info } from "@tauri-apps/plugin-log"
+	import { attachConsole, debug, error, info } from "@tauri-apps/plugin-log"
 	import { afterNavigate, beforeNavigate } from "$app/navigation"
 	import { gsap } from "gsap"
 	import { Flip } from "gsap/Flip"
@@ -79,7 +79,7 @@
 						// this extra is focused check may be needed because blur event got triggered somehow when window show()
 						// for edge case: when settings page is opened and focused, switch to main window, the blur event is triggered for main window
 						if (!isFocused) {
-							if ($appConfig.hideOnBlur) {
+							if ($appConfig.hideOnBlur && !$appState.lockHideOnBlur) {
 								win.hide()
 							}
 						}
@@ -89,13 +89,13 @@
 			extensions.init()
 			unlisteners.push(
 				await listenToRecordExtensionProcessEvent(async (event) => {
-					console.log("record extension process event", event)
+					debug(`record extension process event ${event.payload.pid}`)
 					winExtMap.registerProcess(event.payload.windowLabel, event.payload.pid)
 				})
 			)
 			unlisteners.push(
 				await listenToKillProcessEvent((event) => {
-					console.log("kill process event", event)
+					debug(`kill process event ${event.payload.pid}`)
 					winExtMap.unregisterProcess(event.payload.pid)
 				})
 			)

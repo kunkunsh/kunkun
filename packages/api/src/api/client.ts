@@ -14,25 +14,21 @@ import type {
 	writeFile,
 	writeTextFile
 } from "@tauri-apps/plugin-fs"
-import type { IShell as IShell1, IPath as ITauriPath } from "tauri-api-adapter"
 import type {
-	Child,
-	ChildProcess,
-	CommandEvents,
-	hasCommand,
-	InternalSpawnOptions,
-	IOPayload,
-	likelyOnWindows,
-	OutputEvents,
-	SpawnOptions
-} from "tauri-plugin-shellx-api"
-import { EventEmitter, open as shellxOpen } from "tauri-plugin-shellx-api"
+	IClipboard as _IClipboard,
+	IShell as IShell1,
+	IPath as ITauriPath
+} from "tauri-api-adapter"
 import * as v from "valibot"
 import { KV, type JarvisExtDB } from "../commands/db"
 import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
 import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
 import type { DenoSysOptions } from "../permissions/schema"
+
+export type IClipboard = _IClipboard & {
+	paste: (options?: {}) => Promise<void>
+}
 
 type PromiseWrap<T extends (...args: any[]) => any> = (
 	...args: Parameters<T>

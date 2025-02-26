@@ -1,7 +1,7 @@
 {
 	"$schema": "./node_modules/@kksh/api/dist/schema.json",
 	"name": "template-ext-worker",
-	"version": "0.0.8",
+	"version": "0.0.10",
 	"license": "MIT",
 	"type": "module",
 	"kunkun": {

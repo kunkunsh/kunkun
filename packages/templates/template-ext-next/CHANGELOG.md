@@ -1,5 +1,19 @@
 # template-ext-next
 
+## 0.1.9
+
+### Patch Changes
+
+- Updated dependencies
+  - @kksh/api@0.1.5
+
+## 0.1.8
+
+### Patch Changes
+
+- Updated dependencies
+  - @kksh/api@0.1.4
+
 ## 0.1.7
 
 ### Patch Changes

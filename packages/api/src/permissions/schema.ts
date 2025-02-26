@@ -1,5 +1,5 @@
 import {
-	ClipboardPermissionSchema,
+	ClipboardPermissionSchema as _ClipboardPermissionSchema,
 	DialogPermissionSchema,
 	FetchPermissionSchema,
 	FsPermissionSchema,
@@ -12,6 +12,12 @@ import {
 	UpdownloadPermissionSchema
 } from "tauri-api-adapter/permissions"
 import * as v from "valibot"
+
+export const ClipboardPermissionSchema = v.union([
+	_ClipboardPermissionSchema,
+	v.literal("clipboard:paste")
+])
+export type ClipboardPermission = v.InferOutput<typeof ClipboardPermissionSchema>
 
 export const SystemPermissionSchema = v.union([
 	v.literal("system:volumn"),
@@ -133,6 +139,7 @@ export const ShellPermissionSchema = v.union([
 	v.literal("shell:deno:spawn"),
 	v.literal("shell:open"),
 	v.literal("shell:kill"),
+	v.literal("shell:kill-any"),
 	v.literal("shell:all"),
 	v.literal("shell:stdin-write")
 ])

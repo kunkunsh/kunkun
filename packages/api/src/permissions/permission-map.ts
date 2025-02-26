@@ -1,4 +1,9 @@
 import type { IShellServer } from "tauri-api-adapter"
+import {
+	ClipboardPermissionMap as _ClipboardPermissionMap,
+	ClipboardPermissionSchema as _ClipboardPermissionSchema
+} from "tauri-api-adapter/permissions"
+import * as v from "valibot"
 // import type { IEventServer, IFsServer, ISystemServer } from "../ui/server/server-types"
 import type { IEvent, IFs, ISecurity, ISystem } from "../api/client"
 import type {
@@ -13,7 +18,6 @@ import type {
 /*                                  Re-export                                 */
 /* -------------------------------------------------------------------------- */
 export {
-	ClipboardPermissionMap,
 	DialogPermissionMap,
 	NotificationPermissionMap,
 	// FsPermissionMap,
@@ -23,6 +27,16 @@ export {
 	// ShellPermissionMap, // we defined a custom one below
 	UpdownloadPermissionMap
 } from "tauri-api-adapter/permissions"
+
+// export const ClipboardPermissionMap = v.union([
+// 	_ClipboardPermissionSchema,
+// 	v.literal("clipboard:paste")
+// ])
+// export type ClipboardPermission = v.InferOutput<typeof ClipboardPermissionMap>
+export const ClipboardPermissionMap = {
+	..._ClipboardPermissionMap,
+	paste: ["clipboard:paste"]
+}
 
 export const SecurityPermissionMap: {
 	mac: Record<keyof ISecurity["mac"], SecurityPermission[]>
@@ -98,6 +112,7 @@ export const EventPermissionMap: Record<keyof IEvent, EventPermission[]> = {
 export const ShellPermissionMap: Record<keyof IShellServer, ShellPermission[]> = {
 	execute: ["shell:all", "shell:execute"],
 	kill: ["shell:all", "shell:kill"],
+	killPid: ["shell:all", "shell:kill-any"],
 	stdinWrite: ["shell:all", "shell:stdin-write", "shell:execute"],
 	open: ["shell:all", "shell:open"],
 	rawSpawn: ["shell:all", "shell:spawn"],
