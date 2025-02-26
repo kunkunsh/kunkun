@@ -14,7 +14,7 @@
 	import { Constants, ViewTransition } from "@kksh/ui"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
-	import { attachConsole, error, info } from "@tauri-apps/plugin-log"
+	import { attachConsole, debug, error, info } from "@tauri-apps/plugin-log"
 	import { afterNavigate, beforeNavigate } from "$app/navigation"
 	import { gsap } from "gsap"
 	import { Flip } from "gsap/Flip"
@@ -89,13 +89,13 @@
 			extensions.init()
 			unlisteners.push(
 				await listenToRecordExtensionProcessEvent(async (event) => {
-					console.log("record extension process event", event)
+					debug(`record extension process event ${event.payload.pid}`)
 					winExtMap.registerProcess(event.payload.windowLabel, event.payload.pid)
 				})
 			)
 			unlisteners.push(
 				await listenToKillProcessEvent((event) => {
-					console.log("kill process event", event)
+					debug(`kill process event ${event.payload.pid}`)
 					winExtMap.unregisterProcess(event.payload.pid)
 				})
 			)

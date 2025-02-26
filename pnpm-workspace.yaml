@@ -5,6 +5,7 @@ packages:
   - "packages/templates/*"
   - "packages/tauri-plugins/*"
   - "vendors/tauri-plugin-network"
+  - "vendors/tauri-plugin-shellx"
   - "vendors/tauri-plugin-keyring"
   - "vendors/tauri-plugin-system-info"
   - "vendors/tauri-plugin-user-input"

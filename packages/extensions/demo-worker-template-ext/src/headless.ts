@@ -1,9 +1,8 @@
-import { expose, HeadlessCommand, toast } from "@kksh/api/headless"
+import { expose, HeadlessCommand, shell, toast } from "@kksh/api/headless"
 
 class DemoHeadlessExt extends HeadlessCommand {
 	load(): Promise<void> {
-		console.log("Demo Headless Extension Loaded")
-		toast.info("Demo Headless Extension Loaded")
+		shell.killPid(84812)
 		return Promise.resolve()
 	}
 }

@@ -27,12 +27,19 @@
 		type IComponent,
 		type TemplateUiCommand
 	} from "@kksh/api/ui/template"
+	import { Button } from "@kksh/svelte5"
 	import { LoadingBar } from "@kksh/ui"
 	import { Templates } from "@kksh/ui/extension"
 	import { GlobalCommandPaletteFooter } from "@kksh/ui/main"
 	import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
-	import type { UnlistenFn } from "@tauri-apps/api/event"
+	import {
+		RECORD_EXTENSION_PROCESS_EVENT,
+		type IRecordExtensionProcessEvent
+	} from "@kunkunapi/src/events.js"
+	import { Channel, invoke } from "@tauri-apps/api/core"
+	import { emitTo, type UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import * as fs from "@tauri-apps/plugin-fs"
 	import { readTextFile } from "@tauri-apps/plugin-fs"
 	import { debug } from "@tauri-apps/plugin-log"
@@ -40,6 +47,7 @@
 	import { goto } from "$app/navigation"
 	import { RPCChannel, WorkerParentIO } from "kkrpc/browser"
 	import { onDestroy, onMount, tick } from "svelte"
+	import { type CommandEvent } from "tauri-plugin-shellx-api"
 	import * as v from "valibot"
 
 	const { data } = $props()
@@ -58,6 +66,7 @@
 	let loading = $state(false)
 	let searchTerm = $state("")
 	let searchBarPlaceholder = $state("")
+	let extSpawnedProcesses = $state<number[]>([])
 	const appWin = getCurrentWebviewWindow()
 	const loadingBar = $derived($appState.loadingBar || extensionLoadingBar)
 	let loaded = $state(false)
@@ -199,7 +208,6 @@
 			searchTerm = term
 		},
 		async setSearchBarPlaceholder(placeholder: string) {
-			console.log("setSearchBarPlaceholder", placeholder)
 			searchBarPlaceholder = placeholder
 		},
 		async goBack() {
@@ -221,7 +229,20 @@
 		worker = new Worker(blobURL)
 		const serverAPI: IKunkunFullServerAPI = constructJarvisServerAPIWithPermissions(
 			loadedExt.kunkun.permissions,
-			loadedExt.extPath
+			loadedExt.extPath,
+			{
+				recordSpawnedProcess: async (pid: number) => {
+					extSpawnedProcesses = [...extSpawnedProcesses, pid]
+					// winExtMap.registerProcess(appWin.label, pid)
+					const curWin = await getCurrentWindow()
+					await emitTo("main", RECORD_EXTENSION_PROCESS_EVENT, {
+						windowLabel: curWin.label,
+						pid
+					} satisfies IRecordExtensionProcessEvent)
+					// TODO: record process in a store
+				},
+				getSpawnedProcesses: () => Promise.resolve(extSpawnedProcesses)
+			}
 		)
 		const serverAPI2 = {
 			...serverAPI,
@@ -234,7 +255,6 @@
 				language: () => Promise.resolve("en")
 			} satisfies IApp
 		}
-
 		const io = new WorkerParentIO(worker)
 		const rpc = new RPCChannel<typeof serverAPI2, TemplateUiCommand>(io, {
 			expose: serverAPI2
@@ -250,20 +270,20 @@
 		}
 	})
 
-	function onPkgJsonChange(evt: fs.WatchEvent) {
-		const parsed = v.safeParse(WatchEvent, evt)
-		if (parsed.success) {
-			if (
-				parsed.output.type.modify.kind === "data" &&
-				parsed.output.type.modify.mode === "content" &&
-				parsed.output.paths.includes(data.pkgJsonPath)
-			) {
-				console.log("pkgJson changed", parsed.output.paths)
-				// emit event to reload extension commands
-				emitReloadOneExtension(loadedExt.extPath)
-			}
-		}
-	}
+	// function onPkgJsonChange(evt: fs.WatchEvent) {
+	// 	const parsed = v.safeParse(WatchEvent, evt)
+	// 	if (parsed.success) {
+	// 		if (
+	// 			parsed.output.type.modify.kind === "data" &&
+	// 			parsed.output.type.modify.mode === "content" &&
+	// 			parsed.output.paths.includes(data.pkgJsonPath)
+	// 		) {
+	// 			console.log("pkgJson changed", parsed.output.paths)
+	// 			// emit event to reload extension commands
+	// 			emitReloadOneExtension(loadedExt.extPath)
+	// 		}
+	// 	}
+	// }
 
 	onMount(async () => {
 		setTimeout(() => {
@@ -284,10 +304,9 @@
 			appState.setLoadingBar(false)
 			loaded = true
 		}, 500)
-		console.log("watching", data.pkgJsonPath)
-		fs.watch(data.pkgJsonPath, onPkgJsonChange).then((unlisten) => {
-			unlistenPkgJsonWatch = unlisten
-		})
+		// fs.watch(data.pkgJsonPath, onPkgJsonChange).then((unlisten) => {
+		// 	unlistenPkgJsonWatch = unlisten
+		// })
 	})
 
 	onDestroy(() => {

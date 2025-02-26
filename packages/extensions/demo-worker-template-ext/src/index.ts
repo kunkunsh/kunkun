@@ -57,7 +57,23 @@ class ExtensionTemplate extends TemplateUiCommand {
 			ui.showLoadingBar(false)
 		}, 2000)
 		const extPath = await path.extensionDir()
-		// console.log("Extension path:", extPath)
+		const cmd = shell.createCommand("deno", ["run", "/Users/hk/Dev/kunkun/deno.ts"])
+		cmd.stdout.on("data", (data) => {
+			console.log("within ext stdout", data)
+		})
+		const child = await cmd.spawn()
+		console.log("in ext child", child)
+		setTimeout(() => {
+			child
+				.kill()
+				.then(() => {
+					console.log("child killed")
+				})
+				.catch((err) => {
+					console.error("child kill error", err)
+				})
+		}, 5000)
+
 		const tagList = new List.ItemDetailMetadataTagList({
 			title: "Tag List Title",
 			tags: [

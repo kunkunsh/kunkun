@@ -20,10 +20,12 @@ import * as v from "valibot"
 
 export const KunkunIframeExtParams = v.object({
 	url: v.string(),
+	cmdName: v.optional(v.string()),
 	extPath: v.string()
 })
 export type KunkunIframeExtParams = v.InferOutput<typeof KunkunIframeExtParams>
 export const KunkunTemplateExtParams = v.object({
+	url: v.optional(v.string()),
 	extPath: v.string(),
 	cmdName: v.string()
 })
@@ -36,10 +38,10 @@ export async function createExtSupportDir(extPath: string) {
 	}
 }
 
-function setTemplateExtParams(extPath: string, cmdName: string) {
+function setTemplateExtParams(extPath: string, cmdName: string, url?: string) {
 	localStorage.setItem(
 		"kunkun-template-ext-params",
-		JSON.stringify({ extPath, cmdName } satisfies KunkunTemplateExtParams)
+		JSON.stringify({ extPath, cmdName, url } satisfies KunkunTemplateExtParams)
 	)
 }
 
@@ -50,13 +52,15 @@ export async function onTemplateUiCmdSelect(
 ) {
 	await createExtSupportDir(ext.extPath)
 	const url = `/app/extension/ui-worker?extPath=${encodeURIComponent(ext.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
-	setTemplateExtParams(ext.extPath, cmd.name)
+	setTemplateExtParams(ext.extPath, cmd.name, url)
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({ extPath: ext.extPath })
-		localStorage.setItem(
-			"kunkun-template-ext-params",
-			JSON.stringify({ url, extPath: ext.extPath } satisfies KunkunIframeExtParams)
-		)
+		const paramsStr = JSON.stringify({
+			url,
+			extPath: ext.extPath,
+			cmdName: cmd.name
+		} satisfies KunkunIframeExtParams)
+		localStorage.setItem("kunkun-template-ext-params", paramsStr)
 		const window = launchNewExtWindow(winLabel, url, cmd.window)
 		window.onCloseRequested(async (event) => {
 			await winExtMap.unregisterExtensionFromWindow(winLabel)
@@ -89,7 +93,16 @@ export async function onHeadlessCmdSelect(
 	}
 	const serverAPI: IKunkunFullServerAPI = constructJarvisServerAPIWithPermissions(
 		loadedExt.kunkun.permissions,
-		loadedExt.extPath
+		loadedExt.extPath,
+		{
+			recordSpawnedProcess: async (pid: number) => {
+				console.log("recordSpawnedProcess pid", pid)
+			},
+			getSpawnedProcesses: async () => {
+				console.log("getSpawnedProcesses")
+				return []
+			}
+		}
 	)
 	const serverAPI2 = {
 		...serverAPI,

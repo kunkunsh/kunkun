@@ -35,6 +35,7 @@
 		SystemCmds
 	} from "@kksh/ui/main"
 	import { cn } from "@kksh/ui/utils"
+	import { Channel, invoke } from "@tauri-apps/api/core"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
 	import { platform } from "@tauri-apps/plugin-os"
@@ -42,6 +43,7 @@
 	import { goto } from "$app/navigation"
 	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
+	import * as shell from "tauri-plugin-shellx-api"
 
 	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)
@@ -82,6 +84,43 @@
 			}
 		})
 	})
+
+	async function spawn() {
+		const cmd = shell.Command.create("deno", ["run", "/Users/hk/Dev/kunkun/deno.ts"])
+		cmd.stdout.on("data", (data) => {
+			console.log("stdout", data)
+		})
+		const child = await cmd.spawn()
+		console.log("child", child)
+		setTimeout(() => {
+			child
+				.kill()
+				.then(() => {
+					console.log("child killed")
+				})
+				.catch((err) => {
+					console.error("child kill error", err)
+				})
+		}, 5000)
+		// invoke<number>("plugin:shellx|spawn", {
+		// 	program: "deno",
+		// 	args: ["run", "/Users/hk/Dev/kunkun/deno.ts"],
+		// 	options: {},
+		// 	onEvent: new Channel<CommandEvent<string>>()
+		// }).then((pid) => {
+		// 	console.log("spawned process (shell server) pid:", pid)
+		// 	setTimeout(() => {
+		// 		console.log("killing process (shell server) pid:", pid)
+		// 		killPid(pid)
+		// 			.then(() => {
+		// 				console.log("killed process (shell server) pid:", pid)
+		// 			})
+		// 			.catch((err) => {
+		// 				console.error("kill process (shell server) pid:", pid, err)
+		// 			})
+		// 	}, 3000)
+		// })
+	}
 </script>
 
 <svelte:window
@@ -198,6 +237,7 @@
 			</DropdownMenu.Root>
 		{/snippet}
 	</CustomCommandInput>
+	<Button onclick={spawn}>Spawn</Button>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
 		{#if $appConfig.extensionsInstallDir && $devStoreExtsFiltered.length > 0}

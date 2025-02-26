@@ -104,6 +104,7 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 			}
 		},
 		registerProcess: async (windowLabel: string, pid: number) => {
+			console.log("registerProcess", windowLabel, pid)
 			const winExtMap = get(store)
 			await registerExtensionSpawnedProcess(windowLabel, pid)
 			if (!winExtMap[windowLabel]) {
@@ -116,6 +117,7 @@ function createWinExtMapStore(): Writable<WinExtMap> & API {
 			const winExtMap = get(store)
 			const found = Object.entries(winExtMap).find(([windowLabel, ext]) => ext.pids.includes(pid))
 			if (!found) {
+				warn(`Process ${pid} does not have an extension registered, thus will not be killed`)
 				return
 			}
 			const [windowLabel, ext] = found

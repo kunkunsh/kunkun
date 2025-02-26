@@ -133,6 +133,7 @@ export const ShellPermissionSchema = v.union([
 	v.literal("shell:deno:spawn"),
 	v.literal("shell:open"),
 	v.literal("shell:kill"),
+	v.literal("shell:kill-any"),
 	v.literal("shell:all"),
 	v.literal("shell:stdin-write")
 ])
