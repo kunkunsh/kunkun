@@ -15,6 +15,7 @@
 		"demoImages": [],
 		"permissions": [
 			"clipboard:read-text",
+			"clipboard:paste",
 			"notification:all",
 			"dialog:all",
 			"shell:kill",

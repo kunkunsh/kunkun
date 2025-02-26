@@ -1,5 +1,8 @@
 import type { IShellServer } from "tauri-api-adapter"
-import { ClipboardPermissionSchema as _ClipboardPermissionSchema } from "tauri-api-adapter/permissions"
+import {
+	ClipboardPermissionMap as _ClipboardPermissionMap,
+	ClipboardPermissionSchema as _ClipboardPermissionSchema
+} from "tauri-api-adapter/permissions"
 import * as v from "valibot"
 // import type { IEventServer, IFsServer, ISystemServer } from "../ui/server/server-types"
 import type { IEvent, IFs, ISecurity, ISystem } from "../api/client"
@@ -25,11 +28,16 @@ export {
 	UpdownloadPermissionMap
 } from "tauri-api-adapter/permissions"
 
-export const ClipboardPermissionMap = v.union([
-	_ClipboardPermissionSchema,
-	v.literal("clipboard:paste")
-])
-export type ClipboardPermission = v.InferOutput<typeof ClipboardPermissionMap>
+// export const ClipboardPermissionMap = v.union([
+// 	_ClipboardPermissionSchema,
+// 	v.literal("clipboard:paste")
+// ])
+// export type ClipboardPermission = v.InferOutput<typeof ClipboardPermissionMap>
+export const ClipboardPermissionMap = {
+	..._ClipboardPermissionMap,
+	paste: ["clipboard:paste"]
+}
+
 export const SecurityPermissionMap: {
 	mac: Record<keyof ISecurity["mac"], SecurityPermission[]>
 } = {
