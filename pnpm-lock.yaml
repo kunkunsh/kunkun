@@ -335,7 +335,7 @@ importers:
         version: 8.23.0(eslint@9.21.0(jiti@2.4.0))(typescript@5.6.3)
       autoprefixer:
         specifier: ^10.4.20
-        version: 10.4.20(postcss@8.4.49)
+        version: 10.4.20(postcss@8.5.1)
       bits-ui:
         specifier: 1.0.0-next.86
         version: 1.0.0-next.86(svelte@5.16.6)
@@ -768,6 +768,19 @@ importers:
       '@valibot/to-json-schema':
         specifier: 1.0.0-beta.4
         version: 1.0.0-beta.4(valibot@1.0.0-beta.10(typescript@5.7.3))
+
+  packages/script-command:
+    dependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.7.3
+      valibot:
+        specifier: 1.0.0-rc.2
+        version: 1.0.0-rc.2(typescript@5.7.3)
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.2.3
 
   packages/supabase:
     dependencies:
@@ -11386,6 +11399,14 @@ packages:
       typescript:
         optional: true
 
+  valibot@1.0.0-rc.2:
+    resolution: {integrity: sha512-Tnnp7dydpihvoUbJiaxuYfsCAgAFKuFMex7PTaI25XSjRWkU70DmJPlAO1W6sF1/WUx4RNWyM2hdmBSMIUSZFA==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
   validate-npm-package-name@5.0.1:
     resolution: {integrity: sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -18156,6 +18177,16 @@ snapshots:
       postcss: 8.4.49
       postcss-value-parser: 4.2.0
 
+  autoprefixer@10.4.20(postcss@8.5.1):
+    dependencies:
+      browserslist: 4.24.2
+      caniuse-lite: 1.0.30001676
+      fraction.js: 4.3.7
+      normalize-range: 0.1.2
+      picocolors: 1.1.1
+      postcss: 8.5.1
+      postcss-value-parser: 4.2.0
+
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.0.0
@@ -23678,14 +23709,14 @@ snapshots:
   tauri-plugin-network-api@2.0.5(typescript@5.7.2):
     dependencies:
       '@tauri-apps/api': 2.2.0
-      valibot: 1.0.0-beta.11(typescript@5.7.2)
+      valibot: 1.0.0-beta.12(typescript@5.7.2)
     transitivePeerDependencies:
       - typescript
 
   tauri-plugin-network-api@2.0.5(typescript@5.7.3):
     dependencies:
       '@tauri-apps/api': 2.2.0
-      valibot: 1.0.0-beta.11(typescript@5.7.3)
+      valibot: 1.0.0-beta.12(typescript@5.7.3)
     transitivePeerDependencies:
       - typescript
 
@@ -24296,6 +24327,10 @@ snapshots:
   valibot@1.0.0-beta.9(typescript@5.6.3):
     optionalDependencies:
       typescript: 5.6.3
+
+  valibot@1.0.0-rc.2(typescript@5.7.3):
+    optionalDependencies:
+      typescript: 5.7.3
 
   validate-npm-package-name@5.0.1: {}
 

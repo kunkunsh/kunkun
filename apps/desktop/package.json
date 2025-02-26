@@ -19,6 +19,7 @@
 		"@inlang/paraglide-sveltekit": "0.15.5",
 		"@kksh/extension": "workspace:*",
 		"@kksh/supabase": "workspace:*",
+		"@kksh/script-command": "workspace:*",
 		"@kksh/svelte5": "^0.1.15",
 		"@kksh/ui": "workspace:*",
 		"@kksh/utils": "workspace:*",
