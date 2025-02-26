@@ -13,9 +13,6 @@
 		appState,
 		devSearchExtCmds,
 		devStoreExtCmds,
-		devStoreExts,
-		extensions,
-		installedStoreExts,
 		quickLinksFiltered,
 		storeExtCmds,
 		storeSearchExtCmds
@@ -29,13 +26,11 @@
 		BuiltinCmds,
 		CustomCommandInput,
 		ExtCmds,
-		ExtCmdsGroup,
 		GlobalCommandPaletteFooter,
 		QuickLinks,
 		SystemCmds
 	} from "@kksh/ui/main"
 	import { cn } from "@kksh/ui/utils"
-	import { Channel, invoke } from "@tauri-apps/api/core"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
 	import { platform } from "@tauri-apps/plugin-os"
@@ -98,13 +93,16 @@
 		}
 	}}
 />
-<!-- <Inspect name="devStoreExts" value={$devStoreExts} />
+<!-- 
+<Inspect name="devStoreExts" value={$devStoreExts} />
 <Inspect name="extensions" value={$extensions} />
 <Inspect name="installedStoreExts" value={$installedStoreExts} />
 <Inspect name="storeSearchExtCmds" value={$storeSearchExtCmds} />
 <Inspect name="devSearchExtCmds" value={$devSearchExtCmds} />
 <Inspect name="storeExtCmds" value={$storeExtCmds} />
-<Inspect name="devStoreExtCmds" value={$devStoreExtCmds} /> -->
+<Inspect name="devStoreExtCmds" value={$devStoreExtCmds} />
+<Inspect name="$appState.searchTerm" value={$appState.searchTerm} />
+-->
 <Command.Root
 	class={cn("h-screen rounded-lg shadow-md")}
 	bind:value={$appState.highlightedCmd}
@@ -212,7 +210,7 @@
 		{#if $devStoreExtCmds.length > 0}
 			<ExtCmds
 				heading={m.command_group_heading_dev_ext()}
-				extCmds={$devStoreExtCmds}
+				extCmds={$devSearchExtCmds}
 				hmr={$appConfig.hmr}
 				isDev={true}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
@@ -221,7 +219,7 @@
 		{#if $storeExtCmds.length > 0}
 			<ExtCmds
 				heading={m.command_group_heading_ext()}
-				extCmds={$storeExtCmds}
+				extCmds={$storeSearchExtCmds}
 				hmr={false}
 				isDev={false}
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}

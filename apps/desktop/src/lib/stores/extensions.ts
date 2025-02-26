@@ -1,16 +1,9 @@
-import { getExtensionsFolder } from "@/constants"
 import { db } from "@kksh/api/commands"
-import type {
-	CustomUiCmd,
-	ExtPackageJson,
-	ExtPackageJsonExtra,
-	HeadlessCmd,
-	TemplateUiCmd
-} from "@kksh/api/models"
+import type { CustomUiCmd, ExtPackageJsonExtra, HeadlessCmd, TemplateUiCmd } from "@kksh/api/models"
 import * as extAPI from "@kksh/extension"
 import * as path from "@tauri-apps/api/path"
 import Fuse from "fuse.js"
-import { derived, get, writable, type Readable, type Writable } from "svelte/store"
+import { derived, get, writable, type Writable } from "svelte/store"
 import { appConfig } from "./appConfig"
 import { appState } from "./appState"
 
@@ -44,7 +37,6 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	 */
 	function init() {
 		return extAPI.loadAllExtensionsFromDb().then((exts) => {
-			console.log("init", exts)
 			store.set(exts)
 		})
 	}
@@ -267,7 +259,6 @@ export const storeExtCmds = derived(installedStoreExts, ($exts) => {
 			...(ext.kunkun.headlessCmds ?? [])
 		].map((cmd) => ({ ...cmd, ext }))
 	})
-	console.log("update extCmds", cmds)
 	cmdsFuse.setCollection(cmds)
 	return cmds
 })
@@ -279,7 +270,6 @@ export const devStoreExtCmds = derived(devStoreExts, ($exts) => {
 			...(ext.kunkun.headlessCmds ?? [])
 		].map((cmd) => ({ ...cmd, ext }))
 	})
-	console.log("update devExtCmds", cmds)
 	devCmdsFuse.setCollection(cmds)
 	return cmds
 })
@@ -294,23 +284,3 @@ export const devSearchExtCmds = derived([devStoreExtCmds, appState], ([$extCmds,
 		? devCmdsFuse.search($appState.searchTerm).map((result) => result.item)
 		: $extCmds
 })
-
-// export const installedStoreExtsFiltered = derived(
-// 	[appConfig, searchExtCmds],
-// 	([$appConfig, $searchExtCmds]) => {
-// 		const extContainerPath = $appConfig.extensionsInstallDir
-// 		if (!extContainerPath) return []
-// 		return $searchExtCmds
-// 		return $searchExtCmds.filter((ext) => !extAPI.isExtPathInDev(extContainerPath, ext.extPath))
-// 	}
-// )
-
-// export const devStoreExtsFiltered = derived(
-// 	[appConfig, searchExtCmds],
-// 	([$appConfig, $searchExtCmds]) => {
-// 		const extContainerPath = $appConfig.extensionsInstallDir
-// 		if (!extContainerPath) return []
-// 		return $searchExtCmds
-// 		return $searchExtCmds.filter((ext) => extAPI.isExtPathInDev(extContainerPath, ext.extPath))
-// 	}
-// )
