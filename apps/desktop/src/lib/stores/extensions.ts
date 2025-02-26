@@ -1,20 +1,11 @@
-import { getExtensionsFolder } from "@/constants"
 import { db } from "@kksh/api/commands"
-import type { ExtPackageJson, ExtPackageJsonExtra } from "@kksh/api/models"
+import type { CustomUiCmd, ExtPackageJsonExtra, HeadlessCmd, TemplateUiCmd } from "@kksh/api/models"
 import * as extAPI from "@kksh/extension"
-import { commandScore } from "@kksh/ui/utils"
 import * as path from "@tauri-apps/api/path"
-import * as fs from "@tauri-apps/plugin-fs"
 import Fuse from "fuse.js"
-import { derived, get, writable, type Readable, type Writable } from "svelte/store"
+import { derived, get, writable, type Writable } from "svelte/store"
 import { appConfig } from "./appConfig"
 import { appState } from "./appState"
-
-export const fuse = new Fuse<ExtPackageJsonExtra>([], {
-	includeScore: true,
-	threshold: 0.2,
-	keys: ["name"]
-})
 
 function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	init: () => Promise<void>
@@ -47,7 +38,6 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 	function init() {
 		return extAPI.loadAllExtensionsFromDb().then((exts) => {
 			store.set(exts)
-			fuse.setCollection(exts)
 		})
 	}
 
@@ -235,62 +225,62 @@ function createExtensionsStore(): Writable<ExtPackageJsonExtra[]> & {
 }
 
 export const extensions = createExtensionsStore()
+export const installedStoreExts = derived(extensions, ($extensions) => {
+	const extContainerPath = get(appConfig).extensionsInstallDir
+	if (!extContainerPath) return []
+	return $extensions.filter((ext) => !extAPI.isExtPathInDev(extContainerPath, ext.extPath))
+})
+export const devStoreExts = derived(extensions, ($extensions) => {
+	const extContainerPath = get(appConfig).extensionsInstallDir
+	if (!extContainerPath) return []
+	return $extensions.filter((ext) => extAPI.isExtPathInDev(extContainerPath, ext.extPath))
+})
 
-export const installedStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
-	extensions,
-	($extensionsStore) => {
-		const extContainerPath = get(appConfig).extensionsInstallDir
-		if (!extContainerPath) return []
-		return $extensionsStore.filter((ext) => !extAPI.isExtPathInDev(extContainerPath, ext.extPath))
-	}
-)
-export const devStoreExts: Readable<ExtPackageJsonExtra[]> = derived(
-	extensions,
-	($extensionsStore) => {
-		const extContainerPath = get(appConfig).extensionsInstallDir
-		if (!extContainerPath) return []
-		return $extensionsStore.filter((ext) => extAPI.isExtPathInDev(extContainerPath, ext.extPath))
-	}
-)
+export type StoreExtCmd = (CustomUiCmd | TemplateUiCmd | HeadlessCmd) & {
+	ext: ExtPackageJsonExtra
+}
 
-export const installedStoreExtsFiltered = derived(
-	[installedStoreExts, appState],
-	([$installedStoreExts, $appState]) => {
-		return $appState.searchTerm
-			? fuse.search($appState.searchTerm).map((result) => result.item)
-			: $installedStoreExts
-	}
-)
+export const cmdsFuse = new Fuse<StoreExtCmd>([], {
+	includeScore: true,
+	threshold: 0.2,
+	keys: ["name"]
+})
+export const devCmdsFuse = new Fuse<StoreExtCmd>([], {
+	includeScore: true,
+	threshold: 0.2,
+	keys: ["name"]
+})
 
-export const devStoreExtsFiltered = derived(
-	[devStoreExts, appState],
-	([$devStoreExts, $appState]) => {
-		return $appState.searchTerm
-			? fuse.search($appState.searchTerm).map((result) => result.item)
-			: $devStoreExts
-	}
-)
+export const storeExtCmds = derived(installedStoreExts, ($exts) => {
+	const cmds = $exts.flatMap((ext) => {
+		return [
+			...(ext.kunkun.customUiCmds ?? []),
+			...(ext.kunkun.templateUiCmds ?? []),
+			...(ext.kunkun.headlessCmds ?? [])
+		].map((cmd) => ({ ...cmd, ext }))
+	})
+	cmdsFuse.setCollection(cmds)
+	return cmds
+})
+export const devStoreExtCmds = derived(devStoreExts, ($exts) => {
+	const cmds = $exts.flatMap((ext) => {
+		return [
+			...(ext.kunkun.customUiCmds ?? []),
+			...(ext.kunkun.templateUiCmds ?? []),
+			...(ext.kunkun.headlessCmds ?? [])
+		].map((cmd) => ({ ...cmd, ext }))
+	})
+	devCmdsFuse.setCollection(cmds)
+	return cmds
+})
 
-// export const installedStoreExtsFiltered = derived(
-// 	[installedStoreExts, appState],
-// 	([$installedStoreExts, $appState]) => {
-// 		return $installedStoreExts.filter(
-// 			(ext) => commandScore(ext.kunkun.name, $appState.searchTerm) > 0.5
-// 		)
-// 	}
-// )
-
-// export const devStoreExtsFiltered = derived(
-// 	[devStoreExts, appState],
-// 	([$devStoreExts, $appState]) => {
-// 		return $devStoreExts.filter((ext) => {
-// 			console.log(
-// 				"commandScore",
-// 				ext.kunkun.name,
-// 				$appState.searchTerm,
-// 				commandScore(ext.kunkun.name, $appState.searchTerm)
-// 			)
-// 			return commandScore(ext.kunkun.name, $appState.searchTerm) > 0.1
-// 		})
-// 	}
-// )
+export const storeSearchExtCmds = derived([storeExtCmds, appState], ([$extCmds, $appState]) => {
+	return $appState.searchTerm
+		? cmdsFuse.search($appState.searchTerm).map((result) => result.item)
+		: $extCmds
+})
+export const devSearchExtCmds = derived([devStoreExtCmds, appState], ([$extCmds, $appState]) => {
+	return $appState.searchTerm
+		? devCmdsFuse.search($appState.searchTerm).map((result) => result.item)
+		: $extCmds
+})

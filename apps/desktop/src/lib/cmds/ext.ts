@@ -2,6 +2,8 @@ import { i18n } from "@/i18n"
 import { appState } from "@/stores"
 import { winExtMap } from "@/stores/winExtMap"
 import { helperAPI } from "@/utils/helper"
+import { paste } from "@/utils/hotkey"
+import { sleep } from "@/utils/time"
 import { trimSlash } from "@/utils/url"
 import { constructExtensionSupportDir } from "@kksh/api"
 import { db, spawnExtensionFileServer } from "@kksh/api/commands"
@@ -12,6 +14,7 @@ import { launchNewExtWindow, loadExtensionManifestFromDisk } from "@kksh/extensi
 import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import * as path from "@tauri-apps/api/path"
+import { getCurrentWindow } from "@tauri-apps/api/window"
 import * as fs from "@tauri-apps/plugin-fs"
 import { platform } from "@tauri-apps/plugin-os"
 import { goto } from "$app/navigation"
@@ -101,6 +104,11 @@ export async function onHeadlessCmdSelect(
 			getSpawnedProcesses: async () => {
 				console.log("getSpawnedProcesses")
 				return []
+			},
+			paste: async () => {
+				await getCurrentWindow().hide()
+				await sleep(200)
+				return paste()
 			}
 		}
 	)

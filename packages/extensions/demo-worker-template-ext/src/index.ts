@@ -55,6 +55,7 @@ class ExtensionTemplate extends TemplateUiCommand {
 		ui.showLoadingBar(true)
 		setTimeout(() => {
 			ui.showLoadingBar(false)
+			clipboard.paste()
 		}, 2000)
 		const extPath = await path.extensionDir()
 		const cmd = shell.createCommand("deno", ["run", "/Users/hk/Dev/kunkun/deno.ts"])

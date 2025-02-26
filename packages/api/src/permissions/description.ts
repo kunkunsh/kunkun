@@ -17,6 +17,7 @@ export const permissionDescriptions: PermissionDescriptions = {
 	"clipboard:write-image": "Allows writing images to the clipboard",
 	"clipboard:read-files": "Allows reading copied files from the clipboard",
 	"clipboard:write-files": "Allows writing files to the clipboard",
+	"clipboard:paste": "Allows simulating paste operation",
 	"dialog:all": "Allows access to system dialog APIs, e.g. confirm, save, open, etc.",
 	"notification:all": "Allows sending system notifications",
 	"os:all": "Allows access to all operating system information",

@@ -1,6 +1,5 @@
 import { RPCChannel, WorkerChildIO, type DestroyableIoInterface } from "kkrpc/browser"
 import type {
-	IClipboard,
 	IDialog,
 	// IEventInternal,
 	IFetchInternal,
@@ -17,6 +16,7 @@ import type {
 import { constructFetchAPI, constructUpdownloadAPI } from "tauri-api-adapter/client"
 import type {
 	IApp,
+	IClipboard,
 	IDb,
 	IEvent,
 	IFs,

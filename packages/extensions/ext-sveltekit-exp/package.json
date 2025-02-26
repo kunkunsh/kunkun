@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schema.kunkun.sh",
 	"name": "ext-sveltekit-exp",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"license": "MIT",
 	"kunkun": {
 		"name": "TODO: Change Display Name",
@@ -15,6 +15,7 @@
 		"demoImages": [],
 		"permissions": [
 			"clipboard:read-text",
+			"clipboard:paste",
 			"notification:all",
 			"dialog:all",
 			"shell:kill",

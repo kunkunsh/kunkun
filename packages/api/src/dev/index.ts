@@ -46,7 +46,7 @@ export async function refreshTemplateWorkerCommandViaServer() {
 	const ports = await findLocalhostKunkunPorts()
 	console.log("Kunkun ports", ports)
 	if (ports.length === 0) {
-		console.error("Failed to find localhost kunkun ports")
+		console.warn("\x1b[33mFailed to find localhost kunkun ports\x1b[0m")
 		return
 	} else if (ports.length > 1) {
 		console.warn("Found multiple localhost kunkun ports", ports)

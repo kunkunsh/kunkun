@@ -3,13 +3,14 @@
 	import { appState } from "@/stores/appState.js"
 	import { keys } from "@/stores/keys"
 	import { winExtMap } from "@/stores/winExtMap.js"
-	import { WatchEvent } from "@/types/fs.js"
 	import { helperAPI } from "@/utils/helper.js"
+	import { paste } from "@/utils/hotkey"
 	import {
 		emitReloadOneExtension,
 		listenToFileDrop,
 		listenToRefreshDevExt
 	} from "@/utils/tauri-events.js"
+	import { sleep } from "@/utils/time.js"
 	import { isInMainWindow } from "@/utils/window.js"
 	import { db } from "@kksh/api/commands"
 	import {
@@ -241,7 +242,12 @@
 					} satisfies IRecordExtensionProcessEvent)
 					// TODO: record process in a store
 				},
-				getSpawnedProcesses: () => Promise.resolve(extSpawnedProcesses)
+				getSpawnedProcesses: () => Promise.resolve(extSpawnedProcesses),
+				paste: async () => {
+					await appWin.hide()
+					await sleep(200)
+					return paste()
+				}
 			}
 		)
 		const serverAPI2 = {

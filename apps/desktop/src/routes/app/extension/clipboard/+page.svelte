@@ -1,15 +1,13 @@
 <script lang="ts">
-	import { paste } from "@/utils/hotkey"
-	import { goBack, goHome } from "@/utils/route"
-	import { listenToNewClipboardItem } from "@/utils/tauri-events"
-	import { sleep } from "@/utils/time"
+	import { hideAndPaste } from "@/utils/hotkey"
+	import { goHome } from "@/utils/route"
+	import { listenToNewClipboardItem, listenToWindowFocus } from "@/utils/tauri-events"
 	import Icon from "@iconify/svelte"
 	import { ClipboardContentType, db } from "@kksh/api/commands"
 	import { SearchModeEnum, SQLSortOrderEnum, type ExtData } from "@kksh/api/models"
 	import { Button, Command, Resizable } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
-	import { app } from "@tauri-apps/api"
 	import type { UnlistenFn } from "@tauri-apps/api/event"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { platform } from "@tauri-apps/plugin-os"
@@ -20,12 +18,14 @@
 	import ContentPreview from "./content-preview.svelte"
 
 	const _platform = platform()
+	let inputEle = $state<HTMLInputElement | null>(null)
 	const curWin = getCurrentWebviewWindow()
 	let searchTerm = $state("")
 	let clipboardHistoryList = $state<ExtData[]>([])
 	let highlightedItemValue = $state<string>("")
 	let highlighted = $state<ExtData | null>(null)
 	let unlistenClipboard = $state<UnlistenFn | null>(null)
+	let unlistenFocusEvt = $state<UnlistenFn | null>(null)
 	let isScrolling = $state(false)
 	let page = $state(1)
 
@@ -74,10 +74,19 @@
 		}).then((unlisten) => {
 			unlistenClipboard = unlisten
 		})
+
+		listenToWindowFocus(async () => {
+			if (inputEle) {
+				inputEle.focus()
+			}
+		}).then((unlisten) => {
+			unlistenFocusEvt = unlisten
+		})
 	})
 
 	onDestroy(() => {
 		unlistenClipboard?.()
+		unlistenFocusEvt?.()
 	})
 
 	$effect(() => {
@@ -191,11 +200,7 @@
 					return Promise.reject(new Error("No data found"))
 				}
 				return writeToClipboard(data).then(async () => {
-					return app
-						.hide()
-						.then(() => sleep(100))
-						.then(() => curWin.hide())
-						.then(() => paste())
+					return hideAndPaste(curWin)
 				})
 			})
 			.then(() => toast.success("Copied to clipboard"))
@@ -242,6 +247,7 @@
 		autofocus
 		placeholder="Type a command or search..."
 		leftSlot={leftSlot as Snippet}
+		bind:ref={inputEle}
 		bind:value={searchTerm}
 	/>
 	<Resizable.PaneGroup direction="horizontal" class="w-full rounded-lg">
