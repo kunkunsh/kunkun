@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.1.5
+
+### Patch Changes
+
+- Add clipboard.paste() API
+
 ## 0.1.4
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 {
 	"$schema": "./node_modules/@kksh/api/dist/schema.json",
 	"name": "template-ext-nuxt",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"type": "module",
 	"license": "MIT",
 	"kunkun": {

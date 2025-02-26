@@ -1,5 +1,12 @@
 # template-ext-nuxt
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies
+  - @kksh/api@0.1.5
+
 ## 0.0.10
 
 ### Patch Changes
