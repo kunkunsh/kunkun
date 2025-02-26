@@ -3,9 +3,11 @@
 	import { i18n } from "@/i18n"
 	import { appConfig, winExtMap } from "@/stores"
 	import { helperAPI } from "@/utils/helper"
+	import { paste } from "@/utils/hotkey"
 	import { goBackOnEscape } from "@/utils/key"
 	import { goHome } from "@/utils/route"
 	import { positionToCssStyleString, positionToTailwindClasses } from "@/utils/style"
+	import { sleep } from "@/utils/time"
 	import { isInMainWindow } from "@/utils/window"
 	import { db } from "@kksh/api/commands"
 	import { CustomPosition, ThemeColor, type Position } from "@kksh/api/models"
@@ -19,6 +21,11 @@
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
 	import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
+	import {
+		RECORD_EXTENSION_PROCESS_EVENT,
+		type IRecordExtensionProcessEvent
+	} from "@kunkunapi/src/events"
+	import { emitTo } from "@tauri-apps/api/event"
 	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import { goto } from "$app/navigation"
 	import { IframeParentIO, RPCChannel } from "kkrpc/browser"
@@ -28,6 +35,7 @@
 
 	let { data }: { data: PageData } = $props()
 	const { loadedExt, url, extPath, extInfoInDB } = data
+	let extSpawnedProcesses = $state<number[]>([])
 	const appWin = getCurrentWindow()
 	let iframeRef: HTMLIFrameElement
 	let uiControl = $state<{
@@ -107,7 +115,25 @@
 
 	const serverAPI: IKunkunFullServerAPI = constructJarvisServerAPIWithPermissions(
 		loadedExt.kunkun.permissions,
-		loadedExt.extPath
+		loadedExt.extPath,
+		{
+			recordSpawnedProcess: async (pid: number) => {
+				extSpawnedProcesses = [...extSpawnedProcesses, pid]
+				// winExtMap.registerProcess(appWin.label, pid)
+				const curWin = await getCurrentWindow()
+				await emitTo("main", RECORD_EXTENSION_PROCESS_EVENT, {
+					windowLabel: curWin.label,
+					pid
+				} satisfies IRecordExtensionProcessEvent)
+				// TODO: record process in a store
+			},
+			getSpawnedProcesses: () => Promise.resolve(extSpawnedProcesses),
+			paste: async () => {
+				await appWin.hide()
+				await sleep(200)
+				return paste()
+			}
+		}
 	)
 	const serverAPI2 = {
 		...serverAPI,

@@ -1,5 +1,4 @@
 import {
-	constructClipboardApi,
 	constructDialogApi,
 	constructFetchApi,
 	// constructFsApi, // a local constructFsApi is defined
@@ -11,7 +10,7 @@ import {
 	// constructShellApi, // a local custom constructShellApi is defined
 	constructSystemInfoApi,
 	constructUpdownloadApi,
-	type IClipboard,
+	// type IClipboard,
 	type IDialog,
 	type IFetchInternal,
 	type ILogger,
@@ -37,7 +36,6 @@ import {
 	type SystemInfoPermission,
 	type UpdownloadPermission
 } from "tauri-api-adapter/permissions"
-import type { IEvent, IFs, IOpen, ISecurity, ISystem, IToast, IUtils } from "../../api/client"
 import type { IUiCustomServer1 } from "../../api/server-types"
 import {
 	AllKunkunPermission,
@@ -50,6 +48,8 @@ import {
 	type ShellPermissionScoped,
 	type SystemPermission
 } from "../../permissions"
+import type { IClipboard, IEvent, IFs, IOpen, ISecurity, ISystem, IToast, IUtils } from "../client"
+import { constructClipboardApi } from "./clipboard"
 // import type { IDbServer } from "./db"
 import { constructEventApi } from "./event"
 import { constructFsApi } from "./fs"
@@ -130,13 +130,15 @@ export function constructJarvisServerAPIWithPermissions(
 	customFunctions: {
 		recordSpawnedProcess: (pid: number) => Promise<void>
 		getSpawnedProcesses: () => Promise<number[]>
+		paste: (options?: {}) => Promise<void>
 	}
 ): IKunkunFullServerAPI {
 	return {
 		clipboard: constructClipboardApi(
 			getStringPermissions(permissions).filter((p) =>
 				p.startsWith("clipboard:")
-			) as ClipboardPermission[]
+			) as ClipboardPermission[],
+			customFunctions.paste
 		),
 		fetch: constructFetchApi(
 			getStringPermissions(permissions).filter((p) => p.startsWith("fetch:")) as FetchPermission[]

@@ -1,7 +1,6 @@
 // import { windowEndpoint, wrap, type Remote } from "@huakunshen/comlink"
 import { IframeChildIO, RPCChannel, type DestroyableIoInterface } from "kkrpc/browser"
 import type {
-	IClipboard,
 	IDialog,
 	// IEventInternal,
 	IFetchInternal,
@@ -22,6 +21,7 @@ import {
 } from "tauri-api-adapter/client"
 import type {
 	IApp,
+	IClipboard,
 	IDb,
 	IEvent,
 	IFs,
