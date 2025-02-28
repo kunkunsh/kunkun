@@ -51,18 +51,18 @@
 	runtime environment for executing extension code safely. It is optional but recommended.
 </p>
 <p class="font-mono text-sm">Choose any installation method below.</p>
-<p class="font-mono text-sm">
+<!-- <p class="font-mono text-sm">
 	If you are unsure, you can use <strong class="text-lg">Auto Install</strong>.
-</p>
+</p> -->
 <p class="font-mono text-sm text-red-400">
 	After installation, ensure the `deno` command is accessible from your system's PATH.
 </p>
-{#if _platform === "macos" || _platform === "linux"}
+<!-- {#if _platform === "macos" || _platform === "linux"}
 	<p class="font-mono text-sm text-red-400">
 		Installation with <span class="font-bold text-green-500">curl</span> command likely requires manual
 		configuration. So auto install is disabled. Please copy the command and run it in a terminal.
 	</p>
-{/if}
+{/if} -->
 {#if denoPath}
 	<div class="flex items-center gap-2">
 		<span>✅</span>

@@ -113,6 +113,7 @@
 		"build": "bun build.ts"
 	},
 	"dependencies": {
+		"@faker-js/faker": "^9.5.1",
 		"@kksh/api": "workspace:*",
 		"@kunkun/api": "npm:@jsr/kunkun__api@^0.0.13"
 	},

@@ -322,6 +322,8 @@
 		winExtMap.unregisterExtensionFromWindow(appWin.label)
 		extensionLoadingBar = false
 		appState.setActionPanel(undefined)
+		appState.setDefaultAction(null)
+		appState.setActionPanel(undefined)
 	})
 
 	$effect(() => {
