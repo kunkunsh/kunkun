@@ -7,16 +7,24 @@
 	import * as os from "@tauri-apps/plugin-os"
 	import { toast } from "svelte-sonner"
 	import { executeBashScript, open } from "tauri-plugin-shellx-api"
+	import { getCurrentWindow} from "@tauri-apps/api/window"
 
 	const platform = os.platform()
 	let { apps }: { apps: AppInfo[] } = $props()
+
+	// remove extra "%u"/"%U"/"%F" from the command
+    function cleanAppPath(path: string): string {
+		let command = path.replace(/%\w+/g, '').trim()
+		command = command.replace(/\s+/g, ' ')
+		return command
+    }
 </script>
 
 <DraggableCommandGroup heading="Apps">
 	{#each apps.filter((app) => app.name) as app}
 		<Command.Item
 			class="flex justify-between"
-			onSelect={() => {
+			onSelect={async () => {
 				if (platform === "windows") {
 					if (app.app_path_exe) {
 						open(app.app_path_exe)
@@ -27,13 +35,14 @@
 					open(app.app_desktop_path)
 				} else if (platform === "linux") {
 					if (app.app_path_exe) {
-						executeBashScript(app.app_path_exe)
+						executeBashScript(cleanAppPath(app.app_path_exe))
 					} else {
 						toast.error("No executable path found for this app")
 					}
 				} else {
 					toast.error("Unsupported platform")
 				}
+				await getCurrentWindow().hide()
 			}}
 			value={app.app_desktop_path}
 		>
