@@ -74,11 +74,14 @@
 		"@shikijs/langs": "^2.3.2",
 		"@shikijs/themes": "^2.3.2",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
+		"@tanstack/svelte-virtual": "^3.13.2",
 		"dompurify": "^3.2.3",
+		"fuse.js": "^7.1.0",
 		"gsap": "^3.12.7",
 		"moment": "^2.30.1",
 		"pretty-bytes": "^6.1.1",
 		"shiki-magic-move": "^0.5.2",
+		"svelte-inspect-value": "^0.2.2",
 		"svelte-markdown": "^0.4.1",
 		"valibot": "1.0.0-beta.12"
 	}

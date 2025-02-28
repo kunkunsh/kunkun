@@ -1,3 +1,4 @@
+import { faker } from "@faker-js/faker"
 import {
 	Action,
 	app,
@@ -22,6 +23,40 @@ import {
 	ui
 } from "@kksh/api/ui/template"
 import { IconType } from "@kunkun/api/models"
+
+function generateId() {
+	return Math.random().toString(36).substring(2, 15)
+}
+
+type Item = {
+	id: string
+	name: string
+	description: string
+}
+
+type Section = {
+	name: string
+	items: Item[]
+	sectionRef: HTMLDivElement | null
+	sectionHeight: number
+}
+
+function getItems(n: number = 10): Item[] {
+	return Array.from({ length: n }, () => ({
+		id: generateId(),
+		name: faker.person.fullName(),
+		description: faker.lorem.sentence()
+	}))
+}
+
+function getSections(n: number = 10): Section[] {
+	return Array.from({ length: n }, () => ({
+		name: faker.lorem.word(),
+		items: getItems(3),
+		sectionRef: null,
+		sectionHeight: 0
+	}))
+}
 
 const nums = Array.from({ length: 20 }, (_, i) => i + 1)
 const categories = ["Suggestion", "Advice", "Idea"]
@@ -52,6 +87,36 @@ class ExtensionTemplate extends TemplateUiCommand {
 
 	async load() {
 		ui.setSearchBarPlaceholder("Search for items")
+		const sections = getSections(2)
+		const items = getItems(5)
+		return ui.render(
+			new List.List({
+				items: items.map(
+					(item) =>
+						new List.Item({
+							title: item.name,
+							value: item.id
+							// icon: new Icon({
+							// 	type: IconType.enum.Iconify,
+							// 	value: "mingcute:appstore-fill"
+							// })
+						})
+				),
+				sections: sections.map(
+					(section) =>
+						new List.Section({
+							title: section.name,
+							items: section.items.map(
+								(item) =>
+									new List.Item({
+										title: item.name,
+										value: item.id
+									})
+							)
+						})
+				)
+			})
+		)
 		ui.showLoadingBar(true)
 		setTimeout(() => {
 			ui.showLoadingBar(false)
