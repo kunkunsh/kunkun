@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core"
-import { AppInfo } from "../models"
+import { AppInfo, SearchPath } from "../models"
 import { generateJarvisPluginCommand } from "./common"
 
 export function getAllApps(): Promise<AppInfo[]> {
@@ -12,6 +12,10 @@ export function refreshApplicationsList(): Promise<void> {
 
 export function refreshApplicationsListInBg(): Promise<void> {
 	return invoke(generateJarvisPluginCommand("refresh_applications_list_in_bg"))
+}
+
+export function setExtraAppSearchPaths(paths: SearchPath[]): Promise<void> {
+	return invoke(generateJarvisPluginCommand("set_extra_app_search_paths"), { paths })
 }
 
 // export function convertAppToTListItem(app: AppInfo): TListItem {
