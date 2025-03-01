@@ -1,4 +1,5 @@
 <script lang="ts">
+	import * as m from "@/paraglide/messages"
 	import { appsLoader } from "@/stores"
 	import { SearchPath } from "@kksh/api/models"
 	import { Button, Input, Table } from "@kksh/svelte5"
@@ -48,7 +49,7 @@
 </script>
 
 <main class="container flex flex-col space-y-2">
-	<h1 class="text-2xl font-bold">Extra App Search Paths</h1>
+	<h1 class="text-2xl font-bold">{m.settings_app_search_paths_title()}</h1>
 	{#if $appConfig.developerMode}
 		<Inspect name="Extra App Search Paths" value={$appConfig.appSearchPaths} />
 	{/if}
@@ -56,9 +57,9 @@
 		<Form.Field {form} name="path">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label>Path</Form.Label>
+					<Form.Label>{m.settings_app_search_paths_table_col_search_path()}</Form.Label>
 					<div class="flex items-center gap-1">
-						<Input {...props} disabled bind:value={$formData.path} placeholder="Search Path" />
+						<Input {...props} disabled bind:value={$formData.path} placeholder={m.settings_app_search_paths_table_col_search_path()} />
 						<Form.Button class="my-1" onclick={pickSearchPath}>Pick</Form.Button>
 					</div>
 				{/snippet}
@@ -68,13 +69,15 @@
 		<Form.Field {form} name="depth">
 			<Form.Control>
 				{#snippet children({ props })}
-					<Form.Label>Search Depth</Form.Label>
-					<Input {...props} type="number" bind:value={$formData.depth} placeholder="Depth" />
+					<Form.Label>{m.settings_app_search_paths_table_col_depth()}</Form.Label>
+					<Input {...props} type="number" bind:value={$formData.depth} placeholder={m.settings_app_search_paths_table_col_depth()} />
 				{/snippet}
 			</Form.Control>
 			<Form.FieldErrors />
 		</Form.Field>
-		<Button class="w-full" type="submit">Add App Search Path</Button>
+		<Button class="w-full" type="submit">
+			{m.settings_app_search_paths_add_app_search_path()}
+		</Button>
 	</form>
 
 	{#if $appConfig.developerMode}
@@ -82,12 +85,15 @@
 	{/if}
 
 	<Table.Root>
-		<Table.Caption>Your App Search Paths</Table.Caption>
 		<Table.Header>
 			<Table.Row>
-				<Table.Head>Search Path</Table.Head>
-				<Table.Head class="text-center">Depth</Table.Head>
-				<Table.Head class="text-center">Actions</Table.Head>
+				<Table.Head>{m.settings_app_search_paths_table_col_search_path()}</Table.Head>
+				<Table.Head class="text-center">
+					{m.settings_app_search_paths_table_col_depth()}
+				</Table.Head>
+				<Table.Head class="text-center">
+					{m.settings_app_search_paths_table_col_actions()}
+				</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>

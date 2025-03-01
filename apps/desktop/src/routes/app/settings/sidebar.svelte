@@ -19,7 +19,7 @@
 			icon: Cog
 		},
 		{
-			title: "App Search Paths",
+			title: m.settings_menu_app_search_paths(),
 			url: i18n.resolveRoute("/app/settings/app-search-paths"),
 			icon: FolderSearch
 		},
