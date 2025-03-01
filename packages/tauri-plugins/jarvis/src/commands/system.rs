@@ -130,7 +130,7 @@ pub async fn unmute() -> Result<(), String> {
 
 #[tauri::command]
 pub async fn get_frontmost_app() -> Result<applications::App, String> {
-    let ctx = applications::AppInfoContext::new();
+    let ctx = applications::AppInfoContext::new(vec![]);
     ctx.get_frontmost_application()
         .map_err(|err| err.to_string())
 }

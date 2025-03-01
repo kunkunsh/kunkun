@@ -267,8 +267,8 @@ importers:
         specifier: ^7.6.3
         version: 7.6.3
       svelte-inspect-value:
-        specifier: ^0.2.2
-        version: 0.2.2(svelte@5.16.6)
+        specifier: ^0.3.0
+        version: 0.3.0(svelte@5.16.6)
       svelte-sonner:
         specifier: ^0.3.28
         version: 0.3.28(svelte@5.16.6)
@@ -335,7 +335,7 @@ importers:
         version: 8.23.0(eslint@9.21.0(jiti@2.4.0))(typescript@5.6.3)
       autoprefixer:
         specifier: ^10.4.20
-        version: 10.4.20(postcss@8.5.1)
+        version: 10.4.20(postcss@8.4.49)
       bits-ui:
         specifier: 1.0.0-next.86
         version: 1.0.0-next.86(svelte@5.16.6)
@@ -1241,8 +1241,8 @@ importers:
         specifier: ^5.0.0
         version: 5.16.6
       svelte-inspect-value:
-        specifier: ^0.2.2
-        version: 0.2.2(svelte@5.16.6)
+        specifier: ^0.3.0
+        version: 0.3.0(svelte@5.16.6)
       svelte-markdown:
         specifier: ^0.4.1
         version: 0.4.1(svelte@5.16.6)
@@ -10707,8 +10707,8 @@ packages:
       svelte:
         optional: true
 
-  svelte-inspect-value@0.2.2:
-    resolution: {integrity: sha512-Ly4QcIDoPo2O81CdIhx600bBaQdla65VXvXEMA9So947In8773Ey56k6A1WTsZiljAabxZFChBRqOt9nOYczuA==}
+  svelte-inspect-value@0.3.0:
+    resolution: {integrity: sha512-nHv+7+FRePs86sgL2I8jlbSrs8/uJmHJ2uxnMk9tVipWdZYYcmGhsmU+7U8lm/1RAZFS63/xSKdceMDyE09y0A==}
     peerDependencies:
       svelte: ^5.19.0
 
@@ -18189,16 +18189,6 @@ snapshots:
       postcss: 8.4.49
       postcss-value-parser: 4.2.0
 
-  autoprefixer@10.4.20(postcss@8.5.1):
-    dependencies:
-      browserslist: 4.24.2
-      caniuse-lite: 1.0.30001676
-      fraction.js: 4.3.7
-      normalize-range: 0.1.2
-      picocolors: 1.1.1
-      postcss: 8.5.1
-      postcss-value-parser: 4.2.0
-
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.0.0
@@ -23343,7 +23333,7 @@ snapshots:
     optionalDependencies:
       svelte: 5.16.6
 
-  svelte-inspect-value@0.2.2(svelte@5.16.6):
+  svelte-inspect-value@0.3.0(svelte@5.16.6):
     dependencies:
       esm-env: 1.2.2
       fast-deep-equal: 3.1.3

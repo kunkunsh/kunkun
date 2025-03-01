@@ -37,7 +37,7 @@
 		"lz-string": "^1.5.0",
 		"pretty-bytes": "^6.1.1",
 		"semver": "^7.6.3",
-		"svelte-inspect-value": "^0.2.2",
+		"svelte-inspect-value": "^0.3.0",
 		"svelte-sonner": "^0.3.28",
 		"sveltekit-superforms": "^2.22.1",
 		"tauri-plugin-clipboard-api": "^2.1.11",

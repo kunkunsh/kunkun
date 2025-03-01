@@ -4,7 +4,7 @@
 	import { goHome } from "@/utils/route"
 	import { Button, Sidebar } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
-	import { ArrowLeftIcon } from "lucide-svelte"
+	import { ArrowLeftIcon, FolderSearch } from "lucide-svelte"
 	import Blocks from "lucide-svelte/icons/blocks"
 	import Cog from "lucide-svelte/icons/cog"
 	import FileCode2 from "lucide-svelte/icons/file-code-2"
@@ -19,10 +19,15 @@
 			icon: Cog
 		},
 		{
-			title: m.settings_menu_developer(),
-			url: i18n.resolveRoute("/app/settings/developer"),
-			icon: SquareTerminal
+			title: "App Search Paths",
+			url: i18n.resolveRoute("/app/settings/app-search-paths"),
+			icon: FolderSearch
 		},
+		// {
+		// 	title: m.settings_menu_developer(),
+		// 	url: i18n.resolveRoute("/app/settings/developer"),
+		// 	icon: SquareTerminal
+		// },
 		{
 			title: m.settings_menu_extensions(),
 			url: i18n.resolveRoute("/app/settings/extensions"),

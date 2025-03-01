@@ -1,5 +1,6 @@
 import { getExtensionsFolder } from "@/constants"
 import { createTauriSyncStore, type WithSyncStore } from "@/utils/sync-store"
+import type { SearchPath } from "@kksh/api/models"
 import { updateTheme, type ThemeConfig } from "@kksh/svelte5"
 import { PersistedAppConfig, type AppConfig } from "@kksh/types"
 import { debug, error } from "@tauri-apps/plugin-log"
@@ -27,7 +28,8 @@ export const defaultAppConfig: AppConfig = {
 	extensionAutoUpgrade: true,
 	joinBetaProgram: false,
 	onBoarded: false,
-	developerMode: false
+	developerMode: false,
+	appSearchPaths: []
 }
 
 export const appConfigLoaded = writable(false)
@@ -40,6 +42,8 @@ interface AppConfigAPI {
 	setTriggerHotkey: (triggerHotkey: string[]) => void
 	setOnBoarded: (onBoarded: boolean) => void
 	setLanguage: (language: string) => void
+	addAppSearchPath: (appSearchPath: SearchPath) => void
+	removeAppSearchPath: (appSearchPath: SearchPath) => void
 }
 
 function createAppConfig(): WithSyncStore<AppConfig & { language: string }> & AppConfigAPI {
@@ -93,6 +97,18 @@ function createAppConfig(): WithSyncStore<AppConfig & { language: string }> & Ap
 		},
 		setLanguage: (language: string) => {
 			store.update((config) => ({ ...config, language }))
+		},
+		addAppSearchPath: (appSearchPath: SearchPath) => {
+			store.update((config) => ({
+				...config,
+				appSearchPaths: [...config.appSearchPaths, appSearchPath]
+			}))
+		},
+		removeAppSearchPath: (appSearchPath: SearchPath) => {
+			store.update((config) => ({
+				...config,
+				appSearchPaths: config.appSearchPaths.filter((path) => path.path !== appSearchPath.path)
+			}))
 		},
 		init
 	}
