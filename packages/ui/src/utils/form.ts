@@ -14,8 +14,11 @@ function addDefaultToSchema(
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function buildFormSchema(form: FormSchema.Form): v.ObjectSchema<any, undefined> {
+	if (!form) return v.object({})
 	let schema = v.object({})
+	console.log("begin buildFormSchema", form)
 	for (const field of form.fields) {
+		console.log("field", field)
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let fieldSchema: any = undefined
 		if (field.nodeName === FormNodeNameEnum.Input) {

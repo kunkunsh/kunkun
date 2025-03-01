@@ -8,6 +8,7 @@
 
 	let {
 		heading,
+		filterMode,
 		items,
 		parentRef,
 		searchTerm,
@@ -17,6 +18,7 @@
 		onListItemSelected
 	}: {
 		heading: string
+		filterMode: "none" | "default"
 		items: ListSchema.Item[]
 		sectionHeight: number
 		searchTerm: string
@@ -45,7 +47,11 @@
 
 	let resultingItems = $derived(
 		// when search term changes, update the resulting items
-		searchTerm.length > 0 ? fuse.search(searchTerm).map((item) => item.item) : items
+		filterMode === "none"
+			? searchTerm.length > 0
+				? fuse.search(searchTerm).map((item) => item.item)
+				: items
+			: items
 	)
 
 	$effect(() => {

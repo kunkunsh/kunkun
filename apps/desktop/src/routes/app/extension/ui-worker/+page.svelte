@@ -28,7 +28,7 @@
 		type IComponent,
 		type TemplateUiCommand
 	} from "@kksh/api/ui/template"
-	import { Button } from "@kksh/svelte5"
+	import { Button, Form } from "@kksh/svelte5"
 	import { LoadingBar } from "@kksh/ui"
 	import { Templates } from "@kksh/ui/extension"
 	import { GlobalCommandPaletteFooter } from "@kksh/ui/main"
@@ -48,8 +48,10 @@
 	import { goto } from "$app/navigation"
 	import { RPCChannel, WorkerParentIO } from "kkrpc/browser"
 	import { onDestroy, onMount, tick } from "svelte"
+	import Inspect from "svelte-inspect-value"
 	import { type CommandEvent } from "tauri-plugin-shellx-api"
 	import * as v from "valibot"
+	import Listview2 from "./listview2.svelte"
 
 	const { data } = $props()
 	let listviewInputRef = $state<HTMLInputElement | null>(null)
@@ -59,9 +61,9 @@
 	let unlistenRefreshWorkerExt: UnlistenFn | undefined
 	let unlistenFileDrop: UnlistenFn | undefined
 	let worker: Worker | undefined
-	let listViewContent = $state<ListSchema.List>()
-	let formViewContent = $state<FormSchema.Form>()
-	let markdownViewContent = $state<MarkdownSchema>()
+	let listViewContent = $state<ListSchema.List | null>(null)
+	let formViewContent = $state<FormSchema.Form | null>(null)
+	let markdownViewContent = $state<MarkdownSchema | null>(null)
 	let extensionLoadingBar = $state(false) // whether extension called showLoadingBar
 	let pbar = $state<number | null>(null)
 	let loading = $state(false)
@@ -74,7 +76,7 @@
 	let listview: Templates.ListView | undefined = $state(undefined)
 	const _platform = platform()
 	let unlistenPkgJsonWatch: UnlistenFn | undefined
-
+	let curViewNodeName = $state<NodeNameEnum | FormNodeNameEnum | null>(null)
 	async function goBack() {
 		if (isInMainWindow()) {
 			goto(i18n.resolveRoute("/app/"))
@@ -83,23 +85,28 @@
 		}
 	}
 
-	function clearViewContent(keep?: "list" | "form" | "markdown") {
+	async function clearViewContent(keep?: "list" | "form" | "markdown") {
 		if (keep !== "list") {
-			listViewContent = undefined
+			listViewContent = null
 		}
 		if (keep !== "form") {
-			formViewContent = undefined
+			formViewContent = null
 		}
 		if (keep !== "markdown") {
-			markdownViewContent = undefined
+			markdownViewContent = null
 		}
+		await tick()
+		// await sleep(3000)
 	}
 
 	const extUiAPI: IUiTemplate = {
-		async render(view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) {
-			if (view.nodeName === NodeNameEnum.List) {
-				clearViewContent("list")
-				const parsedListViewRes = v.safeParse(ListSchema.List, view)
+		async render(_view: IComponent<ListSchema.List | FormSchema.Form | MarkdownSchema>) {
+			// console.log("render nodeName", _view.nodeName)
+			// console.log("render", _view)
+			curViewNodeName = _view.nodeName
+			if (_view.nodeName === NodeNameEnum.List) {
+				await clearViewContent("list")
+				const parsedListViewRes = v.safeParse(ListSchema.List, _view)
 				if (!parsedListViewRes.success) {
 					toast.error("Invalid List View", {
 						description: "See console for details"
@@ -179,20 +186,22 @@
 				// } else {
 				// 	listViewContent = parsedListView
 				// }
-			} else if (view.nodeName === FormNodeNameEnum.Form) {
-				listViewContent = undefined
-				clearViewContent("form")
-				const parsedForm = v.parse(FormSchema.Form, view)
+			} else if (_view.nodeName === FormNodeNameEnum.Form) {
+				listViewContent = null
+				// await clearViewContent("form")
+				// await tick()
+				const parsedForm = v.parse(FormSchema.Form, _view)
 				formViewContent = parsedForm
 				// TODO: convert form to zod schema
 				// const zodSchema = convertFormToZod(parsedForm)
 				// formViewZodSchema = zodSchema
 				// formFieldConfig = buildFieldConfig(parsedForm)
-			} else if (view.nodeName === NodeNameEnum.Markdown) {
-				clearViewContent("markdown")
-				markdownViewContent = v.parse(MarkdownSchema, view)
+			} else if (_view.nodeName === NodeNameEnum.Markdown) {
+				await clearViewContent("markdown")
+				await tick()
+				markdownViewContent = v.parse(MarkdownSchema, _view)
 			} else {
-				toast.error(`Unsupported view type: ${view.nodeName}`)
+				toast.error(`Unsupported view type: ${_view.nodeName}`)
 			}
 		},
 		async showLoadingBar(loading: boolean) {
@@ -363,7 +372,8 @@
 {#if loadingBar}
 	<LoadingBar class="fixed left-0 top-0 w-full" color="white" />
 {/if}
-{#if loaded && listViewContent !== undefined}
+
+{#if curViewNodeName === NodeNameEnum.List && listViewContent}
 	<Templates.ListView
 		bind:inputRef={listviewInputRef}
 		bind:searchTerm
@@ -385,26 +395,18 @@
 		onSearchTermChange={(searchTerm: string) => {
 			workerAPI?.onSearchTermChange(searchTerm)
 		}}
-		onHighlightedItemChanged={(value: string) => {
-			// workerAPI?.onHighlightedListItemChanged(value)
-			// if (listViewContent?.defaultAction) {
-			// 	appState.setDefaultAction(listViewContent.defaultAction)
-			// }
-			// if (listViewContent?.actions) {
-			// 	appState.setActionPanel(listViewContent.actions)
-			// }
-			try {
-				const parsedItem = v.parse(ListSchema.Item, JSON.parse(value))
-				if (parsedItem.defaultAction) {
-					appState.setDefaultAction(parsedItem.defaultAction)
-				}
-				if (parsedItem.actions) {
-					appState.setActionPanel(parsedItem.actions)
-				}
-				workerAPI?.onHighlightedListItemChanged(parsedItem.value)
-			} catch (error) {
-				console.error(error)
+		onHighlightedItemChanged={(item: ListSchema.Item) => {
+			if (item.defaultAction) {
+				appState.setDefaultAction(item.defaultAction)
+			} else if (listViewContent?.defaultAction) {
+				appState.setDefaultAction(listViewContent.defaultAction)
 			}
+			if (item.actions) {
+				appState.setActionPanel(item.actions)
+			} else if (listViewContent?.actions) {
+				appState.setActionPanel(listViewContent.actions)
+			}
+			workerAPI?.onHighlightedListItemChanged(item.value)
 		}}
 	>
 		{#snippet footer()}
@@ -422,7 +424,8 @@
 			/>
 		{/snippet}
 	</Templates.ListView>
-{:else if loaded && formViewContent !== undefined}
+{/if}
+{#if curViewNodeName === FormNodeNameEnum.Form && formViewContent}
 	<Templates.FormView
 		{formViewContent}
 		{pbar}
@@ -432,6 +435,7 @@
 			workerAPI?.onFormSubmit(formData)
 		}}
 	/>
-{:else if loaded && markdownViewContent !== undefined}
+{/if}
+{#if curViewNodeName === NodeNameEnum.Markdown && markdownViewContent}
 	<Templates.MarkdownView {markdownViewContent} onGoBack={goBack} />
 {/if}

@@ -37,6 +37,7 @@
 			onUpdate({ form, cancel }) {
 				if (!form.valid) return
 				cancel()
+				console.log("form data valid; formData", $formData)
 				const parsedData = v.parse(formSchema, $formData)
 				onSubmit?.(parsedData)
 			}

@@ -42,7 +42,7 @@
 		onEnterKeyPressed?: () => void
 		onListItemSelected?: (value: string) => void
 		onSearchTermChange?: (searchTerm: string) => void
-		onHighlightedItemChanged?: (value: string) => void
+		onHighlightedItemChanged?: (item: ListSchema.Item) => void
 		footer: Snippet
 		loading: boolean
 		listViewContent: ListSchema.List
@@ -54,7 +54,8 @@
 	// let detailWidth = $derived()
 	let prevDetailWidth = $state(0)
 
-	const detailWidth = $derived(listViewContent.detail ? (listViewContent.detail?.width ?? 70) : 0)
+	// let detailWidth = 0
+	let detailWidth = $derived(listViewContent?.detail ? (listViewContent.detail?.width ?? 70) : 0)
 
 	export function inputFocus() {
 		inputRef?.focus()
@@ -65,9 +66,22 @@
 	}
 
 	$effect(() => {
-		if (highlightedValue.startsWith("{")) {
-			onHighlightedItemChanged?.(highlightedValue)
+		// find the item whose value is equal to highlightedValue, also search sections
+		const item = listViewContent.items?.find((item) => item.value === highlightedValue)
+		if (item) {
+			onHighlightedItemChanged?.(item)
+			return
 		}
+		for (const section of listViewContent.sections ?? []) {
+			const item = section.items?.find((item) => item.value === highlightedValue)
+			if (item) {
+				onHighlightedItemChanged?.(item)
+				return
+			}
+		}
+		// if (highlightedValue.startsWith("{")) {
+		// 	onHighlightedItemChanged?.(highlightedValue)
+		// }
 	})
 
 	$effect(() => {
@@ -129,7 +143,11 @@
 	})
 	let resultingItems = $derived<ListSchema.Item[]>(
 		// when search term changes, update the resulting items
-		searchTerm.length > 0 ? itemsFuse.search(searchTerm).map((item) => item.item) : srcItems
+		listViewContent.filter === "none"
+			? searchTerm.length > 0
+				? itemsFuse.search(searchTerm).map((item) => item.item)
+				: srcItems
+			: (listViewContent.items ?? [])
 	)
 	// section total height is auto derived from section refs
 	let sectionTotalHeight = $derived(srcSections.reduce((acc, s) => acc + (s.sectionHeight ?? 0), 0))
@@ -205,6 +223,7 @@
 				>
 					{#each srcSections as section, i}
 						<VirtualCommandGroup
+							filterMode={listViewContent.filter}
 							heading={section.title ?? ""}
 							items={section.items}
 							parentRef={virtualListEl}

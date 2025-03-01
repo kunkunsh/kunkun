@@ -21,7 +21,8 @@
 	import { isKeyboardEventFromInputElement } from "@/utils/dom"
 	import Icon from "@iconify/svelte"
 	import { toggleDevTools } from "@kksh/api/commands"
-	import { Button, Command, DropdownMenu } from "@kksh/svelte5"
+	import { Button, DropdownMenu } from "@kksh/svelte5"
+	import { Command } from "@kksh/ui"
 	import {
 		BuiltinCmds,
 		CustomCommandInput,
