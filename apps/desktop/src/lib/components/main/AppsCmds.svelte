@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { appState } from "@/stores"
 	import { IconEnum, type AppInfo } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
@@ -11,13 +12,6 @@
 
 	const platform = os.platform()
 	let { apps }: { apps: AppInfo[] } = $props()
-
-	// remove extra "%u"/"%U"/"%F" from the command
-	function cleanAppPath(path: string): string {
-		let command = path.replace(/%\w+/g, "").trim()
-		command = command.replace(/\s+/g, " ")
-		return command
-	}
 </script>
 
 <DraggableCommandGroup heading="Apps">
@@ -35,7 +29,7 @@
 					open(app.app_desktop_path)
 				} else if (platform === "linux") {
 					if (app.app_path_exe) {
-						executeBashScript(cleanAppPath(app.app_path_exe))
+						executeBashScript(app.app_path_exe)
 					} else {
 						toast.error("No executable path found for this app")
 					}
@@ -43,6 +37,7 @@
 					toast.error("Unsupported platform")
 				}
 				await getCurrentWindow().hide()
+				appState.clearSearchTerm()
 			}}
 			value={app.app_desktop_path}
 		>
