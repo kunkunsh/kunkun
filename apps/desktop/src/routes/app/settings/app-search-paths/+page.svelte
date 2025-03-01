@@ -59,7 +59,12 @@
 				{#snippet children({ props })}
 					<Form.Label>{m.settings_app_search_paths_table_col_search_path()}</Form.Label>
 					<div class="flex items-center gap-1">
-						<Input {...props} disabled bind:value={$formData.path} placeholder={m.settings_app_search_paths_table_col_search_path()} />
+						<Input
+							{...props}
+							disabled
+							bind:value={$formData.path}
+							placeholder={m.settings_app_search_paths_table_col_search_path()}
+						/>
 						<Form.Button class="my-1" onclick={pickSearchPath}>Pick</Form.Button>
 					</div>
 				{/snippet}
@@ -70,7 +75,12 @@
 			<Form.Control>
 				{#snippet children({ props })}
 					<Form.Label>{m.settings_app_search_paths_table_col_depth()}</Form.Label>
-					<Input {...props} type="number" bind:value={$formData.depth} placeholder={m.settings_app_search_paths_table_col_depth()} />
+					<Input
+						{...props}
+						type="number"
+						bind:value={$formData.depth}
+						placeholder={m.settings_app_search_paths_table_col_depth()}
+					/>
 				{/snippet}
 			</Form.Control>
 			<Form.FieldErrors />
