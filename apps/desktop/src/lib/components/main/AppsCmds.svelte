@@ -4,20 +4,20 @@
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "@kksh/ui/custom"
 	import { convertFileSrc } from "@tauri-apps/api/core"
+	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import * as os from "@tauri-apps/plugin-os"
 	import { toast } from "svelte-sonner"
 	import { executeBashScript, open } from "tauri-plugin-shellx-api"
-	import { getCurrentWindow} from "@tauri-apps/api/window"
 
 	const platform = os.platform()
 	let { apps }: { apps: AppInfo[] } = $props()
 
 	// remove extra "%u"/"%U"/"%F" from the command
-    function cleanAppPath(path: string): string {
-		let command = path.replace(/%\w+/g, '').trim()
-		command = command.replace(/\s+/g, ' ')
+	function cleanAppPath(path: string): string {
+		let command = path.replace(/%\w+/g, "").trim()
+		command = command.replace(/\s+/g, " ")
 		return command
-    }
+	}
 </script>
 
 <DraggableCommandGroup heading="Apps">
