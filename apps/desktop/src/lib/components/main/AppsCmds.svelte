@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { appState } from "@/stores"
 	import { IconEnum, type AppInfo } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "@kksh/ui/custom"
 	import { convertFileSrc } from "@tauri-apps/api/core"
+	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import * as os from "@tauri-apps/plugin-os"
 	import { toast } from "svelte-sonner"
 	import { executeBashScript, open } from "tauri-plugin-shellx-api"
@@ -16,7 +18,7 @@
 	{#each apps.filter((app) => app.name) as app}
 		<Command.Item
 			class="flex justify-between"
-			onSelect={() => {
+			onSelect={async () => {
 				if (platform === "windows") {
 					if (app.app_path_exe) {
 						open(app.app_path_exe)
@@ -34,6 +36,8 @@
 				} else {
 					toast.error("Unsupported platform")
 				}
+				await getCurrentWindow().hide()
+				appState.clearSearchTerm()
 			}}
 			value={app.app_desktop_path}
 		>
