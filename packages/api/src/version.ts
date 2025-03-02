@@ -21,7 +21,7 @@ export const breakingChangesVersionCheckpoints = [
 const checkpointVersions = breakingChangesVersionCheckpoints.map((c) => c.version)
 const sortedCheckpointVersions = sort(checkpointVersions)
 
-export const version = "0.1.3"
+export const version = "0.1.5"
 
 export function isVersionBetween(v: string, start: string, end: string) {
 	const vCleaned = clean(v)

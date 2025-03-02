@@ -10,5 +10,10 @@
     "titleBar.activeForeground": "#FFFBFC"
   },
   "svelte.enable-ts-plugin": true,
-  "deno.enable": false
+  "deno.enable": false,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true
+  }
 }
