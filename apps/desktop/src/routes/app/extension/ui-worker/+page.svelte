@@ -51,7 +51,6 @@
 	import Inspect from "svelte-inspect-value"
 	import { type CommandEvent } from "tauri-plugin-shellx-api"
 	import * as v from "valibot"
-	import Listview2 from "./listview2.svelte"
 
 	const { data } = $props()
 	let listviewInputRef = $state<HTMLInputElement | null>(null)

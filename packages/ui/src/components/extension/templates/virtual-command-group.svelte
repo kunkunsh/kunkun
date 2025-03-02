@@ -48,10 +48,10 @@
 	let resultingItems = $derived(
 		// when search term changes, update the resulting items
 		filterMode === "none"
-			? searchTerm.length > 0
+			? items
+			: searchTerm.length > 0
 				? fuse.search(searchTerm).map((item) => item.item)
 				: items
-			: items
 	)
 
 	$effect(() => {
