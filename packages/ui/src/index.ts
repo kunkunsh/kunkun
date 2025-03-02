@@ -12,4 +12,3 @@ export { default as ViewTransition } from "./components/transition/view-transiti
 export * as Constants from "./constants"
 export * as Form from "./components/ui/form"
 export { default as ModeToggle } from "./components/theme/mode-toggle.svelte"
-export * as Command from './components/ui/command'
