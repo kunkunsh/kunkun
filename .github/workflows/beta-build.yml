@@ -205,6 +205,8 @@ jobs:
         run: pnpm prepare
 
       - name: Build Packages
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
         run: pnpm build
 
       - name: Build the App
