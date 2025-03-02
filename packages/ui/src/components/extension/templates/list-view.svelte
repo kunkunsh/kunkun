@@ -144,10 +144,10 @@
 	let resultingItems = $derived<ListSchema.Item[]>(
 		// when search term changes, update the resulting items
 		listViewContent.filter === "none"
-			? searchTerm.length > 0
+			? (listViewContent.items ?? [])
+			: searchTerm.length > 0
 				? itemsFuse.search(searchTerm).map((item) => item.item)
 				: srcItems
-			: (listViewContent.items ?? [])
 	)
 	// section total height is auto derived from section refs
 	let sectionTotalHeight = $derived(srcSections.reduce((acc, s) => acc + (s.sectionHeight ?? 0), 0))
