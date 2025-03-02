@@ -87,6 +87,8 @@ jobs:
           # pnpm --filter=@kksh/ci run ci-env-check
           bun packages/ci/scripts/ci-env-check.ts
       - name: Build Packages
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
         run: pnpm build
       - name: Get App Version
         if: matrix.settings.platform == 'windows-latest'
