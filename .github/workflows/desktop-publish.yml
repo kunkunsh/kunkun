@@ -87,6 +87,8 @@ jobs:
           # pnpm --filter=@kksh/ci run ci-env-check
           bun packages/ci/scripts/ci-env-check.ts
       - name: Build Packages
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
         run: pnpm build
       - name: Get App Version
         if: matrix.settings.platform == 'windows-latest'
@@ -98,6 +100,7 @@ jobs:
           CI: false
           KUNKUN_PUBLISH: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_OPTIONS: --max-old-space-size=4096
           APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
           APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
           APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
