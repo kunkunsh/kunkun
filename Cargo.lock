@@ -7873,9 +7873,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-shellx"
-version = "2.0.15"
+version = "2.0.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "88a5b6b883070de00f8fd5025aa5b81e3b012a5a3d9f38875cdb45809c71232c"
+checksum = "1b83b29705410452dbfc85f604f3dce2b674047449060b488fcd9f3a907c25ef"
 dependencies = [
  "encoding_rs",
  "open",
