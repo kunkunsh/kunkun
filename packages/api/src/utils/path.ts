@@ -1,6 +1,7 @@
 import * as pathAPI from "@tauri-apps/api/path"
 import { BaseDirectory } from "@tauri-apps/api/path"
 import { exists, mkdir } from "@tauri-apps/plugin-fs"
+import { platform } from "@tauri-apps/plugin-os"
 import { minimatch } from "minimatch"
 import type {
 	FsPermissionScoped,
@@ -92,8 +93,12 @@ export async function matchPathAndScope(
 	scope: string,
 	extensionDir: string
 ): Promise<boolean> {
-	const translatedTarget = await translateScopeToPath(target, extensionDir)
-	const translatedScope = await translateScopeToPath(scope, extensionDir)
+	let translatedTarget = await translateScopeToPath(target, extensionDir)
+	let translatedScope = await translateScopeToPath(scope, extensionDir)
+	if (platform() === "windows") {
+		translatedTarget = translatedTarget.replaceAll("\\", "/")
+		translatedScope = translatedScope.replaceAll("\\", "/")
+	}
 	return minimatch(translatedTarget, translatedScope)
 }
 
