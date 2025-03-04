@@ -7,6 +7,7 @@ use std::{
     path::PathBuf,
 };
 use uuid::Uuid;
+// use windows_icons::get_icon_by_path;
 
 #[cfg(target_os = "macos")]
 use tauri_icns::{IconFamily, IconType};
@@ -94,58 +95,21 @@ pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
 
 #[cfg(target_os = "windows")]
 pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
-    // tauri::http::Response::builder().body(vec![]).unwrap()
-    match path.exists() {
-        true => {
-            let ico_loaded = load_ico(&path);
-            if ico_loaded.is_err() {
-                let res = tauri::http::Response::builder()
-                    .status(tauri::http::StatusCode::INTERNAL_SERVER_ERROR)
-                    .body("Error loading icon".as_bytes().to_vec())
-                    .unwrap();
-                return res;
-            } else {
-                let ico = ico_loaded.unwrap();
-                // write ico to random file name.png, read it and return
-                // Generate a random file name
-                let id = Uuid::new_v4();
-                let file_name = format!("{}.png", id);
-                // get temp folder
-                let temp_dir = std::env::temp_dir();
-                let file_path = temp_dir.join(file_name);
-                // Write the ico to the random file name.png
-                let file = File::create(&file_path).unwrap();
-                ico.write_png(file).unwrap();
-                // Read the file and return the bytes
-                let bytes = std::fs::read(&file_path).expect("Error reading file");
-                // Delete the file
-                std::fs::remove_file(&file_path).unwrap();
-                tauri::http::Response::builder()
-                    .header("Content-Type", "image/png")
-                    .body(bytes)
-                    .unwrap()
-            }
+    match applications::load_icon(&path) {
+        Ok(icon) => {
+            let bytes = icon.to_png().unwrap().get_bytes().to_vec();
+            println!("path: {:?} bytes: {:?}", path, bytes.len());
+            tauri::http::Response::builder()
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Content-Type", "image/png")
+                .body(bytes)
+                .unwrap()
         }
-        false => {
-            let res = tauri::http::Response::builder()
-                .status(tauri::http::StatusCode::NOT_FOUND)
-                .body("file not found".as_bytes().to_vec())
-                .unwrap();
-            return res;
-        }
-    }
-}
-
-/// Load .ico image
-#[cfg(target_os = "windows")]
-pub fn load_ico(path: &Path) -> anyhow::Result<ico::IconImage> {
-    let file = std::fs::File::open(path)?;
-    let icon_dir = ico::IconDir::read(file)?;
-    let image = icon_dir.entries().first();
-    if let Some(image) = image {
-        Ok(image.decode()?)
-    } else {
-        Err(anyhow::anyhow!("No image found"))
+        Err(error) => tauri::http::Response::builder()
+            .header("Access-Control-Allow-Origin", "*")
+            .status(tauri::http::StatusCode::INTERNAL_SERVER_ERROR)
+            .body(error.to_string().as_bytes().to_vec())
+            .unwrap(),
     }
 }
 

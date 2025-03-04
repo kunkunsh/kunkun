@@ -65,7 +65,6 @@ cocoa = "0.24.1"
 mac-security-rs = { workspace = true }
 objc = "0.2.7"
 
-
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-autostart = "2"
 tauri-plugin-cli = "2"
