@@ -167,7 +167,9 @@
 				{ext}
 				installedVersion={$installedExtsMap[ext.identifier]}
 				isUpgradable={!!$upgradableExpsMap[ext.identifier]}
-				onSelect={() => {}}
+				onSelect={() => {
+					onExtItemSelected(ext)
+				}}
 				onUpgrade={() => onExtItemUpgrade(ext)}
 				onInstall={() => onExtItemInstall(ext)}
 			/>
