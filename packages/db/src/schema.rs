@@ -1,4 +1,5 @@
 pub const SCHEMA1: &str = include_str!("../sql/2024-10-23.sql");
+pub const SCHEMA2: &str = include_str!("../sql/2025-03-04.sql");
 pub struct Migration {
     pub version: u16,
     pub script: String,
@@ -16,5 +17,9 @@ impl Migration {
 
 use std::sync::LazyLock;
 
-pub static MIGRATIONS: LazyLock<Vec<Migration>> =
-    LazyLock::new(|| vec![Migration::new(1, SCHEMA1, "Initial Migration")]);
+pub static MIGRATIONS: LazyLock<Vec<Migration>> = LazyLock::new(|| {
+    vec![
+        Migration::new(1, SCHEMA1, "Initial Migration"),
+        Migration::new(2, SCHEMA2, "Add command aliases and usage tracking"),
+    ]
+});

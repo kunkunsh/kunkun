@@ -70,6 +70,8 @@ pub struct Cmd {
     pub alias: Option<String>,
     pub hotkey: Option<String>,
     pub enabled: bool,
+    pub usage_count: i32,
+    pub last_used_at: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Display)]
@@ -120,6 +122,15 @@ pub struct ExtDataSearchQuery {
     pub order_by_created_at: Option<SQLSortOrder>,
     pub order_by_updated_at: Option<SQLSortOrder>,
     pub fields: Option<Vec<ExtDataField>>,
+}
+
+#[derive(Debug, Clone)]
+pub struct CmdAlias {
+    pub alias_id: i32,
+    pub cmd_id: i32,
+    pub alias: String,
+    pub created_at: String,
+    pub updated_at: String,
 }
 
 #[cfg(test)]

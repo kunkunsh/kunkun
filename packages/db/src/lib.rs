@@ -5,7 +5,7 @@ use rusqlite::{params, params_from_iter, Connection, Result, ToSql};
 use serde_json::{json, Value};
 use std::path::Path;
 
-pub const DB_VERSION: u32 = 1;
+pub const DB_VERSION: u32 = 2;
 
 pub fn get_connection<P: AsRef<Path>>(
     file_path: P,
@@ -45,13 +45,14 @@ impl JarvisDB {
         Ok(())
     }
 
-    pub fn migrate_after_version(&self, version: u16) -> Result<()> {
+    pub fn migrate_after_version(&self, mut version: u16) -> Result<()> {
         for migration in schema::MIGRATIONS.iter() {
             if migration.version > version {
                 println!(
                     "Migrating from version {} to {}",
                     version, migration.version
                 );
+                version = migration.version;
                 // self.conn.execute(&migration.schema, params![])?;
                 match self
                     .conn
@@ -250,7 +251,7 @@ impl JarvisDB {
     pub fn get_command_by_id(&self, cmd_id: i32) -> Result<Option<models::Cmd>> {
         let mut stmt = self
             .conn
-            .prepare("SELECT cmd_id, ext_id, name, type, data, alias, hotkey, enabled FROM commands WHERE cmd_id = ?1")?;
+            .prepare("SELECT cmd_id, ext_id, name, type, data, alias, hotkey, enabled, usage_count, last_used_at FROM commands WHERE cmd_id = ?1")?;
         let cmd_iter = stmt.query_map(params![cmd_id], |row| {
             Ok(models::Cmd {
                 cmd_id: row.get(0)?,
@@ -261,6 +262,8 @@ impl JarvisDB {
                 alias: row.get(5)?,
                 hotkey: row.get(6)?,
                 enabled: row.get(7)?,
+                usage_count: row.get(8)?,
+                last_used_at: row.get(9)?,
             })
         })?;
         let mut cmds = Vec::new();
@@ -273,7 +276,7 @@ impl JarvisDB {
     pub fn get_commands_by_ext_id(&self, ext_id: i32) -> Result<Vec<models::Cmd>> {
         let mut stmt = self
             .conn
-            .prepare("SELECT cmd_id, ext_id, name, type, data, alias, hotkey, enabled FROM commands WHERE ext_id = ?1")?;
+            .prepare("SELECT cmd_id, ext_id, name, type, data, alias, hotkey, enabled, usage_count, last_used_at FROM commands WHERE ext_id = ?1")?;
         let cmd_iter = stmt.query_map(params![ext_id], |row| {
             Ok(models::Cmd {
                 cmd_id: row.get(0)?,
@@ -284,6 +287,8 @@ impl JarvisDB {
                 alias: row.get(5)?,
                 hotkey: row.get(6)?,
                 enabled: row.get(7)?,
+                usage_count: row.get(8)?,
+                last_used_at: row.get(9)?,
             })
         })?;
         let mut cmds = Vec::new();
@@ -546,6 +551,108 @@ impl JarvisDB {
             params![data, search_text, data_id],
         )?;
         Ok(())
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /*                            Command Aliases CRUD                            */
+    /* -------------------------------------------------------------------------- */
+    pub fn create_command_alias(&self, cmd_id: i32, alias: &str) -> Result<()> {
+        self.conn.execute(
+            "INSERT INTO command_aliases (cmd_id, alias) VALUES (?1, ?2)",
+            params![cmd_id, alias],
+        )?;
+        Ok(())
+    }
+
+    pub fn get_command_aliases_by_cmd_id(&self, cmd_id: i32) -> Result<Vec<models::CmdAlias>> {
+        let mut stmt = self.conn.prepare(
+            "SELECT alias_id, cmd_id, alias, created_at, updated_at FROM command_aliases WHERE cmd_id = ?1",
+        )?;
+        let alias_iter = stmt.query_map(params![cmd_id], |row| {
+            Ok(models::CmdAlias {
+                alias_id: row.get(0)?,
+                cmd_id: row.get(1)?,
+                alias: row.get(2)?,
+                created_at: row.get(3)?,
+                updated_at: row.get(4)?,
+            })
+        })?;
+        let mut aliases = Vec::new();
+        for alias in alias_iter {
+            aliases.push(alias?);
+        }
+        Ok(aliases)
+    }
+
+    pub fn get_command_alias_by_id(&self, alias_id: i32) -> Result<Option<models::CmdAlias>> {
+        let mut stmt = self.conn.prepare(
+            "SELECT alias_id, cmd_id, alias, created_at, updated_at FROM command_aliases WHERE alias_id = ?1",
+        )?;
+        let alias_iter = stmt.query_map(params![alias_id], |row| {
+            Ok(models::CmdAlias {
+                alias_id: row.get(0)?,
+                cmd_id: row.get(1)?,
+                alias: row.get(2)?,
+                created_at: row.get(3)?,
+                updated_at: row.get(4)?,
+            })
+        })?;
+        let mut aliases = Vec::new();
+        for alias in alias_iter {
+            aliases.push(alias?);
+        }
+        Ok(aliases.first().cloned())
+    }
+
+    pub fn delete_command_alias_by_id(&self, alias_id: i32) -> Result<()> {
+        self.conn.execute(
+            "DELETE FROM command_aliases WHERE alias_id = ?1",
+            params![alias_id],
+        )?;
+        Ok(())
+    }
+
+    pub fn search_command_aliases(&self, search_text: &str) -> Result<Vec<models::CmdAlias>> {
+        let mut stmt = self.conn.prepare(
+            "SELECT ca.alias_id, ca.cmd_id, ca.alias, ca.created_at, ca.updated_at 
+             FROM command_aliases ca
+             JOIN command_aliases_fts caf ON ca.alias_id = caf.alias_id
+             WHERE caf.alias MATCH ?1",
+        )?;
+        let alias_iter = stmt.query_map(params![search_text], |row| {
+            Ok(models::CmdAlias {
+                alias_id: row.get(0)?,
+                cmd_id: row.get(1)?,
+                alias: row.get(2)?,
+                created_at: row.get(3)?,
+                updated_at: row.get(4)?,
+            })
+        })?;
+        let mut aliases = Vec::new();
+        for alias in alias_iter {
+            aliases.push(alias?);
+        }
+        Ok(aliases)
+    }
+
+    pub fn update_command_usage(&self, cmd_id: i32) -> Result<()> {
+        self.conn.execute(
+            "UPDATE commands SET usage_count = usage_count + 1, last_used_at = CURRENT_TIMESTAMP WHERE cmd_id = ?1",
+            params![cmd_id],
+        )?;
+        Ok(())
+    }
+
+    pub fn get_command_usage(&self, cmd_id: i32) -> Result<Option<(i32, String)>> {
+        let mut stmt = self
+            .conn
+            .prepare("SELECT usage_count, last_used_at FROM commands WHERE cmd_id = ?1")?;
+        let usage_iter = stmt.query_map(params![cmd_id], |row| Ok((row.get(0)?, row.get(1)?)))?;
+        let mut usages = Vec::new();
+        for usage in usage_iter {
+            usages.push(usage?);
+        }
+        Ok(usages.first().cloned())
     }
 }
 
@@ -980,6 +1087,64 @@ mod tests {
         assert_eq!(cmd.enabled, false);
         assert_eq!(cmd.alias.unwrap(), "alias");
         assert_eq!(cmd.hotkey.unwrap(), "Command+U");
+
+        fs::remove_file(&db_path).unwrap();
+    }
+
+    #[test]
+    fn test_command_aliases_crud() {
+        let dir = tempdir().unwrap();
+        let db_path = dir.path().join("test.db");
+        let db = JarvisDB::new(&db_path, None).unwrap();
+        db.init().unwrap();
+
+        // Create an extension and command first
+        db.create_extension("test", "0.1.0", true, None, None)
+            .unwrap();
+        let ext = db
+            .get_unique_extension_by_identifier("test")
+            .unwrap()
+            .unwrap();
+        db.create_command(ext.ext_id, "test", CmdType::Iframe, "{}", true, None, None)
+            .unwrap();
+        let cmd = db.get_command_by_id(1).unwrap().unwrap();
+
+        // Test creating command alias
+        db.create_command_alias(cmd.cmd_id, "test_alias").unwrap();
+        db.create_command_alias(cmd.cmd_id, "another_alias")
+            .unwrap();
+
+        // Test getting command aliases by cmd_id
+        let aliases = db.get_command_aliases_by_cmd_id(cmd.cmd_id).unwrap();
+        println!("aliases: {:#?}", aliases);
+        assert_eq!(aliases.len(), 2);
+        assert_eq!(aliases[0].alias, "another_alias");
+        assert_eq!(aliases[1].alias, "test_alias");
+
+        // Test getting command alias by id
+        let alias = db
+            .get_command_alias_by_id(aliases[0].alias_id)
+            .unwrap()
+            .unwrap();
+        assert_eq!(alias.alias, "another_alias");
+
+        // Test searching command aliases
+        let search_results = db.search_command_aliases("test").unwrap();
+        println!("search_results: {:#?}", search_results);
+        assert_eq!(search_results.len(), 1);
+        assert_eq!(search_results[0].alias, "test_alias");
+
+        // Test deleting command alias
+        db.delete_command_alias_by_id(aliases[0].alias_id).unwrap();
+        let aliases = db.get_command_aliases_by_cmd_id(cmd.cmd_id).unwrap();
+        assert_eq!(aliases.len(), 1);
+        assert_eq!(aliases[0].alias, "test_alias");
+
+        // Test command usage tracking
+        db.update_command_usage(cmd.cmd_id).unwrap();
+        let usage = db.get_command_usage(cmd.cmd_id).unwrap().unwrap();
+        assert_eq!(usage.0, 1); // usage_count should be 1
+        assert!(!usage.1.is_empty()); // last_used_at should be set
 
         fs::remove_file(&db_path).unwrap();
     }
