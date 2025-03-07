@@ -6,7 +6,6 @@
 	import { appState } from "@/stores/appState"
 	import { ModeWatcher, ThemeWrapper } from "@kksh/svelte5"
 	import { Toaster } from "svelte-sonner"
-	import { fade } from "svelte/transition"
 
 	let { children } = $props()
 </script>
