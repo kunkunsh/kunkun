@@ -1,5 +1,4 @@
 import { expect, test } from "bun:test"
-import { compress, decompress } from "lz-string"
 import { compressString, decompressString } from "../src"
 
 test("decompressString", async () => {
