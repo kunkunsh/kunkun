@@ -1,28 +1,52 @@
 <script lang="ts">
 	import { getExtensionsFolder } from "@/constants"
-	import { appState, extensions } from "@/stores"
+	import { appState, extensions, installedStoreExts } from "@/stores"
 	import { keys } from "@/stores/keys"
 	import { supabaseAPI } from "@/supabase"
 	import { goBackOnEscapeClearSearchTerm, goHomeOnEscapeClearSearchTerm } from "@/utils/key"
 	import { goBack, goHome } from "@/utils/route"
-	import { Action as ActionSchema } from "@kksh/api/models"
+	import { Action as ActionSchema, ExtPackageJsonExtra } from "@kksh/api/models"
 	import { Action } from "@kksh/api/ui"
+	import { isUpgradable } from "@kksh/extension"
 	import { SBExt } from "@kksh/supabase/models"
 	import type { ExtPublishMetadata } from "@kksh/supabase/models"
 	import { type Tables } from "@kksh/supabase/types"
-	import { Button, Command } from "@kksh/svelte5"
+	import { Button, Command, Skeleton } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
 	import { ExtListItem } from "@kksh/ui/extension"
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
 	import { platform } from "@tauri-apps/plugin-os"
 	import { goto } from "$app/navigation"
 	import { ArrowLeft } from "lucide-svelte"
-	import type { Snippet } from "svelte"
+	import { onMount, type Snippet } from "svelte"
 	import { toast } from "svelte-sonner"
+	import { derived as storeDerived } from "svelte/store"
 	import { getInstallExtras } from "./[identifier]/helper.js"
 
-	let { data } = $props()
-	const { storeExtList, installedExtsMap, upgradableExpsMap } = data
+	// let { data } = $props()
+	let storeExtList: SBExt[] = $state([])
+	let storeExtsMap: Record<string, SBExt> = $state({})
+
+	onMount(async () => {
+		storeExtList = await supabaseAPI.getExtList()
+		storeExtsMap = Object.fromEntries(storeExtList.map((ext) => [ext.identifier, ext]))
+	})
+	let installedExtsMap = storeDerived(installedStoreExts, ($exts) =>
+		Object.fromEntries($exts.map((ext) => [ext.kunkun.identifier, ext.version]))
+	)
+	let upgradableExpsMap = storeDerived(installedStoreExts, ($exts) =>
+		Object.fromEntries(
+			$exts.map((ext) => {
+				const dbExt: SBExt | undefined = storeExtsMap[ext.kunkun.identifier]
+				return [ext.kunkun.identifier, dbExt ? isUpgradable(dbExt, ext.version) : false]
+			})
+		)
+	)
+
+	// let installedStoreExts: Readable<ExtPackageJsonExtra[]> = $state([])
+	// let installedExtsMap: Readable<Record<string, string>> = $state([])
+	// let upgradableExpsMap: Readable<Record<string, boolean>> = $state([])
+	// const { storeExtList, installedExtsMap, upgradableExpsMap } = data
 	const _platform = platform()
 	let actionPanelOpen = $state(false)
 	let listviewInputRef = $state<HTMLInputElement | null>(null)
@@ -162,18 +186,27 @@
 	/>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty>No results found.</Command.Empty>
-		{#each storeExtList as ext}
-			<ExtListItem
-				{ext}
-				installedVersion={$installedExtsMap[ext.identifier]}
-				isUpgradable={!!$upgradableExpsMap[ext.identifier]}
-				onSelect={() => {
-					onExtItemSelected(ext)
-				}}
-				onUpgrade={() => onExtItemUpgrade(ext)}
-				onInstall={() => onExtItemInstall(ext)}
-			/>
-		{/each}
+		<!-- <Skeleton class="h-[20px] w-[100px] rounded-full"> -->
+		{#if storeExtList.length > 0}
+			{#each storeExtList as ext}
+				<ExtListItem
+					{ext}
+					installedVersion={$installedExtsMap[ext.identifier]}
+					isUpgradable={!!$upgradableExpsMap[ext.identifier]}
+					onSelect={() => {
+						onExtItemSelected(ext)
+					}}
+					onUpgrade={() => onExtItemUpgrade(ext)}
+					onInstall={() => onExtItemInstall(ext)}
+				/>
+			{/each}
+		{:else}
+			{#each Array(10) as _}
+				<div class="px-4 py-2">
+					<Skeleton class="h-8 w-full rounded-full" />
+				</div>
+			{/each}
+		{/if}
 	</Command.List>
 	<GlobalCommandPaletteFooter
 		defaultAction="Show Details"
