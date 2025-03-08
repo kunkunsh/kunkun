@@ -207,7 +207,7 @@
 	</CustomCommandInput>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
-		{#if $devStoreExtCmds.length > 0}
+		{#if $devSearchExtCmds.length > 0}
 			<ExtCmds
 				heading={m.command_group_heading_dev_ext()}
 				extCmds={$devSearchExtCmds}
@@ -216,7 +216,7 @@
 				onExtCmdSelect={commandLaunchers.onExtCmdSelect}
 			/>
 		{/if}
-		{#if $storeExtCmds.length > 0}
+		{#if $storeSearchExtCmds.length > 0}
 			<ExtCmds
 				heading={m.command_group_heading_ext()}
 				extCmds={$storeSearchExtCmds}

@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { appState } from "@/stores"
 	import { IconEnum, type AppInfo } from "@kksh/api/models"
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "@kksh/ui/custom"
 	import { convertFileSrc } from "@tauri-apps/api/core"
+	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import * as os from "@tauri-apps/plugin-os"
 	import { toast } from "svelte-sonner"
 	import { executeBashScript, open } from "tauri-plugin-shellx-api"
@@ -13,10 +15,11 @@
 </script>
 
 <DraggableCommandGroup heading="Apps">
-	{#each apps.filter((app) => app.name) as app}
+	{#each apps.filter((app) => app.name) as app, idx}
+		{@const iconPath = platform === "windows" ? (app.icon_path ?? app.app_path_exe) : app.icon_path}
 		<Command.Item
 			class="flex justify-between"
-			onSelect={() => {
+			onSelect={async () => {
 				if (platform === "windows") {
 					if (app.app_path_exe) {
 						open(app.app_path_exe)
@@ -34,15 +37,17 @@
 				} else {
 					toast.error("Unsupported platform")
 				}
+				await getCurrentWindow().hide()
+				appState.clearSearchTerm()
 			}}
-			value={app.app_desktop_path}
+			value={`app:${idx}:${app.app_desktop_path}`}
 		>
 			<span class="flex gap-2">
 				<IconMultiplexer
-					icon={app.icon_path
+					icon={iconPath
 						? {
 								type: IconEnum.RemoteUrl,
-								value: convertFileSrc(app.icon_path, "appicon")
+								value: convertFileSrc(iconPath, "appicon")
 							}
 						: {
 								type: IconEnum.Iconify,
@@ -51,6 +56,7 @@
 					class="!h-5 !w-5 shrink-0"
 				/>
 				<span>{app.name}</span>
+				<!-- <span>{app.app_path_exe}</span> -->
 			</span>
 		</Command.Item>
 	{/each}

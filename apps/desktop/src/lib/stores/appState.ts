@@ -8,7 +8,8 @@ export const defaultAppState: AppState = {
 	loadingBar: false,
 	defaultAction: "",
 	actionPanel: undefined,
-	lockHideOnBlur: false // when dialog is open, we don't hide the app, we lock the hide on blur and unlock when dialog is closed
+	lockHideOnBlur: false, // when dialog is open, we don't hide the app, we lock the hide on blur and unlock when dialog is closed
+	fullScreenLoading: false
 }
 
 interface AppStateAPI {
@@ -18,6 +19,7 @@ interface AppStateAPI {
 	setDefaultAction: (defaultAction: string | null) => void
 	setActionPanel: (actionPanel?: ActionSchema.ActionPanel) => void
 	setLockHideOnBlur: (lockHideOnBlur: boolean) => void
+	setFullScreenLoading: (fullScreenLoading: boolean) => void
 }
 
 function createAppState(): Writable<AppState> & AppStateAPI {
@@ -40,6 +42,9 @@ function createAppState(): Writable<AppState> & AppStateAPI {
 		},
 		setLockHideOnBlur: (lockHideOnBlur: boolean) => {
 			store.update((state) => ({ ...state, lockHideOnBlur }))
+		},
+		setFullScreenLoading: (fullScreenLoading: boolean) => {
+			store.update((state) => ({ ...state, fullScreenLoading }))
 		}
 	}
 }

@@ -24,6 +24,7 @@
 
 	"settings_menu_settings": "Settings",
 	"settings_menu_general": "General",
+	"settings_menu_app_search_paths": "App Search Paths",
 	"settings_menu_developer": "Developer",
 	"settings_menu_extensions": "Extensions",
 	"settings_menu_set_dev_ext": "Set Dev Extension",
@@ -39,6 +40,12 @@
 	"settings_general_join_beta_updates": "Join Beta Updates",
 	"settings_general_developer_mode": "Developer Mode",
 	"settings_general_language": "Language",
+
+	"settings_app_search_paths_title": "Extra App Search Paths",
+	"settings_app_search_paths_add_app_search_path": "Add App Search Path",
+	"settings_app_search_paths_table_col_search_path": "Search Path",
+	"settings_app_search_paths_table_col_depth": "Depth",
+	"settings_app_search_paths_table_col_actions": "Actions",
 
 	"settings_about_version": "Version",
 	"settings_about_author": "Author",

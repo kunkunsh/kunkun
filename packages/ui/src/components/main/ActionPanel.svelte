@@ -1,10 +1,9 @@
 <script lang="ts">
 	import Icon from "@iconify/svelte"
 	import { Action as ActionSchema } from "@kksh/api/models"
-	import { Button, ButtonModule, Command, Input, Label, Popover } from "@kksh/svelte5"
-	import { cn } from "@kksh/ui/utils"
-	import { Check, ChevronsUpDown } from "lucide-svelte"
-	import { tick } from "svelte"
+	import { Button, Command, Popover } from "@kksh/svelte5"
+	import { ChevronsUpDown } from "lucide-svelte"
+	import { IconMultiplexer } from "../common"
 	import Kbd from "../common/Kbd.svelte"
 
 	const isMac = navigator.platform.toLowerCase().includes("mac")
@@ -80,6 +79,11 @@
 								onActionSelected?.(action.value)
 							}}
 						>
+							{#if action.icon}
+								<IconMultiplexer icon={action.icon} class="!h-4 !w-4 shrink-0"></IconMultiplexer>
+							{:else}
+								<Icon icon="mdi:gear-outline" class="!h-4 !w-4 shrink-0"></Icon>
+							{/if}
 							{action.title}
 						</Command.Item>
 					{/each}

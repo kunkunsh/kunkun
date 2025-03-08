@@ -205,12 +205,15 @@ jobs:
         run: pnpm prepare
 
       - name: Build Packages
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
         run: pnpm build
 
       - name: Build the App
         working-directory: apps/desktop
         env:
           CI: false
+          NODE_OPTIONS: --max-old-space-size=4096
         run: pnpm tauri build ${{ env.BUILD_MODE}} ${{ matrix.os == 'windows-latest' && '-b nsis' || '' }}
 
       - name: Rename macos-aarch64

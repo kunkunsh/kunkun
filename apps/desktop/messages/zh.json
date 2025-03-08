@@ -24,6 +24,7 @@
 
 	"settings_menu_settings": "设置",
 	"settings_menu_general": "通用",
+	"settings_menu_app_search_paths": "应用搜索路径",
 	"settings_menu_developer": "开发者",
 	"settings_menu_extensions": "插件",
 	"settings_menu_set_dev_ext": "设置开发插件",
@@ -39,6 +40,12 @@
 	"settings_general_join_beta_updates": "加入 Beta 更新",
 	"settings_general_developer_mode": "开发者模式",
 	"settings_general_language": "语言",
+
+	"settings_app_search_paths_title": "额外应用搜索路径",
+	"settings_app_search_paths_add_app_search_path": "添加应用搜索路径",
+	"settings_app_search_paths_table_col_search_path": "搜索路径",
+	"settings_app_search_paths_table_col_depth": "深度",
+	"settings_app_search_paths_table_col_actions": "操作",
 
 	"settings_about_version": "版本",
 	"settings_about_author": "作者",

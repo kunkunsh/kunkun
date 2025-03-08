@@ -17,8 +17,9 @@
 	import { platform } from "@tauri-apps/plugin-os"
 	import { goto } from "$app/navigation"
 	import { ArrowLeft } from "lucide-svelte"
-	import type { Snippet } from "svelte"
+	import { onMount, type Snippet } from "svelte"
 	import { toast } from "svelte-sonner"
+	import type { Action as SvelteAction } from "svelte/action"
 	import { getInstallExtras } from "./[identifier]/helper.js"
 
 	let { data } = $props()
@@ -37,6 +38,38 @@
 	// 		(item.api_version ? isCompatible(item.api_version) : true)
 	// 	)
 	// }
+
+	onMount(() => {
+		// setTimeout(() => {
+		// 	console.log("focus", listviewInputRef)
+		// 	listviewInputRef?.focus()
+		// }, 3_000)
+	})
+
+	const inputAction: SvelteAction = (node) => {
+		// the node has been mounted in the DOM
+
+		$effect(() => {
+			// setup goes here
+			console.log("inputAction", node)
+			listviewInputRef?.focus()
+			return () => {
+				// teardown goes here
+			}
+		})
+	}
+
+	$effect(() => {
+		function docKeyDown(e: KeyboardEvent) {
+			if (e.key === "/") {
+				listviewInputRef?.focus()
+			}
+		}
+		document.addEventListener("keydown", docKeyDown)
+		return () => {
+			document.removeEventListener("keydown", docKeyDown)
+		}
+	})
 
 	function onExtItemSelected(ext: SBExt) {
 		goto(`./store/${ext.identifier}`)
@@ -142,7 +175,7 @@
 	<CustomCommandInput
 		bind:ref={listviewInputRef}
 		autofocus
-		placeholder="Type a command or search..."
+		placeholder="Type / to focus"
 		leftSlot={leftSlot as Snippet}
 		bind:value={$appState.searchTerm}
 		onkeydown={(e) => {
@@ -167,7 +200,9 @@
 				{ext}
 				installedVersion={$installedExtsMap[ext.identifier]}
 				isUpgradable={!!$upgradableExpsMap[ext.identifier]}
-				onSelect={() => {}}
+				onSelect={() => {
+					onExtItemSelected(ext)
+				}}
 				onUpgrade={() => onExtItemUpgrade(ext)}
 				onInstall={() => onExtItemInstall(ext)}
 			/>

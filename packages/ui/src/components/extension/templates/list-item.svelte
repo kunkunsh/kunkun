@@ -3,10 +3,27 @@
 	import { Command } from "@kksh/svelte5"
 	import { IconMultiplexer } from "../../common"
 
-	const { item, onSelect }: { item: ListSchema.Item; onSelect?: () => void } = $props()
+	const {
+		item,
+		class: className,
+		onSelect,
+		translateY,
+		height
+	}: {
+		item: ListSchema.Item
+		onSelect?: () => void
+		translateY?: number
+		height?: number
+		class?: string
+	} = $props()
 </script>
 
-<Command.Item class="gap-2" {onSelect} value={JSON.stringify(item)}>
+<Command.Item
+	class="debugitem gap-2 {className}"
+	{onSelect}
+	value={item.value}
+	style="position: absolute; top: 0; left: 0; width: 100%; height: {height}px; transform: translateY({translateY}px);"
+>
 	{#if item.icon}
 		<IconMultiplexer icon={item.icon} class="h-5 w-5" />
 	{/if}
