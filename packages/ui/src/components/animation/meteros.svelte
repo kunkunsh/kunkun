@@ -3,7 +3,12 @@
 	import { cn } from "../../utils"
 
 	export let number = 10
-	let meteorStyles: any = []
+	let meteorStyles: {
+		top: number
+		left: string
+		animationDelay: string
+		animationDuration: string
+	}[] = []
 	let changeMeteors = (num: number) => {
 		meteorStyles = []
 		const styles = [...new Array(num)].map(() => ({

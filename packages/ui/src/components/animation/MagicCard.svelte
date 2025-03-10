@@ -60,7 +60,7 @@
 		<div
 			use:motion
 			class="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-		/>
+		></div>
 	</Motion>
 </div>
 

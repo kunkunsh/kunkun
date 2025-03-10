@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { cn } from "../../utils"
 
-	let className: any = ""
-	export { className as class }
+	let { class: className }: { class?: string } = $props()
 </script>
 
 <div
