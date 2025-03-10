@@ -36,7 +36,13 @@
 	import { platform } from "@tauri-apps/plugin-os"
 	import { exit } from "@tauri-apps/plugin-process"
 	import { goto } from "$app/navigation"
-	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon, SettingsIcon } from "lucide-svelte"
+	import {
+		ArrowBigUpIcon,
+		CircleXIcon,
+		EllipsisVerticalIcon,
+		RefreshCcwIcon,
+		SettingsIcon
+	} from "lucide-svelte"
 	import { onMount } from "svelte"
 	import { Inspect } from "svelte-inspect-value"
 
