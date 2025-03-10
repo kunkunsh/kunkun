@@ -14,6 +14,7 @@
 	import { Constants } from "@kksh/ui"
 	import { ExtListItem } from "@kksh/ui/extension"
 	import { CustomCommandInput, GlobalCommandPaletteFooter } from "@kksh/ui/main"
+	import { cn } from "@kksh/ui/utils"
 	import { platform } from "@tauri-apps/plugin-os"
 	import { goto } from "$app/navigation"
 	import { ArrowLeft } from "lucide-svelte"
@@ -22,6 +23,7 @@
 	import type { Action as SvelteAction } from "svelte/action"
 	import { getInstallExtras } from "./[identifier]/helper.js"
 
+	const _platform = platform()
 	let { data } = $props()
 	const { storeExtList, installedExtsMap, upgradableExpsMap } = data
 	const _platform = platform()
@@ -165,13 +167,22 @@
 		variant="outline"
 		size="icon"
 		onclick={goHome}
-		class={Constants.CLASSNAMES.BACK_BUTTON}
+		class={cn(Constants.CLASSNAMES.BACK_BUTTON, {
+			"bg-background/50": _platform === "windows",
+			"bg-transparent": _platform === "macos"
+		})}
 		data-flip-id={Constants.CLASSNAMES.BACK_BUTTON}
 	>
 		<ArrowLeft class="size-4" />
 	</Button>
 {/snippet}
-<Command.Root class="h-screen rounded-lg border shadow-md" loop bind:value={highlightedCmdValue}>
+<Command.Root
+	class={cn("h-screen rounded-lg shadow-md", {
+		"bg-transparent": _platform === "macos",
+		"bg-background/50": _platform === "windows"
+	})}
+	loop
+>
 	<CustomCommandInput
 		bind:ref={listviewInputRef}
 		autofocus

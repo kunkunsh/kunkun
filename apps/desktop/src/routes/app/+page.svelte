@@ -46,6 +46,7 @@
 	import { onMount } from "svelte"
 	import { Inspect } from "svelte-inspect-value"
 
+	const _platform = platform()
 	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)
 	function onKeyDown(event: KeyboardEvent) {
@@ -110,7 +111,10 @@
 <Inspect name="$appState.searchTerm" value={$appState.searchTerm} />
 -->
 <Command.Root
-	class={cn("h-screen rounded-lg shadow-md")}
+	class={cn("h-screen rounded-lg border-none shadow-md", {
+		"bg-transparent": _platform === "macos",
+		"bg-background/50": _platform === "windows"
+	})}
 	bind:value={$appState.highlightedCmd}
 	shouldFilter={false}
 	loop
@@ -152,7 +156,7 @@
 
 			<DropdownMenu.Root>
 				<DropdownMenu.Trigger>
-					<Button variant="outline" size="icon"><EllipsisVerticalIcon /></Button>
+					<Button variant="outline" size="icon" class=""><EllipsisVerticalIcon /></Button>
 				</DropdownMenu.Trigger>
 				<DropdownMenu.Content class="w-fit min-w-80">
 					<DropdownMenu.Group>
@@ -188,7 +192,7 @@
 							<SettingsIcon class="mr-2 h-4 w-4 text-green-500" />
 							{m.home_command_input_dropdown_open_preference()}
 							<DropdownMenu.Shortcut>
-								{#if platform() === "macos"}
+								{#if _platform === "macos"}
 									<span class="flex items-center">⌘+Comma</span>
 								{:else}
 									<span class="flex items-center">Ctrl+Comma</span>

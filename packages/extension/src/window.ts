@@ -1,8 +1,12 @@
 import type { WindowConfig } from "@kksh/api/models"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { Effect } from "@tauri-apps/api/window"
 
 export function launchNewExtWindow(windowLabel: string, url: string, windowConfig?: WindowConfig) {
 	return new WebviewWindow(windowLabel, {
+		windowEffects: {
+			effects: [Effect.Sidebar]
+		},
 		center: windowConfig?.center ?? undefined,
 		x: windowConfig?.x ?? undefined,
 		y: windowConfig?.y ?? undefined,

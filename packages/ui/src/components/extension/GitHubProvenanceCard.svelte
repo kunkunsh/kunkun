@@ -21,7 +21,7 @@
 	const workflowRunUrl = `https://github.com/${repoOwner}/${repoName}/actions/runs/${workflowRunId}/workflow`
 </script>
 
-<Card.Root>
+<Card.Root class="bg-background/30">
 	<Card.Content class="flex flex-col items-center justify-between space-x-4 md:flex-row">
 		<div class="flex w-60 items-center space-x-4">
 			<BadgeCheckIcon class="h-8 w-8 text-green-500" />

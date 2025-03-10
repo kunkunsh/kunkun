@@ -5,6 +5,6 @@
 	const { markdown, class: className }: { markdown: string; class?: string } = $props()
 </script>
 
-<div class={cn("prose dark:prose-invert", className)}>
+<div class={cn("prose dark:prose-invert bg-transparent", className)}>
 	<SvelteMarkdown source={markdown} />
 </div>
