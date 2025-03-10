@@ -28,6 +28,10 @@
 		"./extension": {
 			"types": "./src/components/extension/index.ts",
 			"svelte": "./src/components/extension/index.ts"
+		},
+		"./animation": {
+			"types": "./src/components/animation/index.ts",
+			"svelte": "./src/components/animation/index.ts"
 		}
 	},
 	"scripts": {
