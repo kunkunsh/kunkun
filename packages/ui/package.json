@@ -87,6 +87,7 @@
 		"shiki-magic-move": "^0.5.2",
 		"svelte-inspect-value": "^0.3.0",
 		"svelte-markdown": "^0.4.1",
+		"svelte-motion": "^0.12.2",
 		"valibot": "1.0.0-beta.12"
 	}
 }
