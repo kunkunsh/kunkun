@@ -78,7 +78,9 @@
 	})
 
 	const demoImages = $derived(
-		extPublish.demo_images.map((src) => supabaseAPI.translateExtensionFilePathToUrl(src))
+		extPublish.demo_images.map((src) =>
+			src.startsWith("http") ? src : supabaseAPI.translateExtensionFilePathToUrl(src)
+		)
 	)
 
 	async function onInstallSelected() {
