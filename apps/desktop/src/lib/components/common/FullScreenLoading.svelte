@@ -2,9 +2,8 @@
 	import { appState } from "@/stores"
 	import { cn } from "@/utils"
 	import { Button } from "@kksh/svelte5"
-	import { Constants, Layouts, TauriLink } from "@kksh/ui"
+	import { BorderBeam, Constants, Layouts, TauriLink } from "@kksh/ui"
 	import { goto } from "$app/navigation"
-	import BorderBeam from "$lib/components/animations/BorderBeam.svelte"
 	import { ArrowLeftIcon, LoaderCircleIcon } from "lucide-svelte"
 	import Dance from "../dance/dance.svelte"
 

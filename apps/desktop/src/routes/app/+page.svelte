@@ -36,7 +36,13 @@
 	import { platform } from "@tauri-apps/plugin-os"
 	import { exit } from "@tauri-apps/plugin-process"
 	import { goto } from "$app/navigation"
-	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
+	import {
+		ArrowBigUpIcon,
+		CircleXIcon,
+		EllipsisVerticalIcon,
+		RefreshCcwIcon,
+		SettingsIcon
+	} from "lucide-svelte"
 	import { onMount } from "svelte"
 	import { Inspect } from "svelte-inspect-value"
 
@@ -178,8 +184,8 @@
 								<span class="flex items-center">⌃+<ArrowBigUpIcon class="h-4 w-4" />+R </span>
 							</DropdownMenu.Shortcut>
 						</DropdownMenu.Item>
-						<DropdownMenu.Item onclick={() => location.reload()}>
-							<RefreshCcwIcon class="mr-2 h-4 w-4 text-green-500" />
+						<DropdownMenu.Item onclick={() => goto(i18n.resolveRoute("/app/settings"))}>
+							<SettingsIcon class="mr-2 h-4 w-4 text-green-500" />
 							{m.home_command_input_dropdown_open_preference()}
 							<DropdownMenu.Shortcut>
 								{#if platform() === "macos"}
