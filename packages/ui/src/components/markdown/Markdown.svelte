@@ -5,11 +5,22 @@
 	import remarkMath from "remark-math"
 	import { createHighlighterCoreSync } from "shiki/core"
 	import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
+	import cpp from "shiki/langs/cpp.mjs"
+	import csharp from "shiki/langs/csharp.mjs"
+	import go from "shiki/langs/go.mjs"
 	import html from "shiki/langs/html.mjs"
+	import java from "shiki/langs/java.mjs"
 	import json from "shiki/langs/json.mjs"
+	import kotlin from "shiki/langs/kotlin.mjs"
+	import php from "shiki/langs/php.mjs"
+	import python from "shiki/langs/python.mjs"
+	import ruby from "shiki/langs/ruby.mjs"
 	import rust from "shiki/langs/rust.mjs"
+	import shell from "shiki/langs/shell.mjs"
 	import svelte from "shiki/langs/svelte.mjs"
+	import swift from "shiki/langs/swift.mjs"
 	import ts from "shiki/langs/typescript.mjs"
+	import yaml from "shiki/langs/yaml.mjs"
 	import vitesseDark from "shiki/themes/vitesse-dark.mjs"
 	import Markdown from "svelte-exmarkdown"
 	import type { Plugin } from "svelte-exmarkdown"
@@ -29,7 +40,24 @@
 			rehypeShikiFromHighlighter,
 			createHighlighterCoreSync({
 				themes: [vitesseDark],
-				langs: [ts, svelte, json, html, rust],
+				langs: [
+					ts,
+					svelte,
+					json,
+					html,
+					rust,
+					python,
+					java,
+					cpp,
+					csharp,
+					go,
+					ruby,
+					php,
+					kotlin,
+					swift,
+					yaml,
+					shell
+				],
 				engine: createJavaScriptRegexEngine()
 			}),
 			{
