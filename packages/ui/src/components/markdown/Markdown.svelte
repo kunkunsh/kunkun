@@ -1,15 +1,18 @@
 <script lang="ts">
-	import Markdown from "svelte-exmarkdown"
-	import type { Plugin } from "svelte-exmarkdown"
 	import rehypeShikiFromHighlighter from "@shikijs/rehype/core"
-	import { createHighlighterCoreSync } from "shiki/core"
-	import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
-	import ts from "shiki/langs/typescript.mjs"
-	import svelte from "shiki/langs/svelte.mjs"
-	import vitesseDark from "shiki/themes/vitesse-dark.mjs"
+	import rehypeClassNames from "rehype-class-names"
 	import rehypeKatex from "rehype-katex"
 	import remarkMath from "remark-math"
-	import rehypeClassNames from "rehype-class-names"
+	import { createHighlighterCoreSync } from "shiki/core"
+	import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
+	import html from "shiki/langs/html.mjs"
+	import json from "shiki/langs/json.mjs"
+	import rust from "shiki/langs/rust.mjs"
+	import svelte from "shiki/langs/svelte.mjs"
+	import ts from "shiki/langs/typescript.mjs"
+	import vitesseDark from "shiki/themes/vitesse-dark.mjs"
+	import Markdown from "svelte-exmarkdown"
+	import type { Plugin } from "svelte-exmarkdown"
 	import Pre from "./Pre.svelte"
 
 	const addClass: Plugin = {
@@ -26,7 +29,7 @@
 			rehypeShikiFromHighlighter,
 			createHighlighterCoreSync({
 				themes: [vitesseDark],
-				langs: [ts, svelte],
+				langs: [ts, svelte, json, html, rust],
 				engine: createJavaScriptRegexEngine()
 			}),
 			{
