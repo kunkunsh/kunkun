@@ -12,6 +12,7 @@
 	import java from "shiki/langs/java.mjs"
 	import json from "shiki/langs/json.mjs"
 	import kotlin from "shiki/langs/kotlin.mjs"
+	import markdown from "shiki/langs/markdown.mjs"
 	import php from "shiki/langs/php.mjs"
 	import python from "shiki/langs/python.mjs"
 	import ruby from "shiki/langs/ruby.mjs"
@@ -53,6 +54,7 @@
 					go,
 					ruby,
 					php,
+					markdown,
 					kotlin,
 					swift,
 					yaml,
