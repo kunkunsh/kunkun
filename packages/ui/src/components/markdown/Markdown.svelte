@@ -22,6 +22,7 @@
 	import swift from "shiki/langs/swift.mjs"
 	import ts from "shiki/langs/typescript.mjs"
 	import yaml from "shiki/langs/yaml.mjs"
+	import githubDarkDefault from "shiki/themes/github-dark-default.mjs"
 	import vitesseDark from "shiki/themes/vitesse-dark.mjs"
 	import Markdown from "svelte-exmarkdown"
 	import type { Plugin } from "svelte-exmarkdown"
@@ -40,7 +41,7 @@
 		rehypePlugin: [
 			rehypeShikiFromHighlighter,
 			createHighlighterCoreSync({
-				themes: [vitesseDark],
+				themes: [githubDarkDefault],
 				langs: [
 					ts,
 					svelte,
@@ -63,7 +64,7 @@
 				engine: createJavaScriptRegexEngine()
 			}),
 			{
-				theme: "vitesse-dark"
+				theme: "github-dark-default"
 			}
 		]
 	} satisfies Plugin
