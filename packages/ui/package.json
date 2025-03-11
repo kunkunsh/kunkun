@@ -32,6 +32,10 @@
 		"./animation": {
 			"types": "./src/components/animation/index.ts",
 			"svelte": "./src/components/animation/index.ts"
+		},
+		"./markdown": {
+			"types": "./src/components/markdown/index.ts",
+			"svelte": "./src/components/markdown/index.ts"
 		}
 	},
 	"scripts": {
@@ -76,15 +80,21 @@
 		"@internationalized/date": "^3.7.0",
 		"@kksh/supabase": "workspace:*",
 		"@shikijs/langs": "^2.3.2",
+		"@shikijs/rehype": "^3.2.1",
 		"@shikijs/themes": "^2.3.2",
 		"@std/semver": "npm:@jsr/std__semver@^1.0.3",
 		"@tanstack/svelte-virtual": "^3.13.2",
 		"dompurify": "^3.2.3",
 		"fuse.js": "^7.1.0",
 		"gsap": "^3.12.7",
+		"katex": "^0.16.21",
 		"moment": "^2.30.1",
 		"pretty-bytes": "^6.1.1",
+		"rehype-class-names": "^2.0.0",
+		"rehype-katex": "^7.0.1",
+		"remark-math": "^6.0.0",
 		"shiki-magic-move": "^0.5.2",
+		"svelte-exmarkdown": "^4.0.3",
 		"svelte-inspect-value": "^0.3.0",
 		"svelte-markdown": "^0.4.1",
 		"svelte-motion": "^0.12.2",
