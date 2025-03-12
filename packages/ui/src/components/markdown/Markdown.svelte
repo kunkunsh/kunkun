@@ -5,6 +5,7 @@
 	import remarkMath from "remark-math"
 	import { createHighlighterCoreSync } from "shiki/core"
 	import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
+	import bash from "shiki/langs/bash.mjs"
 	import cpp from "shiki/langs/cpp.mjs"
 	import csharp from "shiki/langs/csharp.mjs"
 	import go from "shiki/langs/go.mjs"
@@ -23,7 +24,6 @@
 	import ts from "shiki/langs/typescript.mjs"
 	import yaml from "shiki/langs/yaml.mjs"
 	import githubDarkDefault from "shiki/themes/github-dark-default.mjs"
-	import vitesseDark from "shiki/themes/vitesse-dark.mjs"
 	import Markdown from "svelte-exmarkdown"
 	import type { Plugin } from "svelte-exmarkdown"
 	import Pre from "./Pre.svelte"
@@ -59,7 +59,8 @@
 					kotlin,
 					swift,
 					yaml,
-					shell
+					shell,
+					bash
 				],
 				engine: createJavaScriptRegexEngine()
 			}),
