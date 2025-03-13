@@ -23,7 +23,7 @@ export const PersistedAppConfig = v.object({
 
 export type PersistedAppConfig = v.InferOutput<typeof PersistedAppConfig>
 
-export type AppConfig = PersistedAppConfig & {
+export type AppConfigState = PersistedAppConfig & {
 	isInitialized: boolean
 	language: string
 	extensionsInstallDir?: string

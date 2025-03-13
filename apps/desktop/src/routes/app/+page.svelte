@@ -77,6 +77,7 @@
 			// wait for appConfig store to be loaded, it's async and saved to disk when changed, so we use another store appConfigLoaded
 			// to keep track of the loading status
 			if (loaded) {
+				console.log("appConfig.get().onBoarded", appConfig.get().onBoarded)
 				if (!appConfig.get().onBoarded) {
 					setTimeout(() => {
 						goto(i18n.resolveRoute("/app/help/onboarding"))

@@ -1,0 +1,5 @@
+{
+	"identifier": "svelte",
+	"windows": ["*"],
+	"permissions": ["svelte:default", "core:event:default"]
+}

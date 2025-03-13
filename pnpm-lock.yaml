@@ -144,7 +144,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
@@ -184,7 +184,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -281,6 +281,9 @@ importers:
       tauri-plugin-shellx-api:
         specifier: ^2.0.16
         version: 2.0.16
+      tauri-plugin-svelte:
+        specifier: 1.2.1
+        version: 1.2.1
       tauri-plugin-user-input-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-user-input
@@ -323,7 +326,7 @@ importers:
         version: 2.3.1
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
@@ -335,7 +338,7 @@ importers:
         version: 8.25.0(eslint@9.21.0(jiti@2.4.0))(typescript@5.6.3)
       autoprefixer:
         specifier: ^10.4.20
-        version: 10.4.20(postcss@8.5.3)
+        version: 10.4.20(postcss@8.4.49)
       bits-ui:
         specifier: 1.0.0-next.86
         version: 1.0.0-next.86(svelte@5.20.5)
@@ -474,7 +477,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       '@types/lodash':
         specifier: ^4.17.14
         version: 4.17.14
@@ -514,7 +517,7 @@ importers:
         version: link:../typescript-config
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
 
   packages/config-eslint:
     dependencies:
@@ -557,7 +560,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
 
   packages/extensions/demo-worker-template-ext:
     dependencies:
@@ -585,7 +588,7 @@ importers:
         version: 11.1.6(rollup@4.34.2)(tslib@2.8.1)(typescript@5.7.3)
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.34.2)
@@ -692,7 +695,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
 
   packages/grpc:
     dependencies:
@@ -711,7 +714,7 @@ importers:
         version: 0.7.13
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       '@types/google-protobuf':
         specifier: ^3.15.12
         version: 3.15.12
@@ -739,7 +742,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       verify-package-export:
         specifier: ^0.0.3
         version: 0.0.3(typescript@5.7.3)
@@ -767,7 +770,7 @@ importers:
         version: 2.48.0
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       '@valibot/to-json-schema':
         specifier: 1.0.0-beta.4
         version: 1.0.0-beta.4(valibot@1.0.0-beta.10(typescript@5.7.3))
@@ -789,7 +792,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
 
   packages/svelte-animation:
     dependencies:
@@ -799,7 +802,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
 
   packages/tauri-plugins/jarvis:
     dependencies:
@@ -818,7 +821,7 @@ importers:
         version: 2.48.0
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
 
   packages/templates/template-ext-headless:
     dependencies:
@@ -837,7 +840,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
 
   packages/templates/template-ext-next:
     dependencies:
@@ -1189,7 +1192,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
 
   packages/types:
     dependencies:
@@ -1199,7 +1202,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
 
   packages/typescript-config: {}
 
@@ -1277,7 +1280,7 @@ importers:
         version: 0.1.15(lucide-svelte@0.471.0(svelte@5.20.5))(svelte-sonner@0.3.28(svelte@5.20.5))(svelte@5.20.5)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.17.3(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.20.5)(typescript@5.7.3))(typescript@5.7.3)
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.20.0
         version: 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.21.0(jiti@2.4.0))(typescript@5.7.3))(eslint@9.21.0(jiti@2.4.0))(typescript@5.7.3)
@@ -1359,7 +1362,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.4
+        version: 1.2.5
 
   vendors/tauri-plugin-keyring:
     dependencies:
@@ -2584,6 +2587,7 @@ packages:
   '@faker-js/faker@9.5.1':
     resolution: {integrity: sha512-0fzMEDxkExR2cn731kpDaCCnBGBUOIXEi2S1N5l8Hltp6aPf4soTMJ+g4k8r2sI5oB+rpwIW8Uy/6jkwGpnWPg==}
     engines: {node: '>=18.0.0', npm: '>=9.0.0'}
+    deprecated: Please update to a newer version
 
   '@floating-ui/core@1.6.8':
     resolution: {integrity: sha512-7XJ9cPU+yI2QeLS+FCSlqNFZJq8arvswefkZrYI1yQBbftw6FyrZOxYSh+9S7z7TpeWlRt9zJ5IhM1WIL334jA==}
@@ -5267,6 +5271,9 @@ packages:
   '@tauri-apps/plugin-upload@2.2.1':
     resolution: {integrity: sha512-2EyVhJYLAp2mJH0UzO3QGU0vPk/YWvAfdI2wXbczyzEZY/AZVa9wConyB1TV/NGhyJRim4LwWgkmnEvcKLkECw==}
 
+  '@tauri-store/shared@0.6.0':
+    resolution: {integrity: sha512-2KBezqqkw68HvvXHEtbbpxyQHDjymBUZl10YuAsNRI8DHFIA0n18WE7NRyQ93+H7IzDP1/B41m2/rcMDHBSiKw==}
+
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
@@ -5308,8 +5315,8 @@ packages:
   '@types/btoa-lite@1.0.2':
     resolution: {integrity: sha512-ZYbcE2x7yrvNFJiU7xJGrpF/ihpkM7zKgw8bha3LNJSesvTtUNxbpzaT7WXBIryf6jovisrxTBvymxMeLLj1Mg==}
 
-  '@types/bun@1.2.4':
-    resolution: {integrity: sha512-QtuV5OMR8/rdKJs213iwXDpfVvnskPXY/S0ZiFbsTjQZycuqPbMW8Gf/XhLfwE5njW8sxI2WjISURXPlHypMFA==}
+  '@types/bun@1.2.5':
+    resolution: {integrity: sha512-w2OZTzrZTVtbnJew1pdFmgV99H0/L+Pvw+z1P67HaR18MHOzYnTYOi6qzErhK8HyT+DB782ADVPPE92Xu2/Opg==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -6369,8 +6376,8 @@ packages:
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
 
-  bun-types@1.2.4:
-    resolution: {integrity: sha512-nDPymR207ZZEoWD4AavvEaa/KZe/qlrbMSchqpQwovPZCKc7pwMoENjEtHgMKaAjJhy+x6vfqSBA1QU3bJgs0Q==}
+  bun-types@1.2.5:
+    resolution: {integrity: sha512-3oO6LVGGRRKI4kHINx5PIdIgnLRb7l/SprhzqXapmoYkFl5m4j6EvALvbDVuuBFaamB46Ap6HCUxIXNLCGy+tg==}
 
   bundle-name@4.1.0:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
@@ -11101,6 +11108,9 @@ packages:
 
   tauri-plugin-shellx-api@2.0.16:
     resolution: {integrity: sha512-I6o/+IoG6++x4L5d20ciOooOeUEn0bOKvMiYhQxlv1Q3zAZPdpJKjAHJxRpZZwpR6yUY788qiQny7IbTywqLFw==}
+
+  tauri-plugin-svelte@1.2.1:
+    resolution: {integrity: sha512-xusgcHpnXqRt4RO+3UjqAlOCTh5PcxzDEa11Qd8Z3cHz6MMl0PLE6j0ExeAur+dTiZVLEGFsIm6Qd0LY9ED/wA==}
 
   tauri-plugin-system-info-api@2.0.8:
     resolution: {integrity: sha512-EFdLXNGp6Zu9SNsZCkU+55A8027OnrVw/TQrd0oJHgfZzs4qvm1iMmSvyid4MLftt33iZDhjCzxYijaaOxeKSg==}
@@ -17090,6 +17100,10 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.3.0
 
+  '@tauri-store/shared@0.6.0':
+    dependencies:
+      '@tauri-apps/api': 2.3.0
+
   '@trysound/sax@0.2.0': {}
 
   '@ts-graphviz/adapter@2.0.5':
@@ -17134,9 +17148,9 @@ snapshots:
 
   '@types/btoa-lite@1.0.2': {}
 
-  '@types/bun@1.2.4':
+  '@types/bun@1.2.5':
     dependencies:
-      bun-types: 1.2.4
+      bun-types: 1.2.5
 
   '@types/cookie@0.6.0': {}
 
@@ -18519,16 +18533,6 @@ snapshots:
       postcss: 8.5.1
       postcss-value-parser: 4.2.0
 
-  autoprefixer@10.4.20(postcss@8.5.3):
-    dependencies:
-      browserslist: 4.24.2
-      caniuse-lite: 1.0.30001676
-      fraction.js: 4.3.7
-      normalize-range: 0.1.2
-      picocolors: 1.1.1
-      postcss: 8.5.3
-      postcss-value-parser: 4.2.0
-
   available-typed-arrays@1.0.7:
     dependencies:
       possible-typed-array-names: 1.0.0
@@ -18684,7 +18688,7 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
-  bun-types@1.2.4:
+  bun-types@1.2.5:
     dependencies:
       '@types/node': 22.13.1
       '@types/ws': 8.5.14
@@ -24267,6 +24271,12 @@ snapshots:
   tauri-plugin-shellx-api@2.0.16:
     dependencies:
       '@tauri-apps/api': 2.3.0
+
+  tauri-plugin-svelte@1.2.1:
+    dependencies:
+      '@tauri-apps/api': 2.3.0
+      '@tauri-store/shared': 0.6.0
+      svelte: 5.20.5
 
   tauri-plugin-system-info-api@2.0.8(typescript@5.7.2):
     dependencies:
