@@ -2,6 +2,7 @@
 	import rehypeShikiFromHighlighter from "@shikijs/rehype/core"
 	import rehypeClassNames from "rehype-class-names"
 	import rehypeKatex from "rehype-katex"
+	import rehypeRaw from "rehype-raw"
 	import remarkMath from "remark-math"
 	import { createHighlighterCoreSync } from "shiki/core"
 	import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
@@ -26,6 +27,8 @@
 	import githubDarkDefault from "shiki/themes/github-dark-default.mjs"
 	import Markdown from "svelte-exmarkdown"
 	import type { Plugin } from "svelte-exmarkdown"
+	import { gfmPlugin } from "svelte-exmarkdown/gfm"
+	import A from "./A.svelte"
 	import Pre from "./Pre.svelte"
 
 	const addClass: Plugin = {
@@ -72,9 +75,11 @@
 
 	const plugins: Plugin[] = [
 		shikiPlugin,
+		gfmPlugin(),
+		{ rehypePlugin: [rehypeRaw] },
 		{ remarkPlugin: [remarkMath], rehypePlugin: [rehypeKatex] },
 		addClass,
-		{ renderer: { pre: Pre } }
+		{ renderer: { pre: Pre, a: A } }
 	]
 
 	let { md }: { md: string } = $props()
