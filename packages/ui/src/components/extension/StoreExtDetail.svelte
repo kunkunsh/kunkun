@@ -260,7 +260,7 @@
 			<h2 class="text-lg font-bold">Commands</h2>
 			<ul>
 				{#if manifest}
-					{#each [...(manifest.customUiCmds ?? []), ...(manifest.templateUiCmds ?? [])] as cmd}
+					{#each [...(manifest.customUiCmds ?? []), ...(manifest.templateUiCmds ?? []), ...(manifest.headlessCmds ?? [])] as cmd}
 						<li>
 							<div class="flex items-center space-x-3">
 								{#if manifest}

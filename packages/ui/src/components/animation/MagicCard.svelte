@@ -2,10 +2,12 @@
 	import { onMount } from "svelte"
 	import { Motion, useMotionTemplate, useMotionValue } from "svelte-motion"
 	import { cn } from "../../utils"
+	import BorderBeam from "./BorderBeam.svelte"
 
 	export let gradientSize: number = 200
 	export let gradientColor: string = "#262626"
 	export let gradientOpacity: number = 0.8
+	export let borderBeam: boolean = false
 	let className: string = ""
 	export { className as class }
 
@@ -42,6 +44,9 @@
 		className
 	)}
 >
+	{#if borderBeam}
+		<BorderBeam size={150} duration={12} />
+	{/if}
 	<div class="relative z-10">
 		<!-- Default  -->
 		<slot>
