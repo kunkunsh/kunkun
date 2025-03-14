@@ -14,7 +14,7 @@
 	// export { className as class }
 	let { locations = [], class: className }: { class?: string; locations?: [number, number][] } =
 		$props()
-	let pointerInteracting: any = null
+	let pointerInteracting: number | null = null
 	let pointerInteractionMovement = 0
 	let canvas: HTMLCanvasElement
 
@@ -25,7 +25,8 @@
 		width = canvas.offsetWidth
 	}
 
-	let onRender = (state: any) => {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	let onRender = (state: Record<string, any>) => {
 		if (!pointerInteracting) {
 			phi += 0.005
 		}
