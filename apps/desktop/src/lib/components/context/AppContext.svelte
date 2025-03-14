@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { setAppConfigContext } from "@/context"
 	import { setAppStateContext } from "@/context/appState"
-	import type { AppConfig, AppState } from "@kksh/types"
-	import type { Snippet } from "svelte"
+	import type { AppConfigState, AppState } from "@kksh/types"
+	import { type Snippet } from "svelte"
 	import type { Writable } from "svelte/store"
 
 	const {
@@ -10,7 +10,7 @@
 		appState,
 		children
 	}: {
-		appConfig: Writable<AppConfig>
+		appConfig: Writable<AppConfigState>
 		appState: Writable<AppState>
 		children: Snippet<[]>
 	} = $props()

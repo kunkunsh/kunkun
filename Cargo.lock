@@ -705,7 +705,7 @@ dependencies = [
  "bitflags 2.6.0",
  "cexpr",
  "clang-sys",
- "itertools",
+ "itertools 0.12.1",
  "lazy_static",
  "lazycell",
  "log",
@@ -1773,6 +1773,20 @@ name = "dary_heap"
 version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "04d2cd9c18b9f454ed67da600630b021a8a80bf33f8c95896ab33aaf1c26b728"
+
+[[package]]
+name = "dashmap"
+version = "6.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5041cc499144891f3790297212f32a74fb938e5136a14943f338ef9e0ae276cf"
+dependencies = [
+ "cfg-if",
+ "crossbeam-utils",
+ "hashbrown 0.14.5",
+ "lock_api",
+ "once_cell",
+ "parking_lot_core",
+]
 
 [[package]]
 name = "data-url"
@@ -3747,6 +3761,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "itertools"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b192c782037fadd9cfa75548310488aabdbf3d2da73885b31bd0abd03351285"
+dependencies = [
+ "either",
+]
+
+[[package]]
 name = "itoa"
 version = "0.4.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3968,6 +3991,7 @@ dependencies = [
  "tauri-plugin-single-instance",
  "tauri-plugin-store",
  "tauri-plugin-stronghold",
+ "tauri-plugin-svelte",
  "tauri-plugin-system-info",
  "tauri-plugin-updater",
  "tauri-plugin-upload",
@@ -5693,7 +5717,7 @@ checksum = "22505a5c94da8e3b7c2996394d1c933236c4d743e81a410bcca4e6989fc066a4"
 dependencies = [
  "bytes",
  "heck 0.5.0",
- "itertools",
+ "itertools 0.12.1",
  "log",
  "multimap",
  "once_cell",
@@ -5713,7 +5737,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "81bddcdb20abf9501610992b6759a4c888aef7d1a7247ef75e2404275ac24af1"
 dependencies = [
  "anyhow",
- "itertools",
+ "itertools 0.12.1",
  "proc-macro2",
  "quote",
  "syn 2.0.87",
@@ -5965,7 +5989,7 @@ dependencies = [
  "built",
  "cfg-if",
  "interpolate_name",
- "itertools",
+ "itertools 0.12.1",
  "libc",
  "libfuzzer-sys",
  "log",
@@ -7978,6 +8002,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "tauri-plugin-svelte"
+version = "1.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dab0a4d739af1108c6572e6249113190135c66a45586d0f8f93b3ee532e6176f"
+dependencies = [
+ "serde",
+ "tauri",
+ "tauri-plugin",
+ "tauri-store",
+ "tracing",
+]
+
+[[package]]
 name = "tauri-plugin-system-info"
 version = "2.0.9"
 dependencies = [
@@ -8095,6 +8132,49 @@ dependencies = [
  "webview2-com",
  "windows 0.58.0",
  "wry",
+]
+
+[[package]]
+name = "tauri-store"
+version = "0.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cb4e7c0776d9f8b54fd4788f4e471ce83b4c6cf62079799830a3735582a51fc4"
+dependencies = [
+ "dashmap",
+ "futures",
+ "itertools 0.14.0",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-store-macros",
+ "tauri-store-utils",
+ "thiserror 2.0.3",
+ "tokio",
+ "tracing",
+]
+
+[[package]]
+name = "tauri-store-macros"
+version = "0.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fabed02238bc887f75887b315c6a14d9571ab463c1a188cc27ec2f7e917b06c3"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.87",
+]
+
+[[package]]
+name = "tauri-store-utils"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b983a259b22d622ce74b957140efa161bd75c6bfd47b7bf621c98dd05b1a2474"
+dependencies = [
+ "futures",
+ "tauri",
+ "thiserror 2.0.3",
+ "tokio",
+ "tracing",
 ]
 
 [[package]]
