@@ -1,0 +1,90 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+
+	"app_name": "KunKun",
+	"secondary_app_name": "KunKun",
+
+	"common_edit": "Bearbeiten",
+	"common_clear": "Löschen",
+	"common_check": "Prüfen",
+	"common_install": "Installieren",
+
+	"home_command_input_placeholder": "Suchen…",
+	"home_command_input_dropdown_quit": "Beenden",
+	"home_command_input_dropdown_developer_title": "Entwickler",
+	"home_command_input_dropdown_close_window": "Fenster schließen",
+	"home_command_input_dropdown_toggle_devtools": "Entwicklertools umschalten",
+	"home_command_input_dropdown_reload_window": "Fenster neu laden",
+	"home_command_input_dropdown_open_preference": "Einstellungen öffnen",
+	"home_command_input_dropdown_toggle_dev_extension_hmr": "Entwicklererweiterungen HMR umschalten",
+
+	"command_group_heading_dev_ext": "Entwicklererweiterungen",
+	"command_group_heading_ext": "Erweiterungen",
+	"command_group_heading_quick_links": "Quick Links",
+
+	"settings_menu_settings": "Einstellungen",
+	"settings_menu_general": "Allgemein",
+	"settings_menu_app_search_paths": "Verzeichnisse für Programme",
+	"settings_menu_developer": "Entwickler",
+	"settings_menu_extensions": "Erweiterungen",
+	"settings_menu_set_dev_ext": "Dev-Erweiterung festlegen",
+	"settings_menu_add_dev_ext": "Dev-Erweiterung hinzufügen",
+	"settings_menu_about": "Über",
+
+	"settings_general_launch_at_login": "Beim Systemstart öffnen",
+	"settings_general_hotkey": "Tastenkombination",
+	"settings_general_menu_bar_icon": "Menüleiste-Symbol",
+	"settings_general_hide_on_blur": "Automatisch ausblenden",
+	"settings_general_extension_auto_upgrade": "Erweiterungen automatisch aktualisieren",
+	"settings_general_dev_extension_hmr": "Entwicklererweiterungen HMR",
+	"settings_general_join_beta_updates": "Beta-Updates nutzen",
+	"settings_general_developer_mode": "Entwickler-Modus",
+	"settings_general_language": "Sprache",
+
+	"settings_app_search_paths_title": "Zusätzliche Verzeichnisse für die Programm-Suche",
+	"settings_app_search_paths_add_app_search_path": "Verzeichnis für Programm-Suche hinzufügen",
+	"settings_app_search_paths_table_col_search_path": "Suchpfad",
+	"settings_app_search_paths_table_col_depth": "Tiefe",
+	"settings_app_search_paths_table_col_actions": "Aktionen",
+
+	"settings_about_version": "Version",
+	"settings_about_author": "Autor",
+	"settings_about_source_code": "Quellcode",
+	"settings_about_extensions_source_code": "Quellcode für Erweiterungen",
+	"settings_about_check_for_updates": "Nach Updates suchen",
+
+	"settings_set_dev_ext_title": "Verzeichnis der Entwicklererweiterungen",
+	"settings_set_dev_ext_description": "Hier werden Entwicklererweiterungen installiert.",
+	"settings_set_dev_ext_enter_path": "Verzeichnis eingeben",
+
+	"settings_extensions_title": "Deine Erweiterungen",
+	"settings_extensions_table_col_name": "Name",
+	"settings_extensions_table_col_identifier": "Identifikator",
+	"settings_extensions_table_col_type": "Typ",
+	"settings_extensions_table_col_version": "Version",
+	"settings_extensions_table_col_uninstall": "Deinstallieren",
+
+	"settings_add_dev_ext_title": "Entwicklererweiterung hinzufügen",
+	"settings_add_dev_ext_description": "Es gibt vier Möglichkeiten, eine Erweiterung als Entwicklererweiterung zu installieren. Tarball-Archiv, lokales Verzeichnis, URL zu Tarball-Archiv oder NPM-Paketnamen.",
+	"settings_add_dev_ext_install_from_ext_folders": "Verzeichnis",
+	"settings_add_dev_ext_install_from_ext_files": "Tarball-Archiv",
+	"settings_add_dev_ext_drag_and_drop": "Drag and Drop",
+	"settings_add_dev_ext_drag_and_drop_strike": "Drag and Drop",
+	"settings_add_dev_ext_drag_and_drop2": "Verzeichnis oder Tarball-Archiv",
+	"settings_add_dev_ext_install_tarball_from_url": "Tarball-Archiv aus URL installieren",
+
+	"troubleshooters_sidebar_title": "Fehlerbehebung",
+	"troubleshooters_sidebar_extension_loading_title": "Ladevorgang",
+	"troubleshooters_sidebar_extension_window_title": "Darstellung",
+	"troubleshooters_sidebar_mdns_debugger_title": "MDNS-Debugger",
+
+	"troubleshooters_extension_window_title": "Fehlerbehebung für die Darstellung von Erweiterungen",
+	"troubleshooters_extension_window_refresh_every_second": "Jede Sekunde neu laden",
+	"troubleshooters_extension_window_refresh": "Neu laden",
+	"troubleshooters_extension_window_refreshed": "{count}x neu geladen",
+
+	"troubleshooters_extension_loading_title": "Fehlerbehebung für den Ladevorgang von Erweiterungen",
+	"troubleshooters_extension_loading_table_col_identifier": "Identifikator",
+	"troubleshooters_extension_loading_table_col_path": "Verzeichnis",
+	"troubleshooters_extension_loading_table_col_error": "Fehler"
+}
