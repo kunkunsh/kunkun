@@ -99,6 +99,6 @@
 		"svelte-exmarkdown": "^4.0.3",
 		"svelte-inspect-value": "^0.3.0",
 		"svelte-motion": "^0.12.2",
-		"valibot": "1.0.0-beta.12"
+		"valibot": "^1.0.0-rc.4"
 	}
 }

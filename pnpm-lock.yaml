@@ -72,8 +72,8 @@ importers:
         specifier: workspace:*
         version: link:vendors/tauri-plugin-system-info
       valibot:
-        specifier: ^1.0.0-beta.11
-        version: 1.0.0-beta.11(typescript@5.7.3)
+        specifier: ^1.0.0-rc.4
+        version: 1.0.0-rc.4(typescript@5.7.3)
       zod:
         specifier: ^3.24.2
         version: 3.24.2
@@ -139,8 +139,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.3
       valibot:
-        specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.7.3)
+        specifier: ^1.0.0-rc.4
+        version: 1.0.0-rc.4(typescript@5.7.3)
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -179,8 +179,8 @@ importers:
         specifier: ^5.0.0
         version: 5.7.3
       valibot:
-        specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.7.3)
+        specifier: ^1.0.0-rc.4
+        version: 1.0.0-rc.4(typescript@5.7.3)
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -255,8 +255,8 @@ importers:
         specifier: ^3.12.7
         version: 3.12.7
       kkrpc:
-        specifier: ^0.1.2
-        version: 0.1.2(typescript@5.6.3)
+        specifier: ^0.2.1
+        version: 0.2.1(typescript@5.6.3)
       lz-string:
         specifier: ^1.5.0
         version: 1.5.0
@@ -442,8 +442,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
       kkrpc:
-        specifier: ^0.1.1
-        version: 0.1.1(typescript@5.7.2)
+        specifier: ^0.2.1
+        version: 0.2.1(typescript@5.7.2)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -460,8 +460,8 @@ importers:
         specifier: ^0.3.28
         version: 0.3.28(svelte@5.20.5)
       tauri-api-adapter:
-        specifier: ^0.3.23
-        version: 0.3.23(typescript@5.7.2)
+        specifier: ^0.3.26
+        version: 0.3.26(typescript@5.7.2)
       tauri-plugin-network-api:
         specifier: 2.0.5
         version: 2.0.5(typescript@5.7.2)
@@ -472,8 +472,8 @@ importers:
         specifier: 2.0.8
         version: 2.0.8(typescript@5.7.2)
       valibot:
-        specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.7.2)
+        specifier: ^1.0.0-rc.4
+        version: 1.0.0-rc.4(typescript@5.7.2)
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -759,8 +759,8 @@ importers:
         specifier: ^5.0.0
         version: 5.7.3
       valibot:
-        specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.7.3)
+        specifier: ^1.0.0-rc.4
+        version: 1.0.0-rc.4(typescript@5.7.3)
     devDependencies:
       '@kksh/supabase':
         specifier: workspace:*
@@ -773,7 +773,7 @@ importers:
         version: 1.2.5
       '@valibot/to-json-schema':
         specifier: 1.0.0-beta.4
-        version: 1.0.0-beta.4(valibot@1.0.0-beta.10(typescript@5.7.3))
+        version: 1.0.0-beta.4(valibot@1.0.0-rc.4(typescript@5.7.3))
 
   packages/supabase:
     dependencies:
@@ -1284,8 +1284,8 @@ importers:
         specifier: ^0.12.2
         version: 0.12.2(svelte@5.20.5)
       valibot:
-        specifier: 1.0.0-beta.12
-        version: 1.0.0-beta.12(typescript@5.7.3)
+        specifier: ^1.0.0-rc.4
+        version: 1.0.0-rc.4(typescript@5.7.3)
     devDependencies:
       '@eslint/js':
         specifier: ^9.18.0
@@ -8799,13 +8799,8 @@ packages:
     resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
     engines: {node: '>=0.10.0'}
 
-  kkrpc@0.1.1:
-    resolution: {integrity: sha512-zS75NGmDbMEQNJ7Y1XVNVrLmfuCY94jMCrIcNFHoT+5qLaTzpK1lokXUD9VYrRVMQMwAx8U9BgKjdiS0eDKZHA==}
-    peerDependencies:
-      typescript: ^5.0.0
-
-  kkrpc@0.1.2:
-    resolution: {integrity: sha512-RfT59njEt5ITcNO8t5oa4N+yGqstr3DX5Ezx9SdQg0plMGYdNZqKGdV7JHPmFUcgoqHojkmbbbg7nI76a7ADiQ==}
+  kkrpc@0.2.1:
+    resolution: {integrity: sha512-LjB7OMMJYA5W+g7LcyCvYuskwMKOaF/TmeAkmHYZIEp1BUor69I/P7hNOZYAf2oAwpTbhSGOR7Bso+QhkjqxGA==}
     peerDependencies:
       typescript: ^5.0.0
 
@@ -11182,6 +11177,10 @@ packages:
     resolution: {integrity: sha512-8iGv75BYOa0xRJHK5vRLEjE2H/i4lulTjzpUXic3Eg8akftYjkmQDa8JARQ42rlczXyFR3IeRoeFCc7RxHsYZA==}
     engines: {node: '>=16'}
 
+  superjson@2.2.2:
+    resolution: {integrity: sha512-5JRxVqC8I8NuOUjzBbvVJAKNM8qoVuH0O77h4WInc/qC2q5IreqKxYwgkga3PfA22OayK2ikceb/B26dztPl+Q==}
+    engines: {node: '>=16'}
+
   superstruct@2.0.2:
     resolution: {integrity: sha512-uV+TFRZdXsqXTL2pRvujROjdZQ4RAlBUS5BTh9IGm+jTqQntYThciG/qu57Gs69yjnVUSqdxF9YLmSnpupBW9A==}
     engines: {node: '>=14.0.0'}
@@ -11367,8 +11366,8 @@ packages:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
 
-  tauri-api-adapter@0.3.23:
-    resolution: {integrity: sha512-WT/NVCdZZSn63Yu/lhZqeUxMGy/VoBZik7yuY2ot+kCynsI1zJQ9ZB6ORmPL8+VBBRbSpEn1yOUbSTSucRFLOQ==}
+  tauri-api-adapter@0.3.26:
+    resolution: {integrity: sha512-AfdxF6EIBrpkhciySkLheYBlpFkUG3dIXHTJXLhhn00fibKBZBSiLps7u9s1WVGcSonGrqXzqgsAjRX1nOHyhQ==}
     peerDependencies:
       typescript: ^5.0.0
 
@@ -11388,6 +11387,9 @@ packages:
 
   tauri-plugin-svelte@1.2.1:
     resolution: {integrity: sha512-xusgcHpnXqRt4RO+3UjqAlOCTh5PcxzDEa11Qd8Z3cHz6MMl0PLE6j0ExeAur+dTiZVLEGFsIm6Qd0LY9ED/wA==}
+
+  tauri-plugin-system-info-api@2.0.10:
+    resolution: {integrity: sha512-QalL92OgjARjyBoK4RFMV1+JRdWKyWBqv+kMi2Y7rnLkIGQUvsMQwvyCcbjdV3qoDbeAdU97G7qu7uPoO+c+OQ==}
 
   tauri-plugin-system-info-api@2.0.8:
     resolution: {integrity: sha512-EFdLXNGp6Zu9SNsZCkU+55A8027OnrVw/TQrd0oJHgfZzs4qvm1iMmSvyid4MLftt33iZDhjCzxYijaaOxeKSg==}
@@ -11958,16 +11960,16 @@ packages:
       typescript:
         optional: true
 
-  valibot@1.0.0-beta.12:
-    resolution: {integrity: sha512-j3WIxJ0pmUFMfdfUECn3YnZPYOiG0yHYcFEa/+RVgo0I+MXE3ToLt7gNRLtY5pwGfgNmsmhenGZfU5suu9ijUA==}
+  valibot@1.0.0-beta.9:
+    resolution: {integrity: sha512-yEX8gMAZ2R1yI2uwOO4NCtVnJQx36zn3vD0omzzj9FhcoblvPukENIiRZXKZwCnqSeV80bMm8wNiGhQ0S8fiww==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
       typescript:
         optional: true
 
-  valibot@1.0.0-beta.9:
-    resolution: {integrity: sha512-yEX8gMAZ2R1yI2uwOO4NCtVnJQx36zn3vD0omzzj9FhcoblvPukENIiRZXKZwCnqSeV80bMm8wNiGhQ0S8fiww==}
+  valibot@1.0.0-rc.4:
+    resolution: {integrity: sha512-VRaChgFv7Ab0P54AMLu7+GqoexdTPQ54Plj59X9qV0AFozI3j9CGH43skg+TqgMpXnrW8jxlJ2TTHAtAD3t4qA==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -12436,6 +12438,18 @@ packages:
 
   ws@8.18.0:
     resolution: {integrity: sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
+  ws@8.18.1:
+    resolution: {integrity: sha512-RKW2aJZMXeMxVpnZ6bck+RswznaxmzdULiBr6KY7XkTnW8uvt0iT9H5DkHUChXrc+uurzwa0rVI16n/Xzjdz1w==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -13824,7 +13838,7 @@ snapshots:
   '@eslint/config-array@0.19.2':
     dependencies:
       '@eslint/object-schema': 2.1.6
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -13866,7 +13880,7 @@ snapshots:
   '@eslint/eslintrc@3.3.0':
     dependencies:
       ajv: 6.12.6
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       espree: 10.3.0
       globals: 14.0.0
       ignore: 5.3.2
@@ -14232,7 +14246,7 @@ snapshots:
       '@lix-js/client': 2.2.1
       '@lix-js/fs': 2.2.0
       '@sinclair/typebox': 0.31.28
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       dedent: 1.5.1(babel-plugin-macros@3.1.0)
       deepmerge-ts: 5.1.0
       murmurhash3js: 3.0.1
@@ -14256,7 +14270,7 @@ snapshots:
       '@lix-js/client': 2.2.1
       '@lix-js/fs': 2.2.0
       '@sinclair/typebox': 0.31.28
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       dedent: 1.5.1(babel-plugin-macros@3.1.0)
       deepmerge-ts: 5.1.0
       murmurhash3js: 3.0.1
@@ -14280,7 +14294,7 @@ snapshots:
       '@lix-js/client': 2.2.1
       '@lix-js/fs': 2.2.0
       '@sinclair/typebox': 0.31.28
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       dedent: 1.5.1(babel-plugin-macros@3.1.0)
       deepmerge-ts: 5.1.0
       murmurhash3js: 3.0.1
@@ -17145,7 +17159,7 @@ snapshots:
   '@sveltejs/vite-plugin-svelte-inspector@4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1))':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1))
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       svelte: 5.20.5
       vite: 6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)
     transitivePeerDependencies:
@@ -17167,7 +17181,7 @@ snapshots:
   '@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1))':
     dependencies:
       '@sveltejs/vite-plugin-svelte-inspector': 4.0.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1))
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       deepmerge: 4.3.1
       kleur: 4.1.5
       magic-string: 0.30.17
@@ -17923,7 +17937,7 @@ snapshots:
       '@typescript-eslint/types': 8.20.0
       '@typescript-eslint/typescript-estree': 8.20.0(typescript@5.7.3)
       '@typescript-eslint/visitor-keys': 8.20.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       eslint: 9.21.0(jiti@2.4.0)
       typescript: 5.7.3
     transitivePeerDependencies:
@@ -18000,7 +18014,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/typescript-estree': 8.20.0(typescript@5.7.3)
       '@typescript-eslint/utils': 8.20.0(eslint@9.21.0(jiti@2.4.0))(typescript@5.7.3)
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       eslint: 9.21.0(jiti@2.4.0)
       ts-api-utils: 2.0.0(typescript@5.7.3)
       typescript: 5.7.3
@@ -18085,7 +18099,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.20.0
       '@typescript-eslint/visitor-keys': 8.20.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       fast-glob: 3.3.2
       is-glob: 4.0.3
       minimatch: 9.0.5
@@ -18265,9 +18279,9 @@ snapshots:
       '@unovis/ts': 1.4.4
       vue: 3.5.13(typescript@5.6.3)
 
-  '@valibot/to-json-schema@1.0.0-beta.4(valibot@1.0.0-beta.10(typescript@5.7.3))':
+  '@valibot/to-json-schema@1.0.0-beta.4(valibot@1.0.0-rc.4(typescript@5.7.3))':
     dependencies:
-      valibot: 1.0.0-beta.10(typescript@5.7.3)
+      valibot: 1.0.0-rc.4(typescript@5.7.3)
 
   '@vee-validate/zod@4.14.7(vue@3.5.13(typescript@5.6.3))':
     dependencies:
@@ -19678,10 +19692,6 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
-  debug@4.4.0:
-    dependencies:
-      ms: 2.1.3
-
   debug@4.4.0(supports-color@8.1.1):
     dependencies:
       ms: 2.1.3
@@ -20567,7 +20577,7 @@ snapshots:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.6
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       escape-string-regexp: 4.0.0
       eslint-scope: 8.2.0
       eslint-visitor-keys: 4.2.0
@@ -21826,26 +21836,22 @@ snapshots:
 
   kind-of@6.0.3: {}
 
-  kkrpc@0.1.1(typescript@5.7.2):
+  kkrpc@0.2.1(typescript@5.6.3):
     dependencies:
-      typescript: 5.7.2
-      ws: 8.18.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
-  kkrpc@0.1.2(typescript@5.6.3):
-    dependencies:
+      '@tauri-apps/plugin-shell': 2.2.0
+      superjson: 2.2.2
       typescript: 5.6.3
-      ws: 8.18.0
+      ws: 8.18.1
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  kkrpc@0.1.2(typescript@5.7.2):
+  kkrpc@0.2.1(typescript@5.7.2):
     dependencies:
+      '@tauri-apps/plugin-shell': 2.2.0
+      superjson: 2.2.2
       typescript: 5.7.2
-      ws: 8.18.0
+      ws: 8.18.1
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -22471,7 +22477,7 @@ snapshots:
   micromark@4.0.2:
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@9.4.0)
       decode-named-character-reference: 1.1.0
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.3
@@ -24653,6 +24659,10 @@ snapshots:
     dependencies:
       copy-anything: 3.0.5
 
+  superjson@2.2.2:
+    dependencies:
+      copy-anything: 3.0.5
+
   superstruct@2.0.2:
     optional: true
 
@@ -24855,7 +24865,7 @@ snapshots:
       joi: 17.13.3
       json-schema-to-ts: 3.1.1
       superstruct: 2.0.2
-      valibot: 1.0.0-beta.12(typescript@5.7.3)
+      valibot: 1.0.0-rc.4(typescript@5.7.3)
       yup: 1.6.1
       zod: 3.24.1
       zod-to-json-schema: 3.24.1(zod@3.24.1)
@@ -25079,7 +25089,7 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  tauri-api-adapter@0.3.23(typescript@5.7.2):
+  tauri-api-adapter@0.3.26(typescript@5.7.2):
     dependencies:
       '@tauri-apps/api': 2.3.0
       '@tauri-apps/plugin-dialog': 2.2.0
@@ -25090,16 +25100,16 @@ snapshots:
       '@tauri-apps/plugin-os': 2.2.0
       '@tauri-apps/plugin-shell': 2.2.0
       '@tauri-apps/plugin-upload': 2.2.1
-      kkrpc: 0.1.2(typescript@5.7.2)
+      kkrpc: 0.2.1(typescript@5.7.2)
       rimraf: 6.0.1
       shx: 0.3.4
       tauri-plugin-clipboard-api: 2.1.11(typescript@5.7.2)
       tauri-plugin-network-api: 2.0.5(typescript@5.7.2)
       tauri-plugin-shellx-api: 2.0.16
-      tauri-plugin-system-info-api: 2.0.8(typescript@5.7.2)
+      tauri-plugin-system-info-api: 2.0.10(typescript@5.7.2)
       tsc-alias: 1.8.10
       typescript: 5.7.2
-      valibot: 1.0.0-beta.12(typescript@5.7.2)
+      valibot: 1.0.0-rc.4(typescript@5.7.2)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -25155,14 +25165,14 @@ snapshots:
   tauri-plugin-network-api@2.0.5(typescript@5.7.2):
     dependencies:
       '@tauri-apps/api': 2.3.0
-      valibot: 1.0.0-beta.11(typescript@5.7.2)
+      valibot: 1.0.0-rc.4(typescript@5.7.2)
     transitivePeerDependencies:
       - typescript
 
   tauri-plugin-network-api@2.0.5(typescript@5.7.3):
     dependencies:
       '@tauri-apps/api': 2.3.0
-      valibot: 1.0.0-beta.11(typescript@5.7.3)
+      valibot: 1.0.0-rc.4(typescript@5.7.3)
     transitivePeerDependencies:
       - typescript
 
@@ -25175,6 +25185,13 @@ snapshots:
       '@tauri-apps/api': 2.3.0
       '@tauri-store/shared': 0.6.0
       svelte: 5.20.5
+
+  tauri-plugin-system-info-api@2.0.10(typescript@5.7.2):
+    dependencies:
+      '@tauri-apps/api': 2.3.0
+      valibot: 1.0.0-rc.4(typescript@5.7.2)
+    transitivePeerDependencies:
+      - typescript
 
   tauri-plugin-system-info-api@2.0.8(typescript@5.7.2):
     dependencies:
@@ -25770,10 +25787,6 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.2
 
-  valibot@1.0.0-beta.10(typescript@5.7.3):
-    optionalDependencies:
-      typescript: 5.7.3
-
   valibot@1.0.0-beta.11(typescript@5.6.3):
     optionalDependencies:
       typescript: 5.6.3
@@ -25787,17 +25800,17 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.3
 
-  valibot@1.0.0-beta.12(typescript@5.7.2):
-    optionalDependencies:
-      typescript: 5.7.2
-
-  valibot@1.0.0-beta.12(typescript@5.7.3):
-    optionalDependencies:
-      typescript: 5.7.3
-
   valibot@1.0.0-beta.9(typescript@5.6.3):
     optionalDependencies:
       typescript: 5.6.3
+
+  valibot@1.0.0-rc.4(typescript@5.7.2):
+    optionalDependencies:
+      typescript: 5.7.2
+
+  valibot@1.0.0-rc.4(typescript@5.7.3):
+    optionalDependencies:
+      typescript: 5.7.3
 
   validate-npm-package-name@5.0.1: {}
 
@@ -26273,6 +26286,8 @@ snapshots:
       signal-exit: 4.1.0
 
   ws@8.18.0: {}
+
+  ws@8.18.1: {}
 
   y18n@5.0.8: {}
 
