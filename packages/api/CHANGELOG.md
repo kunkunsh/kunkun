@@ -53,3 +53,16 @@
 ### Patch Changes
 
 - More Icon Options
+
+## 0.1.6
+
+### Patch Changes
+
+- Upgrade kkrpc to 0.2.1, which uses superjson for serialization
+
+## 0.1.7
+
+### Patch Changes
+
+- Upgrade kkrpc to 0.2.2, supports both json and superjson serialization, for backward compatibility
+- The previous version breaks extension compatibility.

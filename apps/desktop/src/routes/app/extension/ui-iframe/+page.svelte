@@ -5,6 +5,7 @@
 	import { helperAPI } from "@/utils/helper"
 	import { paste } from "@/utils/hotkey"
 	import { goBackOnEscape } from "@/utils/key"
+	import { decideKkrpcSerialization } from "@/utils/kkrpc"
 	import { goHome } from "@/utils/route"
 	import { positionToCssStyleString, positionToTailwindClasses } from "@/utils/style"
 	import { sleep } from "@/utils/time"
@@ -27,6 +28,7 @@
 	} from "@kunkunapi/src/events"
 	import { emitTo } from "@tauri-apps/api/event"
 	import { getCurrentWindow } from "@tauri-apps/api/window"
+	import { info } from "@tauri-apps/plugin-log"
 	import { goto } from "$app/navigation"
 	import { IframeParentIO, RPCChannel } from "kkrpc/browser"
 	import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon, XIcon } from "lucide-svelte"
@@ -170,7 +172,16 @@
 		}, 200)
 		if (iframeRef?.contentWindow) {
 			const io = new IframeParentIO(iframeRef.contentWindow)
-			const rpc = new RPCChannel(io, { expose: serverAPI2 })
+			const kkrpcSerialization = decideKkrpcSerialization(loadedExt)
+			info(
+				`Establishing kkrpc connection for ${loadedExt.kunkun.identifier} with serialization: ${kkrpcSerialization}`
+			)
+			const rpc = new RPCChannel(io, {
+				expose: serverAPI2,
+				serialization: {
+					version: kkrpcSerialization
+				}
+			})
 		} else {
 			toast.warning("iframeRef.contentWindow not available")
 		}
