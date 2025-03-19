@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/api",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"type": "module",
 	"repository": {
 		"type": "git",
@@ -65,13 +65,13 @@
 		"@tauri-apps/plugin-store": "^2.2.0",
 		"@tauri-apps/plugin-updater": "^2.3.0",
 		"@tauri-apps/plugin-upload": "^2.2.1",
-		"kkrpc": "^0.2.1",
+		"kkrpc": "^0.2.2",
 		"lodash": "^4.17.21",
 		"minimatch": "^10.0.1",
 		"node-fetch": "^3.3.2",
 		"semver": "^7.6.3",
 		"svelte-sonner": "^0.3.28",
-		"tauri-api-adapter": "^0.3.26",
+		"tauri-api-adapter": "^0.3.27",
 		"tauri-plugin-network-api": "2.0.5",
 		"tauri-plugin-shellx-api": "^2.0.16",
 		"tauri-plugin-system-info-api": "2.0.8",

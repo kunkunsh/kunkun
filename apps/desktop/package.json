@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/desktop",
-	"version": "0.1.35",
+	"version": "0.1.36",
 	"description": "",
 	"type": "module",
 	"scripts": {
@@ -33,7 +33,7 @@
 		"eslint": "^9.21.0",
 		"fuse.js": "^7.1.0",
 		"gsap": "^3.12.7",
-		"kkrpc": "^0.2.1",
+		"kkrpc": "^0.2.2",
 		"lz-string": "^1.5.0",
 		"pretty-bytes": "^6.1.1",
 		"semver": "^7.7.1",

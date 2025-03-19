@@ -195,7 +195,8 @@ export const ExtPackageJsonExtra = v.object({
 	...ExtPackageJson.entries,
 	...{
 		extPath: v.string(),
-		extFolderName: v.string()
+		extFolderName: v.string(),
+		apiVersion: v.optional(v.string("API version of the extension"))
 	}
 })
 

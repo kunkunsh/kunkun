@@ -5,6 +5,7 @@
 	import { winExtMap } from "@/stores/winExtMap.js"
 	import { helperAPI } from "@/utils/helper.js"
 	import { paste } from "@/utils/hotkey"
+	import { decideKkrpcSerialization } from "@/utils/kkrpc.js"
 	import {
 		emitReloadOneExtension,
 		listenToFileDrop,
@@ -43,7 +44,7 @@
 	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import * as fs from "@tauri-apps/plugin-fs"
 	import { readTextFile } from "@tauri-apps/plugin-fs"
-	import { debug } from "@tauri-apps/plugin-log"
+	import { debug, info } from "@tauri-apps/plugin-log"
 	import { platform } from "@tauri-apps/plugin-os"
 	import { goto } from "$app/navigation"
 	import { RPCChannel, WorkerParentIO } from "kkrpc/browser"
@@ -270,8 +271,15 @@
 			} satisfies IApp
 		}
 		const io = new WorkerParentIO(worker)
+		const kkrpcSerialization = decideKkrpcSerialization(loadedExt)
+		info(
+			`Establishing kkrpc connection for ${loadedExt.kunkun.identifier} with serialization: ${kkrpcSerialization}`
+		)
 		const rpc = new RPCChannel<typeof serverAPI2, TemplateUiCommand>(io, {
-			expose: serverAPI2
+			expose: serverAPI2,
+			serialization: {
+				version: kkrpcSerialization
+			}
 		})
 		workerAPI = rpc.getAPI()
 		await workerAPI.load()

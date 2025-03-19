@@ -3,6 +3,7 @@ import { ExtPackageJson, ExtPackageJsonExtra, License } from "@kksh/api/models"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
+import semver from "semver"
 import * as v from "valibot"
 import { upsertExtension } from "./db"
 
@@ -10,6 +11,15 @@ const OptionalExtPackageJson = v.object({
 	...ExtPackageJson.entries,
 	license: v.optional(License, "MIT") // TODO: remove this optional package json later
 })
+
+export function parseAPIVersion(dependencies: Record<string, string>) {
+	const stripPrefix = (version: string) => version.replace(/^[^0-9]+/, "") // Remove leading ^, ~, etc.
+	const apiVersion = dependencies["@kksh/api"]
+	if (apiVersion) {
+		return semver.clean(stripPrefix(apiVersion)) ?? undefined
+	}
+	return undefined
+}
 
 /**
  *
@@ -26,12 +36,13 @@ export function loadExtensionManifestFromDisk(manifestPath: string): Promise<Ext
 			console.error("Parse Error:", v.flatten<typeof OptionalExtPackageJson>(parse.issues))
 			throw new Error(`Invalid manifest: ${manifestPath}`)
 		} else {
-			// debug(`Loaded extension ${parse.output.kunkun.identifier} from ${manifestPath}`)
+			const apiVersion = parseAPIVersion(parse.output.dependencies || {})
 			const extPath = await dirname(manifestPath)
 			const extFolderName = await basename(extPath)
 			return Object.assign(parse.output, {
 				extPath,
-				extFolderName
+				extFolderName,
+				apiVersion
 			})
 		}
 	})

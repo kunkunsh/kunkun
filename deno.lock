@@ -141,7 +141,7 @@
     "npm:i18next@^23.15.1": "23.16.8",
     "npm:inquirer@^10.1.2": "10.2.2",
     "npm:katex@~0.16.21": "0.16.21",
-    "npm:kkrpc@~0.2.1": "0.2.1_typescript@5.6.3",
+    "npm:kkrpc@~0.2.2": "0.2.2_typescript@5.6.3",
     "npm:lodash@^4.17.21": "4.17.21",
     "npm:lucide-svelte@0.469": "0.469.0_svelte@5.19.6__acorn@8.14.0",
     "npm:lucide-svelte@0.471": "0.471.0_svelte@5.19.6__acorn@8.14.0",
@@ -206,7 +206,7 @@
     "npm:tailwindcss@^3.4.6": "3.4.17_postcss@8.5.1",
     "npm:tailwindcss@^3.4.7": "3.4.17_postcss@8.5.1",
     "npm:tar@^7.4.3": "7.4.3",
-    "npm:tauri-api-adapter@~0.3.26": "0.3.26_typescript@5.6.3",
+    "npm:tauri-api-adapter@~0.3.27": "0.3.27_typescript@5.6.3",
     "npm:tauri-plugin-clipboard-api@^2.1.11": "2.1.11_typescript@5.6.3",
     "npm:tauri-plugin-shellx-api@^2.0.14": "2.0.14",
     "npm:tauri-plugin-shellx-api@^2.0.16": "2.0.16",
@@ -10726,8 +10726,8 @@
     "kind-of@6.0.3": {
       "integrity": "sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw=="
     },
-    "kkrpc@0.2.1_typescript@5.6.3": {
-      "integrity": "sha512-LjB7OMMJYA5W+g7LcyCvYuskwMKOaF/TmeAkmHYZIEp1BUor69I/P7hNOZYAf2oAwpTbhSGOR7Bso+QhkjqxGA==",
+    "kkrpc@0.2.2_typescript@5.6.3": {
+      "integrity": "sha512-EliGFPRf+dplMiqNipPUUj89WX9vEWfQkQU05ztbMfdK/SSgnHBbvm7QySGlEIlUb9Y55dSXPkROuxjHz2JbfA==",
       "dependencies": [
         "@tauri-apps/plugin-shell@2.2.0",
         "superjson",
@@ -14839,8 +14839,8 @@
         "yallist@5.0.0"
       ]
     },
-    "tauri-api-adapter@0.3.26_typescript@5.6.3": {
-      "integrity": "sha512-AfdxF6EIBrpkhciySkLheYBlpFkUG3dIXHTJXLhhn00fibKBZBSiLps7u9s1WVGcSonGrqXzqgsAjRX1nOHyhQ==",
+    "tauri-api-adapter@0.3.27_typescript@5.6.3": {
+      "integrity": "sha512-YzfdVlOdwlRqjRRPxvXNTb6acclbrfHC4FtotzAXcbZv7UckEE3Orzvg4AteP5Gb1veyam+NW0MFMU5Ime5vWw==",
       "dependencies": [
         "@tauri-apps/api@2.3.0",
         "@tauri-apps/plugin-dialog@2.2.0",
@@ -16353,7 +16353,7 @@
             "npm:fuse.js@^7.1.0",
             "npm:globals@^15.14.0",
             "npm:gsap@^3.12.7",
-            "npm:kkrpc@~0.2.1",
+            "npm:kkrpc@~0.2.2",
             "npm:lucide-svelte@0.474",
             "npm:lz-string@^1.5.0",
             "npm:prettier@^3.5.2",
@@ -16404,14 +16404,14 @@
             "npm:@types/node@^22.10.5",
             "npm:@types/semver@^7.5.8",
             "npm:fs-extra@^11.2.0",
-            "npm:kkrpc@~0.2.1",
+            "npm:kkrpc@~0.2.2",
             "npm:lodash@^4.17.21",
             "npm:madge@8",
             "npm:minimatch@^10.0.1",
             "npm:node-fetch@^3.3.2",
             "npm:semver@^7.6.3",
             "npm:svelte-sonner@~0.3.28",
-            "npm:tauri-api-adapter@~0.3.26",
+            "npm:tauri-api-adapter@~0.3.27",
             "npm:tauri-plugin-network-api@2.0.5",
             "npm:tauri-plugin-shellx-api@^2.0.16",
             "npm:tauri-plugin-system-info-api@2.0.8",
