@@ -169,8 +169,8 @@ export function constructShellApi(
 		const onEvent = new Channel<CommandEvent<O>>()
 		onEvent.onmessage = cb
 		return invoke<number>("plugin:shellx|spawn", {
-			program: "deno",
-			args: ["run", "/Users/hk/Dev/kunkun/deno.ts"],
+			program,
+			args,
 			options,
 			onEvent
 		})
