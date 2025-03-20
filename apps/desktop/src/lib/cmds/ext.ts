@@ -207,3 +207,62 @@ export async function onCustomUiCmdSelect(
 	}
 	appState.clearSearchTerm()
 }
+
+export async function onRaycastCmdSelect(
+	ext: ExtPackageJsonExtra,
+	cmd: CustomUiCmd,
+	{ isDev, hmr }: { isDev: boolean; hmr: boolean }
+) {
+	// console.log("onCustomUiCmdSelect", ext, cmd, isDev, hmr)
+	await createExtSupportDir(ext.extPath)
+	let url = cmd.main
+	const useDevMain = hmr && isDev && cmd.devMain
+	if (useDevMain) {
+		url = cmd.devMain
+	} else {
+		url = cmd.main.startsWith("http")
+			? cmd.main
+			: decodeURIComponent(convertFileSrc(`${trimSlash(cmd.main)}`, "ext"))
+	}
+	let url2 = `/app/extension/raycast?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
+	// url2 = `/dev?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
+
+	setIframeExtParams(ext.extPath, url)
+	if (cmd.window) {
+		const winLabel = await winExtMap.registerExtensionWithWindow({
+			extPath: ext.extPath,
+			dist: cmd.dist
+		})
+		if (platform() === "windows" && !useDevMain) {
+			const addr = await spawnExtensionFileServer(winLabel)
+			const newUrl = `http://${addr}`
+			url2 = `/app/extension/raycast?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
+			setIframeExtParams(ext.extPath, newUrl)
+		}
+		localStorage.setItem(
+			"kunkun-iframe-ext-params",
+			JSON.stringify({ url, extPath: ext.extPath } satisfies KunkunIframeExtParams)
+		)
+		const window = launchNewExtWindow(winLabel, url2, cmd.window)
+		window.onCloseRequested(async (event) => {
+			await winExtMap.unregisterExtensionFromWindow(winLabel)
+		})
+	} else {
+		console.log("Launch main window")
+		const winLabel = await winExtMap.registerExtensionWithWindow({
+			windowLabel: "main",
+			extPath: ext.extPath,
+			dist: cmd.dist
+		})
+		const _platform = platform()
+		if ((_platform === "windows" || _platform === "linux") && !useDevMain) {
+			const addr = await spawnExtensionFileServer(winLabel) // addr has format "127.0.0.1:<port>"
+			console.log("Extension file server address: ", addr)
+			const newUrl = `http://${addr}`
+			url2 = `/app/extension/raycast?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
+			setIframeExtParams(ext.extPath, newUrl)
+		}
+		goto(i18n.resolveRoute(url2))
+	}
+	appState.clearSearchTerm()
+}
