@@ -206,6 +206,9 @@ importers:
       '@inlang/paraglide-sveltekit':
         specifier: 0.16.0
         version: 0.16.0(@sveltejs/kit@2.17.3(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.3)(yaml@2.6.1)))(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.3)(yaml@2.6.1)))(babel-plugin-macros@3.1.0)
+      '@kksh/drizzle':
+        specifier: workspace:*
+        version: link:../../packages/drizzle
       '@kksh/extension':
         specifier: workspace:*
         version: link:../../packages/extension
@@ -239,12 +242,18 @@ importers:
       '@tauri-apps/plugin-shell':
         specifier: ^2.2.0
         version: 2.2.0
+      '@tauri-apps/plugin-sql':
+        specifier: ^2.2.0
+        version: 2.2.0
       '@tauri-apps/plugin-stronghold':
         specifier: ^2.2.0
         version: 2.2.0
       dompurify:
         specifier: ^3.2.4
         version: 3.2.4
+      drizzle-orm:
+        specifier: ^0.40.1
+        version: 0.40.1(@libsql/client@0.15.0)(bun-types@1.2.5)(gel@2.0.1)
       eslint:
         specifier: ^9.21.0
         version: 9.21.0(jiti@2.4.0)
@@ -338,7 +347,7 @@ importers:
         version: 8.25.0(eslint@9.21.0(jiti@2.4.0))(typescript@5.6.3)
       autoprefixer:
         specifier: ^10.4.20
-        version: 10.4.20(postcss@8.5.3)
+        version: 10.4.20(postcss@8.4.49)
       bits-ui:
         specifier: 1.0.0-next.86
         version: 1.0.0-next.86(svelte@5.20.5)
@@ -548,6 +557,9 @@ importers:
       drizzle-orm:
         specifier: ^0.40.1
         version: 0.40.1(@libsql/client@0.15.0)(bun-types@1.2.5)(gel@2.0.1)
+      typescript:
+        specifier: ^5
+        version: 5.7.3
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -5660,6 +5672,9 @@ packages:
 
   '@tauri-apps/plugin-shell@2.2.0':
     resolution: {integrity: sha512-iC3Ic1hLmasoboG7BO+7p+AriSoqAwKrIk+Hpk+S/bjTQdXqbl2GbdclghI4gM32X0bls7xHzIFqhRdrlvJeaA==}
+
+  '@tauri-apps/plugin-sql@2.2.0':
+    resolution: {integrity: sha512-yGdybpaMENe/p6lTXslvDHYNNvD9qB7palaBBF5fJHdYSkwd3vrLiYU9dFfLwUAwnsBylND55EiivWsjhazejA==}
 
   '@tauri-apps/plugin-store@2.2.0':
     resolution: {integrity: sha512-hJTRtuJis4w5fW1dkcgftsYxKXK0+DbAqurZ3CURHG5WkAyyZgbxpeYctw12bbzF9ZbZREXZklPq8mocCC3Sgg==}
@@ -18134,6 +18149,10 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.3.0
 
+  '@tauri-apps/plugin-sql@2.2.0':
+    dependencies:
+      '@tauri-apps/api': 2.3.0
+
   '@tauri-apps/plugin-store@2.2.0':
     dependencies:
       '@tauri-apps/api': 2.3.0
@@ -19589,16 +19608,6 @@ snapshots:
       normalize-range: 0.1.2
       picocolors: 1.1.1
       postcss: 8.5.1
-      postcss-value-parser: 4.2.0
-
-  autoprefixer@10.4.20(postcss@8.5.3):
-    dependencies:
-      browserslist: 4.24.2
-      caniuse-lite: 1.0.30001676
-      fraction.js: 4.3.7
-      normalize-range: 0.1.2
-      picocolors: 1.1.1
-      postcss: 8.5.3
       postcss-value-parser: 4.2.0
 
   available-typed-arrays@1.0.7:
