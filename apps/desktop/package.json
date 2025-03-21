@@ -17,6 +17,7 @@
 	"dependencies": {
 		"@formkit/auto-animate": "^0.8.2",
 		"@inlang/paraglide-sveltekit": "0.16.0",
+		"@kksh/drizzle": "workspace:*",
 		"@kksh/extension": "workspace:*",
 		"@kksh/supabase": "workspace:*",
 		"@kksh/svelte5": "^0.1.15",
@@ -28,8 +29,10 @@
 		"@tauri-apps/api": "^2.3.0",
 		"@tauri-apps/plugin-autostart": "^2.2.0",
 		"@tauri-apps/plugin-shell": "^2.2.0",
+		"@tauri-apps/plugin-sql": "^2.2.0",
 		"@tauri-apps/plugin-stronghold": "^2.2.0",
 		"dompurify": "^3.2.4",
+		"drizzle-orm": "^0.40.1",
 		"eslint": "^9.21.0",
 		"fuse.js": "^7.1.0",
 		"gsap": "^3.12.7",
