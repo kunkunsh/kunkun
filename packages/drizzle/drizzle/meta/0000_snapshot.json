@@ -1,0 +1,405 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "6",
+  "dialect": "sqlite",
+  "tables": {
+    "schema_version": {
+      "name": "schema_version",
+      "columns": {
+        "version": {
+          "autoincrement": false,
+          "name": "version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "extensions": {
+      "name": "extensions",
+      "columns": {
+        "ext_id": {
+          "autoincrement": true,
+          "name": "ext_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": false
+        },
+        "identifier": {
+          "autoincrement": false,
+          "name": "identifier",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "autoincrement": false,
+          "name": "version",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "enabled": {
+          "default": "(TRUE)",
+          "autoincrement": false,
+          "name": "enabled",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "path": {
+          "autoincrement": false,
+          "name": "path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "data": {
+          "autoincrement": false,
+          "name": "data",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "installed_at": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "installed_at",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "commands": {
+      "name": "commands",
+      "columns": {
+        "cmd_id": {
+          "autoincrement": true,
+          "name": "cmd_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": false
+        },
+        "ext_id": {
+          "autoincrement": false,
+          "name": "ext_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "enabled": {
+          "default": "(TRUE)",
+          "autoincrement": false,
+          "name": "enabled",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alias": {
+          "autoincrement": false,
+          "name": "alias",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "hotkey": {
+          "autoincrement": false,
+          "name": "hotkey",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type": {
+          "autoincrement": false,
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "autoincrement": false,
+          "name": "data",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {
+        "commands_ext_id_extensions_ext_id_fk": {
+          "name": "commands_ext_id_extensions_ext_id_fk",
+          "tableFrom": "commands",
+          "tableTo": "extensions",
+          "columnsFrom": [
+            "ext_id"
+          ],
+          "columnsTo": [
+            "ext_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "extension_data": {
+      "name": "extension_data",
+      "columns": {
+        "data_id": {
+          "autoincrement": true,
+          "name": "data_id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": false
+        },
+        "ext_id": {
+          "autoincrement": false,
+          "name": "ext_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data_type": {
+          "autoincrement": false,
+          "name": "data_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "data": {
+          "autoincrement": false,
+          "name": "data",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metadata": {
+          "autoincrement": false,
+          "name": "metadata",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "search_text": {
+          "autoincrement": false,
+          "name": "search_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "created_at",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "default": "(CURRENT_TIMESTAMP)",
+          "autoincrement": false,
+          "name": "updated_at",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {
+        "extension_data_ext_id_extensions_ext_id_fk": {
+          "name": "extension_data_ext_id_extensions_ext_id_fk",
+          "tableFrom": "extension_data",
+          "tableTo": "extensions",
+          "columnsFrom": [
+            "ext_id"
+          ],
+          "columnsTo": [
+            "ext_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "extension_data_fts": {
+      "name": "extension_data_fts",
+      "columns": {
+        "data_id": {
+          "autoincrement": false,
+          "name": "data_id",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "search_text": {
+          "autoincrement": false,
+          "name": "search_text",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "extension_data_fts": {
+          "autoincrement": false,
+          "name": "extension_data_fts",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rank": {
+          "autoincrement": false,
+          "name": "rank",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "extension_data_fts_data": {
+      "name": "extension_data_fts_data",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": false
+        },
+        "block": {
+          "autoincrement": false,
+          "name": "block",
+          "type": "blob",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "extension_data_fts_idx": {
+      "name": "extension_data_fts_idx",
+      "columns": {
+        "segid": {
+          "autoincrement": false,
+          "name": "segid",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "term": {
+          "autoincrement": false,
+          "name": "term",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pgno": {
+          "autoincrement": false,
+          "name": "pgno",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {
+        "extension_data_fts_idx_segid_term_pk": {
+          "columns": [
+            "segid",
+            "term"
+          ],
+          "name": "extension_data_fts_idx_segid_term_pk"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "extension_data_fts_docsize": {
+      "name": "extension_data_fts_docsize",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": false
+        },
+        "sz": {
+          "autoincrement": false,
+          "name": "sz",
+          "type": "blob",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "extension_data_fts_config": {
+      "name": "extension_data_fts_config",
+      "columns": {
+        "k": {
+          "autoincrement": false,
+          "name": "k",
+          "type": "numeric",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "v": {
+          "autoincrement": false,
+          "name": "v",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
