@@ -13,7 +13,7 @@ export function launchNewExtWindow(windowLabel: string, url: string, windowConfi
 		maxWidth: windowConfig?.maxWidth ?? undefined,
 		maxHeight: windowConfig?.maxHeight ?? undefined,
 		resizable: windowConfig?.resizable ?? undefined,
-		title: windowConfig?.title ?? undefined,
+		title: windowConfig?.title ?? "Kunkun Extension",
 		fullscreen: windowConfig?.fullscreen ?? undefined,
 		focus: windowConfig?.focus ?? undefined,
 		transparent: windowConfig?.transparent ?? undefined,
