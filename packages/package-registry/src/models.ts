@@ -74,8 +74,7 @@ export const ExtensionPublishValidationData = v.object({
 		commit: v.string(),
 		repo: v.string(),
 		owner: v.string(),
-		workflowPath: v.string(),
-		repoId: v.optional(v.string())
+		workflowPath: v.string()
 	})
 })
 export type ExtensionPublishValidationData = v.InferOutput<typeof ExtensionPublishValidationData>

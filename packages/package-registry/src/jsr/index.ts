@@ -209,6 +209,7 @@ export function jsrPackageExists(scope: string, name: string, version?: string):
 
 /**
  * Validate a Jsr package as a Kunkun extension
+ * !This function will also run in frontend, so if there is any verification logic that must be run in backend, do not add it here
  * - check if jsr pkg is linked to a github repo
  * - check if jsr pkg is signed with github action
  * - check if user's github username is the same as repo's owner name
@@ -373,15 +374,6 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 	}
 	const rekorInfo = await getInfoFromRekorLog(rekorLogId)
 
-	/* -------------------------------------------------------------------------- */
-	/*                             Get GitHub Node ID                             */
-	/* -------------------------------------------------------------------------- */
-	const githubRepoMetadata = await getGitHubRepoMetadata(
-		githubRepo.owner,
-		githubRepo.name,
-		payload.githubToken
-	)
-
 	return {
 		data: {
 			pkgJson: parseResult.output,
@@ -397,8 +389,7 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 				commit: rekorInfo.commit,
 				repo: githubRepo.name,
 				owner: githubRepo.owner,
-				workflowPath: rekorInfo.workflowPath,
-				repoId: githubRepoMetadata.node_id
+				workflowPath: rekorInfo.workflowPath
 			}
 		}
 	}
