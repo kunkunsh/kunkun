@@ -2,7 +2,6 @@
  * TODO: move this module to another folder
  */
 import { Octokit } from "@octokit/rest"
-import gh from "parse-github-url"
 
 /**
  * Check if a user is a public member of a GitHub organization
@@ -44,14 +43,14 @@ export function parseGitHubRepoFromUri(uri: string): {
 	owner: string
 	repo: string
 } {
-	const ghUrl = gh(uri)
-	if (!ghUrl) {
+	// check regex
+	const regex = /https?:\/\/github\.com\/([^\/]+)\/([^\/]+)/
+	const match = uri.match(regex)
+	if (!match) {
 		throw new Error("Invalid GitHub repository URI")
 	}
-	if (!ghUrl.owner || !ghUrl.name) {
-		throw new Error("Invalid GitHub repository URI")
-	}
-	return { owner: ghUrl.owner, repo: ghUrl.name }
+	const [, owner, repo] = match
+	return { owner, repo }
 }
 
 /**
