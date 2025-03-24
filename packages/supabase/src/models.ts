@@ -20,7 +20,8 @@ export const ExtPublishMetadata = v.object({
 			repo: v.string("GitHub repo of the extension"),
 			owner: v.string("GitHub owner of the extension"),
 			commit: v.string("Commit hash of the extension"),
-			workflowPath: v.string("Workflow path of the extension")
+			workflowPath: v.string("Workflow path of the extension"),
+			repoId: v.optional(v.string("GitHub repo node ID of the extension"))
 		})
 	)
 })

@@ -7,7 +7,11 @@ import {
 } from "@huakunshen/jsr-client/hey-api-client"
 import { ExtPackageJson, License } from "@kksh/api/models"
 import * as v from "valibot"
-import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "../github"
+import {
+	authenticatedUserIsMemberOfGitHubOrg,
+	getGitHubRepoMetadata,
+	userIsPublicMemberOfGitHubOrg
+} from "../github"
 import type { ExtensionPublishValidationData } from "../models"
 import type { NpmPkgMetadata } from "../npm/models"
 import { getInfoFromRekorLog } from "../sigstore"
@@ -368,6 +372,16 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 		}
 	}
 	const rekorInfo = await getInfoFromRekorLog(rekorLogId)
+
+	/* -------------------------------------------------------------------------- */
+	/*                             Get GitHub Node ID                             */
+	/* -------------------------------------------------------------------------- */
+	const githubRepoMetadata = await getGitHubRepoMetadata(
+		githubRepo.owner,
+		githubRepo.name,
+		payload.githubToken
+	)
+
 	return {
 		data: {
 			pkgJson: parseResult.output,
@@ -383,7 +397,8 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 				commit: rekorInfo.commit,
 				repo: githubRepo.name,
 				owner: githubRepo.owner,
-				workflowPath: rekorInfo.workflowPath
+				workflowPath: rekorInfo.workflowPath,
+				repoId: githubRepoMetadata.node_id
 			}
 		}
 	}

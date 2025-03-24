@@ -2,6 +2,7 @@
  * TODO: move this module to another folder
  */
 import { Octokit } from "@octokit/rest"
+import gh from "parse-github-url"
 
 /**
  * Check if a user is a public member of a GitHub organization
@@ -33,16 +34,34 @@ export function authenticatedUserIsMemberOfGitHubOrg(
 	})
 }
 
+/**
+ * Parse a GitHub repository URI into owner and repo
+ * If not a valid GitHub repository URI, throw an error
+ * @param uri
+ * @returns owner and repo
+ */
 export function parseGitHubRepoFromUri(uri: string): {
 	owner: string
 	repo: string
 } {
-	// check regex
-	const regex = /https?:\/\/github\.com\/([^\/]+)\/([^\/]+)/
-	const match = uri.match(regex)
-	if (!match) {
+	const ghUrl = gh(uri)
+	if (!ghUrl) {
 		throw new Error("Invalid GitHub repository URI")
 	}
-	const [, owner, repo] = match
-	return { owner, repo }
+	if (!ghUrl.owner || !ghUrl.name) {
+		throw new Error("Invalid GitHub repository URI")
+	}
+	return { owner: ghUrl.owner, repo: ghUrl.name }
+}
+
+/**
+ * Get GitHub repository metadata
+ * @param owner
+ * @param repo
+ * @param githubToken - Optional GitHub token to prevent rate limiting
+ * @returns repository metadata
+ */
+export function getGitHubRepoMetadata(owner: string, repo: string, githubToken?: string) {
+	const octokit = new Octokit({ auth: githubToken })
+	return octokit.rest.repos.get({ owner, repo }).then((res) => res.data)
 }
