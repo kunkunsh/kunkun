@@ -19,6 +19,7 @@
 	} = $props()
 	const workflowRunId = githubActionInvocationId.split("/").at(-3)
 	const workflowRunUrl = `https://github.com/${repoOwner}/${repoName}/actions/runs/${workflowRunId}/workflow`
+	const gitlabMirrorUrl = `https://gitlab.com/kunkunsh/extensions-mirror/${repoOwner}-${repoName}/-/tree/${commit}`
 </script>
 
 <Card.Root>
@@ -58,6 +59,12 @@
 					target="_blank"
 					rel="noreferrer"
 					class="underline">Transparentcy log entry</a
+				>
+			</p>
+			<p class="flex flex-col text-sm sm:flex-row">
+				<strong class="mt-2 inline-block w-28 md:mt-0">GitLab Mirror</strong>
+				<a href={gitlabMirrorUrl} target="_blank" rel="noreferrer" class="underline"
+					>GitLab Mirror</a
 				>
 			</p>
 		</div>
