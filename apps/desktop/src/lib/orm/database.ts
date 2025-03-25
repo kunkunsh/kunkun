@@ -1,14 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as schema from "@kksh/drizzle/schema"
 import * as dbCmd from "@kunkunapi/src/commands/db"
-import Database from "@tauri-apps/plugin-sql"
 import { drizzle } from "drizzle-orm/sqlite-proxy"
-
-/**
- * Represents the result of a SELECT query.
- */
-export type SelectQueryResult = {
-	[key: string]: any
-}
 
 /**
  * Loads the sqlite database via the Tauri Proxy.
@@ -22,11 +15,11 @@ export const db = drizzle<typeof schema>(
 	async (sql, params, method) => {
 		let rows: any = []
 		let results = []
-		console.log({
-			sql,
-			params,
-			method
-		})
+		// console.log({
+		// 	sql,
+		// 	params,
+		// 	method
+		// })
 		// If the query is a SELECT, use the select method
 		if (isSelectQuery(sql)) {
 			rows = await dbCmd.select(sql, params).catch((e) => {
