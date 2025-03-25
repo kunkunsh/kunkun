@@ -112,27 +112,6 @@
 <Inspect name="$appState.searchTerm" value={$appState.searchTerm} />
 -->
 
-<Button
-	onclick={() => {
-		db.query.extensions
-			.findMany()
-			.execute()
-			.then((res) => {
-				console.log(res)
-			})
-		// db.select("SELECT * FROM extensions;", []).then((res) => {
-		// 	console.log(res)
-		// })
-		// db.execute(
-		// 	"INSERT INTO extension_data (ext_id, data_type, data, search_text, metadata) VALUES (?, ?, ?, ?, ?);",
-		// 	[1, "Test", "Hello, world!", "Hello, world!", "{'metadata': 'test'}"]
-		// ).then((res) => {
-		// 	console.log(res)
-		// })
-	}}
->
-	Select
-</Button>
 <Command.Root
 	class={cn("h-screen rounded-lg shadow-md")}
 	bind:value={$appState.highlightedCmd}
