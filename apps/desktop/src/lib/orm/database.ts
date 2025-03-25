@@ -1,4 +1,5 @@
 import * as schema from "@kksh/drizzle/schema"
+import * as dbCmd from "@kunkunapi/src/commands/db"
 import Database from "@tauri-apps/plugin-sql"
 import { drizzle } from "drizzle-orm/sqlite-proxy"
 
@@ -14,28 +15,27 @@ export type SelectQueryResult = {
  */
 // export const sqlite = await Database.load("sqlite:test.db");
 
-export async function getDb() {
-	return await Database.load("sqlite:test.db")
-}
-
 /**
  * The drizzle database instance.
  */
 export const db = drizzle<typeof schema>(
 	async (sql, params, method) => {
-		const sqlite = await getDb()
 		let rows: any = []
 		let results = []
-
+		console.log({
+			sql,
+			params,
+			method
+		})
 		// If the query is a SELECT, use the select method
 		if (isSelectQuery(sql)) {
-			rows = await sqlite.select(sql, params).catch((e) => {
+			rows = await dbCmd.select(sql, params).catch((e) => {
 				console.error("SQL Error:", e)
 				return []
 			})
 		} else {
 			// Otherwise, use the execute method
-			rows = await sqlite.execute(sql, params).catch((e) => {
+			rows = await dbCmd.execute(sql, params).catch((e) => {
 				console.error("SQL Error:", e)
 				return []
 			})
@@ -48,7 +48,6 @@ export const db = drizzle<typeof schema>(
 
 		// If the method is "all", return all rows
 		results = method === "all" ? rows : rows[0]
-		await sqlite.close()
 		return { rows: results }
 	},
 	// Pass the schema to the drizzle instance

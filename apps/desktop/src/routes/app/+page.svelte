@@ -5,6 +5,7 @@
 	import { systemCommands, systemCommandsFiltered } from "@/cmds/system"
 	import AppsCmds from "@/components/main/AppsCmds.svelte"
 	import { i18n } from "@/i18n"
+	import { db } from "@/orm/database"
 	import * as m from "@/paraglide/messages"
 	import {
 		appConfig,
@@ -31,7 +32,6 @@
 		SystemCmds
 	} from "@kksh/ui/main"
 	import { cn } from "@kksh/ui/utils"
-	import * as db from "@kunkunapi/src/commands/db"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
 	import { platform } from "@tauri-apps/plugin-os"
@@ -114,15 +114,21 @@
 
 <Button
 	onclick={() => {
-		db.select("SELECT * FROM extensions;", []).then((res) => {
-			console.log(res)
-		})
-		db.execute(
-			"INSERT INTO extension_data (ext_id, data_type, data, search_text, metadata) VALUES (?, ?, ?, ?, ?);",
-			[1, "Test", "Hello, world!", "Hello, world!", "{'metadata': 'test'}"]
-		).then((res) => {
-			console.log(res)
-		})
+		db.query.extensions
+			.findMany()
+			.execute()
+			.then((res) => {
+				console.log(res)
+			})
+		// db.select("SELECT * FROM extensions;", []).then((res) => {
+		// 	console.log(res)
+		// })
+		// db.execute(
+		// 	"INSERT INTO extension_data (ext_id, data_type, data, search_text, metadata) VALUES (?, ?, ?, ?, ?);",
+		// 	[1, "Test", "Hello, world!", "Hello, world!", "{'metadata': 'test'}"]
+		// ).then((res) => {
+		// 	console.log(res)
+		// })
 	}}
 >
 	Select

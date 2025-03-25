@@ -124,6 +124,8 @@ impl JarvisDB {
     }
 
     pub fn select(&self, query: String, values: Vec<JsonValue>) -> Result<Vec<JsonValue>> {
+        println!("DB selecting: {}", query);
+        println!("DB selecting values: {:?}", values);
         let mut stmt = self.conn.prepare(&query)?;
 
         // Convert JsonValue parameters to appropriate types for rusqlite
@@ -153,8 +155,8 @@ impl JarvisDB {
 
         // Execute the query with the converted parameters and map results
         let rows = stmt.query_map(params_from_iter(params.iter().map(|p| p.as_ref())), |row| {
-            let mut result = serde_json::Map::new();
-            for (i, name) in column_names.iter().enumerate() {
+            let mut result = Vec::new();
+            for i in 0..column_names.len() {
                 let value: Value = match row.get_ref(i)? {
                     rusqlite::types::ValueRef::Null => Value::Null,
                     rusqlite::types::ValueRef::Integer(i) => Value::Number(i.into()),
@@ -168,9 +170,9 @@ impl JarvisDB {
                         Value::String(String::from_utf8_lossy(b).into_owned())
                     }
                 };
-                result.insert(name.clone(), value);
+                result.push(value);
             }
-            Ok(Value::Object(result))
+            Ok(Value::Array(result))
         })?;
 
         let mut results = Vec::new();
