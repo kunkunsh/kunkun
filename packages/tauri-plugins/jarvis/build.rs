@@ -98,6 +98,8 @@ const COMMANDS: &[&str] = &[
     "search_extension_data",
     "delete_extension_data_by_id",
     "update_extension_data_by_id",
+    "select",
+    "execute",
     /* -------------------------------- Clipboard ------------------------------- */
     "add_to_history",
     "get_history",

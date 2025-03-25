@@ -31,6 +31,7 @@
 		SystemCmds
 	} from "@kksh/ui/main"
 	import { cn } from "@kksh/ui/utils"
+	import * as db from "@kunkunapi/src/commands/db"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
 	import { platform } from "@tauri-apps/plugin-os"
@@ -110,6 +111,22 @@
 <Inspect name="devStoreExtCmds" value={$devStoreExtCmds} />
 <Inspect name="$appState.searchTerm" value={$appState.searchTerm} />
 -->
+
+<Button
+	onclick={() => {
+		db.select("SELECT * FROM extensions;", []).then((res) => {
+			console.log(res)
+		})
+		db.execute(
+			"INSERT INTO extension_data (ext_id, data_type, data, search_text, metadata) VALUES (?, ?, ?, ?, ?);",
+			[1, "Test", "Hello, world!", "Hello, world!", "{'metadata': 'test'}"]
+		).then((res) => {
+			console.log(res)
+		})
+	}}
+>
+	Select
+</Button>
 <Command.Root
 	class={cn("h-screen rounded-lg shadow-md")}
 	bind:value={$appState.highlightedCmd}

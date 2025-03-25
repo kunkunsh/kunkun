@@ -492,6 +492,32 @@ Denies the empty_trash command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-execute`
+
+</td>
+<td>
+
+Enables the execute command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-execute`
+
+</td>
+<td>
+
+Denies the execute command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-file-search`
 
 </td>
@@ -1603,6 +1629,32 @@ Enables the search_extension_data command without any pre-configured scope.
 <td>
 
 Denies the search_extension_data command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-select`
+
+</td>
+<td>
+
+Enables the select command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-select`
+
+</td>
+<td>
+
+Denies the select command without any pre-configured scope.
 
 </td>
 </tr>

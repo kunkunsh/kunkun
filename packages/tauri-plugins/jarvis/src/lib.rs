@@ -140,6 +140,9 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             // commands::storage::ext_store_wrapper_load,
             // commands::storage::ext_store_wrapper_save,
             /* -------------------------------- database -------------------------------- */
+            commands::db::select,
+            commands::db::execute,
+            commands::db::create_extension,
             commands::db::create_extension,
             commands::db::get_all_extensions,
             commands::db::get_unique_extension_by_identifier,

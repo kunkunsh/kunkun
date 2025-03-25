@@ -2,6 +2,7 @@ use db::{
     models::{Cmd, CmdType, Ext, ExtData, ExtDataField, ExtDataSearchQuery, SQLSortOrder},
     JarvisDB,
 };
+use serde_json::{json, Value as JsonValue};
 use std::{path::PathBuf, sync::Mutex};
 use tauri::State;
 
@@ -244,4 +245,32 @@ pub async fn update_extension_data_by_id(
         .unwrap()
         .update_extension_data_by_id(data_id, data, search_text)
         .map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub async fn select(
+    db: State<'_, DBState>,
+    query: &str,
+    values: Vec<JsonValue>,
+) -> Result<Vec<JsonValue>, String> {
+    db.db
+        .lock()
+        .unwrap()
+        .select(query.to_string(), values)
+        .map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub async fn execute(
+    db: State<'_, DBState>,
+    query: &str,
+    values: Vec<JsonValue>,
+) -> Result<Vec<JsonValue>, String> {
+    let (rows_affected, last_id) = db
+        .db
+        .lock()
+        .unwrap()
+        .execute(query, values)
+        .map_err(|err| err.to_string())?;
+    Ok(vec![json!([rows_affected, last_id])])
 }

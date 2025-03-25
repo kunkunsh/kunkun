@@ -480,6 +480,16 @@
           "const": "deny-empty-trash"
         },
         {
+          "description": "Enables the execute command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-execute"
+        },
+        {
+          "description": "Denies the execute command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-execute"
+        },
+        {
           "description": "Enables the file_search command without any pre-configured scope.",
           "type": "string",
           "const": "allow-file-search"
@@ -908,6 +918,16 @@
           "description": "Denies the search_extension_data command without any pre-configured scope.",
           "type": "string",
           "const": "deny-search-extension-data"
+        },
+        {
+          "description": "Enables the select command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-select"
+        },
+        {
+          "description": "Denies the select command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-select"
         },
         {
           "description": "Enables the server_is_running command without any pre-configured scope.",
