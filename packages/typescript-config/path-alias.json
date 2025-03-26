@@ -12,7 +12,6 @@
 			"@kksh/ci/*": ["./packages/ci/*"],
 			"@kksh/ci": ["./packages/ci"],
 			"@kksh/supabase/*": ["./packages/supabase/*"],
-			"@kksh/supabase": ["./packages/supabase"],
 			"@kksh/schema/*": ["./packages/schema/*"],
 			"@kksh/schema": ["./packages/schema"]
 		}
