@@ -1,9 +1,5 @@
-/**
- * @module @kksh/supabase/models
- * This module contains some models for supabase database that cannot be code generated, such as JSON fields.
- */
-import { Icon } from "@kksh/api/models"
 import * as v from "valibot"
+import { BaseIcon } from "./icon"
 
 export enum ExtPublishSourceTypeEnum {
 	jsr = "jsr",
@@ -32,7 +28,7 @@ export type ExtPublishMetadata = v.InferOutput<typeof ExtPublishMetadata>
 /***
  * Correspond to `extensions` table in supabase
  */
-export const SBExt = v.object({
+export const ExtensionStoreListItem = v.object({
 	identifier: v.string(),
 	name: v.string(),
 	created_at: v.string(),
@@ -41,7 +37,7 @@ export const SBExt = v.object({
 	long_description: v.string(),
 	version: v.string(),
 	api_version: v.optional(v.string()),
-	icon: Icon
+	icon: BaseIcon
 })
 
-export type SBExt = v.InferOutput<typeof SBExt>
+export type ExtensionStoreListItem = v.InferOutput<typeof ExtensionStoreListItem>

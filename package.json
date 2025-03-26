@@ -29,6 +29,7 @@
 	"dependencies": {
 		"@changesets/cli": "^2.28.1",
 		"@iconify/svelte": "^4.2.0",
+		"@kksh/sdk": "^0.0.1",
 		"@supabase/supabase-js": "^2.49.1",
 		"@tauri-apps/api": "^2.3.0",
 		"@tauri-apps/cli": "^2.3.1",
