@@ -18,7 +18,6 @@ export const OSPlatformEnum = {
 
 export const OSPlatform = v.picklist(Object.values(OSPlatformEnum))
 export type OSPlatform = v.InferOutput<typeof OSPlatform>
-const allPlatforms = Object.values(OSPlatformEnum)
 export const TriggerCmd = v.object({
 	type: v.union([v.literal("text"), v.literal("regex")]),
 	value: v.string()

@@ -2,6 +2,7 @@ import { appState } from "@/stores"
 import { DBExtension, ExtPublish, KunkunExtManifest } from "@kksh/api/models"
 import { getExtensionsByIdentifier, getExtensionsLatestPublishByIdentifier } from "@kksh/sdk"
 import { error } from "@sveltejs/kit"
+import * as v from "valibot"
 import type { PageLoad } from "./$types"
 
 export const load: PageLoad = ({
@@ -42,9 +43,9 @@ export const load: PageLoad = ({
 				})
 			}
 			return {
-				extPublish: extPublish,
+				extPublish: v.parse(ExtPublish, extPublish),
 				ext,
-				manifest: extPublish.manifest,
+				manifest: v.parse(KunkunExtManifest, extPublish.manifest),
 				params
 			}
 		})
