@@ -16,7 +16,7 @@
 		style?: HTMLAttributes<HTMLAnchorElement>["style"]
 		class?: HTMLAttributes<HTMLAnchorElement>["class"]
 		children: Snippet
-		ref: HTMLAnchorElement | HTMLButtonElement | null
+		ref?: HTMLAnchorElement | HTMLButtonElement | null
 	} = $props()
 
 	// @ts-expect-error window.__TAURI_INTERNALS__ is not defined in the browser

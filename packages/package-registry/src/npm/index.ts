@@ -2,6 +2,7 @@ import { ExtPackageJson, License } from "@kksh/api/models"
 import * as v from "valibot"
 import {
 	authenticatedUserIsMemberOfGitHubOrg,
+	getGitHubRepoMetadata,
 	parseGitHubRepoFromUri,
 	userIsPublicMemberOfGitHubOrg
 } from "../github"
@@ -237,6 +238,7 @@ export async function validateNpmPackageAsKunkunExtension(payload: {
 		provenance.summary.sourceRepositoryDigest,
 		parseResult.output.readme ?? "README.md"
 	)
+
 	return {
 		data: {
 			pkgJson: parseResult.output,
