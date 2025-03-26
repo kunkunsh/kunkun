@@ -18,6 +18,7 @@
 		"@formkit/auto-animate": "^0.8.2",
 		"@inlang/paraglide-sveltekit": "0.16.0",
 		"@kksh/extension": "workspace:*",
+		"@kksh/sdk": "^0.0.1",
 		"@kksh/svelte5": "^0.1.15",
 		"@kksh/ui": "workspace:*",
 		"@kksh/utils": "workspace:*",
