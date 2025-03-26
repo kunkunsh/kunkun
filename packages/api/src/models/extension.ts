@@ -18,8 +18,11 @@ export const Ext = v.object({
 	extId: v.number(),
 	identifier: v.string(),
 	version: v.string(),
-	enabled: v.boolean(),
-	installed_at: v.string(),
+	enabled: v.pipe(
+		v.number(),
+		v.transform((input) => Boolean(input))
+	),
+	installedAt: v.string(),
 	path: v.optional(v.nullable(v.string())),
 	data: v.optional(v.any())
 })
@@ -46,7 +49,10 @@ export const ExtCmd = v.object({
 	data: v.string(),
 	alias: v.optional(v.nullable(v.string())),
 	hotkey: v.optional(v.nullable(v.string())),
-	enabled: v.boolean()
+	enabled: v.pipe(
+		v.number(),
+		v.transform((input) => Boolean(input))
+	)
 })
 export type ExtCmd = v.InferOutput<typeof ExtCmd>
 

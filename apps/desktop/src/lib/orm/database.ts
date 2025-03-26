@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { db as dbCmd } from "@kksh/api/commands"
 import * as schema from "@kksh/drizzle/schema"
-import * as dbCmd from "@kunkunapi/src/commands/db"
+import { error } from "@tauri-apps/plugin-log"
 import { drizzle } from "drizzle-orm/sqlite-proxy"
 
 /**
@@ -15,21 +16,22 @@ export const db = drizzle<typeof schema>(
 	async (sql, params, method) => {
 		let rows: any = []
 		let results = []
-		// console.log({
-		// 	sql,
-		// 	params,
-		// 	method
-		// })
+		console.log({
+			sql,
+			params,
+			method
+		})
+		console.log(sql)
 		// If the query is a SELECT, use the select method
 		if (isSelectQuery(sql)) {
 			rows = await dbCmd.select(sql, params).catch((e) => {
-				console.error("SQL Error:", e)
+				error("SQL Error:", e)
 				return []
 			})
 		} else {
 			// Otherwise, use the execute method
 			rows = await dbCmd.execute(sql, params).catch((e) => {
-				console.error("SQL Error:", e)
+				error("SQL Error:", e)
 				return []
 			})
 			return { rows: [] }

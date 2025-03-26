@@ -29,7 +29,8 @@ export const commands = sqliteTable("commands", {
 		.notNull()
 		.references(() => extensions.extId, { onDelete: "cascade" }),
 	name: text().notNull(),
-	enabled: numeric().default(sql`(TRUE)`),
+	enabled: integer({ mode: "boolean" }),
+	// enabled: numeric().default(sql`(TRUE)`),
 	alias: text(),
 	hotkey: text(),
 	type: text().notNull(),
@@ -42,8 +43,10 @@ export const extensionData = sqliteTable("extension_data", {
 		.notNull()
 		.references(() => extensions.extId, { onDelete: "cascade" }),
 	dataType: text("data_type").notNull(),
-	data: numeric().notNull(),
-	metadata: numeric(),
+	// data: text({ mode: "json" }).notNull(),
+	// metadata: text({ mode: "json" }),
+	data: text("data").notNull(),
+	metadata: text("metadata"),
 	searchText: text("search_text"),
 	createdAt: numeric("created_at").default(sql`(CURRENT_TIMESTAMP)`),
 	updatedAt: numeric("updated_at").default(sql`(CURRENT_TIMESTAMP)`)

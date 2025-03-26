@@ -5,6 +5,7 @@
 	import { systemCommands, systemCommandsFiltered } from "@/cmds/system"
 	import AppsCmds from "@/components/main/AppsCmds.svelte"
 	import { i18n } from "@/i18n"
+	import { getUniqueExtensionByIdentifier } from "@/orm/cmds"
 	import { db } from "@/orm/database"
 	import * as m from "@/paraglide/messages"
 	import {
@@ -32,6 +33,7 @@
 		SystemCmds
 	} from "@kksh/ui/main"
 	import { cn } from "@kksh/ui/utils"
+	import { Ext } from "@kunkunapi/src/models/extension"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
 	import { platform } from "@tauri-apps/plugin-os"
@@ -46,6 +48,7 @@
 	} from "lucide-svelte"
 	import { onMount } from "svelte"
 	import { Inspect } from "svelte-inspect-value"
+	import * as v from "valibot"
 
 	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)
