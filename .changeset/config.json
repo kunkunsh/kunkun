@@ -11,11 +11,9 @@
 		"jarvis",
 		"form-view",
 		"@kksh/desktop",
-		"@kksh/supabase",
 		"@kksh/utils",
 		"@kksh/extension",
 		"@kksh/schema",
-		"@kksh/supabase",
 		"@kksh/ui"
 	]
 }

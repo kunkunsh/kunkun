@@ -11,9 +11,15 @@ importers:
       '@changesets/cli':
         specifier: ^2.28.1
         version: 2.28.1
+      '@hey-api/client-fetch':
+        specifier: ^0.8.3
+        version: 0.8.3
       '@iconify/svelte':
         specifier: ^4.2.0
         version: 4.2.0(svelte@5.20.5)
+      '@kksh/sdk':
+        specifier: ^0.0.3
+        version: 0.0.3(@hey-api/client-fetch@0.8.3)(typescript@5.7.3)
       '@supabase/supabase-js':
         specifier: ^2.49.1
         version: 2.49.1
@@ -72,8 +78,8 @@ importers:
         specifier: workspace:*
         version: link:vendors/tauri-plugin-system-info
       valibot:
-        specifier: ^1.0.0-rc.4
-        version: 1.0.0-rc.4(typescript@5.7.3)
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.7.3)
       zod:
         specifier: ^3.24.2
         version: 3.24.2
@@ -139,12 +145,12 @@ importers:
         specifier: ^5.7.2
         version: 5.7.3
       valibot:
-        specifier: ^1.0.0-rc.4
-        version: 1.0.0-rc.4(typescript@5.7.3)
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.7.3)
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
@@ -179,12 +185,12 @@ importers:
         specifier: ^5.0.0
         version: 5.7.3
       valibot:
-        specifier: ^1.0.0-rc.4
-        version: 1.0.0-rc.4(typescript@5.7.3)
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.7.3)
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -209,9 +215,6 @@ importers:
       '@kksh/extension':
         specifier: workspace:*
         version: link:../../packages/extension
-      '@kksh/supabase':
-        specifier: workspace:*
-        version: link:../../packages/supabase
       '@kksh/svelte5':
         specifier: ^0.1.15
         version: 0.1.15(lucide-svelte@0.474.0(svelte@5.20.5))(svelte-sonner@0.3.28(svelte@5.20.5))(svelte@5.20.5)(sveltekit-superforms@2.23.1(@sveltejs/kit@2.17.3(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.20.5)(typescript@5.6.3))(typescript@5.6.3)
@@ -326,7 +329,7 @@ importers:
         version: 2.3.1
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
@@ -472,12 +475,12 @@ importers:
         specifier: 2.0.8
         version: 2.0.8(typescript@5.7.2)
       valibot:
-        specifier: ^1.0.0-rc.4
-        version: 1.0.0-rc.4(typescript@5.7.2)
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.7.2)
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
       '@types/lodash':
         specifier: ^4.17.14
         version: 4.17.14
@@ -517,7 +520,7 @@ importers:
         version: link:../typescript-config
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
 
   packages/config-eslint:
     dependencies:
@@ -542,11 +545,8 @@ importers:
       '@kksh/api':
         specifier: workspace:*
         version: link:../api
-      '@kksh/supabase':
-        specifier: workspace:*
-        version: link:../supabase
       '@std/semver':
-        specifier: npm:@jsr/std__semver@^1.0.3
+        specifier: npm:@jsr/std__semver@^1.0.4
         version: '@jsr/std__semver@1.0.3'
       '@tauri-apps/plugin-upload':
         specifier: ^2.2.1
@@ -558,12 +558,15 @@ importers:
         specifier: ^5.0.0
         version: 5.5.4
       uuid:
-        specifier: ^11.0.3
-        version: 11.0.3
+        specifier: ^11.1.0
+        version: 11.1.0
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
 
   packages/extensions/demo-worker-template-ext:
     dependencies:
@@ -591,7 +594,7 @@ importers:
         version: 11.1.6(rollup@4.34.2)(tslib@2.8.1)(typescript@5.7.3)
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.34.2)
@@ -698,7 +701,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
 
   packages/grpc:
     dependencies:
@@ -717,7 +720,7 @@ importers:
         version: 0.7.13
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
       '@types/google-protobuf':
         specifier: ^3.15.12
         version: 3.15.12
@@ -745,7 +748,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
       verify-package-export:
         specifier: ^0.0.3
         version: 0.0.3(typescript@5.7.3)
@@ -762,40 +765,18 @@ importers:
         specifier: ^5.0.0
         version: 5.7.3
       valibot:
-        specifier: ^1.0.0-rc.4
-        version: 1.0.0-rc.4(typescript@5.7.3)
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.7.3)
     devDependencies:
-      '@kksh/supabase':
-        specifier: workspace:*
-        version: link:../supabase
       '@supabase/supabase-js':
         specifier: ^2.48.0
         version: 2.48.0
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
       '@valibot/to-json-schema':
-        specifier: 1.0.0-beta.4
-        version: 1.0.0-beta.4(valibot@1.0.0-rc.4(typescript@5.7.3))
-
-  packages/supabase:
-    dependencies:
-      '@kksh/api':
-        specifier: workspace:*
-        version: link:../api
-      '@supabase/ssr':
-        specifier: ^0.5.2
-        version: 0.5.2(@supabase/supabase-js@2.48.0)
-      '@supabase/supabase-js':
-        specifier: ^2.48.0
-        version: 2.48.0
-      typescript:
-        specifier: ^5.0.0
-        version: 5.5.4
-    devDependencies:
-      '@types/bun':
-        specifier: latest
-        version: 1.2.5
+        specifier: 1.0.0
+        version: 1.0.0(valibot@1.0.0(typescript@5.7.3))
 
   packages/svelte-animation:
     dependencies:
@@ -805,7 +786,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
 
   packages/tauri-plugins/jarvis:
     dependencies:
@@ -816,15 +797,12 @@ importers:
       '@kksh/ci':
         specifier: workspace:*
         version: link:../../ci
-      '@kksh/supabase':
-        specifier: workspace:*
-        version: link:../../supabase
       '@supabase/supabase-js':
         specifier: ^2.48.0
         version: 2.48.0
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
 
   packages/templates/template-ext-headless:
     dependencies:
@@ -843,7 +821,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
 
   packages/templates/template-ext-next:
     dependencies:
@@ -1195,7 +1173,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
 
   packages/types:
     dependencies:
@@ -1205,7 +1183,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
 
   packages/typescript-config: {}
 
@@ -1220,9 +1198,6 @@ importers:
       '@internationalized/date':
         specifier: ^3.7.0
         version: 3.7.0
-      '@kksh/supabase':
-        specifier: workspace:*
-        version: link:../supabase
       '@shikijs/langs':
         specifier: ^2.3.2
         version: 2.3.2
@@ -1287,8 +1262,8 @@ importers:
         specifier: ^0.12.2
         version: 0.12.2(svelte@5.20.5)
       valibot:
-        specifier: ^1.0.0-rc.4
-        version: 1.0.0-rc.4(typescript@5.7.3)
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.7.3)
     devDependencies:
       '@eslint/js':
         specifier: ^9.18.0
@@ -1304,7 +1279,7 @@ importers:
         version: 0.1.15(lucide-svelte@0.471.0(svelte@5.20.5))(svelte-sonner@0.3.28(svelte@5.20.5))(svelte@5.20.5)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.17.3(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.20.5)(typescript@5.7.3))(typescript@5.7.3)
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.20.0
         version: 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.21.0(jiti@2.4.0))(typescript@5.7.3))(eslint@9.21.0(jiti@2.4.0))(typescript@5.7.3)
@@ -1386,7 +1361,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.5
+        version: 1.2.6
 
   vendors/tauri-plugin-keyring:
     dependencies:
@@ -1416,8 +1391,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       valibot:
-        specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.6.3)
+        specifier: ^1.0.0
+        version: 1.0.0(typescript@5.6.3)
     devDependencies:
       '@rollup/plugin-typescript':
         specifier: ^12.1.2
@@ -1442,7 +1417,7 @@ importers:
         version: 2.2.0
       valibot:
         specifier: ^1.0.0-beta.10
-        version: 1.0.0-beta.10(typescript@5.7.2)
+        version: 1.0.0(typescript@5.7.2)
     devDependencies:
       '@rollup/plugin-typescript':
         specifier: ^12.1.2
@@ -1482,8 +1457,8 @@ importers:
         specifier: ^5.3.3
         version: 5.6.3
       valibot:
-        specifier: 1.0.0-beta.9
-        version: 1.0.0-beta.9(typescript@5.6.3)
+        specifier: 1.0.0
+        version: 1.0.0(typescript@5.6.3)
 
 packages:
 
@@ -2659,6 +2634,9 @@ packages:
   '@hey-api/client-fetch@0.6.0':
     resolution: {integrity: sha512-FlhFsVeH8RxJe/nq8xUzxNbiOpe+GadxlD2pfvDyOyLdCTU4o/LRv46ZVWstaW7DgF4nxhI328chy3+AulwVXw==}
 
+  '@hey-api/client-fetch@0.8.3':
+    resolution: {integrity: sha512-EBVa8wwUMyBSeQ32PtCz6u5bFQZIMAufvwCT1ZtpjqT3caJQEza4NokbGU50q1ZVrMsM5Ot6GuDNJOF3TMo26Q==}
+
   '@hookform/resolvers@3.9.1':
     resolution: {integrity: sha512-ud2HqmGBM0P0IABqoskKWI6PEf6ZDDBZkFqe2Vnl+mTHCEHzr3ISjjZyCwTjC/qpL25JC9aIDkloQejvMeq0ug==}
     peerDependencies:
@@ -3017,6 +2995,12 @@ packages:
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
+
+  '@kksh/sdk@0.0.3':
+    resolution: {integrity: sha512-he5/VSiIfEuXQlGWGxoIurrq/wbddbvZiHbKIGAFTS1DljCHjnAjEajueCkz9M3sbn+WGylS8VSVAFSCWdCfPg==}
+    peerDependencies:
+      '@hey-api/client-fetch': ^0.8.3
+      typescript: ^5
 
   '@kksh/svelte5@0.1.15':
     resolution: {integrity: sha512-Cr/gSWsnRtQIQLpQAkGBODujWn5g4LlhDp865skRV95tkrOuAwbbWGjG5+oWx1fK+fiDu+rhe2UCqw61SW2B/Q==}
@@ -4981,11 +4965,6 @@ packages:
   '@supabase/realtime-js@2.11.2':
     resolution: {integrity: sha512-u/XeuL2Y0QEhXSoIPZZwR6wMXgB+RQbJzG9VErA3VghVt7uRfSVsjeqd7m5GhX3JR6dM/WRmLbVR8URpDWG4+w==}
 
-  '@supabase/ssr@0.5.2':
-    resolution: {integrity: sha512-n3plRhr2Bs8Xun1o4S3k1CDv17iH5QY9YcoEvXX3bxV1/5XSasA0mNXYycFmADIdtdE6BG9MRjP5CGIs8qxC8A==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.43.4
-
   '@supabase/storage-js@2.7.1':
     resolution: {integrity: sha512-asYHcyDR1fKqrMpytAS1zjyEfvxuOIp1CIXX7ji4lHHcJKqyk+sLl/Vxgm4sN6u8zvuUtae9e4kDxQP2qrwWBA==}
 
@@ -5363,8 +5342,8 @@ packages:
   '@types/btoa-lite@1.0.2':
     resolution: {integrity: sha512-ZYbcE2x7yrvNFJiU7xJGrpF/ihpkM7zKgw8bha3LNJSesvTtUNxbpzaT7WXBIryf6jovisrxTBvymxMeLLj1Mg==}
 
-  '@types/bun@1.2.5':
-    resolution: {integrity: sha512-w2OZTzrZTVtbnJew1pdFmgV99H0/L+Pvw+z1P67HaR18MHOzYnTYOi6qzErhK8HyT+DB782ADVPPE92Xu2/Opg==}
+  '@types/bun@1.2.6':
+    resolution: {integrity: sha512-fY9CAmTdJH1Llx7rugB0FpgWK2RKuHCs3g2cFDYXUutIy1QGiPQxKkGY8owhfZ4MXWNfxwIbQLChgH5gDsY7vw==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -5880,10 +5859,10 @@ packages:
       '@unovis/ts': 1.4.4
       vue: ^3
 
-  '@valibot/to-json-schema@1.0.0-beta.4':
-    resolution: {integrity: sha512-wXBdCyoqec+NLCl5ihitXzZXD4JAjPK3+HfskSXzfhiNFvKje0A/v1LygqKidUgIbaJtREmq/poJGbaS/0MKuQ==}
+  '@valibot/to-json-schema@1.0.0':
+    resolution: {integrity: sha512-/9crJgPptVsGCL6X+JPDQyaJwkalSZ/52WuF8DiRUxJgcmpNdzYRfZ+gqMEP8W3CTVfuMWPqqvIgfwJ97f9Etw==}
     peerDependencies:
-      valibot: ^1.0.0 || ^1.0.0-beta.5 || ^1.0.0-rc
+      valibot: ^1.0.0
 
   '@vee-validate/zod@4.14.7':
     resolution: {integrity: sha512-UD0Tfyz1cKKd7BinnUztqKL+oeMjg/T4ZEguN/uZV4DsR9z7gdrD0lOuOU7aVl9UpVK6NM7MhDka35Lj7b/DTw==}
@@ -6430,8 +6409,8 @@ packages:
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
 
-  bun-types@1.2.5:
-    resolution: {integrity: sha512-3oO6LVGGRRKI4kHINx5PIdIgnLRb7l/SprhzqXapmoYkFl5m4j6EvALvbDVuuBFaamB46Ap6HCUxIXNLCGy+tg==}
+  bun-types@1.2.6:
+    resolution: {integrity: sha512-FbCKyr5KDiPULUzN/nm5oqQs9nXCHD8dVc64BArxJadCvbNzAI6lUWGh9fSJZWeDIRD38ikceBU8Kj/Uh+53oQ==}
 
   bundle-name@4.1.0:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
@@ -6738,10 +6717,6 @@ packages:
 
   cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
-    engines: {node: '>= 0.6'}
-
-  cookie@0.7.2:
-    resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
 
   cookies@0.9.1:
@@ -11943,8 +11918,8 @@ packages:
       typescript:
         optional: true
 
-  valibot@1.0.0-beta.10:
-    resolution: {integrity: sha512-nmo3nxvXRrxwDYZznK3aTgYv7ZA/SUZJ/s+pLY4Tqsex/fgwZ9XrrQ14jjozjUaeduQ9PhXHE2Xx1uMb0HePYw==}
+  valibot@1.0.0:
+    resolution: {integrity: sha512-1Hc0ihzWxBar6NGeZv7fPLY0QuxFMyxwYR2sF1Blu7Wq7EnremwY2W02tit2ij2VJT8HcSkHAQqmFfl77f73Yw==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -11953,22 +11928,6 @@ packages:
 
   valibot@1.0.0-beta.11:
     resolution: {integrity: sha512-Ztl5Iks1Ql7Z6CwkS5oyqguN3G8tmUiNlsHpqbDt6DLMpm+eu+n8Q7f921gI3uHvNZ8xDVkd4cEJP5t+lELOfw==}
-    peerDependencies:
-      typescript: '>=5'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
-  valibot@1.0.0-beta.9:
-    resolution: {integrity: sha512-yEX8gMAZ2R1yI2uwOO4NCtVnJQx36zn3vD0omzzj9FhcoblvPukENIiRZXKZwCnqSeV80bMm8wNiGhQ0S8fiww==}
-    peerDependencies:
-      typescript: '>=5'
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-
-  valibot@1.0.0-rc.4:
-    resolution: {integrity: sha512-VRaChgFv7Ab0P54AMLu7+GqoexdTPQ54Plj59X9qV0AFozI3j9CGH43skg+TqgMpXnrW8jxlJ2TTHAtAD3t4qA==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -13981,6 +13940,8 @@ snapshots:
 
   '@hey-api/client-fetch@0.6.0': {}
 
+  '@hey-api/client-fetch@0.8.3': {}
+
   '@hookform/resolvers@3.9.1(react-hook-form@7.53.2(react@18.3.1))':
     dependencies:
       react-hook-form: 7.53.2(react@18.3.1)
@@ -14647,6 +14608,11 @@ snapshots:
       - '@types/react'
       - '@types/react-dom'
       - tailwindcss
+
+  '@kksh/sdk@0.0.3(@hey-api/client-fetch@0.8.3)(typescript@5.7.3)':
+    dependencies:
+      '@hey-api/client-fetch': 0.8.3
+      typescript: 5.7.3
 
   '@kksh/svelte5@0.1.15(lucide-svelte@0.469.0(svelte@5.16.6))(svelte-sonner@0.3.28(svelte@5.16.6))(svelte@5.16.6)(sveltekit-superforms@2.23.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.2))(typescript@5.7.2)':
     dependencies:
@@ -17047,12 +17013,6 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@supabase/ssr@0.5.2(@supabase/supabase-js@2.48.0)':
-    dependencies:
-      '@supabase/supabase-js': 2.48.0
-      '@types/cookie': 0.6.0
-      cookie: 0.7.2
-
   '@supabase/storage-js@2.7.1':
     dependencies:
       '@supabase/node-fetch': 2.6.15
@@ -17498,9 +17458,9 @@ snapshots:
 
   '@types/btoa-lite@1.0.2': {}
 
-  '@types/bun@1.2.5':
+  '@types/bun@1.2.6':
     dependencies:
-      bun-types: 1.2.5
+      bun-types: 1.2.6
 
   '@types/cookie@0.6.0': {}
 
@@ -18278,9 +18238,9 @@ snapshots:
       '@unovis/ts': 1.4.4
       vue: 3.5.13(typescript@5.6.3)
 
-  '@valibot/to-json-schema@1.0.0-beta.4(valibot@1.0.0-rc.4(typescript@5.7.3))':
+  '@valibot/to-json-schema@1.0.0(valibot@1.0.0(typescript@5.7.3))':
     dependencies:
-      valibot: 1.0.0-rc.4(typescript@5.7.3)
+      valibot: 1.0.0(typescript@5.7.3)
 
   '@vee-validate/zod@4.14.7(vue@3.5.13(typescript@5.6.3))':
     dependencies:
@@ -19042,7 +19002,7 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
-  bun-types@1.2.5:
+  bun-types@1.2.6:
     dependencies:
       '@types/node': 22.13.1
       '@types/ws': 8.5.14
@@ -19320,8 +19280,6 @@ snapshots:
   cookie-es@1.2.2: {}
 
   cookie@0.6.0: {}
-
-  cookie@0.7.2: {}
 
   cookies@0.9.1:
     dependencies:
@@ -24860,7 +24818,7 @@ snapshots:
       joi: 17.13.3
       json-schema-to-ts: 3.1.1
       superstruct: 2.0.2
-      valibot: 1.0.0-rc.4(typescript@5.7.3)
+      valibot: 1.0.0(typescript@5.7.3)
       yup: 1.6.1
       zod: 3.24.1
       zod-to-json-schema: 3.24.1(zod@3.24.1)
@@ -25104,7 +25062,7 @@ snapshots:
       tauri-plugin-system-info-api: 2.0.10(typescript@5.7.2)
       tsc-alias: 1.8.10
       typescript: 5.7.2
-      valibot: 1.0.0-rc.4(typescript@5.7.2)
+      valibot: 1.0.0(typescript@5.7.2)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -25160,14 +25118,14 @@ snapshots:
   tauri-plugin-network-api@2.0.5(typescript@5.7.2):
     dependencies:
       '@tauri-apps/api': 2.3.0
-      valibot: 1.0.0-rc.4(typescript@5.7.2)
+      valibot: 1.0.0(typescript@5.7.2)
     transitivePeerDependencies:
       - typescript
 
   tauri-plugin-network-api@2.0.5(typescript@5.7.3):
     dependencies:
       '@tauri-apps/api': 2.3.0
-      valibot: 1.0.0-rc.4(typescript@5.7.3)
+      valibot: 1.0.0(typescript@5.7.3)
     transitivePeerDependencies:
       - typescript
 
@@ -25184,7 +25142,7 @@ snapshots:
   tauri-plugin-system-info-api@2.0.10(typescript@5.7.2):
     dependencies:
       '@tauri-apps/api': 2.3.0
-      valibot: 1.0.0-rc.4(typescript@5.7.2)
+      valibot: 1.0.0(typescript@5.7.2)
     transitivePeerDependencies:
       - typescript
 
@@ -25774,13 +25732,17 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.3
 
-  valibot@1.0.0-beta.10(typescript@5.6.3):
+  valibot@1.0.0(typescript@5.6.3):
     optionalDependencies:
       typescript: 5.6.3
 
-  valibot@1.0.0-beta.10(typescript@5.7.2):
+  valibot@1.0.0(typescript@5.7.2):
     optionalDependencies:
       typescript: 5.7.2
+
+  valibot@1.0.0(typescript@5.7.3):
+    optionalDependencies:
+      typescript: 5.7.3
 
   valibot@1.0.0-beta.11(typescript@5.6.3):
     optionalDependencies:
@@ -25792,18 +25754,6 @@ snapshots:
       typescript: 5.7.2
 
   valibot@1.0.0-beta.11(typescript@5.7.3):
-    optionalDependencies:
-      typescript: 5.7.3
-
-  valibot@1.0.0-beta.9(typescript@5.6.3):
-    optionalDependencies:
-      typescript: 5.6.3
-
-  valibot@1.0.0-rc.4(typescript@5.7.2):
-    optionalDependencies:
-      typescript: 5.7.2
-
-  valibot@1.0.0-rc.4(typescript@5.7.3):
     optionalDependencies:
       typescript: 5.7.3
 

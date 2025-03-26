@@ -6,7 +6,7 @@ import Fuse from "fuse.js"
 import { derived, get, writable, type Writable } from "svelte/store"
 import { appState } from "./appState"
 
-export const fuse = new Fuse<QuickLink>([], {
+const fuse = new Fuse<QuickLink>([], {
 	includeScore: true,
 	threshold: 0.2,
 	keys: ["name"]
