@@ -53,6 +53,7 @@ export enum PublishStateEnum {
 export const ExtensionPublishState = v.enum(PublishStateEnum)
 
 export const ExtPublish = v.object({
+	id: v.number(),
 	name: v.string(),
 	tarball_path: v.string(),
 	created_at: v.date(),
@@ -73,4 +74,18 @@ export const ExtPublish = v.object({
 })
 export type ExtPublish = v.InferOutput<typeof ExtPublish>
 
-export const DBExtension = v.object({})
+export const DBExtension = v.object({
+	api_version: v.string(),
+	author_id: v.nullable(v.string()),
+	created_at: v.string(),
+	downloads: v.number(),
+	icon: BaseIcon,
+	identifier: v.string(),
+	long_description: v.nullable(v.string()),
+	name: v.string(),
+	readme: v.nullable(v.string()),
+	short_description: v.string(),
+	tarball_size: v.nullable(v.number()),
+	version: v.string()
+})
+export type DBExtension = v.InferOutput<typeof DBExtension>
