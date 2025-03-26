@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { IconEnum, OSPlatformEnum } from "@kksh/api/models"
+	import { IconEnum, OSPlatform, OSPlatformEnum } from "@kksh/api/models"
 	import { IconMultiplexer } from "@kksh/ui"
 
-	const { platforms }: { platforms: OSPlatformEnum[] } = $props()
+	const { platforms }: { platforms: OSPlatform[] } = $props()
 </script>
 
 <div class="flex gap-2">

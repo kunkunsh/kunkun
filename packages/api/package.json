@@ -75,7 +75,7 @@
 		"tauri-plugin-network-api": "2.0.5",
 		"tauri-plugin-shellx-api": "^2.0.16",
 		"tauri-plugin-system-info-api": "2.0.8",
-		"valibot": "^1.0.0-rc.4"
+		"valibot": "^1.0.0"
 	},
 	"files": [
 		"src",
