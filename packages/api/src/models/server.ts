@@ -5,7 +5,7 @@ import { ExtPackageJson, KunkunExtManifest } from "./manifest"
 export const ExtPublishSourceTypeEnum = {
 	jsr: "jsr",
 	npm: "npm"
-}
+} as const
 
 export const ExtPublishMetadata = v.object({
 	source: v.optional(v.string("Source of the extension (e.g. url to package)")),
