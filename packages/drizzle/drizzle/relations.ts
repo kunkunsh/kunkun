@@ -1,21 +1,21 @@
-import { relations } from "drizzle-orm/relations";
-import { extensions, commands, extensionData } from "./schema";
+import { relations } from "drizzle-orm/relations"
+import { commands, extensionData, extensions } from "./schema"
 
-export const commandsRelations = relations(commands, ({one}) => ({
+export const commandsRelations = relations(commands, ({ one }) => ({
 	extension: one(extensions, {
 		fields: [commands.extId],
 		references: [extensions.extId]
-	}),
-}));
+	})
+}))
 
-export const extensionsRelations = relations(extensions, ({many}) => ({
+export const extensionsRelations = relations(extensions, ({ many }) => ({
 	commands: many(commands),
-	extensionData: many(extensionData),
-}));
+	extensionData: many(extensionData)
+}))
 
-export const extensionDataRelations = relations(extensionData, ({one}) => ({
+export const extensionDataRelations = relations(extensionData, ({ one }) => ({
 	extension: one(extensions, {
 		fields: [extensionData.extId],
 		references: [extensions.extId]
-	}),
-}));
+	})
+}))

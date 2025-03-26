@@ -19,6 +19,7 @@
 	import * as v from "valibot"
 
 	let searchText = $state("")
+	/* eslint-disable */
 	let data: any = $state(null)
 	let inspectTitle = $state("")
 </script>

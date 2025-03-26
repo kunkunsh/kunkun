@@ -1,6 +1,15 @@
 import * as relations from "@kksh/drizzle/relations"
 import * as schema from "@kksh/drizzle/schema"
-import { CmdType, Ext, ExtCmd, ExtData, SearchMode, SearchModeEnum, SQLSortOrder, SQLSortOrderEnum } from "@kunkunapi/src/models"
+import {
+	CmdType,
+	Ext,
+	ExtCmd,
+	ExtData,
+	SearchMode,
+	SearchModeEnum,
+	SQLSortOrder,
+	SQLSortOrderEnum
+} from "@kunkunapi/src/models"
 import * as orm from "drizzle-orm"
 import type { SelectedFields } from "drizzle-orm/sqlite-core"
 import * as v from "valibot"
@@ -243,7 +252,7 @@ export async function searchExtensionData(searchParams: {
 }): Promise<ExtData[]> {
 	const fields = v.parse(v.optional(v.array(ExtDataField), []), searchParams.fields)
 	const _fields = fields ?? []
-	
+
 	// Build the select query based on fields
 	const selectQuery: SelectedFields = {
 		dataId: schema.extensionData.dataId,
@@ -292,7 +301,9 @@ export async function searchExtensionData(searchParams: {
 				conditions.push(orm.like(schema.extensionData.searchText, `%${searchParams.searchText}%`))
 				break
 			case SearchModeEnum.FTS:
-				conditions.push(orm.sql`${schema.extensionDataFts.searchText} MATCH ${searchParams.searchText}`)
+				conditions.push(
+					orm.sql`${schema.extensionDataFts.searchText} MATCH ${searchParams.searchText}`
+				)
 				break
 		}
 	}
@@ -314,20 +325,22 @@ export async function searchExtensionData(searchParams: {
 					? orm.asc(schema.extensionData.createdAt)
 					: orm.desc(schema.extensionData.createdAt)
 				: searchParams.orderByUpdatedAt
-				? searchParams.orderByUpdatedAt === SQLSortOrderEnum.Asc
-					? orm.asc(schema.extensionData.updatedAt)
-					: orm.desc(schema.extensionData.updatedAt)
-				: orm.asc(schema.extensionData.createdAt) // Default ordering
+					? searchParams.orderByUpdatedAt === SQLSortOrderEnum.Asc
+						? orm.asc(schema.extensionData.updatedAt)
+						: orm.desc(schema.extensionData.updatedAt)
+					: orm.asc(schema.extensionData.createdAt) // Default ordering
 		)
 		.limit(searchParams.limit ?? 100) // Default limit
 		.offset(searchParams.offset ?? 0) // Default offset
 
 	// Execute query and convert results
 	const results = await query.all()
-	return results.map((rawData) => {
-		// @ts-expect-error - rawData is unknown, but will be safe parsed with valibot
-		return convertRawExtDataToExtData(rawData)
-	}).filter((item): item is ExtData => item !== undefined)
+	return results
+		.map((rawData) => {
+			// @ts-expect-error - rawData is unknown, but will be safe parsed with valibot
+			return convertRawExtDataToExtData(rawData)
+		})
+		.filter((item): item is ExtData => item !== undefined)
 }
 
 // export async function getNCommands(n: number):
