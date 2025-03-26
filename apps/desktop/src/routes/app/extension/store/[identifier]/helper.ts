@@ -1,11 +1,9 @@
 import type { ExtPublishMetadata } from "@kunkunapi/src/models"
 
-export async function getInstallExtras(
-	extMetadata?: {
-		sourceType?: string
-		source?: string
-	}
-): Promise<{ overwritePackageJson?: string }> {
+export async function getInstallExtras(extMetadata?: {
+	sourceType?: string
+	source?: string
+}): Promise<{ overwritePackageJson?: string }> {
 	const extras: { overwritePackageJson?: string } = {}
 	if (extMetadata?.sourceType) {
 		if (extMetadata?.sourceType === "jsr") {

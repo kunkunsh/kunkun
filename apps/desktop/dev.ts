@@ -1,5 +1,5 @@
-import { getExtensionsLatestPublishByIdentifier } from "@kksh/sdk"
 import { IconType } from "@kksh/api/models"
+import { getExtensionsLatestPublishByIdentifier } from "@kksh/sdk"
 
 const latestPublish = await getExtensionsLatestPublishByIdentifier({
 	path: {
