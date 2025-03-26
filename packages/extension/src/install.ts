@@ -5,7 +5,6 @@
 import { isCompatible } from "@kksh/api"
 import { copy_dir_all, db, decompressTarball } from "@kksh/api/commands"
 import type { ExtensionStoreListItem, ExtPackageJsonExtra } from "@kksh/api/models"
-// import { SBExt } from "@kksh/supabase/models"
 import { greaterThan, parse as parseSemver } from "@std/semver"
 import * as path from "@tauri-apps/api/path"
 import * as dialog from "@tauri-apps/plugin-dialog"

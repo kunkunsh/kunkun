@@ -1,5 +1,4 @@
 import { writeFileSync } from "fs"
-// import { type Database } from "@kksh/supabase/types"
 import { createClient } from "@supabase/supabase-js"
 
 if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {

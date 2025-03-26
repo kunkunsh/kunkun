@@ -45,10 +45,10 @@ export const ExtensionStoreListItem = v.object({
 export type ExtensionStoreListItem = v.InferOutput<typeof ExtensionStoreListItem>
 
 export enum PublishStateEnum {
-	"public",
-	"pending",
-	"under_review",
-	"private"
+	public = "public",
+	pending = "pending",
+	under_review = "under_review",
+	private = "private"
 }
 export const ExtensionPublishState = v.enum(PublishStateEnum)
 
@@ -56,7 +56,7 @@ export const ExtPublish = v.object({
 	id: v.number(),
 	name: v.string(),
 	tarball_path: v.string(),
-	created_at: v.date(),
+	created_at: v.string(),
 	version: v.string(),
 	manifest: KunkunExtManifest,
 	shasum: v.string(),

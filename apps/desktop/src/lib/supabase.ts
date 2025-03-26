@@ -1,5 +1,3 @@
-// import { SupabaseAPI } from "@kksh/supabase/api"
-// import type { Database } from "@kksh/supabase/types"
 import * as sb from "@supabase/supabase-js"
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "./constants"
 

@@ -9,8 +9,6 @@
 		IconEnum,
 		KunkunExtManifest
 	} from "@kksh/api/models"
-	// import { ExtPublishMetadata, ExtPublishSourceTypeEnum } from "@kksh/supabase/models"
-	// import { type Tables } from "@kksh/supabase/types"
 	import { Badge, Button, ScrollArea, Separator, Tooltip } from "@kksh/svelte5"
 	import { Constants, IconMultiplexer } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
