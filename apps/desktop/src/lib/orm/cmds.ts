@@ -261,7 +261,16 @@ export async function searchExtensionData(searchParams: {
 	}
 
 	// Build the query
-	const query = db.select(selectQuery).from(schema.extensionData)
+	let baseQuery = db.select(selectQuery).from(schema.extensionData)
+
+	// Add FTS join if needed
+	if (searchParams.searchMode === SearchModeEnum.FTS && searchParams.searchText) {
+		// @ts-expect-error - The join type is correct but TypeScript can't infer it properly
+		baseQuery = baseQuery.innerJoin(
+			schema.extensionDataFts,
+			orm.eq(schema.extensionData.dataId, schema.extensionDataFts.dataId)
+		)
+	}
 
 	// Add conditions
 	const conditions = [orm.eq(schema.extensionData.extId, searchParams.extId)]
@@ -283,7 +292,6 @@ export async function searchExtensionData(searchParams: {
 				conditions.push(orm.like(schema.extensionData.searchText, `%${searchParams.searchText}%`))
 				break
 			case SearchModeEnum.FTS:
-				// For FTS, we need to use a raw SQL query since Drizzle doesn't support MATCH directly
 				conditions.push(orm.sql`${schema.extensionDataFts.searchText} MATCH ${searchParams.searchText}`)
 				break
 		}
@@ -297,34 +305,25 @@ export async function searchExtensionData(searchParams: {
 		conditions.push(orm.lt(schema.extensionData.createdAt, searchParams.beforeCreatedAt))
 	}
 
-	// Add ordering
-	if (searchParams.orderByCreatedAt) {
-		query.orderBy(
-			searchParams.orderByCreatedAt === SQLSortOrderEnum.Asc
-				? orm.asc(schema.extensionData.createdAt)
-				: orm.desc(schema.extensionData.createdAt)
+	// Build the final query with all conditions and modifiers
+	const query = baseQuery
+		.where(orm.and(...conditions))
+		.orderBy(
+			searchParams.orderByCreatedAt
+				? searchParams.orderByCreatedAt === SQLSortOrderEnum.Asc
+					? orm.asc(schema.extensionData.createdAt)
+					: orm.desc(schema.extensionData.createdAt)
+				: searchParams.orderByUpdatedAt
+				? searchParams.orderByUpdatedAt === SQLSortOrderEnum.Asc
+					? orm.asc(schema.extensionData.updatedAt)
+					: orm.desc(schema.extensionData.updatedAt)
+				: orm.asc(schema.extensionData.createdAt) // Default ordering
 		)
-	}
-
-	if (searchParams.orderByUpdatedAt) {
-		query.orderBy(
-			searchParams.orderByUpdatedAt === SQLSortOrderEnum.Asc
-				? orm.asc(schema.extensionData.updatedAt)
-				: orm.desc(schema.extensionData.updatedAt)
-		)
-	}
-
-	// Add limit and offset
-	if (searchParams.limit) {
-		query.limit(searchParams.limit)
-	}
-
-	if (searchParams.offset) {
-		query.offset(searchParams.offset)
-	}
+		.limit(searchParams.limit ?? 100) // Default limit
+		.offset(searchParams.offset ?? 0) // Default offset
 
 	// Execute query and convert results
-	const results = await query.where(orm.and(...conditions)).all()
+	const results = await query.all()
 	return results.map((rawData) => {
 		// @ts-expect-error - rawData is unknown, but will be safe parsed with valibot
 		return convertRawExtDataToExtData(rawData)

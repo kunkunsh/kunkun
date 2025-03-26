@@ -11,7 +11,7 @@
 	import * as schema from "@kksh/drizzle/schema"
 	import { Button, Input } from "@kksh/svelte5"
 	import { CmdTypeEnum, Ext } from "@kunkunapi/src/models/extension"
-	import { SearchModeEnum } from "@kunkunapi/src/models/sql"
+	import { SearchModeEnum, SQLSortOrderEnum } from "@kunkunapi/src/models/sql"
 	import { db } from "$lib/orm/database"
 	import * as orm from "drizzle-orm"
 	import { Inspect } from "svelte-inspect-value"
@@ -100,24 +100,25 @@
 	>
 		Get Extension Data By ID
 	</Button>
-	<div class="flex gap-2">
+	<form
+		class="flex gap-1"
+		onsubmit={async (e) => {
+			e.preventDefault()
+			const _data = await searchExtensionData({
+				extId: 1,
+				searchMode: SearchModeEnum.FTS,
+				searchText: searchText,
+				orderByCreatedAt: SQLSortOrderEnum.Desc,
+				limit: 10,
+				fields: ["search_text", "data"]
+			})
+			console.log(_data)
+			data = _data
+			inspectTitle = "Search Results"
+		}}
+	>
 		<Input class="" bind:value={searchText} placeholder="Search Text" />
-		<Button
-			class=""
-			onclick={async () => {
-				const _data = await searchExtensionData({
-					extId: 1,
-					searchMode: SearchModeEnum.FTS,
-					searchText: searchText,
-					limit: 10
-				})
-				console.log(_data)
-				data = _data
-				inspectTitle = "Search Results"
-			}}
-		>
-			Search Extension Data
-		</Button>
-	</div>
-	<Inspect name={inspectTitle} value={data} />
+		<Button class="" type="submit">Search Extension Data</Button>
+	</form>
+	<Inspect name={inspectTitle} value={data} expandLevel={2} />
 </main>
