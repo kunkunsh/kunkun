@@ -11,12 +11,15 @@ importers:
       '@changesets/cli':
         specifier: ^2.28.1
         version: 2.28.1
+      '@hey-api/client-fetch':
+        specifier: ^0.8.3
+        version: 0.8.3
       '@iconify/svelte':
         specifier: ^4.2.0
         version: 4.2.0(svelte@5.20.5)
       '@kksh/sdk':
-        specifier: ^0.0.1
-        version: 0.0.1(typescript@5.7.3)
+        specifier: ^0.0.2
+        version: link:../kunkun-services/packages/sdk
       '@supabase/supabase-js':
         specifier: ^2.49.1
         version: 2.49.1
@@ -212,9 +215,6 @@ importers:
       '@kksh/extension':
         specifier: workspace:*
         version: link:../../packages/extension
-      '@kksh/sdk':
-        specifier: ^0.0.1
-        version: 0.0.1(typescript@5.6.3)
       '@kksh/svelte5':
         specifier: ^0.1.15
         version: 0.1.15(lucide-svelte@0.474.0(svelte@5.20.5))(svelte-sonner@0.3.28(svelte@5.20.5))(svelte@5.20.5)(sveltekit-superforms@2.23.1(@sveltejs/kit@2.17.3(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.20.5)(typescript@5.6.3))(typescript@5.6.3)
@@ -774,25 +774,6 @@ importers:
       '@valibot/to-json-schema':
         specifier: 1.0.0
         version: 1.0.0(valibot@1.0.0(typescript@5.7.3))
-
-  packages/supabase:
-    dependencies:
-      '@kksh/api':
-        specifier: workspace:*
-        version: link:../api
-      '@supabase/ssr':
-        specifier: ^0.5.2
-        version: 0.5.2(@supabase/supabase-js@2.48.0)
-      '@supabase/supabase-js':
-        specifier: ^2.48.0
-        version: 2.48.0
-      typescript:
-        specifier: ^5.0.0
-        version: 5.5.4
-    devDependencies:
-      '@types/bun':
-        specifier: latest
-        version: 1.2.6
 
   packages/svelte-animation:
     dependencies:
@@ -1432,7 +1413,7 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       valibot:
-        specifier: ^1.0.0
+        specifier: ^1.0.0-beta.10
         version: 1.0.0(typescript@5.7.2)
     devDependencies:
       '@rollup/plugin-typescript':
@@ -2650,6 +2631,9 @@ packages:
   '@hey-api/client-fetch@0.6.0':
     resolution: {integrity: sha512-FlhFsVeH8RxJe/nq8xUzxNbiOpe+GadxlD2pfvDyOyLdCTU4o/LRv46ZVWstaW7DgF4nxhI328chy3+AulwVXw==}
 
+  '@hey-api/client-fetch@0.8.3':
+    resolution: {integrity: sha512-EBVa8wwUMyBSeQ32PtCz6u5bFQZIMAufvwCT1ZtpjqT3caJQEza4NokbGU50q1ZVrMsM5Ot6GuDNJOF3TMo26Q==}
+
   '@hookform/resolvers@3.9.1':
     resolution: {integrity: sha512-ud2HqmGBM0P0IABqoskKWI6PEf6ZDDBZkFqe2Vnl+mTHCEHzr3ISjjZyCwTjC/qpL25JC9aIDkloQejvMeq0ug==}
     peerDependencies:
@@ -3008,11 +2992,6 @@ packages:
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
-
-  '@kksh/sdk@0.0.1':
-    resolution: {integrity: sha512-G+ZnrPOBmu4IwpcWsgxgK1C6bZrldzEEK1jxM0YgmI8ITLUkDAMnXM1GoQKoRUvcMQPUIQcun2ApLIQPK7uWpA==}
-    peerDependencies:
-      typescript: ^5
 
   '@kksh/svelte5@0.1.15':
     resolution: {integrity: sha512-Cr/gSWsnRtQIQLpQAkGBODujWn5g4LlhDp865skRV95tkrOuAwbbWGjG5+oWx1fK+fiDu+rhe2UCqw61SW2B/Q==}
@@ -4977,11 +4956,6 @@ packages:
   '@supabase/realtime-js@2.11.2':
     resolution: {integrity: sha512-u/XeuL2Y0QEhXSoIPZZwR6wMXgB+RQbJzG9VErA3VghVt7uRfSVsjeqd7m5GhX3JR6dM/WRmLbVR8URpDWG4+w==}
 
-  '@supabase/ssr@0.5.2':
-    resolution: {integrity: sha512-n3plRhr2Bs8Xun1o4S3k1CDv17iH5QY9YcoEvXX3bxV1/5XSasA0mNXYycFmADIdtdE6BG9MRjP5CGIs8qxC8A==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.43.4
-
   '@supabase/storage-js@2.7.1':
     resolution: {integrity: sha512-asYHcyDR1fKqrMpytAS1zjyEfvxuOIp1CIXX7ji4lHHcJKqyk+sLl/Vxgm4sN6u8zvuUtae9e4kDxQP2qrwWBA==}
 
@@ -6734,10 +6708,6 @@ packages:
 
   cookie@0.6.0:
     resolution: {integrity: sha512-U71cyTamuh1CRNCfpGY6to28lxvNwPG4Guz/EVjgf3Jmzv0vlDp1atT9eS5dDjMYHucpHbWns6Lwf3BKz6svdw==}
-    engines: {node: '>= 0.6'}
-
-  cookie@0.7.2:
-    resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
     engines: {node: '>= 0.6'}
 
   cookies@0.9.1:
@@ -13961,6 +13931,8 @@ snapshots:
 
   '@hey-api/client-fetch@0.6.0': {}
 
+  '@hey-api/client-fetch@0.8.3': {}
+
   '@hookform/resolvers@3.9.1(react-hook-form@7.53.2(react@18.3.1))':
     dependencies:
       react-hook-form: 7.53.2(react@18.3.1)
@@ -14627,14 +14599,6 @@ snapshots:
       - '@types/react'
       - '@types/react-dom'
       - tailwindcss
-
-  '@kksh/sdk@0.0.1(typescript@5.6.3)':
-    dependencies:
-      typescript: 5.6.3
-
-  '@kksh/sdk@0.0.1(typescript@5.7.3)':
-    dependencies:
-      typescript: 5.7.3
 
   '@kksh/svelte5@0.1.15(lucide-svelte@0.469.0(svelte@5.16.6))(svelte-sonner@0.3.28(svelte@5.16.6))(svelte@5.16.6)(sveltekit-superforms@2.23.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.2))(typescript@5.7.2)':
     dependencies:
@@ -17035,12 +16999,6 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@supabase/ssr@0.5.2(@supabase/supabase-js@2.48.0)':
-    dependencies:
-      '@supabase/supabase-js': 2.48.0
-      '@types/cookie': 0.6.0
-      cookie: 0.7.2
-
   '@supabase/storage-js@2.7.1':
     dependencies:
       '@supabase/node-fetch': 2.6.15
@@ -19318,8 +19276,6 @@ snapshots:
   cookie-es@1.2.2: {}
 
   cookie@0.6.0: {}
-
-  cookie@0.7.2: {}
 
   cookies@0.9.1:
     dependencies:

@@ -21,7 +21,6 @@ export const load: PageLoad = (): Promise<{
 			if (error) {
 				toast.error(`Failed to load extension store: ${error} (${response.status})`)
 				goHome()
-				return
 			}
 			const storeExtsMap = Object.fromEntries(storeExtList.map((ext) => [ext.identifier, ext]))
 			const installedExtsMap = derived(installedStoreExts, ($exts) =>

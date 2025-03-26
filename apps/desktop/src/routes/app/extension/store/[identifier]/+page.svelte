@@ -2,7 +2,7 @@
 	import { getExtensionsFolder } from "@/constants.js"
 	import { i18n } from "@/i18n.js"
 	import { extensions, installedStoreExts } from "@/stores/extensions.js"
-	import { ExtensionStoreListItem, ExtPackageJson, ExtPublish } from "@kksh/api/models"
+	import { DBExtension, ExtensionStoreListItem, ExtPackageJson, ExtPublish } from "@kksh/api/models"
 	import { postExtensionsIncrementDownloads } from "@kksh/sdk"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/svelte5/utils"
@@ -19,8 +19,8 @@
 	import { getInstallExtras } from "./helper"
 
 	const { data } = $props()
-	const extPublish: ExtPublish = $derived(data.extPublish)
-	const ext: ExtensionStoreListItem = $derived(data.ext)
+	const extPublish = $derived(data.extPublish)
+	const ext = $derived(data.ext)
 	const manifest = $derived(data.manifest)
 	const installedExt = storeDerived(installedStoreExts, ($e) => {
 		return $e.find((e) => e.kunkun.identifier === extPublish.identifier)

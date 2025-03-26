@@ -42,6 +42,7 @@
 		imageDialogOpen = $bindable(false)
 	}: {
 		extPublish: ExtPublish
+		// extPublish: GetExtensionsLatestPublishByIdentifierResponse
 		ext: {
 			author_id: string
 			downloads: number
@@ -256,7 +257,7 @@
 
 	<Separator class="my-3" />
 	<h2 class="text-lg font-bold">Security and Privacy</h2>
-	<PermissionInspector {manifest} />
+	<PermissionInspector permissions={manifest.permissions} />
 	<Separator class="my-3" />
 	<h2 class="text-lg font-bold">Description</h2>
 
@@ -278,7 +279,7 @@
 									<span class="text-dm">{cmd.name}</span>
 									<h2 class="text-xs">{cmd.description}</h2>
 								</div>
-								<PlatformsIcons platforms={cmd.platforms} />
+								<PlatformsIcons platforms={cmd.platforms ?? []} />
 							</div>
 							<Separator class="my-3" />
 						</li>

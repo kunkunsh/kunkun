@@ -2,14 +2,14 @@ import * as v from "valibot"
 import { BaseIcon } from "./icon"
 import { ExtPackageJson, KunkunExtManifest } from "./manifest"
 
-export enum ExtPublishSourceTypeEnum {
-	jsr = "jsr",
-	npm = "npm"
+export const ExtPublishSourceTypeEnum = {
+	jsr: "jsr",
+	npm: "npm"
 }
 
 export const ExtPublishMetadata = v.object({
 	source: v.optional(v.string("Source of the extension (e.g. url to package)")),
-	sourceType: v.optional(v.enum(ExtPublishSourceTypeEnum)),
+	sourceType: v.optional(v.picklist(Object.values(ExtPublishSourceTypeEnum))),
 	rekorLogIndex: v.optional(v.string("Rekor log index of the extension")),
 	git: v.optional(
 		v.object({
@@ -44,13 +44,13 @@ export const ExtensionStoreListItem = v.object({
 
 export type ExtensionStoreListItem = v.InferOutput<typeof ExtensionStoreListItem>
 
-export enum PublishStateEnum {
-	public = "public",
-	pending = "pending",
-	under_review = "under_review",
-	private = "private"
+export const PublishStateEnum = {
+	public: "public",
+	pending: "pending",
+	under_review: "under_review",
+	private: "private"
 }
-export const ExtensionPublishState = v.enum(PublishStateEnum)
+export const ExtensionPublishState = v.picklist(Object.values(PublishStateEnum))
 
 export const ExtPublish = v.object({
 	id: v.number(),
@@ -76,7 +76,7 @@ export type ExtPublish = v.InferOutput<typeof ExtPublish>
 
 export const DBExtension = v.object({
 	api_version: v.string(),
-	author_id: v.nullable(v.string()),
+	author_id: v.string(),
 	created_at: v.string(),
 	downloads: v.number(),
 	icon: BaseIcon,

@@ -82,7 +82,7 @@
 		})
 		if (error)
 			return toast.error("Fail to get latest extension", {
-				description: error as string
+				description: error.error
 			})
 		const installExtras = await getInstallExtras(data?.metadata)
 		return extensions
@@ -100,7 +100,7 @@
 		})
 		if (error)
 			return toast.error("Fail to get latest extension", {
-				description: error
+				description: error.error
 			})
 
 		const installExtras = await getInstallExtras(data?.metadata)
@@ -164,7 +164,7 @@
 	})
 </script>
 
-<svelte:window on:keydown={onkeydown} />
+<svelte:window {onkeydown} />
 {#snippet leftSlot()}
 	<Button
 		variant="outline"

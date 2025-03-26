@@ -4,22 +4,21 @@ import { NodeName, NodeNameEnum } from "./constants"
 /* -------------------------------------------------------------------------- */
 /*                                    Icon                                    */
 /* -------------------------------------------------------------------------- */
-export enum IconEnum {
-	Iconify = "iconify",
-	RemoteUrl = "remote-url",
-	Svg = "svg",
-	Base64PNG = "base64-png",
-	Text = "text"
+// export enum IconEnum {
+// 	Iconify = "iconify",
+// 	RemoteUrl = "remote-url",
+// 	Svg = "svg",
+// 	Base64PNG = "base64-png",
+// 	Text = "text"
+// }
+export const IconEnum = {
+	Iconify: "iconify",
+	RemoteUrl: "remote-url",
+	Svg: "svg",
+	Base64PNG: "base64-png",
+	Text: "text"
 }
-// export const IconType = v.enum(IconEnum)
-export const IconType = v.union([
-	v.literal(IconEnum.Iconify),
-	v.literal(IconEnum.RemoteUrl),
-	v.literal(IconEnum.Svg),
-	v.literal(IconEnum.Base64PNG),
-	v.literal(IconEnum.Text)
-])
-
+export const IconType = v.picklist(Object.values(IconEnum))
 export type IconType = v.InferOutput<typeof IconType>
 
 export type Icon = {

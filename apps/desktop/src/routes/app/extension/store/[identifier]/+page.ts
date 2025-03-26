@@ -1,28 +1,15 @@
-import { appState, extensions } from "@/stores"
-import {
-	ExtensionStoreListItem,
-	ExtPublish,
-	KunkunExtManifest,
-	type ExtPackageJsonExtra
-} from "@kksh/api/models"
-import {
-	getExtensionsByIdentifier,
-	getExtensionsLatestPublishByIdentifier,
-	type GetExtensionsByIdentifierResponse,
-	type GetExtensionsLatestPublishByIdentifierResponse,
-	type GetExtensionsLatestPublishByIdentifierResponses
-} from "@kksh/sdk"
+import { appState } from "@/stores"
+import { DBExtension, ExtPublish, KunkunExtManifest } from "@kksh/api/models"
+import { getExtensionsByIdentifier, getExtensionsLatestPublishByIdentifier } from "@kksh/sdk"
 import { error } from "@sveltejs/kit"
-import { toast } from "svelte-sonner"
-import * as v from "valibot"
 import type { PageLoad } from "./$types"
 
 export const load: PageLoad = ({
 	params
 }): Promise<{
-	// extPublish: GetExtensionsLatestPublishByIdentifierResponses['200']
-	ext: GetExtensionsByIdentifierResponse
-	manifest: GetExtensionsLatestPublishByIdentifierResponse["manifest"]
+	extPublish: ExtPublish
+	ext: DBExtension
+	manifest: KunkunExtManifest
 	params: {
 		identifier: string
 	}
@@ -35,25 +22,27 @@ export const load: PageLoad = ({
 	})
 		.then(async ({ data: extPublish, error: err, response }) => {
 			if (err || !extPublish) {
-				console.error(err)
-				return error(400, {
+				return error(response.status, {
 					message: "Failed to get extension publish"
 				})
 			}
-			const { data: ext, error: extError } = await getExtensionsByIdentifier({
+			const {
+				data: ext,
+				error: extError,
+				response: extRes
+			} = await getExtensionsByIdentifier({
 				path: {
 					identifier: params.identifier
 				}
 			})
-			if (extError) {
+			if (extError || !ext) {
 				console.error(extError)
-				return error(400, {
-					message: "Failed to get extension"
+				return error(extRes.status, {
+					message: extError.error || "Failed to get extension"
 				})
 			}
-
 			return {
-				// extPublish,
+				extPublish: extPublish,
 				ext,
 				manifest: extPublish.manifest,
 				params
