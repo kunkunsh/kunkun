@@ -2,14 +2,13 @@
 	import { getExtensionsFolder } from "@/constants"
 	import { appState, extensions } from "@/stores"
 	import { keys } from "@/stores/keys"
-	import { supabaseAPI } from "@/supabase"
-	import { goBackOnEscapeClearSearchTerm, goHomeOnEscapeClearSearchTerm } from "@/utils/key"
 	import { goBack, goHome } from "@/utils/route"
-	import { Action as ActionSchema } from "@kksh/api/models"
+	import { Action as ActionSchema, ExtensionStoreListItem, ExtPublish } from "@kksh/api/models"
 	import { Action } from "@kksh/api/ui"
-	import { SBExt } from "@kksh/supabase/models"
-	import type { ExtPublishMetadata } from "@kksh/supabase/models"
-	import { type Tables } from "@kksh/supabase/types"
+	import {
+		getExtensionsLatestPublishByIdentifier,
+		postExtensionsIncrementDownloads
+	} from "@kksh/sdk"
 	import { Button, Command } from "@kksh/svelte5"
 	import { Constants } from "@kksh/ui"
 	import { ExtListItem } from "@kksh/ui/extension"
@@ -71,51 +70,57 @@
 		}
 	})
 
-	function onExtItemSelected(ext: SBExt) {
+	function onExtItemSelected(ext: ExtensionStoreListItem) {
 		goto(`./store/${ext.identifier}`)
 	}
 
-	async function onExtItemUpgrade(ext: SBExt) {
-		const res = await supabaseAPI.getLatestExtPublish(ext.identifier)
-		if (res.error)
+	async function onExtItemUpgrade(ext: ExtensionStoreListItem) {
+		const { data, error, response } = await getExtensionsLatestPublishByIdentifier({
+			path: {
+				identifier: ext.identifier
+			}
+		})
+		if (error)
 			return toast.error("Fail to get latest extension", {
-				description: res.error.message
+				description: error as string
 			})
-		const tarballUrl = res.data.tarball_path.startsWith("http")
-			? res.data.tarball_path
-			: supabaseAPI.translateExtensionFilePathToUrl(res.data.tarball_path)
-		const installExtras = await getInstallExtras(
-			res.data as Tables<"ext_publish"> & { metadata: ExtPublishMetadata }
-		)
+		const installExtras = await getInstallExtras(data?.metadata)
 		return extensions
-			.upgradeStoreExtension(ext.identifier, tarballUrl, installExtras)
+			.upgradeStoreExtension(ext.identifier, data.tarball_path, installExtras)
 			.then((newExt) => {
 				toast.success(`${ext.name} Upgraded to ${newExt.version}`)
 			})
 	}
 
-	async function onExtItemInstall(ext: SBExt) {
-		const res = await supabaseAPI.getLatestExtPublish(ext.identifier)
-		if (res.error)
+	async function onExtItemInstall(ext: ExtensionStoreListItem) {
+		const { data, error, response } = await getExtensionsLatestPublishByIdentifier({
+			path: {
+				identifier: ext.identifier
+			}
+		})
+		if (error)
 			return toast.error("Fail to get latest extension", {
-				description: res.error.message
+				description: error
 			})
 
-		const tarballUrl = res.data.tarball_path.startsWith("http")
-			? res.data.tarball_path
-			: supabaseAPI.translateExtensionFilePathToUrl(res.data.tarball_path)
-		const installExtras = await getInstallExtras(
-			res.data as Tables<"ext_publish"> & { metadata: ExtPublishMetadata }
-		)
+		const installExtras = await getInstallExtras(data?.metadata)
 		const installDir = await getExtensionsFolder()
 		return extensions
-			.installFromTarballUrl(tarballUrl, installDir, installExtras)
+			.installFromTarballUrl(data.tarball_path, installDir, installExtras)
 			.then(() => toast.success(`Plugin ${ext.name} Installed`))
 			.then(() =>
-				supabaseAPI.incrementDownloads({
-					identifier: ext.identifier,
-					version: ext.version
+				postExtensionsIncrementDownloads({
+					body: {
+						identifier: ext.identifier,
+						version: ext.version
+					}
 				})
+					.then(({ error }) => {
+						if (error) {
+							console.error(error)
+						}
+					})
+					.catch(console.error)
 			)
 	}
 

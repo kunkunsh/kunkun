@@ -1,43 +1,40 @@
 import { appConfig, appState, extensions, installedStoreExts } from "@/stores"
-import { supabaseAPI } from "@/supabase"
-import type { ExtPackageJsonExtra } from "@kksh/api/models"
+import { goHome } from "@/utils/route"
+// import { supabaseAPI } from "@/supabase"
+import type { ExtensionStoreListItem, ExtPackageJsonExtra } from "@kksh/api/models"
 import { isExtPathInDev, isUpgradable } from "@kksh/extension"
-import { SBExt } from "@kksh/supabase/models"
-import { sleep } from "@kksh/utils"
-import { error } from "@sveltejs/kit"
+import { getExtensionsStoreList } from "@kksh/sdk"
+import { toast } from "svelte-sonner"
 import { derived, get, type Readable } from "svelte/store"
 import type { PageLoad } from "./$types"
 
 export const load: PageLoad = (): Promise<{
-	storeExtList: SBExt[]
+	storeExtList: ExtensionStoreListItem[]
 	installedStoreExts: Readable<ExtPackageJsonExtra[]>
 	installedExtsMap: Readable<Record<string, string>>
 	upgradableExpsMap: Readable<Record<string, boolean>>
 }> => {
 	appState.setFullScreenLoading(true)
-	return supabaseAPI
-		.getExtList()
-		.then(async (storeExtList) => {
-			// map identifier to extItem
+	return getExtensionsStoreList()
+		.then(({ data: storeExtList, error, response }) => {
+			storeExtList = storeExtList ?? []
+			if (error) {
+				toast.error(`Failed to load extension store: ${error} (${response.status})`)
+				goHome()
+				return
+			}
 			const storeExtsMap = Object.fromEntries(storeExtList.map((ext) => [ext.identifier, ext]))
-			// const _appConfig = get(appConfig)
-			// const installedStoreExts = derived(extensions, ($extensions) => {
-			// 	if (!_appConfig.extensionPath) return []
-			// 	return $extensions.filter((ext) => !isExtPathInDev(_appConfig.extensionPath!, ext.extPath))
-			// })
-			// map installed extension identifier to version
 			const installedExtsMap = derived(installedStoreExts, ($exts) =>
 				Object.fromEntries($exts.map((ext) => [ext.kunkun.identifier, ext.version]))
 			)
 			const upgradableExpsMap = derived(installedStoreExts, ($exts) =>
 				Object.fromEntries(
 					$exts.map((ext) => {
-						const dbExt: SBExt | undefined = storeExtsMap[ext.kunkun.identifier]
+						const dbExt: ExtensionStoreListItem | undefined = storeExtsMap[ext.kunkun.identifier]
 						return [ext.kunkun.identifier, dbExt ? isUpgradable(dbExt, ext.version) : false]
 					})
 				)
 			)
-
 			return {
 				storeExtList,
 				installedStoreExts,

@@ -1,9 +1,16 @@
 <script lang="ts">
 	import autoAnimate from "@formkit/auto-animate"
 	import Icon from "@iconify/svelte"
-	import { ExtPackageJson, IconEnum, KunkunExtManifest } from "@kksh/api/models"
-	import { ExtPublishMetadata, ExtPublishSourceTypeEnum } from "@kksh/supabase/models"
-	import { type Tables } from "@kksh/supabase/types"
+	import {
+		ExtPackageJson,
+		ExtPublish,
+		ExtPublishMetadata,
+		ExtPublishSourceTypeEnum,
+		IconEnum,
+		KunkunExtManifest
+	} from "@kksh/api/models"
+	// import { ExtPublishMetadata, ExtPublishSourceTypeEnum } from "@kksh/supabase/models"
+	// import { type Tables } from "@kksh/supabase/types"
 	import { Badge, Button, ScrollArea, Separator, Tooltip } from "@kksh/svelte5"
 	import { Constants, IconMultiplexer } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
@@ -36,8 +43,11 @@
 		loading,
 		imageDialogOpen = $bindable(false)
 	}: {
-		extPublish: Tables<"ext_publish">
-		ext: Tables<"extensions">
+		extPublish: ExtPublish
+		ext: {
+			author_id: string
+			downloads: number
+		}
 		author?: {
 			id: string
 			name: string

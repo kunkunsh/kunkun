@@ -1,9 +1,17 @@
 import { appState, extensions } from "@/stores"
-import { supabaseAPI } from "@/supabase"
-import { KunkunExtManifest, type ExtPackageJsonExtra } from "@kksh/api/models"
-import { ExtPublishMetadata } from "@kksh/supabase/models"
-import type { Tables } from "@kksh/supabase/types"
-import { sleep } from "@kksh/utils"
+import {
+	ExtensionStoreListItem,
+	ExtPublish,
+	KunkunExtManifest,
+	type ExtPackageJsonExtra
+} from "@kksh/api/models"
+import {
+	getExtensionsByIdentifier,
+	getExtensionsLatestPublishByIdentifier,
+	type GetExtensionsByIdentifierResponse,
+	type GetExtensionsLatestPublishByIdentifierResponse,
+	type GetExtensionsLatestPublishByIdentifierResponses
+} from "@kksh/sdk"
 import { error } from "@sveltejs/kit"
 import { toast } from "svelte-sonner"
 import * as v from "valibot"
@@ -12,43 +20,43 @@ import type { PageLoad } from "./$types"
 export const load: PageLoad = ({
 	params
 }): Promise<{
-	extPublish: Tables<"ext_publish"> & { metadata: ExtPublishMetadata }
-	ext: Tables<"extensions">
-	manifest: KunkunExtManifest
+	// extPublish: GetExtensionsLatestPublishByIdentifierResponses['200']
+	ext: GetExtensionsByIdentifierResponse
+	manifest: GetExtensionsLatestPublishByIdentifierResponse["manifest"]
 	params: {
 		identifier: string
 	}
 }> => {
 	appState.setFullScreenLoading(true)
-	return supabaseAPI
-		.getLatestExtPublish(params.identifier)
-		.then(async ({ error: dbError, data: extPublish }) => {
-			const metadataParse = v.safeParse(ExtPublishMetadata, extPublish?.metadata ?? {})
-			if (dbError) {
+	return getExtensionsLatestPublishByIdentifier({
+		path: {
+			identifier: params.identifier
+		}
+	})
+		.then(async ({ data: extPublish, error: err, response }) => {
+			if (err || !extPublish) {
+				console.error(err)
 				return error(400, {
-					message: dbError.message
+					message: "Failed to get extension publish"
 				})
 			}
-			const metadata = metadataParse.success ? metadataParse.output : {}
-			const parseManifest = v.safeParse(KunkunExtManifest, extPublish.manifest)
-			if (!parseManifest.success) {
-				const errMsg = "Invalid extension manifest, you may need to upgrade your app."
-				toast.error(errMsg)
-				throw error(400, errMsg)
-			}
-
-			const { data: ext, error: extError } = await supabaseAPI.getExtension(params.identifier)
+			const { data: ext, error: extError } = await getExtensionsByIdentifier({
+				path: {
+					identifier: params.identifier
+				}
+			})
 			if (extError) {
+				console.error(extError)
 				return error(400, {
-					message: extError.message
+					message: "Failed to get extension"
 				})
 			}
 
 			return {
-				extPublish: { ...extPublish, metadata },
+				// extPublish,
 				ext,
-				params,
-				manifest: parseManifest.output
+				manifest: extPublish.manifest,
+				params
 			}
 		})
 		.finally(() => {

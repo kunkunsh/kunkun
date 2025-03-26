@@ -1,15 +1,17 @@
-import type { ExtPublishMetadata } from "@kksh/supabase/models"
-import type { Tables } from "@kksh/supabase/types"
+import type { ExtPublishMetadata } from "@kunkunapi/src/models"
 
 export async function getInstallExtras(
-	ext: Tables<"ext_publish"> & { metadata?: ExtPublishMetadata }
+	extMetadata?: {
+		sourceType?: string
+		source?: string
+	}
 ): Promise<{ overwritePackageJson?: string }> {
 	const extras: { overwritePackageJson?: string } = {}
-	if (ext.metadata?.sourceType) {
-		if (ext.metadata?.sourceType === "jsr") {
-			if (ext.metadata?.source) {
+	if (extMetadata?.sourceType) {
+		if (extMetadata?.sourceType === "jsr") {
+			if (extMetadata?.source) {
 				try {
-					const res = await fetch(`${ext.metadata.source}/package.json`)
+					const res = await fetch(`${extMetadata.source}/package.json`)
 					const pkgJsonContent = await res.text()
 					extras.overwritePackageJson = pkgJsonContent
 				} catch (error) {

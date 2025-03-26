@@ -2,11 +2,8 @@
 	import { getExtensionsFolder } from "@/constants.js"
 	import { i18n } from "@/i18n.js"
 	import { extensions, installedStoreExts } from "@/stores/extensions.js"
-	import { supabaseAPI } from "@/supabase"
-	import { goBack } from "@/utils/route.js"
-	import { ExtPackageJson } from "@kksh/api/models"
-	import { ExtPublishMetadata } from "@kksh/supabase/models"
-	import type { Tables } from "@kksh/supabase/types"
+	import { ExtensionStoreListItem, ExtPackageJson, ExtPublish } from "@kksh/api/models"
+	import { postExtensionsIncrementDownloads } from "@kksh/sdk"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/svelte5/utils"
 	import { Constants } from "@kksh/ui"
@@ -22,10 +19,8 @@
 	import { getInstallExtras } from "./helper"
 
 	const { data } = $props()
-	const extPublish: Tables<"ext_publish"> & { metadata: ExtPublishMetadata } = $derived(
-		data.extPublish
-	)
-	const ext: Tables<"extensions"> = $derived(data.ext)
+	const extPublish: ExtPublish = $derived(data.extPublish)
+	const ext: ExtensionStoreListItem = $derived(data.ext)
 	const manifest = $derived(data.manifest)
 	const installedExt = storeDerived(installedStoreExts, ($e) => {
 		return $e.find((e) => e.kunkun.identifier === extPublish.identifier)
@@ -77,28 +72,29 @@
 		}, 500)
 	})
 
-	const demoImages = $derived(
-		extPublish.demo_images.map((src) =>
-			src.startsWith("http") ? src : supabaseAPI.translateExtensionFilePathToUrl(src)
-		)
-	)
+	const demoImages = $derived(extPublish.demo_images)
 
 	async function onInstallSelected() {
 		loading.install = true
-		const tarballUrl = extPublish.tarball_path.startsWith("http")
-			? extPublish.tarball_path
-			: supabaseAPI.translateExtensionFilePathToUrl(extPublish.tarball_path)
-		const installExtras = await getInstallExtras(extPublish)
+		const installExtras = await getInstallExtras(extPublish.metadata)
 		const installDir = await getExtensionsFolder()
 		return extensions
-			.installFromTarballUrl(tarballUrl, installDir, installExtras)
+			.installFromTarballUrl(extPublish.tarball_path, installDir, installExtras)
 			.then(() => toast.success(`Plugin ${extPublish.name} Installed`))
 			.then((loadedExt) => {
 				info(`Successfully installed ${extPublish.name}`)
-				supabaseAPI.incrementDownloads({
-					identifier: extPublish.identifier,
-					version: extPublish.version
+				postExtensionsIncrementDownloads({
+					body: {
+						identifier: extPublish.identifier,
+						version: extPublish.version
+					}
 				})
+					.then(({ error }) => {
+						if (error) {
+							console.error(error)
+						}
+					})
+					.catch(console.error)
 				showBtn.install = false
 				showBtn.uninstall = true
 			})
@@ -113,9 +109,8 @@
 
 	function onUpgradeSelected() {
 		loading.upgrade = true
-		const tarballUrl = supabaseAPI.translateExtensionFilePathToUrl(extPublish.tarball_path)
 		return extensions
-			.upgradeStoreExtension(extPublish.identifier, tarballUrl)
+			.upgradeStoreExtension(extPublish.identifier, extPublish.tarball_path)
 			.then((newExt) => {
 				toast.success(
 					`${extPublish.name} Upgraded from ${$installedExt?.version} to ${newExt.version}`
