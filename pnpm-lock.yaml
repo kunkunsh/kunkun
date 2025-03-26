@@ -19,7 +19,7 @@ importers:
         version: 4.2.0(svelte@5.20.5)
       '@kksh/sdk':
         specifier: ^0.0.2
-        version: link:../kunkun-services/packages/sdk
+        version: 0.0.2(typescript@5.7.3)
       '@supabase/supabase-js':
         specifier: ^2.49.1
         version: 2.49.1
@@ -546,7 +546,7 @@ importers:
         specifier: workspace:*
         version: link:../api
       '@std/semver':
-        specifier: npm:@jsr/std__semver@^1.0.3
+        specifier: npm:@jsr/std__semver@^1.0.4
         version: '@jsr/std__semver@1.0.3'
       '@tauri-apps/plugin-upload':
         specifier: ^2.2.1
@@ -558,12 +558,15 @@ importers:
         specifier: ^5.0.0
         version: 5.5.4
       uuid:
-        specifier: ^11.0.3
-        version: 11.0.3
+        specifier: ^11.1.0
+        version: 11.1.0
     devDependencies:
       '@types/bun':
         specifier: latest
         version: 1.2.6
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
 
   packages/extensions/demo-worker-template-ext:
     dependencies:
@@ -2992,6 +2995,11 @@ packages:
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
+
+  '@kksh/sdk@0.0.2':
+    resolution: {integrity: sha512-z6OXrdWs5IvYlf1RFVzY8Drro9Ye/oDViTpmVZp/sOUPExFtNRnJZGBKvTW7zE23jv1AXByVYxRwDjLb4zI6Sg==}
+    peerDependencies:
+      typescript: ^5
 
   '@kksh/svelte5@0.1.15':
     resolution: {integrity: sha512-Cr/gSWsnRtQIQLpQAkGBODujWn5g4LlhDp865skRV95tkrOuAwbbWGjG5+oWx1fK+fiDu+rhe2UCqw61SW2B/Q==}
@@ -14599,6 +14607,10 @@ snapshots:
       - '@types/react'
       - '@types/react-dom'
       - tailwindcss
+
+  '@kksh/sdk@0.0.2(typescript@5.7.3)':
+    dependencies:
+      typescript: 5.7.3
 
   '@kksh/svelte5@0.1.15(lucide-svelte@0.469.0(svelte@5.16.6))(svelte-sonner@0.3.28(svelte@5.16.6))(svelte@5.16.6)(sveltekit-superforms@2.23.1(@sveltejs/kit@2.15.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.16.6)(vite@6.0.7(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(svelte@5.16.6)(vite@6.0.7(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.16.6)(typescript@5.7.2))(typescript@5.7.2)':
     dependencies:

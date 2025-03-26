@@ -29,6 +29,7 @@ export const TitleBarStyleEnum = {
 	transparent: "transparent",
 	overlay: "overlay"
 }
+export type TitleBarStyle = v.InferOutput<typeof TitleBarStyle>
 export const TitleBarStyle = v.picklist(Object.values(TitleBarStyleEnum))
 // JS new WebViewWindow only accepts lowercase, while manifest loaded from Rust is capitalized. I run toLowerCase() on the value before passing it to the WebViewWindow.
 // This lowercase title bar style schema is used to validate and set the type so TypeScript won't complaint

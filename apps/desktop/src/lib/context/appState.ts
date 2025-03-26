@@ -1,4 +1,4 @@
-import type { AppState } from "@/types/appState"
+import type { AppState } from "@kksh/types"
 import { getContext, setContext } from "svelte"
 import type { Writable } from "svelte/store"
 
