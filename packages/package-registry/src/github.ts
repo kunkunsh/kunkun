@@ -33,6 +33,12 @@ export function authenticatedUserIsMemberOfGitHubOrg(
 	})
 }
 
+/**
+ * Parse a GitHub repository URI into owner and repo
+ * If not a valid GitHub repository URI, throw an error
+ * @param uri
+ * @returns owner and repo
+ */
 export function parseGitHubRepoFromUri(uri: string): {
 	owner: string
 	repo: string
@@ -45,4 +51,16 @@ export function parseGitHubRepoFromUri(uri: string): {
 	}
 	const [, owner, repo] = match
 	return { owner, repo }
+}
+
+/**
+ * Get GitHub repository metadata
+ * @param owner
+ * @param repo
+ * @param githubToken - Optional GitHub token to prevent rate limiting
+ * @returns repository metadata
+ */
+export function getGitHubRepoMetadata(owner: string, repo: string, githubToken?: string) {
+	const octokit = new Octokit({ auth: githubToken })
+	return octokit.rest.repos.get({ owner, repo }).then((res) => res.data)
 }

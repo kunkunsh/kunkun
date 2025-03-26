@@ -7,7 +7,11 @@ import {
 } from "@huakunshen/jsr-client/hey-api-client"
 import { ExtPackageJson, License } from "@kksh/api/models"
 import * as v from "valibot"
-import { authenticatedUserIsMemberOfGitHubOrg, userIsPublicMemberOfGitHubOrg } from "../github"
+import {
+	authenticatedUserIsMemberOfGitHubOrg,
+	getGitHubRepoMetadata,
+	userIsPublicMemberOfGitHubOrg
+} from "../github"
 import type { ExtensionPublishValidationData } from "../models"
 import type { NpmPkgMetadata } from "../npm/models"
 import { getInfoFromRekorLog } from "../sigstore"
@@ -205,6 +209,7 @@ export function jsrPackageExists(scope: string, name: string, version?: string):
 
 /**
  * Validate a Jsr package as a Kunkun extension
+ * !This function will also run in frontend, so if there is any verification logic that must be run in backend, do not add it here
  * - check if jsr pkg is linked to a github repo
  * - check if jsr pkg is signed with github action
  * - check if user's github username is the same as repo's owner name
@@ -368,6 +373,7 @@ export async function validateJsrPackageAsKunkunExtension(payload: {
 		}
 	}
 	const rekorInfo = await getInfoFromRekorLog(rekorLogId)
+
 	return {
 		data: {
 			pkgJson: parseResult.output,
