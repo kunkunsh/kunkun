@@ -1108,8 +1108,8 @@ mod tests {
             )
             .unwrap();
         assert_eq!(results.len(), 1);
-        assert_eq!(results[0]["title"], "Buy groceries");
-        assert_eq!(results[0]["completed"], "false");
+        assert_eq!(results[0][0], "Buy groceries");
+        assert_eq!(results[0][1], "false");
 
         // Test execute with UPDATE
         let (rows_affected, _) = db
@@ -1127,7 +1127,7 @@ mod tests {
                 vec![json!(1)],
             )
             .unwrap();
-        assert_eq!(results[0]["completed"], "true");
+        assert_eq!(results[0][0], "true");
 
         // Test execute with DELETE
         let (rows_affected, _) = db
@@ -1139,7 +1139,7 @@ mod tests {
         let results = db
             .select("SELECT COUNT(*) as count FROM todos".to_string(), vec![])
             .unwrap();
-        assert_eq!(results[0]["count"], 0);
+        assert_eq!(results[0][0], 0);
 
         fs::remove_file(&db_path).unwrap();
     }
