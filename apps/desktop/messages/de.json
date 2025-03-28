@@ -40,6 +40,7 @@
 	"settings_general_join_beta_updates": "Beta-Updates nutzen",
 	"settings_general_developer_mode": "Entwickler-Modus",
 	"settings_general_language": "Sprache",
+	"settings_general_loading_animation": "Ladeanimation",
 
 	"settings_app_search_paths_title": "Zusätzliche Verzeichnisse für die Programm-Suche",
 	"settings_app_search_paths_add_app_search_path": "Verzeichnis für Programm-Suche hinzufügen",

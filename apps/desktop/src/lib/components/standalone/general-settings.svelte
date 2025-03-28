@@ -106,7 +106,7 @@
 		</Select.Root>
 	</li>
 	<li>
-		<span>Loading Animation</span>
+		<span>{m.settings_general_loading_animation()}</span>
 
 		<Select.Root type="single" name="loadingAnimation" bind:value={loadingAnimation}>
 			<Select.Trigger class="w-fit">
