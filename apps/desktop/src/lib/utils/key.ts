@@ -97,7 +97,7 @@ export async function globalKeyDownHandler(e: KeyboardEvent) {
 		await appWin.hide()
 		location.reload()
 		setTimeout(() => {
-			appWin.show()
+			appWin.show().then(() => appWin.setFocus())
 		}, 1_000)
 	}
 }

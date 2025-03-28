@@ -64,12 +64,16 @@
 			if (splashscreenWin) {
 				splashscreenWin.close()
 			}
-			win.show()
+			win.show().then(() => win.setFocus())
 		})
 		win.onFocusChanged(({ payload: focused }) => {
 			if (focused) {
-				win.show()
-				inputEle?.focus()
+				win
+					.show()
+					.then(() => win.setFocus())
+					.finally(() => {
+						inputEle?.focus()
+					})
 			}
 		})
 		inputEle?.focus()
