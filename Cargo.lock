@@ -825,6 +825,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "bon"
+version = "3.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "65268237be94042665b92034f979c42d431d2fd998b49809543afe3e66abad1c"
+dependencies = [
+ "bon-macros",
+ "rustversion",
+]
+
+[[package]]
+name = "bon-macros"
+version = "3.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "803c95b2ecf650eb10b5f87dda6b9f6a1b758cee53245e2b7b825c9b3803a443"
+dependencies = [
+ "darling",
+ "ident_case",
+ "prettyplease",
+ "proc-macro2",
+ "quote",
+ "rustversion",
+ "syn 2.0.87",
+]
+
+[[package]]
 name = "borsh"
 version = "1.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8003,9 +8028,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-svelte"
-version = "1.2.1"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dab0a4d739af1108c6572e6249113190135c66a45586d0f8f93b3ee532e6176f"
+checksum = "17e96f88b3c614b98cea3afb5de6e2661d32f82c70423ae125c56a25d62017e6"
 dependencies = [
  "serde",
  "tauri",
@@ -8136,9 +8161,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-store"
-version = "0.8.1"
+version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cb4e7c0776d9f8b54fd4788f4e471ce83b4c6cf62079799830a3735582a51fc4"
+checksum = "5a33c8afdf92c1b177296c0299f6d20116cbce0fa1e2264819fea8c80fd31774"
 dependencies = [
  "dashmap",
  "futures",
@@ -8155,9 +8180,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-store-macros"
-version = "0.8.1"
+version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fabed02238bc887f75887b315c6a14d9571ab463c1a188cc27ec2f7e917b06c3"
+checksum = "c8857e4240cf6dbabb15fc2d595e92abba404f0a5cce0f3abbfe9316cac4aa99"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -8166,11 +8191,14 @@ dependencies = [
 
 [[package]]
 name = "tauri-store-utils"
-version = "0.2.2"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b983a259b22d622ce74b957140efa161bd75c6bfd47b7bf621c98dd05b1a2474"
+checksum = "14376c237a6632663991634d51a31f128b6b381b94d65e747db2419a513ae6d8"
 dependencies = [
- "futures",
+ "bon",
+ "semver",
+ "serde",
+ "serde_json",
  "tauri",
  "thiserror 2.0.3",
  "tokio",

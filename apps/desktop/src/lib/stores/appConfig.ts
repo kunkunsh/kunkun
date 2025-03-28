@@ -7,7 +7,7 @@ import * as os from "@tauri-apps/plugin-os"
 import { load } from "@tauri-apps/plugin-store"
 import { toast } from "svelte-sonner"
 import { get, writable } from "svelte/store"
-import { Store } from "tauri-plugin-svelte"
+import { Store } from "@tauri-store/svelte"
 import * as v from "valibot"
 
 export const defaultAppConfig: AppConfigState = {
