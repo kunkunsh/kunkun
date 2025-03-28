@@ -1,5 +1,6 @@
 import { KunkunIframeExtParams } from "@/cmds/ext"
 import { i18n } from "@/i18n"
+import { appState } from "@/stores/appState"
 import { db, unregisterExtensionWindow } from "@kksh/api/commands"
 import type { Ext as ExtInfoInDB, ExtPackageJsonExtra } from "@kksh/api/models"
 import { loadExtensionManifestFromDisk } from "@kksh/extension"

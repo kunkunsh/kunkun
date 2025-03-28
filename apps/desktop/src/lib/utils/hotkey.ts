@@ -48,8 +48,7 @@ export async function registerAppHotkey(hotkeyStr: string) {
 					mainWin.setFocus()
 				}
 			} else {
-				mainWin.show()
-				mainWin.setFocus()
+				mainWin.show().then(() => mainWin.setFocus())
 			}
 		}
 	})

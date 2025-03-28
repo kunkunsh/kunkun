@@ -27,7 +27,7 @@ use utils::server::tauri_file_server;
 pub fn run() {
     let context = tauri::generate_context!();
     let mut builder = tauri::Builder::default();
-
+    // let app_data_path = tauri::path::PathResolver::app_data_dir().unwrap();
     // let db_key = if cfg!(debug_assertions) {
     //     None
     // } else {

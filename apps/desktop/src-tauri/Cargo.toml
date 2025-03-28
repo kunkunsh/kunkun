@@ -71,4 +71,4 @@ tauri-plugin-cli = "2"
 tauri-plugin-global-shortcut = "2.0.1"
 tauri-plugin-single-instance = { version = "2", features = ["deep-link"] }
 tauri-plugin-updater = "2.0.2"
-tauri-plugin-svelte = "1.2.1"
+tauri-plugin-svelte = "2.1.1"

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DanceTransition from "@/components/dance/dance-transition.svelte"
 	import { i18n } from "@/i18n"
-	import { appConfig, winExtMap } from "@/stores"
+	import { appConfig, appState, winExtMap } from "@/stores"
 	import { helperAPI } from "@/utils/helper"
 	import { paste } from "@/utils/hotkey"
 	import { goBackOnEscape } from "@/utils/key"
@@ -38,7 +38,6 @@
 	let { data }: { data: PageData } = $props()
 	const { loadedExt, url, extPath, extInfoInDB } = data
 	let extSpawnedProcesses = $state<number[]>([])
-	const appWin = getCurrentWindow()
 	let iframeRef: HTMLIFrameElement
 	let uiControl = $state<{
 		iframeLoaded: boolean
@@ -65,7 +64,7 @@
 			if (isInMainWindow()) {
 				goto(i18n.resolveRoute("/app/"))
 			} else {
-				appWin.close()
+				data.win?.close()
 			}
 		},
 		hideBackButton: async () => {
@@ -131,7 +130,7 @@
 			},
 			getSpawnedProcesses: () => Promise.resolve(extSpawnedProcesses),
 			paste: async () => {
-				await appWin.hide()
+				await data.win?.hide()
 				await sleep(200)
 				return paste()
 			}
@@ -155,7 +154,7 @@
 		if (isInMainWindow()) {
 			goHome()
 		} else {
-			appWin.close()
+			data.win?.close()
 		}
 	}
 
@@ -163,12 +162,14 @@
 		setTimeout(() => {
 			iframeRef.focus()
 			uiControl.iframeLoaded = true
+			appState.setFullScreenLoading(false)
 		}, 300)
 	}
 
 	onMount(() => {
+		appState.setFullScreenLoading(true)
 		setTimeout(() => {
-			appWin.show()
+			data.win?.setFocus()
 		}, 200)
 		if (iframeRef?.contentWindow) {
 			const io = new IframeParentIO(iframeRef.contentWindow)
@@ -194,7 +195,7 @@
 	})
 
 	onDestroy(() => {
-		winExtMap.unregisterExtensionFromWindow(appWin.label)
+		winExtMap.unregisterExtensionFromWindow(data.win?.label ?? "")
 	})
 </script>
 
@@ -207,7 +208,7 @@
 		onclick={onBackBtnClicked}
 		style={`${positionToCssStyleString(uiControl.backBtnPosition)}`}
 	>
-		{#if appWin.label === "main"}
+		{#if data.win?.label === "main"}
 			<ArrowLeftIcon class="w-4" />
 		{:else}
 			<XIcon class="w-4" />
@@ -238,7 +239,6 @@
 {/if}
 
 <main class="h-screen">
-	<DanceTransition delay={300} autoHide={false} show={!uiControl.iframeLoaded} />
 	<iframe
 		bind:this={iframeRef}
 		class={cn("h-full", {

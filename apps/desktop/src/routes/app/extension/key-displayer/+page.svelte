@@ -8,6 +8,8 @@
 	import * as userInput from "tauri-plugin-user-input-api"
 	import { type InputEvent } from "tauri-plugin-user-input-api"
 
+	let { data } = $props()
+
 	const SymbolMap = {
 		Alt: "⎇",
 		AltGr: "⌥",
@@ -97,10 +99,7 @@
 	}
 
 	$effect(() => {
-		const win = getCurrentWebviewWindow()
-		if (win) {
-			win.show()
-		}
+		data.win?.show().then(() => data.win?.setFocus())
 
 		userInput.setEventTypes([userInput.EventTypeEnum.KeyPress, userInput.EventTypeEnum.KeyRelease])
 		userInput.startListening((evt: InputEvent) => {
