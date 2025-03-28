@@ -11,6 +11,7 @@
 	} from "@/paraglide/runtime"
 	import { appConfig } from "@/stores"
 	import { Select, Switch } from "@kksh/svelte5"
+	import type { LoadingAnimation } from "@kksh/types"
 	import * as autoStart from "@tauri-apps/plugin-autostart"
 	import { onMount } from "svelte"
 	import { toast } from "svelte-sonner"
@@ -19,12 +20,15 @@
 		value: lang,
 		label: LanguageMap[lang] ?? lang
 	}))
+	let loadingAnimation = $state<LoadingAnimation>("spinning-circle")
+	const loadingAnimations = ["spinning-circle", "kunkun-dancing"] as const
 	let launchAtLogin = $state(false)
 	let language = $state(languageTag())
 	onMount(() => {
 		autoStart.isEnabled().then((enabled) => {
 			launchAtLogin = enabled
 		})
+		loadingAnimation = $appConfig.loadingAnimation
 	})
 	const triggerContent = $derived(languages.find((f) => f.value === language)?.label ?? "Language")
 </script>
@@ -96,6 +100,31 @@
 							value={lang.value}
 							label={lang.label}>{lang.label}</Select.Item
 						>
+					{/each}
+				</Select.Group>
+			</Select.Content>
+		</Select.Root>
+	</li>
+	<li>
+		<span>Loading Animation</span>
+
+		<Select.Root type="single" name="loadingAnimation" bind:value={loadingAnimation}>
+			<Select.Trigger class="w-fit">
+				{loadingAnimation}
+			</Select.Trigger>
+			<Select.Content>
+				<Select.Group>
+					<Select.GroupHeading>Loading Animation</Select.GroupHeading>
+					{#each loadingAnimations as anim}
+						<Select.Item
+							onclick={() => {
+								appConfig.setLoadingAnimation(anim)
+							}}
+							value={anim}
+							label={anim}
+						>
+							{anim}
+						</Select.Item>
 					{/each}
 				</Select.Group>
 			</Select.Content>

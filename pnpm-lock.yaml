@@ -1391,7 +1391,7 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       valibot:
-        specifier: ^1.0.0
+        specifier: ^1.0.0-beta.10
         version: 1.0.0(typescript@5.6.3)
     devDependencies:
       '@rollup/plugin-typescript':
@@ -1457,8 +1457,8 @@ importers:
         specifier: ^5.3.3
         version: 5.6.3
       valibot:
-        specifier: 1.0.0
-        version: 1.0.0(typescript@5.6.3)
+        specifier: 1.0.0-beta.9
+        version: 1.0.0-beta.9(typescript@5.6.3)
 
 packages:
 
@@ -11928,6 +11928,14 @@ packages:
 
   valibot@1.0.0-beta.11:
     resolution: {integrity: sha512-Ztl5Iks1Ql7Z6CwkS5oyqguN3G8tmUiNlsHpqbDt6DLMpm+eu+n8Q7f921gI3uHvNZ8xDVkd4cEJP5t+lELOfw==}
+    peerDependencies:
+      typescript: '>=5'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+
+  valibot@1.0.0-beta.9:
+    resolution: {integrity: sha512-yEX8gMAZ2R1yI2uwOO4NCtVnJQx36zn3vD0omzzj9FhcoblvPukENIiRZXKZwCnqSeV80bMm8wNiGhQ0S8fiww==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -25756,6 +25764,10 @@ snapshots:
   valibot@1.0.0-beta.11(typescript@5.7.3):
     optionalDependencies:
       typescript: 5.7.3
+
+  valibot@1.0.0-beta.9(typescript@5.6.3):
+    optionalDependencies:
+      typescript: 5.6.3
 
   validate-npm-package-name@5.0.1: {}
 

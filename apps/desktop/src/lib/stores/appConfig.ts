@@ -1,7 +1,7 @@
 import { getExtensionsFolder } from "@/constants"
 import type { SearchPath } from "@kksh/api/models"
 import { updateTheme, type ThemeConfig } from "@kksh/svelte5"
-import { PersistedAppConfig, type AppConfigState } from "@kksh/types"
+import { LoadingAnimation, PersistedAppConfig, type AppConfigState } from "@kksh/types"
 import { debug, error, info } from "@tauri-apps/plugin-log"
 import * as os from "@tauri-apps/plugin-os"
 import { load } from "@tauri-apps/plugin-store"
@@ -29,7 +29,8 @@ export const defaultAppConfig: AppConfigState = {
 	joinBetaProgram: false,
 	onBoarded: false,
 	developerMode: false,
-	appSearchPaths: []
+	appSearchPaths: [],
+	loadingAnimation: "spinning-circle"
 }
 
 export const appConfigLoaded = writable(false)
@@ -98,6 +99,9 @@ class AppConfigStore extends Store<AppConfigState> implements AppConfigAPI {
 			...config,
 			appSearchPaths: config.appSearchPaths.filter((path) => path.path !== appSearchPath.path)
 		}))
+	}
+	setLoadingAnimation(loadingAnimation: LoadingAnimation) {
+		this.update((config) => ({ ...config, loadingAnimation }))
 	}
 }
 
