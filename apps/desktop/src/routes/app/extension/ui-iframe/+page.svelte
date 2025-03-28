@@ -1,7 +1,7 @@
 <script lang="ts">
 	import DanceTransition from "@/components/dance/dance-transition.svelte"
 	import { i18n } from "@/i18n"
-	import { appConfig, winExtMap } from "@/stores"
+	import { appConfig, appState, winExtMap } from "@/stores"
 	import { helperAPI } from "@/utils/helper"
 	import { paste } from "@/utils/hotkey"
 	import { goBackOnEscape } from "@/utils/key"
@@ -163,10 +163,12 @@
 		setTimeout(() => {
 			iframeRef.focus()
 			uiControl.iframeLoaded = true
+			appState.setFullScreenLoading(false)
 		}, 300)
 	}
 
 	onMount(() => {
+		appState.setFullScreenLoading(true)
 		setTimeout(() => {
 			appWin.show()
 		}, 200)
@@ -238,7 +240,6 @@
 {/if}
 
 <main class="h-screen">
-	<DanceTransition delay={300} autoHide={false} show={!uiControl.iframeLoaded} />
 	<iframe
 		bind:this={iframeRef}
 		class={cn("h-full", {

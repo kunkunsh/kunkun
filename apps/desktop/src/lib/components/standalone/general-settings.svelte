@@ -18,7 +18,7 @@
 
 	const languages = availableLanguageTags.map((lang) => ({
 		value: lang,
-		label: LanguageMap[lang] ?? lang
+		label: LanguageMap[lang as keyof typeof LanguageMap] ?? lang
 	}))
 	let loadingAnimation = $state<LoadingAnimation>("spinning-circle")
 	const loadingAnimations = ["spinning-circle", "kunkun-dancing"] as const

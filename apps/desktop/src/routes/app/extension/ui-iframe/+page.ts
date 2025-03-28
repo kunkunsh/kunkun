@@ -11,6 +11,7 @@ import { toast } from "svelte-sonner"
 import * as v from "valibot"
 import { z } from "zod"
 import type { PageLoad } from "./$types"
+import { appState } from "@/stores/appState"
 
 export const load: PageLoad = async ({
 	url,

@@ -30,7 +30,7 @@ export const defaultAppConfig: AppConfigState = {
 	onBoarded: false,
 	developerMode: false,
 	appSearchPaths: [],
-	loadingAnimation: "spinning-circle"
+	loadingAnimation: "kunkun-dancing"
 }
 
 export const appConfigLoaded = writable(false)
@@ -105,72 +105,6 @@ class AppConfigStore extends Store<AppConfigState> implements AppConfigAPI {
 	}
 }
 
-// function createAppConfig(): WithSyncStore<AppConfigState & { language: string }> & AppConfigAPI {
-// 	const store = createTauriSyncStore("app-config", defaultAppConfig)
-
-// 	async function init() {
-// 		debug("Initializing app config")
-// 		const persistStore = await load("kk-config.json", { autoSave: true })
-// 		let loadedConfig = await persistStore.get("config")
-// 		if (typeof loadedConfig === "object") {
-// 			loadedConfig = { ...defaultAppConfig, ...loadedConfig }
-// 		}
-// 		const parseRes = v.safeParse(PersistedAppConfig, loadedConfig)
-// 		if (parseRes.success) {
-// 			console.log("Parse Persisted App Config Success", parseRes.output)
-// 			const extensionsInstallDir = await getExtensionsFolder()
-// 			store.update((config) => ({
-// 				...config,
-// 				...parseRes.output,
-// 				isInitialized: true,
-// 				extensionsInstallDir,
-// 				platform: os.platform()
-// 			}))
-// 		} else {
-// 			error("Failed to parse app config, going to remove it and reinitialize")
-// 			console.error(v.flatten<typeof PersistedAppConfig>(parseRes.issues))
-// 			await persistStore.clear()
-// 			await persistStore.set("config", v.parse(PersistedAppConfig, defaultAppConfig))
-// 		}
-// 		store.subscribe(async (config) => {
-// 			console.log("Saving app config", config)
-// 			await persistStore.set("config", config)
-// 			updateTheme(config.theme)
-// 		})
-// 	}
-
-// 	return {
-// 		...store,
-// 		get: () => get(store),
-// 		setTheme: (theme: ThemeConfig) => store.update((config) => ({ ...config, theme })),
-// 		setDevExtensionPath: (devExtensionPath: string | null) => {
-// 			console.log("setDevExtensionPath", devExtensionPath)
-// 			store.update((config) => ({ ...config, devExtensionPath }))
-// 		},
-// 		setTriggerHotkey: (triggerHotkey: string[]) => {
-// 			store.update((config) => ({ ...config, triggerHotkey }))
-// 		},
-// 		setOnBoarded: (onBoarded: boolean) => {
-// 			store.update((config) => ({ ...config, onBoarded }))
-// 		},
-// 		setLanguage: (language: string) => {
-// 			store.update((config) => ({ ...config, language }))
-// 		},
-// 		addAppSearchPath: (appSearchPath: SearchPath) => {
-// 			store.update((config) => ({
-// 				...config,
-// 				appSearchPaths: [...config.appSearchPaths, appSearchPath]
-// 			}))
-// 		},
-// 		removeAppSearchPath: (appSearchPath: SearchPath) => {
-// 			store.update((config) => ({
-// 				...config,
-// 				appSearchPaths: config.appSearchPaths.filter((path) => path.path !== appSearchPath.path)
-// 			}))
-// 		},
-// 		init
-// 	}
-// }
 
 // export const appConfig = createAppConfig()
 export const appConfig = new AppConfigStore()
