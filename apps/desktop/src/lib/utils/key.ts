@@ -1,4 +1,3 @@
-import { i18n } from "@/i18n"
 import { appState } from "@/stores"
 import { keys } from "@/stores/keys"
 import { toggleDevTools } from "@kksh/api/commands"
@@ -82,7 +81,7 @@ export async function globalKeyDownHandler(e: KeyboardEvent) {
 	) {
 		if (e.key === ",") {
 			e.preventDefault()
-			goto(i18n.resolveRoute("/app/settings"))
+			goto("/app/settings")
 		}
 	}
 	// Toggle Devtools with control + shift + I

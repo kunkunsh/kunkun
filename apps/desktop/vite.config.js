@@ -1,4 +1,5 @@
-import { paraglide } from "@inlang/paraglide-sveltekit/vite"
+// import { paraglide } from "@inlang/paraglide-sveltekit/vite"
+import { paraglideVitePlugin } from "@inlang/paraglide-js"
 import { sveltekit } from "@sveltejs/kit/vite"
 import { defineConfig } from "vite"
 
@@ -7,7 +8,15 @@ const host = process.env.TAURI_DEV_HOST
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-	plugins: [paraglide({ project: "./project.inlang", outdir: "./src/lib/paraglide" }), sveltekit()],
+	plugins: [
+		sveltekit(),
+		paraglideVitePlugin({
+			project: "./project.inlang",
+			outdir: "./src/lib/paraglide",
+			strategy: ["url", "cookie", "baseLocale"],
+			disableAsyncLocalStorage: true
+		})
+	],
 	// Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
 	//
 	// 1. prevent vite from obscuring rust errors

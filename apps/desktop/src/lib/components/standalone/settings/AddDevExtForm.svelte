@@ -1,7 +1,6 @@
 <script lang="ts">
 	import DragNDrop from "@/components/common/DragNDrop.svelte"
 	import DevExtPathForm from "@/components/standalone/settings/DevExtPathForm.svelte"
-	import { i18n } from "@/i18n"
 	import * as m from "@/paraglide/messages"
 	import { appConfig, appState, extensions } from "@/stores"
 	import { goBackOnEscape } from "@/utils/key"
@@ -91,7 +90,7 @@
 	async function pickExtFiles() {
 		if (!$appConfig.devExtensionPath) {
 			toast.warning("Please set the dev extension path in the settings")
-			return goto(i18n.resolveRoute("/app/settings/set-dev-ext-path"))
+			return goto("/app/settings/set-dev-ext-path")
 		}
 		appState.setLockHideOnBlur(true)
 		const selected = await openFileSelector({

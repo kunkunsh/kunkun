@@ -2,7 +2,6 @@
 	import GeneralSettings from "@/components/standalone/general-settings.svelte"
 	import DenoInstall from "@/components/standalone/help/deno-install.svelte"
 	import FFmpegInstall from "@/components/standalone/help/ffmpeg-install.svelte"
-	import { i18n } from "@/i18n"
 	import { appConfig } from "@/stores/appConfig"
 	import { Button } from "@kksh/svelte5"
 	import { goto } from "$app/navigation"
@@ -27,7 +26,7 @@
 	$effect(() => {
 		if (step > Step.GeneralSettings) {
 			appConfig.setOnBoarded(true)
-			goto(i18n.resolveRoute("/app"))
+			goto("/app")
 		}
 		// if (step === Step.DenoInstall) {
 		// 	if (denoPath) {
@@ -39,7 +38,7 @@
 		// 	}
 		// } else if (step > Step.FFmpegInstall) {
 		// 	appConfig.setOnBoarded(true)
-		// 	goto(i18n.resolveRoute("/app"))
+		// 	goto("/app")
 		// }
 	})
 </script>

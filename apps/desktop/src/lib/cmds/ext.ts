@@ -1,4 +1,3 @@
-import { i18n } from "@/i18n"
 import { appState } from "@/stores"
 import { winExtMap } from "@/stores/winExtMap"
 import { helperAPI } from "@/utils/helper"
@@ -73,7 +72,7 @@ export async function onTemplateUiCmdSelect(
 	} else {
 		return winExtMap
 			.registerExtensionWithWindow({ windowLabel: "main", extPath: ext.extPath })
-			.then(() => goto(i18n.resolveRoute(url)))
+			.then(() => goto(url))
 	}
 }
 
@@ -202,7 +201,7 @@ export async function onCustomUiCmdSelect(
 			url2 = `/app/extension/ui-iframe?url=${encodeURIComponent(newUrl)}&extPath=${encodeURIComponent(ext.extPath)}`
 			setIframeExtParams(ext.extPath, newUrl)
 		}
-		goto(i18n.resolveRoute(url2))
+		goto(url2)
 	}
 	appState.clearSearchTerm()
 }

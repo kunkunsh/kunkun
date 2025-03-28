@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { i18n } from "@/i18n"
 	import * as m from "@/paraglide/messages"
 	import { goHome } from "@/utils/route"
 	import { Button, Sidebar } from "@kksh/svelte5"
@@ -13,17 +12,17 @@
 	const items = [
 		{
 			title: m.troubleshooters_sidebar_extension_loading_title(),
-			url: i18n.resolveRoute("/app/troubleshooters/extension-loading"),
+			url: "/app/troubleshooters/extension-loading",
 			icon: Loader
 		},
 		{
 			title: m.troubleshooters_sidebar_extension_window_title(),
-			url: i18n.resolveRoute("/app/troubleshooters/extension-window"),
+			url: "/app/troubleshooters/extension-window",
 			icon: AppWindow
 		},
 		{
 			title: m.troubleshooters_sidebar_mdns_debugger_title(),
-			url: i18n.resolveRoute("/app/troubleshooters/mdns-debugger"),
+			url: "/app/troubleshooters/mdns-debugger",
 			icon: Network
 		}
 	]

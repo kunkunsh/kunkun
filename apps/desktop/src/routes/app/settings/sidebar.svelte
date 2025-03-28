@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { i18n } from "@/i18n"
 	import * as m from "@/paraglide/messages"
 	import { goHome } from "@/utils/route"
 	import { Button, Sidebar } from "@kksh/svelte5"
@@ -15,37 +14,37 @@
 	const items = [
 		{
 			title: m.settings_menu_general(),
-			url: i18n.resolveRoute("/app/settings"),
+			url: "/app/settings",
 			icon: Cog
 		},
 		{
 			title: m.settings_menu_app_search_paths(),
-			url: i18n.resolveRoute("/app/settings/app-search-paths"),
+			url: "/app/settings/app-search-paths",
 			icon: FolderSearch
 		},
 		// {
 		// 	title: m.settings_menu_developer(),
-		// 	url: i18n.resolveRoute("/app/settings/developer"),
+		// 	url: "/app/settings/developer",
 		// 	icon: SquareTerminal
 		// },
 		{
 			title: m.settings_menu_extensions(),
-			url: i18n.resolveRoute("/app/settings/extensions"),
+			url: "/app/settings/extensions",
 			icon: Blocks
 		},
 		{
 			title: m.settings_menu_set_dev_ext(),
-			url: i18n.resolveRoute("/app/settings/set-dev-ext-path"),
+			url: "/app/settings/set-dev-ext-path",
 			icon: Route
 		},
 		{
 			title: m.settings_menu_add_dev_ext(),
-			url: i18n.resolveRoute("/app/settings/add-dev-extension"),
+			url: "/app/settings/add-dev-extension",
 			icon: FileCode2
 		},
 		{
 			title: m.settings_menu_about(),
-			url: i18n.resolveRoute("/app/settings/about"),
+			url: "/app/settings/about",
 			icon: Info
 		}
 	]

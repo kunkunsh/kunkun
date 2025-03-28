@@ -1,4 +1,4 @@
-import { i18n } from "@/i18n"
+// import { i18n } from "@/i18n"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { goto } from "$app/navigation"
 import { isInMainWindow } from "./window"
@@ -8,7 +8,7 @@ export function goBack() {
 }
 
 export function goHome() {
-	goto(i18n.resolveRoute("/app/"))
+	goto("/app/")
 }
 
 export function goHomeOrCloseDependingOnWindow() {

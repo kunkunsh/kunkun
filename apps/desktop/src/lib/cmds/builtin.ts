@@ -1,4 +1,3 @@
-import { i18n } from "@/i18n"
 import { appConfig, appState, auth, extensions } from "@/stores"
 import { checkUpdateAndInstall } from "@/utils/updater"
 import { setTransparentTitlebar } from "@kksh/api/commands"
@@ -28,7 +27,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Go to Extension Store",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/extension/store"))
+			goto("/app/extension/store")
 		}
 	},
 	{
@@ -39,7 +38,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "",
 		function: async () => {
-			goto(i18n.resolveRoute("/app/auth"))
+			goto("/app/auth")
 		}
 	},
 	{
@@ -101,7 +100,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "",
 		function: async () => {
-			goto(i18n.resolveRoute("/app/extension/file-transfer"))
+			goto("/app/extension/file-transfer")
 			appState.clearSearchTerm()
 		}
 	},
@@ -115,7 +114,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/settings/add-dev-extension"))
+			goto("/app/settings/add-dev-extension")
 		}
 	},
 	{
@@ -140,7 +139,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		function: async () => {
 			// const appStateStore = useAppStateStore()
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/settings/set-dev-ext-path"))
+			goto("/app/settings/set-dev-ext-path")
 		}
 	},
 	{
@@ -170,7 +169,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/help/deno-install"))
+			goto("/app/help/deno-install")
 		},
 		keywords: ["help", "deno", "install"]
 	},
@@ -183,7 +182,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/help/ffmpeg-install"))
+			goto("/app/help/ffmpeg-install")
 		},
 		keywords: ["help", "ffmpeg", "install"]
 	},
@@ -196,7 +195,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/help/brew-install"))
+			goto("/app/help/brew-install")
 		},
 		keywords: ["help", "brew", "install", "homebrew"]
 	},
@@ -209,7 +208,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/help/onboarding"))
+			goto("/app/help/onboarding")
 		},
 		flags: {
 			dev: true,
@@ -225,7 +224,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/extension/permission-inspector"))
+			goto("/app/extension/permission-inspector")
 		},
 		keywords: ["extension"]
 	},
@@ -238,7 +237,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/troubleshooters/extension-loading"))
+			goto("/app/troubleshooters/extension-loading")
 		},
 		keywords: ["extension", "troubleshooter"]
 	},
@@ -251,7 +250,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Create a Quicklink",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/extension/create-quick-link"))
+			goto("/app/extension/create-quick-link")
 		}
 	},
 	{
@@ -285,7 +284,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "Open Settings",
 		function: async () => {
-			goto(i18n.resolveRoute("/app/settings"))
+			goto("/app/settings")
 			appState.clearSearchTerm()
 		}
 	},
@@ -345,7 +344,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "Dance",
 		function: async () => {
-			goto(i18n.resolveRoute("/app/dance"))
+			goto("/app/dance")
 		}
 	},
 	{
@@ -386,7 +385,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		description: "Clipboard History",
 		function: async () => {
 			appState.clearSearchTerm()
-			goto(i18n.resolveRoute("/app/extension/clipboard"))
+			goto("/app/extension/clipboard")
 		}
 	},
 	{
@@ -423,7 +422,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		},
 		description: "MDNS Debugger",
 		function: async () => {
-			goto(i18n.resolveRoute("/app/troubleshooters/mdns-debugger"))
+			goto("/app/troubleshooters/mdns-debugger")
 		},
 		flags: {
 			developer: true

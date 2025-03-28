@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { getExtensionsFolder } from "@/constants.js"
-	import { i18n } from "@/i18n.js"
 	import { extensions, installedStoreExts } from "@/stores/extensions.js"
-	import { DBExtension, ExtensionStoreListItem, ExtPackageJson, ExtPublish } from "@kksh/api/models"
+	import { ExtPackageJson } from "@kksh/api/models"
 	import { postExtensionsIncrementDownloads } from "@kksh/sdk"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/svelte5/utils"
@@ -154,7 +153,7 @@
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === "Escape") {
 			if (!delayedImageDialogOpen) {
-				goto(i18n.resolveRoute("/app/extension/store"))
+				goto("/app/extension/store")
 			}
 		}
 	}
@@ -166,7 +165,7 @@
 	size="icon"
 	class={cn("fixed left-3 top-3 z-50", Constants.CLASSNAMES.BACK_BUTTON)}
 	data-flip-id={Constants.CLASSNAMES.BACK_BUTTON}
-	onclick={() => goto(i18n.resolveRoute("/app/extension/store"))}
+	onclick={() => goto("/app/extension/store")}
 >
 	<ArrowLeftIcon />
 </Button>

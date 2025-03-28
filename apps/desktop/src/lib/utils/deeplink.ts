@@ -1,4 +1,3 @@
-import { i18n } from "@/i18n"
 import { emitRefreshDevExt } from "@/utils/tauri-events"
 import {
 	DEEP_LINK_PATH_AUTH_CONFIRM,
@@ -58,15 +57,15 @@ export async function handleKunkunProtocol(parsedUrl: URL) {
 		const parsed = v.parse(StorePathSearchParams, params)
 		openMainWindow()
 		if (parsed.identifier) {
-			goto(i18n.resolveRoute(`/app/extension/store/${parsed.identifier}`))
+			goto(`/app/extension/store/${parsed.identifier}`)
 		} else {
-			goto(i18n.resolveRoute("/app/extension/store"))
+			goto("/app/extension/store")
 		}
 	} else if (href.startsWith(DEEP_LINK_PATH_REFRESH_DEV_EXTENSION)) {
 		emitRefreshDevExt()
 	} else if (href.startsWith(DEEP_LINK_PATH_AUTH_CONFIRM)) {
 		openMainWindow()
-		goto(i18n.resolveRoute(`/app/auth/confirm?${parsedUrl.searchParams.toString()}`))
+		goto(`/app/auth/confirm?${parsedUrl.searchParams.toString()}`)
 	} else {
 		console.error("Invalid path:", pathname)
 		toast.error("Invalid path", {

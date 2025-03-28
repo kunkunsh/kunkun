@@ -4,7 +4,6 @@
 	import { builtinCmds } from "@/cmds/builtin"
 	import { systemCommands, systemCommandsFiltered } from "@/cmds/system"
 	import AppsCmds from "@/components/main/AppsCmds.svelte"
-	import { i18n } from "@/i18n"
 	import * as m from "@/paraglide/messages"
 	import {
 		appConfig,
@@ -84,7 +83,7 @@
 				console.log("appConfig.get().onBoarded", appConfig.get().onBoarded)
 				if (!appConfig.get().onBoarded) {
 					setTimeout(() => {
-						goto(i18n.resolveRoute("/app/help/onboarding"))
+						goto("/app/help/onboarding")
 					}, 300)
 				}
 			}
@@ -189,7 +188,7 @@
 								<span class="flex items-center">⌃+<ArrowBigUpIcon class="h-4 w-4" />+R </span>
 							</DropdownMenu.Shortcut>
 						</DropdownMenu.Item>
-						<DropdownMenu.Item onclick={() => goto(i18n.resolveRoute("/app/settings"))}>
+						<DropdownMenu.Item onclick={() => goto("/app/settings")}>
 							<SettingsIcon class="mr-2 h-4 w-4 text-green-500" />
 							{m.home_command_input_dropdown_open_preference()}
 							<DropdownMenu.Shortcut>

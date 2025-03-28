@@ -1,6 +1,4 @@
 <script lang="ts">
-	import DanceTransition from "@/components/dance/dance-transition.svelte"
-	import { i18n } from "@/i18n"
 	import { appConfig, appState, winExtMap } from "@/stores"
 	import { helperAPI } from "@/utils/helper"
 	import { paste } from "@/utils/hotkey"
@@ -62,7 +60,7 @@
 	const iframeUiAPI: IUiCustomServer2 = {
 		goBack: async () => {
 			if (isInMainWindow()) {
-				goto(i18n.resolveRoute("/app/"))
+				goto("/app/")
 			} else {
 				data.win?.close()
 			}

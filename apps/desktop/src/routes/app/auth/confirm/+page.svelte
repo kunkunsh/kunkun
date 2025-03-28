@@ -1,9 +1,6 @@
 <script lang="ts">
-	import { i18n } from "@/i18n.js"
 	import { auth } from "@/stores"
-	import { supabase } from "@/supabase"
 	import { goHomeOnEscape } from "@/utils/key"
-	import { goBack, goHome } from "@/utils/route"
 	import { Avatar, Button } from "@kksh/svelte5"
 	import { goto } from "$app/navigation"
 	import { ArrowLeft } from "lucide-svelte"
@@ -45,7 +42,7 @@
 	function onSignOut() {
 		auth
 			.signOut()
-			.then(() => goto(i18n.resolveRoute("/app/auth")))
+			.then(() => goto("/app/auth"))
 			.catch((err) => toast.error("Failed to sign out", { description: err.message }))
 	}
 </script>
@@ -56,8 +53,7 @@
 	variant="outline"
 	size="icon"
 	onclick={() => {
-		console.log("go Home")
-		goto(i18n.resolveRoute("/app/"))
+		goto("/app/")
 	}}
 >
 	<ArrowLeft class="size-4" />

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { i18n } from "@/i18n.js"
 	import { appState } from "@/stores/appState.js"
 	import { keys } from "@/stores/keys"
 	import { winExtMap } from "@/stores/winExtMap.js"
@@ -79,7 +78,7 @@
 	let curViewNodeName = $state<NodeNameEnum | FormNodeNameEnum | null>(null)
 	async function goBack() {
 		if (isInMainWindow()) {
-			goto(i18n.resolveRoute("/app/"))
+			goto("/app/")
 		} else {
 			appWin.close()
 		}

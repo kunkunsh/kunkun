@@ -1,6 +1,15 @@
-// file initialized by the Paraglide-SvelteKit CLI - Feel free to edit it
-import { sequence } from "@sveltejs/kit/hooks"
-import { i18n } from "$lib/i18n"
+import type { Handle } from "@sveltejs/kit"
+import { paraglideMiddleware } from "$lib/paraglide/server"
 
-// add your own hooks as part of the sequence here
-export const handle = sequence(i18n.handle())
+// creating a handle to use the paraglide middleware
+const paraglideHandle: Handle = ({ event, resolve }) =>
+	paraglideMiddleware(event.request, ({ request: localizedRequest, locale }) => {
+		event.request = localizedRequest
+		return resolve(event, {
+			transformPageChunk: ({ html }) => {
+				return html.replace("%lang%", locale)
+			}
+		})
+	})
+
+export const handle: Handle = paraglideHandle

@@ -1,14 +1,8 @@
 <script lang="ts">
 	import HotkeyPick from "@/components/standalone/settings/hotkey-pick.svelte"
 	import { LanguageMap } from "@/constants"
-	import { i18n, switchToLanguage } from "@/i18n"
 	import * as m from "@/paraglide/messages"
-	import {
-		availableLanguageTags,
-		languageTag,
-		setLanguageTag,
-		type AvailableLanguageTag
-	} from "@/paraglide/runtime"
+	import { getLocale, locales, setLocale, type Locale } from "@/paraglide/runtime"
 	import { appConfig } from "@/stores"
 	import { Select, Switch } from "@kksh/svelte5"
 	import type { LoadingAnimation } from "@kksh/types"
@@ -16,14 +10,14 @@
 	import { onMount } from "svelte"
 	import { toast } from "svelte-sonner"
 
-	const languages = availableLanguageTags.map((lang) => ({
+	const languages = locales.map((lang) => ({
 		value: lang,
 		label: LanguageMap[lang as keyof typeof LanguageMap] ?? lang
 	}))
 	let loadingAnimation = $state<LoadingAnimation>("spinning-circle")
 	const loadingAnimations = ["spinning-circle", "kunkun-dancing"] as const
 	let launchAtLogin = $state(false)
-	let language = $state(languageTag())
+	let language = $state(getLocale())
 	onMount(() => {
 		autoStart.isEnabled().then((enabled) => {
 			launchAtLogin = enabled
@@ -95,7 +89,7 @@
 						<Select.Item
 							onclick={() => {
 								appConfig.setLanguage(lang.value)
-								switchToLanguage(lang.value as AvailableLanguageTag)
+								setLocale(lang.value)
 							}}
 							value={lang.value}
 							label={lang.label}>{lang.label}</Select.Item

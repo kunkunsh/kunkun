@@ -1,5 +1,4 @@
 import { KunkunTemplateExtParams } from "@/cmds/ext"
-import { i18n } from "@/i18n"
 import { db, unregisterExtensionWindow } from "@kksh/api/commands"
 import type { Ext as ExtInfoInDB, ExtPackageJsonExtra } from "@kksh/api/models"
 import { loadExtensionManifestFromDisk } from "@kksh/extension"
@@ -40,7 +39,7 @@ export const load: PageLoad = async ({ url }) => {
 		toast.error("Error loading extension manifest", {
 			description: `${err}`
 		})
-		goto(i18n.resolveRoute("/app/"))
+		goto("/app/")
 	}
 	const loadedExt = _loadedExt!
 	const extInfoInDB = await db.getUniqueExtensionByPath(loadedExt.extPath)
@@ -48,7 +47,7 @@ export const load: PageLoad = async ({ url }) => {
 		toast.error("Unexpected Error", {
 			description: `Extension ${loadedExt.kunkun.identifier} not found in database. Run Troubleshooter.`
 		})
-		goto(i18n.resolveRoute("/app/"))
+		goto("/app/")
 	}
 	const pkgJsonPath = await join(extPath!, "package.json")
 	if (!(await exists(extPath!))) {
