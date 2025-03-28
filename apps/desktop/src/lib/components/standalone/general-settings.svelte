@@ -29,7 +29,7 @@
 
 <ul class="rounded-lg border">
 	<li>
-		<span>{m.settings_general_launch_at_login()}</span>
+		<span>{m["settings.general.launch_at_login"]()}</span>
 		<Switch
 			bind:checked={launchAtLogin}
 			onCheckedChange={(checked) => {
@@ -47,36 +47,36 @@
 		/>
 	</li>
 	<li class="">
-		<span>{m.settings_general_hotkey()}</span>
+		<span>{m["settings.general.hotkey"]()}</span>
 		<HotkeyPick />
 	</li>
 	<li>
-		<span>{m.settings_general_menu_bar_icon()}</span>
+		<span>{m["settings.general.menu_bar_icon"]()}</span>
 		<Switch bind:checked={$appConfig.showInTray} />
 	</li>
 	<li>
-		<span>{m.settings_general_hide_on_blur()}</span>
+		<span>{m["settings.general.hide_on_blur"]()}</span>
 		<Switch bind:checked={$appConfig.hideOnBlur} />
 	</li>
 	<li>
-		<span>{m.settings_general_extension_auto_upgrade()}</span>
+		<span>{m["settings.general.extension_auto_upgrade"]()}</span>
 		<Switch bind:checked={$appConfig.extensionAutoUpgrade} />
 	</li>
 	<li>
-		<span>{m.settings_general_dev_extension_hmr()}</span>
+		<span>{m["settings.general.dev_extension_hmr"]()}</span>
 		<Switch bind:checked={$appConfig.hmr} />
 	</li>
 	<li>
-		<span>{m.settings_general_join_beta_updates()}</span>
+		<span>{m["settings.general.join_beta_updates"]()}</span>
 		<Switch bind:checked={$appConfig.joinBetaProgram} />
 	</li>
 
 	<li>
-		<span>{m.settings_general_developer_mode()}</span>
+		<span>{m["settings.general.developer_mode"]()}</span>
 		<Switch bind:checked={$appConfig.developerMode} />
 	</li>
 	<li>
-		<span>{m.settings_general_language()}</span>
+		<span>{m["settings.general.language"]()}</span>
 
 		<Select.Root type="single" name="language" bind:value={language}>
 			<Select.Trigger class="w-fit">
@@ -84,7 +84,7 @@
 			</Select.Trigger>
 			<Select.Content>
 				<Select.Group>
-					<Select.GroupHeading>{m.settings_general_language()}</Select.GroupHeading>
+					<Select.GroupHeading>{m["settings.general.language"]()}</Select.GroupHeading>
 					{#each languages as lang}
 						<Select.Item
 							onclick={() => {
@@ -100,8 +100,8 @@
 		</Select.Root>
 	</li>
 	<li>
-		<span>Loading Animation</span>
-
+		<!-- <span>Loading Animation</span> -->
+		<span>{m["settings.general.loading_animation"]()}</span>
 		<Select.Root type="single" name="loadingAnimation" bind:value={loadingAnimation}>
 			<Select.Trigger class="w-fit">
 				{loadingAnimation}

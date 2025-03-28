@@ -30,15 +30,20 @@
 	"settings_menu_add_dev_ext": "Thêm tiện ích",
 	"settings_menu_about": "Thông tin",
 
-	"settings_general_launch_at_login": "Khởi động khi đăng nhập",
-	"settings_general_hotkey": "Phím tắt",
-	"settings_general_menu_bar_icon": "Biểu tượng thanh menu",
-	"settings_general_hide_on_blur": "Ẩn khi chuyển sang ứng dụng khác",
-	"settings_general_extension_auto_upgrade": "Tự động nâng cấp tiện ích mở rộng",
-	"settings_general_dev_extension_hmr": "HMR cho tiện ích mở rộng đang phát triển",
-	"settings_general_join_beta_updates": "Cài đặt cập nhật thử nghiệm (beta)",
-	"settings_general_developer_mode": "Chế độ nhà phát triển",
-	"settings_general_language": "Ngôn ngữ",
+	"settings": {
+		"general": {
+			"launch_at_login": "Khởi động khi đăng nhập",
+			"hotkey": "Phím tắt",
+			"menu_bar_icon": "Biểu tượng thanh menu",
+			"hide_on_blur": "Ẩn khi chuyển sang ứng dụng khác",
+			"extension_auto_upgrade": "Tự động nâng cấp tiện ích mở rộng",
+			"dev_extension_hmr": "HMR cho tiện ích mở rộng đang phát triển",
+			"join_beta_updates": "Cài đặt cập nhật thử nghiệm (beta)",
+			"developer_mode": "Chế độ nhà phát triển",
+			"language": "Ngôn ngữ",
+			"loading_animation": "Hình ảnh tải"
+		}
+	},
 
 	"settings_about_version": "Phiên bản",
 	"settings_about_author": "Tác giả",

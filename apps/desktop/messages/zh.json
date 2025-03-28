@@ -31,15 +31,19 @@
 	"settings_menu_add_dev_ext": "添加开发插件",
 	"settings_menu_about": "关于",
 
-	"settings_general_launch_at_login": "开机启动",
-	"settings_general_hotkey": "快捷键",
-	"settings_general_menu_bar_icon": "菜单栏图标",
-	"settings_general_hide_on_blur": "隐藏在后台",
-	"settings_general_extension_auto_upgrade": "自动更新插件",
-	"settings_general_dev_extension_hmr": "开发模式",
-	"settings_general_join_beta_updates": "加入 Beta 更新",
-	"settings_general_developer_mode": "开发者模式",
-	"settings_general_language": "语言",
+	"settings": {
+		"general": {
+			"launch_at_login": "开机启动",
+			"hotkey": "快捷键",
+			"menu_bar_icon": "菜单栏图标",
+			"hide_on_blur": "隐藏在后台",
+			"extension_auto_upgrade": "自动更新插件",
+			"dev_extension_hmr": "开发模式",
+			"developer_mode": "开发者模式",
+			"language": "语言",
+			"loading_animation": "加载动画"
+		}
+	},
 
 	"settings_app_search_paths_title": "额外应用搜索路径",
 	"settings_app_search_paths_add_app_search_path": "添加应用搜索路径",

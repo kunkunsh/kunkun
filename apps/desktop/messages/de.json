@@ -31,15 +31,20 @@
 	"settings_menu_add_dev_ext": "Dev-Erweiterung hinzufügen",
 	"settings_menu_about": "Über",
 
-	"settings_general_launch_at_login": "Beim Systemstart öffnen",
-	"settings_general_hotkey": "Tastenkombination",
-	"settings_general_menu_bar_icon": "Menüleiste-Symbol",
-	"settings_general_hide_on_blur": "Automatisch ausblenden",
-	"settings_general_extension_auto_upgrade": "Erweiterungen automatisch aktualisieren",
-	"settings_general_dev_extension_hmr": "Entwicklererweiterungen HMR",
-	"settings_general_join_beta_updates": "Beta-Updates nutzen",
-	"settings_general_developer_mode": "Entwickler-Modus",
-	"settings_general_language": "Sprache",
+	"settings": {
+		"general": {
+			"launch_at_login": "Beim Systemstart öffnen",
+			"hotkey": "Tastenkombination",
+			"menu_bar_icon": "Menüleiste-Symbol",
+			"hide_on_blur": "Automatisch ausblenden",
+			"extension_auto_upgrade": "Erweiterungen automatisch aktualisieren",
+			"dev_extension_hmr": "Entwicklererweiterungen HMR",
+			"join_beta_updates": "Beta-Updates nutzen",
+			"developer_mode": "Entwickler-Modus",
+			"language": "Sprache",
+			"loading_animation": "Ladeanimation"
+		}
+	},
 
 	"settings_app_search_paths_title": "Zusätzliche Verzeichnisse für die Programm-Suche",
 	"settings_app_search_paths_add_app_search_path": "Verzeichnis für Programm-Suche hinzufügen",

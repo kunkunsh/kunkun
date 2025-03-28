@@ -13,7 +13,7 @@ export default defineConfig(async () => ({
 		paraglideVitePlugin({
 			project: "./project.inlang",
 			outdir: "./src/lib/paraglide",
-			strategy: ["url", "cookie", "baseLocale"],
+			strategy: ["cookie", "baseLocale"],
 			disableAsyncLocalStorage: true
 		})
 	],

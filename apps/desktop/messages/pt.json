@@ -30,15 +30,20 @@
 	"settings_menu_add_dev_ext": "Adicionar Extensão de Desenvolvedor",
 	"settings_menu_about": "Sobre",
 
-	"settings_general_launch_at_login": "Iniciar ao Fazer Login",
-	"settings_general_hotkey": "Tecla de Atalho",
-	"settings_general_menu_bar_icon": "Ícone na Barra de Menu",
-	"settings_general_hide_on_blur": "Ocultar ao Perder Foco",
-	"settings_general_extension_auto_upgrade": "Atualização Automática de Extensões",
-	"settings_general_dev_extension_hmr": "HMR de Extensão de Desenvolvedor",
-	"settings_general_join_beta_updates": "Participar das Atualizações Beta",
-	"settings_general_developer_mode": "Modo Desenvolvedor",
-	"settings_general_language": "Idioma",
+	"settings": {
+		"general": {
+			"launch_at_login": "Iniciar ao Fazer Login",
+			"hotkey": "Tecla de Atalho",
+			"menu_bar_icon": "Ícone na Barra de Menu",
+			"hide_on_blur": "Ocultar ao Perder Foco",
+			"extension_auto_upgrade": "Atualização Automática de Extensões",
+			"dev_extension_hmr": "HMR de Extensão de Desenvolvedor",
+			"join_beta_updates": "Participar das Atualizações Beta",
+			"developer_mode": "Modo Desenvolvedor",
+			"language": "Idioma",
+			"loading_animation": "Animação de Carregamento"
+		}
+	},
 
 	"settings_about_version": "Versão",
 	"settings_about_author": "Autor",
