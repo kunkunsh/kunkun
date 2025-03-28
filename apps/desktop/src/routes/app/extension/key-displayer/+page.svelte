@@ -99,7 +99,7 @@
 	}
 
 	$effect(() => {
-		data.win.show().then(() => data.win.setFocus())
+		data.win?.show().then(() => data.win?.setFocus())
 
 		userInput.setEventTypes([userInput.EventTypeEnum.KeyPress, userInput.EventTypeEnum.KeyRelease])
 		userInput.startListening((evt: InputEvent) => {

@@ -5,7 +5,7 @@
 	let { data } = $props()
 
 	onMount(() => {
-		data.win.show().then(() => data.win.setFocus())
+		data.win?.show().then(() => data.win?.setFocus())
 	})
 </script>
 

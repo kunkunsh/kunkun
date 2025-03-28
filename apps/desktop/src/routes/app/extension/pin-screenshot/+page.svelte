@@ -2,6 +2,7 @@
 	import { Button } from "@kksh/svelte5"
 	import { Layouts } from "@kksh/ui"
 	import { LogicalSize } from "@tauri-apps/api/dpi"
+	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { CircleX } from "lucide-svelte"
 	import { onMount } from "svelte"
 	import * as clipboard from "tauri-plugin-clipboard-api"
@@ -14,16 +15,17 @@
 	let currentSize = $derived(
 		originalSize ? { width: originalSize.width * scale, height: originalSize.height * scale } : null
 	)
+	const win = getCurrentWebviewWindow()
 
 	$effect(() => {
 		if (currentSize) {
-			data.win.setSize(new LogicalSize(currentSize.width, currentSize.height))
+			win.setSize(new LogicalSize(currentSize.width, currentSize.height))
 		}
 	})
 
 	async function getWindowSize() {
-		const size = await data.win.outerSize()
-		const scaleFactor = originalScaleFactor ?? (await data.win.scaleFactor())
+		const size = await win.outerSize()
+		const scaleFactor = originalScaleFactor ?? (await win.scaleFactor())
 		const logicalSize = size.toLogical(scaleFactor)
 		return { logicalSize, scaleFactor }
 	}
@@ -35,7 +37,7 @@
 				image = b64
 			})
 			.finally(() => {
-				data.win.show().then(() => data.win.setFocus())
+				data.win?.show().then(() => data.win?.setFocus())
 			})
 		const { logicalSize, scaleFactor } = await getWindowSize()
 		originalSize = { width: logicalSize.width, height: logicalSize.height }
@@ -66,11 +68,11 @@
 <svelte:window
 	on:keydown={(e) => {
 		if (e.key === "Escape") {
-			data.win.close()
+			win.close()
 		}
 	}}
 />
-<Button size="icon" variant="ghost" class="fixed left-2 top-2" onclick={() => data.win.close()}>
+<Button size="icon" variant="ghost" class="fixed left-2 top-2" onclick={() => win.close()}>
 	<CircleX />
 </Button>
 <main class="z-50 h-screen w-screen overflow-hidden" data-tauri-drag-region>

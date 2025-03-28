@@ -1,4 +1,5 @@
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { browser } from "$app/environment"
 
 // Tauri doesn't have a Node.js server to do proper SSR
 // so we will use adapter-static to prerender the app (SSG)
@@ -7,6 +8,8 @@ export const prerender = true
 export const ssr = false
 
 export const load = () => {
-	const win = getCurrentWebviewWindow()
-	return { win }
+	if (browser) {
+		const win = getCurrentWebviewWindow()
+		return { win }
+	}
 }

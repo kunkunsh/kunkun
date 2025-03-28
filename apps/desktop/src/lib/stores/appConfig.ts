@@ -5,9 +5,9 @@ import { LoadingAnimation, PersistedAppConfig, type AppConfigState } from "@kksh
 import { debug, error, info } from "@tauri-apps/plugin-log"
 import * as os from "@tauri-apps/plugin-os"
 import { load } from "@tauri-apps/plugin-store"
+import { Store } from "@tauri-store/svelte"
 import { toast } from "svelte-sonner"
 import { get, writable } from "svelte/store"
-import { Store } from "@tauri-store/svelte"
 import * as v from "valibot"
 
 export const defaultAppConfig: AppConfigState = {
@@ -104,7 +104,6 @@ class AppConfigStore extends Store<AppConfigState> implements AppConfigAPI {
 		this.update((config) => ({ ...config, loadingAnimation }))
 	}
 }
-
 
 // export const appConfig = createAppConfig()
 export const appConfig = new AppConfigStore()

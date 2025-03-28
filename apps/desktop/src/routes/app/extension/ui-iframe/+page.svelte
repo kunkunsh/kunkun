@@ -64,7 +64,7 @@
 			if (isInMainWindow()) {
 				goto(i18n.resolveRoute("/app/"))
 			} else {
-				data.win.close()
+				data.win?.close()
 			}
 		},
 		hideBackButton: async () => {
@@ -130,7 +130,7 @@
 			},
 			getSpawnedProcesses: () => Promise.resolve(extSpawnedProcesses),
 			paste: async () => {
-				await data.win.hide()
+				await data.win?.hide()
 				await sleep(200)
 				return paste()
 			}
@@ -154,7 +154,7 @@
 		if (isInMainWindow()) {
 			goHome()
 		} else {
-			data.win.close()
+			data.win?.close()
 		}
 	}
 
@@ -169,7 +169,7 @@
 	onMount(() => {
 		appState.setFullScreenLoading(true)
 		setTimeout(() => {
-			data.win.setFocus()
+			data.win?.setFocus()
 		}, 200)
 		if (iframeRef?.contentWindow) {
 			const io = new IframeParentIO(iframeRef.contentWindow)
@@ -195,7 +195,7 @@
 	})
 
 	onDestroy(() => {
-		winExtMap.unregisterExtensionFromWindow(data.win.label)
+		winExtMap.unregisterExtensionFromWindow(data.win?.label ?? "")
 	})
 </script>
 
@@ -208,7 +208,7 @@
 		onclick={onBackBtnClicked}
 		style={`${positionToCssStyleString(uiControl.backBtnPosition)}`}
 	>
-		{#if data.win.label === "main"}
+		{#if data.win?.label === "main"}
 			<ArrowLeftIcon class="w-4" />
 		{:else}
 			<XIcon class="w-4" />
