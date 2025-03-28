@@ -78,6 +78,7 @@
 		"@formkit/auto-animate": "^0.8.2",
 		"@inlang/paraglide-sveltekit": "^0.15.5",
 		"@internationalized/date": "^3.7.0",
+		"@lucide/svelte": "^0.484.0",
 		"@shikijs/langs": "^2.3.2",
 		"@shikijs/rehype": "^3.2.1",
 		"@shikijs/themes": "^2.3.2",

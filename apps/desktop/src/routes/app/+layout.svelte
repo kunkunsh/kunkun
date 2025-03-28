@@ -100,7 +100,12 @@
 				})
 			)
 		}
-		data.win?.show().then(() => data.win?.setFocus())
+		data.win
+			?.show()
+			.then(() => data.win?.setFocus())
+			.then(() => {
+				// console.log("showed window and focused")
+			})
 	})
 </script>
 

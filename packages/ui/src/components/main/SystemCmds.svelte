@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { CmdTypeEnum, IconEnum, SysCommand } from "@kksh/api/models"
-	import { Command } from "@kksh/svelte5"
-	import { IconMultiplexer } from "@kksh/ui"
+	import { Command, IconMultiplexer } from "@kksh/ui"
 	import { DraggableCommandGroup } from "../custom"
 	import { CmdValue } from "./types"
 
