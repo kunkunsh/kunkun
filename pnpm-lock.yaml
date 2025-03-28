@@ -150,7 +150,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
@@ -190,7 +190,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -256,7 +256,7 @@ importers:
         version: 3.2.4
       drizzle-orm:
         specifier: ^0.40.1
-        version: 0.40.1(@libsql/client@0.15.0)(bun-types@1.2.6)(gel@2.0.1)
+        version: 0.40.1(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1)
       eslint:
         specifier: ^9.21.0
         version: 9.21.0(jiti@2.4.0)
@@ -338,7 +338,7 @@ importers:
         version: 2.3.1
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
@@ -489,7 +489,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       '@types/lodash':
         specifier: ^4.17.14
         version: 4.17.14
@@ -529,7 +529,7 @@ importers:
         version: link:../typescript-config
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
 
   packages/config-eslint:
     dependencies:
@@ -551,22 +551,28 @@ importers:
 
   packages/drizzle:
     dependencies:
+      '@kksh/api':
+        specifier: workspace:*
+        version: link:../api
       '@libsql/client':
-        specifier: ^0.15.0
-        version: 0.15.0
+        specifier: ^0.15.1
+        version: 0.15.1
+      '@tauri-apps/plugin-log':
+        specifier: ^2.3.1
+        version: 2.3.1
       dotenv:
         specifier: ^16.4.7
         version: 16.4.7
       drizzle-orm:
-        specifier: ^0.40.1
-        version: 0.40.1(@libsql/client@0.15.0)(bun-types@1.2.6)(gel@2.0.1)
+        specifier: ^0.41.0
+        version: 0.41.0(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1)
       typescript:
         specifier: ^5
         version: 5.7.3
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       drizzle-kit:
         specifier: ^0.30.5
         version: 0.30.5
@@ -597,7 +603,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       '@types/semver':
         specifier: ^7.5.8
         version: 7.5.8
@@ -628,7 +634,7 @@ importers:
         version: 11.1.6(rollup@4.34.2)(tslib@2.8.1)(typescript@5.7.3)
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.34.2)
@@ -735,7 +741,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
 
   packages/grpc:
     dependencies:
@@ -754,7 +760,7 @@ importers:
         version: 0.7.13
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       '@types/google-protobuf':
         specifier: ^3.15.12
         version: 3.15.12
@@ -782,7 +788,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       verify-package-export:
         specifier: ^0.0.3
         version: 0.0.3(typescript@5.7.3)
@@ -807,7 +813,7 @@ importers:
         version: 2.48.0
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       '@valibot/to-json-schema':
         specifier: 1.0.0
         version: 1.0.0(valibot@1.0.0(typescript@5.7.3))
@@ -820,7 +826,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
 
   packages/tauri-plugins/jarvis:
     dependencies:
@@ -836,7 +842,7 @@ importers:
         version: 2.48.0
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
 
   packages/templates/template-ext-headless:
     dependencies:
@@ -855,7 +861,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
 
   packages/templates/template-ext-next:
     dependencies:
@@ -919,7 +925,7 @@ importers:
         version: 6.12.1(magicast@0.3.5)(rollup@4.34.2)
       nuxt:
         specifier: ^3.12.4
-        version: 3.14.159(@libsql/client@0.15.0)(@parcel/watcher@2.5.0)(@types/node@22.13.1)(drizzle-orm@0.40.1(@libsql/client@0.15.0)(bun-types@1.2.6)(gel@2.0.1))(eslint@9.21.0(jiti@2.4.0))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.34.2)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.13.1)(terser@5.36.0))(vue-tsc@2.1.10(typescript@5.6.3))
+        version: 3.14.159(@libsql/client@0.15.1)(@parcel/watcher@2.5.0)(@types/node@22.13.1)(drizzle-orm@0.41.0(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1))(eslint@9.21.0(jiti@2.4.0))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.34.2)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.13.1)(terser@5.36.0))(vue-tsc@2.1.10(typescript@5.6.3))
       tailwindcss:
         specifier: ^3.4.7
         version: 3.4.15
@@ -1207,7 +1213,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
 
   packages/types:
     dependencies:
@@ -1217,7 +1223,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
 
   packages/typescript-config: {}
 
@@ -1313,7 +1319,7 @@ importers:
         version: 0.1.15(lucide-svelte@0.471.0(svelte@5.20.5))(svelte-sonner@0.3.28(svelte@5.20.5))(svelte@5.20.5)(sveltekit-superforms@2.22.1(@sveltejs/kit@2.17.3(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.3)(yaml@2.6.1)))(svelte@5.20.5)(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.0)(terser@5.36.0)(tsx@4.19.3)(yaml@2.6.1)))(@types/json-schema@7.0.15)(svelte@5.20.5)(typescript@5.7.3))(typescript@5.7.3)
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.20.0
         version: 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.21.0(jiti@2.4.0))(typescript@5.7.3))(eslint@9.21.0(jiti@2.4.0))(typescript@5.7.3)
@@ -1395,7 +1401,7 @@ importers:
     devDependencies:
       '@types/bun':
         specifier: latest
-        version: 1.2.6
+        version: 1.2.8
 
   vendors/tauri-plugin-keyring:
     dependencies:
@@ -3340,19 +3346,19 @@ packages:
   '@kwsites/promise-deferred@1.1.1':
     resolution: {integrity: sha512-GaHYm+c0O9MjZRu0ongGBRbinu8gVAMd2UZjji6jVmqKtZluZnptXGWhz1E8j8D2HJ3f/yMxKAUC0b+57wncIw==}
 
-  '@libsql/client@0.15.0':
-    resolution: {integrity: sha512-AkJg9mxnAVCtHAVndZ8YwxqG43nSYVNZHAEX55MZ0R06rBcCoYLwjAr8grxC02/tNZpf4KMJj+BVPqNnQOD8ZQ==}
+  '@libsql/client@0.15.1':
+    resolution: {integrity: sha512-BzAj/nEoiH8FhOrFCrN9NFll97iMbTUQA/RfZbc+Na/Iyu9w/vt1+0zLf7OaQCTeQ+7g5ScanLuRMidTcz9XgQ==}
 
-  '@libsql/core@0.15.0':
-    resolution: {integrity: sha512-8SReMzkCPmqoDl1tkAa9FCmoxDmiiuDM2eM8cTlKnMD6xG2jUczvckYM/x7VCWy0O9zu0LR/u7sEYEd2CPPTJA==}
+  '@libsql/core@0.15.1':
+    resolution: {integrity: sha512-7RDXHxD+H1UTBG67mCVEjTmbJfcEo0bFFyb4wFaGWYrrKAkDcYq7BhG67lTqd4EHSzUV7Ur/lk6f/EBMplm+Kg==}
 
-  '@libsql/darwin-arm64@0.5.1':
-    resolution: {integrity: sha512-ETWRV8+h2l1P4/BB+ct1yWoBJMokUfCLe8W7TEbGo/9mAqk4NWkacVlAJgRdVIFQsA+3/vrQF7LyaIQOSEELTg==}
+  '@libsql/darwin-arm64@0.5.3':
+    resolution: {integrity: sha512-yAitxSuiaLT465uAvqXi1TzirXb+IOxa6sfC+uIuyCzAusLEhOFlEhutqenVx93lhPkJZJIiZkK1pIETIatnfg==}
     cpu: [arm64]
     os: [darwin]
 
-  '@libsql/darwin-x64@0.5.1':
-    resolution: {integrity: sha512-zB1Sid7vTBt/PiiLyQmw9AXZZv3MziNRx/rJ6xc/HTUYG7c2QHwOMikVuad1Lafvvf3OyGYSAPHKg9hdvNFP9A==}
+  '@libsql/darwin-x64@0.5.3':
+    resolution: {integrity: sha512-ZBVinaZcCxVoTuCTdW7vY97XIc13RjCEFG16Ix+zemtJbGFCTos7EUhkGWuWIWG/1HXYpFbXu4d5d7p6p4TlQA==}
     cpu: [x64]
     os: [darwin]
 
@@ -3366,28 +3372,28 @@ packages:
   '@libsql/isomorphic-ws@0.1.5':
     resolution: {integrity: sha512-DtLWIH29onUYR00i0GlQ3UdcTRC6EP4u9w/h9LxpUZJWRMARk6dQwZ6Jkd+QdwVpuAOrdxt18v0K2uIYR3fwFg==}
 
-  '@libsql/linux-arm64-gnu@0.5.1':
-    resolution: {integrity: sha512-RbDc3fcRH5gjg2UUsMTPncSMCqTZ6re59t4jhNFpaLb3n2raD8S3XfvMq9LFqirzK+JDKHhxRPTow0E+QLaLJQ==}
+  '@libsql/linux-arm64-gnu@0.5.3':
+    resolution: {integrity: sha512-20qUC4O16qhGl1GPIBABgroytzLoML5hhVYrM5jaYhRHg2kFN9PytKV+M75vlyLiJk7CJwkRUxD4Xwo4OODRVg==}
     cpu: [arm64]
     os: [linux]
 
-  '@libsql/linux-arm64-musl@0.5.1':
-    resolution: {integrity: sha512-JwK6Ne8dmtt+D+0zESwKvrjnylSDHNN7Mt9gb+TbWZZVvmro8n/ApvRVJh8ZO3R7dH32rUJoc2cQmKD6B691sA==}
+  '@libsql/linux-arm64-musl@0.5.3':
+    resolution: {integrity: sha512-sv19UXkNo+J6lGSfv4tKjViqciU5MHdtcmaiyJ5BcsEouwDLp5gDbyr1iJHoQw+nWpsiNp1OO4x8JoqC6sZHkA==}
     cpu: [arm64]
     os: [linux]
 
-  '@libsql/linux-x64-gnu@0.5.1':
-    resolution: {integrity: sha512-9U1yo0H8OaxGsVPQFDm/SrQjhyMFUHinmfPOwQcLjcnWwv1GqfNdYlGnp2ZfdJr2QOx7k5klouJjJgy8KzhY4g==}
+  '@libsql/linux-x64-gnu@0.5.3':
+    resolution: {integrity: sha512-fE/tkqGneXfMzQ5TY7ptoQXk8bRVGu6fVSmPiegCqmCcF457uO/7yqpQZyMav4viXAgmIkI15nyEo01ekaeBCg==}
     cpu: [x64]
     os: [linux]
 
-  '@libsql/linux-x64-musl@0.5.1':
-    resolution: {integrity: sha512-2TEX6SJqi88wPbv1ZHiTHtqaWOf+Mj7L8jOSgQY/aMoPzV5VFtDFF68ApIUNR6L+4eMwlD28NpahwJf8ilWYIw==}
+  '@libsql/linux-x64-musl@0.5.3':
+    resolution: {integrity: sha512-g/JIAmLJcsmhubfDtw5K4ipVx89Kr7V1cuoTFc/jDtBQNpfLVDOtNii3TTxvLg/yH+HRipE5Cus8hJdtysJXcw==}
     cpu: [x64]
     os: [linux]
 
-  '@libsql/win32-x64-msvc@0.5.1':
-    resolution: {integrity: sha512-rOtBBJhLuCeSgXBWIRNTLADdSLfwsII6za/ci5+XJKSiSi0STO4bcGEfVKLEJ6HDqdCJ2zdH1WGc9rTwhsUB0g==}
+  '@libsql/win32-x64-msvc@0.5.3':
+    resolution: {integrity: sha512-X7apIBRZNSSRh446NvUfq7AthUdH2OSLAAkzhOW48wCQxYheXU791WyOiroNl7s5HuIvJGAJUCR9hFLICYgWRg==}
     cpu: [x64]
     os: [win32]
 
@@ -5625,6 +5631,9 @@ packages:
   '@tauri-apps/plugin-log@2.2.3':
     resolution: {integrity: sha512-noDkZXU0kPG1bP3qoF6om+q5TgQ65LWpsV/TnfrHyg2lEn0vE+WJWTItiIh7OUA1/xxC+hdb9ODy2bM2e+jHEw==}
 
+  '@tauri-apps/plugin-log@2.3.1':
+    resolution: {integrity: sha512-nnKGHENWt7teqvUlIKxd6bp2wCUrrLvCvajN6CWbyrHBNKPi/pyKELzD511siEMDEdndbiZ/GEhiK0xBtZopRg==}
+
   '@tauri-apps/plugin-notification@2.0.0':
     resolution: {integrity: sha512-6qEDYJS7mgXZWLXA0EFL+DVCJh8sJlzSoyw6B50pxhLPVFjc5Vr5DVzl5W3mUHaYhod5wsC984eQnlCCGqxYDA==}
 
@@ -5717,8 +5726,8 @@ packages:
   '@types/btoa-lite@1.0.2':
     resolution: {integrity: sha512-ZYbcE2x7yrvNFJiU7xJGrpF/ihpkM7zKgw8bha3LNJSesvTtUNxbpzaT7WXBIryf6jovisrxTBvymxMeLLj1Mg==}
 
-  '@types/bun@1.2.6':
-    resolution: {integrity: sha512-fY9CAmTdJH1Llx7rugB0FpgWK2RKuHCs3g2cFDYXUutIy1QGiPQxKkGY8owhfZ4MXWNfxwIbQLChgH5gDsY7vw==}
+  '@types/bun@1.2.8':
+    resolution: {integrity: sha512-t8L1RvJVUghW5V+M/fL3Thbxcs0HwNsXsnTEBEfEVqGteiJToOlZ/fyOEaR1kZsNqnu+3XA4RI/qmnX4w6+S+w==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -6784,8 +6793,8 @@ packages:
   buffer@6.0.3:
     resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
 
-  bun-types@1.2.6:
-    resolution: {integrity: sha512-FbCKyr5KDiPULUzN/nm5oqQs9nXCHD8dVc64BArxJadCvbNzAI6lUWGh9fSJZWeDIRD38ikceBU8Kj/Uh+53oQ==}
+  bun-types@1.2.7:
+    resolution: {integrity: sha512-P4hHhk7kjF99acXqKvltyuMQ2kf/rzIw3ylEDpCxDS9Xa0X0Yp/gJu/vDCucmWpiur5qJ0lwB2bWzOXa2GlHqA==}
 
   bundle-name@4.1.0:
     resolution: {integrity: sha512-tjwM5exMg6BGRI+kNmTntNsvdZS1X8BFYS6tnJ2hdH0kVxM6/eVZ2xy+FqStSWvYmtfFMDLIxurorHwDKfDz5Q==}
@@ -7700,6 +7709,95 @@ packages:
 
   drizzle-orm@0.40.1:
     resolution: {integrity: sha512-aPNhtiJiPfm3qxz1czrnIDkfvkSdKGXYeZkpG55NPTVI186LmK2fBLMi4dsHpPHlJrZeQ92D322YFPHADBALew==}
+    peerDependencies:
+      '@aws-sdk/client-rds-data': '>=3'
+      '@cloudflare/workers-types': '>=4'
+      '@electric-sql/pglite': '>=0.2.0'
+      '@libsql/client': '>=0.10.0'
+      '@libsql/client-wasm': '>=0.10.0'
+      '@neondatabase/serverless': '>=0.10.0'
+      '@op-engineering/op-sqlite': '>=2'
+      '@opentelemetry/api': ^1.4.1
+      '@planetscale/database': '>=1'
+      '@prisma/client': '*'
+      '@tidbcloud/serverless': '*'
+      '@types/better-sqlite3': '*'
+      '@types/pg': '*'
+      '@types/sql.js': '*'
+      '@vercel/postgres': '>=0.8.0'
+      '@xata.io/client': '*'
+      better-sqlite3: '>=7'
+      bun-types: '*'
+      expo-sqlite: '>=14.0.0'
+      gel: '>=2'
+      knex: '*'
+      kysely: '*'
+      mysql2: '>=2'
+      pg: '>=8'
+      postgres: '>=3'
+      prisma: '*'
+      sql.js: '>=1'
+      sqlite3: '>=5'
+    peerDependenciesMeta:
+      '@aws-sdk/client-rds-data':
+        optional: true
+      '@cloudflare/workers-types':
+        optional: true
+      '@electric-sql/pglite':
+        optional: true
+      '@libsql/client':
+        optional: true
+      '@libsql/client-wasm':
+        optional: true
+      '@neondatabase/serverless':
+        optional: true
+      '@op-engineering/op-sqlite':
+        optional: true
+      '@opentelemetry/api':
+        optional: true
+      '@planetscale/database':
+        optional: true
+      '@prisma/client':
+        optional: true
+      '@tidbcloud/serverless':
+        optional: true
+      '@types/better-sqlite3':
+        optional: true
+      '@types/pg':
+        optional: true
+      '@types/sql.js':
+        optional: true
+      '@vercel/postgres':
+        optional: true
+      '@xata.io/client':
+        optional: true
+      better-sqlite3:
+        optional: true
+      bun-types:
+        optional: true
+      expo-sqlite:
+        optional: true
+      gel:
+        optional: true
+      knex:
+        optional: true
+      kysely:
+        optional: true
+      mysql2:
+        optional: true
+      pg:
+        optional: true
+      postgres:
+        optional: true
+      prisma:
+        optional: true
+      sql.js:
+        optional: true
+      sqlite3:
+        optional: true
+
+  drizzle-orm@0.41.0:
+    resolution: {integrity: sha512-7A4ZxhHk9gdlXmTdPj/lREtP+3u8KvZ4yEN6MYVxBzZGex5Wtdc+CWSbu7btgF6TB0N+MNPrvW7RKBbxJchs/Q==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=4'
@@ -9349,8 +9447,9 @@ packages:
   libphonenumber-js@1.11.12:
     resolution: {integrity: sha512-QkJn9/D7zZ1ucvT++TQSvZuSA2xAWeUytU+DiEQwbPKLyrDpvbul2AFs1CGbRAPpSCCk47aRAb5DX5mmcayp4g==}
 
-  libsql@0.5.1:
-    resolution: {integrity: sha512-ePnm5zj6T//GKiTY/v5b0a272NX73hqdRORmD8gzz1nUui9051dtTt6t0XCrIqxwJAHSmQiZcfAx3YSASn9Y+A==}
+  libsql@0.5.3:
+    resolution: {integrity: sha512-S3WR8WNCJV1VXraBFUKjDA6+8LcNDJMLm+83qohm1O3YM1iVqV2+/XN3SXOxpxVjuL4g/rLrjO5kzygkPefCFQ==}
+    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lilconfig@2.1.0:
@@ -15406,25 +15505,25 @@ snapshots:
 
   '@kwsites/promise-deferred@1.1.1': {}
 
-  '@libsql/client@0.15.0':
+  '@libsql/client@0.15.1':
     dependencies:
-      '@libsql/core': 0.15.0
+      '@libsql/core': 0.15.1
       '@libsql/hrana-client': 0.7.0
       js-base64: 3.7.7
-      libsql: 0.5.1
+      libsql: 0.5.3
       promise-limit: 2.7.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@libsql/core@0.15.0':
+  '@libsql/core@0.15.1':
     dependencies:
       js-base64: 3.7.7
 
-  '@libsql/darwin-arm64@0.5.1':
+  '@libsql/darwin-arm64@0.5.3':
     optional: true
 
-  '@libsql/darwin-x64@0.5.1':
+  '@libsql/darwin-x64@0.5.3':
     optional: true
 
   '@libsql/hrana-client@0.7.0':
@@ -15447,19 +15546,19 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@libsql/linux-arm64-gnu@0.5.1':
+  '@libsql/linux-arm64-gnu@0.5.3':
     optional: true
 
-  '@libsql/linux-arm64-musl@0.5.1':
+  '@libsql/linux-arm64-musl@0.5.3':
     optional: true
 
-  '@libsql/linux-x64-gnu@0.5.1':
+  '@libsql/linux-x64-gnu@0.5.3':
     optional: true
 
-  '@libsql/linux-x64-musl@0.5.1':
+  '@libsql/linux-x64-musl@0.5.3':
     optional: true
 
-  '@libsql/win32-x64-msvc@0.5.1':
+  '@libsql/win32-x64-msvc@0.5.3':
     optional: true
 
   '@liuli-util/fs-extra@0.1.0':
@@ -18080,6 +18179,10 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.3.0
 
+  '@tauri-apps/plugin-log@2.3.1':
+    dependencies:
+      '@tauri-apps/api': 2.3.0
+
   '@tauri-apps/plugin-notification@2.0.0':
     dependencies:
       '@tauri-apps/api': 2.3.0
@@ -18192,9 +18295,9 @@ snapshots:
 
   '@types/btoa-lite@1.0.2': {}
 
-  '@types/bun@1.2.6':
+  '@types/bun@1.2.8':
     dependencies:
-      bun-types: 1.2.6
+      bun-types: 1.2.7
 
   '@types/cookie@0.6.0': {}
 
@@ -19736,7 +19839,7 @@ snapshots:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
-  bun-types@1.2.6:
+  bun-types@1.2.7:
     dependencies:
       '@types/node': 22.13.1
       '@types/ws': 8.5.14
@@ -20371,10 +20474,10 @@ snapshots:
   dayjs@1.11.13:
     optional: true
 
-  db0@0.2.1(@libsql/client@0.15.0)(drizzle-orm@0.40.1(@libsql/client@0.15.0)(bun-types@1.2.6)(gel@2.0.1)):
+  db0@0.2.1(@libsql/client@0.15.1)(drizzle-orm@0.41.0(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1)):
     optionalDependencies:
-      '@libsql/client': 0.15.0
-      drizzle-orm: 0.40.1(@libsql/client@0.15.0)(bun-types@1.2.6)(gel@2.0.1)
+      '@libsql/client': 0.15.1
+      drizzle-orm: 0.41.0(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1)
 
   de-indent@1.0.2: {}
 
@@ -20631,10 +20734,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.40.1(@libsql/client@0.15.0)(bun-types@1.2.6)(gel@2.0.1):
+  drizzle-orm@0.40.1(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1):
     optionalDependencies:
-      '@libsql/client': 0.15.0
-      bun-types: 1.2.6
+      '@libsql/client': 0.15.1
+      bun-types: 1.2.7
+      gel: 2.0.1
+
+  drizzle-orm@0.41.0(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1):
+    optionalDependencies:
+      '@libsql/client': 0.15.1
+      bun-types: 1.2.7
       gel: 2.0.1
 
   duplexer@0.1.2: {}
@@ -22730,18 +22839,18 @@ snapshots:
   libphonenumber-js@1.11.12:
     optional: true
 
-  libsql@0.5.1:
+  libsql@0.5.3:
     dependencies:
       '@neon-rs/load': 0.0.4
       detect-libc: 2.0.2
     optionalDependencies:
-      '@libsql/darwin-arm64': 0.5.1
-      '@libsql/darwin-x64': 0.5.1
-      '@libsql/linux-arm64-gnu': 0.5.1
-      '@libsql/linux-arm64-musl': 0.5.1
-      '@libsql/linux-x64-gnu': 0.5.1
-      '@libsql/linux-x64-musl': 0.5.1
-      '@libsql/win32-x64-msvc': 0.5.1
+      '@libsql/darwin-arm64': 0.5.3
+      '@libsql/darwin-x64': 0.5.3
+      '@libsql/linux-arm64-gnu': 0.5.3
+      '@libsql/linux-arm64-musl': 0.5.3
+      '@libsql/linux-x64-gnu': 0.5.3
+      '@libsql/linux-x64-musl': 0.5.3
+      '@libsql/win32-x64-msvc': 0.5.3
 
   lilconfig@2.1.0: {}
 
@@ -23466,7 +23575,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  nitropack@2.10.4(@libsql/client@0.15.0)(drizzle-orm@0.40.1(@libsql/client@0.15.0)(bun-types@1.2.6)(gel@2.0.1))(typescript@5.6.3):
+  nitropack@2.10.4(@libsql/client@0.15.1)(drizzle-orm@0.41.0(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1))(typescript@5.6.3):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@netlify/functions': 2.8.2
@@ -23490,7 +23599,7 @@ snapshots:
       cookie-es: 1.2.2
       croner: 9.0.0
       crossws: 0.3.1
-      db0: 0.2.1(@libsql/client@0.15.0)(drizzle-orm@0.40.1(@libsql/client@0.15.0)(bun-types@1.2.6)(gel@2.0.1))
+      db0: 0.2.1(@libsql/client@0.15.1)(drizzle-orm@0.41.0(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1))
       defu: 6.1.4
       destr: 2.0.3
       dot-prop: 9.0.0
@@ -23627,7 +23736,7 @@ snapshots:
 
   nuxi@3.15.0: {}
 
-  nuxt@3.14.159(@libsql/client@0.15.0)(@parcel/watcher@2.5.0)(@types/node@22.13.1)(drizzle-orm@0.40.1(@libsql/client@0.15.0)(bun-types@1.2.6)(gel@2.0.1))(eslint@9.21.0(jiti@2.4.0))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.34.2)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.13.1)(terser@5.36.0))(vue-tsc@2.1.10(typescript@5.6.3)):
+  nuxt@3.14.159(@libsql/client@0.15.1)(@parcel/watcher@2.5.0)(@types/node@22.13.1)(drizzle-orm@0.41.0(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1))(eslint@9.21.0(jiti@2.4.0))(ioredis@5.4.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.34.2)(terser@5.36.0)(typescript@5.6.3)(vite@5.4.11(@types/node@22.13.1)(terser@5.36.0))(vue-tsc@2.1.10(typescript@5.6.3)):
     dependencies:
       '@nuxt/devalue': 2.0.2
       '@nuxt/devtools': 1.6.0(rollup@4.34.2)(vite@5.4.11(@types/node@22.13.1)(terser@5.36.0))(vue@3.5.13(typescript@5.6.3))
@@ -23664,7 +23773,7 @@ snapshots:
       magic-string: 0.30.12
       mlly: 1.7.3
       nanotar: 0.1.1
-      nitropack: 2.10.4(@libsql/client@0.15.0)(drizzle-orm@0.40.1(@libsql/client@0.15.0)(bun-types@1.2.6)(gel@2.0.1))(typescript@5.6.3)
+      nitropack: 2.10.4(@libsql/client@0.15.1)(drizzle-orm@0.41.0(@libsql/client@0.15.1)(bun-types@1.2.7)(gel@2.0.1))(typescript@5.6.3)
       nuxi: 3.15.0
       nypm: 0.3.12
       ofetch: 1.4.1

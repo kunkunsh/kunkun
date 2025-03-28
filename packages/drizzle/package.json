@@ -16,8 +16,10 @@
 		"typescript": "^5"
 	},
 	"dependencies": {
-		"@libsql/client": "^0.15.0",
+		"@kksh/api": "workspace:*",
+		"@libsql/client": "^0.15.1",
+		"@tauri-apps/plugin-log": "^2.3.1",
 		"dotenv": "^16.4.7",
-		"drizzle-orm": "^0.40.1"
+		"drizzle-orm": "^0.41.0"
 	}
 }
