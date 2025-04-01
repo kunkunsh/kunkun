@@ -69,6 +69,6 @@ ico = "0.3.0"
 
 
 [build-dependencies]
-tauri-plugin = { version = "2.0.3", features = ["build"] }
+tauri-plugin = { version = "2", features = ["build"] }
 tonic-build = "0.11"
 base64 = { workspace = true }

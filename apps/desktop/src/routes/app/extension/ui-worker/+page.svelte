@@ -13,7 +13,6 @@
 	} from "@/utils/tauri-events.js"
 	import { sleep } from "@/utils/time.js"
 	import { isInMainWindow } from "@/utils/window.js"
-	import { db } from "@kksh/api/commands"
 	import {
 		constructJarvisServerAPIWithPermissions,
 		type IApp,
@@ -29,6 +28,7 @@
 		type IComponent,
 		type TemplateUiCommand
 	} from "@kksh/api/ui/template"
+	import { db } from "@kksh/drizzle"
 	import { Button, Form } from "@kksh/svelte5"
 	import { LoadingBar } from "@kksh/ui"
 	import { Templates } from "@kksh/ui/extension"

@@ -1,14 +1,6 @@
-import { db } from "@kksh/api/commands"
-import {
-	CmdTypeEnum,
-	ExtCmd,
-	ExtPackageJson,
-	ExtPackageJsonExtra,
-	Icon,
-	QuickLinkCmd
-} from "@kksh/api/models"
+import { CmdTypeEnum, ExtPackageJson, Icon, QuickLinkCmd } from "@kksh/api/models"
+import { db } from "@kksh/drizzle"
 import * as v from "valibot"
-import { isExtPathInDev } from "./utils"
 
 export async function upsertExtension(extPkgJson: ExtPackageJson, extFullPath: string) {
 	const extInDb = await db.getUniqueExtensionByIdentifier(extPkgJson.kunkun.identifier)
@@ -39,7 +31,7 @@ export async function createQuickLinkCommand(name: string, link: string, icon: I
 export async function getAllQuickLinkCommands(): Promise<QuickLinkCmd[]> {
 	const extension = await db.getExtQuickLinks()
 	const cmds = await db.getCommandsByExtId(extension.extId)
-	return cmds
+	const parsedCmds = cmds
 		.map((cmd) => {
 			try {
 				cmd.data = JSON.parse(cmd.data)
@@ -55,4 +47,5 @@ export async function getAllQuickLinkCommands(): Promise<QuickLinkCmd[]> {
 			}
 		})
 		.filter((cmd) => cmd !== null)
+	return parsedCmds
 }

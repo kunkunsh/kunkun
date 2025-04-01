@@ -108,6 +108,11 @@ pub fn run() {
                 .build(),
         )
         .plugin(tauri_plugin_cli::init())
+        .plugin(
+            tauri_plugin_sql::Builder::default()
+                // .add_migrations("sqlite:mydatabase.db", migrations)
+                .build(),
+        )
         .plugin(tauri_plugin_user_input::init())
         .plugin(tauri_plugin_deep_link::init())
         .plugin(tauri_plugin_shell::init())

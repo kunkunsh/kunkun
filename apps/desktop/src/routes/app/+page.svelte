@@ -31,6 +31,7 @@
 		SystemCmds
 	} from "@kksh/ui/main"
 	import { cn } from "@kksh/ui/utils"
+	import { Ext } from "@kunkunapi/src/models/extension"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
 	import { platform } from "@tauri-apps/plugin-os"
@@ -45,6 +46,7 @@
 	} from "lucide-svelte"
 	import { onMount } from "svelte"
 	import { Inspect } from "svelte-inspect-value"
+	import * as v from "valibot"
 
 	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)
@@ -114,6 +116,7 @@
 <Inspect name="devStoreExtCmds" value={$devStoreExtCmds} />
 <Inspect name="$appState.searchTerm" value={$appState.searchTerm} />
 -->
+
 <Command.Root
 	class={cn("h-screen rounded-lg shadow-md")}
 	bind:value={$appState.highlightedCmd}

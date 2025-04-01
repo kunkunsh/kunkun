@@ -3,10 +3,8 @@ use super::{
     model::{ServerInfo, ServerState},
 };
 use crate::{
-    constants::KUNKUN_REFRESH_WORKER_EXTENSION,
-    models::FileTransferState,
-    server::model::FileTransferProgressPayload,
-    JarvisState,
+    constants::KUNKUN_REFRESH_WORKER_EXTENSION, models::FileTransferState,
+    server::model::FileTransferProgressPayload, JarvisState,
 };
 use axum::{
     body::StreamBody,

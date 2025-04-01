@@ -19,7 +19,7 @@ export const Ext = v.object({
 	identifier: v.string(),
 	version: v.string(),
 	enabled: v.boolean(),
-	installed_at: v.string(),
+	installedAt: v.string(),
 	path: v.optional(v.nullable(v.string())),
 	data: v.optional(v.any())
 })
@@ -48,6 +48,7 @@ export const ExtCmd = v.object({
 	hotkey: v.optional(v.nullable(v.string())),
 	enabled: v.boolean()
 })
+
 export type ExtCmd = v.InferOutput<typeof ExtCmd>
 
 export const QuickLinkCmd = v.object({

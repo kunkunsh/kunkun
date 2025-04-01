@@ -65,6 +65,8 @@ commands.allow = [
     "get_ext_label_map",
     "get_frontmost_app",
     # Database
+    "select",
+    "execute",
     "create_extension",
     "get_all_extensions",
     "get_unique_extension_by_identifier",

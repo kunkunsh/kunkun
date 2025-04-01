@@ -1,0 +1,26 @@
+{
+	"name": "@kksh/drizzle",
+	"type": "module",
+	"private": true,
+	"exports": {
+		".": "./index.ts",
+		"./api": "./src/apis.ts",
+		"./schema": "./drizzle/schema.ts",
+		"./relations": "./drizzle/relations.ts"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"drizzle-kit": "^0.30.5",
+		"tsx": "^4.19.3"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	},
+	"dependencies": {
+		"@kksh/api": "workspace:*",
+		"@libsql/client": "^0.15.1",
+		"@tauri-apps/plugin-log": "^2.3.1",
+		"dotenv": "^16.4.7",
+		"drizzle-orm": "^0.41.0"
+	}
+}

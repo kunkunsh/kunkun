@@ -1,12 +1,12 @@
-import { enum_, type InferOutput } from "valibot"
+import * as v from "valibot"
 
 export enum SQLSortOrderEnum {
 	Asc = "ASC",
 	Desc = "DESC"
 }
 
-export const SQLSortOrder = enum_(SQLSortOrderEnum)
-export type SQLSortOrder = InferOutput<typeof SQLSortOrder>
+export const SQLSortOrder = v.enum_(SQLSortOrderEnum)
+export type SQLSortOrder = v.InferOutput<typeof SQLSortOrder>
 
 export enum SearchModeEnum {
 	ExactMatch = "exact_match",
@@ -14,8 +14,8 @@ export enum SearchModeEnum {
 	FTS = "fts"
 }
 
-export const SearchMode = enum_(SearchModeEnum)
-export type SearchMode = InferOutput<typeof SearchMode>
+export const SearchMode = v.enum_(SearchModeEnum)
+export type SearchMode = v.InferOutput<typeof SearchMode>
 
 export function convertDateToSqliteString(date: Date) {
 	const pad = (num: number) => num.toString().padStart(2, "0")
@@ -29,3 +29,6 @@ export function convertDateToSqliteString(date: Date) {
 
 	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
 }
+
+export const ExtDataField = v.union([v.literal("data"), v.literal("search_text")])
+export type ExtDataField = v.InferOutput<typeof ExtDataField>
