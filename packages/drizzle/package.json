@@ -4,6 +4,7 @@
 	"private": true,
 	"exports": {
 		".": "./index.ts",
+		"./api": "./src/apis.ts",
 		"./schema": "./drizzle/schema.ts",
 		"./relations": "./drizzle/relations.ts"
 	},

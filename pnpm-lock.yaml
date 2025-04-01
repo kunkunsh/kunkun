@@ -588,6 +588,9 @@ importers:
       '@kksh/api':
         specifier: workspace:*
         version: link:../api
+      '@kksh/drizzle':
+        specifier: workspace:*
+        version: link:../drizzle
       '@std/semver':
         specifier: npm:@jsr/std__semver@^1.0.4
         version: '@jsr/std__semver@1.0.3'

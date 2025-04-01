@@ -10,7 +10,6 @@
 	import { positionToCssStyleString, positionToTailwindClasses } from "@/utils/style"
 	import { sleep } from "@/utils/time"
 	import { isInMainWindow } from "@/utils/window"
-	import { db } from "@kksh/api/commands"
 	import { CustomPosition, ThemeColor, type Position } from "@kksh/api/models"
 	import {
 		constructJarvisServerAPIWithPermissions,
@@ -19,6 +18,7 @@
 		type IUiCustom
 	} from "@kksh/api/ui"
 	import { toast, type IUiCustomServer1, type IUiCustomServer2 } from "@kksh/api/ui/custom"
+	import { db } from "@kksh/drizzle"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
 	import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"

@@ -1,5 +1,5 @@
-import { db } from "@kksh/api/commands"
 import type { CustomUiCmd, ExtPackageJsonExtra, HeadlessCmd, TemplateUiCmd } from "@kksh/api/models"
+import { db } from "@kksh/drizzle"
 import * as extAPI from "@kksh/extension"
 import * as path from "@tauri-apps/api/path"
 import Fuse from "fuse.js"

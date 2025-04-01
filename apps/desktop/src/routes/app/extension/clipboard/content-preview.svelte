@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cn } from "@/utils"
-	import { db } from "@kksh/api/commands"
 	import type { ExtData } from "@kksh/api/models"
+	import { db } from "@kksh/drizzle"
 	import { Resizable, Separator } from "@kksh/svelte5"
 	import { convertFileSrc } from "@tauri-apps/api/core"
 	import DOMPurify from "dompurify"

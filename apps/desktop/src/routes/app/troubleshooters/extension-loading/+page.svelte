@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as m from "@/paraglide/messages"
-	import { db } from "@kksh/api/commands"
+	import { db } from "@kksh/drizzle"
 	import { loadExtensionManifestFromDisk } from "@kksh/extension"
 	import { Button, Dialog, Table } from "@kksh/svelte5"
 	import { join } from "@tauri-apps/api/path"

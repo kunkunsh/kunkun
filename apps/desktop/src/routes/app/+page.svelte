@@ -5,8 +5,6 @@
 	import { systemCommands, systemCommandsFiltered } from "@/cmds/system"
 	import AppsCmds from "@/components/main/AppsCmds.svelte"
 	import { i18n } from "@/i18n"
-	import { getUniqueExtensionByIdentifier } from "@/orm/cmds"
-	import { db } from "@/orm/database"
 	import * as m from "@/paraglide/messages"
 	import {
 		appConfig,

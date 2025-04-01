@@ -1,5 +1,5 @@
-import { db } from "@kksh/api/commands"
 import { ExtPackageJson, ExtPackageJsonExtra, License } from "@kksh/api/models"
+import { db } from "@kksh/drizzle"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
@@ -77,7 +77,7 @@ export function loadAllExtensionsFromDisk(
  * @returns loaded extensions
  */
 export async function loadAllExtensionsFromDb(): Promise<ExtPackageJsonExtra[]> {
-	const allDbExts = await (await db.getAllExtensions()).filter((ext) => ext.path)
+	const allDbExts = (await db.getAllExtensions()).filter((ext) => ext.path)
 	const results: ExtPackageJsonExtra[] = []
 	for (const ext of allDbExts) {
 		if (!ext.path) continue

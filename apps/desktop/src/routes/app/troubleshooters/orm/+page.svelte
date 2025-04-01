@@ -7,13 +7,12 @@
 		getUniqueExtensionByPath,
 		searchExtensionData,
 		updateCmdByID
-	} from "@/orm/cmds"
+	} from "@kksh/drizzle/api"
 	import * as schema from "@kksh/drizzle/schema"
 	import { Button, Input } from "@kksh/svelte5"
 	import { CmdTypeEnum, Ext } from "@kunkunapi/src/models/extension"
 	import { SearchModeEnum, SQLSortOrderEnum } from "@kunkunapi/src/models/sql"
-	import { db } from "$lib/orm/database"
-	import * as orm from "drizzle-orm"
+	// import * as orm from "drizzle-orm"
 	import { Inspect } from "svelte-inspect-value"
 	import { toast } from "svelte-sonner"
 	import * as v from "valibot"

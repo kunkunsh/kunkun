@@ -17,7 +17,8 @@ export const extensions = sqliteTable("extensions", {
 	extId: integer("ext_id").primaryKey({ autoIncrement: true }),
 	identifier: text().notNull(),
 	version: text().notNull(),
-	enabled: numeric().default(sql`(TRUE)`),
+	// enabled: numeric().default(sql`(TRUE)`),
+	enabled: integer({ mode: "boolean" }),
 	path: text(),
 	data: numeric(),
 	installedAt: numeric("installed_at").default(sql`(CURRENT_TIMESTAMP)`)
