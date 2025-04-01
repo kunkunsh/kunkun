@@ -310,7 +310,7 @@
 	onMount(async () => {
 		setTimeout(() => {
 			appState.setLoadingBar(true)
-			appWin.show()
+			appWin.show().then(() => appWin.setFocus())
 		}, 100)
 		unlistenRefreshWorkerExt = await listenToRefreshDevExt(() => {
 			debug("Refreshing Worker Extension")

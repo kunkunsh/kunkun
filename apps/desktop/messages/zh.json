@@ -40,6 +40,7 @@
 	"settings_general_join_beta_updates": "加入 Beta 更新",
 	"settings_general_developer_mode": "开发者模式",
 	"settings_general_language": "语言",
+	"settings_general_loading_animation": "加载动画",
 
 	"settings_app_search_paths_title": "额外应用搜索路径",
 	"settings_app_search_paths_add_app_search_path": "添加应用搜索路径",

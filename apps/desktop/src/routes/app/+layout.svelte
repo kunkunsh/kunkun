@@ -46,7 +46,8 @@
 		})
 	})
 
-	let { children } = $props()
+	let { children, data } = $props()
+
 	const unlisteners: UnlistenFn[] = []
 	onDestroy(() => {
 		unlisteners.forEach((unlistener) => unlistener())
@@ -100,7 +101,7 @@
 				})
 			)
 		}
-		getCurrentWebviewWindow().show()
+		data.win?.show().then(() => data.win?.setFocus())
 	})
 </script>
 

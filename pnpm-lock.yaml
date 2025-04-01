@@ -251,6 +251,9 @@ importers:
       '@tauri-apps/plugin-stronghold':
         specifier: ^2.2.0
         version: 2.2.0
+      '@tauri-store/svelte':
+        specifier: ^2.1.1
+        version: 2.1.1
       dompurify:
         specifier: ^3.2.4
         version: 3.2.4
@@ -5684,6 +5687,12 @@ packages:
 
   '@tauri-store/shared@0.6.0':
     resolution: {integrity: sha512-2KBezqqkw68HvvXHEtbbpxyQHDjymBUZl10YuAsNRI8DHFIA0n18WE7NRyQ93+H7IzDP1/B41m2/rcMDHBSiKw==}
+
+  '@tauri-store/shared@0.7.2':
+    resolution: {integrity: sha512-42nprNNeU+tjpCvYnaBsu3kYwAy8gP6KyXX9zeaIvpMys1tIhQdEiUAXo3KChHq/jCkSralXRLN4zfjCfBJFrw==}
+
+  '@tauri-store/svelte@2.1.1':
+    resolution: {integrity: sha512-exGvgEM6zcXZq6KRnG2b2JDXogyarRaJdjrblD27Q4IU1vhSTY8TxvDMCPGfD31kbOcf/aR4A6zT8OX0DFuxjg==}
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -18250,6 +18259,17 @@ snapshots:
   '@tauri-store/shared@0.6.0':
     dependencies:
       '@tauri-apps/api': 2.3.0
+
+  '@tauri-store/shared@0.7.2':
+    dependencies:
+      '@tauri-apps/api': 2.3.0
+      es-toolkit: 1.34.1
+
+  '@tauri-store/svelte@2.1.1':
+    dependencies:
+      '@tauri-apps/api': 2.3.0
+      '@tauri-store/shared': 0.7.2
+      svelte: 5.20.5
 
   '@trysound/sax@0.2.0': {}
 

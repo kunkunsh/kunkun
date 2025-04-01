@@ -24,6 +24,7 @@
 		"core:event:default",
 		"core:window:default",
 		"core:window:allow-set-size",
+		"core:window:allow-set-enabled",
 		"core:window:allow-start-dragging",
 		"core:window:allow-set-focus",
 		"core:window:allow-toggle-maximize",

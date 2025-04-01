@@ -428,7 +428,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 				visible: false
 			})
 			setTimeout(() => {
-				window.show()
+				window.show().then(() => window.setFocus())
 			}, 2_000)
 		}
 	},
