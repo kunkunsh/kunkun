@@ -214,6 +214,7 @@ jobs:
         env:
           CI: false
           NODE_OPTIONS: --max-old-space-size=4096
+          CFLAGS: -std:c11
         run: pnpm tauri build ${{ env.BUILD_MODE}} ${{ matrix.os == 'windows-latest' && '-b nsis' || '' }}
 
       - name: Rename macos-aarch64
