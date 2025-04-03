@@ -31,6 +31,11 @@
 			title: "ORM",
 			url: i18n.resolveRoute("/app/troubleshooters/orm"),
 			icon: DB
+		},
+		{
+			title: "Database Info",
+			url: i18n.resolveRoute("/app/troubleshooters/database-info"),
+			icon: DB
 		}
 	]
 	let currentItem = $state(items.find((item) => window.location.pathname === item.url))

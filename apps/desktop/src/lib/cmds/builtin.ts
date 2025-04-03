@@ -162,6 +162,19 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		keywords: ["extension", "window", "troubleshooter"]
 	},
 	{
+		name: "Database Troubleshooter",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "devicon:sqlite"
+		},
+		description: "",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto(i18n.resolveRoute("/app/troubleshooters/database-info"))
+		},
+		keywords: ["database", "troubleshooter"]
+	},
+	{
 		name: "Help (Install Deno)",
 		icon: {
 			type: IconEnum.Iconify,
