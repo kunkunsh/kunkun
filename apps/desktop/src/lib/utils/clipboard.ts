@@ -24,6 +24,7 @@ export async function cleanClipboard() {
 				)
 			)
 		const nLinesToDelete = oldClipboardData.at(0)?.count ?? 0
+		console.info(`Found ${nLinesToDelete} clipboard entries older than ${nDays} days to clean up`)
 		info(`Found ${nLinesToDelete} clipboard entries older than ${nDays} days to clean up`)
 
 		// Now delete the old data
