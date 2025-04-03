@@ -11,12 +11,12 @@ export const db = drizzle<typeof schema>(
 	async (sqlQuery, params, method) => {
 		let rows: any = []
 		let results = []
-		console.log({
-			sql: sqlQuery,
-			params,
-			method
-		})
-		console.log(sqlQuery)
+		// console.log({
+		// 	sql: sqlQuery,
+		// 	params,
+		// 	method
+		// })
+		// console.log(sqlQuery)
 		// If the query is a SELECT, use the select method
 		if (isSelectQuery(sqlQuery)) {
 			rows = await sql.select(sqlQuery, params).catch((e) => {

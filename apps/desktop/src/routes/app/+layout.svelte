@@ -53,7 +53,7 @@
 		unlisteners.forEach((unlistener) => unlistener())
 	})
 	onMount(async () => {
-		attachConsole().then((unlistener) => unlisteners.push(unlistener))
+		await attachConsole().then((unlistener) => unlisteners.push(unlistener))
 		initDeeplink().then((unlistener) => unlisteners.push(unlistener))
 		shellx
 			.fixPathEnv()
