@@ -20,9 +20,10 @@ import type {
 	IPath as ITauriPath
 } from "tauri-api-adapter"
 import * as v from "valibot"
-import { KV, type JarvisExtDB } from "../commands/db"
 import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
+import { type ExtData } from "../models/extension"
+import { ExtDataField, SearchMode, SQLSortOrder } from "../models/sql"
 import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
 import type { DenoSysOptions } from "../permissions/schema"
 
@@ -154,23 +155,34 @@ export interface IUiCustom {
 }
 
 export interface IDb {
-	add: typeof JarvisExtDB.prototype.add
-	delete: typeof JarvisExtDB.prototype.delete
-	search: typeof JarvisExtDB.prototype.search
-	retrieveAll: typeof JarvisExtDB.prototype.retrieveAll
-	retrieveAllByType: typeof JarvisExtDB.prototype.retrieveAllByType
-	deleteAll: typeof JarvisExtDB.prototype.deleteAll
-	update: typeof JarvisExtDB.prototype.update
+	add: (data: { data: string; dataType?: string; searchText?: string }) => Promise<void>
+	delete: (dataId: number) => Promise<void>
+	search: (searchParams: {
+		dataId?: number
+		searchMode?: SearchMode
+		dataType?: string
+		searchText?: string
+		afterCreatedAt?: Date
+		beforeCreatedAt?: Date
+		limit?: number
+		orderByCreatedAt?: SQLSortOrder
+		orderByUpdatedAt?: SQLSortOrder
+		fields?: ExtDataField[]
+	}) => Promise<ExtData[]>
+	retrieveAll: (options: { fields?: ExtDataField[] }) => Promise<ExtData[]>
+	retrieveAllByType: (dataType: string) => Promise<ExtData[]>
+	deleteAll: () => Promise<void>
+	update: (data: { dataId: number; data: string; searchText?: string }) => Promise<void>
 }
 
 /**
  * A key-value store built on top of the Database API (based on sqlite)
  */
 export interface IKV {
-	get: typeof KV.prototype.get
-	set: typeof KV.prototype.set
-	exists: typeof KV.prototype.exists
-	delete: typeof KV.prototype.delete
+	get: <T = string>(key: string) => Promise<T | null | undefined>
+	set: (key: string, value: string) => Promise<void>
+	exists: (key: string) => Promise<boolean>
+	delete: (key: string) => Promise<void>
 }
 
 export interface IFs {

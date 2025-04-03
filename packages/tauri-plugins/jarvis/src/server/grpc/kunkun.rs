@@ -2,10 +2,7 @@
 // use hello_world::{HelloReply, HelloRequest};
 // use server_info«::server_info_server::ServerInfo;
 // use server_info::{InfoRequest, InfoResponse};
-use grpc::kunkun::{
-    kunkun_server::Kunkun,
-    Empty, ServerInfoResponse,
-};
+use grpc::kunkun::{kunkun_server::Kunkun, Empty, ServerInfoResponse};
 
 use tauri::{AppHandle, Emitter, Manager};
 use tonic::{Request, Response, Status};

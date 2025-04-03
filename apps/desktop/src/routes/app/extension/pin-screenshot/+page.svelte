@@ -8,23 +8,24 @@
 	import * as clipboard from "tauri-plugin-clipboard-api"
 
 	let image = $state<string | null>(null)
-	const appWin = getCurrentWebviewWindow()
+	let { data } = $props()
 	let originalSize = $state<{ width: number; height: number } | null>(null)
 	let originalScaleFactor = $state<number | null>(null)
 	let scale = $state<number>(1)
 	let currentSize = $derived(
 		originalSize ? { width: originalSize.width * scale, height: originalSize.height * scale } : null
 	)
+	const win = getCurrentWebviewWindow()
 
 	$effect(() => {
 		if (currentSize) {
-			appWin.setSize(new LogicalSize(currentSize.width, currentSize.height))
+			win.setSize(new LogicalSize(currentSize.width, currentSize.height))
 		}
 	})
 
 	async function getWindowSize() {
-		const size = await appWin.outerSize()
-		const scaleFactor = originalScaleFactor ?? (await appWin.scaleFactor())
+		const size = await win.outerSize()
+		const scaleFactor = originalScaleFactor ?? (await win.scaleFactor())
 		const logicalSize = size.toLogical(scaleFactor)
 		return { logicalSize, scaleFactor }
 	}
@@ -36,7 +37,7 @@
 				image = b64
 			})
 			.finally(() => {
-				appWin.show()
+				data.win?.show().then(() => data.win?.setFocus())
 			})
 		const { logicalSize, scaleFactor } = await getWindowSize()
 		originalSize = { width: logicalSize.width, height: logicalSize.height }
@@ -67,13 +68,13 @@
 <svelte:window
 	on:keydown={(e) => {
 		if (e.key === "Escape") {
-			appWin.close()
+			win.close()
 		}
 	}}
 />
-<Button size="icon" variant="ghost" class="fixed left-2 top-2" onclick={() => appWin.close()}
-	><CircleX /></Button
->
+<Button size="icon" variant="ghost" class="fixed left-2 top-2" onclick={() => win.close()}>
+	<CircleX />
+</Button>
 <main class="z-50 h-screen w-screen overflow-hidden" data-tauri-drag-region>
 	{#if image}
 		<img

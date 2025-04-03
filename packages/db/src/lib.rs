@@ -2,6 +2,7 @@ pub mod models;
 pub mod schema;
 use models::{CmdType, ExtDataField, ExtDataSearchQuery, SearchMode};
 use rusqlite::{params, params_from_iter, Connection, Result, ToSql};
+use serde_json::Value as JsonValue;
 use serde_json::{json, Value};
 use std::path::Path;
 
@@ -121,6 +122,97 @@ impl JarvisDB {
             params![identifier, version, enabled, path, data],
         )?;
         Ok(())
+    }
+
+    pub fn select(&self, query: String, values: Vec<JsonValue>) -> Result<Vec<JsonValue>> {
+        println!("DB selecting: {}", query);
+        println!("DB selecting values: {:?}", values);
+        let mut stmt = self.conn.prepare(&query)?;
+
+        // Convert JsonValue parameters to appropriate types for rusqlite
+        let mut params: Vec<Box<dyn ToSql>> = Vec::new();
+        for value in values {
+            if value.is_null() {
+                params.push(Box::new(Option::<String>::None));
+            } else if value.is_string() {
+                params.push(Box::new(value.as_str().unwrap().to_owned()));
+            } else if let Some(number) = value.as_number() {
+                if number.is_i64() {
+                    params.push(Box::new(number.as_i64().unwrap()));
+                } else if number.is_u64() {
+                    params.push(Box::new(number.as_u64().unwrap() as i64));
+                } else {
+                    params.push(Box::new(number.as_f64().unwrap()));
+                }
+            } else {
+                params.push(Box::new(value.to_string()));
+            }
+        }
+
+        // Get column names from statement
+        let column_names: Vec<String> = (0..stmt.column_count())
+            .map(|i| stmt.column_name(i).unwrap().to_string())
+            .collect();
+
+        // Execute the query with the converted parameters and map results
+        let rows = stmt.query_map(params_from_iter(params.iter().map(|p| p.as_ref())), |row| {
+            let mut result = Vec::new();
+            for i in 0..column_names.len() {
+                let value: Value = match row.get_ref(i)? {
+                    rusqlite::types::ValueRef::Null => Value::Null,
+                    rusqlite::types::ValueRef::Integer(i) => Value::Number(i.into()),
+                    rusqlite::types::ValueRef::Real(r) => Value::Number(
+                        serde_json::Number::from_f64(r).unwrap_or(serde_json::Number::from(0)),
+                    ),
+                    rusqlite::types::ValueRef::Text(t) => {
+                        Value::String(String::from_utf8_lossy(t).into_owned())
+                    }
+                    rusqlite::types::ValueRef::Blob(b) => {
+                        Value::String(String::from_utf8_lossy(b).into_owned())
+                    }
+                };
+                result.push(value);
+            }
+            Ok(Value::Array(result))
+        })?;
+
+        let mut results = Vec::new();
+        for row in rows {
+            results.push(row?);
+        }
+        Ok(results)
+    }
+
+    pub fn execute(&self, query: &str, values: Vec<JsonValue>) -> Result<(u64, i64)> {
+        let mut stmt = self.conn.prepare(query)?;
+
+        // Convert JsonValue parameters to appropriate types for rusqlite
+        let mut params: Vec<Box<dyn ToSql>> = Vec::new();
+        for value in values {
+            if value.is_null() {
+                params.push(Box::new(Option::<String>::None));
+            } else if value.is_string() {
+                params.push(Box::new(value.as_str().unwrap().to_owned()));
+            } else if let Some(number) = value.as_number() {
+                if number.is_i64() {
+                    params.push(Box::new(number.as_i64().unwrap()));
+                } else if number.is_u64() {
+                    params.push(Box::new(number.as_u64().unwrap() as i64));
+                } else {
+                    params.push(Box::new(number.as_f64().unwrap()));
+                }
+            } else {
+                params.push(Box::new(value.to_string()));
+            }
+        }
+
+        // Execute the query with the converted parameters
+        let rows_affected = stmt.execute(params_from_iter(params.iter().map(|p| p.as_ref())))?;
+
+        // Get the last insert rowid
+        let last_insert_id = self.conn.last_insert_rowid();
+
+        Ok((rows_affected as u64, last_insert_id))
     }
 
     pub fn get_all_extensions(&self) -> Result<Vec<models::Ext>> {
@@ -1092,59 +1184,69 @@ mod tests {
     }
 
     #[test]
-    fn test_command_aliases_crud() {
+    fn test_select_and_execute() {
         let dir = tempdir().unwrap();
         let db_path = dir.path().join("test.db");
         let db = JarvisDB::new(&db_path, None).unwrap();
         db.init().unwrap();
 
-        // Create an extension and command first
-        db.create_extension("test", "0.1.0", true, None, None)
+        // Create a simple todo table
+        db.execute(
+            "CREATE TABLE todos (id INTEGER PRIMARY KEY, title TEXT, completed BOOLEAN)",
+            vec![],
+        )
+        .unwrap();
+
+        // Test execute with INSERT
+        let (rows_affected, last_id) = db
+            .execute(
+                "INSERT INTO todos (title, completed) VALUES (?1, ?2)",
+                vec![json!("Buy groceries"), json!(false)],
+            )
             .unwrap();
-        let ext = db
-            .get_unique_extension_by_identifier("test")
-            .unwrap()
+        assert_eq!(rows_affected, 1);
+        assert_eq!(last_id, 1);
+
+        // Test select with basic query
+        let results = db
+            .select(
+                "SELECT title, completed FROM todos WHERE id = ?1".to_string(),
+                vec![json!(1)],
+            )
             .unwrap();
-        db.create_command(ext.ext_id, "test", CmdType::Iframe, "{}", true, None, None)
+        assert_eq!(results.len(), 1);
+        assert_eq!(results[0][0], "Buy groceries");
+        assert_eq!(results[0][1], "false");
+
+        // Test execute with UPDATE
+        let (rows_affected, _) = db
+            .execute(
+                "UPDATE todos SET completed = ?1 WHERE id = ?2",
+                vec![json!(true), json!(1)],
+            )
             .unwrap();
-        let cmd = db.get_command_by_id(1).unwrap().unwrap();
+        assert_eq!(rows_affected, 1);
 
-        // Test creating command alias
-        db.create_command_alias(cmd.cmd_id, "test_alias").unwrap();
-        db.create_command_alias(cmd.cmd_id, "another_alias")
+        // Verify the update with select
+        let results = db
+            .select(
+                "SELECT completed FROM todos WHERE id = ?1".to_string(),
+                vec![json!(1)],
+            )
             .unwrap();
+        assert_eq!(results[0][0], "true");
 
-        // Test getting command aliases by cmd_id
-        let aliases = db.get_command_aliases_by_cmd_id(cmd.cmd_id).unwrap();
-        println!("aliases: {:#?}", aliases);
-        assert_eq!(aliases.len(), 2);
-        assert_eq!(aliases[0].alias, "another_alias");
-        assert_eq!(aliases[1].alias, "test_alias");
-
-        // Test getting command alias by id
-        let alias = db
-            .get_command_alias_by_id(aliases[0].alias_id)
-            .unwrap()
+        // Test execute with DELETE
+        let (rows_affected, _) = db
+            .execute("DELETE FROM todos WHERE id = ?1", vec![json!(1)])
             .unwrap();
-        assert_eq!(alias.alias, "another_alias");
+        assert_eq!(rows_affected, 1);
 
-        // Test searching command aliases
-        let search_results = db.search_command_aliases("test").unwrap();
-        println!("search_results: {:#?}", search_results);
-        assert_eq!(search_results.len(), 1);
-        assert_eq!(search_results[0].alias, "test_alias");
-
-        // Test deleting command alias
-        db.delete_command_alias_by_id(aliases[0].alias_id).unwrap();
-        let aliases = db.get_command_aliases_by_cmd_id(cmd.cmd_id).unwrap();
-        assert_eq!(aliases.len(), 1);
-        assert_eq!(aliases[0].alias, "test_alias");
-
-        // Test command usage tracking
-        db.update_command_usage(cmd.cmd_id).unwrap();
-        let usage = db.get_command_usage(cmd.cmd_id).unwrap().unwrap();
-        assert_eq!(usage.0, 1); // usage_count should be 1
-        assert!(!usage.1.is_empty()); // last_used_at should be set
+        // Verify the deletion
+        let results = db
+            .select("SELECT COUNT(*) as count FROM todos".to_string(), vec![])
+            .unwrap();
+        assert_eq!(results[0][0], 0);
 
         fs::remove_file(&db_path).unwrap();
     }

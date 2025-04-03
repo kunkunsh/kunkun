@@ -1,11 +1,9 @@
 <script lang="ts">
-	import autoAnimate from "@formkit/auto-animate"
 	import Icon from "@iconify/svelte"
 	import { Button, ButtonModule, Collapsible, ScrollArea } from "@kksh/svelte5"
 	import { Error, Layouts, Shiki } from "@kksh/ui"
 	import { ChevronsUpDown } from "lucide-svelte"
 	import { type Snippet } from "svelte"
-	import { fade, slide } from "svelte/transition"
 
 	const {
 		title,

@@ -19,6 +19,7 @@
 	} = $props()
 	const workflowRunId = githubActionInvocationId.split("/").at(-3)
 	const workflowRunUrl = `https://github.com/${repoOwner}/${repoName}/actions/runs/${workflowRunId}/workflow`
+	const giteaMirrorUrl = `https://gitea.kunkun.sh/kunkun-extensions-mirror/${repoOwner}-${repoName}`
 </script>
 
 <Card.Root>
@@ -59,6 +60,12 @@
 					rel="noreferrer"
 					class="underline">Transparentcy log entry</a
 				>
+			</p>
+			<p class="flex flex-col text-sm sm:flex-row">
+				<strong class="mt-2 inline-block w-28 md:mt-0">Mirror</strong>
+				<a href={giteaMirrorUrl} target="_blank" rel="noreferrer" class="underline">
+					Mirror Repo
+				</a>
 			</p>
 		</div>
 	</Card.Content>

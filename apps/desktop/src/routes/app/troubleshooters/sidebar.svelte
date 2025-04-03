@@ -6,6 +6,7 @@
 	import { Constants } from "@kksh/ui"
 	import { ArrowLeftIcon } from "lucide-svelte"
 	import AppWindow from "lucide-svelte/icons/app-window"
+	import DB from "lucide-svelte/icons/database"
 	import Loader from "lucide-svelte/icons/loader"
 	import Network from "lucide-svelte/icons/network"
 
@@ -25,6 +26,11 @@
 			title: m.troubleshooters_sidebar_mdns_debugger_title(),
 			url: i18n.resolveRoute("/app/troubleshooters/mdns-debugger"),
 			icon: Network
+		},
+		{
+			title: "ORM",
+			url: i18n.resolveRoute("/app/troubleshooters/orm"),
+			icon: DB
 		}
 	]
 	let currentItem = $state(items.find((item) => window.location.pathname === item.url))

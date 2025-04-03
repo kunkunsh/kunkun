@@ -36,7 +36,7 @@
 
 {#await highlighter2 then highlighter}
 	<ShikiMagicMove
-		class={cn("", className)}
+		class={cn("p-3", className)}
 		{lang}
 		theme={theme ?? "vitesse-dark"}
 		{highlighter}

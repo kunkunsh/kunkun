@@ -3,19 +3,22 @@ import { appState } from "@/stores"
 import { winExtMap } from "@/stores/winExtMap"
 import { helperAPI } from "@/utils/helper"
 import { paste } from "@/utils/hotkey"
+import { decideKkrpcSerialization } from "@/utils/kkrpc"
 import { sleep } from "@/utils/time"
 import { trimSlash } from "@/utils/url"
 import { constructExtensionSupportDir } from "@kksh/api"
-import { db, spawnExtensionFileServer } from "@kksh/api/commands"
+import { spawnExtensionFileServer } from "@kksh/api/commands"
 import type { HeadlessCommand } from "@kksh/api/headless"
 import { CustomUiCmd, ExtPackageJsonExtra, HeadlessCmd, TemplateUiCmd } from "@kksh/api/models"
 import { constructJarvisServerAPIWithPermissions, type IApp } from "@kksh/api/ui"
+import { db } from "@kksh/drizzle"
 import { launchNewExtWindow, loadExtensionManifestFromDisk } from "@kksh/extension"
 import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import * as path from "@tauri-apps/api/path"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import * as fs from "@tauri-apps/plugin-fs"
+import { info } from "@tauri-apps/plugin-log"
 import { platform } from "@tauri-apps/plugin-os"
 import { goto } from "$app/navigation"
 import { RPCChannel, WorkerParentIO } from "kkrpc/browser"
@@ -85,6 +88,7 @@ export async function onHeadlessCmdSelect(
 	const loadedExt = await loadExtensionManifestFromDisk(
 		await path.join(ext.extPath, "package.json")
 	)
+
 	const scriptPath = await path.join(loadedExt.extPath, cmd.main)
 	const workerScript = await fs.readTextFile(scriptPath)
 	const blob = new Blob([workerScript], { type: "application/javascript" })
@@ -124,8 +128,15 @@ export async function onHeadlessCmdSelect(
 		} satisfies IApp
 	}
 	const io = new WorkerParentIO(worker)
+	const kkrpcSerialization = decideKkrpcSerialization(loadedExt)
+	info(
+		`Establishing kkrpc connection for ${loadedExt.kunkun.identifier} with serialization: ${kkrpcSerialization}`
+	)
 	const rpc = new RPCChannel<typeof serverAPI2, HeadlessCommand>(io, {
-		expose: serverAPI2
+		expose: serverAPI2,
+		serialization: {
+			version: kkrpcSerialization
+		}
 	})
 	const workerAPI = rpc.getAPI()
 	await workerAPI.load()

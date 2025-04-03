@@ -1,10 +1,15 @@
 <script lang="ts">
 	import autoAnimate from "@formkit/auto-animate"
 	import Icon from "@iconify/svelte"
-	import { ExtPackageJson, IconEnum, KunkunExtManifest } from "@kksh/api/models"
-	import { ExtPublishMetadata, ExtPublishSourceTypeEnum } from "@kksh/supabase/models"
-	import { type Tables } from "@kksh/supabase/types"
-	import { Badge, Button, ScrollArea, Separator } from "@kksh/svelte5"
+	import {
+		ExtPackageJson,
+		ExtPublish,
+		ExtPublishMetadata,
+		ExtPublishSourceTypeEnum,
+		IconEnum,
+		KunkunExtManifest
+	} from "@kksh/api/models"
+	import { Badge, Button, ScrollArea, Separator, Tooltip } from "@kksh/svelte5"
 	import { Constants, IconMultiplexer } from "@kksh/ui"
 	import { cn } from "@kksh/ui/utils"
 	import { CircleCheckBigIcon, MoveRightIcon, Trash2Icon } from "lucide-svelte"
@@ -36,8 +41,12 @@
 		loading,
 		imageDialogOpen = $bindable(false)
 	}: {
-		extPublish: Tables<"ext_publish">
-		ext: Tables<"extensions">
+		extPublish: ExtPublish
+		// extPublish: GetExtensionsLatestPublishByIdentifierResponse
+		ext: {
+			author_id: string
+			downloads: number
+		}
 		author?: {
 			id: string
 			name: string
@@ -186,7 +195,7 @@
 			<Button onclick={onInstallSelected}>Install</Button>
 		{/if}
 	</div>
-	<div class="mt-2 flex gap-2">
+	<div class="mt-2 flex flex-col gap-2 md:flex-row">
 		{#if metadata && metadata.sourceType === ExtPublishSourceTypeEnum.jsr}
 			<a href={metadata.source} target="_blank">
 				<Icon class="h-10 w-10" icon="vscode-icons:file-type-jsr" />
@@ -201,7 +210,7 @@
 				href={`https://github.com/${metadata.git.owner}/${metadata.git.repo}/tree/${metadata.git.commit}`}
 				target="_blank"
 			>
-				<Badge class="h-8 space-x-2" variant="secondary">
+				<Badge class="min-h-8 space-x-2" variant="secondary">
 					<Icon class="h-6 w-6" icon="mdi:github" />
 					<span>{metadata.git.owner}/{metadata.git.repo}</span>
 				</Badge>
@@ -248,7 +257,7 @@
 
 	<Separator class="my-3" />
 	<h2 class="text-lg font-bold">Security and Privacy</h2>
-	<PermissionInspector {manifest} />
+	<PermissionInspector permissions={manifest.permissions} />
 	<Separator class="my-3" />
 	<h2 class="text-lg font-bold">Description</h2>
 
@@ -260,7 +269,7 @@
 			<h2 class="text-lg font-bold">Commands</h2>
 			<ul>
 				{#if manifest}
-					{#each [...(manifest.customUiCmds ?? []), ...(manifest.templateUiCmds ?? [])] as cmd}
+					{#each [...(manifest.customUiCmds ?? []), ...(manifest.templateUiCmds ?? []), ...(manifest.headlessCmds ?? [])] as cmd}
 						<li>
 							<div class="flex items-center space-x-3">
 								{#if manifest}
@@ -270,7 +279,7 @@
 									<span class="text-dm">{cmd.name}</span>
 									<h2 class="text-xs">{cmd.description}</h2>
 								</div>
-								<PlatformsIcons platforms={cmd.platforms} />
+								<PlatformsIcons platforms={cmd.platforms ?? []} />
 							</div>
 							<Separator class="my-3" />
 						</li>

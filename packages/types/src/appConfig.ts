@@ -2,6 +2,9 @@ import { LightMode, SearchPath } from "@kksh/api/models"
 import type { Platform } from "@tauri-apps/plugin-os"
 import * as v from "valibot"
 
+export const LoadingAnimation = v.union([v.literal("spinning-circle"), v.literal("kunkun-dancing")])
+export type LoadingAnimation = v.InferOutput<typeof LoadingAnimation>
+
 export const PersistedAppConfig = v.object({
 	theme: v.object({
 		theme: v.string(),
@@ -18,12 +21,13 @@ export const PersistedAppConfig = v.object({
 	joinBetaProgram: v.boolean(),
 	onBoarded: v.boolean(),
 	developerMode: v.boolean(),
-	appSearchPaths: v.array(SearchPath)
+	appSearchPaths: v.array(SearchPath),
+	loadingAnimation: LoadingAnimation
 })
 
 export type PersistedAppConfig = v.InferOutput<typeof PersistedAppConfig>
 
-export type AppConfig = PersistedAppConfig & {
+export type AppConfigState = PersistedAppConfig & {
 	isInitialized: boolean
 	language: string
 	extensionsInstallDir?: string

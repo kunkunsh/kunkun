@@ -12,7 +12,7 @@ import { onQuickLinkSelect } from "./quick-links"
 
 const onExtCmdSelect: OnExtCmdSelect = (
 	ext: ExtPackageJsonExtra,
-	cmd: CustomUiCmd | TemplateUiCmd,
+	cmd: CustomUiCmd | TemplateUiCmd | HeadlessCmd,
 	{ isDev, hmr }: { isDev: boolean; hmr: boolean }
 ) => {
 	switch (cmd.type) {

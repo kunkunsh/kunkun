@@ -1,4 +1,6 @@
-import { compressToBase64, decompressFromBase64 } from "lz-string"
+import lzString from "lz-string"
+
+const { compressToBase64, decompressFromBase64 } = lzString
 
 /**
  * This file contains the deserialization and compression functions I designed for the grid animation.

@@ -31,14 +31,22 @@
 		SystemCmds
 	} from "@kksh/ui/main"
 	import { cn } from "@kksh/ui/utils"
+	import { Ext } from "@kunkunapi/src/models/extension"
 	import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 	import { getCurrentWindow, Window } from "@tauri-apps/api/window"
 	import { platform } from "@tauri-apps/plugin-os"
 	import { exit } from "@tauri-apps/plugin-process"
 	import { goto } from "$app/navigation"
-	import { ArrowBigUpIcon, CircleXIcon, EllipsisVerticalIcon, RefreshCcwIcon } from "lucide-svelte"
+	import {
+		ArrowBigUpIcon,
+		CircleXIcon,
+		EllipsisVerticalIcon,
+		RefreshCcwIcon,
+		SettingsIcon
+	} from "lucide-svelte"
 	import { onMount } from "svelte"
 	import { Inspect } from "svelte-inspect-value"
+	import * as v from "valibot"
 
 	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)
@@ -58,12 +66,16 @@
 			if (splashscreenWin) {
 				splashscreenWin.close()
 			}
-			win.show()
+			win.show().then(() => win.setFocus())
 		})
 		win.onFocusChanged(({ payload: focused }) => {
 			if (focused) {
-				win.show()
-				inputEle?.focus()
+				win
+					.show()
+					.then(() => win.setFocus())
+					.finally(() => {
+						inputEle?.focus()
+					})
 			}
 		})
 		inputEle?.focus()
@@ -71,6 +83,7 @@
 			// wait for appConfig store to be loaded, it's async and saved to disk when changed, so we use another store appConfigLoaded
 			// to keep track of the loading status
 			if (loaded) {
+				console.log("appConfig.get().onBoarded", appConfig.get().onBoarded)
 				if (!appConfig.get().onBoarded) {
 					setTimeout(() => {
 						goto(i18n.resolveRoute("/app/help/onboarding"))
@@ -103,6 +116,7 @@
 <Inspect name="devStoreExtCmds" value={$devStoreExtCmds} />
 <Inspect name="$appState.searchTerm" value={$appState.searchTerm} />
 -->
+
 <Command.Root
 	class={cn("h-screen rounded-lg shadow-md")}
 	bind:value={$appState.highlightedCmd}
@@ -178,8 +192,8 @@
 								<span class="flex items-center">⌃+<ArrowBigUpIcon class="h-4 w-4" />+R </span>
 							</DropdownMenu.Shortcut>
 						</DropdownMenu.Item>
-						<DropdownMenu.Item onclick={() => location.reload()}>
-							<RefreshCcwIcon class="mr-2 h-4 w-4 text-green-500" />
+						<DropdownMenu.Item onclick={() => goto(i18n.resolveRoute("/app/settings"))}>
+							<SettingsIcon class="mr-2 h-4 w-4 text-green-500" />
 							{m.home_command_input_dropdown_open_preference()}
 							<DropdownMenu.Shortcut>
 								{#if platform() === "macos"}

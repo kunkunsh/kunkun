@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { Layouts } from "@kksh/ui"
-	import { getCurrentWindow } from "@tauri-apps/api/window"
 	import { onMount } from "svelte"
 
-	onMount(async () => {
-		const mainWin = await getCurrentWindow()
-		mainWin.show()
+	let { data } = $props()
+
+	onMount(() => {
+		data.win?.show().then(() => data.win?.setFocus())
 	})
 </script>
 

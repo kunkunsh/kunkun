@@ -1,15 +1,15 @@
 <script lang="ts">
 	import DanceTransition from "@/components/dance/dance-transition.svelte"
 	import { i18n } from "@/i18n"
-	import { appConfig, winExtMap } from "@/stores"
+	import { appConfig, appState, winExtMap } from "@/stores"
 	import { helperAPI } from "@/utils/helper"
 	import { paste } from "@/utils/hotkey"
 	import { goBackOnEscape } from "@/utils/key"
+	import { decideKkrpcSerialization } from "@/utils/kkrpc"
 	import { goHome } from "@/utils/route"
 	import { positionToCssStyleString, positionToTailwindClasses } from "@/utils/style"
 	import { sleep } from "@/utils/time"
 	import { isInMainWindow } from "@/utils/window"
-	import { db } from "@kksh/api/commands"
 	import { CustomPosition, ThemeColor, type Position } from "@kksh/api/models"
 	import {
 		constructJarvisServerAPIWithPermissions,
@@ -18,6 +18,7 @@
 		type IUiCustom
 	} from "@kksh/api/ui"
 	import { toast, type IUiCustomServer1, type IUiCustomServer2 } from "@kksh/api/ui/custom"
+	import { db } from "@kksh/drizzle"
 	import { Button } from "@kksh/svelte5"
 	import { cn } from "@kksh/ui/utils"
 	import type { IKunkunFullServerAPI } from "@kunkunapi/src/api/server"
@@ -27,6 +28,7 @@
 	} from "@kunkunapi/src/events"
 	import { emitTo } from "@tauri-apps/api/event"
 	import { getCurrentWindow } from "@tauri-apps/api/window"
+	import { info } from "@tauri-apps/plugin-log"
 	import { goto } from "$app/navigation"
 	import { IframeParentIO, RPCChannel } from "kkrpc/browser"
 	import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon, XIcon } from "lucide-svelte"
@@ -36,7 +38,6 @@
 	let { data }: { data: PageData } = $props()
 	const { loadedExt, url, extPath, extInfoInDB } = data
 	let extSpawnedProcesses = $state<number[]>([])
-	const appWin = getCurrentWindow()
 	let iframeRef: HTMLIFrameElement
 	let uiControl = $state<{
 		iframeLoaded: boolean
@@ -63,7 +64,7 @@
 			if (isInMainWindow()) {
 				goto(i18n.resolveRoute("/app/"))
 			} else {
-				appWin.close()
+				data.win?.close()
 			}
 		},
 		hideBackButton: async () => {
@@ -129,7 +130,7 @@
 			},
 			getSpawnedProcesses: () => Promise.resolve(extSpawnedProcesses),
 			paste: async () => {
-				await appWin.hide()
+				await data.win?.hide()
 				await sleep(200)
 				return paste()
 			}
@@ -153,7 +154,7 @@
 		if (isInMainWindow()) {
 			goHome()
 		} else {
-			appWin.close()
+			data.win?.close()
 		}
 	}
 
@@ -161,16 +162,27 @@
 		setTimeout(() => {
 			iframeRef.focus()
 			uiControl.iframeLoaded = true
+			appState.setFullScreenLoading(false)
 		}, 300)
 	}
 
 	onMount(() => {
+		appState.setFullScreenLoading(true)
 		setTimeout(() => {
-			appWin.show()
+			data.win?.setFocus()
 		}, 200)
 		if (iframeRef?.contentWindow) {
 			const io = new IframeParentIO(iframeRef.contentWindow)
-			const rpc = new RPCChannel(io, { expose: serverAPI2 })
+			const kkrpcSerialization = decideKkrpcSerialization(loadedExt)
+			info(
+				`Establishing kkrpc connection for ${loadedExt.kunkun.identifier} with serialization: ${kkrpcSerialization}`
+			)
+			const rpc = new RPCChannel(io, {
+				expose: serverAPI2,
+				serialization: {
+					version: kkrpcSerialization
+				}
+			})
 		} else {
 			toast.warning("iframeRef.contentWindow not available")
 		}
@@ -183,7 +195,7 @@
 	})
 
 	onDestroy(() => {
-		winExtMap.unregisterExtensionFromWindow(appWin.label)
+		winExtMap.unregisterExtensionFromWindow(data.win?.label ?? "")
 	})
 </script>
 
@@ -196,7 +208,7 @@
 		onclick={onBackBtnClicked}
 		style={`${positionToCssStyleString(uiControl.backBtnPosition)}`}
 	>
-		{#if appWin.label === "main"}
+		{#if data.win?.label === "main"}
 			<ArrowLeftIcon class="w-4" />
 		{:else}
 			<XIcon class="w-4" />
@@ -227,7 +239,6 @@
 {/if}
 
 <main class="h-screen">
-	<DanceTransition delay={300} autoHide={false} show={!uiControl.iframeLoaded} />
 	<iframe
 		bind:this={iframeRef}
 		class={cn("h-full", {

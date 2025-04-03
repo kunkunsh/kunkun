@@ -1,8 +1,7 @@
 import { extensions } from "@/stores"
-import { supabaseAPI } from "@/supabase"
 import { isCompatible } from "@kksh/api"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
-import { greaterThan } from "@std/semver"
+import { getExtensionsLatestPublishByIdentifier } from "@kksh/sdk"
 import { relaunch } from "@tauri-apps/plugin-process"
 import { check } from "@tauri-apps/plugin-updater"
 import { gt } from "semver"
@@ -32,11 +31,22 @@ export async function checkSingleExtensionUpdate(
 	installedExt: ExtPackageJsonExtra,
 	autoupgrade: boolean
 ) {
-	const { data: sbExt, error } = await supabaseAPI.getLatestExtPublish(
-		installedExt.kunkun.identifier
-	)
+	const {
+		data: sbExt,
+		error,
+		response
+	} = await getExtensionsLatestPublishByIdentifier({
+		path: {
+			identifier: "RAG"
+		}
+	})
+	// const { data: sbExt, error } = await supabaseAPI.getLatestExtPublish(
+	// 	installedExt.kunkun.identifier
+	// )
 	if (error) {
-		return toast.error(`Failed to check update for ${installedExt.kunkun.identifier}: ${error}`)
+		return toast.error(
+			`Failed to check update for ${installedExt.kunkun.identifier}: ${error} (${response.status})`
+		)
 	}
 
 	if (!sbExt) {
@@ -49,10 +59,7 @@ export async function checkSingleExtensionUpdate(
 	) {
 		if (autoupgrade) {
 			await extensions
-				.upgradeStoreExtension(
-					sbExt.identifier,
-					supabaseAPI.translateExtensionFilePathToUrl(sbExt.tarball_path)
-				)
+				.upgradeStoreExtension(sbExt.identifier, sbExt.tarball_path)
 				.then(() => {
 					toast.success(`${sbExt.name} upgraded`, {
 						description: `From ${installedExt.version} to ${sbExt.version}`

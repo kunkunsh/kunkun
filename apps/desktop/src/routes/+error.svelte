@@ -12,6 +12,7 @@
 
 <svelte:window on:keydown={handleKeyDown} />
 
+<div class="fixed h-12 w-full" data-tauri-drag-region></div>
 <Layouts.Center class="min-h-screen py-5">
 	<Error.RawErrorJSONPreset
 		title="Error"

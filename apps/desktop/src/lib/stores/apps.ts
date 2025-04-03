@@ -7,7 +7,7 @@ import Fuse from "fuse.js"
 import { derived, get, writable } from "svelte/store"
 import { appState } from "./appState"
 
-export const fuse = new Fuse<AppInfo>([], {
+const fuse = new Fuse<AppInfo>([], {
 	includeScore: true,
 	threshold: 0.2,
 	keys: ["name"]

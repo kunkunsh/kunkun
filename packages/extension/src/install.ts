@@ -3,9 +3,9 @@
  * including install, uninstall, upgrade, check app-extension compatibility, etc.
  */
 import { isCompatible } from "@kksh/api"
-import { copy_dir_all, db, decompressTarball } from "@kksh/api/commands"
-import type { ExtPackageJsonExtra } from "@kksh/api/models"
-import { SBExt } from "@kksh/supabase/models"
+import { copy_dir_all, decompressTarball } from "@kksh/api/commands"
+import type { ExtensionStoreListItem, ExtPackageJsonExtra } from "@kksh/api/models"
+import { db } from "@kksh/drizzle"
 import { greaterThan, parse as parseSemver } from "@std/semver"
 import * as path from "@tauri-apps/api/path"
 import * as dialog from "@tauri-apps/plugin-dialog"
@@ -193,7 +193,7 @@ export async function uninstallExtensionByPath(extPath: string) {
 	return fs.remove(extPath, { recursive: true }).then(() => db.deleteExtensionByPath(extPath))
 }
 
-export function isUpgradable(dbExt: SBExt, installedExtVersion: string) {
+export function isUpgradable(dbExt: ExtensionStoreListItem, installedExtVersion: string) {
 	const upgradable =
 		greaterThan(parseSemver(dbExt.version), parseSemver(installedExtVersion)) && dbExt.api_version
 			? isCompatible(dbExt.api_version)

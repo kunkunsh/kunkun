@@ -7,4 +7,5 @@ export interface AppState {
 	defaultAction: string | null
 	actionPanel?: ActionSchema.ActionPanel
 	lockHideOnBlur: boolean
+	fullScreenLoading: boolean
 }

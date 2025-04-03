@@ -27,7 +27,7 @@ use utils::server::tauri_file_server;
 pub fn run() {
     let context = tauri::generate_context!();
     let mut builder = tauri::Builder::default();
-
+    // let app_data_path = tauri::path::PathResolver::app_data_dir().unwrap();
     // let db_key = if cfg!(debug_assertions) {
     //     None
     // } else {
@@ -108,10 +108,16 @@ pub fn run() {
                 .build(),
         )
         .plugin(tauri_plugin_cli::init())
+        .plugin(
+            tauri_plugin_sql::Builder::default()
+                // .add_migrations("sqlite:mydatabase.db", migrations)
+                .build(),
+        )
         .plugin(tauri_plugin_user_input::init())
         .plugin(tauri_plugin_deep_link::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_os::init())
+        .plugin(tauri_plugin_svelte::init())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_autostart::init(
             MacosLauncher::LaunchAgent,

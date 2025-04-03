@@ -15,17 +15,15 @@
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
-		"@kksh/supabase": "workspace:*",
 		"@supabase/supabase-js": "^2.48.0",
-		"@valibot/to-json-schema": "1.0.0-beta.4"
+		"@valibot/to-json-schema": "1.0.0"
 	},
 	"peerDependencies": {
-		"@kksh/supabase": "workspace:*",
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.583.0",
 		"@kksh/api": "workspace:*",
-		"valibot": "^1.0.0-beta.10"
+		"valibot": "^1.0.0"
 	}
 }

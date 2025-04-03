@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { IconEnum, type KunkunExtManifest } from "@kksh/api/models"
+	import { IconEnum, PermissionUnion, type KunkunExtManifest } from "@kksh/api/models"
 	import { permissionDescriptions } from "@kksh/api/permissions"
 	import { HoverCard, ScrollArea } from "@kksh/svelte5"
 	import { IconMultiplexer, Shiki } from "@kksh/ui"
 
 	const {
-		manifest,
+		permissions,
 		class: className
 	}: {
-		manifest: KunkunExtManifest
+		permissions?: PermissionUnion[]
 		class?: string
 	} = $props()
 </script>
 
 <ul class={className}>
-	{#each manifest?.permissions || [] as perm}
+	{#each permissions || [] as perm}
 		<li class="flex h-8 items-center gap-2">
 			<span class="font-mono text-sm">{typeof perm === "string" ? perm : perm.permission}</span>
 			<HoverCard.Root>

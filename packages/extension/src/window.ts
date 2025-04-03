@@ -1,4 +1,5 @@
-import type { WindowConfig } from "@kksh/api/models"
+import type { TitleBarStyle, WindowConfig } from "@kksh/api/models"
+import { TitleBarStyleEnum } from "@kksh/api/models"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 
 export function launchNewExtWindow(windowLabel: string, url: string, windowConfig?: WindowConfig) {
@@ -13,7 +14,7 @@ export function launchNewExtWindow(windowLabel: string, url: string, windowConfi
 		maxWidth: windowConfig?.maxWidth ?? undefined,
 		maxHeight: windowConfig?.maxHeight ?? undefined,
 		resizable: windowConfig?.resizable ?? undefined,
-		title: windowConfig?.title ?? undefined,
+		title: windowConfig?.title ?? "Kunkun Extension",
 		fullscreen: windowConfig?.fullscreen ?? undefined,
 		focus: windowConfig?.focus ?? undefined,
 		transparent: windowConfig?.transparent ?? undefined,
@@ -26,7 +27,8 @@ export function launchNewExtWindow(windowLabel: string, url: string, windowConfi
 		skipTaskbar: windowConfig?.skipTaskbar ?? undefined,
 		shadow: windowConfig?.shadow ?? undefined,
 		// theme: windowConfig?.theme ?? undefined,
-		titleBarStyle: windowConfig?.titleBarStyle ?? undefined,
+		titleBarStyle:
+			(windowConfig?.titleBarStyle as keyof typeof TitleBarStyleEnum | undefined) ?? undefined,
 		hiddenTitle: windowConfig?.hiddenTitle ?? undefined,
 		tabbingIdentifier: windowConfig?.tabbingIdentifier ?? undefined,
 		maximizable: windowConfig?.maximizable ?? undefined,

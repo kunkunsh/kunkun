@@ -243,6 +243,23 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 		keywords: ["extension", "troubleshooter"]
 	},
 	{
+		name: "ORM Troubleshooter",
+		icon: {
+			type: IconEnum.Iconify,
+			value: "material-symbols:database"
+		},
+		description: "",
+		flags: {
+			developer: true,
+			dev: true
+		},
+		function: async () => {
+			appState.clearSearchTerm()
+			goto(i18n.resolveRoute("/app/troubleshooters/orm"))
+		},
+		keywords: ["extension", "troubleshooter", "database", "orm"]
+	},
+	{
 		name: "Create Quicklink",
 		icon: {
 			type: IconEnum.Iconify,
@@ -411,7 +428,7 @@ export const rawBuiltinCmds: BuiltinCmd[] = [
 				visible: false
 			})
 			setTimeout(() => {
-				window.show()
+				window.show().then(() => window.setFocus())
 			}, 2_000)
 		}
 	},

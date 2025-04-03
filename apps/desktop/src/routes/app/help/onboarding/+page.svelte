@@ -8,7 +8,6 @@
 	import { goto } from "$app/navigation"
 	import { ArrowRightIcon } from "lucide-svelte"
 	import { onMount } from "svelte"
-	import { fade } from "svelte/transition"
 	import { whereIsCommand } from "tauri-plugin-shellx-api"
 	import { Step } from "./steps"
 
@@ -26,18 +25,22 @@
 	}
 
 	$effect(() => {
-		if (step === Step.DenoInstall) {
-			if (denoPath) {
-				step++
-			}
-		} else if (step === Step.FFmpegInstall) {
-			if (ffmpegPath) {
-				step++
-			}
-		} else if (step > Step.FFmpegInstall) {
+		if (step > Step.GeneralSettings) {
 			appConfig.setOnBoarded(true)
 			goto(i18n.resolveRoute("/app"))
 		}
+		// if (step === Step.DenoInstall) {
+		// 	if (denoPath) {
+		// 		step++
+		// 	}
+		// } else if (step === Step.FFmpegInstall) {
+		// 	if (ffmpegPath) {
+		// 		step++
+		// 	}
+		// } else if (step > Step.FFmpegInstall) {
+		// 	appConfig.setOnBoarded(true)
+		// 	goto(i18n.resolveRoute("/app"))
+		// }
 	})
 </script>
 

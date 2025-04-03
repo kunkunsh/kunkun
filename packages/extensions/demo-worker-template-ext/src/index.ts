@@ -86,42 +86,22 @@ class ExtensionTemplate extends TemplateUiCommand {
 	}
 
 	async load() {
+		return ui.render(
+			new Markdown(`
+# Hello World
+
+[GitHub HuakunShen](https://github.com/HuakunShen)
+
+![](https://github.com/huakunshen.png)
+
+<img src="https://github.com/huakunshen.png" />
+
+			`)
+		)
 		ui.setSearchBarPlaceholder("Search for items")
 		const sections = getSections(2)
 		const items = getItems(5)
-		return ui.render(
-			new List.List({
-				items: items.map(
-					(item) =>
-						new List.Item({
-							title: item.name,
-							value: item.id
-							// icon: new Icon({
-							// 	type: IconType.enum.Iconify,
-							// 	value: "mingcute:appstore-fill"
-							// })
-						})
-				),
-				sections: sections.map(
-					(section) =>
-						new List.Section({
-							title: section.name,
-							items: section.items.map(
-								(item) =>
-									new List.Item({
-										title: item.name,
-										value: item.id
-									})
-							)
-						})
-				)
-			})
-		)
 		ui.showLoadingBar(true)
-		setTimeout(() => {
-			ui.showLoadingBar(false)
-			clipboard.paste()
-		}, 2000)
 		const extPath = await path.extensionDir()
 		const cmd = shell.createCommand("deno", ["run", "/Users/hk/Dev/kunkun/deno.ts"])
 		cmd.stdout.on("data", (data) => {
@@ -189,10 +169,14 @@ class ExtensionTemplate extends TemplateUiCommand {
 					]),
 					new Markdown(`
 # Hello World
+
+[GitHub HuakunShen](https://github.com/HuakunShen)
+
+![](https://github.com/huakunshen.png)
+
 <img src="https://github.com/huakunshen.png" />
-<img src="https://github.com/huakunshen.png" />
-<img src="https://github.com/huakunshen.png" />
-							`)
+
+`)
 				],
 				width: 50
 			}),

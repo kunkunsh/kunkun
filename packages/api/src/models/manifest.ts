@@ -1,4 +1,3 @@
-import { FsPermissionSchema } from "tauri-api-adapter/permissions"
 import * as v from "valibot"
 import {
 	AllKunkunPermission,
@@ -8,29 +7,29 @@ import {
 	OpenPermissionScopedSchema,
 	ShellPermissionScopedSchema
 } from "../permissions"
-import { CmdType } from "./extension"
-import { Icon } from "./icon"
+import { CmdType, CmdTypeEnum } from "./extension"
+import { BaseIcon as Icon } from "./icon"
 
-export enum OSPlatformEnum {
-	linux = "linux",
-	macos = "macos",
-	windows = "windows"
+export const OSPlatformEnum = {
+	linux: "linux",
+	macos: "macos",
+	windows: "windows"
 }
 
-export const OSPlatform = v.enum_(OSPlatformEnum)
+export const OSPlatform = v.picklist(Object.values(OSPlatformEnum))
 export type OSPlatform = v.InferOutput<typeof OSPlatform>
-const allPlatforms = Object.values(OSPlatformEnum)
 export const TriggerCmd = v.object({
 	type: v.union([v.literal("text"), v.literal("regex")]),
 	value: v.string()
 })
 export type TriggerCmd = v.InferOutput<typeof TriggerCmd>
-export enum TitleBarStyleEnum {
-	"visible" = "visible",
-	"transparent" = "transparent",
-	"overlay" = "overlay"
+export const TitleBarStyleEnum = {
+	visible: "visible",
+	transparent: "transparent",
+	overlay: "overlay"
 }
-export const TitleBarStyle = v.enum_(TitleBarStyleEnum)
+export type TitleBarStyle = v.InferOutput<typeof TitleBarStyle>
+export const TitleBarStyle = v.picklist(Object.values(TitleBarStyleEnum))
 // JS new WebViewWindow only accepts lowercase, while manifest loaded from Rust is capitalized. I run toLowerCase() on the value before passing it to the WebViewWindow.
 // This lowercase title bar style schema is used to validate and set the type so TypeScript won't complaint
 // export const TitleBarStyleAllLower = z.enum(["visible", "transparent", "overlay"]);
@@ -71,37 +70,33 @@ export const WindowConfig = v.object({
 export type WindowConfig = v.InferOutput<typeof WindowConfig>
 export const BaseCmd = v.object({
 	main: v.string("HTML file to load, e.g. dist/index.html"),
-	description: v.optional(v.nullable(v.string("Description of the Command"), ""), ""),
+	description: v.optional(v.nullable(v.string("Description of the Command"), "")),
 	name: v.string("Name of the command"),
 	cmds: v.array(TriggerCmd, "Commands to trigger the UI"),
 	icon: v.optional(Icon),
 	platforms: v.optional(
-		v.nullable(
-			v.array(OSPlatform, "Platforms available on. Leave empty for all platforms."),
-			allPlatforms
-		),
-		allPlatforms
+		v.array(OSPlatform, "Platforms available on. Leave empty for all platforms.")
 	)
 })
 export const CustomUiCmd = v.object({
 	...BaseCmd.entries,
-	type: v.optional(CmdType, CmdType.enum.UiIframe),
 	dist: v.string("Dist folder to load, e.g. dist, build, out"),
 	devMain: v.string(
 		"URL to load in development to support live reload, e.g. http://localhost:5173/"
 	),
-	window: v.optional(v.nullable(WindowConfig))
+	window: v.optional(v.nullable(WindowConfig)),
+	type: v.optional(CmdType, CmdTypeEnum.UiIframe)
 })
 export type CustomUiCmd = v.InferOutput<typeof CustomUiCmd>
 
 export const TemplateUiCmd = v.object({
 	...BaseCmd.entries,
-	type: v.optional(CmdType, CmdType.enum.UiWorker),
+	type: v.optional(CmdType, CmdTypeEnum.UiWorker),
 	window: v.optional(v.nullable(WindowConfig))
 })
 export const HeadlessCmd = v.object({
 	...BaseCmd.entries,
-	type: v.optional(CmdType, CmdType.enum.HeadlessWorker)
+	type: v.optional(CmdType, CmdTypeEnum.HeadlessWorker)
 })
 export type HeadlessCmd = v.InferOutput<typeof HeadlessCmd>
 export type TemplateUiCmd = v.InferOutput<typeof TemplateUiCmd>
@@ -195,7 +190,8 @@ export const ExtPackageJsonExtra = v.object({
 	...ExtPackageJson.entries,
 	...{
 		extPath: v.string(),
-		extFolderName: v.string()
+		extFolderName: v.string(),
+		apiVersion: v.optional(v.string("API version of the extension"))
 	}
 })
 
