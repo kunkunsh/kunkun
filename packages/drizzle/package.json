@@ -5,6 +5,7 @@
 	"exports": {
 		".": "./index.ts",
 		"./api": "./src/apis.ts",
+		"./proxy": "./src/proxy.ts",
 		"./schema": "./drizzle/schema.ts",
 		"./relations": "./drizzle/relations.ts"
 	},

@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/desktop",
-	"version": "0.1.37-beta.1",
+	"version": "0.1.37",
 	"description": "",
 	"type": "module",
 	"scripts": {
@@ -32,7 +32,7 @@
 		"@tauri-apps/plugin-stronghold": "^2.2.0",
 		"@tauri-store/svelte": "^2.1.1",
 		"dompurify": "^3.2.4",
-		"drizzle-orm": "^0.40.1",
+		"drizzle-orm": "^0.41.0",
 		"eslint": "^9.21.0",
 		"fuse.js": "^7.1.0",
 		"gsap": "^3.12.7",
