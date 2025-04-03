@@ -12,6 +12,9 @@
 	import { Button, Input } from "@kksh/svelte5"
 	import { CmdTypeEnum, Ext } from "@kunkunapi/src/models/extension"
 	import { SearchModeEnum, SQLSortOrderEnum } from "@kunkunapi/src/models/sql"
+	import * as path from "@tauri-apps/api/path"
+	import * as dialog from "@tauri-apps/plugin-dialog"
+	import * as fs from "@tauri-apps/plugin-fs"
 	// import * as orm from "drizzle-orm"
 	import { Inspect } from "svelte-inspect-value"
 	import { toast } from "svelte-sonner"
@@ -19,7 +22,7 @@
 
 	let searchText = $state("")
 	/* eslint-disable */
-	let data: any = $state(null)
+	let data = $state<any>(null)
 	let inspectTitle = $state("")
 </script>
 
@@ -120,5 +123,32 @@
 		<Input class="" bind:value={searchText} placeholder="Search Text" />
 		<Button class="" type="submit">Search Extension Data</Button>
 	</form>
+	<Button
+		onclick={async () => {
+			if (!data) return toast.warning("No Data")
+			const defaultPath = await path.join(await path.desktopDir(), "kunkun-orm-troubleshooter.json")
+			const res = await dialog.save({
+				title: "Export as JSON",
+				filters: [{ name: "JSON", extensions: ["json"] }],
+				defaultPath: defaultPath
+			})
+			if (res) {
+				// @ts-ignore
+				fs.writeTextFile(res, JSON.stringify(data, null, 2))
+					.then(() => {
+						toast.success("Exported as JSON", {
+							description: res
+						})
+					})
+					.catch((err) => {
+						toast.error("Failed to export as JSON", {
+							description: err.message
+						})
+					})
+			}
+		}}
+	>
+		Export as JSON
+	</Button>
 	<Inspect name={inspectTitle} value={data} expandLevel={2} />
 </main>

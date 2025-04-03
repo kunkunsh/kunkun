@@ -125,8 +125,6 @@ impl JarvisDB {
     }
 
     pub fn select(&self, query: String, values: Vec<JsonValue>) -> Result<Vec<JsonValue>> {
-        println!("DB selecting: {}", query);
-        println!("DB selecting values: {:?}", values);
         let mut stmt = self.conn.prepare(&query)?;
 
         // Convert JsonValue parameters to appropriate types for rusqlite
