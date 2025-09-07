@@ -1,0 +1,26 @@
+{
+  "name": "wxt-svelte-starter",
+  "description": "manifest.json description",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "postinstall": "wxt prepare"
+  },
+  "devDependencies": {
+    "@tsconfig/svelte": "^5.0.5",
+    "@wxt-dev/module-svelte": "^2.0.3",
+    "svelte": "^5.38.6",
+    "svelte-check": "^4.3.1",
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.2",
+    "wxt": "^0.20.6"
+  }
+}
