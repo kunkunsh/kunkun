@@ -1,5 +1,5 @@
 {
-  "name": "wxt-svelte-starter",
+  "name": "tamper-kunkun-wxt",
   "description": "manifest.json description",
   "private": true,
   "version": "0.0.0",
@@ -15,6 +15,7 @@
     "postinstall": "wxt prepare"
   },
   "devDependencies": {
+    "kkrpc": "workspace:*",
     "@tsconfig/svelte": "^5.0.5",
     "@wxt-dev/module-svelte": "^2.0.3",
     "svelte": "^5.38.6",
