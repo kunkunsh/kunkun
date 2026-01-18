@@ -7,7 +7,7 @@
 > We know it’s not perfect yet. The author is pouring heart, soul, and a few sleepless nights into fixing the issues. Your patience means everything.
 >
 > Got feedback or found a bug? Open an issue—it helps more than you know.
-
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/kunkunsh/kunkun)
 ![GitHub last commit](https://img.shields.io/github/last-commit/kunkunsh/kunkun)
 [![YouTube badge][]][YouTube link]
 [![](https://dcbadge.limes.pink/api/server/7dzw3TYeTU)](https://discord.gg/7dzw3TYeTU)
