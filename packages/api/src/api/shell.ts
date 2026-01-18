@@ -245,7 +245,7 @@ export class TauriShellStdio implements IoInterface {
 
 	read(): Promise<string | Uint8Array | null> {
 		return new Promise((resolve, reject) => {
-			this.readStream.on("data", (chunk) => {
+			this.readStream.once("data", (chunk) => {
 				resolve(chunk)
 			})
 		})

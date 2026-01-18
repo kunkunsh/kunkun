@@ -1,0 +1,31 @@
+{
+	"name": "@kksh/raycast",
+	"module": "index.ts",
+	"type": "module",
+	"exports": {
+		".": "./api.tsx",
+		"./host": "./dist/host.js"
+	},
+	"scripts": {
+		"build": "bun build --target=node --external=./index.js --format=cjs --outdir=dist ./host.tsx",
+		"dev": "bun run build -- --watch"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@kksh/react": "^0.1.1",
+		"@raycast/icons": "^0.4.7",
+		"clsx": "^2.1.1",
+		"kkrpc": "^0.2.2",
+		"react": "^18.0.0",
+		"react-reconciler": "^0.28.0",
+		"tailwind-merge": "^3.0.2",
+		"ws": "^8.18.1"
+	},
+	"devDependencies": {
+		"@types/node": "^22.15.2",
+		"@types/react": "^18.0.10",
+		"@types/react-reconciler": "^0.28.0"
+	}
+}

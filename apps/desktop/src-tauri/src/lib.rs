@@ -136,6 +136,7 @@ pub fn run() {
         .plugin(tauri_plugin_keyring::init())
         .plugin(tauri_plugin_network::init())
         .plugin(tauri_plugin_system_info::init())
+        .plugin(tauri_plugin_websocket::init())
         .invoke_handler(tauri::generate_handler![
             commands::keyring::get_stronghold_key,
         ]);

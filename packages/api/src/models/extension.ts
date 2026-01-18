@@ -32,7 +32,8 @@ export const CmdTypeEnum = {
 	UiWorker: "ui_worker",
 	UiIframe: "ui_iframe",
 	QuickLink: "quick_link",
-	Remote: "remote"
+	Remote: "remote",
+	Raycast: "raycast"
 }
 
 export const CmdType = v.picklist(Object.values(CmdTypeEnum))

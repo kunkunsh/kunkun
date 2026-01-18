@@ -130,6 +130,7 @@
 		"system-info:allow-all",
 		"user-input:default",
 		"shell:default",
+		"shell:allow-stdin-write",
 		"keyring:default",
 		"stronghold:default",
 		{
@@ -143,12 +144,22 @@
 							"validator": ".+"
 						}
 					]
+				},
+				{
+					"name": "node",
+					"cmd": "node",
+					"args": [
+						{
+							"validator": ".+"
+						}
+					]
 				}
 			]
 		},
 		"deep-link:default",
 		"autostart:allow-enable",
 		"autostart:allow-disable",
-		"autostart:allow-is-enabled"
+		"autostart:allow-is-enabled",
+		"websocket:default"
 	]
 }
