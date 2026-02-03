@@ -22,7 +22,9 @@ export const PersistedAppConfig = v.object({
 	onBoarded: v.boolean(),
 	developerMode: v.boolean(),
 	appSearchPaths: v.array(SearchPath),
-	loadingAnimation: LoadingAnimation
+	loadingAnimation: LoadingAnimation,
+	useGtkTheme: v.boolean(),
+	fontSize: v.number()
 })
 
 export type PersistedAppConfig = v.InferOutput<typeof PersistedAppConfig>

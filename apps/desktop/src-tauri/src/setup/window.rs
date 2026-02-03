@@ -8,6 +8,7 @@ pub fn setup_window<R: Runtime>(app: &AppHandle<R>) {
         main_win.set_transparent_titlebar(true, true);
         let splashscreen_win = app.get_webview_window("splashscreen").unwrap();
         splashscreen_win.set_transparent_titlebar(true, true);
+        main_win.center().unwrap();
     }
     #[cfg(not(target_os = "macos"))]
     {
@@ -16,5 +17,6 @@ pub fn setup_window<R: Runtime>(app: &AppHandle<R>) {
         main_win
             .set_decorations(false)
             .expect("Failed to set decorations");
+        main_win.center().unwrap();
     }
 }

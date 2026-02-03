@@ -24,6 +24,8 @@
 	const loadingAnimations = ["spinning-circle", "kunkun-dancing"] as const
 	let launchAtLogin = $state(false)
 	let language = $state(languageTag())
+	const fontSizes = [12, 14, 16, 18, 20] as const
+	let fontSize = $state($appConfig.fontSize)
 	onMount(() => {
 		autoStart.isEnabled().then((enabled) => {
 			launchAtLogin = enabled
@@ -81,6 +83,12 @@
 		<span>{m.settings_general_developer_mode()}</span>
 		<Switch bind:checked={$appConfig.developerMode} />
 	</li>
+	{#if $appConfig.platform === 'linux'}
+		<li>
+			<span>Use GTK Theme</span>
+			<Switch bind:checked={$appConfig.useGtkTheme} />
+		</li>
+	{/if}
 	<li>
 		<span>{m.settings_general_language()}</span>
 
@@ -125,6 +133,29 @@
 						>
 							{anim}
 						</Select.Item>
+					{/each}
+				</Select.Group>
+			</Select.Content>
+		</Select.Root>
+	</li>
+	<li>
+		<span>Font Size</span>
+
+		<Select.Root type="single" name="fontSize" bind:value={fontSize}>
+			<Select.Trigger class="w-fit">
+				{fontSize}px
+			</Select.Trigger>
+			<Select.Content>
+				<Select.Group>
+					<Select.GroupHeading>Font Size</Select.GroupHeading>
+					{#each fontSizes as size}
+						<Select.Item
+							onclick={() => {
+								appConfig.setFontSize(size)
+							}}
+							value={size}
+							label={`${size}px`}>{size}px</Select.Item
+						>
 					{/each}
 				</Select.Group>
 			</Select.Content>
