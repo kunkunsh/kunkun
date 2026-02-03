@@ -51,11 +51,47 @@
 	const win = getCurrentWindow()
 	let inputEle: HTMLInputElement | null = $state(null)
 	function onKeyDown(event: KeyboardEvent) {
+		const input = event.target as HTMLInputElement;
+		const originalStart = input.selectionStart;
+		const originalEnd = input.selectionEnd;
+		if (event.ctrlKey && event.key === 'a') {
+			input.selectionStart = 0;
+			input.selectionEnd = input.value.length;
+			event.preventDefault();
+			event.stopPropagation();
+			return;
+		}
+		if (event.key === 'Home') {
+			if (event.shiftKey) {
+				input.selectionStart = 0;
+				input.selectionEnd = originalEnd;
+			} else {
+				input.selectionStart = 0;
+				input.selectionEnd = 0;
+			}
+			// Remove prevent to allow browser handling
+			// event.preventDefault();
+			// event.stopPropagation();
+			return;
+		}
+		if (event.key === 'End') {
+			if (event.shiftKey) {
+				input.selectionStart = originalStart;
+				input.selectionEnd = input.value.length;
+			} else {
+				input.selectionStart = input.value.length;
+				input.selectionEnd = input.value.length;
+			}
+			// Remove prevent to allow browser handling
+			// event.preventDefault();
+			// event.stopPropagation();
+			return;
+		}
 		if (event.key === "Escape") {
-			if ((event.target as HTMLInputElement).value === "") {
+			if (input.value === "") {
 				win.hide()
 			} else {
-				;(event.target as HTMLInputElement).value = ""
+				input.value = ""
 				$appState.searchTerm = ""
 			}
 		}
@@ -117,12 +153,13 @@
 <Inspect name="$appState.searchTerm" value={$appState.searchTerm} />
 -->
 
-<Command.Root
-	class={cn("h-screen rounded-lg shadow-md")}
-	bind:value={$appState.highlightedCmd}
-	shouldFilter={false}
-	loop
->
+	<Command.Root
+		class={cn("h-screen rounded-lg shadow-md")}
+		bind:value={$appState.highlightedCmd}
+		shouldFilter={false}
+		loop
+		on:keydown={onKeyDown}
+	>
 	<CustomCommandInput
 		autofocus
 		bind:ref={inputEle}

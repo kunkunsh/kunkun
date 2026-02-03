@@ -32,6 +32,8 @@
 			} else {
 				resetGtkColors();
 			}
+			// Apply font size
+			document.documentElement.style.fontSize = `${config.fontSize}px`;
 		});
 	})
 
@@ -82,6 +84,7 @@
 			[cmdk-list] { background: var(--background) !important; }
 			[cmdk-item] { color: var(--foreground) !important; }
 			[cmdk-empty] { color: var(--foreground) !important; }
+			[data-command-input] { user-select: text !important; }
 		`;
 		document.head.appendChild(style);
 	}

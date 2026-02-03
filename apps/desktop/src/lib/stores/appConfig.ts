@@ -32,7 +32,8 @@ export const defaultAppConfig: AppConfigState = {
 	developerMode: false,
 	appSearchPaths: [],
 	loadingAnimation: "kunkun-dancing",
-	useGtkTheme: false
+	useGtkTheme: false,
+	fontSize: 14
 }
 
 export const appConfigLoaded = writable(false)
@@ -49,6 +50,7 @@ interface AppConfigAPI {
 	removeAppSearchPath: (appSearchPath: SearchPath) => void
 	setLoadingAnimation: (loadingAnimation: LoadingAnimation) => void
 	setUseGtkTheme: (useGtkTheme: boolean) => void
+	setFontSize: (fontSize: number) => void
 }
 
 class AppConfigStore extends Store<AppConfigState> implements AppConfigAPI {
@@ -114,6 +116,9 @@ class AppConfigStore extends Store<AppConfigState> implements AppConfigAPI {
 	}
 	setUseGtkTheme(useGtkTheme: boolean) {
 		this.update((config) => ({ ...config, useGtkTheme }))
+	}
+	setFontSize(fontSize: number) {
+		this.update((config) => ({ ...config, fontSize }))
 	}
 }
 
