@@ -138,6 +138,7 @@ pub fn run() {
         .plugin(tauri_plugin_system_info::init())
         .invoke_handler(tauri::generate_handler![
             commands::keyring::get_stronghold_key,
+            commands::theme::get_gtk_css,
         ]);
 
     let app = builder

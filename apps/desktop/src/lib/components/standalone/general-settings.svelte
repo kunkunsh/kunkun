@@ -81,6 +81,12 @@
 		<span>{m.settings_general_developer_mode()}</span>
 		<Switch bind:checked={$appConfig.developerMode} />
 	</li>
+	{#if $appConfig.platform === 'linux'}
+		<li>
+			<span>Use GTK Theme</span>
+			<Switch bind:checked={$appConfig.useGtkTheme} />
+		</li>
+	{/if}
 	<li>
 		<span>{m.settings_general_language()}</span>
 

@@ -9,6 +9,7 @@ import { Store } from "@tauri-store/svelte"
 import { toast } from "svelte-sonner"
 import { get, writable } from "svelte/store"
 import * as v from "valibot"
+import { browser } from '$app/environment'
 
 export const defaultAppConfig: AppConfigState = {
 	isInitialized: false,
@@ -30,7 +31,8 @@ export const defaultAppConfig: AppConfigState = {
 	onBoarded: false,
 	developerMode: false,
 	appSearchPaths: [],
-	loadingAnimation: "kunkun-dancing"
+	loadingAnimation: "kunkun-dancing",
+	useGtkTheme: false
 }
 
 export const appConfigLoaded = writable(false)
@@ -45,6 +47,8 @@ interface AppConfigAPI {
 	setLanguage: (language: string) => void
 	addAppSearchPath: (appSearchPath: SearchPath) => void
 	removeAppSearchPath: (appSearchPath: SearchPath) => void
+	setLoadingAnimation: (loadingAnimation: LoadingAnimation) => void
+	setUseGtkTheme: (useGtkTheme: boolean) => void
 }
 
 class AppConfigStore extends Store<AppConfigState> implements AppConfigAPI {
@@ -52,10 +56,15 @@ class AppConfigStore extends Store<AppConfigState> implements AppConfigAPI {
 		super("app-config", defaultAppConfig, {
 			saveOnChange: true
 		})
-		this.start().catch((err) => {
-			error("Failed to start app config store", err)
-			toast.error("Failed to start app config store", { description: err.message })
-		})
+		if (browser) {
+			this.start().catch((err) => {
+				error("Failed to start app config store", err)
+				toast.error("Failed to start app config store", { description: err.message })
+			})
+		} else {
+			// On server, set as loaded with defaults
+			appConfigLoaded.set(true)
+		}
 	}
 	async init() {
 		debug("Initializing app config")
@@ -102,6 +111,9 @@ class AppConfigStore extends Store<AppConfigState> implements AppConfigAPI {
 	}
 	setLoadingAnimation(loadingAnimation: LoadingAnimation) {
 		this.update((config) => ({ ...config, loadingAnimation }))
+	}
+	setUseGtkTheme(useGtkTheme: boolean) {
+		this.update((config) => ({ ...config, useGtkTheme }))
 	}
 }
 
