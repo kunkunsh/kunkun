@@ -68,13 +68,21 @@
 		for (const [gtkColor, cssVar] of Object.entries(mappings)) {
 			if (colors[gtkColor]) {
 				console.log(`Setting ${cssVar} to ${colors[gtkColor]}`);
-				document.documentElement.style.setProperty(cssVar, colors[gtkColor]);
+				// Temporarily set background to red for debugging
+				document.documentElement.style.setProperty(cssVar, cssVar === '--background' ? 'red' : colors[gtkColor]);
 			}
 		}
 		// Make switch thumb black for visibility on dark GTK backgrounds
 		const style = document.createElement('style');
 		style.id = 'gtk-switch-thumb-style';
-		style.textContent = '[data-switch-thumb] { background: black !important; }';
+		style.textContent = `
+			[data-switch-thumb] { background: black !important; }
+			[cmdk-root] { background: var(--background) !important; }
+			[cmdk-input] { background: var(--background) !important; color: var(--foreground) !important; }
+			[cmdk-list] { background: var(--background) !important; }
+			[cmdk-item] { color: var(--foreground) !important; }
+			[cmdk-empty] { color: var(--foreground) !important; }
+		`;
 		document.head.appendChild(style);
 	}
 </script>
