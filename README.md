@@ -1,5 +1,15 @@
 ![kunkun](https://socialify.git.ci/kunkunsh/kunkun/image?description=1&forks=1&issues=1&logo=https%3A%2F%2Fstorage.huakun.tech%2F2024%2F9%2F12%2F4MjHiKK.png&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
 
+> [!IMPORTANT]
+> **Kunkun v2 is in development and will be ready soon.** v2 is a redesign and a full rewrite, with many AI features and an interface rendered entirely with native frameworks. It has not been released yet.
+>
+> **The current version (v0.1.x) has been abandoned** and is no longer developed. Please do not download it; wait for v2.
+>
+> **Kunkun v2 正在开发中，即将就绪。** v2 经过重新设计与重新开发，带来大量 AI 功能，界面完全使用原生框架渲染，尚未正式发布。
+>
+> **当前版本（v0.1.x）已被放弃**，不再开发。请不要下载，请等待 v2。
+
+
 > [!WARNING]
 > 🚧 Work in Progress 🚧
 > This project is still in its early stages.
